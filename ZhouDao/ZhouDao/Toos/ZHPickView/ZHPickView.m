@@ -193,15 +193,9 @@
 #pragma mark DatePicker监听方法
 - (void)dateChanged:(UIDatePicker *)datePicker
 {
-    // 1.要转换日期格式, 必须得用到NSDateFormatter, 专门用来转换日期格式
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
-    // 1.1 先设置日期的格式字符串
     [formatter setDateFormat:@"yyyy-MM-dd"];
-    
-    // 1.2 使用格式字符串, 将日期转换成字符串
     selectedStr = [formatter stringFromDate:datePicker.date];
-
 }
 - (void)cancel:(UIButton *)btn
 {

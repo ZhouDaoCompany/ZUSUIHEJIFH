@@ -23,10 +23,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="gcG-B5-I4e">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="gcG-B5-I4e">
                     <rect key="frame" x="122" y="114" width="75" height="75"/>
                 </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JNe-WI-Uc1">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNe-WI-Uc1">
                     <rect key="frame" x="25" y="234" width="270" height="120"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_name.png" translatesAutoresizingMaskIntoConstraints="NO" id="fxa-1W-1rz">
@@ -142,7 +142,7 @@
                         </mask>
                     </variation>
                 </view>
-                <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rX4-A8-Gls">
+                <button opaque="NO" tag="1004" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rX4-A8-Gls">
                     <rect key="frame" x="26" y="414" width="268" height="40"/>
                     <color key="backgroundColor" red="0.14901960784313725" green="0.74901960784313726" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>

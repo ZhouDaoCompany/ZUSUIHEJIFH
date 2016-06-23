@@ -132,7 +132,8 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
             vc.introContent = model.content;
             [weakSelf.navigationController  pushViewController:vc animated:YES];
         }];
-        [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
+        [_collectionView deselectItemAtIndexPath:indexPath animated:YES];
+//        [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
     }
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView

@@ -1368,12 +1368,12 @@
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
-#pragma mark -推荐夜全部
+#pragma mark -推荐页全部
 + (void)recomViewAllRequestSuccess:(void (^)(NSArray *hdArr,NSArray *xfArr,NSArray *jdArr,NSArray *hotArr))success fail:(void (^)())fail
 {    //[SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,RecomViewfocusAll];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        
+
         [SVProgressHUD dismiss];
         NSArray *dataArr = jsonDic[@"data"];
         __block NSMutableArray *arr1 = [NSMutableArray array];

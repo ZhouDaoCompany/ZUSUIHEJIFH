@@ -68,8 +68,8 @@
     }else{
         
         if ([_format isEqualToString:@"Noti"]) {
-            
             [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"Count_close_normal_"];
+            self.fd_interactivePopDisabled = YES;
         }
         
         _webView.backgroundColor = [UIColor clearColor];
@@ -82,7 +82,6 @@
         [_webView setOpaque:NO]; //不设置这个值 页面背景始终是白色
         
         if (_tType == FromHotType || _tType == FromEveryType || _tType == FromRecHDType) {
-            
             [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_Share"];
             [_webView loadURL:_url];
 

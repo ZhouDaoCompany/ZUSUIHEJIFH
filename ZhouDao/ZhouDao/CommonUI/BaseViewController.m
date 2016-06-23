@@ -152,7 +152,6 @@
     NSString *type = notiDic[@"type"];
     NSString *alertString = notiDic[@"aps"][@"alert"];
     NSString *tit = notiDic[@"title"];
-    
     NSUInteger indexType = [type integerValue] -1;
     
     if ([type isEqualToString:@"2"]){
@@ -210,12 +209,11 @@
 {
     NSString *type = notiDic[@"type"];
     NSString *alertString = notiDic[@"aps"][@"alert"];
-    NSString *tit = notiDic[@"title"];
-    NSUInteger indexType = [type integerValue] -1;
 
+    NSString *idstr = notiDic[@"id"];
     if ([type isEqualToString:@"1"]) {
         
-        [self CurrentEventHotSpot:type withTit:alertString];
+        [self CurrentEventHotSpot:idstr withTit:alertString];
         
     }else if ([type isEqualToString:@"2"]){
         
@@ -228,7 +226,7 @@
         
     }else if ([type isEqualToString:@"3"]){
         
-        [self CurrentEventHotSpot:type withTit:alertString];
+        [self TheDailyRoundOfPlay:idstr withTit:alertString];
         
     }else {
         
@@ -237,7 +235,7 @@
 #pragma amrk -每日轮播
 - (void)TheDailyRoundOfPlay:(NSString *)idStr withTit:(NSString *)tit
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,focusGroomInfo,idStr];
+    NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,dailyInfo,idStr];
     ToolsWedViewVC *vc = [ToolsWedViewVC new];
     vc.url = url;
     vc.tType = FromHotType;

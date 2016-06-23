@@ -3721,8 +3721,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/云通讯短信",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/BaiduNavi_iOSSDK_v2.0.6_Lib/BaiduStatistics",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/BaiduNavi_iOSSDK_v2.0.6_Lib",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -3758,8 +3756,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/云通讯短信",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/BaiduNavi_iOSSDK_v2.0.6_Lib/BaiduStatistics",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/BaiduNavi_iOSSDK_v2.0.6_Lib",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",

@@ -29,15 +29,14 @@
     
     [self setupNaviBarWithBtn:NaviRightBtn
                         title:nil img:@"mine_addNZ"];
-
     [self.view addSubview:_emptyView];
-    
 }
 #pragma mark -UITableViewDataSource
 
 #pragma mark - event response
 -(void)rightBtnAction
 {
+    DLog(@"添加财务管理");
     
     
 }
@@ -47,11 +46,9 @@
 - (CollectEmptyView *)emptyView
 {
     if (_emptyView == nil) {
-        
         _emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - 64.f)
                                                     WithText:@"暂无财务信息"];
     }
-    
     return _emptyView;
 }
 

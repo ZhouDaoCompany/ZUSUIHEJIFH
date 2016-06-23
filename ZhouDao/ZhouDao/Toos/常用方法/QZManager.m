@@ -443,6 +443,7 @@ singleton_for_class(QZManager)
     dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
     [dateFormatter setDateFormat: @"yyyy-MM-dd"];
     NSDate *destDate= [dateFormatter dateFromString:dateString];
+
     return destDate;
 }
 #pragma mark ------  时间戳转换NSDate
