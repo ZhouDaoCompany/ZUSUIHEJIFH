@@ -1,0 +1,126 @@
+//
+//  ZhouDao_Prefix.pch
+//  ZhouDao
+//
+//  Created by apple on 16/2/29.
+//  Copyright © 2016年 CQZ. All rights reserved.
+//
+
+#ifndef ZhouDao_Prefix_pch
+#define ZhouDao_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* ZhouDao_Prefix_pch */
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "DefineHeader.h"
+#import "UIImageView+WebCache.h"
+
+#import "UIColor+Helper.h"
+#import "NSString+Emoji.h"
+#import "JKPromptView.h"
+#import "UIView+WhenTappedBlocks.h"
+//#import "DKNightVersion.h"
+#import "SVProgressHUD.h"
+#import "ZhouDao_NetWorkManger.h"
+#import "ZhouDao_RequestDefine.h"
+#import "PublicFunction.h"
+#import "AnimationTools.h"
+#import "ZD_Window.h"
+#import "QZManager.h"
+#import "FGGDownloader.h"
+#import "FGGDownloadManager.h"
+#import "MJRefresh.h"
+//#import "MLNavigationController.h"
+#import "QZPathDefine.h"
+#import "QZViewDefine.h"
+#import "QZPersistentDefine.h"
+//#import "JRNLocalNotificationCenter.h"
+#import "SoundManager.h"//声音播放
+#import "PublicFunction.h"
+#import "NetWorkMangerTools.h"
+#import "ThemeColor.h"
+
+#define YTXAPPID @"8a216da854ff8dcc0155098e25bc0e15"          //应用ID
+#define YTXTOKEN @"6b169f4522eadc646cc4441c50f5ff7d"
+#define YTXACCOUNSID @"8a48b5514fba2f87014fd3f252b438c3"   //主帐号
+#define  YTXAUTHTOKEN  @"fc7aaa1d201a4f6a8f318160bbeb283f"   //主账号令牌
+#define YTXTEMPLATE  @"90330"    //模版ID
+
+#define UMENG_APPKEY @"570da17967e58e1a95001339"  //友盟分享
+#define NAVI_TEST_APP_KEY   @"KfgRYgAZoQwNMytpVnhHYcGXrybA9Gws"  //百度地图
+
+#define commonCellHeight  0.5f
+
+/*
+ 生产  app.cloopen.com
+ 开发  sandboxapp.cloopen.com
+ */
+
+#define YTXSEVERIP  @"app.cloopen.com"
+#define  YTXPORT   8883
+#endif
+#define WEAKSELF typeof(self) __weak weakSelf = self;
+
+#define ShareObjs @[[MenuLabel CreatelabelIconName:@"share_platform_wechat" Title:@"微信好友"],[MenuLabel CreatelabelIconName:@"share_platform_wechattimeline" Title:@"朋友圈"],[MenuLabel CreatelabelIconName:@"share_platform_qqfriends" Title:@"QQ好友"],[MenuLabel CreatelabelIconName:@"share_platform_qzone" Title:@"QQ空间"],[MenuLabel CreatelabelIconName:@"share_platform_sina" Title:@"新浪微博"]]
+/**
+ *   搜索存储
+ */
+#define keyIdentifer       @"examplehisArr"
+#define SearchIdentifer    @"LawshistoryArrays"
+/**
+ *   数据缓存
+ */
+#define ToolsStorage            @"ToolsStorage"                //工具页面
+#define TemplateStorage         @"TemplateStorage"             //模版缓存
+#define GovermentStorage        @"GovermentStorage"            //司法机关
+#define LawsStorage             @"LawsStorage"                 //司法机关
+#define ExampleSearchStorage    @"ExampleSearchStorage"        //案例查询
+#define HomeStorage             @"HomeStorage"                 //首页轮播
+#define HomeHotMsg              @"HomeHotMsg"                  //首页热点
+
+#define RecomStorage            @"RecomStorage"                //推荐
+#define RECOMNEWS               @"RecomNEWS"                   //推荐页新法
+#define RECOMJDPIC              @"RECOMJDPIC"                  //推荐页焦点
+#define RECOMHOT                @"RECOMHOT"                    //推荐页热点
+
+/**
+ *  下载存储地址
+ */
+#define    DownLoadCachePath    [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/DownloadFile"]
+
+/**
+ * 友盟分享
+ */
+#define ZDWXAPPKEY         @"wxa840e90340e6b6b4"
+#define ZDWXAppSecret      @"eca94626df8bb4db09c2e26f24366beb"
+
+#define ZDQQAPPKEY         @"1105451776"
+#define ZDQQAppSecret      @"NFq5gdMdMlzQSCkQ"
+
+#define ZDWBAPPKEY         @"2173723826"
+#define ZDWBAppSecret      @"d282650bf4450d9b874cc728e9bd9127"
+/*
+ *收藏类型
+ */
+#define  lawCollect           @"1"       //法律法规
+#define  govCollect           @"2"       //司法机关
+#define  aboutCollect         @"3"       //相关案例
+#define  templateCollect      @"4"       //合同模版
+#define  standardCollect      @"5"       //赔偿标准
+#define  UID                  GET([PublicFunction ShareInstance].m_user.data.uid)
+
+//#define LocProv  GET([PublicFunction ShareInstance].locProv）
+//#define LocCity  GET([PublicFunction ShareInstance].locCity）
+
+//3.判断当前环境(ARC/MRC)
+//#if __has_feature(objc_arc)
+//// ARC
+//#else
+//// MRC
+//#endif
+

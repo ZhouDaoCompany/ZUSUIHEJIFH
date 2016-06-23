@@ -1,0 +1,54 @@
+platform:ios, '7.0'
+pod 'SDWebImage', '~> 3.7.5'
+pod 'AFNetworking', '~> 2.5.4'
+#pod 'TAPageControl'
+#键盘控制
+pod 'IQKeyboardManager', '~> 3.3.4'
+#轮播图
+pod 'SDCycleScrollView', '~> 1.62'
+#友盟分享 太大 手动导入
+#pod 'UMengSocialCOM', '~> 5.2.1'
+#友盟应用统计 无广告标识符
+#pod 'UMengAnalytics', '~> 3.6.6'
+pod 'UMengAnalytics-NO-IDFA', '~> 4.0.1'
+#底部弹出
+pod 'LCActionSheet', '~> 1.2.0'
+ #百度地图SDK
+#pod 'BaiduMapKit'
+#高德地图
+#pod 'AMap2DMap' #2D地图SDK(2D地图和3D地图不能同时使用)
+pod 'AMapNavi', '~> 2.0.0'                #导航SDK
+pod 'AMapLocation', '~> 2.0.0'            #定位SDK
+pod 'AMapSearch', '~> 4.0.0'              #搜索服务SDK
+
+#tabbar
+pod 'CYLTabBarController', '~> 1.4.4'     #TabBar1.2.1
+pod 'pop', '~> 1.0.9'
+#夜间模式
+#pod 'DKNightVersion', '~> 1.4'
+
+#置顶
+pod 'SWTableViewCell', '~> 0.3.7'
+#pod 'FMDB', '~> 2.6'
+pod 'MJRefresh', '~> 3.1.0'
+pod 'SVProgressHUD', '~> 2.0.3'
+#七牛
+#pod 'Qiniu', '~> 7.0.16'
+pod 'QiniuUpload', '~> 1.5'
+#下载
+#pod 'WHCNetWorkKit', '~> 0.0.3'
+
+#滑动返回
+pod 'FDFullscreenPopGesture', '1.1'
+
+#webView
+#pod 'DZNWebViewController'
+#菜单
+pod 'DLWidgetMenu'
+#pod 'MJExtension', '~> 3.0.10'
+pod 'WebViewJavascriptBridge', '~> 5.0.5'
+
+#掉帧测试
+#pod 'KMCGeigerCounter', '~> 0.2.2'
+
+

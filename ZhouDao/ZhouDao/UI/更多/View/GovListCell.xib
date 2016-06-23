@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="GovListCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RSJ-Nf-qFK">
+                        <rect key="frame" x="15" y="20" width="73" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="73" id="vcQ-J6-c5d"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电话:(021)38794518" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02c-V5-hTu">
+                        <rect key="frame" x="96" y="41" width="200" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="gfl-xz-d99"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：上海市浦东新区丁香路611号人民广场南边炸鸡店出口处" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJV-2n-Xuh">
+                        <rect key="frame" x="96" y="58" width="210" height="21"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上海浦东新区法院" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVy-6I-2Su">
+                        <rect key="frame" x="96" y="21" width="200" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="Ol5-VW-h1Q"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="RSJ-Nf-qFK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="64J-8i-Af1"/>
+                    <constraint firstItem="QVy-6I-2Su" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="13" id="JpW-x2-aja"/>
+                    <constraint firstItem="02c-V5-hTu" firstAttribute="top" secondItem="QVy-6I-2Su" secondAttribute="bottom" constant="5" id="N4Q-xS-ZM7"/>
+                    <constraint firstItem="02c-V5-hTu" firstAttribute="leading" secondItem="sJV-2n-Xuh" secondAttribute="leading" id="Oyx-K9-tJn"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="sJV-2n-Xuh" secondAttribute="trailing" constant="6" id="PkT-gc-7Jl"/>
+                    <constraint firstItem="RSJ-Nf-qFK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="QJT-Bs-reB"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="QVy-6I-2Su" secondAttribute="trailing" constant="16" id="W5C-ta-Ffn"/>
+                    <constraint firstItem="QVy-6I-2Su" firstAttribute="leading" secondItem="RSJ-Nf-qFK" secondAttribute="trailing" constant="8" symbolic="YES" id="Yc3-4E-nnF"/>
+                    <constraint firstItem="QVy-6I-2Su" firstAttribute="trailing" secondItem="02c-V5-hTu" secondAttribute="trailing" id="dpP-f2-NXZ"/>
+                    <constraint firstItem="RSJ-Nf-qFK" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="g4n-Ae-aW8"/>
+                    <constraint firstItem="sJV-2n-Xuh" firstAttribute="top" secondItem="02c-V5-hTu" secondAttribute="bottom" constant="2" id="wK4-XV-TeB"/>
+                    <constraint firstItem="QVy-6I-2Su" firstAttribute="leading" secondItem="02c-V5-hTu" secondAttribute="leading" id="y13-Xc-fdI"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="addressLabel" destination="sJV-2n-Xuh" id="ElI-xb-Ms8"/>
+                <outlet property="nameLabel" destination="QVy-6I-2Su" id="ykY-4c-OkI"/>
+                <outlet property="organImage" destination="RSJ-Nf-qFK" id="FIh-Og-9m1"/>
+                <outlet property="telLabel" destination="02c-V5-hTu" id="Gb9-Ox-lfx"/>
+            </connections>
+            <point key="canvasLocation" x="241" y="151"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,94 @@
+PODS:
+  - AFNetworking (2.5.4):
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
+  - AFNetworking/NSURLConnection (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - AMap3DMap (4.0.1):
+    - AMapFoundation (~> 1.0)
+  - AMapFoundation (1.0.0)
+  - AMapLocation (2.0.0):
+    - AMapFoundation (~> 1.0)
+  - AMapNavi (2.0.0):
+    - AMap3DMap (~> 4.0)
+    - AMapFoundation (~> 1.0)
+  - AMapSearch (4.0.0):
+    - AMapFoundation (= 1.0.0)
+  - CYLTabBarController (1.4.4)
+  - DLWidgetMenu (1.1)
+  - FDFullscreenPopGesture (1.1)
+  - IQKeyboardManager (3.3.7)
+  - LCActionSheet (1.2.0)
+  - MJRefresh (3.1.0)
+  - pop (1.0.9)
+  - QiniuUpload (1.5):
+    - AFNetworking (>= 2.0)
+  - SDCycleScrollView (1.62):
+    - SDWebImage (~> 3.7)
+  - SDWebImage (3.7.5):
+    - SDWebImage/Core (= 3.7.5)
+  - SDWebImage/Core (3.7.5)
+  - SVProgressHUD (2.0.3)
+  - SWTableViewCell (0.3.7)
+  - UMengAnalytics-NO-IDFA (4.0.5)
+  - WebViewJavascriptBridge (5.0.5)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.5.4)
+  - AMapLocation (~> 2.0.0)
+  - AMapNavi (~> 2.0.0)
+  - AMapSearch (~> 4.0.0)
+  - CYLTabBarController (~> 1.4.4)
+  - DLWidgetMenu
+  - FDFullscreenPopGesture (= 1.1)
+  - IQKeyboardManager (~> 3.3.4)
+  - LCActionSheet (~> 1.2.0)
+  - MJRefresh (~> 3.1.0)
+  - pop (~> 1.0.9)
+  - QiniuUpload (~> 1.5)
+  - SDCycleScrollView (~> 1.62)
+  - SDWebImage (~> 3.7.5)
+  - SVProgressHUD (~> 2.0.3)
+  - SWTableViewCell (~> 0.3.7)
+  - UMengAnalytics-NO-IDFA (~> 4.0.1)
+  - WebViewJavascriptBridge (~> 5.0.5)
+
+SPEC CHECKSUMS:
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  AMap3DMap: 30442fb7ed717e6da2803592d9a07532a091bd29
+  AMapFoundation: af861f5d299a4f17a1a8b50fd91242933bb352f3
+  AMapLocation: 40141a31e7c584e59d590079eb8e565a90ecdf4d
+  AMapNavi: d6d94118143ce1d3e3117d8085750fae5af55af4
+  AMapSearch: 867e89123c927436713372803156ac9848d9868a
+  CYLTabBarController: 71d00c3287359fa6fe06dbc04d2a2d103141c763
+  DLWidgetMenu: 5e4d0937e02831e34694a0730c599afeb4e6fbcf
+  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  IQKeyboardManager: 249c3946acf61345c18b038eb50863fe2793e3a8
+  LCActionSheet: 1f5be2b0d663f032973cdd71bf6cad7a041aa18f
+  MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  QiniuUpload: 723b717cff1ac94cbaa36f1276172185dfdde2c7
+  SDCycleScrollView: ae016cb4cc4036523917f146ede6f7b11d408f6a
+  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
+  UMengAnalytics-NO-IDFA: 965a219b05475ff2a4c09a164139a27bbaa0e25b
+  WebViewJavascriptBridge: a4d502315f1b8d9a51cd6a9174147ed567ec3bc5
+
+COCOAPODS: 0.39.0
