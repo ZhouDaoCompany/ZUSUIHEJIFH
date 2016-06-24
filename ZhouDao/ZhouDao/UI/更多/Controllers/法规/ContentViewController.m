@@ -257,7 +257,7 @@
     }];
 }
 - (void)isSearchState
-{
+{WEAKSELF;
     [self setupNaviBarWithTitle:@""];
     [self setupNaviBarWithBtn:NaviRightBtn title:@"取消" img:nil];
     self.rightBtn.titleLabel.font = Font_15;
@@ -276,10 +276,15 @@
     
     UIImageView *search =[[UIImageView alloc] initWithFrame:CGRectMake(15, 5, 20, 20)];
     [_searchView addSubview:search];
+    search.userInteractionEnabled = YES;
+    [search whenTapped:^{
+        
+        [weakSelf dismissKeyBoard];
+        [weakSelf searchKeyText];
+    }];
     search.image = [UIImage imageNamed:@"law_sousuo"];
     
     _searchField =[[UITextField alloc] initWithFrame:CGRectMake(42.5f, 0, searchView.frame.size.width-42.5f, 30)];
-    [self.view addSubview:_searchField];
     _searchField.placeholder = @"搜索本文内容";
     _searchField.delegate = self;
     _searchField.borderStyle = UITextBorderStyleNone;
@@ -480,6 +485,7 @@
 {WEAKSELF;
     if (!_aboutArrays) {
         [NetWorkMangerTools aboutLawsReading:_model.idString RequestSuccess:^(NSArray *arr) {
+            
             weakSelf.aboutArrays = [NSMutableArray array];
             [weakSelf.aboutArrays addObjectsFromArray:arr];
             AboutReadView *aboutView = [[AboutReadView alloc] initWithFrame:kMainScreenFrameRect];
@@ -505,6 +511,7 @@
 {
     TaskModel *tmodel = [TaskModel new];
     [NetWorkMangerTools lawsDetailData:idStr RequestSuccess:^(id obj) {
+        
         LawDetailModel *tempModel = (LawDetailModel *)obj;
         tmodel.idString =tempModel.id;
         tmodel.name = @"法规详情";
@@ -526,6 +533,7 @@
             if ([PublicFunction ShareInstance].m_bLogin == YES)
             {
                 [NetWorkMangerTools lawsDetailData:_model.idString RequestSuccess:^(id obj) {
+                    
                     LawDetailModel *tempModel = (LawDetailModel *)obj;
                     weakSelf.model.is_collection = [NSString stringWithFormat:@"%@",tempModel.is_collection];
                     if ([weakSelf.model.is_collection isEqualToString:@"0"]) {
@@ -555,11 +563,11 @@
             scType = aboutCollect;
         }
         [NetWorkMangerTools collectionDelMine:_model.idString withType:scType RequestSuccess:^{
+            
             weakSelf.model.is_collection = @"0";
             weakSelf.imgNameArrays = NoCollected;
             [weakSelf dingdingAnimation];
         }];
-
     }
 
 }

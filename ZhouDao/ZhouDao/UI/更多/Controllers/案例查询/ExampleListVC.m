@@ -67,6 +67,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
     _page = 1;
     if (_exampleType == FromComType) {
         [NetWorkMangerTools inspeTypeList:_idString withPage:_page RequestSuccess:^(NSArray *arr) {
+            
             [_dataArrays addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
@@ -81,6 +82,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
         }];
     }else{
         [NetWorkMangerTools LegalIssuesSelfCheckResult:_searText withPage:_page RequestSuccess:^(NSArray *arr) {
+            
             [_dataArrays addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];

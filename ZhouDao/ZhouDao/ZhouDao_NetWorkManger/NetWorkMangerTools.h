@@ -80,11 +80,6 @@
             RequestSuccess:(void (^)())success;
 
 /*
- *七天日程
- */
-//+ (void)getaWekRemindsRequestSuccess:(void (^)())success;
-
-/*
  * 赔偿标准首页列表
  */
 + (void)getcompensationList:(NSString *)comId

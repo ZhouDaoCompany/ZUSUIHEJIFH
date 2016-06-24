@@ -723,6 +723,29 @@ singleton_for_class(QZManager)
     [dic setObject:objects forKey:keys];
     return dic;
 }
+#pragma mark - 查询字符串中是否包含某个字符
++ (BOOL)isString:(NSString *)oriString withContainsStr:(NSString *)str;
+{
+    if ([oriString rangeOfString:str].location !=NSNotFound)
+    {
+        return YES;
+    }
+    
+    return NO;
+}
+#pragma mark - 查找替换字符串
++ (NSString *)trimStringMethodsWithSearch:(NSString *)search
+                              withReplace:(NSString *)replace
+                                 withTrim:(NSMutableString *)aStr
+{
+    NSRange range = [aStr rangeOfString:search];
+    while (range.location != NSNotFound)
+    {
+        [aStr replaceCharactersInRange:range withString:replace];
+        range = [aStr rangeOfString:search];
+    }
+    return aStr;
+}
 //获取字符串(或汉字)首字母
 - (NSString *)firstCharacterWithString:(NSString *)string{
     NSMutableString *str = [NSMutableString stringWithString:string];

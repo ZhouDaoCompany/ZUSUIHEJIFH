@@ -290,6 +290,32 @@ singleton_for_header(QZManager)
  */
 + (NSDictionary *)dictionaryOrderByCharacterWithOriginalArray:(NSArray *)array;
 
+#pragma mark - 查询字符串中是否包含某个字符
+
+/**
+ *  查询字符串中是否包含某个字符
+ *
+ *  @param oriString 原始字符串
+ *  @param str       包含的字符
+ *
+ *  @return 是包含   no不包含
+ */
++ (BOOL)isString:(NSString *)oriString withContainsStr:(NSString *)str;
+
+#pragma mark - 查找替换字符串
+/**
+ *  查找替换字符串
+ *
+ *  @param search  查找的字符
+ *  @param replace 要替换为的字符
+ *  @param aStr    传入的可变字串
+ *
+ *  @return 最后的结果
+ */
++ (NSString *)trimStringMethodsWithSearch:(NSString *)search
+                              withReplace:(NSString *)replace
+                                 withTrim:(NSMutableString *)aStr;
+
 #pragma mark - 对图片进行滤镜处理
 
 /**

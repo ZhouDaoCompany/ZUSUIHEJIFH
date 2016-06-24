@@ -21,5 +21,4 @@ typedef NS_ENUM(NSInteger, LitigationType)
 @property (nonatomic, strong) NSMutableArray *msgArr;
 @property (nonatomic, strong) NSString *caseId;
 @property (nonatomic, copy) ZDMutableArrayBlock editSuccess;
-
 @end

@@ -48,7 +48,8 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     }];
 }
 - (void)initNavBarView
-{
+{    WEAKSELF;
+
     [self setupNaviBarWithBtn:NaviRightBtn
                         title:@"取消"
                           img:nil];
@@ -61,6 +62,12 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     searchView.backgroundColor=[UIColor whiteColor];
     UIImageView *search =[[UIImageView alloc] initWithFrame:CGRectMake(15, 5, 20, 20)];
     [searchView addSubview:search];
+    search.userInteractionEnabled = YES;
+    [search whenTapped:^{
+        
+        [weakSelf searchResultMethods];
+    }];
+
     search.image = [UIImage imageNamed:@"law_sousuo"];
     
     UIView * lineview = [[UIView alloc] initWithFrame:CGRectMake(searchView.frame.size.width-32, 5, .5f, 20)];
@@ -75,13 +82,11 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     UIView *soundView = [[UIView alloc] initWithFrame:CGRectMake(searchView.frame.size.width-30, 0, 30, searchView.frame.size.height)];
     [searchView addSubview:soundView];
     
-    WEAKSELF;
     [soundView whenTapped:^{
         [weakSelf OpenTheDictation];
     }];
     
     _searchField =[[UITextField alloc] initWithFrame:CGRectMake(42.5f, 0, searchView.frame.size.width-74.5f, 30)];
-    [self.view addSubview:_searchField];
     _searchField.placeholder = @"搜索相关法律法规";
     _searchField.delegate = self;
     _searchField.borderStyle = UITextBorderStyleNone;

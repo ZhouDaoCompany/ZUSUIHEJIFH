@@ -425,61 +425,6 @@
         [SVProgressHUD dismiss];
     }];
 }
-#pragma mark -获取七天日程
-//+ (void)getaWekRemindsRequestSuccess:(void (^)())success
-//{
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        
-//        NSString *url = [NSString stringWithFormat:@"%@%@uid=%@",kProjectBaseUrl,RemindAWeek,[PublicFunction ShareInstance].m_user.data.uid];
-//        [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-//            NSUInteger errorcode = [jsonDic[@"state"] integerValue];
-//            if (errorcode !=1) {
-//                return ;
-//            }
-//            NSMutableArray *arrays = jsonDic[@"data"];
-//            NSMutableArray *arrID = [NSMutableArray array];
-//            NSMutableArray *modelArr = [NSMutableArray array];
-//            for (NSDictionary *dict in arrays) {
-//                RemindData *model = [[RemindData alloc] initWithDictionary:dict];
-//                [modelArr addObject:model];
-//                [arrID addObject:model.id];
-//            }
-//            NSArray *notifiArr = [[JRNLocalNotificationCenter defaultCenter] localNotificationAllKeys];
-//            for (NSUInteger i=0; i<arrID.count; i++)
-//            {
-//                NSString *idstr = arrID[i];
-//                if (![notifiArr containsObject:idstr])
-//                {
-//                    RemindData *model = modelArr[i];
-//                    NSString *bellName = nil;
-//                    if ([model.bell isEqualToString:@"1"]) {
-//                        bellName = @"defaultSound";
-//                    }else if ([model.bell isEqualToString:@"2"]){
-//                        bellName = @"soundBell";
-//                    }else if ([model.bell isEqualToString:@"3"]){
-//                        bellName = @"soundCall";
-//                    }else{
-//                        bellName = @"soundMagic";
-//                    }
-//                    
-//                    NSDate *fireDate = [QZManager changeTimeForDate:[model.time doubleValue]];
-//                    [[JRNLocalNotificationCenter defaultCenter] postNotificationOn:fireDate
-//                                                                            forKey:model.id
-//                                                                         alertBody:model.title
-//                                                                       alertAction:@"Open"
-//                                                                         soundName:[NSString stringWithFormat:@"%@.caf",bellName]
-//                                                                       launchImage:nil
-//                                                                          userInfo:@{@"id" : @"notificationId1"}
-//                                                                        badgeCount:0
-//                                                                    repeatInterval:[model.repeat_time integerValue]+1];
-//                }
-//            }
-//            success();
-//        } fail:^{
-//        }];
-//
-//    });
-//}
 #pragma mark - 赔偿标准首页列表
 + (void)getcompensationList:(NSString *)comId withCity:(NSString *)city withYear:(NSString *)year RequestSuccess:(void (^)(NSArray *arrays))success fail:(void (^)())fail
 {

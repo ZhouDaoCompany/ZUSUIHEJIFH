@@ -78,7 +78,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.view addSubview:_tableView];
     
-    UILabel *footLab = [[UILabel alloc] initWithFrame:CGRectMake(45, kMainScreenHeight - 75.f, kMainScreenWidth - 90.f, 30.f)];
+    UILabel *footLab = [[UILabel alloc] initWithFrame:CGRectMake(45, kMainScreenHeight - 60.f, kMainScreenWidth - 90.f, 30.f)];
     footLab.backgroundColor = rgb(233.f, 229.f, 228.f);
     footLab.textColor = rgb(135.f, 131.f, 130.f);
     footLab.layer.cornerRadius = 5.f;

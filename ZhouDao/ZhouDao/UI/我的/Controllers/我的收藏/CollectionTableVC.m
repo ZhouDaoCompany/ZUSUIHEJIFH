@@ -168,6 +168,7 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
     if ([_typeString isEqualToString:@"1"]) {
         TaskModel *tmodel = [TaskModel new];
         [NetWorkMangerTools lawsDetailData:model.article_id RequestSuccess:^(id obj) {
+            
             LawDetailModel *tempModel = (LawDetailModel *)obj;
             tmodel.idString =tempModel.id;
             tmodel.name = tempModel.name;
@@ -181,6 +182,7 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
         
     }else if ([_typeString isEqualToString:@"2"]){
         [NetWorkMangerTools goverDetailWithId:model.article_id RequestSuccess:^(id obj) {
+            
             GovListmodel *tempModel = (GovListmodel *)obj;
             GovernmentDetailVC *vc = [GovernmentDetailVC new];
             vc.model = tempModel;
@@ -190,6 +192,7 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
     }else if ([_typeString isEqualToString:@"3"]){
         TaskModel *tmodel = [TaskModel new];
         [NetWorkMangerTools loadExampleDetailData:model.article_id RequestSuccess:^(id obj) {
+            
             ExampleDetailData *tempModel = (ExampleDetailData *)obj;
             tmodel.idString =tempModel.id;
             tmodel.name = tempModel.title;
@@ -208,6 +211,7 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
     }else{
         TaskModel *tModel = [TaskModel new];
         [NetWorkMangerTools getcompensationDetailswith:model.article_id RequestSuccess:^(id obj) {
+            
             IndemnityData *dataModel = (IndemnityData *)obj;
             tModel.idString = dataModel.id;
             tModel.content = dataModel.content;
@@ -275,6 +279,7 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
             {//取消置顶
                 CollectionData *model1 = _zdArr[row];
                 [NetWorkMangerTools collectionTopDelMine:model1.id RequestSuccess:^{
+                    
                     [_zdArr removeObject:model1];
                     [weakSelf.tableView deleteRowsAtIndexPaths:@[cellIndexPath]withRowAnimation:UITableViewRowAnimationNone];
                     [_normalArr insertObject:model1 atIndex:0];

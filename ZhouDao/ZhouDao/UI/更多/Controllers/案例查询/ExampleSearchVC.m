@@ -48,8 +48,10 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 - (void)initUI{
     [self setupNaviBarWithTitle:@"案例查询"];
     if (_sType == SearchFromHome) {
+        
         [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     }else{
+        
         [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
         //假的截屏
         _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];

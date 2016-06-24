@@ -51,6 +51,7 @@ static NSString *const SearchResultsIdentifier = @"SearchResultsIdentifier";
 - (void)downRefresh:(id)sender
 {WEAKSELF;
     [NetWorkMangerTools LawsSearchResultKeyWords:_keyStr withPage:_page RequestSuccess:^(NSArray *arr) {
+        
         [_dataArrays addObjectsFromArray:arr];
         [weakSelf.tableView.mj_footer endRefreshing];
         [weakSelf.tableView reloadData];
@@ -88,6 +89,7 @@ static NSString *const SearchResultsIdentifier = @"SearchResultsIdentifier";
     LawsDataModel *model = _dataArrays[indexPath.row];
     TaskModel *tmodel = [TaskModel new];
     [NetWorkMangerTools lawsDetailData:model.id RequestSuccess:^(id obj) {
+        
         LawDetailModel *tempModel = (LawDetailModel *)obj;
         tmodel.idString =tempModel.id;
         tmodel.name = tempModel.name;

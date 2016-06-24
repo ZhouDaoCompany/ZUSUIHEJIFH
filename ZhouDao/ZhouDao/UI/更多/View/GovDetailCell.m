@@ -26,7 +26,7 @@
     
     NSDictionary *attribute = @{NSFontAttributeName:Font_13};
     CGSize size = [text boundingRectWithSize:CGSizeMake(kMainScreenWidth - 30,MAXFLOAT)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-    _rowHeight = size.height;
+    _rowHeight = size.height +20;
 
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, kMainScreenWidth - 30, size.height)];
     lab.font = Font_13;

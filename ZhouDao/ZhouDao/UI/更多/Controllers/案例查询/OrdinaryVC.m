@@ -40,7 +40,8 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     [self initUI];
 }
 - (void)initUI
-{
+{    WEAKSELF;
+
     _historyArrays = [NSMutableArray array];
     [_historyArrays addObjectsFromArray:(NSArray *)[USER_D objectForKey:keyIdentifer]];
     
@@ -56,6 +57,10 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     searchView.backgroundColor=[UIColor whiteColor];
     UIImageView *search =[[UIImageView alloc] initWithFrame:CGRectMake(15, 5, 20, 20)];
     [searchView addSubview:search];
+    [search  whenTapped:^{
+        
+        [weakSelf searchResultMethods];
+    }];
     search.image = [UIImage imageNamed:@"law_sousuo"];
     
     UIView * lineview = [[UIView alloc] initWithFrame:CGRectMake(searchView.frame.size.width-32, 5, .5f, 20)];
@@ -70,7 +75,6 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     UIView *soundView = [[UIView alloc] initWithFrame:CGRectMake(searchView.frame.size.width-30, 0, 30, searchView.frame.size.height)];
     [searchView addSubview:soundView];
     
-    WEAKSELF;
     [soundView whenTapped:^{
         [weakSelf OpenTheDictation];
     }];
