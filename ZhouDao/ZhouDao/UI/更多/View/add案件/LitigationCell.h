@@ -16,5 +16,6 @@
 @property (nonatomic, strong) UIImageView *imgview1;
 
 @property (nonatomic, assign) NSInteger rowIndex;
+@property (nonatomic, assign) NSInteger section;
 
 @end

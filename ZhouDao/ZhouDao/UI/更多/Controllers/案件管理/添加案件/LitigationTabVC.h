@@ -1,24 +1,25 @@
 //
 //  LitigationTabVC.h
-//  ZhouDao
+//  TabTest
 //
-//  Created by apple on 16/4/15.
-//  Copyright © 2016年 CQZ. All rights reserved.
+//  Created by apple on 16/6/24.
+//  Copyright © 2016年 QZ. All rights reserved.
 //
+
+#import <UIKit/UIKit.h>
 typedef NS_ENUM(NSInteger, LitigationType)
 {
-    FromManager = 0,//从案件详情
-    FromAddCase = 1,//从添加案件
+    LitiDetails = 0,//查看案件详情
+    LitiAddCase = 1,//添加案件
+    LitiEdit    = 2,//编辑案件
 };
-#import <UIKit/UIKit.h>
-/*
- 诉讼业务
- */
 
 @interface LitigationTabVC : UITableViewController
 
 @property (nonatomic, assign) LitigationType litEditType;
-@property (nonatomic, strong) NSMutableArray *msgArr;
-@property (nonatomic, strong) NSString *caseId;
-@property (nonatomic, copy) ZDMutableArrayBlock editSuccess;
+
+/*
+ 诉讼业务
+ */
+
 @end

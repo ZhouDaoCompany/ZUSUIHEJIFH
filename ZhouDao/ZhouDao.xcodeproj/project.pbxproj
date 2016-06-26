@@ -134,6 +134,7 @@
 		108DC0911C9FF93E00FD1221 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC0901C9FF93E00FD1221 /* MediaPlayer.framework */; };
 		108DC0931C9FF94A00FD1221 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC0921C9FF94A00FD1221 /* AVFoundation.framework */; };
 		108DC0951C9FF96100FD1221 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC0941C9FF96100FD1221 /* libstdc++.6.0.9.tbd */; };
+		10A031401D1FE2AF00D31935 /* ConsultantHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A0313F1D1FE2AF00D31935 /* ConsultantHeadView.m */; };
 		10BA91AF1CEDEBFE000889A4 /* NewlyCreatedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BA91AD1CEDEBFE000889A4 /* NewlyCreatedVC.m */; };
 		10BA91B31CEE0D39000889A4 /* CasesDirectoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BA91B21CEE0D39000889A4 /* CasesDirectoryVC.m */; };
 		10BC8A791CEA1B3D001BFE5E /* ConsultantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BC8A781CEA1B3D001BFE5E /* ConsultantModel.m */; };
@@ -625,6 +626,8 @@
 		108DC0901C9FF93E00FD1221 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		108DC0921C9FF94A00FD1221 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		108DC0941C9FF96100FD1221 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		10A0313E1D1FE2AF00D31935 /* ConsultantHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultantHeadView.h; sourceTree = "<group>"; };
+		10A0313F1D1FE2AF00D31935 /* ConsultantHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultantHeadView.m; sourceTree = "<group>"; };
 		10BA91AC1CEDEBFE000889A4 /* NewlyCreatedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewlyCreatedVC.h; sourceTree = "<group>"; };
 		10BA91AD1CEDEBFE000889A4 /* NewlyCreatedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewlyCreatedVC.m; sourceTree = "<group>"; };
 		10BA91B11CEE0D39000889A4 /* CasesDirectoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CasesDirectoryVC.h; sourceTree = "<group>"; };
@@ -1957,6 +1960,8 @@
 		1817D29A1CC0898800FF6EEE /* add案件 */ = {
 			isa = PBXGroup;
 			children = (
+				10A0313E1D1FE2AF00D31935 /* ConsultantHeadView.h */,
+				10A0313F1D1FE2AF00D31935 /* ConsultantHeadView.m */,
 				1817D29B1CC089C400FF6EEE /* LitigationCell.h */,
 				1817D29C1CC089C400FF6EEE /* LitigationCell.m */,
 				18A428501CC0D19100CEB30E /* AccusingTheCell.h */,
@@ -3541,6 +3546,7 @@
 				1825B0A91C969386003B2096 /* NSString+Size.m in Sources */,
 				10580FFC1D08468000973E03 /* DriveNaviViewController.m in Sources */,
 				104304971CA515CA009D7072 /* FGGDownloadManager.m in Sources */,
+				10A031401D1FE2AF00D31935 /* ConsultantHeadView.m in Sources */,
 				10DA75DD1CA7AD6000B00A53 /* UIImage+ImageEffects.m in Sources */,
 				10C019431CE4CA5A0058586A /* ShareView.m in Sources */,
 				10241A131CB9F36D000CBEAE /* CompensationVC.m in Sources */,

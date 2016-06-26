@@ -52,11 +52,11 @@
     }else{
         //诉讼业务
         LitigationTabVC *litigationVC = [LitigationTabVC new];
-        litigationVC.litEditType = FromManager;
-        litigationVC.caseId = _caseId;
-        litigationVC.editSuccess = ^(NSMutableArray *arr){
-            weakSelf.editSuccess(arr);
-        };
+        litigationVC.litEditType = LitiEdit;
+//        litigationVC.caseId = _caseId;
+//        litigationVC.editSuccess = ^(NSMutableArray *arr){
+//            weakSelf.editSuccess(arr);
+//        };
         NSMutableArray *tempArr = [NSMutableArray array];
         [tempArr addObject:_msgArrays[0]];
         [tempArr addObject:_msgArrays[2]];
@@ -70,7 +70,7 @@
             [tempArr addObject:obj];
         }
 
-        litigationVC.msgArr = tempArr;
+//        litigationVC.msgArr = tempArr;
         [self addChildViewController:litigationVC];
     }
     

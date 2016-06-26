@@ -34,10 +34,13 @@
         self.textField.borderStyle = UITextBorderStyleNone;
         self.textField.textAlignment = NSTextAlignmentRight;
         self.textField.font = Font_14;
+//        [self.textField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+//        [self.textField setValue:[UIFont  systemFontOfSize:9] forKeyPath:@"_placeholderLabel.font"];
+
         [self.contentView addSubview:self.textField];
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 49.4f, kMainScreenWidth-15.f, .6f)];
-        lineView.backgroundColor = lineColor;
+        lineView.backgroundColor = [UIColor colorWithHexString:@"#D4D4D4"];//lineColor;
         [self.contentView addSubview:lineView];
         
         _imgview1 = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth-21, 20, 6, 10)];
@@ -48,25 +51,61 @@
     }
     return self;
 }
+- (void)AdjustmentOfTheCell{
+    
+    self.titleLab.frame = CGRectMake(15, 15, 140, 20);
+    
+    if (_section == 0)
+    {
+        
+        if (_rowIndex == 6) {
+            _deviceLabel.hidden = NO;
+            _imgview1.hidden = NO;
+            _textField.hidden = YES;
+            _deviceLabel.frame = CGRectMake(kMainScreenWidth - 175.f, 10, 150, 30);
+        }else{
+            _deviceLabel.hidden = YES;
+            _imgview1.hidden = YES;
+            _textField.hidden = NO;
+            _textField.frame = CGRectMake(kMainScreenWidth - 151.f, 10, 130, 30);
+            [_textField setValue:Font_12 forKeyPath:@"_placeholderLabel.font"];
+            if ([QZManager isString:_titleLab.text withContainsStr:@"电话"]) {
+                _textField.keyboardType = UIKeyboardTypeNumberPad;
+            }else{
+                _textField.keyboardType = UIKeyboardTypeDefault;
+            }
+
+        }
+    }else{
+        
+        if ([_titleLab.text isEqualToString:@"审理类别"] || [_titleLab.text isEqualToString:@"仲裁结果"]) {
+            _deviceLabel.hidden = NO;
+            _imgview1.hidden = NO;
+            _textField.hidden = YES;
+            _deviceLabel.frame = CGRectMake(kMainScreenWidth - 175.f, 10, 150, 30);
+        }else {
+            _deviceLabel.hidden = YES;
+            _imgview1.hidden = YES;
+            _textField.hidden = NO;
+            _textField.frame = CGRectMake(kMainScreenWidth - 151.f, 10, 130, 30);
+            [_textField setValue:Font_12 forKeyPath:@"_placeholderLabel.font"];
+            
+            if ([QZManager isString:_titleLab.text withContainsStr:@"电话"]) {
+                _textField.keyboardType = UIKeyboardTypeNumberPad;
+            }else{
+                _textField.keyboardType = UIKeyboardTypeDefault;
+            }
+            
+        }
+        
+    }
+
+}
 
 - (void)layoutSubviews
 {
-    self.titleLab.frame = CGRectMake(15, 15, 140, 20);
-    
-    
-    if (_rowIndex ==2 || _rowIndex == 4 || _rowIndex == 5 || _rowIndex == 19)
-    {
-        _deviceLabel.hidden = NO;
-        _imgview1.hidden = NO;
-        _textField.hidden = YES;
-        _deviceLabel.frame = CGRectMake(kMainScreenWidth - 175.f, 10, 150, 30);
-    }else{
-        _deviceLabel.hidden = YES;
-        _imgview1.hidden = YES;
-        _textField.hidden = NO;
-        _textField.frame = CGRectMake(kMainScreenWidth - 151.f, 10, 130, 30);
-    }
-    
+    [super layoutSubviews];
+    [self AdjustmentOfTheCell];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

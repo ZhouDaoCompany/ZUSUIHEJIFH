@@ -16,7 +16,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 @interface ExampleListVC ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSUInteger _page;
-    NSUInteger _currentRow;
+//    NSUInteger _currentRow;
 
 }
 @property (nonatomic,strong) NSMutableArray *dataArrays;
@@ -36,7 +36,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
     [self setupNaviBarWithTitle:_titString];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
-     _currentRow = 0;
+//     _currentRow = 0;
     _page = 1;
     _dataArrays = [NSMutableArray array];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64.f, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
@@ -135,7 +135,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_dataArrays.count >0) {
-        [self LargerAnimationCell:cell WithIndexPathRow:indexPath.row];//动画
+//        [self LargerAnimationCell:cell WithIndexPathRow:indexPath.row];//动画
         CaseModel *model = _dataArrays[indexPath.row];
         cell.textLabel.text = model.title;
     }
@@ -163,20 +163,20 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 {
     return 50;
 }
-#pragma mark -变大动画
-- (void)LargerAnimationCell:(UIView *)cell WithIndexPathRow:(NSUInteger)row
-{
-    cell.transform  = CGAffineTransformMakeScale(0.8, 0.8);
-    
-    if (row>=_currentRow)
-    {
-        [UIView animateWithDuration:.75 animations:^{
-            cell.transform  = CGAffineTransformIdentity;
-        }];
-    }
-    _currentRow = row;
-    cell.transform  = CGAffineTransformIdentity;
-}
+//#pragma mark -变大动画
+//- (void)LargerAnimationCell:(UIView *)cell WithIndexPathRow:(NSUInteger)row
+//{
+//    cell.transform  = CGAffineTransformMakeScale(0.8, 0.8);
+//    
+//    if (row>=_currentRow)
+//    {
+//        [UIView animateWithDuration:.75 animations:^{
+//            cell.transform  = CGAffineTransformIdentity;
+//        }];
+//    }
+//    _currentRow = row;
+//    cell.transform  = CGAffineTransformIdentity;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

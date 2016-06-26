@@ -10,41 +10,9 @@
 #import "ConsultantCell.h"
 #import "ZHPickView.h"
 #import "ZD_DeleteWindow.h"
+#import "ConsultantHeadView.h"
+
 static NSString *const ConsultantIDENTIFER = @"ConsultantIDENTIFER";
-
-//section的头部
-@interface ConsultantHeadView : UIView
-
-@property (strong, nonatomic) UILabel *label;
-
--(void)setLabelText:(NSString *)text;
-@end
-
-@implementation ConsultantHeadView
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        self.backgroundColor = ViewBackColor;
-        
-        self.label = [[UILabel alloc] init];
-        self.label.frame = CGRectMake(15, 0, 120, self.frame.size.height);
-        self.label.font = Font_15;
-        [self.label setTextColor:thirdColor];
-        [self addSubview:self.label];
-    }
-    return self;
-}
-
-- (void) setLabelText:(NSString *)text
-{
-    self.label.text = text;
-//    [self.label sizeToFit];
-}
-
-@end
 
 
 @interface ConsultantTabVC ()<UITextFieldDelegate>

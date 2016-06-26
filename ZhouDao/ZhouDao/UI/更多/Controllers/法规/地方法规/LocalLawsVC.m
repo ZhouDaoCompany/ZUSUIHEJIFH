@@ -11,6 +11,7 @@
 #import "LawsTableViewCell.h"
 #import "ContentViewController.h"
 #import "LawDetailModel.h"
+#import "SecrchLawsVC.h"
 
 static NSString *const LocalCellIdentifier = @"LocalCellIdentifier";
 @interface LocalLawsVC ()<JSDropDownMenuDataSource,JSDropDownMenuDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -38,6 +39,8 @@ static NSString *const LocalCellIdentifier = @"LocalCellIdentifier";
 {
     [self setupNaviBarWithTitle:@"法规库"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
+    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Esearch_SouSuo"];
+
     _page = 0;
     _city = @"";
     _time = @"";
@@ -244,7 +247,14 @@ static NSString *const LocalCellIdentifier = @"LocalCellIdentifier";
         [weakSelf.tableView reloadData];
     }];
 }
+#pragma mark -event respose
+- (void)rightBtnAction
+{
+    SecrchLawsVC *searchVC = [SecrchLawsVC new];
+    [AnimationTools makeAnimationFade:searchVC :self.navigationController];
 
+//    [self.navigationController  pushViewController:searchVC animated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

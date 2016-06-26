@@ -65,7 +65,7 @@
     
     // 添加默认控制器
     LitigationTabVC *vc = [self.childViewControllers firstObject];
-    vc.litEditType = FromAddCase;
+    vc.litEditType = LitiAddCase;
     vc.view.frame = self.bigScrollView.bounds;
     [self.bigScrollView addSubview:vc.view];
 }
@@ -74,7 +74,7 @@
     //1 诉讼业务
     LitigationTabVC *litigationVC = [LitigationTabVC new];
     //allOrderVC.urlString =
-    litigationVC.litEditType = FromAddCase;
+    litigationVC.litEditType = LitiAddCase;
     [self addChildViewController:litigationVC];
     //2 非诉业务
     AccusingTheTabVC *accusingVC = [AccusingTheTabVC new];
@@ -157,7 +157,7 @@
         case 0:{ //1诉讼业务
              LitigationTabVC *orderVC = self.childViewControllers[index];
             orderVC.view.frame = scrollView.bounds;
-            orderVC.litEditType = FromAddCase;
+            orderVC.litEditType = LitiAddCase;
             [self.bigScrollView addSubview:orderVC.view];
         }
             break;

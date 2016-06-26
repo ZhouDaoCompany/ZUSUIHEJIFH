@@ -247,7 +247,6 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
         [self selectCameraOrPhotoList:buttonIndex];
     }];
     [sheet show];
-    
 }
 #pragma mark -选择相机
 - (void)selectCameraOrPhotoList:(NSUInteger)index
