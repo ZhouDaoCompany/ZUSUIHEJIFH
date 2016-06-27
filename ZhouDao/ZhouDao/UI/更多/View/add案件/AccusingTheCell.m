@@ -54,7 +54,7 @@
     self.titleLab.frame = CGRectMake(15, 15, 140, 20);
     
     
-    if (_rowIndex ==5 || _rowIndex == 6)
+    if (_rowIndex ==6 || _rowIndex == 7)
     {
         _deviceLabel.hidden = NO;
         _imgview1.hidden = NO;
@@ -65,8 +65,17 @@
         _imgview1.hidden = YES;
         _textField.hidden = NO;
         _textField.frame = CGRectMake(kMainScreenWidth - 151.f, 10, 130, 30);
-    }
         
+        [_textField setValue:Font_12 forKeyPath:@"_placeholderLabel.font"];
+        
+        if ([QZManager isString:_titleLab.text withContainsStr:@"电话"]) {
+            _textField.keyboardType = UIKeyboardTypeNumberPad;
+        }else{
+            _textField.keyboardType = UIKeyboardTypeDefault;
+        }
+
+    }
+    
     
 }
 

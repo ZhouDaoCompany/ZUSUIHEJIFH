@@ -7,7 +7,6 @@
 //
 
 #import "ConsultantHeadView.h"
-#import "DefineHeader.h"
 
 @interface ConsultantHeadView()
 
@@ -25,19 +24,23 @@
         self.backgroundColor = [UIColor colorWithHexString:@"#F2F2F2"];
         
         _section = section;
-        self.label = [[UILabel alloc] init];
-        self.label.frame = CGRectMake(15, 0, 120, self.frame.size.height);
-        self.label.font = [UIFont systemFontOfSize:15.f];
-        [self.label setTextColor:[UIColor colorWithHexString:@"#333333"]];
+        UILabel *titLab = [[UILabel alloc] init];
+        titLab.frame = CGRectMake(15, 0, 120, self.frame.size.height);
+        titLab.font = [UIFont systemFontOfSize:15.f];
+        [titLab setTextColor:[UIColor colorWithHexString:@"#333333"]];
+        titLab.text = @"添加更多信息";
+        self.label = titLab;
         [self addSubview:self.label];
         
         UIButton *delBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        delBtn.titleLabel.font = Font_12;
-        delBtn.backgroundColor = [UIColor colorWithHexString:@"#00c8aa"];
+//        delBtn.titleLabel.font = Font_12;
+//        delBtn.backgroundColor = [UIColor colorWithHexString:@"#00c8aa"];
         delBtn.frame = CGRectMake(kMainScreenWidth - 55.f, 10.f, 40 , 25);
-        [delBtn setTitle:@"删除" forState:0];
-        delBtn.layer.masksToBounds = YES;
-        delBtn.layer.cornerRadius = 5.f;
+//        [delBtn setTitle:@"删除" forState:0];
+        [delBtn setImage:[UIImage imageNamed:@"mine_guanbi"] forState:0];
+//        [delBtn setBackgroundImage:[UIImage imageNamed:@"mine_guanbi"] forState:0];
+//        delBtn.layer.masksToBounds = YES;
+//        delBtn.layer.cornerRadius = 5.f;
         [delBtn addTarget:self action:@selector(deleteEventRespose:) forControlEvents:UIControlEventTouchUpInside];
         _delBtn = delBtn;
         [self addSubview:_delBtn];

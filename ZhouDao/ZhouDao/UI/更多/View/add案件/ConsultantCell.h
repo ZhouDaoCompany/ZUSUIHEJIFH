@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CaseTextField.h"
 
 @interface ConsultantCell : UITableViewCell
 @property (nonatomic, strong) UILabel *titleLab;
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) CaseTextField *textField;
 @property (nonatomic, strong) UILabel *deviceLabel;
-@property (nonatomic, strong) UIImageView *imgview1;
+@property (nonatomic, strong) UIImageView *arrowImg;
 
 @property (nonatomic, assign) NSInteger rowIndex;
 @property (nonatomic, assign) NSInteger sectionIndex;

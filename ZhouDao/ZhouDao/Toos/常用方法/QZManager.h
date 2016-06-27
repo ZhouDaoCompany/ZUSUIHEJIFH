@@ -35,6 +35,8 @@ singleton_for_header(QZManager)
  */
 + (BOOL)isPureInt:(NSString*)string;
 
+#pragma mark - 系统转json
+
 #pragma mark - 判断是否为真实手机号码
 /**
  *  判断是否为真实手机号码

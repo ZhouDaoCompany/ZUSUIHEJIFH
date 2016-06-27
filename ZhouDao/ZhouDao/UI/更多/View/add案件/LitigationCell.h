@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CaseTextField.h"
 
 @interface LitigationCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *titleLab;
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) CaseTextField *textField;
 @property (nonatomic, strong) UILabel *deviceLabel;
 @property (nonatomic, strong) UIImageView *imgview1;
 

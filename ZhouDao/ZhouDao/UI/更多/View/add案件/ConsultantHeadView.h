@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) UILabel *label;
 @property (strong, nonatomic) UIButton *delBtn;
+
 @property (weak, nonatomic) id<ConsultantHeadViewPro> delegate;
 -(void)setLabelText:(NSString *)text;
 - (id)initWithFrame:(CGRect)frame withSection:(NSInteger)section;

@@ -256,6 +256,8 @@
 		188F9E3A1CF81AB7000F9B2D /* laws_lawsSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E391CF81AB7000F9B2D /* laws_lawsSearch@2x.png */; };
 		188F9E3C1CF81B14000F9B2D /* laws_GovSearch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E3B1CF81B14000F9B2D /* laws_GovSearch.jpg */; };
 		188F9E491CF82077000F9B2D /* SCIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F9E481CF82077000F9B2D /* SCIntroView.m */; };
+		189AB24F1D20C1190032F580 /* CaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 189AB24E1D20C1190032F580 /* CaseTextField.m */; };
+		189AB2591D20CE020032F580 /* RemarkTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 189AB2571D20CE020032F580 /* RemarkTabCell.m */; };
 		189B78561C8572D30022BCEA /* picker_alert_sigh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189B78551C8572D30022BCEA /* picker_alert_sigh@2x.png */; };
 		18A4284F1CC0C8F100CEB30E /* DateTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A4284E1CC0C8F100CEB30E /* DateTimeView.m */; };
 		18A428521CC0D19100CEB30E /* AccusingTheCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A428511CC0D19100CEB30E /* AccusingTheCell.m */; };
@@ -844,6 +846,10 @@
 		188F9E3B1CF81B14000F9B2D /* laws_GovSearch.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = laws_GovSearch.jpg; sourceTree = "<group>"; };
 		188F9E471CF82077000F9B2D /* SCIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCIntroView.h; sourceTree = "<group>"; };
 		188F9E481CF82077000F9B2D /* SCIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCIntroView.m; sourceTree = "<group>"; };
+		189AB24D1D20C1190032F580 /* CaseTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseTextField.h; sourceTree = "<group>"; };
+		189AB24E1D20C1190032F580 /* CaseTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseTextField.m; sourceTree = "<group>"; };
+		189AB2561D20CE020032F580 /* RemarkTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemarkTabCell.h; sourceTree = "<group>"; };
+		189AB2571D20CE020032F580 /* RemarkTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemarkTabCell.m; sourceTree = "<group>"; };
 		189B78551C8572D30022BCEA /* picker_alert_sigh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "picker_alert_sigh@2x.png"; sourceTree = "<group>"; };
 		18A4284D1CC0C8F100CEB30E /* DateTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTimeView.h; sourceTree = "<group>"; };
 		18A4284E1CC0C8F100CEB30E /* DateTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimeView.m; sourceTree = "<group>"; };
@@ -1962,8 +1968,12 @@
 			children = (
 				10A0313E1D1FE2AF00D31935 /* ConsultantHeadView.h */,
 				10A0313F1D1FE2AF00D31935 /* ConsultantHeadView.m */,
+				189AB24D1D20C1190032F580 /* CaseTextField.h */,
+				189AB24E1D20C1190032F580 /* CaseTextField.m */,
 				1817D29B1CC089C400FF6EEE /* LitigationCell.h */,
 				1817D29C1CC089C400FF6EEE /* LitigationCell.m */,
+				189AB2561D20CE020032F580 /* RemarkTabCell.h */,
+				189AB2571D20CE020032F580 /* RemarkTabCell.m */,
 				18A428501CC0D19100CEB30E /* AccusingTheCell.h */,
 				18A428511CC0D19100CEB30E /* AccusingTheCell.m */,
 				18AF33F21CC0DFD30063485E /* ConsultantCell.h */,
@@ -3414,6 +3424,7 @@
 				1041575D1C9470A500EE5303 /* MyCollectionVC.m in Sources */,
 				1829BA761CE2F58700F0143F /* ExampleData.m in Sources */,
 				18FF3F5A1C852E820098C60B /* UIView+WhenTappedBlocks.m in Sources */,
+				189AB2591D20CE020032F580 /* RemarkTabCell.m in Sources */,
 				183498571CE03694009707E2 /* LawsDataModel.m in Sources */,
 				10172BE01CBBF16C00B7553E /* KxMenu.m in Sources */,
 				18AD6AAE1CD99D500053F46B /* TheContractData.m in Sources */,
@@ -3547,6 +3558,7 @@
 				10580FFC1D08468000973E03 /* DriveNaviViewController.m in Sources */,
 				104304971CA515CA009D7072 /* FGGDownloadManager.m in Sources */,
 				10A031401D1FE2AF00D31935 /* ConsultantHeadView.m in Sources */,
+				189AB24F1D20C1190032F580 /* CaseTextField.m in Sources */,
 				10DA75DD1CA7AD6000B00A53 /* UIImage+ImageEffects.m in Sources */,
 				10C019431CE4CA5A0058586A /* ShareView.m in Sources */,
 				10241A131CB9F36D000CBEAE /* CompensationVC.m in Sources */,

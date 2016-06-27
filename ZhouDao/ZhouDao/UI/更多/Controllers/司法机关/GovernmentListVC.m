@@ -92,6 +92,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
                         weakSelf.twoCurrent = idx +1;
                         weakSelf.city = [PublicFunction ShareInstance].locDistrict;
                         *stop = YES;
+                        return ;
                     }
                 }];
             }
@@ -108,6 +109,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
                         weakSelf.twoData1SelectedIndex = cityIdx;
                         weakSelf.city = [PublicFunction ShareInstance].locCity;
                         *stop = YES;
+                        return ;
                     }
                 }];
             }

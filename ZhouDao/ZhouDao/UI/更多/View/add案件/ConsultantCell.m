@@ -29,7 +29,7 @@
         [self.contentView addSubview:self.deviceLabel];
         
         
-        self.textField = [[UITextField alloc] init];
+        self.textField = [[CaseTextField alloc] init];
         self.textField.backgroundColor = [UIColor clearColor];
         self.textField.borderStyle = UITextBorderStyleNone;
         self.textField.textAlignment = NSTextAlignmentRight;
@@ -40,10 +40,10 @@
         lineView.backgroundColor = lineColor;
         [self.contentView addSubview:lineView];
         
-        _imgview1 = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth-21, 20, 6, 10)];
-        _imgview1.image = [UIImage imageNamed:@"Esearch-jiantou"];
-        _imgview1.userInteractionEnabled = YES;
-        [self.contentView addSubview:_imgview1];
+        _arrowImg = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth-21, 20, 6, 10)];
+        _arrowImg.image = [UIImage imageNamed:@"Esearch_jiantou"];
+        _arrowImg.userInteractionEnabled = YES;
+        [self.contentView addSubview:_arrowImg];
         
     }
     return self;
@@ -56,18 +56,22 @@
     if ((_sectionIndex ==0 && _rowIndex == 1) || (_sectionIndex ==0 && _rowIndex == 2))
     {
         _deviceLabel.hidden = NO;
-        _imgview1.hidden = NO;
+        _arrowImg.hidden = NO;
         _textField.hidden = YES;
         _deviceLabel.frame = CGRectMake(kMainScreenWidth - 175.f, 10, 150, 30);
-    }else if (_sectionIndex == 0 && _rowIndex == 3){
-        _deviceLabel.hidden = YES;
-        _imgview1.hidden = YES;
-        _textField.hidden = YES;
     }else{
+        
         _deviceLabel.hidden = YES;
-        _imgview1.hidden = YES;
+        _arrowImg.hidden = YES;
         _textField.hidden = NO;
         _textField.frame = CGRectMake(kMainScreenWidth - 151.f, 10, 130, 30);
+        [_textField setValue:Font_12 forKeyPath:@"_placeholderLabel.font"];
+        if ([QZManager isString:_titleLab.text withContainsStr:@"电话"]) {
+            _textField.keyboardType = UIKeyboardTypeNumberPad;
+        }else{
+            _textField.keyboardType = UIKeyboardTypeDefault;
+        }
+
     }
     
     

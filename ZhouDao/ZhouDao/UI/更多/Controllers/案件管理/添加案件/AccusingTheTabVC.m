@@ -9,10 +9,12 @@
 #import "AccusingTheTabVC.h"
 #import "AccusingTheCell.h"
 #import "ZHPickView.h"
+#import "RemarkTabCell.h"
 
 static NSString *const AccusingTheIDENTIFER = @"AccusingTheIDENTIFER";
+static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
 
-@interface AccusingTheTabVC ()<UITextFieldDelegate>
+@interface AccusingTheTabVC ()<UITextFieldDelegate,UITextViewDelegate>
 {
     UITapGestureRecognizer * _tapGesture;
     NSString *_thytake_time;//收案时间
@@ -20,7 +22,6 @@ static NSString *const AccusingTheIDENTIFER = @"AccusingTheIDENTIFER";
 }
 @property (strong, nonatomic) NSMutableArray *titleArrays;//标题
 @property (strong, nonatomic) NSMutableArray *textArr;//内容
-@property (strong, nonatomic) NSMutableArray *placeHoldArr;
 
 @end
 
@@ -32,8 +33,9 @@ static NSString *const AccusingTheIDENTIFER = @"AccusingTheIDENTIFER";
     [self initUI];
 }
 - (void)initUI{
-    _placeHoldArr = [NSMutableArray arrayWithObjects:@"请输入案件名称",@"请输入委托人",@"请输入委托人电话",@"请输入委托人邮箱",@"请输入委托人地址",@"",@"",@"请输入结案形式", nil];
-    _titleArrays = [NSMutableArray arrayWithObjects:@"案件名称",@"委托人",@"委托人联系电话",@"委托人联系邮箱",@"委托人联系地址",@"收案日期",@"结案日期",@"结案形式", nil];
+    
+    _titleArrays = [NSMutableArray arrayWithObjects:@"案件号",@"案件名称",@"委托人",@"委托人联系电话",@"委托人联系邮箱",@"委托人联系地址",@"收案日期",@"结案日期",@"备注", nil];
+    
     if (_accType == AccFromManager) {
     
         _textArr = [NSMutableArray array];
@@ -42,10 +44,9 @@ static NSString *const AccusingTheIDENTIFER = @"AccusingTheIDENTIFER";
         }];
         
     }else{
-        _textArr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"",@"", nil];
+        _textArr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"",nil];
     }
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self.tableView registerClass:[AccusingTheCell class] forCellReuseIdentifier:AccusingTheIDENTIFER];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
 
     UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 108)];
@@ -79,28 +80,38 @@ static NSString *const AccusingTheIDENTIFER = @"AccusingTheIDENTIFER";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
+    if (indexPath.row == _titleArrays.count - 1) {
+        [self.tableView registerClass:[RemarkTabCell class] forCellReuseIdentifier:ACCNOTEIDENTIFER];
+        RemarkTabCell *cell = (RemarkTabCell *)[tableView dequeueReusableCellWithIdentifier:ACCNOTEIDENTIFER forIndexPath:indexPath];
+        return cell;
+
+    }
+    
+    [self.tableView registerClass:[AccusingTheCell class] forCellReuseIdentifier:AccusingTheIDENTIFER];
     AccusingTheCell *cell = (AccusingTheCell *)[tableView dequeueReusableCellWithIdentifier:AccusingTheIDENTIFER];
     
     return cell;
+
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == _titleArrays.count - 1) {
+        return 115.f;
+    }
     return 50.f;
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSUInteger row = indexPath.row;
+
     if ([cell isKindOfClass:[AccusingTheCell class]])
     {
         AccusingTheCell *aCell = (AccusingTheCell *)cell;
-        NSUInteger row = indexPath.row;
         aCell.rowIndex = row;
         aCell.textField.tag = 7000+row;
+        aCell.titleLab.text = _titleArrays[row];
         
-        if (_titleArrays.count >0) {
-            aCell.titleLab.text = _titleArrays[row];
-        }
-        
-        if (row == 5 || row == 6)
+        if (row == 6 || row == 7)
         {
             if (_textArr.count >0) {
                 aCell.deviceLabel.text = _textArr[row];
@@ -108,15 +119,24 @@ static NSString *const AccusingTheIDENTIFER = @"AccusingTheIDENTIFER";
             
         }else{
             aCell.textField.delegate = self;
-            aCell.textField.placeholder = _placeHoldArr[row];
-            [[NSNotificationCenter defaultCenter] addObserver:self
-                                                     selector:@selector(textFieldChanged:)
-                                                         name:UITextFieldTextDidChangeNotification
-                                                       object:aCell.textField];
-            if (_textArr.count >0) {
-                aCell.textField.text = _textArr[row];
-            }
+            aCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_titleArrays[row]];
+            [GcNoticeUtil handleNotification:UITextFieldTextDidChangeNotification Selector:@selector(textFieldChanged:) Observer:self Object:aCell.textField];
+            aCell.textField.text = _textArr[row];
         }
+        
+    }else if ([cell isKindOfClass:[RemarkTabCell class]]){
+        
+        RemarkTabCell *rCell = (RemarkTabCell *)cell;
+        rCell.textView.delegate = self;
+        rCell.textView.text = _textArr[row];
+        rCell.textView.tag = row +7000;
+        if (rCell.textView.text.length >0) {
+            rCell.placeHoldlab.text = @"";
+        }else {
+            rCell.placeHoldlab.text = @" 请您输入备注";
+        }
+        rCell.placeHoldlab.tag = 8887;
+
     }
 }
 
@@ -125,22 +145,6 @@ static NSString *const AccusingTheIDENTIFER = @"AccusingTheIDENTIFER";
     NSUInteger row = indexPath.row;
     WEAKSELF;
     switch (row) {
-        case 5:
-        {
-            UIWindow *windows = [QZManager getWindow];
-            ZHPickView *pickView = [[ZHPickView alloc] init];
-            [pickView setDateViewWithTitle:@"选择时间"];
-            [pickView showWindowPickView:windows];
-            pickView.alertBlock = ^(NSString *selectedStr)
-            {
-                _thytake_time = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
-                [weakSelf.textArr replaceObjectAtIndex:5 withObject:selectedStr];
-                [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:5 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
-            };
-            
-            
-        }
-            break;
         case 6:
         {
             UIWindow *windows = [QZManager getWindow];
@@ -149,9 +153,24 @@ static NSString *const AccusingTheIDENTIFER = @"AccusingTheIDENTIFER";
             [pickView showWindowPickView:windows];
             pickView.alertBlock = ^(NSString *selectedStr)
             {
-                _thyend_time = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
+                _thytake_time = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                 [weakSelf.textArr replaceObjectAtIndex:6 withObject:selectedStr];
                 [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:6 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
+            };
+            
+        }
+            break;
+        case 7:
+        {
+            UIWindow *windows = [QZManager getWindow];
+            ZHPickView *pickView = [[ZHPickView alloc] init];
+            [pickView setDateViewWithTitle:@"选择时间"];
+            [pickView showWindowPickView:windows];
+            pickView.alertBlock = ^(NSString *selectedStr)
+            {
+                _thyend_time = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
+                [weakSelf.textArr replaceObjectAtIndex:7 withObject:selectedStr];
+                [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:7 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
             };
             
             
@@ -170,51 +189,81 @@ static NSString *const AccusingTheIDENTIFER = @"AccusingTheIDENTIFER";
 - (void)textFieldChanged:(NSNotification*)noti{
     
     UITextField *textField = (UITextField *)noti.object;
-    
     BOOL flag=[NSString isContainsTwoEmoji:textField.text];
     if (flag){
         textField.text = [NSString disable_emoji:textField.text];
     }
-    
     NSUInteger tag = textField.tag;
-    
     [_textArr replaceObjectAtIndex:tag-7000 withObject:textField.text];
     
 }
+#pragma mark - UITextViewDelegate
+- (void)textViewDidChange:(UITextView *)textView
+{
+    UILabel *placeHoldlab = (UILabel *)[self.view viewWithTag:8887];
+    if (textView.text.length >0) {
+        placeHoldlab.text = @"";
+    }else {
+        placeHoldlab.text = @" 请您输入备注";
+    }
+    
+    BOOL flag=[NSString isContainsTwoEmoji:textView.text];
+    if (flag){
+        textView.text = [NSString disable_emoji:textView.text];
+    }
+    
+    NSInteger row = textView.tag - 7000;
+    [_textArr replaceObjectAtIndex:row withObject:textView.text];
+}
+
+
 #pragma mark -UIButtonEvent
 - (void)commitEvent:(id)sender
 {WEAKSELF;
     DLog(@"提交");
     
-    __block NSArray *paraArrays = [NSArray arrayWithObjects:@"name",@"client",@"client_phone",@"client_mail",@"client_address",@"thytake_time",@"thyend_time",@"thyend_shape", nil];
+    __block NSArray *paraArrays = [NSArray arrayWithObjects:@"number",@"name",@"client",@"client_phone",@"client_mail",@"client_address",@"thytake_time",@"thyend_time",@"remarks", nil];
    __block NSMutableDictionary *msgDic = [[NSMutableDictionary alloc] init];
     [msgDic setObjectWithNullValidate:GET(UID) forKey:@"uid"];
     [msgDic setObjectWithNullValidate:GET(@"2") forKey:@"type"];
 
+    __block BOOL _isReturn;
+
     [_textArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (idx == 0) {
+        if (idx == 1) {
             if (obj.length == 0) {
                 [JKPromptView showWithImageName:nil message:@"请您填写案件名称"];
+                _isReturn = YES;
+                *stop = YES;
                 return ;
             }
             [msgDic setObjectWithNullValidate:GET(obj) forKey:@"name"];
-        }else if (idx == 5){
-            if (obj.length == 0) {
-                [JKPromptView showWithImageName:nil message:@"请您选择收案日期"];
-                return ;
-            }
-            [msgDic setObjectWithNullValidate:GET(_thytake_time) forKey:@"start_time"];
-            [msgDic setObjectWithNullValidate:GET(_thytake_time) forKey:@"thytake_time"];
-        }else if (idx == 6){
-            [msgDic setObjectWithNullValidate:GET(_thyend_time) forKey:@"end_time"];
-            [msgDic setObjectWithNullValidate:GET(_thyend_time) forKey:@"thyend_time"];
-
-            (_thyend_time.length == 0)?[msgDic setObjectWithNullValidate:@"1" forKey:@"state"]:(([QZManager compareOneDay:[NSDate date] withAnotherDay:[QZManager timeStampChangeNSDate:[_thyend_time doubleValue]] withDateFormat:@"yyyy-MM-dd"] ==1)?[msgDic setObjectWithNullValidate:@"2" forKey:@"state"]:[msgDic setObjectWithNullValidate:@"1" forKey:@"state"]);
-        }else{
-            NSString *keyStr = paraArrays[idx];
-            [msgDic setObjectWithNullValidate:GET(obj) forKey:keyStr];
         }
+//        else if (idx == 6){
+//            if (obj.length == 0) {
+//                [JKPromptView showWithImageName:nil message:@"请您选择收案日期"];
+//                return ;
+//            }
+//            [msgDic setObjectWithNullValidate:GET(_thytake_time) forKey:@"start_time"];
+//            [msgDic setObjectWithNullValidate:GET(_thytake_time) forKey:@"thytake_time"];
+//        }else if (idx == 7){
+//            [msgDic setObjectWithNullValidate:GET(_thyend_time) forKey:@"end_time"];
+//            [msgDic setObjectWithNullValidate:GET(_thyend_time) forKey:@"thyend_time"];
+//
+//            (_thyend_time.length == 0)?[msgDic setObjectWithNullValidate:@"1" forKey:@"state"]:(([QZManager compareOneDay:[NSDate date] withAnotherDay:[QZManager timeStampChangeNSDate:[_thyend_time doubleValue]] withDateFormat:@"yyyy-MM-dd"] ==1)?[msgDic setObjectWithNullValidate:@"2" forKey:@"state"]:[msgDic setObjectWithNullValidate:@"1" forKey:@"state"]);
+//            
+//        }else{
+//            NSString *keyStr = paraArrays[idx];
+//            [msgDic setObjectWithNullValidate:GET(obj) forKey:keyStr];
+//        }
+        
+        NSString *keyStr = paraArrays[idx];
+        [msgDic setObjectWithNullValidate:GET(obj) forKey:keyStr];
+
     }];
+    if (_isReturn == YES) {
+        return;
+    }
 
     if (_accType == AccFromManager) {
         [msgDic setObjectWithNullValidate:_caseId forKey:@"id"];

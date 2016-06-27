@@ -28,8 +28,7 @@
         self.deviceLabel.textColor = [UIColor blackColor];
         [self.contentView addSubview:self.deviceLabel];
         
-        
-        self.textField = [[UITextField alloc] init];
+        self.textField = [[CaseTextField alloc] init];
         self.textField.backgroundColor = [UIColor clearColor];
         self.textField.borderStyle = UITextBorderStyleNone;
         self.textField.textAlignment = NSTextAlignmentRight;
@@ -78,7 +77,7 @@
         }
     }else{
         
-        if ([_titleLab.text isEqualToString:@"审理类别"] || [_titleLab.text isEqualToString:@"仲裁结果"]) {
+        if ([_titleLab.text isEqualToString:@"审理类别"] || [_titleLab.text isEqualToString:@"仲裁结果"] || [_titleLab.text isEqualToString:@"审判结果"]) {
             _deviceLabel.hidden = NO;
             _imgview1.hidden = NO;
             _textField.hidden = YES;
@@ -95,7 +94,6 @@
             }else{
                 _textField.keyboardType = UIKeyboardTypeDefault;
             }
-            
         }
         
     }

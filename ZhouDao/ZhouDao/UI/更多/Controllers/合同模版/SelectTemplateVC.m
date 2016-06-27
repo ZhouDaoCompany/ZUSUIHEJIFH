@@ -80,6 +80,7 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
         if ([weakSelf.cidString isEqualToString:obj]) {
             _classCurrent = idx;
             *stop = YES;
+            return ;
         }
     }];
     //默认选中
