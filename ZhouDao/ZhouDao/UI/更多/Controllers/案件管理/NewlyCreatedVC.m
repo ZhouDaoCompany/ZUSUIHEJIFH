@@ -50,6 +50,7 @@
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification
                                                object:_nameTextField];
+    
     /**
      内容
      */

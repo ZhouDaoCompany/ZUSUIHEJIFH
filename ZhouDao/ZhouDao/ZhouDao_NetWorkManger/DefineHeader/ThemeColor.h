@@ -26,3 +26,5 @@
 //view背景色
 #define ViewBackColor                [UIColor colorWithHexString:@"#F2F2F2"]
 
+//边框颜色
+#define ABORDERColor                [UIColor colorWithHexString:@"#EEEEEE"]

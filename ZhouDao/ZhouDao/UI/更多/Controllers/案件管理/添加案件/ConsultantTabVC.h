@@ -13,6 +13,9 @@ typedef NS_ENUM(NSInteger, ConsultantType)
 };
 
 #import <UIKit/UIKit.h>
+#import "MoreModel.h"
+#import "BasicModel.h"
+
 /*
  法律顾问
  */
@@ -20,8 +23,11 @@ typedef NS_ENUM(NSInteger, ConsultantType)
 @interface ConsultantTabVC : UITableViewController
 
 @property (nonatomic, assign) ConsultantType ConType;
-@property (nonatomic, strong) NSMutableArray *msgArr;
+@property (nonatomic, strong) NSMutableArray *moreArr;
+@property (nonatomic, strong) BasicModel *basicModel;
+
 @property (nonatomic, strong) NSString *caseId;
-@property (nonatomic, copy) ZDMutableArrayBlock editSuccess;
+@property (nonatomic, copy) ZDStringBlock editSuccess;
+@property (nonatomic, assign) BOOL isEdit;//是否可编辑
 
 @end

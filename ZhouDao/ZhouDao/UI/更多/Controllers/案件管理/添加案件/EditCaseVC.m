@@ -12,6 +12,9 @@
 #import "ConsultantTabVC.h"// 法律顾问
 
 @interface EditCaseVC ()
+{
+    BOOL _isEdit;
+}
 
 @end
 
@@ -27,15 +30,22 @@
 {WEAKSELF;
     [self setupNaviBarWithTitle:@"案件编辑"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
+    
+//    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"case_edit"];
+    [self setupNaviBarWithBtn:NaviRightBtn title:@"编辑" img:nil];
+
     self.fd_interactivePopDisabled = YES;//禁止滑回
 
     if (_editType == EditAccusing) {
         //非讼业务
         AccusingTheTabVC *accusingVC = [AccusingTheTabVC new];
         accusingVC.accType = AccFromManager;
-        accusingVC.msgArr = _msgArrays;
-        accusingVC.editSuccess = ^(NSMutableArray *arr){
-            weakSelf.editSuccess(arr);
+        
+        NSArray *detailArr = _dataDict[@"detailed"];
+        accusingVC.basicModel = [[BasicModel alloc] initWithDictionary:detailArr[0]];
+        
+        accusingVC.editSuccess = ^(NSString *name){
+            weakSelf.editSuccess(name);
         };
         accusingVC.caseId = _caseId;
         [self addChildViewController:accusingVC];
@@ -43,34 +53,46 @@
         //法律顾问
         ConsultantTabVC *conVC = [ConsultantTabVC new];
         conVC.ConType = ConFromManager;
-        conVC.editSuccess = ^(NSMutableArray *arr){
-            weakSelf.editSuccess(arr);
+        
+        NSArray *arr = _dataDict[@"more"];
+        NSMutableArray *moreArr = [NSMutableArray array];
+        [arr enumerateObjectsUsingBlock:^(NSDictionary *objDic, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            MoreModel *moreModel = [[MoreModel alloc] initWithDictionary:objDic];
+            [moreArr addObject:moreModel];
+        }];
+        
+        conVC.moreArr = moreArr;
+        NSArray *detailArr = _dataDict[@"detailed"];
+        conVC.basicModel = [[BasicModel alloc] initWithDictionary:detailArr[0]];
+
+        
+        conVC.editSuccess = ^(NSString *name){
+            weakSelf.editSuccess(name);
         };
-        conVC.msgArr = _msgArrays;
         conVC.caseId = _caseId;
         [self addChildViewController:conVC];
     }else{
         //诉讼业务
         LitigationTabVC *litigationVC = [LitigationTabVC new];
-        litigationVC.litEditType = LitiEdit;
-//        litigationVC.caseId = _caseId;
-//        litigationVC.editSuccess = ^(NSMutableArray *arr){
-//            weakSelf.editSuccess(arr);
-//        };
-        NSMutableArray *tempArr = [NSMutableArray array];
-        [tempArr addObject:_msgArrays[0]];
-        [tempArr addObject:_msgArrays[2]];
-        [tempArr addObject:_msgArrays[3]];
-        [tempArr addObject:_msgArrays[5]];
-        [tempArr addObject:_msgArrays[4]];
-        [tempArr addObject:_msgArrays[1]];
+        litigationVC.litEditType = LitiDetails;
+        litigationVC.caseId = _caseId;
+//        litigationVC.moreModel = _dataDict[@"more"];
         
-        for (NSUInteger i=6; i<_msgArrays.count; i++) {
-            NSString *obj = _msgArrays[i];
-            [tempArr addObject:obj];
-        }
-
-//        litigationVC.msgArr = tempArr;
+        NSArray *arr = _dataDict[@"more"];
+        NSMutableArray *moreArr = [NSMutableArray array];
+        [arr enumerateObjectsUsingBlock:^(NSDictionary *objDic, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            MoreModel *moreModel = [[MoreModel alloc] initWithDictionary:objDic];
+            [moreArr addObject:moreModel];
+        }];
+        
+        litigationVC.editSuccess = ^(NSString *name){
+            weakSelf.editSuccess(name);
+        };
+        litigationVC.moreArr = moreArr;
+        NSArray *detailArr = _dataDict[@"detailed"];
+        litigationVC.basicModel = [[BasicModel alloc] initWithDictionary:detailArr[0]];
         [self addChildViewController:litigationVC];
     }
     
@@ -78,6 +100,32 @@
     tableVC.view.frame = CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64.f);
     [self.view addSubview:tableVC.view];
 
+}
+- (void)rightBtnAction
+{
+    _isEdit = !_isEdit;
+    
+    if (_isEdit == YES) {
+        [self.rightBtn setTitle:@"完成" forState:0];
+    }else {
+        [self.rightBtn setTitle:@"编辑" forState:0];
+    }
+    
+    if (_editType == EditAccusing) {
+        
+        AccusingTheTabVC *vc = (AccusingTheTabVC *)[self.childViewControllers firstObject];
+        vc.isEdit = _isEdit;
+        
+    }else if(_editType == EditConsultant){
+        
+        ConsultantTabVC *vc = (ConsultantTabVC *)[self.childViewControllers firstObject];
+        vc.isEdit = _isEdit;
+
+    }else{
+        LitigationTabVC *vc = (LitigationTabVC *)[self.childViewControllers firstObject];
+        vc.isEdit = _isEdit;
+    }
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

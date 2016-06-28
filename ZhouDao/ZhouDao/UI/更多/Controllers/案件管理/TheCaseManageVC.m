@@ -203,7 +203,6 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
             [weakSelf initSearchView];
             [weakSelf.collectionView reloadData];
         }];
-
     }
 }
 #pragma mark - UICollectionViewDataSource
@@ -242,17 +241,13 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
     }else{
         count = 1;
     }
-    WEAKSELF;
-    [SVProgressHUD dismiss];
-    [NetWorkMangerTools arrangeInfoWithIdString:model.id RequestSuccess:^(NSMutableArray *obj) {
-        
-        TheCaseDetailVC *vc = [TheCaseDetailVC new];
-        vc.caseId = model.id;
-        vc.type = count;
-        vc.msgArrays  = obj;
-        [weakSelf.navigationController  pushViewController:vc animated:YES];
-    }];
-     //    DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",section,row);
+    
+    TheCaseDetailVC *vc = [TheCaseDetailVC new];
+    vc.caseId = model.id;
+    vc.type = count;
+    vc.caseName = model.name;
+    [self.navigationController  pushViewController:vc animated:YES];
+    
 }
 
 #pragma mark - UICollectionViewDelegateLeftAlignedLayout

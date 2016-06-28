@@ -38,17 +38,22 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
     
     if (_accType == AccFromManager) {
     
-        _textArr = [NSMutableArray array];
-        [_msgArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [_textArr addObject:obj];
-        }];
+        _textArr = [NSMutableArray arrayWithObjects:_basicModel.number,_basicModel.name,_basicModel.client,_basicModel.client_phone,_basicModel.client_mail,_basicModel.client_address,_basicModel.thytake_time,_basicModel.thyend_time,_basicModel.remarks,nil];
         
     }else{
         _textArr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"",nil];
+        self.tableView.tableFooterView = [self creatTabFootView];
     }
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
 
+    
+    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyBoard)];
+    _tapGesture.cancelsTouchesInView = NO;//关键代码
+    [self.tableView addGestureRecognizer:_tapGesture];
+}
+- (UIView *)creatTabFootView{
+    
     UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 108)];
     footView.backgroundColor = ViewBackColor;
     
@@ -61,12 +66,7 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
     commitBtn.layer.cornerRadius = 3.f;
     [commitBtn addTarget:self action:@selector(commitEvent:) forControlEvents:UIControlEventTouchUpInside];
     [footView addSubview:commitBtn];
-    
-    self.tableView.tableFooterView = footView;
-    
-    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyBoard)];
-    _tapGesture.cancelsTouchesInView = NO;//关键代码
-    [self.tableView addGestureRecognizer:_tapGesture];
+    return footView;
 }
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -120,6 +120,13 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
         }else{
             aCell.textField.delegate = self;
             aCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_titleArrays[row]];
+            
+            if (_isEdit == NO && _accType == AccFromManager) {
+                aCell.textField.enabled = NO;
+            }else{
+                aCell.textField.enabled = YES;
+            }
+
             [GcNoticeUtil handleNotification:UITextFieldTextDidChangeNotification Selector:@selector(textFieldChanged:) Observer:self Object:aCell.textField];
             aCell.textField.text = _textArr[row];
         }
@@ -133,15 +140,26 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
         if (rCell.textView.text.length >0) {
             rCell.placeHoldlab.text = @"";
         }else {
-            rCell.placeHoldlab.text = @" 请您输入备注";
+            rCell.placeHoldlab.text = @" 写备注...";
         }
         rCell.placeHoldlab.tag = 8887;
 
+        if (_isEdit == NO && _accType == AccFromManager) {
+            rCell.textView.editable = NO;
+        }else{
+            rCell.textView.editable = YES;
+        }
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (_isEdit == NO && _accType == AccFromManager) {
+        //编辑状态不能修改
+        return;
+    }
+    
     NSUInteger row = indexPath.row;
     WEAKSELF;
     switch (row) {
@@ -204,7 +222,7 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
     if (textView.text.length >0) {
         placeHoldlab.text = @"";
     }else {
-        placeHoldlab.text = @" 请您输入备注";
+        placeHoldlab.text = @" 写备注...";
     }
     
     BOOL flag=[NSString isContainsTwoEmoji:textView.text];
@@ -259,25 +277,39 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
         
         NSString *keyStr = paraArrays[idx];
         [msgDic setObjectWithNullValidate:GET(obj) forKey:keyStr];
-
     }];
     if (_isReturn == YES) {
         return;
     }
 
     if (_accType == AccFromManager) {
+        
         [msgDic setObjectWithNullValidate:_caseId forKey:@"id"];
         [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeEdit] RequestSuccess:^{
-            weakSelf.editSuccess(weakSelf.textArr);
+            
+            weakSelf.editSuccess(msgDic[@"name"]);
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
 
     }else{
         [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeAdd] RequestSuccess:^{
+            
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
     }
 }
+- (void)setIsEdit:(BOOL)isEdit
+{
+    _isEdit = isEdit;
+    
+    if (_isEdit == YES) {
+        self.tableView.tableFooterView = [self creatTabFootView];
+        [self.tableView reloadData];
+    }else {
+        [self commitEvent:nil];
+    }
+}
+
 #pragma mark -手势
 - (void)dismissKeyBoard{
     [self.view endEditing:YES];

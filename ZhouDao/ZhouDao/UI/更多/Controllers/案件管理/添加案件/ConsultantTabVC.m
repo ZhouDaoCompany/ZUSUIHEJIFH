@@ -41,26 +41,31 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
 
    _basicTitleArrays = [NSMutableArray arrayWithObjects:@"委托人/公司",@"合同起始时间",@"合同到期时间",@"联系人",@"联系人电话",@"联系人邮箱", nil];
     _moreTilArr = [NSMutableArray arrayWithObjects:@"法定代表人",@"公司地址",@"主营业务",@"股东情况",@"", nil];
-    _textBasiArr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
-    _textConArr = [NSMutableArray array];
     
-    if (_ConType == ConFromManager) {
-//        NSMutableArray *oneTextArr = [NSMutableArray array];
-//        NSMutableArray *twoTextArr = [NSMutableArray array];
-//        [_msgArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            if (idx >0) {
-//                (idx <5)?[oneTextArr addObject:obj]:[twoTextArr addObject:obj];
-//            }
-//        }];
-//        _textArr = [NSMutableArray arrayWithObjects:oneTextArr,twoTextArr, nil];
-
-    }else{
-        
-    }
-
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
-    self.tableView.tableFooterView = [self creatTabFootView];;
+    
+    if (_ConType == ConFromManager) {
+        WEAKSELF;
+        _textConArr  = [NSMutableArray array];
+        _textBasiArr = [NSMutableArray array];
+        
+        [_moreArr enumerateObjectsUsingBlock:^(MoreModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            [weakSelf.textConArr addObject:model.content];
+        }];
+        
+        NSString *sign_time = [QZManager changeTimeMethods:[_basicModel.sign_time doubleValue] withType:@"yyyy-MM-dd"];
+        NSString *sign_endtime = [QZManager changeTimeMethods:[_basicModel.sign_endtime doubleValue] withType:@"yyyy-MM-dd"];
+
+        _textBasiArr = [NSMutableArray arrayWithObjects:_basicModel.client,sign_time,sign_endtime,_basicModel.contacts,_basicModel.phone,_basicModel.mail, nil];
+        
+    }else{
+        _textBasiArr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
+        _textConArr = [NSMutableArray array];
+        self.tableView.tableFooterView = [self creatTabFootView];;
+    }
+
     
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyBoard)];
     _tapGesture.cancelsTouchesInView = NO;//关键代码
@@ -82,8 +87,14 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
 //    cancelBtn.layer.masksToBounds = YES;
 //    cancelBtn.layer.cornerRadius = 5.f;
     [cancelBtn addTarget:self action:@selector(addMoreMsgEvent:) forControlEvents:UIControlEventTouchUpInside];
+    if (_ConType == ConFromManager && _isEdit == YES && _textConArr.count >0) {
+    
+        cancelBtn.backgroundColor = [UIColor colorWithHexString:@"#B7B7B7"];
+        cancelBtn.enabled = NO;
+    }
     _cancelBtn = cancelBtn;
     [botomView addSubview:cancelBtn];
+    
     
     UIButton *sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     sureBtn.backgroundColor = [UIColor colorWithHexString:@"#00c8aa"];;
@@ -151,6 +162,7 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
             cCell.textField.delegate = self;
             cCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_basicTitleArrays[row]];
             cCell.textField.text = _textBasiArr[row];
+            
 
         }else {
             
@@ -166,6 +178,13 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
             }
         }
         
+        if (_ConType == ConFromManager && _isEdit == NO) {
+            
+            cCell.textField.enabled = NO;
+        }else{
+            cCell.textField.enabled = YES;
+        }
+
         [GcNoticeUtil handleNotification:UITextFieldTextDidChangeNotification Selector:@selector(textFieldChanged:) Observer:self Object:cCell.textField];
 
     }else if ([cell isKindOfClass:[RemarkTabCell class]]){
@@ -179,14 +198,26 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
         if (rCell.textView.text.length >0) {
             rCell.placeHoldlab.text = @"";
         }else {
-            rCell.placeHoldlab.text = @" 请您输入备注";
+            rCell.placeHoldlab.text = @" 写备注...";
         }
-        rCell.placeHoldlab.tag = 8200 + section;
+        if (_ConType == ConFromManager && _isEdit == NO) {
+            rCell.textView.editable = NO;
+        }else{
+            rCell.textView.editable = YES;
+        }
+
+//        rCell.placeHoldlab.tag = 8200 + section;
     }
 
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (_ConType == ConFromManager && _isEdit == NO) {
+        //非编辑状态不能修改
+        return;
+    }
+    
     NSUInteger row = indexPath.row;
     NSUInteger section = indexPath.section;
     WEAKSELF;
@@ -211,8 +242,8 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
         pickView.alertBlock = ^(NSString *selectedStr)
         {
             _end_time = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
-            [weakSelf.textBasiArr replaceObjectAtIndex:1 withObject:selectedStr];
-            [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:1 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
+            [weakSelf.textBasiArr replaceObjectAtIndex:2 withObject:selectedStr];
+            [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:2 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
         };
     }
 }
@@ -220,6 +251,9 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
 {
     ConsultantHeadView *headView = [[ConsultantHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 45.f) withSection:section];
     headView.delBtn.hidden = NO;
+    if (_ConType == ConFromManager && _isEdit == NO) {
+        headView.delBtn.hidden = YES;
+    }
     headView.delegate = self;
     [headView setLabelText:@"添加更多信息"];
     return headView;
@@ -270,13 +304,16 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
 {
     NSInteger section = textView.tag - 5000;
 
-    UILabel *placeHoldlab = (UILabel *)[self.view viewWithTag:8200 + section];
-    
-    if (textView.text.length >0) {
-        placeHoldlab.text = @"";
-    }else {
-        placeHoldlab.text = @" 请您输入备注";
-    }
+    [textView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[UILabel class]]) {
+            UILabel *placeHoldlab = (UILabel *)obj;
+            if (textView.text.length >0) {
+                placeHoldlab.text = @"";
+            }else {
+                placeHoldlab.text = @" 写备注...";
+            }
+        }
+    }];
     BOOL flag=[NSString isContainsTwoEmoji:textView.text];
     if (flag){
         textView.text = [NSString disable_emoji:textView.text];
@@ -337,7 +374,8 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
                 return ;
             }
             [msgDic setObjectWithNullValidate:GET(obj) forKey:@"client"];
-            
+            [msgDic setObjectWithNullValidate:GET(obj) forKey:@"name"];
+
         }else if (idx == 1){
             [msgDic setObjectWithNullValidate:GET(_sign_time) forKey:paraArr[idx]];
         }else if (idx == 2){
@@ -369,89 +407,36 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
     
     [msgDic setObjectWithNullValidate:moreArr forKey:@"more"];
     
-    [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeAdd] RequestSuccess:^{
+    
+    if (_ConType == ConFromManager) {
+        [msgDic setObjectWithNullValidate:_caseId forKey:@"id"];
+        [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeEdit] RequestSuccess:^{
+
+            weakSelf.editSuccess(msgDic[@"client"]);
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
         
-        [weakSelf.navigationController popViewControllerAnimated:YES];
-    }];
-
+    }else{
+        [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeAdd] RequestSuccess:^{
+            
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
+    }
 
 }
-- (void)commitEvent:(id)sender
-{WEAKSELF;
-//    DLog(@"提交");
-//   __block NSMutableDictionary *msgDic = [[NSMutableDictionary alloc] init];
-//    [msgDic setObjectWithNullValidate:GET(UID) forKey:@"uid"];
-//    [msgDic setObjectWithNullValidate:GET(@"3") forKey:@"type"];
-//
-//    NSArray *oneArr = [NSMutableArray arrayWithObjects:@"client",@"sign_time",@"sign_year",@"is_remind", nil];
-//    NSMutableArray *twoArr = [NSMutableArray arrayWithObjects:@"deputy",@"address",@"business",@"partner",@"contacts",@"phone",@"mail", nil];
-//    __block NSMutableArray *paraArr = [NSMutableArray arrayWithObjects:oneArr,twoArr, nil];
-//    
-//    [_textArr enumerateObjectsUsingBlock:^(NSArray *objArr, NSUInteger count, BOOL * _Nonnull stop) {
-//        if (count == 0) {
-//            [objArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                if (idx == 0) {
-//                    if (obj.length == 0) {
-//                        [JKPromptView showWithImageName:nil message:@"请您填写案件名称"];
-//                        return ;
-//                    }
-//                    [msgDic setObjectWithNullValidate:GET(obj) forKey:@"client"];
-//                    [msgDic setObjectWithNullValidate:GET(obj) forKey:@"name"];
-//                }else if (idx == 1){
-//                    if (obj.length == 0) {
-//                        [JKPromptView showWithImageName:nil message:@"请您选择收案日期"];
-//                        return ;
-//                    }
-//                    [msgDic setObjectWithNullValidate:GET(_sign_time) forKey:@"start_time"];
-//                    [msgDic setObjectWithNullValidate:GET(_sign_time) forKey:@"sign_time"];
-//                }else if (idx == 2){
-//                    if (obj.length == 0) {
-//                        [JKPromptView showWithImageName:nil message:@"请您选择合同年限"];
-//                        return ;
-//                    }
-//                    NSString *endString = [weakSelf ConvertTheDate:obj];
-//                    [msgDic setObjectWithNullValidate:obj forKey:@"sign_year"];
-//                    [msgDic setObjectWithNullValidate:GET(endString) forKey:@"end_time"];
-//                    ([QZManager compareOneDay:[NSDate date] withAnotherDay:[QZManager timeStampChangeNSDate:[endString doubleValue]] withDateFormat:@"yyyy-MM-dd"] ==1)?[msgDic setObjectWithNullValidate:@"2" forKey:@"state"]:[msgDic setObjectWithNullValidate:@"1" forKey:@"state"];
-//
-//                }else {
-//                    [msgDic setObjectWithNullValidate:GET(obj) forKey:@"is_remind"];
-//                }
-//            }];
-//        }else{
-//            NSArray *keyArrays = paraArr[count];
-//            [objArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                NSString *keyS = keyArrays[idx];
-//                [msgDic setObjectWithNullValidate:GET(obj) forKey:keyS];
-//            }];
-//        }
-//    }];
-//    
-//    if (_ConType == ConFromManager) {
-//        [msgDic setObjectWithNullValidate:_caseId forKey:@"id"];
-//        [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeEdit] RequestSuccess:^{
-//           __block NSMutableArray *tempArr = [NSMutableArray array];
-//            [weakSelf.textArr enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                [obj enumerateObjectsUsingBlock:^(NSString *str, NSUInteger tidx, BOOL * _Nonnull stop) {
-//                    if (idx == 0 && tidx ==0) {
-//                        [tempArr addObject:str];
-//                        [tempArr addObject:str];
-//                    }else{
-//                        [tempArr addObject:str];
-//                    }
-//                }];
-//            }];
-//            weakSelf.editSuccess(tempArr);
-//            [weakSelf.navigationController popViewControllerAnimated:YES];
-//        }];
-//
-//    }else{
-//        [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeAdd] RequestSuccess:^{
-//            [weakSelf.navigationController popViewControllerAnimated:YES];
-//        }];
-//    }
-//
+
+#pragma mark - 是否编辑
+- (void)setIsEdit:(BOOL)isEdit
+{
+    _isEdit = isEdit;
+    if (_isEdit == YES) {
+        self.tableView.tableFooterView = [self creatTabFootView];
+        [self.tableView reloadData];
+    }else {
+        [self commitConsultantEvent:nil];
+    }
 }
+
 - (NSData *)toJSONData:(id)theData{
     
     NSError *error = nil;

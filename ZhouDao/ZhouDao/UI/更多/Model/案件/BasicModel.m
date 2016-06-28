@@ -31,6 +31,28 @@
 @synthesize state = _state;
 @synthesize type = _type;
 @synthesize uid = _uid;
+
+
+@synthesize number = _number;
+@synthesize client_phone = _client_phone;
+@synthesize client_mail = _client_mail;
+@synthesize client_address = _client_address;
+@synthesize plaintiff = _plaintiff;
+@synthesize defendant = _defendant;
+@synthesize someoneelse = _someoneelse;
+@synthesize client = _client;
+@synthesize thytake_time = _thytake_time;
+
+@synthesize remarks = _remarks;
+@synthesize thyend_time = _thyend_time;
+
+@synthesize contacts = _contacts;
+@synthesize mail = _mail;
+@synthesize phone = _phone;
+@synthesize sign_endtime = _sign_endtime;
+@synthesize sign_time = _sign_time;
+
+
 @synthesize title = _title;
 @synthesize py = _py;
 @synthesize app_icon = _app_icon;
@@ -56,6 +78,28 @@
 		DTAPI_DICT_ASSIGN_STRING(state, @"");
 		DTAPI_DICT_ASSIGN_STRING(type, @"");
 		DTAPI_DICT_ASSIGN_STRING(uid, @"");
+        
+        DTAPI_DICT_ASSIGN_STRING(number, @"");
+        DTAPI_DICT_ASSIGN_STRING(client_phone, @"");
+        DTAPI_DICT_ASSIGN_STRING(client_mail, @"");
+        DTAPI_DICT_ASSIGN_STRING(client_address, @"");
+        DTAPI_DICT_ASSIGN_STRING(plaintiff, @"");
+        DTAPI_DICT_ASSIGN_STRING(defendant, @"");
+        DTAPI_DICT_ASSIGN_STRING(someoneelse, @"");
+        DTAPI_DICT_ASSIGN_STRING(client, @"");
+        DTAPI_DICT_ASSIGN_STRING(thytake_time, @"");
+        DTAPI_DICT_ASSIGN_STRING(client, @"");
+        DTAPI_DICT_ASSIGN_STRING(thytake_time, @"");
+
+        DTAPI_DICT_ASSIGN_STRING(remarks, @"");
+        DTAPI_DICT_ASSIGN_STRING(thyend_time, @"");
+        
+        DTAPI_DICT_ASSIGN_STRING(contacts, @"");
+        DTAPI_DICT_ASSIGN_STRING(mail, @"");
+        DTAPI_DICT_ASSIGN_STRING(phone, @"");
+        DTAPI_DICT_ASSIGN_STRING(sign_time, @"");
+        DTAPI_DICT_ASSIGN_STRING(sign_endtime, @"");
+
         DTAPI_DICT_ASSIGN_STRING(title, @"");
         DTAPI_DICT_ASSIGN_STRING(py, @"");
         DTAPI_DICT_ASSIGN_STRING(app_icon, @"");
@@ -94,6 +138,27 @@
     DTAPI_DICT_EXPORT_BASICTYPE(slide_url);
     DTAPI_DICT_EXPORT_BASICTYPE(pic);
     DTAPI_DICT_EXPORT_BASICTYPE(content);
+    DTAPI_DICT_EXPORT_BASICTYPE(client);
+    DTAPI_DICT_EXPORT_BASICTYPE(thytake_time);
+
+
+    DTAPI_DICT_EXPORT_BASICTYPE(remarks);
+    DTAPI_DICT_EXPORT_BASICTYPE(thyend_time);
+
+    
+    DTAPI_DICT_EXPORT_BASICTYPE(contacts);
+    DTAPI_DICT_EXPORT_BASICTYPE(mail);
+    DTAPI_DICT_EXPORT_BASICTYPE(phone);
+    DTAPI_DICT_EXPORT_BASICTYPE(sign_time);
+    DTAPI_DICT_EXPORT_BASICTYPE(sign_endtime);
+    
+    DTAPI_DICT_EXPORT_BASICTYPE(number);
+    DTAPI_DICT_EXPORT_BASICTYPE(client_phone);
+    DTAPI_DICT_EXPORT_BASICTYPE(client_mail);
+    DTAPI_DICT_EXPORT_BASICTYPE(client_address);
+    DTAPI_DICT_EXPORT_BASICTYPE(plaintiff);
+    DTAPI_DICT_EXPORT_BASICTYPE(defendant);
+    DTAPI_DICT_EXPORT_BASICTYPE(someoneelse);
 
     return md;
 }

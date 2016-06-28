@@ -41,11 +41,12 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
 }
 #pragma mark - private methods
 - (void)initUI{
+    WEAKSELF;
     
-    _basiArr = [NSMutableArray arrayWithObjects:@"案件号",@"案件名称",@"委托人",@"-委托人联系电话",@"-委托人联系邮箱", @"-委托人联系地址",@"收案日期",@"原告人/上诉人/公诉机关",@"被告或被上诉人",nil];
-    _textBasiArr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", @"",@"",@"",@"",nil];
-    _contentArr = [NSMutableArray array];
-    _categoryArr = [NSMutableArray array];
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    self.tableView.backgroundColor = [UIColor clearColor];
+
+    _basiArr = [NSMutableArray arrayWithObjects:@"案件号",@"案件名称",@"委托人",@"-委托人联系电话",@"-委托人联系邮箱", @"-委托人联系地址",@"收案日期",@"原告人/上诉人/公诉机关",@"被告/被上诉人",nil];
     _kindsArr = @[@"经济仲裁", @"劳动仲裁",@"一审",@"二审",@"再审",@"执行程序"];
     /**
      *  (1经济仲裁 2劳动仲裁) ,(3一审 4二审), 5再审, 6执行程序
@@ -55,9 +56,25 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     NSArray *arr4 = [NSArray arrayWithObjects:@"审理类别",@"法院名称",@"联系电话",@"联系地址",@"执行法官联系电话",@"书记员联系电话",@"备注", nil];
     _contentTilArr = [NSMutableArray arrayWithObjects:arr1,arr1,arr2,arr2,arr2,arr4, nil];
     
-    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    self.tableView.tableFooterView = [self creatTabFootView];
-    self.tableView.backgroundColor = [UIColor clearColor];
+    if (_litEditType == LitiDetails ) {
+        
+        _textBasiArr = [NSMutableArray arrayWithObjects:_basicModel.number,_basicModel.name,_basicModel.client,_basicModel.client_phone,_basicModel.client_mail, _basicModel.client_address,_basicModel.thytake_time,_basicModel.plaintiff,_basicModel.defendant,nil];
+        _contentArr = [NSMutableArray array];
+        _categoryArr = [NSMutableArray array];
+        [_moreArr enumerateObjectsUsingBlock:^(MoreModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            [weakSelf.categoryArr addObject:model.type];
+            [weakSelf.contentArr addObject:model.content];
+        }];
+
+    }else {
+        
+        _textBasiArr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", @"",@"",@"",@"",nil];
+        _categoryArr = [NSMutableArray array];
+        _contentArr = [NSMutableArray array];
+        self.tableView.tableFooterView = [self creatTabFootView];
+    }
+    
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyBoard)];
     _tapGesture.cancelsTouchesInView = NO;//关键代码
     [self.tableView addGestureRecognizer:_tapGesture];
@@ -168,6 +185,12 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
             }
         }
         
+        if (_litEditType == LitiDetails && _isEdit == NO) {
+            lCell.textField.enabled = NO;
+        }else {
+            lCell.textField.enabled = YES;
+        }
+        
         [GcNoticeUtil handleNotification:UITextFieldTextDidChangeNotification Selector:@selector(textFieldChanged:) Observer:self Object:lCell.textField];
         
     }else if ([cell isKindOfClass:[RemarkTabCell class]]){
@@ -177,18 +200,30 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
         rCell.textView.delegate = self;
         rCell.textView.text = contentArr[row];
         rCell.textView.tag = section + 1000;
+//        rCell.placeHoldlab.tag = 8800 +section;
         if (rCell.textView.text.length >0) {
-            
             rCell.placeHoldlab.text = @"";
         }else {
-            rCell.placeHoldlab.text = @" 请您输入备注";
+            rCell.placeHoldlab.text = @" 写备注...";
         }
-        rCell.placeHoldlab.tag = 8800 +section;
+        
+        if (_litEditType == LitiDetails && _isEdit == NO) {
+            rCell.textView.editable = NO;
+        }else{
+            rCell.textView.editable = YES;
+        }
+
     }
 
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {WEAKSELF;
+    
+    if (_litEditType == LitiDetails && _isEdit == NO) {
+        //编辑状态不能修改
+        return;
+    }
+
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
     
@@ -230,11 +265,6 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
             }
         }
     }
-    
-//    [tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
-//    
-//    [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
-
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -243,7 +273,11 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
         headView.delBtn.hidden = YES;
         [headView setLabelText:@"基本信息"];
     }else{
-        headView.delBtn.hidden = NO;
+        if (_litEditType == LitiDetails && _isEdit == NO){
+            headView.delBtn.hidden = YES;
+        }else{
+            headView.delBtn.hidden = NO;
+        }
         headView.delegate = self;
         [headView setLabelText:@"审理信息"];
     }
@@ -303,19 +337,21 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
 {
     NSInteger section = textView.tag - 1000;
 
-    UILabel *placeHoldlab = (UILabel *)[self.view viewWithTag:8800 +section];
-    if (textView.text.length >0) {
-        placeHoldlab.text = @"";
-
-    }else {
-        placeHoldlab.text = @" 请您输入备注";
-    }
+    [textView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[UILabel class]]) {
+            UILabel *placeHoldlab = (UILabel *)obj;
+            if (textView.text.length >0) {
+                placeHoldlab.text = @"";
+            }else {
+                placeHoldlab.text = @" 写备注...";
+            }
+        }
+    }];
     
     BOOL flag=[NSString isContainsTwoEmoji:textView.text];
     if (flag){
         textView.text = [NSString disable_emoji:textView.text];
     }
-    
     
     NSMutableArray *arr = _contentArr[section-1];
     [arr replaceObjectAtIndex:arr.count -1  withObject:textView.text];
@@ -349,8 +385,7 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
                 _isReturn = YES;
                 *stop = YES;
                 return ;
-            }
-            [msgDic setObjectWithNullValidate:GET(obj) forKey:@"name"];
+            }            [msgDic setObjectWithNullValidate:GET(obj) forKey:@"name"];
 
         }else {
             [msgDic setObjectWithNullValidate:obj forKey:paraArr[idx]];
@@ -368,7 +403,6 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
             NSMutableDictionary *moreDic = [[NSMutableDictionary alloc] init];
             [moreDic setObjectWithNullValidate:weakSelf.categoryArr[idx] forKey:@"type"];
             [moreDic setObjectWithNullValidate:conArr forKey:@"content"];
-            
             NSData *weChatdatamsg = [self toJSONData:moreDic];
             NSString *weChatPayMsg =[[NSString alloc] initWithData:weChatdatamsg
                                                           encoding:NSUTF8StringEncoding];
@@ -379,14 +413,41 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     
     [msgDic setObjectWithNullValidate:moreArr forKey:@"more"];
     
-    [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeAdd] RequestSuccess:^{
+    
+    if (_litEditType == LitiDetails) {
+        [msgDic setObjectWithNullValidate:_caseId forKey:@"id"];
+        [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeEdit] RequestSuccess:^{
+            
+            weakSelf.editSuccess(msgDic[@"name"]);
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
         
-        [weakSelf.navigationController popViewControllerAnimated:YES];
-    }];
+    }else{
+        
+        [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeAdd] RequestSuccess:^{
+            
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
+
+    }
+
+    
     
 }
+#pragma mark - 是否编辑
 
+- (void)setIsEdit:(BOOL)isEdit
+{
+    _isEdit = isEdit;
 
+    if (_isEdit == YES) {
+        self.tableView.tableFooterView = [self creatTabFootView];
+        [self.tableView reloadData];
+    }else {
+        [self commitEvent:nil];
+    }
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

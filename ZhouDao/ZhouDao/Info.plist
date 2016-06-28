@@ -250,7 +250,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>导航SDK需要您的定位服务，否则可能无法使用。,继续使用GPS在后台运行会减少电池寿命。</string>
+	<string>导航SDK需要您的定位服务，否则可能无法使用。</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

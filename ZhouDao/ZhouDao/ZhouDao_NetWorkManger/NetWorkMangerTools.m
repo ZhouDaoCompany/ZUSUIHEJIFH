@@ -31,9 +31,6 @@
 #import "CollectionData.h"
 //案件
 #import "ManagerData.h"
-#import "AccusModel.h"//非诉
-#import "LitigationModel.h"//诉讼
-#import "ConsultantModel.h"//法律顾问
 #import "BasicModel.h"
 #import "DetaillistModel.h"
 
@@ -1191,7 +1188,8 @@
     }];
 }
 #pragma mark -案件详情
-+ (void)arrangeInfoWithIdString:(NSString* )idString RequestSuccess:(void (^)(NSMutableArray *obj))success
++ (void)arrangeInfoWithIdString:(NSString* )idString
+                 RequestSuccess:(void (^)(NSDictionary *dict))success
 {
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&id=%@",kProjectBaseUrl,arrangeInfo,UID,idString];
@@ -1204,40 +1202,8 @@
             return ;
         }
         NSDictionary *dataDict= jsonDic[@"data"];
-        NSArray *arrays  = dataDict[@"basic"];
-        NSDictionary *basicDict = arrays[0];
-        
-        BasicModel *basModel =  [[BasicModel alloc] initWithDictionary:basicDict];
-        if ([basModel.type isEqualToString:@"1"]) {
-            NSArray *delarrays  = dataDict[@"detailed"];
-            NSDictionary *detailDict = delarrays[0];
-            LitigationModel *model = [[LitigationModel alloc] initWithDictionary:detailDict];
-            
-            NSMutableArray *detailArr = [NSMutableArray arrayWithObjects:model.name,[QZManager changeTimeMethods:[model.court_time doubleValue] withType:@"yy-MM-dd"],model.thytake,[QZManager changeTimeMethods:[model.thytake_time doubleValue] withType:@"yy-MM-dd"],[QZManager changeTimeMethods:[model.thyend_time doubleValue] withType:@"yy-MM-dd"],model.thyend,model.plaintiff,model.defendant,model.someoneelse,model.firs_court,model.firs_judge,model.firs_phone,model.firs_address,model.firs_result,model.two_court,model.two_judge,model.two_phone,model.two_address,model.two_court,[QZManager changeTimeMethods:[model.apply_execute_time doubleValue] withType:@"yy-MM-dd HH:mm"],model.execute_court,model.execute_judge,model.execute_phone, nil];
-            success(detailArr);
+        success(dataDict);
 
-        }else if ([basModel.type isEqualToString:@"2"]){
-            NSArray *delarrays  = dataDict[@"detailed"];
-            NSDictionary *detailDict = delarrays[0];
-            AccusModel *model = [[AccusModel alloc] initWithDictionary:detailDict];
-            NSMutableArray *detailArr = [NSMutableArray arrayWithObjects:model.name,model.client,model.client_phone,model.client_mail,model.client_address,[QZManager changeTimeMethods:[model.thytake_time doubleValue] withType:@"yy-MM-dd"],[QZManager changeTimeMethods:[model.thyend_time doubleValue] withType:@"yy-MM-dd"],model.thyend_shape, nil];
-            success(detailArr);
-
-        }else{
-            NSArray *delarrays  = dataDict[@"detailed"];
-            NSDictionary *detailDict = delarrays[0];
-            ConsultantModel *model = [[ConsultantModel alloc] initWithDictionary:detailDict];
-            NSString *remindStr = @"";
-            if ([model.is_remind isEqualToString:@"1"]) {
-                remindStr = @"是";
-            }else{
-                remindStr = @"否";
-            }
-            
-            NSMutableArray *detailArr = [NSMutableArray arrayWithObjects:basModel.name,model.client,[QZManager changeTimeMethods:[model.sign_time doubleValue] withType:@"yy-MM-dd"],model.sign_year,remindStr,model.deputy,model.address,model.business,model.partner,model.contacts,model.phone,model.mail, nil];
-            success(detailArr);
-        }
-        
     } fail:^{
         [SVProgressHUD dismiss];
         [JKPromptView showWithImageName:nil message:AlrertMsg];

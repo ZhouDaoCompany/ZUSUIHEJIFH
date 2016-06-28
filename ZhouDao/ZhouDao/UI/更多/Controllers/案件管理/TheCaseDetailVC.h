@@ -19,5 +19,6 @@ typedef NS_ENUM(NSInteger, DetailType)
 
 @property (nonatomic, strong) NSString *caseId;//案件唯一id  cid
 @property (nonatomic ,assign) DetailType type ;//全部
-@property (nonatomic, strong) NSMutableArray *msgArrays;//信息数组
+@property (nonatomic, copy) NSString *caseName;//案件名称
+
 @end

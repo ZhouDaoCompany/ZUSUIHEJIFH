@@ -7,7 +7,6 @@
 //
 #import "TheCaseDetailVC.h"
 #import "KxMenu.h"
-#import "CommonDetailHead.h"
 #import "EditCaseVC.h"
 #import "CaseDetailTabCell.h"
 #import "ZD_DeleteWindow.h"
@@ -23,8 +22,11 @@
 #import "TaskModel.h"
 #import "DownLoadView.h"
 
+#import "ParallaxHeaderView.h"
+
 static NSString *const headCellIdentifier = @"headCellIdentifier";
 static NSString *const caseCellIdentifier = @"caseCellIdentifier";
+#define kHeaderImageHeight     126.f
 
 @interface TheCaseDetailVC ()<UITableViewDataSource,UITableViewDelegate,CaseDetailTabCellPro,WHC_ChoicePictureVCDelegate,WHC_CameraVCDelegate,DownLoadViewPro>
 {
@@ -33,8 +35,9 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 @property (strong,nonatomic) UITableView *tableView;
 @property (nonatomic, strong) NSIndexPath* openedIndexPath;
 @property (nonatomic, strong) NSMutableArray* tableData;
-@property (nonatomic, strong) CommonDetailHead *headView;
 @property (nonatomic, assign) BOOL isMove;//是否可以移动
+@property (nonatomic, strong)ParallaxHeaderView *headView;
+@property (nonatomic, strong)  UILabel *namelab;
 @end
 
 @implementation TheCaseDetailVC
@@ -50,52 +53,47 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     _openedIndexPath = [NSIndexPath indexPathForRow:-1 inSection:0];
     [self setupNaviBarWithTitle:@"案件详情"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
-    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"case_edit"];
+    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     _contentOffsetY = 0.f;
     
     //数据
     self.tableData = [NSMutableArray array];
 
-    [self creatTabHeadView];
-    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.backgroundColor = [UIColor clearColor];
     [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.view addSubview:_tableView];
-    _tableView.tableHeaderView = _headView;
-//    //添加长按手势
-//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
-//                                               initWithTarget:self action:@selector(longPressGestureRecognized:)];
-//    [self.tableView addGestureRecognizer:longPress];
-    
+
+
+    [self creatTabHeadView];
     [self loadListViewData];
 }
-#pragma  mark -表头
-- (void)creatTabHeadView
+#pragma mark - 表头
+-(void)creatTabHeadView
 {
-    HeadType type;
-    if(_type == 0){
-        type  = AccusingHead;
-    }else if(_type == 1){
-        type  = ConsultantHead;
-    }else{
-        type  = LitigationHead;
-    }
-    _headView = [[CommonDetailHead alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 125) withArr:_msgArrays withType:type];
-    WEAKSELF;
-    _headView.comBlock = ^(CGFloat afloat){
-        weakSelf.headView.frame = CGRectMake(0, 0, kMainScreenWidth, afloat);
-        [weakSelf.tableView beginUpdates];
-        weakSelf.tableView.tableHeaderView = weakSelf.headView;
-        [weakSelf.tableView endUpdates];
-    };
+    self.headView = [ParallaxHeaderView parallaxHeaderViewWithImage:[UIImage imageNamed:@"case_detailHead.jpg"]
+                                                            forSize:CGSizeMake(kMainScreenWidth, kHeaderImageHeight)];
+    
+    UILabel *namelab = [[UILabel alloc] initWithFrame:CGRectMake(80, 42, kMainScreenWidth - 160.f, 42.f)];
+    namelab.textAlignment = NSTextAlignmentCenter;
+    namelab.text = _caseName;
+    namelab.textColor=[UIColor whiteColor];
+    namelab.font=Font_18;
+    namelab.numberOfLines = 0;
+    _namelab = namelab;
+    [_headView addSubview:_namelab];
+    
+    _tableView.tableHeaderView = self.headView;
+
 }
+#pragma mark - 数据请求
 - (void)loadListViewData
 {WEAKSELF;
     [self.tableData removeAllObjects];
     [NetWorkMangerTools arrangeFileListWithType:@"" withCid:_caseId RequestSuccess:^(NSArray *arr) {
+        
         [weakSelf.tableData addObjectsFromArray:arr];
         [weakSelf.tableView reloadData];
     }];
@@ -104,6 +102,11 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     _contentOffsetY = _tableView.contentOffset.y;
+    if (scrollView == _tableView)
+    {
+        [(ParallaxHeaderView*)_tableView.tableHeaderView  layoutHeaderViewForScrollViewOffset:scrollView.contentOffset];
+    }
+
 }
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -274,67 +277,50 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 
     return views;
 }
-#pragma mark -UIButtonEvent
+#pragma mark -Event Respose
 - (void)rightBtnAction
-{WEAKSELF;
-    EditCaseVC *vc = [EditCaseVC new];
-    if(_type == 0){//非讼业务
-        vc.editType  = EditAccusing;
-    }else if(_type == 1){//法律顾问
-        vc.editType  = EditConsultant;
-    }else{//诉讼业务
-        vc.editType  = EditLitigation;
-    }
-    vc.editSuccess = ^(NSMutableArray *arr){
-        _msgArrays = arr;
-        [weakSelf creatTabHeadView];
-        weakSelf.tableView.tableHeaderView = _headView;
-    };
-    vc.caseId = _caseId;
-    vc.msgArrays = _msgArrays;
-    [self.navigationController pushViewController:vc animated:YES];
+{
+
+    NSArray *titArr = @[@"查看案件详情",@"案件提醒管理",@"案件财务管理"];
+    NSArray *imgArr = @[@"case_lookicon",@"case_alerticon",@"case_moneyicon"];
+    [self showMenu:self.rightBtn withTitArr:titArr withImgArr:imgArr withBool:YES];
+
 }
 - (void)getMoreEvent:(UIButton *)sender
 {
     DLog(@"加号按钮被点击");
-    [self showMenu:sender];
+    /**
+     *  @"wi-fi传输" case_wifi
+     */
+    NSArray *titArr = @[@"新建文件夹 ",@"新建文本  ",@"拍照上传  ",@"上传照片  "];
+    NSArray *imgArr = @[@"case_xjwjj",@"case_xjwb",@"case_paiZhao",@"case_shangC"];
+    [self showMenu:sender withTitArr:titArr withImgArr:imgArr withBool:NO];
 }
 - (void)showMenu:(UIButton *)sender
+      withTitArr:(NSArray *)titArr
+      withImgArr:(NSArray *)imgArr withBool:(BOOL)isRight
 {
-    NSArray *menuItems =
-    @[
-      [KxMenuItem menuItem:@"新建文件夹"
-                     image:[UIImage imageNamed:@"case_xjwjj"]
-                    target:self
-                    action:@selector(pushMenuItem:)],
-      
-      [KxMenuItem menuItem:@"新建文本"
-                     image:[UIImage imageNamed:@"case_xjwb"]
-                    target:self
-                    action:@selector(pushMenuItem:)],
-      
-      [KxMenuItem menuItem:@"拍照上传"
-                     image:[UIImage imageNamed:@"case_paiZhao"]
-                    target:self
-                    action:@selector(pushMenuItem:)],
-      
-      [KxMenuItem menuItem:@"上传照片"
-                     image:[UIImage imageNamed:@"case_shangC"]
-                    target:self
-                    action:@selector(pushMenuItem:)],
-      
-      [KxMenuItem menuItem:@"wi-fi传输"
-                     image:[UIImage imageNamed:@"case_wifi"]
-                    target:self
-                    action:@selector(pushMenuItem:)],
-      ];
-    for (KxMenuItem *first in menuItems) {
+    
+    NSMutableArray *menuItems =[NSMutableArray array];
+    
+    [titArr enumerateObjectsUsingBlock:^(NSString *tit, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [menuItems addObject:[KxMenuItem menuItem:titArr[idx]
+                                           image:[UIImage imageNamed:imgArr[idx]]
+                                          target:self
+                                           action:@selector(pushMenuItem:)]];
+    }];
+    
+    [menuItems enumerateObjectsUsingBlock:^(KxMenuItem *first, NSUInteger idx, BOOL * _Nonnull stop) {
         first.foreColor = thirdColor;
-    }
-        [KxMenu setTitleFont:Font_13];
+    }];
+
+    [KxMenu setTitleFont:Font_13];
     
     CGRect frame = sender.frame;
-    frame.origin.y = frame.origin.y - _contentOffsetY +self.tableView.tableHeaderView.frame.size.height +64.f;
+    if (isRight == NO) {
+        frame.origin.y = frame.origin.y - _contentOffsetY +self.tableView.tableHeaderView.frame.size.height +64.f;
+    }
     
     [KxMenu showMenuInView:self.view
                   fromRect:frame
@@ -371,9 +357,37 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         vc.delegate = self;
         vc.maxChoiceImageNumberumber = 1;
         [self presentViewController:[[UINavigationController alloc]initWithRootViewController:vc] animated:YES completion:nil];
-    }else{
-        [JKPromptView showWithImageName:nil message:@"此功能还在开发中"];
+    }else if ([kx.title isEqualToString:@"查看案件详情"]){
+
+        [self loadCaseDetailRequest];
+        
+    }else if ([kx.title isEqualToString:@"案件提醒管理 "]){
+        
+    }else if ([kx.title isEqualToString:@"案件财务管理"]){
+        
     }
+}
+
+- (void)loadCaseDetailRequest
+{WEAKSELF;
+    [NetWorkMangerTools arrangeInfoWithIdString:_caseId RequestSuccess:^(NSDictionary *dict) {
+        
+        EditCaseVC *vc = [EditCaseVC new];
+        if(_type == 0){//非讼业务
+            vc.editType  = EditAccusing;
+        }else if(_type == 1){//法律顾问
+            vc.editType  = EditConsultant;
+        }else{//诉讼业务
+            vc.editType  = EditLitigation;
+        }
+        vc.dataDict = dict;
+        vc.editSuccess = ^(NSString *name){
+            
+            weakSelf.namelab.text = name;
+        };
+        vc.caseId = _caseId;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    }];
 }
 #pragma mark -照片上传
 #pragma mark - WHC_ChoicePictureVCDelegate
@@ -400,102 +414,8 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 - (void)WHCCameraVC:(WHC_CameraVC *)cameraVC didSelectedPhoto:(UIImage *)photo{
     [self WHCChoicePictureVC:nil didSelectedPhotoArr:@[photo]];
 }
-#pragma mark -移动cell
-#pragma mark - 方法实现
-- (void)longPressGestureRecognized:(UILongPressGestureRecognizer *)gestureRecognizer
-{
-    if (_openedIndexPath.row>-1) {
-        NSUInteger row = _openedIndexPath.row;
-        _openedIndexPath = [NSIndexPath indexPathForRow:-1 inSection:0];
-        [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:row inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
-    }
-    UILongPressGestureRecognizer *longPress = gestureRecognizer;
-    UIGestureRecognizerState state = longPress.state;
-    
-    CGPoint location = [longPress locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    static UIView       *snapshot = nil;        ///< A snapshot of the row user is moving.
-    static NSIndexPath  *sourceIndexPath = nil; ///< Initial index path, where gesture begins.
-    
-    switch (state) {
-        case UIGestureRecognizerStateBegan: {
-            if (indexPath) {
-                sourceIndexPath = indexPath;
-                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-                // Take a snapshot of the selected row using helper method.
-                snapshot = [self customSnapshotFromView:cell];
-                // Add the snapshot as subview, centered at cell's center...
-                __block CGPoint center = cell.center;
-                snapshot.center = center;
-                snapshot.alpha = 0.0;
-                [self.tableView addSubview:snapshot];
-                [UIView animateWithDuration:0.25 animations:^{
-                    // Offset for gesture location.
-                    center.y = location.y;
-                    snapshot.center = center;
-                    snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05);
-                    snapshot.alpha = 0.98;
-                    cell.alpha = 0;
-                    // Black out.
-                    //                    cell.backgroundColor = [UIColor whiteColor];
-                } completion:^(BOOL finished) {
-                    cell.hidden = YES;
-                }];
-            }
-            break;
-        }
-        case UIGestureRecognizerStateChanged: {
-            CGPoint center = snapshot.center;
-            center.y = location.y;
-            snapshot.center = center;
-            // Is destination valid and is it different from source?
-            if (indexPath && ![indexPath isEqual:sourceIndexPath]) {
-                // ... update data source.
-                [self.tableData exchangeObjectAtIndex:indexPath.row withObjectAtIndex:sourceIndexPath.row];
-                // ... move the rows.
-                [self.tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:indexPath];
-                // ... and update source so it is in sync with UI changes.
-                sourceIndexPath = indexPath;
-            }
-            break;
-        }
-        default: {
-            // Clean up.
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:sourceIndexPath];
-            cell.hidden = NO;
-            cell.alpha = 0;
-            [UIView animateWithDuration:0.25 animations:^{
-                snapshot.center = cell.center;
-                snapshot.transform = CGAffineTransformIdentity;
-                snapshot.alpha = 0.0;
-                cell.alpha = 1;
-                // Undo the black-out effect we did.
-                cell.backgroundColor = [UIColor whiteColor];
-            } completion:^(BOOL finished) {
-                [snapshot removeFromSuperview];
-                snapshot = nil;
-                sourceIndexPath = nil;
-            }];
-            break;
-        }
-    }
-}
 
 
-- (UIView *)customSnapshotFromView:(UIView *)inputView {
-    // Make an image from the input view.
-    UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, NO, 0);
-    [inputView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    UIView *snapshot = [[UIImageView alloc] initWithImage:image];
-    snapshot.layer.masksToBounds = NO;
-    snapshot.layer.cornerRadius = 0.0;
-    snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0);
-    snapshot.layer.shadowRadius = 5.0;
-    snapshot.layer.shadowOpacity = 0.4;
-    return snapshot;
-}
 #pragma mark -查看文件
 - (void)checkTheFile:(DetaillistModel *)model
 {WEAKSELF;
@@ -563,6 +483,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         return;
     }
     [NetWorkMangerTools arrangeFileInfoWithid:model.id withCaseId:_caseId RequestSuccess:^(NSString *htmlString) {
+        
         tmodel.url = htmlString;
         DownLoadView *downView = [[DownLoadView alloc] initWithFrame:kMainScreenFrameRect];
         [self.view addSubview:downView];

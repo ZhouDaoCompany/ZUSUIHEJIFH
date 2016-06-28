@@ -13,6 +13,7 @@ typedef NS_ENUM(NSInteger, AccEditType)
 };
 
 #import <UIKit/UIKit.h>
+#import "BasicModel.h"
 /*
  非讼业务
  */
@@ -20,8 +21,11 @@ typedef NS_ENUM(NSInteger, AccEditType)
 @interface AccusingTheTabVC : UITableViewController
 
 @property (nonatomic, assign) AccEditType accType;
-@property (nonatomic, strong) NSMutableArray *msgArr;
 @property (nonatomic, strong) NSString *caseId;
-@property (nonatomic, copy) ZDMutableArrayBlock editSuccess;
+@property (nonatomic, copy) ZDStringBlock editSuccess;
+@property (nonatomic, assign) BOOL isEdit;//是否可编辑
+
+@property (nonatomic, strong) BasicModel *basicModel;
+
 
 @end

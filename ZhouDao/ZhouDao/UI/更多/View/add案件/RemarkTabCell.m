@@ -32,25 +32,21 @@
         textView.returnKeyType = UIReturnKeyDefault;//返回键的类型
         textView.keyboardType = UIKeyboardTypeDefault;//键盘类型
         textView.scrollEnabled = YES;//是否可以拖动
-        textView.layer.borderColor = thirdColor.CGColor;
+        textView.layer.borderColor = ABORDERColor.CGColor;
         textView.layer.borderWidth = .6f;
         self.textView = textView;
         [self.contentView addSubview: self.textView];//加入到整个页面中
         
-        UILabel *placeHoldlab = [[UILabel alloc] initWithFrame:CGRectMake(15, 30, kMainScreenWidth - 30.f, 30)];
+        UILabel *placeHoldlab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth - 30.f, 30)];
         placeHoldlab.font = Font_14;
         placeHoldlab.backgroundColor = [UIColor clearColor];
-        placeHoldlab.text = @" 请您输入备注";
+        placeHoldlab.text = @" 写备注...";
         placeHoldlab.textColor = sixColor;
         _placeHoldlab = placeHoldlab;
-        [self.contentView addSubview:_placeHoldlab];
+        [self.textView addSubview:_placeHoldlab];
         
     }
     return self;
-}
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

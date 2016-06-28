@@ -27,6 +27,29 @@
 	NSString *_type;
 	NSString *_uid;
     
+    //诉讼业务
+
+    NSString *_number;
+    NSString *_client_phone;
+    NSString *_client_mail;
+    NSString  *_client_address;
+    NSString *_plaintiff;
+    NSString *_defendant;
+    NSString *_someoneelse;
+    NSString *_client;
+    NSString *_thytake_time;
+    
+    //非诉
+    NSString *_remarks;
+    NSString *_thyend_time;
+    
+    //法律顾问
+    NSString *_contacts;
+    NSString *_mail;
+    NSString *_phone;
+    NSString *_sign_endtime;
+    NSString *_sign_time;
+
     NSString *_title;
     NSString *_py;
     NSString *_app_icon;
@@ -41,7 +64,6 @@
     NSString *_pic;
     NSString *_content;
 
-
 }
 
 @property (nonatomic, copy) NSString *slide_id;
@@ -50,6 +72,29 @@
 @property (nonatomic, copy) NSString *slide_url;
 @property (nonatomic, copy) NSString *pic;
 @property (nonatomic, copy) NSString *content;
+
+//诉讼
+@property (nonatomic, copy) NSString *number;
+@property (nonatomic, copy) NSString *client_phone;
+@property (nonatomic, copy) NSString *client_mail;
+@property (nonatomic, copy) NSString *client_address;
+@property (nonatomic, copy) NSString *plaintiff;
+@property (nonatomic, copy) NSString *defendant;
+@property (nonatomic, copy) NSString *someoneelse;
+@property (nonatomic, copy) NSString *client;
+@property (nonatomic, copy) NSString *thytake_time;
+
+//非诉
+@property (nonatomic, copy) NSString *remarks;
+@property (nonatomic, copy) NSString *thyend_time;
+
+//法律顾问
+@property (nonatomic, copy) NSString *contacts;
+@property (nonatomic, copy) NSString *mail;
+@property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *sign_endtime;
+@property (nonatomic, copy) NSString *sign_time;
+
 
 
 @property (nonatomic, copy) NSString *add_time;

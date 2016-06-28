@@ -249,7 +249,7 @@
  * 案件详情
  */
 + (void)arrangeInfoWithIdString:(NSString* )idString
-                 RequestSuccess:(void (^)(NSMutableArray *obj))success;
+                 RequestSuccess:(void (^)(NSDictionary *dict))success;
 /**
  *  热词搜索
  */

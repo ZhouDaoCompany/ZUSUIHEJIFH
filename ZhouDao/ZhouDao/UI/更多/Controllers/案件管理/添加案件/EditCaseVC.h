@@ -19,5 +19,8 @@ typedef NS_ENUM(NSInteger, EditCaseType)
 @property (nonatomic, strong) NSString *caseId;
 @property (nonatomic ,assign) EditCaseType editType ;
 @property (nonatomic, strong) NSMutableArray *msgArrays;
-@property (nonatomic, copy) ZDMutableArrayBlock editSuccess;
+@property (nonatomic, copy) ZDStringBlock editSuccess;
+
+@property (nonatomic, strong) NSDictionary *dataDict;
+
 @end
