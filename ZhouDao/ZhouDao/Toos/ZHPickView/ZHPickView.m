@@ -22,7 +22,7 @@
     return self;
 }
 - (void)showWindowPickView:(UIWindow *)window
-{
+{WEAKSELF;
     bgView = [[UIView alloc] initWithFrame:UIScreen.mainScreen.bounds];
     bgView.backgroundColor = [UIColor blackColor];
     bgView.alpha = 0.3f;
@@ -30,7 +30,8 @@
     
     [bgView whenTapped:^{
         
-        
+        [weakSelf hide];
+
     }];
     
     CGRect frame = self.frame ;
@@ -46,19 +47,30 @@
 }
 
 - (void)showPickView:(UIViewController *)vc
-{
+{WEAKSELF
     bgView = [[UIView alloc] initWithFrame:UIScreen.mainScreen.bounds];
     bgView.backgroundColor = [UIColor blackColor];
     bgView.alpha = 0.3f;
-    [vc.view addSubview:bgView];
-    
-    [bgView whenCancelTapped:^{
-            [self hide];
-    }];
     
     CGRect frame = self.frame ;
     self.frame = CGRectMake(0,SCREENSIZE.height + frame.size.height, SCREENSIZE.width, frame.size.height);
-    [vc.view addSubview:self];
+
+    if ([vc isKindOfClass:[UITableViewController class]]) {
+        
+        UIWindow *window = [QZManager getWindow];
+        [window addSubview:bgView];
+        [window addSubview:self];
+
+    }else{
+        [vc.view addSubview:bgView];
+        [vc.view addSubview:self];
+    }
+    
+    
+    [bgView whenCancelTapped:^{
+            [weakSelf hide];
+    }];
+    
     [UIView animateWithDuration:0.5f
                      animations:^{
                          

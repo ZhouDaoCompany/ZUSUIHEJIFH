@@ -36,6 +36,9 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
     
     _titleArrays = [NSMutableArray arrayWithObjects:@"案件号",@"案件名称",@"委托人",@"委托人联系电话",@"委托人联系邮箱",@"委托人联系地址",@"收案日期",@"结案日期",@"备注", nil];
     
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+
     if (_accType == AccFromManager) {
     
         _textArr = [NSMutableArray arrayWithObjects:_basicModel.number,_basicModel.name,_basicModel.client,_basicModel.client_phone,_basicModel.client_mail,_basicModel.client_address,_basicModel.thytake_time,_basicModel.thyend_time,_basicModel.remarks,nil];
@@ -44,8 +47,6 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
         _textArr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"",nil];
         self.tableView.tableFooterView = [self creatTabFootView];
     }
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self.tableView setBackgroundColor:[UIColor clearColor]];
 
     
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyBoard)];

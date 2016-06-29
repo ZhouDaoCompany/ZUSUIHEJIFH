@@ -17,14 +17,15 @@
 #import "IndemnityData.h"
 #import "GovListmodel.h"
 #import "GovernmentDetailVC.h"
+
 static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
 @interface CollectionTableVC ()<SWTableViewCellDelegate>
 {
     NSUInteger _page;
 }
-@property (nonatomic,strong) CollectEmptyView *emptyView;//收藏为空时候
-@property (nonatomic, strong) NSMutableArray *normalArr;//普通数组
-@property (nonatomic, strong) NSMutableArray *zdArr;//置顶数组
+@property (nonatomic,strong) CollectEmptyView *emptyView;   //收藏为空时候
+@property (nonatomic, strong) NSMutableArray *normalArr;    //普通数组
+@property (nonatomic, strong) NSMutableArray *zdArr;        //置顶数组
 @property (nonatomic, copy)   NSString *recordStr;
 @end
 

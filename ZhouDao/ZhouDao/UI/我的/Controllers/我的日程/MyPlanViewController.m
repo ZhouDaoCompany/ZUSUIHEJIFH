@@ -12,6 +12,7 @@
 #import "AddAlertVC.h"
 #import "RemindData.h"
 #import "AllPlanViewController.h"
+
 static NSString *const PlanCellIdentifier = @"planCellIdentifier";
 
 @interface MyPlanViewController ()<UITableViewDataSource,UITableViewDelegate,SWTableViewCellDelegate>

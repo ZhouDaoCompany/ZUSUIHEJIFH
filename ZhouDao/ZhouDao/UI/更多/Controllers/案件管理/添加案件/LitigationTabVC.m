@@ -11,9 +11,10 @@
 #import "LitigationTabVC.h"
 #import "LitigationCell.h"
 #import "ConsultantHeadView.h"
-#import "LCActionSheet.h"
 #import "CaseTextField.h"
 #import "RemarkTabCell.h"
+#import "DateTimeView.h"
+#import "ZHPickView.h"
 
 static NSString *const LITIIDENTIFER = @"litigationidentifer";
 static NSString *const NOTEIDENTIFER = @"noteidentifer";
@@ -162,9 +163,19 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
                 
                 lCell.titleLab.text = _basiArr[row];
                 lCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_basiArr[row]];
-                lCell.deviceLabel.text = _textBasiArr[row];
-                lCell.textField.text = _textBasiArr[row];
                 
+                NSString *text = @"";
+                if ([NSString stringWithFormat:@"%@",_textBasiArr[row]].length >0) {
+                    
+                    if ([_basiArr[row] isEqualToString:@"收案日期"]) {
+                        text = [QZManager changeTimeMethods:[_textBasiArr[row] doubleValue] withType:@"yyyy-MM-dd"];
+                    }else {
+                        text = _textBasiArr[row];
+                    }
+                }
+                
+                lCell.deviceLabel.text = text;
+                lCell.textField.text = _textBasiArr[row];
                 lCell.textField.section = section;
                 lCell.textField.row = row;
             }
@@ -177,7 +188,17 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
                 NSMutableArray *contentArr = _contentArr[section-1];
                 lCell.titleLab.text = titArr[row];
                 lCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",titArr[row]];
-                lCell.deviceLabel.text = contentArr[row];
+                
+                NSString *text = @"";
+                if ([NSString stringWithFormat:@"%@",contentArr[row]].length >0) {
+                    if ([titArr[row] isEqualToString:@"收到法律文书时间"]) {
+                        text = [QZManager changeTimeMethods:[contentArr[row] doubleValue] withType:@"yyyy-MM-dd HH:mm"];
+                    }else{
+                        text = contentArr[row];
+                    }
+                }
+
+                lCell.deviceLabel.text = text;
                 lCell.textField.text = contentArr[row];
                 
                 lCell.textField.section = section;
@@ -229,13 +250,34 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     
     if (section == 0) {
     
-        
-        
+        if (row == 6) {
+            ZHPickView *pickView = [[ZHPickView alloc] init];
+            [pickView setDateViewWithTitle:@"选择时间"];
+            UIWindow *windows = [QZManager getWindow];
+            [pickView showWindowPickView:windows];
+            pickView.alertBlock = ^(NSString *selectedStr)
+            {
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
+                [weakSelf.textBasiArr replaceObjectAtIndex:row withObject:timeStr];
+                [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:row inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
+            };
+        }
     }else {
         if (row == 0) {
-            LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:_kindsArr redButtonIndex:-1 clicked:^(NSInteger buttonIndex) {
+            ZHPickView *pickView = [[ZHPickView alloc] init];
+            [pickView setDataViewWithItem:_kindsArr title:@"重复"];
+            [pickView showPickView:self];
+            pickView.block = ^(NSString *selectedStr,NSString *type)
+            {
                 /***********************此处提醒修改后丢失内容***************************************/
-                NSLog(@"dijige----%ld",buttonIndex);
+
+                __block NSInteger buttonIndex = 0;
+                [weakSelf.kindsArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj isEqualToString:selectedStr]) {
+                        buttonIndex = idx;
+                    }
+                }];
+                DLog(@"第几个----%ld",buttonIndex);
                 NSString *classIndex = [NSString stringWithFormat:@"%ld",buttonIndex + 1];
                 [weakSelf.categoryArr replaceObjectAtIndex:section-1 withObject:classIndex];
                 NSArray *arr = weakSelf.contentTilArr[buttonIndex];
@@ -246,22 +288,42 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
                 }];
                 [weakSelf.contentArr replaceObjectAtIndex:section-1 withObject:conArr];
                 [tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
-            }];
-            [sheet show];
+            };
+
         }else {
             
             NSString *cateStr = _categoryArr[section -1];
             NSArray *titArr = _contentTilArr[[cateStr intValue]-1];
 
             if ([titArr[row] isEqualToString:@"仲裁结果"] || [titArr[row] isEqualToString:@"审判结果"]) {
-                NSArray *resultsArr = @[@"裁决", @"调解",@"撤回"];
-                LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:resultsArr redButtonIndex:-1 clicked:^(NSInteger buttonIndex) {
+               __block NSArray *resultsArr = @[@"裁决", @"调解",@"撤回"];
+                
+                ZHPickView *pickView = [[ZHPickView alloc] init];
+                [pickView setDataViewWithItem:resultsArr title:@"重复"];
+                [pickView showPickView:self];
+                pickView.block = ^(NSString *selectedStr,NSString *type)
+                {
+                    DLog(@"哪一个----%@",selectedStr);
+
+                    NSMutableArray *arr = weakSelf.contentArr[section -1];
+                    [arr replaceObjectAtIndex:row withObject:selectedStr];
+                    [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
+                };
+
+            }
+            
+            if ([titArr[row] isEqualToString:@"收到法律文书时间"]) {
+                
+                UIWindow *windows = [QZManager getWindow];
+                DateTimeView *timeView = [[DateTimeView alloc] initWithFrame:kMainScreenFrameRect];
+                timeView.timeBlock = ^(NSString *timeS,NSString *sjcStr){
                     
                     NSMutableArray *arr = weakSelf.contentArr[section -1];
-                    [arr replaceObjectAtIndex:row withObject:resultsArr[buttonIndex]];
-                     [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
-                }];
-                [sheet show];
+                    [arr replaceObjectAtIndex:row withObject:sjcStr];
+                    [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:row inSection:section], nil] withRowAnimation:UITableViewRowAnimationNone];
+                };
+                [windows addSubview:timeView];
+
             }
         }
     }
@@ -431,7 +493,6 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
 
     }
 
-    
     
 }
 #pragma mark - 是否编辑

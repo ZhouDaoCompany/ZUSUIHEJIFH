@@ -192,50 +192,51 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 #pragma mark -UIButtonEvent
 - (void)rightBtnAction
 {
-    NSArray *menuItems =
-    @[
-      [KxMenuItem menuItem:@"新建文件夹"
-                     image:[UIImage imageNamed:@"case_xjwjj"]
-                    target:self
-                    action:@selector(pushMenuItem:)],
-      
-      [KxMenuItem menuItem:@"新建文本"
-                     image:[UIImage imageNamed:@"case_xjwb"]
-                    target:self
-                    action:@selector(pushMenuItem:)],
-      
-      [KxMenuItem menuItem:@"拍照上传"
-                     image:[UIImage imageNamed:@"case_paiZhao"]
-                    target:self
-                    action:@selector(pushMenuItem:)],
-      
-      [KxMenuItem menuItem:@"上传照片"
-                     image:[UIImage imageNamed:@"case_shangC"]
-                    target:self
-                    action:@selector(pushMenuItem:)],
-      
-      [KxMenuItem menuItem:@"wi-fi传输"
-                     image:[UIImage imageNamed:@"case_wifi"]
-                    target:self
-                    action:@selector(pushMenuItem:)],
-      ];
-    for (KxMenuItem *first in menuItems) {
+    /**
+     *  @"wi-fi传输" case_wifi
+     */
+    NSArray *titArr = @[@"新建文件夹 ",@"新建文本  ",@"拍照上传  ",@"上传照片  "];
+    NSArray *imgArr = @[@"case_xjwjj",@"case_xjwb",@"case_paiZhao",@"case_shangC"];
+    [self showMenu:self.rightBtn withTitArr:titArr withImgArr:imgArr withBool:NO];
+
+}
+- (void)showMenu:(UIButton *)sender
+      withTitArr:(NSArray *)titArr
+      withImgArr:(NSArray *)imgArr withBool:(BOOL)isRight
+{
+    
+    NSMutableArray *menuItems =[NSMutableArray array];
+    
+    [titArr enumerateObjectsUsingBlock:^(NSString *tit, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [menuItems addObject:[KxMenuItem menuItem:titArr[idx]
+                                            image:[UIImage imageNamed:imgArr[idx]]
+                                           target:self
+                                           action:@selector(pushMenuItem:)]];
+    }];
+    
+    [menuItems enumerateObjectsUsingBlock:^(KxMenuItem *first, NSUInteger idx, BOOL * _Nonnull stop) {
         first.foreColor = thirdColor;
-    }
+    }];
+    
     [KxMenu setTitleFont:Font_13];
     
-    CGRect frame = CGRectMake(kMainScreenWidth - 44.f, 20, 44, 44);
-    
+    CGRect frame = sender.frame;
+
+//     frame.origin.y = frame.origin.y - 20;
+    frame = CGRectMake(kMainScreenWidth - 44.f, 20, 44, 44);
+
     [KxMenu showMenuInView:self.view
                   fromRect:frame
                  menuItems:menuItems];
 }
+
 - (void) pushMenuItem:(id)sender
 {WEAKSELF;
     KxMenuItem *kx = (KxMenuItem *)sender;
     DLog(@"%@", kx.title);
     
-    if ([kx.title isEqualToString:@"新建文件夹"]) {
+    if ([kx.title isEqualToString:@"新建文件夹 "]) {
         ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"" withType:RenameType];
         delWindow.renameBlock = ^(NSString *name){
             [NetWorkMangerTools arrangeFileAddwithPid:_pid withName:name withFileType:@"2" withtformat:@"" withqiniuName:@"" withCid:_caseId RequestSuccess:^(id obj) {
@@ -243,7 +244,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
             }];
         };
         [self.view addSubview:delWindow];
-    }else if ([kx.title isEqualToString:@"新建文本"]){
+    }else if ([kx.title isEqualToString:@"新建文本  "]){
         NewlyCreatedVC *vc = [NewlyCreatedVC new];
         vc.caseId = _caseId;
         vc.pid = _pid;
@@ -251,11 +252,11 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
             [weakSelf loadListViewData];
         };
         [self.navigationController  pushViewController:vc animated:YES];
-    }else if ([kx.title isEqualToString:@"拍照上传"]){
+    }else if ([kx.title isEqualToString:@"拍照上传  "]){
         WHC_CameraVC * vc = [WHC_CameraVC new];
         vc.delegate = self;
         [self presentViewController:vc animated:YES completion:nil];
-    }else if ([kx.title isEqualToString:@"上传照片"]){
+    }else if ([kx.title isEqualToString:@"上传照片  "]){
         //从相册选择一张
         WHC_PictureListVC  * vc = [WHC_PictureListVC new];
         vc.delegate = self;

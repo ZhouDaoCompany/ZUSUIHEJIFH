@@ -11,6 +11,7 @@
 #import "TheCaseDetailVC.h"
 //#import "FilterView.h"
 #import "AddCaseVC.h"
+#import "CollectEmptyView.h"
 
 static float const kCollectionViewToLeftMargin                = 22.5f;
 static float const kCollectionViewToTopMargin                 = 0.f;
@@ -38,6 +39,7 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
 @property (nonatomic, strong) UIImageView *addImgView;
 @property (nonatomic, strong) UIImageView *searchImgView;
 @property (nonatomic, strong) UIView *searchView;
+@property (nonatomic,strong) CollectEmptyView *emptyView;   //案件为空时候
 
 @end
 
@@ -74,6 +76,7 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
     _dataSourceArr = [NSMutableArray array];
     _searchDataArr = [NSMutableArray array];
     _page = 0;
+    self.emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 64.f, kMainScreenWidth, kMainScreenHeight-64.f) WithText:@"暂无案件"];
 
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
@@ -208,8 +211,11 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (_isSearch == YES) {
+        (_searchDataArr.count == 0)?[self.view addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
+
         return [_searchDataArr count];
     }
+    (_dataSourceArr.count == 0)?[self.view addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
     return [_dataSourceArr count];
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -247,7 +253,6 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
     vc.type = count;
     vc.caseName = model.name;
     [self.navigationController  pushViewController:vc animated:YES];
-    
 }
 
 #pragma mark - UICollectionViewDelegateLeftAlignedLayout
@@ -287,6 +292,7 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
 {
     if (_isSearch == YES) {
         _isSearch = NO;
+        [_searchDataArr removeAllObjects];
         [self initSearchView];
         [self.collectionView reloadData];
     }else{

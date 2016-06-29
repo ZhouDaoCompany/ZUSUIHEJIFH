@@ -378,6 +378,10 @@
 		18E2E7FF1D0FD08E00330AFA /* JKCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2E7FE1D0FD08E00330AFA /* JKCountDownButton.m */; };
 		18E6ECEC1CEEF1E300ED74E3 /* law_selectedSC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6ECEB1CEEF1E300ED74E3 /* law_selectedSC@2x.png */; };
 		18E7C47F1CFC312E00E01A11 /* law_placeHold@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E7C47E1CFC312E00E01A11 /* law_placeHold@2x.png */; };
+		18EE958C1D2373150030AE2B /* AddFinanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE958B1D2373150030AE2B /* AddFinanceVC.m */; };
+		18EE95901D237C040030AE2B /* FinanceTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE958F1D237C040030AE2B /* FinanceTabCell.m */; };
+		18EE95931D23E1780030AE2B /* FinanceDesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE95921D23E1780030AE2B /* FinanceDesCell.m */; };
+		18EE95951D23E5B70030AE2B /* case_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EE95941D23E5B70030AE2B /* case_up@2x.png */; };
 		18F2F19F1CBDDAD70068453D /* case_juanzong4s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F19E1CBDDAD70068453D /* case_juanzong4s@2x.png */; };
 		18F2F1A11CBDE0930068453D /* case_juanzong6p@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F1A01CBDE0930068453D /* case_juanzong6p@3x.png */; };
 		18F2F1A71CBE157B0068453D /* ExampleSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F1A61CBE157B0068453D /* ExampleSearchVC.m */; };
@@ -1046,6 +1050,13 @@
 		18E2E7FE1D0FD08E00330AFA /* JKCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCountDownButton.m; sourceTree = "<group>"; };
 		18E6ECEB1CEEF1E300ED74E3 /* law_selectedSC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "law_selectedSC@2x.png"; sourceTree = "<group>"; };
 		18E7C47E1CFC312E00E01A11 /* law_placeHold@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "law_placeHold@2x.png"; sourceTree = "<group>"; };
+		18EE958A1D2373150030AE2B /* AddFinanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFinanceVC.h; sourceTree = "<group>"; };
+		18EE958B1D2373150030AE2B /* AddFinanceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFinanceVC.m; sourceTree = "<group>"; };
+		18EE958E1D237C040030AE2B /* FinanceTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceTabCell.h; sourceTree = "<group>"; };
+		18EE958F1D237C040030AE2B /* FinanceTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceTabCell.m; sourceTree = "<group>"; };
+		18EE95911D23E1780030AE2B /* FinanceDesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceDesCell.h; sourceTree = "<group>"; };
+		18EE95921D23E1780030AE2B /* FinanceDesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceDesCell.m; sourceTree = "<group>"; };
+		18EE95941D23E5B70030AE2B /* case_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_up@2x.png"; sourceTree = "<group>"; };
 		18F2F19E1CBDDAD70068453D /* case_juanzong4s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_juanzong4s@2x.png"; sourceTree = "<group>"; };
 		18F2F1A01CBDE0930068453D /* case_juanzong6p@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_juanzong6p@3x.png"; sourceTree = "<group>"; };
 		18F2F1A51CBE157B0068453D /* ExampleSearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleSearchVC.h; sourceTree = "<group>"; };
@@ -1232,6 +1243,7 @@
 		10241A2D1CBA8E63000CBEAE /* 案件 */ = {
 			isa = PBXGroup;
 			children = (
+				18EE95941D23E5B70030AE2B /* case_up@2x.png */,
 				18FBD8431CED90CD00674D1E /* case_pdf@2x.png */,
 				18CC2E201D224DD5004B37DA /* case_alerticon@2x.png */,
 				18CC2E211D224DD5004B37DA /* case_lookicon@2x.png */,
@@ -1751,6 +1763,7 @@
 		181292A11C87E7B100EBB5CD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18EE958D1D237A3F0030AE2B /* CaseFinance */,
 				18F878AA1D056E260069E68A /* MoreMenuView */,
 				1817D29A1CC0898800FF6EEE /* add案件 */,
 				18F2F1A81CBE16540068453D /* 案例search */,
@@ -2033,6 +2046,8 @@
 			children = (
 				1856EC951D18E1A000016778 /* CaseFIViewController.h */,
 				1856EC961D18E1A000016778 /* CaseFIViewController.m */,
+				18EE958A1D2373150030AE2B /* AddFinanceVC.h */,
+				18EE958B1D2373150030AE2B /* AddFinanceVC.m */,
 			);
 			path = "案件财务";
 			sourceTree = "<group>";
@@ -2672,6 +2687,17 @@
 			path = Utility/JKCountDownButton;
 			sourceTree = "<group>";
 		};
+		18EE958D1D237A3F0030AE2B /* CaseFinance */ = {
+			isa = PBXGroup;
+			children = (
+				18EE958E1D237C040030AE2B /* FinanceTabCell.h */,
+				18EE958F1D237C040030AE2B /* FinanceTabCell.m */,
+				18EE95911D23E1780030AE2B /* FinanceDesCell.h */,
+				18EE95921D23E1780030AE2B /* FinanceDesCell.m */,
+			);
+			path = CaseFinance;
+			sourceTree = "<group>";
+		};
 		18F2F1A41CBE15150068453D /* 案例查询 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3195,6 +3221,7 @@
 				188F9E361CF7FAF2000F9B2D /* Intro_1@2x.png in Resources */,
 				108DC0341C9FA38E00FD1221 /* mine_head@2x.png in Resources */,
 				108DC0391C9FA38E00FD1221 /* mine_noScer@2x.png in Resources */,
+				18EE95951D23E5B70030AE2B /* case_up@2x.png in Resources */,
 				18CD01D61C901367009DE385 /* tabbar_compensation@2x.png in Resources */,
 				18167E971CBBA03C00193EB6 /* case_juanzong@2x.png in Resources */,
 				18D9D67C1CBCA78A008F9CC8 /* case_jianTou@2x.png in Resources */,
@@ -3401,6 +3428,7 @@
 				187E6D631C841A11009169C2 /* AppDelegate.m in Sources */,
 				104B44251C9BCC9A00FC19B3 /* MyAdvantagesVC.m in Sources */,
 				1817D2901CC0802B00FF6EEE /* AddCaseVC.m in Sources */,
+				18EE95931D23E1780030AE2B /* FinanceDesCell.m in Sources */,
 				1041575D1C9470A500EE5303 /* MyCollectionVC.m in Sources */,
 				1829BA761CE2F58700F0143F /* ExampleData.m in Sources */,
 				18FF3F5A1C852E820098C60B /* UIView+WhenTappedBlocks.m in Sources */,
@@ -3414,6 +3442,7 @@
 				181E512E1CD1E81E00BBA10D /* ReplacePhoneVC.m in Sources */,
 				18DD1EBA1C88389B004630C1 /* ZHPickView.m in Sources */,
 				18C4B0611CB4ED3300D3CB8B /* SelectTemplateVC.m in Sources */,
+				18EE95901D237C040030AE2B /* FinanceTabCell.m in Sources */,
 				181292B11C87E81000EBB5CD /* RecomViewController.m in Sources */,
 				18F878AD1D056E260069E68A /* MoreMenuView.m in Sources */,
 				108323391CAA5101004B8045 /* ZD_SettingBottomBar.m in Sources */,
@@ -3559,6 +3588,7 @@
 				187DB8BD1CDC6216009CF1D6 /* GovListmodel.m in Sources */,
 				18FF3F361C85234A0098C60B /* ZhouDao_NetWorkManger.m in Sources */,
 				18CB0F061CBF42EA009C41CE /* TwoCompensationCell.m in Sources */,
+				18EE958C1D2373150030AE2B /* AddFinanceVC.m in Sources */,
 				187DB94B1CDC803C009CF1D6 /* GovClassModel.m in Sources */,
 				18E0F6581CE9CDFC00032F4B /* ManagerData.m in Sources */,
 				180B31561C8EB5D100360A23 /* MyPickView.m in Sources */,

@@ -18,9 +18,13 @@
 #import "WHC_CameraVC.h"
 #import "NewlyCreatedVC.h"
 #import "CasesDirectoryVC.h"
+#import "CollectEmptyView.h"
+
 //下载
 #import "TaskModel.h"
 #import "DownLoadView.h"
+//财务管理
+#import "CaseFIViewController.h"
 
 #import "ParallaxHeaderView.h"
 
@@ -32,12 +36,15 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 {
     float _contentOffsetY;
 }
+@property (nonatomic,strong) CollectEmptyView *emptyView;   //无案件时候
+
 @property (strong,nonatomic) UITableView *tableView;
 @property (nonatomic, strong) NSIndexPath* openedIndexPath;
 @property (nonatomic, strong) NSMutableArray* tableData;
 @property (nonatomic, assign) BOOL isMove;//是否可以移动
 @property (nonatomic, strong)ParallaxHeaderView *headView;
 @property (nonatomic, strong)  UILabel *namelab;
+
 @end
 
 @implementation TheCaseDetailVC
@@ -58,6 +65,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     
     //数据
     self.tableData = [NSMutableArray array];
+    self.emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 235.5f, kMainScreenWidth, kMainScreenHeight-235.5f) WithText:@"暂无案件文件"];
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
     _tableView.dataSource = self;
@@ -111,6 +119,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    (self.tableData.count == 0)?[self.view addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
     return [self.tableData count];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -332,7 +341,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     KxMenuItem *kx = (KxMenuItem *)sender;
     DLog(@"%@", kx.title);
 
-    if ([kx.title isEqualToString:@"新建文件夹"]) {
+    if ([kx.title isEqualToString:@"新建文件夹 "]) {
         ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"" withType:RenameType];
         delWindow.renameBlock = ^(NSString *name){
             [NetWorkMangerTools arrangeFileAddwithPid:@"" withName:name withFileType:@"2" withtformat:@"" withqiniuName:@"" withCid:_caseId RequestSuccess:^(id obj) {
@@ -340,18 +349,18 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
             }];
         };
         [self.view addSubview:delWindow];
-    }else if ([kx.title isEqualToString:@"新建文本"]){
+    }else if ([kx.title isEqualToString:@"新建文本  "]){
         NewlyCreatedVC *vc = [NewlyCreatedVC new];
         vc.creatSuccess = ^(){
             [weakSelf loadListViewData];
         };
         vc.caseId = _caseId;
         [self.navigationController  pushViewController:vc animated:YES];
-    }else if ([kx.title isEqualToString:@"拍照上传"]){
+    }else if ([kx.title isEqualToString:@"拍照上传  "]){
         WHC_CameraVC * vc = [WHC_CameraVC new];
         vc.delegate = self;
         [self presentViewController:vc animated:YES completion:nil];
-    }else if ([kx.title isEqualToString:@"上传照片"]){
+    }else if ([kx.title isEqualToString:@"上传照片  "]){
         //从相册选择一张
         WHC_PictureListVC  * vc = [WHC_PictureListVC new];
         vc.delegate = self;
@@ -362,9 +371,14 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         [self loadCaseDetailRequest];
         
     }else if ([kx.title isEqualToString:@"案件提醒管理 "]){
-        
+
+
     }else if ([kx.title isEqualToString:@"案件财务管理"]){
         
+        CaseFIViewController *vc = [CaseFIViewController new];
+        vc.caseId = _caseId;
+        [self.navigationController pushViewController:vc animated:YES];
+
     }
 }
 

@@ -340,6 +340,10 @@
  *  77 用户所有提醒
  */
 #define remindAllList           @"api_user.php?key=16248ef5&c=remindAllList&uid="
+/**
+ *  78 案件财务管理添加
+ */
+#define arrangeFinanceAdd       @"api_user.php?key=16248ef5&c=arrangeFinanceAdd"
 
 /**************************分享的链接***************************/
 //法律法规
