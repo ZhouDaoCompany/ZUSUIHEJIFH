@@ -223,6 +223,8 @@
 		1856EC971D18E1A000016778 /* CaseFIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856EC961D18E1A000016778 /* CaseFIViewController.m */; };
 		1856F7031C869217003A0C17 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856F7001C869217003A0C17 /* HomeViewController.m */; };
 		1863DFE31C8D2B5B00F7A84E /* GcNoticeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863DFE21C8D2B5B00F7A84E /* GcNoticeUtil.m */; };
+		186640471D24AEC800E1F455 /* GBTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186640461D24AEC800E1F455 /* GBTagListView.m */; };
+		1866404A1D24E9B700E1F455 /* FinanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186640491D24E9B700E1F455 /* FinanceModel.m */; };
 		186AA1491CE430F90009C0D5 /* ExampleDetailData.m in Sources */ = {isa = PBXBuildFile; fileRef = 186AA1481CE430F90009C0D5 /* ExampleDetailData.m */; };
 		186AA14D1CE46E7C0009C0D5 /* CollectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 186AA14C1CE46E7C0009C0D5 /* CollectionData.m */; };
 		186DF0CE1CB5094900D66994 /* template_Share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186DF0CC1CB5094900D66994 /* template_Share@2x.png */; };
@@ -788,6 +790,10 @@
 		1863DFE51C8D316200F7A84E /* DefineHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefineHeader.h; sourceTree = "<group>"; };
 		1863DFE61C8D316200F7A84E /* ZhouDao_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhouDao_Prefix.pch; sourceTree = "<group>"; };
 		1863DFE71C8D316200F7A84E /* ZhouDao_RequestDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhouDao_RequestDefine.h; sourceTree = "<group>"; };
+		186640451D24AEC800E1F455 /* GBTagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTagListView.h; sourceTree = "<group>"; };
+		186640461D24AEC800E1F455 /* GBTagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTagListView.m; sourceTree = "<group>"; };
+		186640481D24E9B700E1F455 /* FinanceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceModel.h; sourceTree = "<group>"; };
+		186640491D24E9B700E1F455 /* FinanceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceModel.m; sourceTree = "<group>"; };
 		186AA1471CE430F90009C0D5 /* ExampleDetailData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleDetailData.h; sourceTree = "<group>"; };
 		186AA1481CE430F90009C0D5 /* ExampleDetailData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleDetailData.m; sourceTree = "<group>"; };
 		186AA14B1CE46E7C0009C0D5 /* CollectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionData.h; sourceTree = "<group>"; };
@@ -2114,6 +2120,15 @@
 			path = DefineHeader;
 			sourceTree = "<group>";
 		};
+		186640441D24AEC800E1F455 /* GBTagListView2.0 */ = {
+			isa = PBXGroup;
+			children = (
+				186640451D24AEC800E1F455 /* GBTagListView.h */,
+				186640461D24AEC800E1F455 /* GBTagListView.m */,
+			);
+			path = GBTagListView2.0;
+			sourceTree = "<group>";
+		};
 		186AA14A1CE46E7C0009C0D5 /* 收藏 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2510,6 +2525,7 @@
 			isa = PBXGroup;
 			children = (
 				18F8789F1D053CCA0069E68A /* APIKey.h */,
+				186640441D24AEC800E1F455 /* GBTagListView2.0 */,
 				18A685E91D17DD27001BEA41 /* MJPhotoBrowser */,
 				183CE1A21D10F06C00A8ADAF /* UMessage_Sdk_1.3.0 */,
 				186D08E41D0E65CB00328A1A /* WZLSerializeKit */,
@@ -2667,6 +2683,8 @@
 			children = (
 				18FBD8401CED8B0E00674D1E /* DetaillistModel.h */,
 				18FBD8411CED8B0E00674D1E /* DetaillistModel.m */,
+				186640481D24E9B700E1F455 /* FinanceModel.h */,
+				186640491D24E9B700E1F455 /* FinanceModel.m */,
 				1829B6681CEAB9E40086CF67 /* BasicModel.h */,
 				1829B6691CEAB9E40086CF67 /* BasicModel.m */,
 				18CC2E261D2263F1004B37DA /* MoreModel.h */,
@@ -3521,6 +3539,7 @@
 				104B443E1C9BE14800FC19B3 /* AdvantagesModel.m in Sources */,
 				103D25901CAE712800F2B93A /* GovermentVC.m in Sources */,
 				187D68AC1CCF362100C3946A /* NetWorkMangerTools.m in Sources */,
+				1866404A1D24E9B700E1F455 /* FinanceModel.m in Sources */,
 				18D9D68E1CBCD2CA008F9CC8 /* FilterReusableView.m in Sources */,
 				1825B0A61C969287003B2096 /* CollectEmptyView.m in Sources */,
 				186AA14D1CE46E7C0009C0D5 /* CollectionData.m in Sources */,
@@ -3586,6 +3605,7 @@
 				18CD4DA61C928111001838D2 /* WHC_PhotoListCell.m in Sources */,
 				181E51311CD1F34700BBA10D /* NewPhoneVC.m in Sources */,
 				187DB8BD1CDC6216009CF1D6 /* GovListmodel.m in Sources */,
+				186640471D24AEC800E1F455 /* GBTagListView.m in Sources */,
 				18FF3F361C85234A0098C60B /* ZhouDao_NetWorkManger.m in Sources */,
 				18CB0F061CBF42EA009C41CE /* TwoCompensationCell.m in Sources */,
 				18EE958C1D2373150030AE2B /* AddFinanceVC.m in Sources */,

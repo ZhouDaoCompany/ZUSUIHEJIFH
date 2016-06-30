@@ -33,7 +33,7 @@
 #import "ManagerData.h"
 #import "BasicModel.h"
 #import "DetaillistModel.h"
-
+#import "FinanceModel.h"
 #import "UMessage.h"
 
 @implementation NetWorkMangerTools
@@ -1770,6 +1770,55 @@
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
+
+#pragma mark - 案件整理 财务管理列表
++ (void)financialListToCheckTheCaseWithCaseID:(NSString *)caseId RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
+{
+    [SVProgressHUD show];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@%@&aid=%@",kProjectBaseUrl,arrangeFinanceList,UID,caseId];
+    [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+        [SVProgressHUD dismiss];
+        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+        if (errorcode !=1) {
+            [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
+            fail();
+            return ;
+        }
+        NSMutableArray *arrays = jsonDic[@"data"];
+        NSMutableArray *modelArr = [NSMutableArray array];
+        [arrays enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            FinanceModel *model = [[FinanceModel alloc] initWithDictionary:dict];
+            [modelArr addObject:model];
+        }];
+        success(modelArr);
+        
+    } fail:^{
+        [SVProgressHUD dismiss];
+        [JKPromptView showWithImageName:nil message:AlrertMsg];
+    }];
+}
+#pragma mark - 案件整理 财务管理删除
++ (void)arrangeFinanceDelWithUrl:(NSString *)url RequestSuccess:(void (^)())success
+{
+    [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+        [SVProgressHUD dismiss];
+        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+        [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
+        if (errorcode !=1) {
+            return ;
+        }
+        success();
+        
+    } fail:^{
+        [SVProgressHUD dismiss];
+        [JKPromptView showWithImageName:nil message:AlrertMsg];
+    }];
+    
+}
+
+
 /**
  *  判断铃声
  */

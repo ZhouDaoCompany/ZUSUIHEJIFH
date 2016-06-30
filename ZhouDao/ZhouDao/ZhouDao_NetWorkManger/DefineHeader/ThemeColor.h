@@ -22,6 +22,7 @@
 
 //副标题颜色
 #define sixColor                     [UIColor colorWithHexString:@"#666666"]
+#define NINEColor                    [UIColor colorWithHexString:@"#999999"]
 
 //view背景色
 #define ViewBackColor                [UIColor colorWithHexString:@"#F2F2F2"]

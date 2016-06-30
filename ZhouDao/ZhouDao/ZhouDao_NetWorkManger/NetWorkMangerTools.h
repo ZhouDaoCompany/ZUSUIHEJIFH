@@ -363,6 +363,16 @@
  */
 + (void)lookAllScheduleRequestSuccess:(void (^)(NSArray *arr))success;
 
+/**
+ *  查看案件财务列表
+ */
++ (void)financialListToCheckTheCaseWithCaseID:(NSString *)caseId RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail;;
+/**
+ *  案件整理 财务管理删除
+ *
+ */
++ (void)arrangeFinanceDelWithUrl:(NSString *)url RequestSuccess:(void (^)())success;
+
 /*
  * 自动登录
  */

@@ -10,13 +10,14 @@
 #import "FinanceTabCell.h"
 #import "RemarkTabCell.h"
 #import "ZHPickView.h"
+#import "ZD_DeleteWindow.h"
 
 static NSString *const FINANCEIDENTIFER = @"financeIdentifer";
 static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
 
 @interface AddFinanceVC ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UITextFieldDelegate>
 {
-    NSInteger _currentBtnTag;
+    
     UITapGestureRecognizer * _tapGesture;
 
 }
@@ -38,11 +39,38 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
     
     [self initUI];
 }
+
 - (void)initUI
 {
     [self setupNaviBarWithTitle:@"添加财务信息"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
-    _bigtitArr = [NSMutableArray arrayWithObjects:@"律师费(与客户)",@"提成(与律所)",@"差旅费",@"第三方费用",@"其他", nil];
+    
+    [self creatDataSource];
+
+    if (_financeType == AddFinance) {
+        
+        _currentBtnTag = 0;
+        
+        NSArray *titArr = _titBasiArr[_currentBtnTag];
+        [self creatCommitArrWithTitleArr:titArr];
+
+        [self creatAllClassBtn];
+
+        CGRect frame = CGRectMake(0,Orgin_y(_botomView), kMainScreenWidth, kMainScreenHeight - Orgin_y(_botomView));
+        [self creatTabViewWithRect:frame];
+    }else {
+        [self setupNaviBarWithBtn:NaviRightBtn
+                            title:nil img:@"case_delete"];
+        [_commitArr addObjectsFromArray:_oriArr];
+        CGRect frame = CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight - 64);
+        [self creatTabViewWithRect:frame];
+    }
+
+}
+#pragma mark -构建数据
+- (void)creatDataSource
+{
+    _bigtitArr = [NSMutableArray arrayWithObjects:@"律师费(与客户)",@"提成(与律所)",@"差旅费",@"第三方费用",@"自定义", nil];
     _textBasiArr = [NSMutableArray array];
     _titBasiArr  = [NSMutableArray array];
     _commitArr   = [NSMutableArray array];
@@ -64,7 +92,7 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
     /*
      * 提成(与律所)
      */
-    NSArray *arr2 = @[@"总金额",@"提成比例",@"提成金额(%)"];
+    NSArray *arr2 = @[@"总金额",@"提成比例(%)",@"提成金额"];
     [_titBasiArr addObject:arr2];
     [_textBasiArr addObject:[NSDictionary dictionary]];
     
@@ -87,20 +115,18 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
     NSArray *arr42 = @[@"未交",@"已交"];
     NSDictionary *dic4 = [NSDictionary dictionaryWithObjectsAndKeys:arr41,@"费用选项",arr42,@"状态",nil];
     [_textBasiArr addObject:dic4];
-
+    
     /*
-     * 其他
+     * 自定义
      */
     NSArray *arr5 = @[@"费用项",@"费用"];
     [_titBasiArr addObject:arr5];
     [_textBasiArr addObject:[NSDictionary dictionary]];
-
-
-    _currentBtnTag = 0;
     
-    NSArray *titArr = _titBasiArr[_currentBtnTag];
-    [self creatCommitArrWithTitleArr:titArr];
-    
+}
+#pragma mark -创建按钮选项
+- (void)creatAllClassBtn
+{
     UIView *botomView = [[UIView alloc] init];
     botomView.backgroundColor = [UIColor clearColor];
     _botomView = botomView;
@@ -130,8 +156,10 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
         }
     }
     _botomView.frame = CGRectMake(0, 64, kMainScreenWidth, hotHeight);
-    
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,Orgin_y(_botomView), kMainScreenWidth, kMainScreenHeight - Orgin_y(_botomView)) style:UITableViewStylePlain];
+}
+- (void)creatTabViewWithRect:(CGRect)frame
+{
+    _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.backgroundColor = [UIColor clearColor];
@@ -177,7 +205,23 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
 }
 
 #pragma mark - event response
-
+- (void)rightBtnAction
+{WEAKSELF;
+   // arrangeFinanceDelWithUrl
+    
+    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"确定删除吗?" withType:DelType];
+    delWindow.DelBlock = ^(){
+        
+        NSString *url = [NSString  stringWithFormat:@"%@%@%@&id=%@",kProjectBaseUrl,arrangeFinanceDel,UID,_cwid];
+        [NetWorkMangerTools arrangeFinanceDelWithUrl:url RequestSuccess:^{
+            
+            weakSelf.successBlock();
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
+    };
+    
+    [self.view addSubview:delWindow];
+}
 -(void)moneyBtnClick:(UIButton *)btn
 {
     DLog(@"更改费用信息");
@@ -202,28 +246,70 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
     [_tableView reloadData];
 }
 -(void)commitEvent:(UIButton *)btn
-{
+{WEAKSELF;
+    
+    __block BOOL isCommit = NO;
+    [_commitArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (obj.length >0) {
+            *stop =  YES;
+            isCommit = YES;
+        }
+    }];
+    
+    if (isCommit == NO) {
+        
+        [JKPromptView showWithImageName:nil message:@"请您填写内容"];
+        return;
+    }
     
     __block NSMutableDictionary *msgDic = [[NSMutableDictionary alloc] init];
     [msgDic setObjectWithNullValidate:GET(UID) forKey:@"uid"];
     [msgDic setObjectWithNullValidate:GET(_caseId) forKey:@"aid"];
-    if (_currentBtnTag == 4) {
-        _currentBtnTag = 8;
-    }
-    NSString *typestr = [NSString stringWithFormat:@"%ld",_currentBtnTag +1];
-    [msgDic setObjectWithNullValidate:GET(typestr) forKey:@"type"];
+    
+    NSArray *titArr = _titBasiArr[_currentBtnTag];
+    NSMutableArray *titMutabArr = [NSMutableArray array];
+    [titMutabArr addObjectsFromArray:titArr];
+    [titMutabArr addObject:@"备注"];
+    NSData *titdatamsg = [self toJSONData:titMutabArr];
+    NSString *titMsg =[[NSString alloc] initWithData:titdatamsg
+                                            encoding:NSUTF8StringEncoding];
+
     NSData *weChatdatamsg = [self toJSONData:_commitArr];
     NSString *weChatPayMsg =[[NSString alloc] initWithData:weChatdatamsg
                                                   encoding:NSUTF8StringEncoding];
     [msgDic setObjectWithNullValidate:weChatPayMsg forKey:@"content"];
 
-    NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeFinanceAdd];
+    if (_currentBtnTag == 4) {
+        _currentBtnTag = 8;
+    }
+    NSString *typestr = [NSString stringWithFormat:@"%ld",_currentBtnTag +1];
+    [msgDic setObjectWithNullValidate:GET(typestr) forKey:@"type"];
+
+    [msgDic setObjectWithNullValidate:titMsg forKey:@"title"];
     
-    [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:url RequestSuccess:^{
+    if (_financeType == AddFinance) {
         
+        NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeFinanceAdd];
         
+        [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:url RequestSuccess:^{
+            
+            weakSelf.successBlock();
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
+
+    }else{
         
-    }];
+        NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeFinanceEdit];
+
+        [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:url RequestSuccess:^{
+            
+            weakSelf.successBlock();
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
+
+    }
+
 }
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -271,10 +357,10 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
     }else if ([cell isKindOfClass:[RemarkTabCell class]]){
         RemarkTabCell *rCell = (RemarkTabCell *)cell;
         rCell.textView.delegate = self;
-        rCell.textView.text = @"";
+        rCell.textView.text = _commitArr[row];
         rCell.textView.tag = row +6000;
         if (rCell.textView.text.length >0) {
-            rCell.placeHoldlab.text = _commitArr[row];
+            rCell.placeHoldlab.text = @"";
         }else {
             rCell.placeHoldlab.text = @" 写备注...";
         }

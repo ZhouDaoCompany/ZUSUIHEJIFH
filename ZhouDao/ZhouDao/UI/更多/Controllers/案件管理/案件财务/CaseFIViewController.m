@@ -10,20 +10,22 @@
 #import "CollectEmptyView.h"
 #import "AddFinanceVC.h"
 #import "FinanceDesCell.h"
-
+#import "FinanceModel.h"
+#import "GBTagListView.h"
 
 static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdentifier";
 
 @interface CaseFIViewController ()<UITableViewDataSource,UITableViewDelegate,FinanceDesCellPro>
 {
-    BOOL _flag[24];//bool 数组
-    
+//    BOOL _flag[24];//bool 数组
     
 }
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic,strong) CollectEmptyView *emptyView;//为空时候
 @property (nonatomic,strong)NSMutableArray *dataArrays;//数据源
+@property (nonatomic,strong)NSMutableArray *oriHeiArr;//原始高度
+@property (nonatomic,strong)NSMutableArray *heightArr;//高度收缩
 
 @end
 
@@ -44,9 +46,10 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
     self.emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 235.5f, kMainScreenWidth, kMainScreenHeight-235.5f) WithText:@"暂无案件文件"];
-    _dataArrays = [NSMutableArray arrayWithObjects:@"携手池边月，开襟竹下风。驱愁知酒力，破睡见茶功。居处东西接，年颜老少同。能来为伴否？伊上作渔翁。",@"岑公相门子，雅望归安石。奕世皆夔龙，中台竟三拆。至人达机兆，高揖九州伯。奈何天地间，而作隐沦客。贵道能全真，潜辉卧幽邻。探元入窅默，观化游无垠。光武有天下，严陵为故人。虽登洛阳殿，不屈巢由身。余亦谢明主，今称偃蹇臣。登高览万古，思与广成邻。蹈海宁受赏，还山非问津。西来一摇扇，共拂元规尘。",@"君生我未生，我生君已老。 君恨我生迟，我恨君生早。君生我未生，我生君已老。 恨不生同时，日日与君好。我生君未生，君生我已老。 我离君天涯，君隔我海角。我生君未生，君生我已老。 化蝶去寻花，夜夜栖芳草。",@"梅尧臣（1002～1060）字圣俞，世称宛陵先生，北宋著名现实主义诗人。汉族，宣州宣城（今属安徽）人。宣城古称宛陵，世称宛陵先生。初试不第，以荫补河南主簿。50岁后，于皇祐三年（1051）始得宋仁宗召试，赐同进士出身，为太常博士。以欧阳修荐，为国子监直讲，累迁尚书都官员外郎，故世称“梅直讲”、“梅都官”。曾参与编撰《新唐书》，并为《孙子兵法》作注，所注为孙子十家著（或十一家著）之一。有《宛陵先生集》60卷，有《四部丛刊》影明刊本等。词存二首。",@"鲁山层峦叠嶂，千峰竞秀，一高一低，蔚为壮观，正好投合我热爱大自然景色的心情",@"在山中走着走着，幽静的秋山，看不到房舍，望不见炊烟，自己也怀疑这山里是不是有人家居住，不禁自问一声，“人家在何许(何处)”",@"携手池边月，开襟竹下风。驱愁知酒力，破睡见茶功。居处东西接，年颜老少同。能来为伴否？伊上作渔翁。",@"岑公相门子，雅望归安石。奕世皆夔龙，中台竟三拆。至人达机兆，高揖九州伯。奈何天地间，而作隐沦客。贵道能全真，潜辉卧幽邻。探元入窅默，观化游无垠。光武有天下，严陵为故人。虽登洛阳殿，不屈巢由身。余亦谢明主，今称偃蹇臣。登高览万古，思与广成邻。蹈海宁受赏，还山非问津。西来一摇扇，共拂元规尘。",@"君生我未生，我生君已老。 君恨我生迟，我恨君生早。君生我未生，我生君已老。 恨不生同时，日日与君好。我生君未生，君生我已老。 我离君天涯，君隔我海角。我生君未生，君生我已老。 化蝶去寻花，夜夜栖芳草。",@"梅尧臣（1002～1060）字圣俞，世称宛陵先生，北宋著名现实主义诗人。汉族，宣州宣城（今属安徽）人。宣城古称宛陵，世称宛陵先生。初试不第，以荫补河南主簿。50岁后，于皇祐三年（1051）始得宋仁宗召试，赐同进士出身，为太常博士。以欧阳修荐，为国子监直讲，累迁尚书都官员外郎，故世称“梅直讲”、“梅都官”。曾参与编撰《新唐书》，并为《孙子兵法》作注，所注为孙子十家著（或十一家著）之一。有《宛陵先生集》60卷，有《四部丛刊》影明刊本等。词存二首。",@"鲁山层峦叠嶂，千峰竞秀，一高一低，蔚为壮观，正好投合我热爱大自然景色的心情",@"在山中走着走着，幽静的秋山，看不到房舍，望不见炊烟，自己也怀疑这山里是不是有人家居住，不禁自问一声，“人家在何许(何处)”", nil];
+    _dataArrays = [NSMutableArray array];
+    _oriHeiArr  = [NSMutableArray array];
+    _heightArr  = [NSMutableArray array];
 
-    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64.f, kMainScreenWidth, kMainScreenHeight - 64.f) style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -54,7 +57,30 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [ self.view addSubview:_tableView];
     [_tableView registerClass:[FinanceDesCell class] forCellReuseIdentifier:ALLFINANCEIDENTIFER];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
 
+    [_tableView.mj_header beginRefreshing];
+}
+#pragma mark ------ 下拉刷新
+- (void)upRefresh:(id)sender
+{
+    [self.tableView.mj_header endRefreshing];
+    [self requestListData];
+}
+
+- (void)requestListData
+{WEAKSELF;
+    [NetWorkMangerTools financialListToCheckTheCaseWithCaseID:_caseId RequestSuccess:^(NSArray *arr) {
+        [weakSelf.dataArrays removeAllObjects];
+        
+        [weakSelf.dataArrays addObjectsFromArray:arr];
+        [weakSelf CalculateTheLineHeight:weakSelf.dataArrays];
+        [weakSelf.tableView reloadData];
+
+    } fail:^{
+        [weakSelf.dataArrays removeAllObjects];
+        [weakSelf.tableView reloadData];
+    }];
 }
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -63,39 +89,191 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     FinanceDesCell *cell = (FinanceDesCell *)[tableView dequeueReusableCellWithIdentifier:ALLFINANCEIDENTIFER];
     cell.delegate = self;
-    cell.expanded  = _flag[indexPath.row];
-    [cell setDesString:_dataArrays[indexPath.row]];
+    if (_dataArrays.count >0) {
+        [cell setFinanceModel:_dataArrays[indexPath.row]];
+    }
 
     return cell;
 }
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if ([cell isKindOfClass:[FinanceDesCell class]])
+//    {
+//        FinanceDesCell *fCell = (FinanceDesCell *)cell;
+//        fCell.delegate = self;
+//        if (_dataArrays.count >0) {
+//            [fCell setTitArr:_titArr[indexPath.row] withconArr:_contentArr[indexPath.row]];
+//        }
+//    }
+//}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {WEAKSELF;
     NSInteger row = indexPath.row;
     
+    FinanceModel *model = _dataArrays[row];
+    NSData *contentData = [model.content dataUsingEncoding:NSUTF8StringEncoding];
+    __block NSArray *jsonConArr = [NSJSONSerialization JSONObjectWithData:contentData options:NSJSONReadingAllowFragments error:nil];
+    NSInteger indexType = 0;
+    if ([model.type isEqualToString:@"9"]) {
+        indexType = 4;
+    }else {
+        indexType = [model.type integerValue] -1;
+    }
+    
+    AddFinanceVC *vc = [AddFinanceVC new];
+    vc.caseId = _caseId;
+    vc.cwid = model.id;
+    vc.oriArr = jsonConArr;
+    vc.currentBtnTag = indexType;
+    vc.successBlock = ^(){
+        
+        [weakSelf requestListData];
+    };
+    vc.financeType = EditFinance;
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FinanceDesCell *cell = (FinanceDesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-    return  cell.rowHeight;
+//    FinanceDesCell *cell = (FinanceDesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+//    return  cell.rowHeight;
+    FinanceModel *model = _dataArrays[indexPath.row];
+    if (model.isExpanded == YES) {
+        float height = [_oriHeiArr[indexPath.row] floatValue];
+        return height;
+    }
+    
+    float height = [_heightArr[indexPath.row] floatValue];
+    return height;
+
 }
 #pragma mark - DesTableViewCellPro
 - (void)expandOrClose:(UITableViewCell *)cell{
     
     FinanceDesCell *desCell = (FinanceDesCell *)cell;
     NSIndexPath *indexpath = [_tableView indexPathForCell:desCell];
-    _flag[indexpath.row] = !_flag[indexpath.row];
+    FinanceModel *model = _dataArrays[indexpath.row];
+    model.isExpanded = !model.isExpanded;
     [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:indexpath.row inSection:0],nil] withRowAnimation:UITableViewRowAnimationNone];
+}
+#pragma mark -DetailImgCellPro
+- (void)TheRefreshTableCell:(UITableViewCell *)cell{
+//    FinanceDesCell *desCell = (FinanceDesCell *)cell;
+//    NSIndexPath *indexpath = [_tableView indexPathForCell:desCell];
+//    NSArray *arrays = [self.tableView visibleCells];
+//    if ([arrays containsObject:cell]) {
+//        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:indexpath.row inSection:0],nil] withRowAnimation:UITableViewRowAnimationNone];
+//    }
+}
+- (void)CalculateTheLineHeight:(NSMutableArray *)dataSource
+{
+    for (NSUInteger i =0; i<dataSource.count; i++) {
+        
+        FinanceModel *financeModel = dataSource[i];
+        NSData *titData = [financeModel.title dataUsingEncoding:NSUTF8StringEncoding];
+        __block NSMutableArray *jsonTitArr = [NSJSONSerialization JSONObjectWithData:titData options:NSJSONReadingAllowFragments error:nil];
+        
+        NSData *contentData = [financeModel.content dataUsingEncoding:NSUTF8StringEncoding];
+        __block NSMutableArray *jsonConArr = [NSJSONSerialization JSONObjectWithData:contentData options:NSJSONReadingAllowFragments error:nil];
+//        [_titArr addObject:jsonTitArr];
+//        [_contentArr addObject:jsonConArr];
+        
+        CGFloat labelMaxWidth = kMainScreenWidth-30;
+        
+        __block NSMutableArray *arr = [NSMutableArray array];
+        
+        
+        [jsonConArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (idx < jsonConArr.count -1) {
+                if (obj.length >0) {
+                    NSString *str = [NSString stringWithFormat:@"%@:%@",jsonTitArr[idx],jsonConArr[idx]];
+                    
+                    [arr addObject:str];
+                }
+            }
+        }];
+        
+        float rowHeight = 68.f;
+        
+//        if (arr.count == 1) {
+//            rowHeight = 68.f;
+//        }
+        if (arr.count == 2) {
+            NSString *str1 = arr[0];
+            NSString *str2 = arr[1];
+
+            NSDictionary *attrs = @{NSFontAttributeName : [UIFont systemFontOfSize:10.f]};
+            CGSize Size_str1=[str1 sizeWithAttributes:attrs];
+            CGSize Size_str2=[str2 sizeWithAttributes:attrs];
+            if ((Size_str1.width + Size_str2.width +15) > kMainScreenWidth) {
+                rowHeight = 93.f;
+            }
+        }
+
+        if (arr.count == 3) {
+            NSString *str1 = arr[0];
+            NSString *str2 = arr[1];
+            NSString *str3 = arr[2];
+
+            NSDictionary *attrs = @{NSFontAttributeName : [UIFont systemFontOfSize:10.f]};
+            CGSize Size_str1=[str1 sizeWithAttributes:attrs];
+            CGSize Size_str2=[str2 sizeWithAttributes:attrs];
+            CGSize Size_str3=[str3 sizeWithAttributes:attrs];
+
+            if ((Size_str1.width + Size_str2.width + Size_str3.width +20) > kMainScreenWidth) {
+                rowHeight = 93.f;
+            }
+        }
+
+        
+        NSString *desString = [NSString stringWithFormat:@"%@",[jsonConArr lastObject]];
+
+        NSDictionary *attribute = @{NSFontAttributeName:[UIFont systemFontOfSize:14]};
+        CGSize size = [desString boundingRectWithSize:CGSizeMake(labelMaxWidth, 9999)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+        
+        float height1 = 0.f;
+        float height2 = 0.f;
+
+        if (desString.length == 0) {
+            height1 = rowHeight + 5.f;
+            height2 = rowHeight + 5.f;
+
+        }else {
+            
+            if (size.height < 34.f) {
+                
+                height1 = size.height + rowHeight + 15;
+                height2 = size.height + rowHeight + 15;
+
+            }else {
+                height1 =  size.height + 45 +  rowHeight;
+                height2 =  34.f + 45 +  rowHeight;
+
+            }
+        }
+
+        [_oriHeiArr addObject:[NSString stringWithFormat:@"%f",height1]];
+        [_heightArr addObject:[NSString stringWithFormat:@"%f",height2]];
+
+    }
 }
 #pragma mark - event response
 -(void)rightBtnAction
-{
+{WEAKSELF;
     DLog(@"添加财务管理");
     
     AddFinanceVC *vc = [AddFinanceVC new];
     vc.caseId = _caseId;
+    vc.financeType = AddFinance;
+    vc.successBlock = ^(){
+        
+        [weakSelf requestListData];
+    };
     [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - private methods
@@ -103,7 +281,8 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 #pragma mark - getters and setters 
 - (CollectEmptyView *)emptyView
 {
-    if (_emptyView == nil) {
+    if (_emptyView == nil){
+        
         _emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - 64.f)
                                                     WithText:@"暂无财务信息"];
     }

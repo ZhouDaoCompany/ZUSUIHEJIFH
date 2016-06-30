@@ -345,6 +345,21 @@
  */
 #define arrangeFinanceAdd       @"api_user.php?key=16248ef5&c=arrangeFinanceAdd"
 
+/**
+ *  79 案件整理 财务管理列表
+ */
+#define arrangeFinanceList      @"api_user.php?key=16248ef5&c=arrangeFinanceList&uid="
+/**
+ *  80 案件整理 财务管理删除
+ */
+#define arrangeFinanceDel       @"api_user.php?key=16248ef5&c=arrangeFinanceDel&uid="
+/**
+ *  81 案件整理 财务管理编辑
+ */
+#define arrangeFinanceEdit      @"api_user.php?key=16248ef5&c=arrangeFinanceEdit"
+
+
+
 /**************************分享的链接***************************/
 //法律法规
 #define LawShareUrl                    @"share_laws.php?id="

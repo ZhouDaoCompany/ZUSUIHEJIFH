@@ -58,7 +58,7 @@
     if (_currentBtnTag == 1 || _currentBtnTag == 4)
     {
         
-        if (_currentBtnTag == 1 && [_titleLab.text isEqualToString:@"提成金额(%)"]) {
+        if (_currentBtnTag == 1 && [_titleLab.text isEqualToString:@"提成金额"]) {
             _deviceLabel.hidden = NO;
             _imgview1.hidden = YES;
             _textField.hidden = YES;
@@ -70,7 +70,7 @@
             _textField.frame = CGRectMake(kMainScreenWidth - 151.f, 7.5f, 130, 30);
             [_textField setValue:Font_12 forKeyPath:@"_placeholderLabel.font"];
             
-            if ([_titleLab.text isEqualToString:@"总金额"] || [_titleLab.text isEqualToString:@"提成比例"] || [_titleLab.text isEqualToString:@"费用"]) {
+            if ([_titleLab.text isEqualToString:@"总金额"] || [_titleLab.text isEqualToString:@"提成比例(%)"] || [_titleLab.text isEqualToString:@"费用"]) {
                 _textField.keyboardType = UIKeyboardTypeDecimalPad;
             }else{
                 _textField.keyboardType = UIKeyboardTypeDefault;
@@ -86,7 +86,6 @@
 
     }
 
-    
 }
 - (void)layoutSubviews
 {
