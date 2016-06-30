@@ -26,6 +26,8 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 @property (nonatomic,strong)NSMutableArray *dataArrays;//数据源
 @property (nonatomic,strong)NSMutableArray *oriHeiArr;//原始高度
 @property (nonatomic,strong)NSMutableArray *heightArr;//高度收缩
+@property (nonatomic,strong)NSMutableArray *remarkArr;//备注数组
+@property (nonatomic,strong)NSMutableArray *labArr;//标签数组
 
 @end
 
@@ -49,6 +51,8 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     _dataArrays = [NSMutableArray array];
     _oriHeiArr  = [NSMutableArray array];
     _heightArr  = [NSMutableArray array];
+    _remarkArr  = [NSMutableArray array];
+    _labArr     = [NSMutableArray array];
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64.f, kMainScreenWidth, kMainScreenHeight - 64.f) style:UITableViewStylePlain];
     _tableView.dataSource = self;
@@ -72,13 +76,18 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 {WEAKSELF;
     [NetWorkMangerTools financialListToCheckTheCaseWithCaseID:_caseId RequestSuccess:^(NSArray *arr) {
         [weakSelf.dataArrays removeAllObjects];
-        
+        [weakSelf.oriHeiArr removeAllObjects];
+        [weakSelf.heightArr removeAllObjects];
+
         [weakSelf.dataArrays addObjectsFromArray:arr];
         [weakSelf CalculateTheLineHeight:weakSelf.dataArrays];
         [weakSelf.tableView reloadData];
 
     } fail:^{
         [weakSelf.dataArrays removeAllObjects];
+        [weakSelf.oriHeiArr removeAllObjects];
+        [weakSelf.heightArr removeAllObjects];
+
         [weakSelf.tableView reloadData];
     }];
 }
@@ -93,7 +102,9 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     FinanceDesCell *cell = (FinanceDesCell *)[tableView dequeueReusableCellWithIdentifier:ALLFINANCEIDENTIFER];
     cell.delegate = self;
     if (_dataArrays.count >0) {
+        
         [cell setFinanceModel:_dataArrays[indexPath.row]];
+        [cell setLabArr:_labArr[indexPath.row] withDesString:_remarkArr[indexPath.row]];
     }
 
     return cell;
@@ -160,15 +171,6 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     model.isExpanded = !model.isExpanded;
     [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:indexpath.row inSection:0],nil] withRowAnimation:UITableViewRowAnimationNone];
 }
-#pragma mark -DetailImgCellPro
-- (void)TheRefreshTableCell:(UITableViewCell *)cell{
-//    FinanceDesCell *desCell = (FinanceDesCell *)cell;
-//    NSIndexPath *indexpath = [_tableView indexPathForCell:desCell];
-//    NSArray *arrays = [self.tableView visibleCells];
-//    if ([arrays containsObject:cell]) {
-//        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:indexpath.row inSection:0],nil] withRowAnimation:UITableViewRowAnimationNone];
-//    }
-}
 - (void)CalculateTheLineHeight:(NSMutableArray *)dataSource
 {
     for (NSUInteger i =0; i<dataSource.count; i++) {
@@ -198,6 +200,12 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
             }
         }];
         
+        [_labArr addObject:arr];//标签
+        
+        NSString *desString = [NSString stringWithFormat:@"%@",[jsonConArr lastObject]];
+        [_remarkArr addObject:desString];
+
+        
         float rowHeight = 68.f;
         
 //        if (arr.count == 1) {
@@ -210,7 +218,7 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
             NSDictionary *attrs = @{NSFontAttributeName : [UIFont systemFontOfSize:10.f]};
             CGSize Size_str1=[str1 sizeWithAttributes:attrs];
             CGSize Size_str2=[str2 sizeWithAttributes:attrs];
-            if ((Size_str1.width + Size_str2.width +15) > kMainScreenWidth) {
+            if ((Size_str1.width + Size_str2.width +55) > kMainScreenWidth) {
                 rowHeight = 93.f;
             }
         }
@@ -225,14 +233,11 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
             CGSize Size_str2=[str2 sizeWithAttributes:attrs];
             CGSize Size_str3=[str3 sizeWithAttributes:attrs];
 
-            if ((Size_str1.width + Size_str2.width + Size_str3.width +20) > kMainScreenWidth) {
+            if ((Size_str1.width + Size_str2.width + Size_str3.width +80) > kMainScreenWidth) {
                 rowHeight = 93.f;
             }
         }
-
         
-        NSString *desString = [NSString stringWithFormat:@"%@",[jsonConArr lastObject]];
-
         NSDictionary *attribute = @{NSFontAttributeName:[UIFont systemFontOfSize:14]};
         CGSize size = [desString boundingRectWithSize:CGSizeMake(labelMaxWidth, 9999)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
         
@@ -251,8 +256,8 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
                 height2 = size.height + rowHeight + 15;
 
             }else {
-                height1 =  size.height + 45 +  rowHeight;
-                height2 =  34.f + 45 +  rowHeight;
+                height1 =  size.height + 35 +  rowHeight;
+                height2 =  34.f + 35 +  rowHeight;
 
             }
         }

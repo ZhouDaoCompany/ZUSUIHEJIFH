@@ -15,13 +15,10 @@
 static float const DefaultCellHeight = 34;
 @interface FinanceDesCell()
 {
-//    NSArray*strArray;//保存标签数据的数组
-    
     NSString *_desString;
 
 }
 @property (nonatomic, strong) GBTagListView *TagView;
-//@property (nonatomic, assign)  BOOL isExpandable;    // 是否显示"收起"按钮
 
 @end
 @implementation FinanceDesCell
@@ -45,22 +42,16 @@ static float const DefaultCellHeight = 34;
 
 //        strArray=@[@"收费模式:先收固定金额,按结果比例提成",@"风险代理:半风险",@"是否开具发票:否"];
         
-        GBTagListView *tagList=[[GBTagListView alloc]initWithFrame:CGRectMake(0, Orgin_y(_titlab) + 7, SCREENWIDTH, 0)];
+        _TagView = nil;
+        _TagView=[[GBTagListView alloc]initWithFrame:CGRectMake(0, Orgin_y(_titlab) + 7, SCREENWIDTH, 0)];
         /**允许点击 */
-        tagList.canTouch=NO;
+        _TagView.canTouch=NO;
         /**可以控制允许点击的标签数 */
-        tagList.canTouchNum = 1;
+        _TagView.canTouchNum = 1;
         /**控制是否是单选模式 */
-        tagList.isSingleSelect=YES;
-        tagList.signalTagColor=[UIColor whiteColor];
-        [tagList setMarginBetweenTagLabel:5.f AndBottomMargin:5.f];
-
-//        [tagList setTagWithTagArray:strArray];
-        [tagList setDidselectItemBlock:^(NSArray *arr) {
-            
-        }];
-//        tagList.backgroundColor = [UIColor blackColor];
-        _TagView = tagList;
+        _TagView.isSingleSelect=YES;
+        _TagView.signalTagColor=[UIColor whiteColor];
+        [_TagView setMarginBetweenTagLabel:5.f AndBottomMargin:5.f];
         [self.contentView addSubview:_TagView];
 
         _rowHeight = 0;
@@ -85,7 +76,6 @@ static float const DefaultCellHeight = 34;
     return self;
 }
 
-
 - (void)setFinanceModel:(FinanceModel *)financeModel
 {
     _financeModel = nil;
@@ -104,43 +94,27 @@ static float const DefaultCellHeight = 34;
     
     _titlab.text = titArr[index];
     
-    NSData *titData = [_financeModel.title dataUsingEncoding:NSUTF8StringEncoding];
-   __block NSMutableArray *jsonTitArr = [NSJSONSerialization JSONObjectWithData:titData options:NSJSONReadingAllowFragments error:nil];
-    
-    NSData *contentData = [_financeModel.content dataUsingEncoding:NSUTF8StringEncoding];
-   __block NSMutableArray *jsonConArr = [NSJSONSerialization JSONObjectWithData:contentData options:NSJSONReadingAllowFragments error:nil];
-    
-   __block NSMutableArray *arr = [NSMutableArray array];
-    
-    
-    [jsonConArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if (idx < jsonConArr.count -1) {
-            if (obj.length >0) {
-                NSString *str = [NSString stringWithFormat:@"%@:%@",jsonTitArr[idx],jsonConArr[idx]];
-                
-                [arr addObject:str];
-            }
-        }
-    }];
-    
-    [_TagView setTagWithTagArray:arr];
-    
-    NSString *desString = [NSString stringWithFormat:@"%@",[jsonConArr lastObject]];
-    
-    if (desString.length == 0) {
-        _showAllButton.hidden = YES;
-        _rowHeight =  Orgin_y(_TagView) + 5.f;
-        
-    }else{
-        _desString = desString;
-        _lab.text = _desString;
-        DLog(@"88888888------%@",_desString);
-        [self calculateLabelHeight:_desString];
-
-    }
     
 }
+
+- (void)setLabArr:(NSArray *)labArr withDesString:(NSString *)desStr
+{
+    [_TagView setTagWithTagArray:labArr];
+    
+    _desString = desStr;
+    
+    
+    if (_desString.length > 0) {
+        
+        _lab.text = _desString;
+        [self calculateLabelHeight:_desString];
+    }else {
+        _lab = nil;
+        _showAllButton = nil;
+    }
+
+}
+
 - (void)calculateLabelHeight:(NSString *)desString{
     
     CGFloat labelMaxWidth = SCREENWIDTH-30;
@@ -150,47 +124,32 @@ static float const DefaultCellHeight = 34;
     
     if (ziTiSize.height  < DefaultCellHeight) {
         
-//        _isExpandable = false;//没有收起展开操作
         _showAllButton.hidden = YES;
         _lab.frame = CGRectMake(15,  Orgin_y(_TagView) +5.f, labelMaxWidth, ziTiSize.height );
-
-        _rowHeight =  ziTiSize.height + Orgin_y(_TagView) + 15;
-
-        if ([self.delegate respondsToSelector:@selector(TheRefreshTableCell:)]) {
-            [self.delegate TheRefreshTableCell:self];
-        }
-
+//        _rowHeight =  ziTiSize.height + Orgin_y(_TagView) + 15;
         
     }else{
         
-//        _isExpandable = true;//含有收起展开操作
         _showAllButton.hidden = NO;
         if (_expanded == false) {
             //不展开
+            _lab.backgroundColor = [UIColor blackColor];
             _lab.frame = CGRectMake(15,  Orgin_y(_TagView)-4.f +5.f, labelMaxWidth, DefaultCellHeight);
-
-            _rowHeight = DefaultCellHeight + 45 +  Orgin_y(_TagView);
-            if ([self.delegate respondsToSelector:@selector(TheRefreshTableCell:)]) {
-                [self.delegate TheRefreshTableCell:self];
-            }
+//            _rowHeight = DefaultCellHeight + 45 +  Orgin_y(_TagView);
+            _showAllButton.frame = CGRectMake(SCREENWIDTH-45, Orgin_y(_lab), 30, 20);
 
         }else{
             //展开
             _lab.frame = CGRectMake(15,  Orgin_y(_TagView) +5.f, labelMaxWidth, ziTiSize.height);
 
-            _rowHeight = ziTiSize.height + 45 +  Orgin_y(_TagView);
+//            _rowHeight = ziTiSize.height + 45 +  Orgin_y(_TagView);
             //            [_showAllButton setTitle:@"收起" forState:0];
             [_showAllButton setImage:[UIImage imageNamed:@"case_up"] forState:0];
-            if ([self.delegate respondsToSelector:@selector(TheRefreshTableCell:)]) {
-                [self.delegate TheRefreshTableCell:self];
-            }
-
-            
+            _showAllButton.frame = CGRectMake(SCREENWIDTH-45, Orgin_y(_lab), 30, 20);
         }
 
-        _showAllButton.frame = CGRectMake(SCREENWIDTH-45, _rowHeight-35, 30, 30);
-        
     }
+    DLog(@"按钮－－－－－%@",[NSString stringWithFormat:@"%@",_showAllButton]);
 
 }
 
@@ -198,7 +157,7 @@ static float const DefaultCellHeight = 34;
 {
     [super layoutSubviews];
     
-    [self calculateLabelHeight:_desString];
+//    [self calculateLabelHeight:_desString];
 
 }
 #pragma mark -UIButtonEvent
@@ -209,18 +168,6 @@ static float const DefaultCellHeight = 34;
         [self.delegate expandOrClose:self];
     }
     
-}
-- (NSData *)toJSONData:(id)theData{
-    
-    NSError *error = nil;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theData
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    if ( error == nil){
-        return jsonData;
-    }else{
-        return nil;
-    }
 }
 
 - (void)awakeFromNib {

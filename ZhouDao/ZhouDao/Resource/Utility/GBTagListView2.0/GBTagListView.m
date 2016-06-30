@@ -72,7 +72,7 @@ alpha:1.0]
         [tagBtn addTarget:self action:@selector(tagBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [tagBtn setTitle:str forState:UIControlStateNormal];
         tagBtn.tag=KBtnTag+idx;
-        tagBtn.layer.cornerRadius=13;
+        tagBtn.layer.cornerRadius=10;
 //        tagBtn.layer.borderColor=ABORDERColor.CGColor;
 //        tagBtn.layer.borderWidth=0.6;
         tagBtn.clipsToBounds=YES;

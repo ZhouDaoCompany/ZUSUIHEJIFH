@@ -13,53 +13,5 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZhouDao/UI/&#x66f4;&#x591a;/Controllers/&#x6848;&#x4ef6;&#x7ba1;&#x7406;/&#x6dfb;&#x52a0;&#x6848;&#x4ef6;/LitigationTabVC.m"
-            timestampString = "488630499.104044"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
-            landmarkName = "-textFieldChanged:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZhouDao/UI/&#x66f4;&#x591a;/Controllers/&#x6848;&#x4ef6;&#x7ba1;&#x7406;/&#x6dfb;&#x52a0;&#x6848;&#x4ef6;/LitigationTabVC.m"
-            timestampString = "488630499.104044"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
-            landmarkName = "-textFieldChanged:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ZhouDao/UI/&#x66f4;&#x591a;/Controllers/&#x6848;&#x4ef6;&#x7ba1;&#x7406;/&#x6dfb;&#x52a0;&#x6848;&#x4ef6;/LitigationTabVC.m"
-            timestampString = "488630499.104044"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
-            landmarkName = "-textFieldChanged:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

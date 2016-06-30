@@ -26,13 +26,12 @@
 @property (nonatomic, strong)  UILabel *lab;
 @property (nonatomic, strong)  UIButton *showAllButton;
 @property (nonatomic, assign)  BOOL expanded;     // 收起或展开操作
-@property (nonatomic, copy)    NSString *desString;//商品介绍
-//@property (nonatomic, assign)  CGFloat rowHeight;//高度
+@property (nonatomic, assign)  CGFloat rowHeight;//高度
 
 @property (nonatomic, strong)  FinanceModel *financeModel;
 
 @property (nonatomic,assign)id<FinanceDesCellPro>delegate;//代理
 
-- (void)setTitArr:(NSArray *)titArr withconArr:(NSArray*)conArr;
+- (void)setLabArr:(NSArray *)labArr withDesString:(NSString *)desStr;
 
 @end
