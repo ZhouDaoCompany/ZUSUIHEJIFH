@@ -152,6 +152,7 @@
 }
 #pragma mark -监测版本
 - (void)MonitorVersion{
+    
     [NetWorkMangerTools checkHistoryVersionRequestSuccess:^(NSString *desc) {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"有新版本了马上更新" message:desc delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"立即升级", nil];

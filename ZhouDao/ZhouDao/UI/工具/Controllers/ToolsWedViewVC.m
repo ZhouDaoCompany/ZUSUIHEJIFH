@@ -29,6 +29,9 @@
 @property (nonatomic,strong) UIImageView *imageview;
 @property WebViewJavascriptBridge* bridge;
 
+@property (nonatomic, strong) UIImageView *historyImgView;
+@property (nonatomic, strong) UIImageView *shareImgView;
+
 @end
 
 @implementation ToolsWedViewVC
@@ -47,7 +50,7 @@
 }
 - (void)initUI
 {
-    
+
     [self setupNaviBarWithTitle:_navTitle];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     
@@ -81,28 +84,10 @@
         _webView.scalesPageToFit = NO;//禁止用户缩放页面
         [_webView setOpaque:NO]; //不设置这个值 页面背景始终是白色
         
-        if (_tType == FromHotType || _tType == FromEveryType || _tType == FromRecHDType) {
+        if (_tType == FromHotType || _tType == FromEveryType) {
+            
             [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_Share"];
-            [_webView loadURL:_url];
-
-            WEAKSELF;
-            if (_bridge) { return; }
-            [WebViewJavascriptBridge enableLogging];
-            _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
-        
-            [_bridge registerHandler:@"imgAll" handler:^(id data, WVJBResponseCallback responseCallback) {
-                
-                DLog(@" called: %@", data);
-                responseCallback(@"Response from imgAll");
-                NSDictionary *dataDic = (NSDictionary *)data;
-                NSMutableArray *arr = dataDic[@"all"];
-                NSString *curr = dataDic[@"curr"];
-                [arr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([curr isEqualToString:obj]) {
-                        [weakSelf testImg:arr withInte:idx];
-                    }
-                }];
-            }];
+            [self loadCommonMethod];
 
         }else if (_tType == FromToolsType){
             
@@ -124,10 +109,62 @@
         }else if (_tType == FromCaseType){
             
             [_webView loadTxtFileUrl:_url];
+        }else if (_tType == FromRecHDType ){
+            
+            [self loadCommonMethod];
+            [self checkLookHistoryAndShare];
         }
 
     }
     
+}
+#pragma mark - private method
+- (void)loadCommonMethod{
+    
+    [_webView loadURL:_url];
+    WEAKSELF;
+    if (_bridge) { return; }
+    [WebViewJavascriptBridge enableLogging];
+    _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
+    
+    [_bridge registerHandler:@"imgAll" handler:^(id data, WVJBResponseCallback responseCallback) {
+        
+        DLog(@" called: %@", data);
+        responseCallback(@"Response from imgAll");
+        NSDictionary *dataDic = (NSDictionary *)data;
+        NSMutableArray *arr = dataDic[@"all"];
+        NSString *curr = dataDic[@"curr"];
+        [arr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([curr isEqualToString:obj]) {
+                [weakSelf testImg:arr withInte:idx];
+            }
+        }];
+    }];
+}
+#pragma mark - 历史记录按钮
+- (void)checkLookHistoryAndShare
+{WEAKSELF;
+    UIImageView *addImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -40.f,32.f, 20, 20)];
+    addImgView.image = [UIImage imageNamed:@"template_Share"];
+    addImgView.userInteractionEnabled = YES;
+    _shareImgView = addImgView;
+    [self.view addSubview:_shareImgView];
+    [_shareImgView whenTapped:^{
+        
+        [weakSelf rightBtnAction];
+
+    }];
+    
+    UIImageView *shareImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -85.f,32.f, 20, 20)];
+    shareImgView.image = [UIImage imageNamed:@"everyDay_history"];
+    shareImgView.userInteractionEnabled = YES;
+    _historyImgView = shareImgView;
+    [self.view addSubview:_historyImgView];
+    [_historyImgView whenTapped:^{
+        
+
+    }];
+
 }
 - (void)testImg:(NSMutableArray *)arr withInte:(NSUInteger)index{
     DLog(@"diaoqi");

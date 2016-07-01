@@ -60,7 +60,7 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     _tableView.backgroundColor = [UIColor clearColor];
     [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [ self.view addSubview:_tableView];
-    [_tableView registerClass:[FinanceDesCell class] forCellReuseIdentifier:ALLFINANCEIDENTIFER];
+    [_tableView registerNib:[UINib nibWithNibName:@"FinanceDesCell" bundle:nil] forCellReuseIdentifier:ALLFINANCEIDENTIFER];
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
 
     [_tableView.mj_header beginRefreshing];
@@ -99,7 +99,9 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     FinanceDesCell *cell = (FinanceDesCell *)[tableView dequeueReusableCellWithIdentifier:ALLFINANCEIDENTIFER];
+
     cell.delegate = self;
     if (_dataArrays.count >0) {
         

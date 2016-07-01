@@ -1818,6 +1818,36 @@
     
 }
 
+#pragma mark - 案件整理 提醒列表
+
++ (void)arrangeRemindListWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success
+{
+    [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+        [SVProgressHUD dismiss];
+        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+        [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
+        if (errorcode !=1) {
+            
+            return ;
+        }
+        
+        NSArray *dataArr = jsonDic[@"data"];
+        __block NSMutableArray *arr = [NSMutableArray array];
+        [dataArr enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            RemindData *model = [[RemindData alloc] initWithDictionary:dic];
+            
+            [arr addObject:model];
+        }];
+        success(arr);
+        
+    } fail:^{
+        [SVProgressHUD dismiss];
+        [JKPromptView showWithImageName:nil message:AlrertMsg];
+    }];
+
+}
+
 
 /**
  *  判断铃声

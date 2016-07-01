@@ -246,6 +246,14 @@
 		187E6D791C841A15009169C2 /* ZhouDaoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E6D781C841A15009169C2 /* ZhouDaoTests.m */; };
 		187E6D841C841A15009169C2 /* ZhouDaoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E6D831C841A15009169C2 /* ZhouDaoUITests.m */; };
 		188638F81C9AA5D200E91F78 /* AddAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188638F71C9AA5D200E91F78 /* AddAlertVC.m */; };
+		188651A71D25FBE900E030F7 /* FinanceDesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651A51D25FBE900E030F7 /* FinanceDesCell.m */; };
+		188651A81D25FBE900E030F7 /* FinanceDesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188651A61D25FBE900E030F7 /* FinanceDesCell.xib */; };
+		188651AC1D26031800E030F7 /* CasesRemindVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651AB1D26031800E030F7 /* CasesRemindVC.m */; };
+		188651B31D2604F900E030F7 /* AddCaseRemindVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651B21D2604F900E030F7 /* AddCaseRemindVC.m */; };
+		188651B61D26073100E030F7 /* AddRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651B51D26073100E030F7 /* AddRemindCell.m */; };
+		188651BA1D264DDC00E030F7 /* CaseRemindListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651B81D264DDC00E030F7 /* CaseRemindListCell.m */; };
+		188651BB1D264DDC00E030F7 /* CaseRemindListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188651B91D264DDC00E030F7 /* CaseRemindListCell.xib */; };
+		188651BD1D26609600E030F7 /* everyDay_history@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188651BC1D26609600E030F7 /* everyDay_history@2x.png */; };
 		188F9E361CF7FAF2000F9B2D /* Intro_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E331CF7FAF2000F9B2D /* Intro_1@2x.png */; };
 		188F9E371CF7FAF2000F9B2D /* Intro_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E341CF7FAF2000F9B2D /* Intro_2@2x.png */; };
 		188F9E381CF7FAF2000F9B2D /* Intro_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E351CF7FAF2000F9B2D /* Intro_3@2x.png */; };
@@ -382,7 +390,6 @@
 		18E7C47F1CFC312E00E01A11 /* law_placeHold@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E7C47E1CFC312E00E01A11 /* law_placeHold@2x.png */; };
 		18EE958C1D2373150030AE2B /* AddFinanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE958B1D2373150030AE2B /* AddFinanceVC.m */; };
 		18EE95901D237C040030AE2B /* FinanceTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE958F1D237C040030AE2B /* FinanceTabCell.m */; };
-		18EE95931D23E1780030AE2B /* FinanceDesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE95921D23E1780030AE2B /* FinanceDesCell.m */; };
 		18EE95951D23E5B70030AE2B /* case_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EE95941D23E5B70030AE2B /* case_up@2x.png */; };
 		18F2F19F1CBDDAD70068453D /* case_juanzong4s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F19E1CBDDAD70068453D /* case_juanzong4s@2x.png */; };
 		18F2F1A11CBDE0930068453D /* case_juanzong6p@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F1A01CBDE0930068453D /* case_juanzong6p@3x.png */; };
@@ -834,6 +841,19 @@
 		187E6D851C841A15009169C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188638F61C9AA5D200E91F78 /* AddAlertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAlertVC.h; sourceTree = "<group>"; };
 		188638F71C9AA5D200E91F78 /* AddAlertVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAlertVC.m; sourceTree = "<group>"; };
+		188651A41D25FBE900E030F7 /* FinanceDesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceDesCell.h; sourceTree = "<group>"; };
+		188651A51D25FBE900E030F7 /* FinanceDesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceDesCell.m; sourceTree = "<group>"; };
+		188651A61D25FBE900E030F7 /* FinanceDesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FinanceDesCell.xib; sourceTree = "<group>"; };
+		188651AA1D26031800E030F7 /* CasesRemindVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CasesRemindVC.h; sourceTree = "<group>"; };
+		188651AB1D26031800E030F7 /* CasesRemindVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CasesRemindVC.m; sourceTree = "<group>"; };
+		188651B11D2604F900E030F7 /* AddCaseRemindVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCaseRemindVC.h; sourceTree = "<group>"; };
+		188651B21D2604F900E030F7 /* AddCaseRemindVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCaseRemindVC.m; sourceTree = "<group>"; };
+		188651B41D26073100E030F7 /* AddRemindCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindCell.h; sourceTree = "<group>"; };
+		188651B51D26073100E030F7 /* AddRemindCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindCell.m; sourceTree = "<group>"; };
+		188651B71D264DDC00E030F7 /* CaseRemindListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseRemindListCell.h; sourceTree = "<group>"; };
+		188651B81D264DDC00E030F7 /* CaseRemindListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseRemindListCell.m; sourceTree = "<group>"; };
+		188651B91D264DDC00E030F7 /* CaseRemindListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CaseRemindListCell.xib; sourceTree = "<group>"; };
+		188651BC1D26609600E030F7 /* everyDay_history@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "everyDay_history@2x.png"; sourceTree = "<group>"; };
 		188F9E331CF7FAF2000F9B2D /* Intro_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Intro_1@2x.png"; sourceTree = "<group>"; };
 		188F9E341CF7FAF2000F9B2D /* Intro_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Intro_2@2x.png"; sourceTree = "<group>"; };
 		188F9E351CF7FAF2000F9B2D /* Intro_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Intro_3@2x.png"; sourceTree = "<group>"; };
@@ -1060,8 +1080,6 @@
 		18EE958B1D2373150030AE2B /* AddFinanceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFinanceVC.m; sourceTree = "<group>"; };
 		18EE958E1D237C040030AE2B /* FinanceTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceTabCell.h; sourceTree = "<group>"; };
 		18EE958F1D237C040030AE2B /* FinanceTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceTabCell.m; sourceTree = "<group>"; };
-		18EE95911D23E1780030AE2B /* FinanceDesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceDesCell.h; sourceTree = "<group>"; };
-		18EE95921D23E1780030AE2B /* FinanceDesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceDesCell.m; sourceTree = "<group>"; };
 		18EE95941D23E5B70030AE2B /* case_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_up@2x.png"; sourceTree = "<group>"; };
 		18F2F19E1CBDDAD70068453D /* case_juanzong4s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_juanzong4s@2x.png"; sourceTree = "<group>"; };
 		18F2F1A01CBDE0930068453D /* case_juanzong6p@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_juanzong6p@3x.png"; sourceTree = "<group>"; };
@@ -1240,6 +1258,7 @@
 				10BA91B21CEE0D39000889A4 /* CasesDirectoryVC.m */,
 				10BA91AC1CEDEBFE000889A4 /* NewlyCreatedVC.h */,
 				10BA91AD1CEDEBFE000889A4 /* NewlyCreatedVC.m */,
+				188651A91D2602E700E030F7 /* 案件提醒 */,
 				1856EC941D18E15400016778 /* 案件财务 */,
 				1817D28D1CC0801C00FF6EEE /* 添加案件 */,
 			);
@@ -1769,6 +1788,7 @@
 		181292A11C87E7B100EBB5CD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				188651AD1D2604AC00E030F7 /* CaseRemind */,
 				18EE958D1D237A3F0030AE2B /* CaseFinance */,
 				18F878AA1D056E260069E68A /* MoreMenuView */,
 				1817D29A1CC0898800FF6EEE /* add案件 */,
@@ -2212,6 +2232,29 @@
 			path = ZhouDaoUITests;
 			sourceTree = "<group>";
 		};
+		188651A91D2602E700E030F7 /* 案件提醒 */ = {
+			isa = PBXGroup;
+			children = (
+				188651AA1D26031800E030F7 /* CasesRemindVC.h */,
+				188651AB1D26031800E030F7 /* CasesRemindVC.m */,
+				188651B11D2604F900E030F7 /* AddCaseRemindVC.h */,
+				188651B21D2604F900E030F7 /* AddCaseRemindVC.m */,
+			);
+			path = "案件提醒";
+			sourceTree = "<group>";
+		};
+		188651AD1D2604AC00E030F7 /* CaseRemind */ = {
+			isa = PBXGroup;
+			children = (
+				188651B41D26073100E030F7 /* AddRemindCell.h */,
+				188651B51D26073100E030F7 /* AddRemindCell.m */,
+				188651B71D264DDC00E030F7 /* CaseRemindListCell.h */,
+				188651B81D264DDC00E030F7 /* CaseRemindListCell.m */,
+				188651B91D264DDC00E030F7 /* CaseRemindListCell.xib */,
+			);
+			path = CaseRemind;
+			sourceTree = "<group>";
+		};
 		188F9E321CF7FAF2000F9B2D /* GuidePage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2627,6 +2670,7 @@
 		18DD1E9B1C882739004630C1 /* menuIcon */ = {
 			isa = PBXGroup;
 			children = (
+				188651BC1D26609600E030F7 /* everyDay_history@2x.png */,
 				18CD01CD1C8FEFA0009DE385 /* BottomImg@2x.png */,
 				10C86B891CABCC28002A75AC /* home_hot@2x.png */,
 				10C86B871CABC042002A75AC /* home_fagui@2x.png */,
@@ -2710,8 +2754,9 @@
 			children = (
 				18EE958E1D237C040030AE2B /* FinanceTabCell.h */,
 				18EE958F1D237C040030AE2B /* FinanceTabCell.m */,
-				18EE95911D23E1780030AE2B /* FinanceDesCell.h */,
-				18EE95921D23E1780030AE2B /* FinanceDesCell.m */,
+				188651A41D25FBE900E030F7 /* FinanceDesCell.h */,
+				188651A51D25FBE900E030F7 /* FinanceDesCell.m */,
+				188651A61D25FBE900E030F7 /* FinanceDesCell.xib */,
 			);
 			path = CaseFinance;
 			sourceTree = "<group>";
@@ -3173,6 +3218,7 @@
 				18B5834B1C9A98C700CB3009 /* PlanTableViewCell.xib in Resources */,
 				180B31671C8ECFFF00360A23 /* recommentUnSelect@2x.png in Resources */,
 				1065C34A1CA91BA4003F4089 /* law_wodeshoucang@2x.png in Resources */,
+				188651BB1D264DDC00E030F7 /* CaseRemindListCell.xib in Resources */,
 				108DC03A1C9FA38E00FD1221 /* mine_recommend@2x.png in Resources */,
 				108DC02D1C9FA38E00FD1221 /* mine_calendar@2x.png in Resources */,
 				18C4B0661CB4FC7600D3CB8B /* SelectTemplateCell.xib in Resources */,
@@ -3251,6 +3297,7 @@
 				18FD82FD1CBB4E8C00D50E20 /* case_detailHead.jpg in Resources */,
 				108DC0361C9FA38E00FD1221 /* mine_manager@2x.png in Resources */,
 				108DC02C1C9FA38E00FD1221 /* mine_box@2x.png in Resources */,
+				188651A81D25FBE900E030F7 /* FinanceDesCell.xib in Resources */,
 				18B16AD01CFD5CE300561CD5 /* UMSnsAccountViewController.xib in Resources */,
 				18CD01D81C901367009DE385 /* tabbar_LawsRegular@2x.png in Resources */,
 				18CD01DA1C901367009DE385 /* tabbar_template@2x.png in Resources */,
@@ -3318,6 +3365,7 @@
 				10172BE71CBBF1F300B7553E /* case_shangC@2x.png in Resources */,
 				181BA4121CE598B600A29E2E /* share_platform_wechat@2x.png in Resources */,
 				18FBD8481CED90CD00674D1E /* case_pdf@2x.png in Resources */,
+				188651BD1D26609600E030F7 /* everyDay_history@2x.png in Resources */,
 				1065C3411CA91BA4003F4089 /* law_contenAdd@2x.png in Resources */,
 				108DC0331C9FA38E00FD1221 /* mine_guanbi@2x.png in Resources */,
 				10FA3E3E1CAD73A2005C4C0C /* defaultSound.caf in Resources */,
@@ -3401,6 +3449,7 @@
 			files = (
 				1825B08B1C966EB6003B2096 /* CurledViewBase.m in Sources */,
 				1829BA7C1CE32CA400F0143F /* ExampleListVC.m in Sources */,
+				188651B61D26073100E030F7 /* AddRemindCell.m in Sources */,
 				1068EAF41CB3907B00AAADD4 /* AlertView.m in Sources */,
 				18B5833A1C9A4A7D00CB3009 /* MyPlanViewController.m in Sources */,
 				18F2F1A71CBE157B0068453D /* ExampleSearchVC.m in Sources */,
@@ -3446,7 +3495,6 @@
 				187E6D631C841A11009169C2 /* AppDelegate.m in Sources */,
 				104B44251C9BCC9A00FC19B3 /* MyAdvantagesVC.m in Sources */,
 				1817D2901CC0802B00FF6EEE /* AddCaseVC.m in Sources */,
-				18EE95931D23E1780030AE2B /* FinanceDesCell.m in Sources */,
 				1041575D1C9470A500EE5303 /* MyCollectionVC.m in Sources */,
 				1829BA761CE2F58700F0143F /* ExampleData.m in Sources */,
 				18FF3F5A1C852E820098C60B /* UIView+WhenTappedBlocks.m in Sources */,
@@ -3523,6 +3571,7 @@
 				104304961CA515CA009D7072 /* FGGDownloader.m in Sources */,
 				181125D21CDADBF200ACA16D /* CompensationData.m in Sources */,
 				18C4B03C1CB4A4E200D3CB8B /* TemplateViewController.m in Sources */,
+				188651AC1D26031800E030F7 /* CasesRemindVC.m in Sources */,
 				18A6860F1D17DE31001BEA41 /* MJPhotoBrowser.m in Sources */,
 				18FF3F461C852A370098C60B /* DTApiBaseBean.m in Sources */,
 				18F2F1D71CBE47000068453D /* OrdinaryVC.m in Sources */,
@@ -3541,6 +3590,7 @@
 				187D68AC1CCF362100C3946A /* NetWorkMangerTools.m in Sources */,
 				1866404A1D24E9B700E1F455 /* FinanceModel.m in Sources */,
 				18D9D68E1CBCD2CA008F9CC8 /* FilterReusableView.m in Sources */,
+				188651A71D25FBE900E030F7 /* FinanceDesCell.m in Sources */,
 				1825B0A61C969287003B2096 /* CollectEmptyView.m in Sources */,
 				186AA14D1CE46E7C0009C0D5 /* CollectionData.m in Sources */,
 				18CD4DA71C928111001838D2 /* WHC_CameraVC.m in Sources */,
@@ -3583,6 +3633,7 @@
 				189AB24F1D20C1190032F580 /* CaseTextField.m in Sources */,
 				10DA75DD1CA7AD6000B00A53 /* UIImage+ImageEffects.m in Sources */,
 				10C019431CE4CA5A0058586A /* ShareView.m in Sources */,
+				188651B31D2604F900E030F7 /* AddCaseRemindVC.m in Sources */,
 				10241A131CB9F36D000CBEAE /* CompensationVC.m in Sources */,
 				1065C3201CA91689003F4089 /* ContentViewController.m in Sources */,
 				18DE72551C99324B0068F7E5 /* SettingTabCell.m in Sources */,
@@ -3598,6 +3649,7 @@
 				18FBBF301D06C83B002AED81 /* AllPlanViewController.m in Sources */,
 				18DD1E901C881502004630C1 /* CYLPlusButtonSubclass.m in Sources */,
 				104157611C94713600EE5303 /* CollectionTableVC.m in Sources */,
+				188651BA1D264DDC00E030F7 /* CaseRemindListCell.m in Sources */,
 				18D9D68D1CBCD2CA008F9CC8 /* FilterCollectionViewCell.m in Sources */,
 				187DB92E1CDC6B33009CF1D6 /* GovernmentListVC.m in Sources */,
 				18FF3F561C852D550098C60B /* NSString+SPStr.m in Sources */,

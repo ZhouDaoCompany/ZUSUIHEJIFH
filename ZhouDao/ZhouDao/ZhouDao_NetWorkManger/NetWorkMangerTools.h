@@ -366,12 +366,18 @@
 /**
  *  查看案件财务列表
  */
-+ (void)financialListToCheckTheCaseWithCaseID:(NSString *)caseId RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail;;
++ (void)financialListToCheckTheCaseWithCaseID:(NSString *)caseId RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail;
 /**
  *  案件整理 财务管理删除
  *
  */
 + (void)arrangeFinanceDelWithUrl:(NSString *)url RequestSuccess:(void (^)())success;
+
+/**
+ *  案件整理 提醒列表
+ *
+ */
++ (void)arrangeRemindListWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success;
 
 /*
  * 自动登录

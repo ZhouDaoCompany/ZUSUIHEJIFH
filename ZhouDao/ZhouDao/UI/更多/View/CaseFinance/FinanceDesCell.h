@@ -2,13 +2,12 @@
 //  FinanceDesCell.h
 //  ZhouDao
 //
-//  Created by apple on 16/6/29.
+//  Created by apple on 16/7/1.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "FinanceModel.h"
-
 @protocol FinanceDesCellPro <NSObject>
 
 - (void)expandOrClose:(UITableViewCell *)cell;
@@ -18,8 +17,7 @@
 
 @interface FinanceDesCell : UITableViewCell
 {
-    CGSize ziTiSize;
-
+     CGSize ziTiSize;
 }
 
 @property (nonatomic, strong)  UILabel *titlab;//标题

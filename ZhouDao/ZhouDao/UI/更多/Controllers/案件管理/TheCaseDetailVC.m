@@ -25,6 +25,7 @@
 #import "DownLoadView.h"
 //财务管理
 #import "CaseFIViewController.h"
+#import "CasesRemindVC.h"
 
 #import "ParallaxHeaderView.h"
 
@@ -370,8 +371,11 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 
         [self loadCaseDetailRequest];
         
-    }else if ([kx.title isEqualToString:@"案件提醒管理 "]){
+    }else if ([kx.title isEqualToString:@"案件提醒管理"]){
 
+        CasesRemindVC *remindVc = [CasesRemindVC new];
+        remindVc.caseId = _caseId;
+        [self.navigationController pushViewController:remindVc animated:YES];
 
     }else if ([kx.title isEqualToString:@"案件财务管理"]){
         

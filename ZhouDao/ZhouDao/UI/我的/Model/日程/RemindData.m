@@ -27,6 +27,9 @@
 @synthesize title = _title;
 @synthesize uid = _uid;
 
+@synthesize type= _type;
+@synthesize arrange_id = _arrange_id;
+
 
 -(id)initWithDictionary:(NSDictionary*)dict
 {
@@ -41,6 +44,10 @@
 		DTAPI_DICT_ASSIGN_STRING(time, @"");
 		DTAPI_DICT_ASSIGN_STRING(title, @"");
 		DTAPI_DICT_ASSIGN_STRING(uid, @"");
+        
+        
+        DTAPI_DICT_ASSIGN_STRING(arrange_id, @"");
+        DTAPI_DICT_ASSIGN_STRING(type, @"");
     }
     
     return self;
@@ -59,6 +66,10 @@
 	DTAPI_DICT_EXPORT_BASICTYPE(time);
 	DTAPI_DICT_EXPORT_BASICTYPE(title);
 	DTAPI_DICT_EXPORT_BASICTYPE(uid);
+    
+    DTAPI_DICT_EXPORT_BASICTYPE(arrange_id);
+    DTAPI_DICT_EXPORT_BASICTYPE(type);
+    
     return md;
 }
 @end

@@ -20,12 +20,13 @@
         self.titleLab = [[UILabel alloc] init];
         self.titleLab.textAlignment = NSTextAlignmentLeft;
         self.titleLab.font = Font_15;
+        self.titleLab.textColor = thirdColor;
         [self.contentView addSubview:self.titleLab];
         
         self.deviceLabel = [[UILabel alloc] init];
         self.deviceLabel.textAlignment = NSTextAlignmentRight;
         self.deviceLabel.font = Font_14;
-        self.deviceLabel.textColor = [UIColor blackColor];
+        self.deviceLabel.textColor = thirdColor;
         [self.contentView addSubview:self.deviceLabel];
         
         self.textField = [[CaseTextField alloc] init];

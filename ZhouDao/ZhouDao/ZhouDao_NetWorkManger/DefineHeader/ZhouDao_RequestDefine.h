@@ -17,6 +17,7 @@
 #define kProjectBaseUrl         @"http://testapi.zhoudao.cc/pro/"
 
 
+
 /*
  1 验证手机号
  */
@@ -357,7 +358,18 @@
  *  81 案件整理 财务管理编辑
  */
 #define arrangeFinanceEdit      @"api_user.php?key=16248ef5&c=arrangeFinanceEdit"
-
+/**
+ *  82 案件整理 添加提醒
+ */
+#define arrangeRemindAdd        @"api_user.php?key=16248ef5&c=arrangeRemindAdd"
+/**
+ *  83 案件整理 提醒列表
+ */
+#define arrangeRemindList       @"api_user.php?key=16248ef5&c=arrangeRemindList&uid="
+/**
+ *  84 焦点历史记录
+ */
+#define dailyHistory            @"api_recom.php?key=16248ef5&c=dailyHistory"
 
 
 /**************************分享的链接***************************/

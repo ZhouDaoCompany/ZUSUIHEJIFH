@@ -119,7 +119,7 @@ static NSString *const cellIdentifer = @"cellIdentifer";
     tableView.scrollEnabled = NO;
     tableView.backgroundColor = [UIColor clearColor];
     [tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [ self.view addSubview:tableView];
+    [self.view addSubview:tableView];
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifer];
 }
 #pragma mark - UITableViewDataSource
@@ -311,7 +311,7 @@ static NSString *const cellIdentifer = @"cellIdentifer";
         //比较时间
         if ([QZManager compareOneDay:[NSDate date] withAnotherDay:fireDate] == 1)
         {
-            [JKPromptView showWithImageName:nil message:@"请您检查设置时间!"];
+            [JKPromptView showWithImageName:nil message:@"请您检查设置时间"];
             return;
         }
     }
