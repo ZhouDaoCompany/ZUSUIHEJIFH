@@ -35,7 +35,7 @@
 #import "DetaillistModel.h"
 #import "FinanceModel.h"
 #import "UMessage.h"
-
+#import "HistoryModel.h"
 @implementation NetWorkMangerTools
 
 #pragma mark -获取用户擅长领域
@@ -1847,6 +1847,34 @@
     }];
 
 }
+#pragma mark - 焦点历史记录
++ (void)FocusOnTheHistoryWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success
+{
+    [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+        [SVProgressHUD dismiss];
+        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+        [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
+        if (errorcode !=1) {
+            
+            return ;
+        }
+        NSArray *dataArr = jsonDic[@"data"];
+        __block NSMutableArray *arr = [NSMutableArray array];
+        [dataArr enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            HistoryModel *model = [[HistoryModel alloc] initWithDictionary:dic];
+            [arr addObject:model];
+        }];
+        success(arr);
+        
+    } fail:^{
+        [SVProgressHUD dismiss];
+        [JKPromptView showWithImageName:nil message:AlrertMsg];
+    }];
+
+    
+}
+
 
 
 /**

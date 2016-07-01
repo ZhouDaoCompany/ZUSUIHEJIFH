@@ -30,10 +30,15 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
     [self initUI];
 }
 - (void)initUI{
+    
     _page = 0;
     _dataSourceArrays = [NSMutableArray array];
-    [self setupNaviBarWithTitle:@"时事热点"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
+
+    if (_moreType == RecomType) {
+        [self setupNaviBarWithTitle:@"时事热点"];
+
+    }
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
     _tableView.dataSource = self;
@@ -53,11 +58,11 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
 #pragma mark ------ 下拉刷新
 - (void)upRefresh:(id)sender
 {WEAKSELF;
-    [self.dataSourceArrays removeAllObjects];
     _page = 0;
     [weakSelf.tableView.mj_header endRefreshing];
     NSString *url = [NSString stringWithFormat:@"%@%@%ld",kProjectBaseUrl,hotspotAll,(unsigned long)_page];
     [NetWorkMangerTools loadMoreDataHomePage:url RequestSuccess:^(NSArray *arr) {
+        [weakSelf.dataSourceArrays removeAllObjects];
         [weakSelf.dataSourceArrays addObjectsFromArray:arr];
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_footer endRefreshing];

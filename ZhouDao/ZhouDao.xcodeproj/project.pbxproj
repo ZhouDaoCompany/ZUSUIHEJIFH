@@ -254,6 +254,7 @@
 		188651BA1D264DDC00E030F7 /* CaseRemindListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651B81D264DDC00E030F7 /* CaseRemindListCell.m */; };
 		188651BB1D264DDC00E030F7 /* CaseRemindListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188651B91D264DDC00E030F7 /* CaseRemindListCell.xib */; };
 		188651BD1D26609600E030F7 /* everyDay_history@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188651BC1D26609600E030F7 /* everyDay_history@2x.png */; };
+		188651C01D266FA500E030F7 /* HistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651BF1D266FA500E030F7 /* HistoryModel.m */; };
 		188F9E361CF7FAF2000F9B2D /* Intro_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E331CF7FAF2000F9B2D /* Intro_1@2x.png */; };
 		188F9E371CF7FAF2000F9B2D /* Intro_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E341CF7FAF2000F9B2D /* Intro_2@2x.png */; };
 		188F9E381CF7FAF2000F9B2D /* Intro_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E351CF7FAF2000F9B2D /* Intro_3@2x.png */; };
@@ -854,6 +855,8 @@
 		188651B81D264DDC00E030F7 /* CaseRemindListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseRemindListCell.m; sourceTree = "<group>"; };
 		188651B91D264DDC00E030F7 /* CaseRemindListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CaseRemindListCell.xib; sourceTree = "<group>"; };
 		188651BC1D26609600E030F7 /* everyDay_history@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "everyDay_history@2x.png"; sourceTree = "<group>"; };
+		188651BE1D266FA500E030F7 /* HistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryModel.h; sourceTree = "<group>"; };
+		188651BF1D266FA500E030F7 /* HistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryModel.m; sourceTree = "<group>"; };
 		188F9E331CF7FAF2000F9B2D /* Intro_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Intro_1@2x.png"; sourceTree = "<group>"; };
 		188F9E341CF7FAF2000F9B2D /* Intro_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Intro_2@2x.png"; sourceTree = "<group>"; };
 		188F9E351CF7FAF2000F9B2D /* Intro_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Intro_3@2x.png"; sourceTree = "<group>"; };
@@ -1887,6 +1890,8 @@
 		181292A81C87E7B100EBB5CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				188651BE1D266FA500E030F7 /* HistoryModel.h */,
+				188651BF1D266FA500E030F7 /* HistoryModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3476,6 +3481,7 @@
 				188638F81C9AA5D200E91F78 /* AddAlertVC.m in Sources */,
 				18A622871CD3441C0073B886 /* RemindData.m in Sources */,
 				181125D61CDB36FB00ACA16D /* GovData.m in Sources */,
+				188651C01D266FA500E030F7 /* HistoryModel.m in Sources */,
 				103D25931CAE729A00F2B93A /* GovCollectionViewCell.m in Sources */,
 				1068EAF61CB3907B00AAADD4 /* VoiceManager.m in Sources */,
 				104157641C94718000EE5303 /* OrderTitleLab.m in Sources */,

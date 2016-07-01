@@ -21,7 +21,7 @@
 #import "WebViewJavascriptBridge.h"
 #import "MJPhotoBrowser.h"
 #import "MJPhoto.h"
-
+#import "MoreViewController.h"
 
 @interface ToolsWedViewVC ()<UIWebViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UIWebView *webView;
@@ -84,7 +84,7 @@
         _webView.scalesPageToFit = NO;//禁止用户缩放页面
         [_webView setOpaque:NO]; //不设置这个值 页面背景始终是白色
         
-        if (_tType == FromHotType || _tType == FromEveryType) {
+        if (_tType == FromHotType || _tType == FromRecHDType) {
             
             [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_Share"];
             [self loadCommonMethod];
@@ -109,7 +109,7 @@
         }else if (_tType == FromCaseType){
             
             [_webView loadTxtFileUrl:_url];
-        }else if (_tType == FromRecHDType ){
+        }else if (_tType == FromEveryType){
             
             [self loadCommonMethod];
             [self checkLookHistoryAndShare];
@@ -162,7 +162,8 @@
     [self.view addSubview:_historyImgView];
     [_historyImgView whenTapped:^{
         
-
+        MoreViewController *moreVC = [MoreViewController new];
+        [weakSelf.navigationController  pushViewController:moreVC animated:YES];
     }];
 
 }

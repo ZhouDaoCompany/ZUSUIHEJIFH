@@ -378,6 +378,11 @@
  *
  */
 + (void)arrangeRemindListWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success;
+/**
+ *  焦点历史记录
+ *
+ */
++ (void)FocusOnTheHistoryWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success;
 
 /*
  * 自动登录
