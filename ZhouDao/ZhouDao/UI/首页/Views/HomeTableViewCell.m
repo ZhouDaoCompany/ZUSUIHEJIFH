@@ -20,6 +20,19 @@
     _headImgView.contentMode = UIViewContentModeScaleToFill;
     _contentLab.textColor = [UIColor colorWithHexString:@"#999999"];
 }
+- (void)setHistoryModel:(HistoryModel *)historyModel
+{
+    _historyModel = nil;
+    _historyModel = historyModel;
+    
+    _titlab.text = _historyModel.title;
+    
+    [_headImgView sd_setImageWithURL:[NSURL URLWithString:_mdoel.pic] placeholderImage:[UIImage imageNamed:@"home_palcehold"]];
+
+    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[_historyModel.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    _contentLab.text = attrStr.string;
+
+}
 - (void)setMdoel:(BasicModel *)mdoel
 {
     _mdoel = nil;

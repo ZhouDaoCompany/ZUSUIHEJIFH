@@ -172,11 +172,11 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
         MyPlanViewController *planVC = [MyPlanViewController new];
         [self.navigationController pushViewController:planVC animated:YES];
     }else if (section == _sectionCount - 2 && index == 0){
-        [JKPromptView showWithImageName:nil message:@"功能正在开发中,敬请期待"];
+//        [JKPromptView showWithImageName:nil message:@"功能正在开发中,敬请期待"];
 
-//        TheCaseManageVC *vc = [TheCaseManageVC new];
-//        vc.type = FromMineType;
-//        [self.navigationController pushViewController:vc animated:YES];
+        TheCaseManageVC *vc = [TheCaseManageVC new];
+        vc.type = FromMineType;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

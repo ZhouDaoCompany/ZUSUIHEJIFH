@@ -87,6 +87,7 @@
 		1068EAF41CB3907B00AAADD4 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1068EAEF1CB3907B00AAADD4 /* AlertView.m */; };
 		1068EAF51CB3907B00AAADD4 /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1068EAF11CB3907B00AAADD4 /* PopupView.m */; };
 		1068EAF61CB3907B00AAADD4 /* VoiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1068EAF31CB3907B00AAADD4 /* VoiceManager.m */; };
+		10803DA61D27C25E00B1F6D3 /* FinanceFrameItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 10803DA51D27C25E00B1F6D3 /* FinanceFrameItem.m */; };
 		1083232A1CAA10D7004B8045 /* UIWebView+Load.m in Sources */ = {isa = PBXBuildFile; fileRef = 108323291CAA10D7004B8045 /* UIWebView+Load.m */; };
 		1083232F1CAA19B2004B8045 /* UIColor+Change.m in Sources */ = {isa = PBXBuildFile; fileRef = 1083232C1CAA19B2004B8045 /* UIColor+Change.m */; };
 		108323301CAA19B2004B8045 /* UIWebView+HTML5.m in Sources */ = {isa = PBXBuildFile; fileRef = 1083232E1CAA19B2004B8045 /* UIWebView+HTML5.m */; };
@@ -247,7 +248,6 @@
 		187E6D841C841A15009169C2 /* ZhouDaoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E6D831C841A15009169C2 /* ZhouDaoUITests.m */; };
 		188638F81C9AA5D200E91F78 /* AddAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188638F71C9AA5D200E91F78 /* AddAlertVC.m */; };
 		188651A71D25FBE900E030F7 /* FinanceDesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651A51D25FBE900E030F7 /* FinanceDesCell.m */; };
-		188651A81D25FBE900E030F7 /* FinanceDesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188651A61D25FBE900E030F7 /* FinanceDesCell.xib */; };
 		188651AC1D26031800E030F7 /* CasesRemindVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651AB1D26031800E030F7 /* CasesRemindVC.m */; };
 		188651B31D2604F900E030F7 /* AddCaseRemindVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651B21D2604F900E030F7 /* AddCaseRemindVC.m */; };
 		188651B61D26073100E030F7 /* AddRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651B51D26073100E030F7 /* AddRemindCell.m */; };
@@ -583,6 +583,8 @@
 		1068EAF11CB3907B00AAADD4 /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
 		1068EAF21CB3907B00AAADD4 /* VoiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceManager.h; sourceTree = "<group>"; };
 		1068EAF31CB3907B00AAADD4 /* VoiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceManager.m; sourceTree = "<group>"; };
+		10803DA41D27C25E00B1F6D3 /* FinanceFrameItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceFrameItem.h; sourceTree = "<group>"; };
+		10803DA51D27C25E00B1F6D3 /* FinanceFrameItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceFrameItem.m; sourceTree = "<group>"; };
 		108323281CAA10D7004B8045 /* UIWebView+Load.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Load.h"; sourceTree = "<group>"; };
 		108323291CAA10D7004B8045 /* UIWebView+Load.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Load.m"; sourceTree = "<group>"; };
 		1083232B1CAA19B2004B8045 /* UIColor+Change.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Change.h"; sourceTree = "<group>"; };
@@ -844,7 +846,6 @@
 		188638F71C9AA5D200E91F78 /* AddAlertVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAlertVC.m; sourceTree = "<group>"; };
 		188651A41D25FBE900E030F7 /* FinanceDesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceDesCell.h; sourceTree = "<group>"; };
 		188651A51D25FBE900E030F7 /* FinanceDesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceDesCell.m; sourceTree = "<group>"; };
-		188651A61D25FBE900E030F7 /* FinanceDesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FinanceDesCell.xib; sourceTree = "<group>"; };
 		188651AA1D26031800E030F7 /* CasesRemindVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CasesRemindVC.h; sourceTree = "<group>"; };
 		188651AB1D26031800E030F7 /* CasesRemindVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CasesRemindVC.m; sourceTree = "<group>"; };
 		188651B11D2604F900E030F7 /* AddCaseRemindVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCaseRemindVC.h; sourceTree = "<group>"; };
@@ -2761,7 +2762,8 @@
 				18EE958F1D237C040030AE2B /* FinanceTabCell.m */,
 				188651A41D25FBE900E030F7 /* FinanceDesCell.h */,
 				188651A51D25FBE900E030F7 /* FinanceDesCell.m */,
-				188651A61D25FBE900E030F7 /* FinanceDesCell.xib */,
+				10803DA41D27C25E00B1F6D3 /* FinanceFrameItem.h */,
+				10803DA51D27C25E00B1F6D3 /* FinanceFrameItem.m */,
 			);
 			path = CaseFinance;
 			sourceTree = "<group>";
@@ -3302,7 +3304,6 @@
 				18FD82FD1CBB4E8C00D50E20 /* case_detailHead.jpg in Resources */,
 				108DC0361C9FA38E00FD1221 /* mine_manager@2x.png in Resources */,
 				108DC02C1C9FA38E00FD1221 /* mine_box@2x.png in Resources */,
-				188651A81D25FBE900E030F7 /* FinanceDesCell.xib in Resources */,
 				18B16AD01CFD5CE300561CD5 /* UMSnsAccountViewController.xib in Resources */,
 				18CD01D81C901367009DE385 /* tabbar_LawsRegular@2x.png in Resources */,
 				18CD01DA1C901367009DE385 /* tabbar_template@2x.png in Resources */,
@@ -3515,6 +3516,7 @@
 				18DD1EBA1C88389B004630C1 /* ZHPickView.m in Sources */,
 				18C4B0611CB4ED3300D3CB8B /* SelectTemplateVC.m in Sources */,
 				18EE95901D237C040030AE2B /* FinanceTabCell.m in Sources */,
+				10803DA61D27C25E00B1F6D3 /* FinanceFrameItem.m in Sources */,
 				181292B11C87E81000EBB5CD /* RecomViewController.m in Sources */,
 				18F878AD1D056E260069E68A /* MoreMenuView.m in Sources */,
 				108323391CAA5101004B8045 /* ZD_SettingBottomBar.m in Sources */,

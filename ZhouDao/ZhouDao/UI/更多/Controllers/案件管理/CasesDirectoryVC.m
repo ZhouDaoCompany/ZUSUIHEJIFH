@@ -317,13 +317,15 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
             vc.url = htmlString;
             vc.tType = FromCaseType;
             vc.navTitle = model.name;
-            [weakSelf.navigationController  pushViewController:vc animated:YES];
+            vc.format = format;
+            [self.navigationController  pushViewController:vc animated:YES];
         }else{
             [NetWorkMangerTools arrangeFileInfoWithid:model.id withCaseId:_caseId RequestSuccess:^(NSString *htmlString) {
                 ToolsWedViewVC *vc = [ToolsWedViewVC new];
                 vc.url = htmlString;
                 vc.tType = FromCaseType;
                 vc.navTitle = model.name;
+                vc.format = format;
                 [weakSelf.navigationController  pushViewController:vc animated:YES];
             }];
         }

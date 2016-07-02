@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BasicModel.h"
+#import "HistoryModel.h"
 
 @interface HomeTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImgView;
@@ -15,4 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLab;
 
 @property (strong, nonatomic) BasicModel *mdoel;
+@property (strong, nonatomic) HistoryModel *historyModel;
+
 @end

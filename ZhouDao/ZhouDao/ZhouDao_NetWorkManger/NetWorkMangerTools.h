@@ -382,7 +382,7 @@
  *  焦点历史记录
  *
  */
-+ (void)FocusOnTheHistoryWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success;
++ (void)FocusOnTheHistoryWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success fail:(void (^)())fail;;
 
 /*
  * 自动登录

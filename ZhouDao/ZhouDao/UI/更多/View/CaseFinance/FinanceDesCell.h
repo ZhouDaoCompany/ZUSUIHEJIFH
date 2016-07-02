@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FinanceModel.h"
+#import "FinanceFrameItem.h"
 @protocol FinanceDesCellPro <NSObject>
 
 - (void)expandOrClose:(UITableViewCell *)cell;
@@ -24,12 +24,11 @@
 @property (nonatomic, strong)  UILabel *lab;
 @property (nonatomic, strong)  UIButton *showAllButton;
 @property (nonatomic, assign)  BOOL expanded;     // 收起或展开操作
-@property (nonatomic, assign)  CGFloat rowHeight;//高度
 
-@property (nonatomic, strong)  FinanceModel *financeModel;
+@property (nonatomic,strong) FinanceFrameItem *financeItem;
 
 @property (nonatomic,assign)id<FinanceDesCellPro>delegate;//代理
 
-- (void)setLabArr:(NSArray *)labArr withDesString:(NSString *)desStr;
+- (void)setFinanceFrameItem:(FinanceFrameItem *)financeItem;
 
 @end

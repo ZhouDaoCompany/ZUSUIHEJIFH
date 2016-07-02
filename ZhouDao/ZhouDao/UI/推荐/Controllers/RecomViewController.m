@@ -193,6 +193,7 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
 {WEAKSELF;
     TaskModel *tmodel = [TaskModel new];
     [NetWorkMangerTools lawsDetailData:idString RequestSuccess:^(id obj) {
+        
         LawDetailModel *tempModel = (LawDetailModel *)obj;
         tmodel.idString =tempModel.id;
         tmodel.name = tempModel.name;
@@ -208,6 +209,7 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
 - (void)loadMoreData
 {
     MoreViewController *moreVC = [MoreViewController new];
+    moreVC.moreType = RecomType;
     [self.navigationController  pushViewController:moreVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

@@ -1845,21 +1845,26 @@
         [SVProgressHUD dismiss];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
-
 }
 #pragma mark - 焦点历史记录
-+ (void)FocusOnTheHistoryWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success
++ (void)FocusOnTheHistoryWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success fail:(void (^)())fail
 {
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
         if (errorcode !=1) {
-            
+            fail();
             return ;
         }
         NSArray *dataArr = jsonDic[@"data"];
+        
+        if ([dataArr isEqual:[NSNull null]]) {
+            fail();
+            return;
+        }
         __block NSMutableArray *arr = [NSMutableArray array];
+        
         [dataArr enumerateObjectsUsingBlock:^(NSDictionary *dic, NSUInteger idx, BOOL * _Nonnull stop) {
             
             HistoryModel *model = [[HistoryModel alloc] initWithDictionary:dic];

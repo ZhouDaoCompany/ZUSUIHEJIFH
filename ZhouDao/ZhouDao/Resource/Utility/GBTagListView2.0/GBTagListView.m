@@ -46,7 +46,16 @@ alpha:1.0]
 -(void)setTagWithTagArray:(NSArray*)arr{
     
     previousFrame = CGRectZero;
+    [_tagArr removeAllObjects];
     [_tagArr addObjectsFromArray:arr];
+    
+    
+    for (UIView *views in self.subviews) {
+        if ([views isKindOfClass:[UIButton class]]) {
+            [views removeFromSuperview];
+        }
+    }
+    
     [arr enumerateObjectsUsingBlock:^(NSString*str, NSUInteger idx, BOOL *stop) {
     
         UIButton*tagBtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -115,7 +124,6 @@ alpha:1.0]
         [self setHight:self andHight:totalHeight+Size_str.height + BOTTOM_MARGIN];
         [self addSubview:tagBtn];
 
-
     }];
     if(_GBbackgroundColor){
         
@@ -124,7 +132,6 @@ alpha:1.0]
     }else{
         
         self.backgroundColor=[UIColor whiteColor];
-        
     }
     
 

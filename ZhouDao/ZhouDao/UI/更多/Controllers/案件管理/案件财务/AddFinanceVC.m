@@ -300,6 +300,8 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
 
     }else{
         
+        [msgDic setObjectWithNullValidate:GET(_cwid) forKey:@"id"];
+
         NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeFinanceEdit];
 
         [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:url RequestSuccess:^{
@@ -400,8 +402,6 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
                 [weakSelf.commitArr replaceObjectAtIndex:row withObject:selectedStr];
                 [tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:row inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
             };
-
-
         }
         
     }
@@ -434,7 +434,6 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
             [_commitArr replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"%.2f",tc]];
             
             [_tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:2 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
-
         }
     }
     

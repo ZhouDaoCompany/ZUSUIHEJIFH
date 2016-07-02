@@ -36,8 +36,11 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
     if (_moreType == RecomType) {
+        
         [self setupNaviBarWithTitle:@"时事热点"];
-
+    }else {
+        
+        [self setupNaviBarWithTitle:@"历史记录"];
     }
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
@@ -60,32 +63,73 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
 {WEAKSELF;
     _page = 0;
     [weakSelf.tableView.mj_header endRefreshing];
-    NSString *url = [NSString stringWithFormat:@"%@%@%ld",kProjectBaseUrl,hotspotAll,(unsigned long)_page];
-    [NetWorkMangerTools loadMoreDataHomePage:url RequestSuccess:^(NSArray *arr) {
-        [weakSelf.dataSourceArrays removeAllObjects];
-        [weakSelf.dataSourceArrays addObjectsFromArray:arr];
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.mj_footer endRefreshing];
-        _page ++;
+    
+    
+    if (_moreType == RecomType) {
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,hotspotAll,(unsigned long)_page];
+        [NetWorkMangerTools loadMoreDataHomePage:url RequestSuccess:^(NSArray *arr) {
+            [weakSelf.dataSourceArrays removeAllObjects];
+            [weakSelf.dataSourceArrays addObjectsFromArray:arr];
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_footer endRefreshing];
+            _page ++;
+            
+        } fail:^{
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+        }];
 
-    } fail:^{
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.mj_header endRefreshing];
-        [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
-    }];
+    }else {
+        NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,dailyHistory,_page];
+        
+        [NetWorkMangerTools FocusOnTheHistoryWithUrl:url RequestSuccess:^(NSArray *arrays) {
+            
+            [weakSelf.dataSourceArrays removeAllObjects];
+            [weakSelf.dataSourceArrays addObjectsFromArray:arrays];
+            [weakSelf.tableView reloadData];
+            _page ++;
+
+        } fail:^{
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+        }];
+    }
+    
 }
 #pragma mark ------ 上拉加载
 - (void)downRefresh:(id)sender
 {WEAKSELF;
-    NSString *url = [NSString stringWithFormat:@"%@%@%ld",kProjectBaseUrl,hotspotAll,(unsigned long)_page];
-    [NetWorkMangerTools loadMoreDataHomePage:url RequestSuccess:^(NSArray *arr) {
-        [weakSelf.dataSourceArrays addObjectsFromArray:arr];
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.mj_footer endRefreshing];
-        _page ++;
-    } fail:^{
-        [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
-    }];
+    
+    [weakSelf.tableView.mj_footer endRefreshing];
+
+    if (_moreType == RecomType) {
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,hotspotAll,_page];
+        [NetWorkMangerTools loadMoreDataHomePage:url RequestSuccess:^(NSArray *arr) {
+            
+            [weakSelf.dataSourceArrays addObjectsFromArray:arr];
+            [weakSelf.tableView reloadData];
+            _page ++;
+        } fail:^{
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+        }];
+
+    }else {
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,dailyHistory,_page];
+        
+        [NetWorkMangerTools FocusOnTheHistoryWithUrl:url RequestSuccess:^(NSArray *arrays) {
+            
+            [weakSelf.dataSourceArrays addObjectsFromArray:arrays];
+            [weakSelf.tableView reloadData];
+            _page ++;
+
+        } fail:^{
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+        }];
+
+    }
 }
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -103,20 +147,41 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
     {
         HomeTableViewCell *homeCell = (HomeTableViewCell *)cell;
         if (_dataSourceArrays.count >0) {
-            [homeCell setMdoel:_dataSourceArrays[indexPath.row]];
+            
+            if (_moreType == RecomType) {
+                
+                [homeCell setMdoel:_dataSourceArrays[indexPath.row]];
+            }else {
+                [homeCell setMdoel:_dataSourceArrays[indexPath.row]];
+            }
         }
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_dataSourceArrays.count >0) {
-        BasicModel *model = _dataSourceArrays[indexPath.row];
-        NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,DetailsEventHotSpot,model.id];
-        ToolsWedViewVC *vc = [ToolsWedViewVC new];
-        vc.url = url;
-        vc.tType = FromHotType;
-        vc.navTitle = @"";//model.title;
-        [self.navigationController  pushViewController:vc animated:YES];
+        
+        if (_moreType == RecomType) {
+            
+            BasicModel *model = _dataSourceArrays[indexPath.row];
+            NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,DetailsEventHotSpot,model.id];
+            ToolsWedViewVC *vc = [ToolsWedViewVC new];
+            vc.url = url;
+            vc.tType = FromHotType;
+            vc.navTitle = @"";//model.title;
+            [self.navigationController  pushViewController:vc animated:YES];
+
+        }else{
+            
+            HistoryModel *hisModel = _dataSourceArrays[indexPath.row];
+            NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,dailyInfo,hisModel.id];
+            ToolsWedViewVC *vc = [ToolsWedViewVC new];
+            vc.url = url;
+            vc.tType = FromEveryType;
+            vc.shareContent = hisModel.title;
+            vc.navTitle = @"";//model.title;
+            [self.navigationController  pushViewController:vc animated:YES];
+        }
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -163,6 +163,7 @@
     [_historyImgView whenTapped:^{
         
         MoreViewController *moreVC = [MoreViewController new];
+        moreVC.moreType = ToolsWebType;
         [weakSelf.navigationController  pushViewController:moreVC animated:YES];
     }];
 

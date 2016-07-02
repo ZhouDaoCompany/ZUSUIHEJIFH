@@ -11,7 +11,7 @@
 #import "AddFinanceVC.h"
 #import "FinanceDesCell.h"
 #import "FinanceModel.h"
-#import "GBTagListView.h"
+#import "FinanceFrameItem.h"
 
 static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdentifier";
 
@@ -23,15 +23,18 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic,strong) CollectEmptyView *emptyView;//为空时候
-@property (nonatomic,strong)NSMutableArray *dataArrays;//数据源
-@property (nonatomic,strong)NSMutableArray *oriHeiArr;//原始高度
-@property (nonatomic,strong)NSMutableArray *heightArr;//高度收缩
-@property (nonatomic,strong)NSMutableArray *remarkArr;//备注数组
-@property (nonatomic,strong)NSMutableArray *labArr;//标签数组
+
+@property (nonatomic, strong) NSMutableArray *fianceFrames;
+//@property (nonatomic,strong)FinanceFrameItem *fianceFrames;
 
 @end
 
 @implementation CaseFIViewController
+- (NSArray *)fianceFramesWithArrays:(NSArray *)arrays
+{
+    _fianceFrames = [FinanceFrameItem financeFramesWithDataArr:arrays];
+    return _fianceFrames;
+}
 
 #pragma mark - life cycle
 - (void)viewDidLoad {
@@ -46,13 +49,10 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     [self setupNaviBarWithBtn:NaviRightBtn
                         title:nil img:@"mine_addNZ"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
+    
+    _fianceFrames = [NSMutableArray array];
 
-    self.emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 235.5f, kMainScreenWidth, kMainScreenHeight-235.5f) WithText:@"暂无案件文件"];
-    _dataArrays = [NSMutableArray array];
-    _oriHeiArr  = [NSMutableArray array];
-    _heightArr  = [NSMutableArray array];
-    _remarkArr  = [NSMutableArray array];
-    _labArr     = [NSMutableArray array];
+    [self emptyView];
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64.f, kMainScreenWidth, kMainScreenHeight - 64.f) style:UITableViewStylePlain];
     _tableView.dataSource = self;
@@ -60,7 +60,7 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     _tableView.backgroundColor = [UIColor clearColor];
     [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [ self.view addSubview:_tableView];
-    [_tableView registerNib:[UINib nibWithNibName:@"FinanceDesCell" bundle:nil] forCellReuseIdentifier:ALLFINANCEIDENTIFER];
+    [_tableView registerClass:[FinanceDesCell class] forCellReuseIdentifier:ALLFINANCEIDENTIFER];
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
 
     [_tableView.mj_header beginRefreshing];
@@ -75,38 +75,35 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 - (void)requestListData
 {WEAKSELF;
     [NetWorkMangerTools financialListToCheckTheCaseWithCaseID:_caseId RequestSuccess:^(NSArray *arr) {
-        [weakSelf.dataArrays removeAllObjects];
-        [weakSelf.oriHeiArr removeAllObjects];
-        [weakSelf.heightArr removeAllObjects];
-
-        [weakSelf.dataArrays addObjectsFromArray:arr];
-        [weakSelf CalculateTheLineHeight:weakSelf.dataArrays];
+        
+        [weakSelf.fianceFrames removeAllObjects];
+        [weakSelf fianceFramesWithArrays:arr];
         [weakSelf.tableView reloadData];
 
     } fail:^{
-        [weakSelf.dataArrays removeAllObjects];
-        [weakSelf.oriHeiArr removeAllObjects];
-        [weakSelf.heightArr removeAllObjects];
-
+        [weakSelf.fianceFrames removeAllObjects];
         [weakSelf.tableView reloadData];
     }];
 }
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_dataArrays count];
+    (_fianceFrames.count == 0)?[self.view addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
+    return [_fianceFrames count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    FinanceDesCell *cell = (FinanceDesCell *)[tableView dequeueReusableCellWithIdentifier:ALLFINANCEIDENTIFER];
+    FinanceDesCell *cell = [tableView dequeueReusableCellWithIdentifier:ALLFINANCEIDENTIFER];
+    if (cell == nil) {
+        cell = [[FinanceDesCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ALLFINANCEIDENTIFER];
+    }
 
     cell.delegate = self;
-    if (_dataArrays.count >0) {
+    if (_fianceFrames.count >0) {
         
-        [cell setFinanceModel:_dataArrays[indexPath.row]];
-        [cell setLabArr:_labArr[indexPath.row] withDesString:_remarkArr[indexPath.row]];
+        [cell setFinanceFrameItem:_fianceFrames[indexPath.row]];
     }
 
     return cell;
@@ -127,19 +124,19 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 {WEAKSELF;
     NSInteger row = indexPath.row;
     
-    FinanceModel *model = _dataArrays[row];
-    NSData *contentData = [model.content dataUsingEncoding:NSUTF8StringEncoding];
+    FinanceFrameItem *items = _fianceFrames[row];
+    NSData *contentData = [items.financeModel.content dataUsingEncoding:NSUTF8StringEncoding];
     __block NSArray *jsonConArr = [NSJSONSerialization JSONObjectWithData:contentData options:NSJSONReadingAllowFragments error:nil];
     NSInteger indexType = 0;
-    if ([model.type isEqualToString:@"9"]) {
+    if ([items.financeModel.type isEqualToString:@"9"]) {
         indexType = 4;
     }else {
-        indexType = [model.type integerValue] -1;
+        indexType = [items.financeModel.type integerValue] -1;
     }
     
     AddFinanceVC *vc = [AddFinanceVC new];
     vc.caseId = _caseId;
-    vc.cwid = model.id;
+    vc.cwid = items.financeModel.id;
     vc.oriArr = jsonConArr;
     vc.currentBtnTag = indexType;
     vc.successBlock = ^(){
@@ -152,16 +149,13 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    FinanceDesCell *cell = (FinanceDesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-//    return  cell.rowHeight;
-    FinanceModel *model = _dataArrays[indexPath.row];
-    if (model.isExpanded == YES) {
-        float height = [_oriHeiArr[indexPath.row] floatValue];
-        return height;
-    }
+    FinanceFrameItem *financeItem = self.fianceFrames[indexPath.row];
     
-    float height = [_heightArr[indexPath.row] floatValue];
-    return height;
+    if (financeItem.financeModel.isExpanded == YES) {
+        return financeItem.cellHeight2;
+    }else{
+        return financeItem.cellHeight1;
+    }
 
 }
 #pragma mark - DesTableViewCellPro
@@ -169,105 +163,9 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     
     FinanceDesCell *desCell = (FinanceDesCell *)cell;
     NSIndexPath *indexpath = [_tableView indexPathForCell:desCell];
-    FinanceModel *model = _dataArrays[indexpath.row];
-    model.isExpanded = !model.isExpanded;
+    FinanceFrameItem *item = _fianceFrames[indexpath.row];
+    item.financeModel.isExpanded = !item.financeModel.isExpanded;
     [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:indexpath.row inSection:0],nil] withRowAnimation:UITableViewRowAnimationNone];
-}
-- (void)CalculateTheLineHeight:(NSMutableArray *)dataSource
-{
-    for (NSUInteger i =0; i<dataSource.count; i++) {
-        
-        FinanceModel *financeModel = dataSource[i];
-        NSData *titData = [financeModel.title dataUsingEncoding:NSUTF8StringEncoding];
-        __block NSMutableArray *jsonTitArr = [NSJSONSerialization JSONObjectWithData:titData options:NSJSONReadingAllowFragments error:nil];
-        
-        NSData *contentData = [financeModel.content dataUsingEncoding:NSUTF8StringEncoding];
-        __block NSMutableArray *jsonConArr = [NSJSONSerialization JSONObjectWithData:contentData options:NSJSONReadingAllowFragments error:nil];
-//        [_titArr addObject:jsonTitArr];
-//        [_contentArr addObject:jsonConArr];
-        
-        CGFloat labelMaxWidth = kMainScreenWidth-30;
-        
-        __block NSMutableArray *arr = [NSMutableArray array];
-        
-        
-        [jsonConArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if (idx < jsonConArr.count -1) {
-                if (obj.length >0) {
-                    NSString *str = [NSString stringWithFormat:@"%@:%@",jsonTitArr[idx],jsonConArr[idx]];
-                    
-                    [arr addObject:str];
-                }
-            }
-        }];
-        
-        [_labArr addObject:arr];//标签
-        
-        NSString *desString = [NSString stringWithFormat:@"%@",[jsonConArr lastObject]];
-        [_remarkArr addObject:desString];
-
-        
-        float rowHeight = 68.f;
-        
-//        if (arr.count == 1) {
-//            rowHeight = 68.f;
-//        }
-        if (arr.count == 2) {
-            NSString *str1 = arr[0];
-            NSString *str2 = arr[1];
-
-            NSDictionary *attrs = @{NSFontAttributeName : [UIFont systemFontOfSize:10.f]};
-            CGSize Size_str1=[str1 sizeWithAttributes:attrs];
-            CGSize Size_str2=[str2 sizeWithAttributes:attrs];
-            if ((Size_str1.width + Size_str2.width +55) > kMainScreenWidth) {
-                rowHeight = 93.f;
-            }
-        }
-
-        if (arr.count == 3) {
-            NSString *str1 = arr[0];
-            NSString *str2 = arr[1];
-            NSString *str3 = arr[2];
-
-            NSDictionary *attrs = @{NSFontAttributeName : [UIFont systemFontOfSize:10.f]};
-            CGSize Size_str1=[str1 sizeWithAttributes:attrs];
-            CGSize Size_str2=[str2 sizeWithAttributes:attrs];
-            CGSize Size_str3=[str3 sizeWithAttributes:attrs];
-
-            if ((Size_str1.width + Size_str2.width + Size_str3.width +80) > kMainScreenWidth) {
-                rowHeight = 93.f;
-            }
-        }
-        
-        NSDictionary *attribute = @{NSFontAttributeName:[UIFont systemFontOfSize:14]};
-        CGSize size = [desString boundingRectWithSize:CGSizeMake(labelMaxWidth, 9999)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-        
-        float height1 = 0.f;
-        float height2 = 0.f;
-
-        if (desString.length == 0) {
-            height1 = rowHeight + 5.f;
-            height2 = rowHeight + 5.f;
-
-        }else {
-            
-            if (size.height < 34.f) {
-                
-                height1 = size.height + rowHeight + 15;
-                height2 = size.height + rowHeight + 15;
-
-            }else {
-                height1 =  size.height + 35 +  rowHeight;
-                height2 =  34.f + 35 +  rowHeight;
-
-            }
-        }
-
-        [_oriHeiArr addObject:[NSString stringWithFormat:@"%f",height1]];
-        [_heightArr addObject:[NSString stringWithFormat:@"%f",height2]];
-
-    }
 }
 #pragma mark - event response
 -(void)rightBtnAction
@@ -290,7 +188,7 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 {
     if (_emptyView == nil){
         
-        _emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - 64.f)
+        _emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 64.f, kMainScreenWidth, kMainScreenHeight - 64.f)
                                                     WithText:@"暂无财务信息"];
     }
     return _emptyView;

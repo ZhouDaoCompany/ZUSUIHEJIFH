@@ -221,6 +221,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
 - (void)loadMoreData
 {
     MoreViewController *moreVC = [MoreViewController new];
+    moreVC.moreType = RecomType;
     [self.navigationController  pushViewController:moreVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {
