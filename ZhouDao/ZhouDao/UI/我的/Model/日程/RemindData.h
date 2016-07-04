@@ -26,6 +26,7 @@
 	NSString *_time;
 	NSString *_title;
 	NSString *_uid;
+    NSString *_spacing;
     
     NSString *_type;
     NSString *_arrange_id;
@@ -34,6 +35,7 @@
 
 @property (nonatomic, copy) NSString *arrange_id;
 @property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSString *spacing;
 
 @property (nonatomic, copy) NSString *bell;
 @property (nonatomic, copy) NSString *content;

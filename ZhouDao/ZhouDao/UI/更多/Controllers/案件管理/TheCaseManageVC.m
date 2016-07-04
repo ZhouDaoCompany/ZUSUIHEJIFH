@@ -10,8 +10,10 @@
 #import "TheCaseCollectionCell.h"
 #import "TheCaseDetailVC.h"
 //#import "FilterView.h"
-#import "AddCaseVC.h"
 #import "CollectEmptyView.h"
+
+#import "KxMenu.h"
+#import "OnlyAddCaseVC.h"
 
 static float const kCollectionViewToLeftMargin                = 22.5f;
 static float const kCollectionViewToTopMargin                 = 0.f;
@@ -297,9 +299,57 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
         [self.collectionView reloadData];
     }else{
         DLog(@"添加案件");
-        AddCaseVC *vc = [AddCaseVC new];
-        [self.navigationController pushViewController:vc animated:YES];
+//        AddCaseVC *vc = [AddCaseVC new];
+//        [self.navigationController pushViewController:vc animated:YES];
+        
+        NSArray *titArr = @[@"诉讼业务",@"非诉业务",@"法律顾问"];
+        NSArray *imgArr = @[@"case_mangeSS",@"case_mangeFS",@"case_mangerGW"];
+        [self showMenu:nil withTitArr:titArr withImgArr:imgArr];
     }
+}
+- (void)showMenu:(UIButton *)sender
+      withTitArr:(NSArray *)titArr
+      withImgArr:(NSArray *)imgArr
+{
+    
+    NSMutableArray *menuItems =[NSMutableArray array];
+    
+    [titArr enumerateObjectsUsingBlock:^(NSString *tit, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [menuItems addObject:[KxMenuItem menuItem:titArr[idx]
+                                            image:[UIImage imageNamed:imgArr[idx]]
+                                           target:self
+                                           action:@selector(pushMenuItem:)]];
+    }];
+    
+    [menuItems enumerateObjectsUsingBlock:^(KxMenuItem *first, NSUInteger idx, BOOL * _Nonnull stop) {
+        first.foreColor = thirdColor;
+    }];
+    
+    [KxMenu setTitleFont:Font_13];
+    CGRect frame = CGRectMake(kMainScreenWidth -40.f,32.f, 20, 20);
+    [KxMenu showMenuInView:self.view
+                  fromRect:frame
+                 menuItems:menuItems];
+}
+- (void) pushMenuItem:(id)sender
+{
+    KxMenuItem *kx = (KxMenuItem *)sender;
+    DLog(@"%@", kx.title);
+    OnlyAddCaseVC *vc = [OnlyAddCaseVC new];
+    if ([kx.title isEqualToString:@"诉讼业务"]) {
+        vc.addType = AddLitigation;
+    }else if ([kx.title isEqualToString:@"非诉业务"]){
+        vc.addType = AddAccusing;
+    }else{
+        vc.addType = AddConsultant;
+    }
+    vc.addSuccessBlock = ^(){
+        [self.collectionView.mj_header beginRefreshing];
+    };
+
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 //- (void)filterBtnEvent:(id)sender
 //{

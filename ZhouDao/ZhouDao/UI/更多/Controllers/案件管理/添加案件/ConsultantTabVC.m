@@ -12,6 +12,7 @@
 #import "ZD_DeleteWindow.h"
 #import "ConsultantHeadView.h"
 #import "RemarkTabCell.h"
+#import "ZD_DeleteWindow.h"
 
 static NSString *const ConsultantIDENTIFER = @"ConsultantIDENTIFER";
 static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
@@ -28,9 +29,17 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
 @property (nonatomic, strong) NSMutableArray *textBasiArr;//第一区内容
 @property (nonatomic, strong) NSMutableArray *textConArr;//更多信息大数组
 @property (strong, nonatomic) UIButton *cancelBtn;
+@property (nonatomic, strong) UIWebView *callPhoneWebView;
 @end
 
 @implementation ConsultantTabVC
+#pragma mark -打电话
+- (UIWebView *)callPhoneWebView {
+    if (!_callPhoneWebView) {
+        _callPhoneWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    }
+    return _callPhoneWebView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -211,16 +220,17 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
 
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
+{    WEAKSELF;
+    NSUInteger row = indexPath.row;
+    NSUInteger section = indexPath.section;
+
     if (_ConType == ConFromManager && _isEdit == NO) {
         //非编辑状态不能修改
+        [self clickTelPhoneWithSection:section withRow:row];
+
         return;
     }
     
-    NSUInteger row = indexPath.row;
-    NSUInteger section = indexPath.section;
-    WEAKSELF;
     UIWindow *windows = [QZManager getWindow];
 
     if (section ==0 && row == 1){
@@ -324,15 +334,37 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
 }
 #pragma mark -ConsultantHeadViewPro
 - (void)deleteSectionEventRespose:(NSUInteger)section;
-{
-    DLog(@"section-----%ld",section);
-    [_textConArr removeObjectAtIndex:section-1];
-    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView reloadData];
-    
-    _cancelBtn.backgroundColor = [UIColor colorWithHexString:@"#00c8aa"];
-    _cancelBtn.enabled = YES;
+{WEAKSELF;
+    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"确定删除吗?" withType:DelType];
+    delWindow.DelBlock = ^(){
+        
+        DLog(@"section-----%ld",section);
+        [weakSelf.textConArr removeObjectAtIndex:section-1];
+        [weakSelf.tableView deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];
+        [weakSelf.tableView reloadData];
+        
+        weakSelf.cancelBtn.backgroundColor = [UIColor colorWithHexString:@"#00c8aa"];
+        weakSelf.cancelBtn.enabled = YES;
+
+    };
+    [self.view.superview addSubview:delWindow];
 }
+#pragma mark - 拨打电话
+- (void)clickTelPhoneWithSection:(NSInteger)section withRow:(NSInteger)row
+{
+    if (section == 0)
+    {
+        if ([QZManager isString:_basicTitleArrays[row] withContainsStr:@"电话"])
+        {
+            NSString *phoneStr = _textBasiArr[row];
+            if (phoneStr.length >0) {
+                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneStr]]];
+                [self.callPhoneWebView loadRequest:request];
+            }
+        }
+    }
+}
+
 #pragma mark - Event Respose
 - (void)addMoreMsgEvent:(id)sender
 {
@@ -419,6 +451,7 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
     }else{
         [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeAdd] RequestSuccess:^{
             
+            weakSelf.addSuccess();
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
     }

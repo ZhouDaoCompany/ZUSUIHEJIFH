@@ -66,7 +66,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     
     //数据
     self.tableData = [NSMutableArray array];
-    self.emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 235.5f, kMainScreenWidth, kMainScreenHeight-235.5f) WithText:@"暂无案件文件"];
+    self.emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0,171.5f, kMainScreenWidth, kMainScreenHeight-171.5f) WithText:@"暂无案件文件"];
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
     _tableView.dataSource = self;
@@ -120,7 +120,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    (self.tableData.count == 0)?[self.view addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
+    (self.tableData.count == 0)?[self.tableView addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
     return [self.tableData count];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -417,6 +417,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     delWindow.renameBlock = ^(NSString *name){
         //[QZManager stringFromDate:[NSDate date]]
         [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+            
             [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"image/jpeg" RequestSuccess:^(NSString *key) {
                 [NetWorkMangerTools arrangeFileAddwithPid:@"" withName:name withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
                     [weakSelf loadListViewData];
@@ -426,7 +427,6 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         }];
     };
     [self.view addSubview:delWindow];
-
 }
 #pragma mark - WHC_CameraVCDelegate
 - (void)WHCCameraVC:(WHC_CameraVC *)cameraVC didSelectedPhoto:(UIImage *)photo{

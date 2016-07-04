@@ -254,15 +254,6 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         [weakSelf setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_SC"];
     }];
 }
-#pragma mark -UIAlertViewDelegate
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if ( alertView.tag == 1001 && buttonIndex == 1)
-    {
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",alertView.message]]];
-        [self.callPhoneWebView loadRequest:request];
-    }
-}
 #pragma mark -获取地理位置信息
 - (void)userLocationService
 {

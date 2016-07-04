@@ -188,7 +188,6 @@
 		181292C01C87E85F00EBB5CD /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181292BE1C87E85F00EBB5CD /* MeViewController.m */; };
 		181292CE1C87EBF100EBB5CD /* UIImage+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 181292CD1C87EBF100EBB5CD /* UIImage+Extend.m */; };
 		18167E971CBBA03C00193EB6 /* case_juanzong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18167E961CBBA03C00193EB6 /* case_juanzong@2x.png */; };
-		1817D2901CC0802B00FF6EEE /* AddCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1817D28F1CC0802B00FF6EEE /* AddCaseVC.m */; };
 		1817D2931CC0819500FF6EEE /* LitigationTabVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1817D2921CC0819500FF6EEE /* LitigationTabVC.m */; };
 		1817D2961CC081DA00FF6EEE /* AccusingTheTabVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1817D2951CC081DA00FF6EEE /* AccusingTheTabVC.m */; };
 		1817D2991CC081FE00FF6EEE /* ConsultantTabVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1817D2981CC081FE00FF6EEE /* ConsultantTabVC.m */; };
@@ -221,6 +220,10 @@
 		183CE1A51D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CE1A31D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a */; };
 		18474DB01CCDED3400515CD6 /* EditCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DAF1CCDED3400515CD6 /* EditCaseVC.m */; };
 		18474DB31CCE098300515CD6 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DB21CCE098300515CD6 /* UserData.m */; };
+		184983111D2A0CA7009AF29F /* case_mangeFS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1849830E1D2A0CA7009AF29F /* case_mangeFS@2x.png */; };
+		184983121D2A0CA7009AF29F /* case_mangerGW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1849830F1D2A0CA7009AF29F /* case_mangerGW@2x.png */; };
+		184983131D2A0CA7009AF29F /* case_mangeSS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184983101D2A0CA7009AF29F /* case_mangeSS@2x.png */; };
+		184983161D2A0D63009AF29F /* OnlyAddCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 184983151D2A0D63009AF29F /* OnlyAddCaseVC.m */; };
 		1856EC971D18E1A000016778 /* CaseFIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856EC961D18E1A000016778 /* CaseFIViewController.m */; };
 		1856F7031C869217003A0C17 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856F7001C869217003A0C17 /* HomeViewController.m */; };
 		1863DFE31C8D2B5B00F7A84E /* GcNoticeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863DFE21C8D2B5B00F7A84E /* GcNoticeUtil.m */; };
@@ -725,8 +728,6 @@
 		181292CC1C87EBF100EBB5CD /* UIImage+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extend.h"; sourceTree = "<group>"; };
 		181292CD1C87EBF100EBB5CD /* UIImage+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extend.m"; sourceTree = "<group>"; };
 		18167E961CBBA03C00193EB6 /* case_juanzong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_juanzong@2x.png"; sourceTree = "<group>"; };
-		1817D28E1CC0802B00FF6EEE /* AddCaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCaseVC.h; sourceTree = "<group>"; };
-		1817D28F1CC0802B00FF6EEE /* AddCaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCaseVC.m; sourceTree = "<group>"; };
 		1817D2911CC0819500FF6EEE /* LitigationTabVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LitigationTabVC.h; sourceTree = "<group>"; };
 		1817D2921CC0819500FF6EEE /* LitigationTabVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LitigationTabVC.m; sourceTree = "<group>"; };
 		1817D2941CC081DA00FF6EEE /* AccusingTheTabVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccusingTheTabVC.h; sourceTree = "<group>"; };
@@ -790,6 +791,11 @@
 		18474DAF1CCDED3400515CD6 /* EditCaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCaseVC.m; sourceTree = "<group>"; };
 		18474DB11CCE098300515CD6 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
 		18474DB21CCE098300515CD6 /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
+		1849830E1D2A0CA7009AF29F /* case_mangeFS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_mangeFS@2x.png"; sourceTree = "<group>"; };
+		1849830F1D2A0CA7009AF29F /* case_mangerGW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_mangerGW@2x.png"; sourceTree = "<group>"; };
+		184983101D2A0CA7009AF29F /* case_mangeSS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_mangeSS@2x.png"; sourceTree = "<group>"; };
+		184983141D2A0D63009AF29F /* OnlyAddCaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlyAddCaseVC.h; sourceTree = "<group>"; };
+		184983151D2A0D63009AF29F /* OnlyAddCaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnlyAddCaseVC.m; sourceTree = "<group>"; };
 		1856EC951D18E1A000016778 /* CaseFIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseFIViewController.h; sourceTree = "<group>"; };
 		1856EC961D18E1A000016778 /* CaseFIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseFIViewController.m; sourceTree = "<group>"; };
 		1856F6FF1C869217003A0C17 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -1272,6 +1278,9 @@
 		10241A2D1CBA8E63000CBEAE /* 案件 */ = {
 			isa = PBXGroup;
 			children = (
+				1849830E1D2A0CA7009AF29F /* case_mangeFS@2x.png */,
+				1849830F1D2A0CA7009AF29F /* case_mangerGW@2x.png */,
+				184983101D2A0CA7009AF29F /* case_mangeSS@2x.png */,
 				18EE95941D23E5B70030AE2B /* case_up@2x.png */,
 				18FBD8431CED90CD00674D1E /* case_pdf@2x.png */,
 				18CC2E201D224DD5004B37DA /* case_alerticon@2x.png */,
@@ -1985,8 +1994,8 @@
 		1817D28D1CC0801C00FF6EEE /* 添加案件 */ = {
 			isa = PBXGroup;
 			children = (
-				1817D28E1CC0802B00FF6EEE /* AddCaseVC.h */,
-				1817D28F1CC0802B00FF6EEE /* AddCaseVC.m */,
+				184983141D2A0D63009AF29F /* OnlyAddCaseVC.h */,
+				184983151D2A0D63009AF29F /* OnlyAddCaseVC.m */,
 				18474DAE1CCDED3400515CD6 /* EditCaseVC.h */,
 				18474DAF1CCDED3400515CD6 /* EditCaseVC.m */,
 				1817D2911CC0819500FF6EEE /* LitigationTabVC.h */,
@@ -3227,6 +3236,7 @@
 				1065C34A1CA91BA4003F4089 /* law_wodeshoucang@2x.png in Resources */,
 				188651BB1D264DDC00E030F7 /* CaseRemindListCell.xib in Resources */,
 				108DC03A1C9FA38E00FD1221 /* mine_recommend@2x.png in Resources */,
+				184983121D2A0CA7009AF29F /* case_mangerGW@2x.png in Resources */,
 				108DC02D1C9FA38E00FD1221 /* mine_calendar@2x.png in Resources */,
 				18C4B0661CB4FC7600D3CB8B /* SelectTemplateCell.xib in Resources */,
 				18CC2E251D224DD5004B37DA /* case_moneyicon@2x.png in Resources */,
@@ -3362,11 +3372,13 @@
 				108DC02F1C9FA38E00FD1221 /* mine_close@2x.png in Resources */,
 				10172BEA1CBBF1F300B7553E /* case_xjwjj@2x.png in Resources */,
 				10241A1E1CB9FCDE000CBEAE /* pc_jiaotong@2x.png in Resources */,
+				184983111D2A0CA7009AF29F /* case_mangeFS@2x.png in Resources */,
 				10D31D701CDE1DDB008D6F42 /* jiantou@3x.png in Resources */,
 				10241A311CBA8FD0000CBEAE /* case_edit@2x.png in Resources */,
 				10D31D741CDE2459008D6F42 /* sanjiao@3x.png in Resources */,
 				108DC0231C9FA38E00FD1221 /* find_code@2x.png in Resources */,
 				10C86B8A1CABCC28002A75AC /* home_hot@2x.png in Resources */,
+				184983131D2A0CA7009AF29F /* case_mangeSS@2x.png in Resources */,
 				108DC0281C9FA38E00FD1221 /* login_logo@2x.png in Resources */,
 				10172BE71CBBF1F300B7553E /* case_shangC@2x.png in Resources */,
 				181BA4121CE598B600A29E2E /* share_platform_wechat@2x.png in Resources */,
@@ -3501,7 +3513,6 @@
 				1060DA1B1CACFEA800D779A5 /* FlipPageView.m in Sources */,
 				187E6D631C841A11009169C2 /* AppDelegate.m in Sources */,
 				104B44251C9BCC9A00FC19B3 /* MyAdvantagesVC.m in Sources */,
-				1817D2901CC0802B00FF6EEE /* AddCaseVC.m in Sources */,
 				1041575D1C9470A500EE5303 /* MyCollectionVC.m in Sources */,
 				1829BA761CE2F58700F0143F /* ExampleData.m in Sources */,
 				18FF3F5A1C852E820098C60B /* UIView+WhenTappedBlocks.m in Sources */,
@@ -3666,6 +3677,7 @@
 				181E51311CD1F34700BBA10D /* NewPhoneVC.m in Sources */,
 				187DB8BD1CDC6216009CF1D6 /* GovListmodel.m in Sources */,
 				186640471D24AEC800E1F455 /* GBTagListView.m in Sources */,
+				184983161D2A0D63009AF29F /* OnlyAddCaseVC.m in Sources */,
 				18FF3F361C85234A0098C60B /* ZhouDao_NetWorkManger.m in Sources */,
 				18CB0F061CBF42EA009C41CE /* TwoCompensationCell.m in Sources */,
 				18EE958C1D2373150030AE2B /* AddFinanceVC.m in Sources */,

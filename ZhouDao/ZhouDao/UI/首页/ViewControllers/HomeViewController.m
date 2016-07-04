@@ -61,6 +61,11 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         [SCIntroView showIntrolViewFromView:[QZManager getWindow] dataSource:self introViewContentImageMode:SCIntroViewContentImageModeDefault introViewDoneMode:SCIntroViewDoneModeDefault];
     }
     
+    //设置加载图
+    [SVProgressHUD setDefaultAnimationType:SVProgressHUDAnimationTypeNative];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    
     [self initUI];
     
 }
@@ -113,7 +118,6 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     _tableView.delegate = self;
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.showsHorizontalScrollIndicator = NO;
-    _tableView.showsVerticalScrollIndicator = NO;
     [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [ self.view addSubview:_tableView];
     _tableView.tableHeaderView = _headView;

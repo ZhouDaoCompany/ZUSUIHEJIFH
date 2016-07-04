@@ -277,7 +277,10 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         
         [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
             [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"image/jpeg" RequestSuccess:^(NSString *key) {
-                [NetWorkMangerTools arrangeFileAddwithPid:_pid withName:[QZManager stringFromDate:[NSDate date]] withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
+                
+                // [QZManager stringFromDate:[NSDate date]]
+                [NetWorkMangerTools arrangeFileAddwithPid:_pid withName:name withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
+                    
                     [weakSelf loadListViewData];
                 }];
             } fail:^{

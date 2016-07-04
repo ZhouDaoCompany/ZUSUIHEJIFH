@@ -7,8 +7,8 @@
 //
 
 #import "CaseDetailTabCell.h"
-#define BtnWidth [UIScreen mainScreen].bounds.size.width/5.f
-#define leftX    (BtnWidth-20.f)/2.f
+#define BtnWidth [UIScreen mainScreen].bounds.size.width/4.f
+//#define leftX    (BtnWidth-20.f)/2.f
 #define TopY     13.f
 
 #import "CustomMenuBtn.h"
@@ -17,7 +17,7 @@
 @property (strong, nonatomic)  CustomMenuBtn *lookBtn;
 @property (strong, nonatomic)  CustomMenuBtn *downloadBtn;
 @property (strong, nonatomic)  CustomMenuBtn *cmmBtn;
-@property (strong, nonatomic)  CustomMenuBtn *shareBtn;
+//@property (strong, nonatomic)  CustomMenuBtn *shareBtn;
 @property (strong, nonatomic)  CustomMenuBtn *delBtn;
 
 @end
@@ -116,11 +116,11 @@
     _downloadBtn.tag = 1002;
     [botomView addSubview:_downloadBtn];
     
-    _shareBtn = [CustomMenuBtn buttonWithType:UIButtonTypeCustom];
-    _shareBtn.backgroundColor = [UIColor clearColor];
-    [_shareBtn addTarget:self action:@selector(getMoreEvent:) forControlEvents:UIControlEventTouchUpInside];
-    _shareBtn.tag = 1003;
-    [botomView addSubview:_shareBtn];
+//    _shareBtn = [CustomMenuBtn buttonWithType:UIButtonTypeCustom];
+//    _shareBtn.backgroundColor = [UIColor clearColor];
+//    [_shareBtn addTarget:self action:@selector(getMoreEvent:) forControlEvents:UIControlEventTouchUpInside];
+//    _shareBtn.tag = 1003;
+//    [botomView addSubview:_shareBtn];
 
     _cmmBtn = [CustomMenuBtn buttonWithType:UIButtonTypeCustom];
     _cmmBtn.backgroundColor = [UIColor clearColor];
@@ -135,6 +135,7 @@
     _delBtn.tag = 1005;
     [botomView addSubview:_delBtn];
     
+    
     float height = 70.f;
     _lookBtn.frame = CGRectMake(0,0, BtnWidth, height);
     [_lookBtn setTitle:@"查看" forState:0];
@@ -144,15 +145,15 @@
     [_downloadBtn setTitle:@"下载" forState:0];
     [_downloadBtn setImage:[UIImage imageNamed:@"case_download"] forState:0];
     
-    _shareBtn.frame = CGRectMake(2*BtnWidth, 0, BtnWidth, height);
-    [_shareBtn setTitle:@"分享" forState:0];
-    [_shareBtn setImage:[UIImage imageNamed:@"case_share"] forState:0];
+//    _shareBtn.frame = CGRectMake(2*BtnWidth, 0, BtnWidth, height);
+//    [_shareBtn setTitle:@"分享" forState:0];
+//    [_shareBtn setImage:[UIImage imageNamed:@"case_share"] forState:0];
 
-    _cmmBtn.frame = CGRectMake(3*BtnWidth, 0, BtnWidth, height);
+    _cmmBtn.frame = CGRectMake(2*BtnWidth, 0, BtnWidth, height);
     [_cmmBtn setTitle:@"重命名" forState:0];
     [_cmmBtn setImage:[UIImage imageNamed:@"case_cmingming"] forState:0];
 
-    _delBtn.frame = CGRectMake(4*BtnWidth, 0, BtnWidth, height);
+    _delBtn.frame = CGRectMake(3*BtnWidth, 0, BtnWidth, height);
     [_delBtn setTitle:@"删除" forState:0];
     [_delBtn setImage:[UIImage imageNamed:@"case_delete"] forState:0];
     

@@ -155,9 +155,15 @@
     NSUInteger indexType = [type integerValue] -1;
     
     if ([type isEqualToString:@"2"]){
-        
         NSString *bellName = [NetWorkMangerTools getSoundName:notiDic[@"bell"]];
         [[SoundManager sharedSoundManager] musicPlayByName:bellName];
+        tit  = @"周道慧法-日程";
+    }else if ([type isEqualToString:@"1"]){
+        tit  = @"周道慧法-时事热点";
+    }else if ([type isEqualToString:@"3"]){
+        tit  = @"周道慧法-每日轮播";
+    }else if ([type isEqualToString:@"4"]){
+        tit  = @"周道慧法-消息提醒";
     }
     
     if ([PublicFunction ShareInstance].openApp ==  YES) {
@@ -165,14 +171,12 @@
         [PublicFunction ShareInstance].openApp =  NO;
         [self pushWithUserInfo:notiDic];
         if ([type isEqualToString:@"2"]){
-            
             PushAlertWindow *alertWindow = [[PushAlertWindow alloc] initWithFrame:kMainScreenFrameRect WithTitle:tit WithContent:alertString withType:indexType];
             alertWindow.pushBlock = ^(){
                 
                 [[SoundManager sharedSoundManager] musicStop];
             };
             [self.view addSubview:alertWindow];
-            
         }
 
     }else {
@@ -198,11 +202,9 @@
                     [[SoundManager sharedSoundManager] musicStop];
                 };
                 [self.view addSubview:alertWindow];
-                
             }
         }
     }
-
 }
 #pragma mark - 分析跳转 显示
 - (void)pushWithUserInfo:(NSDictionary *)notiDic

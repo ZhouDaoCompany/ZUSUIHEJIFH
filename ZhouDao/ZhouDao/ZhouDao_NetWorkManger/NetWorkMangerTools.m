@@ -1522,9 +1522,9 @@
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
-        NSString *msg = jsonDic[@"info"];
+//        NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
-            [JKPromptView showWithImageName:nil message:msg];
+//            [JKPromptView showWithImageName:nil message:msg];
             return ;
         }
         NSArray *arrays = jsonDic[@"data"];

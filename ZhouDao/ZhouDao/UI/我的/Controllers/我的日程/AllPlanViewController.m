@@ -48,6 +48,7 @@ static NSString *const AllPlanCellIdentifier = @"AllPlanCellIdentifier";
 - (void)loadData{
     WEAKSELF;
     [NetWorkMangerTools lookAllScheduleRequestSuccess:^(NSArray *arr) {
+        
         [weakSelf.dataSourceArr removeAllObjects];
         [weakSelf.dataSourceArr addObjectsFromArray:arr];
         [weakSelf.tableView reloadData];

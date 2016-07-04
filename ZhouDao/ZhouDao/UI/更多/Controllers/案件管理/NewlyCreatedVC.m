@@ -147,7 +147,7 @@
                 DetaillistModel *model = (DetaillistModel *)obj;
                 //上传成功后 把文件名字修改为id名字
                 [FILE_M removeItemAtPath:namePath error:nil];
-                NSString *textFilePath = [casePath stringByAppendingPathComponent:model.id];
+                NSString *textFilePath = [casePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.txt",model.id]];
                 [_contentTextView.text writeToFile:textFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
                 weakSelf.creatSuccess();
                 [weakSelf.navigationController popViewControllerAnimated:YES];

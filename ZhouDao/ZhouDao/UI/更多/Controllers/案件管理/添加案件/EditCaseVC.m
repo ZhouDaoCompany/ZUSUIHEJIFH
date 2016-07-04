@@ -34,7 +34,7 @@
 //    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"case_edit"];
     [self setupNaviBarWithBtn:NaviRightBtn title:@"编辑" img:nil];
 
-    self.fd_interactivePopDisabled = YES;//禁止滑回
+//    self.fd_interactivePopDisabled = YES;//禁止滑回
 
     if (_editType == EditAccusing) {
         //非讼业务

@@ -22,7 +22,8 @@ typedef NS_ENUM(NSInteger, LitigationType)
 @property (nonatomic, strong) NSMutableArray *moreArr;
 @property (nonatomic, strong) BasicModel *basicModel;
 @property (nonatomic, copy) NSString *caseId;//案件id
-@property (nonatomic, copy) ZDStringBlock editSuccess;
+@property (nonatomic, copy) ZDStringBlock editSuccess;//编辑成功
+@property (nonatomic, copy) ZDBlock addSuccess;//添加成功
 
 @property (nonatomic, assign) BOOL isEdit;//是否可编辑
 /*

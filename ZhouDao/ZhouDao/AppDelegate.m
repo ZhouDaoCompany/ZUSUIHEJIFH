@@ -59,15 +59,11 @@
     application.applicationIconBadgeNumber = 0;
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    //设置加载图
-    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-    [SVProgressHUD setDefaultAnimationType:SVProgressHUDAnimationTypeNative];
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
 
     [NSThread sleepForTimeInterval:1.f];
 
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        
+
         //键盘配置
         [[IQKeyboardManager sharedManager] setEnable:YES];
         [IQKeyboardManager sharedManager].shouldShowTextFieldPlaceholder = YES;

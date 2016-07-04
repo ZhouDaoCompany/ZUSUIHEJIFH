@@ -52,15 +52,22 @@
     
     float width = self.frame.size.width;
     
+    UIView *botomView = [[UIView alloc] init];
+    botomView.backgroundColor = [UIColor clearColor];
+    botomView.center = self.center;
+    botomView.bounds = CGRectMake(0, 0, 144, 144);
+    [self addSubview:botomView];
     
+    
+
     UIImageView *imageview = [[UIImageView alloc] init];
-    imageview.center = self.center;
-    imageview.bounds = CGRectMake(0, 0, 153, 144.5f);
+    imageview.frame = CGRectMake(27, 27, 90, 90);
     imageview.image = [UIImage imageNamed:@"template_Word"];
+    imageview.contentMode = UIViewContentModeScaleAspectFit;
     _fileImgView = imageview;
-    [self addSubview:_fileImgView];
+    [botomView addSubview:_fileImgView];
     
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(30, Orgin_y(_fileImgView)+10.f, width- 60, 20)];
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(30, Orgin_y(botomView)+10.f, width- 60, 20)];
     lab.backgroundColor = [UIColor clearColor];
     lab.textColor = [UIColor whiteColor];
     lab.font = Font_14;

@@ -29,6 +29,7 @@
 
 @synthesize type= _type;
 @synthesize arrange_id = _arrange_id;
+@synthesize spacing = _spacing;
 
 
 -(id)initWithDictionary:(NSDictionary*)dict
@@ -48,6 +49,8 @@
         
         DTAPI_DICT_ASSIGN_STRING(arrange_id, @"");
         DTAPI_DICT_ASSIGN_STRING(type, @"");
+        DTAPI_DICT_ASSIGN_STRING(spacing, @"");
+
     }
     
     return self;
@@ -69,7 +72,8 @@
     
     DTAPI_DICT_EXPORT_BASICTYPE(arrange_id);
     DTAPI_DICT_EXPORT_BASICTYPE(type);
-    
+    DTAPI_DICT_EXPORT_BASICTYPE(spacing);
+
     return md;
 }
 @end

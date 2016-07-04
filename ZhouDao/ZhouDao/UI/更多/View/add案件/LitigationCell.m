@@ -70,7 +70,7 @@
             _textField.frame = CGRectMake(kMainScreenWidth - 151.f, 10, 130, 30);
             [_textField setValue:Font_12 forKeyPath:@"_placeholderLabel.font"];
             if ([QZManager isString:_titleLab.text withContainsStr:@"电话"]) {
-                _textField.keyboardType = UIKeyboardTypeNumberPad;
+                _textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
             }else{
                 _textField.keyboardType = UIKeyboardTypeDefault;
             }

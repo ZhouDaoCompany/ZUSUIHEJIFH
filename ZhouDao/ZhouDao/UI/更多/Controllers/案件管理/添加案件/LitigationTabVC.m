@@ -15,6 +15,7 @@
 #import "RemarkTabCell.h"
 #import "DateTimeView.h"
 #import "ZHPickView.h"
+#import "ZD_DeleteWindow.h"
 
 static NSString *const LITIIDENTIFER = @"litigationidentifer";
 static NSString *const NOTEIDENTIFER = @"noteidentifer";
@@ -30,10 +31,17 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
 @property (nonatomic, strong) NSMutableArray *contentArr;//审理信息大数组
 @property (nonatomic, strong) NSMutableArray *categoryArr;//存贮类别数组  添加 修改 删除
 @property (nonatomic, strong) NSArray *kindsArr;//六种类别
+@property (nonatomic, strong) UIWebView *callPhoneWebView;
 
 @end
-
 @implementation LitigationTabVC
+#pragma mark -打电话
+- (UIWebView *)callPhoneWebView {
+    if (!_callPhoneWebView) {
+        _callPhoneWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    }
+    return _callPhoneWebView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,7 +55,7 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     self.tableView.backgroundColor = [UIColor clearColor];
 
-    _basiArr = [NSMutableArray arrayWithObjects:@"案件号",@"案件名称",@"委托人",@"-委托人联系电话",@"-委托人联系邮箱", @"-委托人联系地址",@"收案日期",@"原告人/上诉人/公诉机关",@"被告/被上诉人",nil];
+    _basiArr = [NSMutableArray arrayWithObjects:@"案件号",@"案件名称",@"委托人",@"-联系电话",@"-联系邮箱", @"-联系地址",@"收案日期",@"原告人/上诉人/公诉机关",@"被告/被上诉人",nil];
     _kindsArr = @[@"经济仲裁", @"劳动仲裁",@"一审",@"二审",@"再审",@"执行程序"];
     /**
      *  (1经济仲裁 2劳动仲裁) ,(3一审 4二审), 5再审, 6执行程序
@@ -111,6 +119,32 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     [botomView addSubview:sureBtn];
     
     return botomView;
+}
+- (void)deleteAlertMethods:(NSString *)selectStr withSection:(NSInteger)section
+{WEAKSELF;
+    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"修改后该审理下的信息清空，确定修改?" withType:DelType];
+    delWindow.DelBlock = ^(){
+        
+        __block NSInteger buttonIndex = 0;
+        [weakSelf.kindsArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isEqualToString:selectStr]) {
+                buttonIndex = idx;
+            }
+        }];
+        DLog(@"第几个----%ld",buttonIndex);
+        NSString *classIndex = [NSString stringWithFormat:@"%ld",buttonIndex + 1];
+        [weakSelf.categoryArr replaceObjectAtIndex:section-1 withObject:classIndex];
+        NSArray *arr = weakSelf.contentTilArr[buttonIndex];
+        __block NSMutableArray *conArr = [NSMutableArray array];
+        NSString *titStr = weakSelf.kindsArr[buttonIndex];
+        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            (idx == 0)?[conArr addObject:titStr]:[conArr addObject:@""];
+        }];
+        [weakSelf.contentArr replaceObjectAtIndex:section-1 withObject:conArr];
+        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
+        
+    };
+    [self.view.superview addSubview:delWindow];
 }
 #pragma mark - Table view data source
 
@@ -239,14 +273,15 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {WEAKSELF;
-    
+    NSInteger row = indexPath.row;
+    NSInteger section = indexPath.section;
+
     if (_litEditType == LitiDetails && _isEdit == NO) {
         //编辑状态不能修改
+        [self clickTelPhoneWithSection:section withRow:row];
         return;
     }
 
-    NSInteger row = indexPath.row;
-    NSInteger section = indexPath.section;
     
     if (section == 0) {
     
@@ -269,25 +304,7 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
             [pickView showPickView:self];
             pickView.block = ^(NSString *selectedStr,NSString *type)
             {
-                /***********************此处提醒修改后丢失内容***************************************/
-
-                __block NSInteger buttonIndex = 0;
-                [weakSelf.kindsArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj isEqualToString:selectedStr]) {
-                        buttonIndex = idx;
-                    }
-                }];
-                DLog(@"第几个----%ld",buttonIndex);
-                NSString *classIndex = [NSString stringWithFormat:@"%ld",buttonIndex + 1];
-                [weakSelf.categoryArr replaceObjectAtIndex:section-1 withObject:classIndex];
-                NSArray *arr = weakSelf.contentTilArr[buttonIndex];
-                __block NSMutableArray *conArr = [NSMutableArray array];
-                NSString *titStr = weakSelf.kindsArr[buttonIndex];
-                [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    (idx == 0)?[conArr addObject:titStr]:[conArr addObject:@""];
-                }];
-                [weakSelf.contentArr replaceObjectAtIndex:section-1 withObject:conArr];
-                [tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
+                [self deleteAlertMethods:selectedStr withSection:section];
             };
 
         }else {
@@ -304,7 +321,6 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
                 pickView.block = ^(NSString *selectedStr,NSString *type)
                 {
                     DLog(@"哪一个----%@",selectedStr);
-
                     NSMutableArray *arr = weakSelf.contentArr[section -1];
                     [arr replaceObjectAtIndex:row withObject:selectedStr];
                     [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
@@ -364,12 +380,46 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
 }
 #pragma mark -ConsultantHeadViewPro
 - (void)deleteSectionEventRespose:(NSUInteger)section;
+{WEAKSELF;
+    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"确定删除吗?" withType:DelType];
+    delWindow.DelBlock = ^(){
+        
+        DLog(@"section-----%ld",section);
+        [weakSelf.contentArr removeObjectAtIndex:section-1];
+        [weakSelf.categoryArr removeObjectAtIndex:section-1];
+        [weakSelf.tableView deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];
+        [weakSelf.tableView reloadData];
+    };
+    [self.view.superview addSubview:delWindow];
+
+}
+#pragma mark - 拨打电话
+- (void)clickTelPhoneWithSection:(NSInteger)section withRow:(NSInteger)row
 {
-    DLog(@"section-----%ld",section);
-    [_contentArr removeObjectAtIndex:section-1];
-    [_categoryArr removeObjectAtIndex:section-1];
-    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView reloadData];
+    if (section == 0)
+    {
+        if ([QZManager isString:_basiArr[row] withContainsStr:@"电话"])
+        {
+            NSString *phoneStr = _textBasiArr[row];
+            if (phoneStr.length >0) {
+                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneStr]]];
+                [self.callPhoneWebView loadRequest:request];
+            }
+        }
+    }else {
+        
+        NSString *cateStr = _categoryArr[section -1];
+        NSArray *titArr = _contentTilArr[[cateStr intValue]-1];
+        if ([QZManager isString:titArr[row] withContainsStr:@"电话"]){
+            
+            NSMutableArray *arr = _contentArr[section -1];
+            NSString *phoneStr = arr[row];
+            if (phoneStr.length >0) {
+                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneStr]]];
+                [self.callPhoneWebView loadRequest:request];
+            }
+        }
+    }
 }
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
@@ -488,6 +538,7 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
         
         [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeAdd] RequestSuccess:^{
             
+            weakSelf.addSuccess();
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
 

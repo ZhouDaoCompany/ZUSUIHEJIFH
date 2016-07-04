@@ -22,10 +22,18 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
 }
 @property (strong, nonatomic) NSMutableArray *titleArrays;//标题
 @property (strong, nonatomic) NSMutableArray *textArr;//内容
+@property (nonatomic, strong) UIWebView *callPhoneWebView;
 
 @end
 
 @implementation AccusingTheTabVC
+#pragma mark -打电话
+- (UIWebView *)callPhoneWebView {
+    if (!_callPhoneWebView) {
+        _callPhoneWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    }
+    return _callPhoneWebView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -154,15 +162,22 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
+{    WEAKSELF;
+    NSUInteger row = indexPath.row;
+
     if (_isEdit == NO && _accType == AccFromManager) {
         //编辑状态不能修改
+        if ([QZManager isString:_titleArrays[row] withContainsStr:@"电话"])
+        {
+            NSString *phoneStr = _textArr[row];
+            if (phoneStr.length >0) {
+                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneStr]]];
+                [self.callPhoneWebView loadRequest:request];
+            }
+        }
         return;
     }
     
-    NSUInteger row = indexPath.row;
-    WEAKSELF;
     switch (row) {
         case 6:
         {
@@ -295,6 +310,7 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
     }else{
         [NetWorkMangerTools arrangeAddManagement:msgDic withUrl:[NSString stringWithFormat:@"%@%@",kProjectBaseUrl,arrangeAdd] RequestSuccess:^{
             
+            weakSelf.addSuccess();
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
     }

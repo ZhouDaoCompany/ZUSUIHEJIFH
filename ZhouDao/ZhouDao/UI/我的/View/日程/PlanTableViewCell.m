@@ -43,8 +43,8 @@
         if ([QZManager compareOneDay:[NSDate date] withAnotherDay:date] == 1)
         {//失效
             _iconImgView.image = [UIImage imageNamed:@"mine_NZUnSelected"];
-            _nameLab.textColor = sixColor;
-            _contentLab.textColor = sixColor;
+            _nameLab.textColor = NINEColor;
+            _contentLab.textColor = NINEColor;
             _alertLab.text = @"提醒已过期";
         }else{
             _alertLab.text = [QZManager timeToShow:date];
@@ -53,7 +53,23 @@
     }else{
         _alertLab.text = [QZManager changeTimeMethods:[_model.time doubleValue] withType:@"HH:mm"];
         _contentLab.text = [QZManager changeTime:[_noDayString doubleValue]];
-        _iconImgView.image = [UIImage imageNamed:@"mine_NZSelected"];
+        
+        if (_model.spacing.length >0) {
+            
+            if ([_model.spacing floatValue] <0) {
+                _iconImgView.image = [UIImage imageNamed:@"mine_NZUnSelected"];
+                _nameLab.textColor = NINEColor;
+                _contentLab.textColor = NINEColor;
+                _alertLab.text = @"提醒已过期";
+            }else{
+                _iconImgView.image = [UIImage imageNamed:@"mine_NZSelected"];
+
+            }
+
+        }else {
+            _iconImgView.image = [UIImage imageNamed:@"mine_NZSelected"];
+        }
+        
     }
     
    
