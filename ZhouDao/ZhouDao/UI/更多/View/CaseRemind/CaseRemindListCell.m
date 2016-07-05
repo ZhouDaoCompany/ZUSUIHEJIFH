@@ -24,7 +24,7 @@
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 9.6f, 210.f, .8f)];
     lineView.backgroundColor = [UIColor colorWithHexString:@"#D4D4D4"];//lineColor;
     _lineView = lineView;
-    [_titLab addSubview:_lineView];
+    [_timeLab addSubview:_lineView];
     
     _titLab.textColor = thirdColor;
     _remindImg.contentMode = UIViewContentModeScaleAspectFit;
@@ -50,6 +50,8 @@
     {//失效
         _remindImg.image = [UIImage imageNamed:@"mine_NZUnSelected"];
         _lineView.hidden = NO;
+        
+        _timeLab.text = [NSString stringWithFormat:@"%@提醒已过期",_timeLab.text];
         
     }else{
         _remindImg.image = [UIImage imageNamed:@"mine_NZSelected"];

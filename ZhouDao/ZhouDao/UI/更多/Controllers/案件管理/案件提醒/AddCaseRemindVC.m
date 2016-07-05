@@ -430,7 +430,6 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
 - (NSString *)getRemindTypeWithTit:(NSString *)str
 {
     NSString *type = @"";
-    
     if ([type isEqualToString:@"开庭提醒"]){
         type = @"2";
     }else  if ([type isEqualToString:@"拜访提醒"]) {
@@ -448,6 +447,7 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
     }
     return type;
 }
+
 - (NSString *)getRemindType:(NSString *)str
 {
     NSString *type = @"";
@@ -509,6 +509,7 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
     }else{
         bellName = @"开庭提醒(男声)";
     }
+    
     return bellName;
 }
 

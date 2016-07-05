@@ -110,7 +110,7 @@
     _keyText.tag = 3014;
     _keyText.secureTextEntry = YES;
     _keyText.borderStyle = UITextBorderStyleNone;
-    _keyText.placeholder = @"密码";
+    _keyText.placeholder = @"密码为6-14位数字和字母组合";
     [_bottomView addSubview:_keyText];
     
     //CGFloat eyeX = bottomWith  - (100  - [ConFunc getBtnTitleWidth:_getCodeBtn])/2.f - 20;
@@ -312,8 +312,9 @@
     }else if (_professionalLab.text.length <=0){
         [JKPromptView showWithImageName:nil message:@"请您检查职业是否选择"];
         return;
-    }else if (![QZManager isValidatePassword:_keyText.text]){
-        [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合"];
+    }else if ([QZManager isValidatePassword:_keyText.text] == NO)
+    {
+        [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合，请您仔细检查"];
         return;
     }else if ([QZManager isIncludeSpecialCharact:_keyText.text]){
         [JKPromptView showWithImageName:nil message:@"密码中包含非法字符，请您检查"];

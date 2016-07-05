@@ -150,12 +150,15 @@
                 return;
             }else if ([QZManager isIncludeSpecialCharact:self.nameText.text] ==YES || [QZManager isIncludeSpecialCharact:self.keyText.text] == YES)
             {
-                SHOW_ALERT(@"账号和密码包含非法字符，请您仔细检查");
+                [JKPromptView showWithImageName:nil message:@"账号和密码包含非法字符，请您仔细检查"];
                 return;
-            }else if (![QZManager isValidatePassword:_keyText.text])
+            }
+            
+            
+            if ([QZManager isValidatePassword:_keyText.text] == NO)
             {
-//                SHOW_ALERT(@"密码为6-14位数字和字母组合，请您仔细检查")
-//                return;
+                [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合，请您仔细检查"];
+                return;
             }
             [SVProgressHUD showWithStatus:@"登录中..."];
 

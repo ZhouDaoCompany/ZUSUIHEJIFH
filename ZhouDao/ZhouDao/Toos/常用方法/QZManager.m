@@ -165,7 +165,6 @@ singleton_for_class(QZManager)
     return dict[opinion] ? dict[opinion] : @"en";
 }
 
-
 #pragma mark - 打印出项目工程里自定义字体名
 + (void)printCustomFontName
 {
@@ -184,9 +183,15 @@ singleton_for_class(QZManager)
 #pragma mark -- 密码规则(6到14位包含数字或字母)
 + (BOOL)isValidatePassword:(NSString *)password
 {
-    NSString *passwordRegex = @"^[A-Za-z0-9]{6,14}$";
-    NSPredicate *passwordTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",passwordRegex];
-    return [passwordTest evaluateWithObject:password];
+    NSString *regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,14}$";
+    NSPredicate *   pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    if ([pred evaluateWithObject:password]) {
+        DLog(@"通过");
+        return YES;
+    }else{
+        DLog(@"不是.不通过");
+        return NO;
+    }
 }
 
 #pragma mark -  根据字符串的长度来计算label的宽

@@ -382,6 +382,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
             
             [SVProgressHUD show];
             [ZhouDao_NetWorkManger GetJSONWithUrl:addUrl success:^(NSDictionary *jsonDic) {
+                
                 [SVProgressHUD dismiss];
                 NSUInteger errorcode = [jsonDic[@"state"] integerValue];
                 NSString *msg = jsonDic[@"info"];
@@ -392,12 +393,13 @@ referenceSizeForHeaderInSection:(NSInteger)section
                 weakSelf.domainBlock(weakSelf.selectArrays);
                 
                 [self dismissViewControllerAnimated:YES completion:^{
+                    
                     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
                 }];
                 
-                
             } fail:^{
                 [self dismissViewControllerAnimated:YES completion:^{
+                    
                     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
                 }];
                 [SVProgressHUD showErrorWithStatus:AlrertMsg];
@@ -406,6 +408,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
         }else{
             
             [self dismissViewControllerAnimated:YES completion:^{
+                
                 [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
             }];
         }

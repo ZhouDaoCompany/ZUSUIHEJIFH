@@ -211,13 +211,12 @@ static NSString *const CASEREMINDID = @"cellcaseremindIdentifer";
 -(void)rightBtnAction
 {WEAKSELF;
     DLog(@"添加案件提醒");
-    
     AddCaseRemindVC *vc = [AddCaseRemindVC new];
     vc.caseId = _caseId;
     vc.remindType = AddRemind;
     vc.addSuccess = ^(){
         
-        
+        [weakSelf loadData];
     };
     [self.navigationController pushViewController:vc animated:YES];
 }

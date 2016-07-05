@@ -28,7 +28,7 @@
 }
 - (void)initUI
 {WEAKSELF;
-    [self setupNaviBarWithTitle:@"案件编辑"];
+    [self setupNaviBarWithTitle:@"案件详情"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     
 //    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"case_edit"];
@@ -108,6 +108,8 @@
     
     if (_isEdit == YES) {
         [self.rightBtn setTitle:@"完成" forState:0];
+        [self setupNaviBarWithTitle:@"案件编辑"];
+
     }else {
         [self.rightBtn setTitle:@"编辑" forState:0];
     }

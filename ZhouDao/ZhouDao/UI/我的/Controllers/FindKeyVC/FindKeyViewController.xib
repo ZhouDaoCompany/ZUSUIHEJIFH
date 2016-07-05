@@ -23,13 +23,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="gcG-B5-I4e">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="gcG-B5-I4e">
                     <rect key="frame" x="122" y="114" width="75" height="75"/>
                 </imageView>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JNe-WI-Uc1">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JNe-WI-Uc1">
                     <rect key="frame" x="25" y="234" width="270" height="120"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_name.png" translatesAutoresizingMaskIntoConstraints="NO" id="fxa-1W-1rz">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_name.png" translatesAutoresizingMaskIntoConstraints="NO" id="fxa-1W-1rz">
                             <rect key="frame" x="8" y="11" width="18" height="19"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="18" id="u8H-MO-Uuy"/>
@@ -40,17 +40,17 @@
                                 </mask>
                             </variation>
                         </imageView>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="注册手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8F8-xC-hnT">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="注册手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8F8-xC-hnT">
                             <rect key="frame" x="36" y="0.0" width="234" height="40"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YsY-6B-7zX">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YsY-6B-7zX">
                             <rect key="frame" x="36" y="40" width="134" height="40"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3qQ-A4-1gF">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码为6-14位数字和字母组合" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3qQ-A4-1gF">
                             <rect key="frame" x="36" y="80" width="204" height="40"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -75,7 +75,7 @@
                                 <action selector="getCodeOrResetEvent:" destination="-1" eventType="touchUpInside" id="sgR-CI-wQ0"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="find_eye" translatesAutoresizingMaskIntoConstraints="NO" id="zPF-sP-zqd">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="find_eye" translatesAutoresizingMaskIntoConstraints="NO" id="zPF-sP-zqd">
                             <rect key="frame" x="240" y="94" width="20" height="14"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h7y-38-VLA">
@@ -142,7 +142,7 @@
                         </mask>
                     </variation>
                 </view>
-                <button opaque="NO" tag="1004" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rX4-A8-Gls">
+                <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rX4-A8-Gls">
                     <rect key="frame" x="26" y="414" width="268" height="40"/>
                     <color key="backgroundColor" red="0.14901960784313725" green="0.74901960784313726" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>

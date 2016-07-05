@@ -152,7 +152,12 @@
             }else if(![_codeText.text isEqualToString:_codeStr]){
                 [JKPromptView showWithImageName:nil message:@"验证码不正确!"];
                 return;
+            }else if ([QZManager isValidatePassword:_keyText.text] == NO)
+            {
+                [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合，请您仔细检查"];
+                return;
             }
+
             [SVProgressHUD showWithStatus:@"提交中..."];
 
             NSString *forgetUrl = [NSString stringWithFormat:@"%@%@mobile=%@&pw=%@",kProjectBaseUrl,ForgetKey,_phoneText.text,[_keyText.text md5]];
@@ -165,13 +170,16 @@
                     return ;
                 }
                 [JKPromptView showWithImageName:nil message:msg];
+                
+                [USER_D setObject:_phoneText.text forKey:StoragePhone];
+                [USER_D setObject:[_keyText.text md5] forKey:StoragePassword];
+                [USER_D synchronize];
+                
                 self.findBlock(_phoneText.text);
                 [self.navigationController popViewControllerAnimated:YES];
             } fail:^{
                 [SVProgressHUD showErrorWithStatus:AlrertMsg];
             }];
-
-            
             
         }
             break;
