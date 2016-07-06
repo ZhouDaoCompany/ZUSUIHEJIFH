@@ -19,7 +19,7 @@
 @property (strong, nonatomic)  CustomMenuBtn *cmmBtn;
 //@property (strong, nonatomic)  CustomMenuBtn *shareBtn;
 @property (strong, nonatomic)  CustomMenuBtn *delBtn;
-
+@property (nonatomic, strong) UILabel *indexLabel;
 @end
 
 @implementation CaseDetailTabCell
@@ -30,23 +30,17 @@
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 25, 25)];
-        _headImgView.userInteractionEnabled = YES;
-        _headImgView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.contentView   addSubview:_headImgView];
-        
-        _titLab = [[UILabel alloc] initWithFrame:CGRectMake(55, 13, 200, 20)];
-        _titLab.backgroundColor = [UIColor clearColor];
-        [_titLab setFont:Font_15];
-        _titLab.textColor = thirdColor;
-        [self.contentView addSubview:_titLab];
+
+        [self indexLabel];
+        [self headImgView];
+        [self titLab];
         
         //按钮
         UIButton *navBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         navBtn.backgroundColor = [UIColor clearColor];
         [navBtn setImage:[UIImage imageNamed:@"case_sandian"] forState:0];
         navBtn.titleLabel.font = Font_15;
-        navBtn.frame = CGRectMake(kMainScreenWidth -36, 12, 23 , 22);
+        navBtn.frame = CGRectMake(kMainScreenWidth -45, 2.5f, 40 , 40);
         [navBtn addTarget:self action:@selector(pointBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:navBtn];
         
@@ -56,10 +50,48 @@
     }
     return self;
 }
+- (UILabel *)indexLabel
+{
+    if (_indexLabel == nil) {
+        _indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 13, 30, 20)];
+        [_indexLabel setFont:Font_14];
+        _indexLabel.textColor = sixColor;
+        [self.contentView addSubview:_indexLabel];
+    }
+    return _indexLabel;
+}
+- (UIImageView *)headImgView
+{
+    if (!_headImgView) {
+        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(45, 10, 25, 25)];
+        _headImgView.userInteractionEnabled = YES;
+        _headImgView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.contentView   addSubview:_headImgView];
+    }
+    return _headImgView;
+}
+- (UILabel *)titLab
+{
+    if (!_titLab) {
+        _titLab = [[UILabel alloc] initWithFrame:CGRectMake(85, 13, 200, 20)];
+        _titLab.backgroundColor = [UIColor clearColor];
+        [_titLab setFont:Font_15];
+        _titLab.textColor = thirdColor;
+        [self.contentView addSubview:_titLab];
+    }
+    return _titLab;
+}
 - (void)setListModel:(DetaillistModel *)listModel
 {
     _listModel = nil;
     _listModel = listModel;
+    
+    if (_indexRow <10) {
+        _indexLabel.text = [NSString stringWithFormat:@"0%ld.",_indexRow];
+    }else{
+        _indexLabel.text = [NSString stringWithFormat:@"%ld.",_indexRow];
+    }
+    
     _titLab.text = _listModel.name;
     if ([_listModel.type_file isEqualToString:@"2"]) {
         [_headImgView setImage:[UIImage imageNamed:@"case_wenjainjia"]];
@@ -86,7 +118,6 @@
             default:
                 break;
         }
-        
     }
 }
 

@@ -140,6 +140,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     {
         CaseDetailTabCell *casecell = (CaseDetailTabCell *)cell;
         if (_tableData.count >0) {
+            casecell.indexRow = indexPath.row;
             [casecell setListModel:_tableData[indexPath.row]];
         }
     }

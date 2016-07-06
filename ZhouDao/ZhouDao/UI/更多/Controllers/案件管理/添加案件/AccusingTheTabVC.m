@@ -49,7 +49,16 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
 
     if (_accType == AccFromManager) {
     
-        _textArr = [NSMutableArray arrayWithObjects:_basicModel.number,_basicModel.name,_basicModel.client,_basicModel.client_phone,_basicModel.client_mail,_basicModel.client_address,_basicModel.thytake_time,_basicModel.thyend_time,_basicModel.remarks,nil];
+        NSString *sign_time = @"";
+        if ([_basicModel.thytake_time intValue] != 0) {
+            sign_time = [QZManager changeTimeMethods:[_basicModel.thytake_time doubleValue] withType:@"yyyy-MM-dd"];
+        }
+        NSString *sign_endtime = @"";
+        if ([_basicModel.thyend_time intValue] != 0) {
+            sign_endtime = [QZManager changeTimeMethods:[_basicModel.thyend_time doubleValue] withType:@"yyyy-MM-dd"];
+        }
+
+        _textArr = [NSMutableArray arrayWithObjects:_basicModel.number,_basicModel.name,_basicModel.client,_basicModel.client_phone,_basicModel.client_mail,_basicModel.client_address,sign_time,sign_endtime,_basicModel.remarks,nil];
         
     }else{
         _textArr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"",nil];
@@ -128,12 +137,12 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
             
         }else{
             aCell.textField.delegate = self;
-            aCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_titleArrays[row]];
             
             if (_isEdit == NO && _accType == AccFromManager) {
                 aCell.textField.enabled = NO;
             }else{
                 aCell.textField.enabled = YES;
+                aCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_titleArrays[row]];
             }
 
             [GcNoticeUtil handleNotification:UITextFieldTextDidChangeNotification Selector:@selector(textFieldChanged:) Observer:self Object:aCell.textField];
@@ -146,17 +155,19 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
         rCell.textView.delegate = self;
         rCell.textView.text = _textArr[row];
         rCell.textView.tag = row +7000;
-        if (rCell.textView.text.length >0) {
-            rCell.placeHoldlab.text = @"";
-        }else {
-            rCell.placeHoldlab.text = @" 写备注...";
-        }
         rCell.placeHoldlab.tag = 8887;
 
         if (_isEdit == NO && _accType == AccFromManager) {
             rCell.textView.editable = NO;
+            rCell.placeHoldlab.text = @"";
+
         }else{
             rCell.textView.editable = YES;
+            if (rCell.textView.text.length >0) {
+                rCell.placeHoldlab.text = @"";
+            }else {
+                rCell.placeHoldlab.text = @" 写备注...";
+            }
         }
     }
 }
@@ -272,27 +283,26 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
                 return ;
             }
             [msgDic setObjectWithNullValidate:GET(obj) forKey:@"name"];
+        }else if (idx == 6){
+            if (obj.length >0) {
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:obj] timeIntervalSince1970]];
+                NSString *keyStr = paraArrays[idx];
+                [msgDic setObjectWithNullValidate:GET(timeStr) forKey:keyStr];
+            }
+
+        }else if (idx == 7){
+            if (obj.length >0) {
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:obj] timeIntervalSince1970]];
+                NSString *keyStr = paraArrays[idx];
+                [msgDic setObjectWithNullValidate:GET(timeStr) forKey:keyStr];
+            }
+            
+        }else {
+            NSString *keyStr = paraArrays[idx];
+            [msgDic setObjectWithNullValidate:GET(obj) forKey:keyStr];
+
         }
-//        else if (idx == 6){
-//            if (obj.length == 0) {
-//                [JKPromptView showWithImageName:nil message:@"请您选择收案日期"];
-//                return ;
-//            }
-//            [msgDic setObjectWithNullValidate:GET(_thytake_time) forKey:@"start_time"];
-//            [msgDic setObjectWithNullValidate:GET(_thytake_time) forKey:@"thytake_time"];
-//        }else if (idx == 7){
-//            [msgDic setObjectWithNullValidate:GET(_thyend_time) forKey:@"end_time"];
-//            [msgDic setObjectWithNullValidate:GET(_thyend_time) forKey:@"thyend_time"];
-//
-//            (_thyend_time.length == 0)?[msgDic setObjectWithNullValidate:@"1" forKey:@"state"]:(([QZManager compareOneDay:[NSDate date] withAnotherDay:[QZManager timeStampChangeNSDate:[_thyend_time doubleValue]] withDateFormat:@"yyyy-MM-dd"] ==1)?[msgDic setObjectWithNullValidate:@"2" forKey:@"state"]:[msgDic setObjectWithNullValidate:@"1" forKey:@"state"]);
-//            
-//        }else{
-//            NSString *keyStr = paraArrays[idx];
-//            [msgDic setObjectWithNullValidate:GET(obj) forKey:keyStr];
-//        }
         
-        NSString *keyStr = paraArrays[idx];
-        [msgDic setObjectWithNullValidate:GET(obj) forKey:keyStr];
     }];
     if (_isReturn == YES) {
         return;

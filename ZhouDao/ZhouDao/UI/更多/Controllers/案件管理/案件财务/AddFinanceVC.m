@@ -42,13 +42,12 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
 
 - (void)initUI
 {
-    [self setupNaviBarWithTitle:@"添加财务信息"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     
     [self creatDataSource];
 
     if (_financeType == AddFinance) {
-        
+        [self setupNaviBarWithTitle:@"添加财务信息"];
         _currentBtnTag = 0;
         
         NSArray *titArr = _titBasiArr[_currentBtnTag];
@@ -59,6 +58,7 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
         CGRect frame = CGRectMake(0,Orgin_y(_botomView), kMainScreenWidth, kMainScreenHeight - Orgin_y(_botomView));
         [self creatTabViewWithRect:frame];
     }else {
+        [self setupNaviBarWithTitle:@"编辑财务信息"];
         [self setupNaviBarWithBtn:NaviRightBtn
                             title:nil img:@"case_delete"];
         [_commitArr addObjectsFromArray:_oriArr];
@@ -233,17 +233,40 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
             btnObj.backgroundColor = [UIColor whiteColor];
             [btnObj setTitleColor:thirdColor forState:0];
         }
+    }];
+   __block BOOL isHave;
+    [_commitArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
+        if (obj.length >0) {
+            *stop = YES;
+            isHave = YES;
+            return ;
+        }
     }];
     
-    btn.backgroundColor = KNavigationBarColor;
-    [btn setTitleColor:[UIColor whiteColor] forState:0];
-
-    _currentBtnTag = btn.tag - 4000;
+    if (isHave == YES) {
+        
+        ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"修改后清空已添加信息，确定修改?" withType:DelType];
+        delWindow.DelBlock = ^(){
+            
+            btn.backgroundColor = KNavigationBarColor;
+            [btn setTitleColor:[UIColor whiteColor] forState:0];
+            _currentBtnTag = btn.tag - 4000;
+            NSArray *titArr = _titBasiArr[_currentBtnTag];
+            [self creatCommitArrWithTitleArr:titArr];
+            [_tableView reloadData];
+        };
+        [self.view.superview addSubview:delWindow];
+        
+    }else{
+        btn.backgroundColor = KNavigationBarColor;
+        [btn setTitleColor:[UIColor whiteColor] forState:0];
+        _currentBtnTag = btn.tag - 4000;
+        NSArray *titArr = _titBasiArr[_currentBtnTag];
+        [self creatCommitArrWithTitleArr:titArr];
+        [_tableView reloadData];
+    }
     
-    NSArray *titArr = _titBasiArr[_currentBtnTag];
-    [self creatCommitArrWithTitleArr:titArr];
-    [_tableView reloadData];
 }
 -(void)commitEvent:(UIButton *)btn
 {WEAKSELF;

@@ -28,6 +28,7 @@
         self.deviceLabel.textColor = [UIColor blackColor];
         [self.contentView addSubview:self.deviceLabel];
         
+        
         self.textField = [[UITextField alloc] init];
         self.textField.backgroundColor = [UIColor clearColor];
         self.textField.borderStyle = UITextBorderStyleNone;
@@ -52,22 +53,21 @@
 }
 - (void)AdjustmentOfTheCell{
     
-    self.titleLab.frame = CGRectMake(15, 15, 140, 20);
+    self.titleLab.frame = CGRectMake(15, 15, 120, 20);
 
     
     if (_currentBtnTag == 1 || _currentBtnTag == 4)
     {
-        
         if (_currentBtnTag == 1 && [_titleLab.text isEqualToString:@"提成金额"]) {
             _deviceLabel.hidden = NO;
             _imgview1.hidden = YES;
             _textField.hidden = YES;
-            _deviceLabel.frame = CGRectMake(kMainScreenWidth - 175.f, 7.5f, 150, 30);
+            _deviceLabel.frame = CGRectMake(kMainScreenWidth - 180.f, 7.5f, 150, 30);
         }else {
             _deviceLabel.hidden = YES;
             _imgview1.hidden = YES;
             _textField.hidden = NO;
-            _textField.frame = CGRectMake(kMainScreenWidth - 151.f, 7.5f, 130, 30);
+            _textField.frame = CGRectMake(kMainScreenWidth - 156.f, 7.5f, 130, 30);
             [_textField setValue:Font_12 forKeyPath:@"_placeholderLabel.font"];
             
             if ([_titleLab.text isEqualToString:@"总金额"] || [_titleLab.text isEqualToString:@"提成比例(%)"] || [_titleLab.text isEqualToString:@"费用"]) {
@@ -75,15 +75,20 @@
             }else{
                 _textField.keyboardType = UIKeyboardTypeDefault;
             }
-
         }
 
     }else{
         _deviceLabel.hidden = NO;
         _imgview1.hidden = NO;
         _textField.hidden = YES;
-        _deviceLabel.frame = CGRectMake(kMainScreenWidth - 175.f, 7.5f, 150, 30);
-
+        _deviceLabel.frame = CGRectMake(kMainScreenWidth - 180.f, 7.5f, 150, 30);
+        
+        if (_deviceLabel.text.length == 0) {
+            NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请选择"];
+            NSRange range1=[[hintString string]rangeOfString:@"请选择"];
+            [hintString addAttribute:NSForegroundColorAttributeName value:sixColor range:range1];
+            _deviceLabel.attributedText=hintString;
+        }
     }
 
 }

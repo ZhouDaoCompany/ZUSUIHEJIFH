@@ -19,4 +19,5 @@
 @property (strong, nonatomic)  UIImageView *headImgView;
 @property (strong, nonatomic)  UILabel *titLab;
 @property (strong, nonatomic) DetaillistModel *listModel;
+@property (assign, nonatomic) NSInteger indexRow;
 @end

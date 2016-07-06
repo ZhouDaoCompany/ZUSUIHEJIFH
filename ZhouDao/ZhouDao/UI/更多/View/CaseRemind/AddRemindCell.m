@@ -46,7 +46,7 @@
 }
 - (void)settingFrame
 {
-    self.titleLab.frame = CGRectMake(15, 12.5, 140, 20);
+    self.titleLab.frame = CGRectMake(15, 12.5, 120, 20);
 
     if (_rowIndex == 0) {
         
@@ -61,9 +61,16 @@
         _contentLab.hidden = NO;
 //        _imgview1.hidden = NO;
         _textField.hidden = YES;
-        _contentLab.frame = CGRectMake(kMainScreenWidth - 175.f, 7.5, 150, 30);
+        _contentLab.frame = CGRectMake(kMainScreenWidth - 180.f, 7.5, 150, 30);
+        
+        if (_contentLab.text.length == 0) {
+            NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请选择"];
+            NSRange range1=[[hintString string]rangeOfString:@"请选择"];
+            [hintString addAttribute:NSForegroundColorAttributeName value:sixColor range:range1];
+            _contentLab.attributedText=hintString;
+        }
 
-    }    
+    }
     
 }
 

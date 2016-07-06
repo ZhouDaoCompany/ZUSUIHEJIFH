@@ -175,6 +175,7 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
         [_searchField setValue:Font_15 forKeyPath:@"_placeholderLabel.font"];
         _searchField.returnKeyType = UIReturnKeySearch; //设置按键类型
         [searchView addSubview:_searchField];
+        [_searchField becomeFirstResponder];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(textFieldChanged:)
                                                      name:UITextFieldTextDidChangeNotification

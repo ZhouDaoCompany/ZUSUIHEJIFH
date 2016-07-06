@@ -40,7 +40,6 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
 }
 - (void)initUI
 {
-    [self setupNaviBarWithTitle:@"案件提醒添加"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     _titArrays  = [NSArray arrayWithObjects:@"提醒标签",@"提醒类别",@"提醒时间",@"重复",@"提醒铃声", nil];
     
@@ -57,7 +56,7 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
 
 
     if (_remindType == EditRemind) {
-        
+        [self setupNaviBarWithTitle:@"案件提醒编辑"];
         NSString *remind = [self getRemindType:_dataModel.bell];
         NSString *bell = [self getBellName:_dataModel.bell];
         NSString *repeatS = [self getRepeatType:_dataModel.repeat_time];
@@ -69,13 +68,15 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
         
         [self setupNaviBarWithBtn:NaviRightBtn
                             title:@"编辑" img:nil];
-        
+        [self setupNaviBarWithTitle:@"案件提醒详情"];
+
         NSString *remind = [self getRemindType:_dataModel.bell];
         NSString *bell = [self getBellName:_dataModel.bell];
         NSString *repeatS = [self getRepeatType:_dataModel.repeat_time];
         _commitArr  = [NSMutableArray arrayWithObjects:_dataModel.title,remind,_dataModel.time,repeatS,bell,_dataModel.content, nil];
 
     }else {
+        [self setupNaviBarWithTitle:@"案件提醒添加"];
         _commitArr  = [NSMutableArray arrayWithObjects:@"",@"开庭提醒",@"",@"永不",@"系统音效",@"", nil];
         _tableView.tableFooterView = [self creatTabFootView];
 
@@ -122,7 +123,6 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
     if ([cell isKindOfClass:[AddRemindCell class]]) {
         AddRemindCell *aCell = (AddRemindCell *)cell;
         aCell.rowIndex = row;
-        [aCell settingFrame];
         aCell.titleLab.text = _titArrays[row];
         if (row == 0) {
             
@@ -149,9 +149,10 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
 
         }else{
             aCell.contentLab.text = _commitArr[row];
-
         }
         
+        [aCell settingFrame];
+
     }else if ([cell isKindOfClass:[RemarkTabCell class]]){
         RemarkTabCell *rCell = (RemarkTabCell *)cell;
 
@@ -329,6 +330,8 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
     _tableView.tableFooterView = [self creatTabFootView];
     [_tableView reloadData];
     [self.rightBtn setTitle:@"完成" forState:0];
+    [self setupNaviBarWithTitle:@"案件提醒编辑"];
+
 }
 - (void)commitRemindEvent
 {WEAKSELF;

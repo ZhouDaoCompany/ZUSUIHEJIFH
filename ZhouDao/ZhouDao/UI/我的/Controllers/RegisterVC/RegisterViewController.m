@@ -65,6 +65,7 @@
     _phoneText.borderStyle = UITextBorderStyleNone;
     _phoneText.delegate = self;
     _phoneText.tag = 3012;
+    _phoneText.font = Font_14;
     _phoneText.placeholder = @"手机号";
     _phoneText.keyboardType = UIKeyboardTypeNumberPad;
     [_bottomView addSubview:_phoneText];
@@ -83,6 +84,7 @@
     _codeText.tag = 3013;
     _codeText.borderStyle = UITextBorderStyleNone;
     _codeText.placeholder = @"验证码";
+    _codeText.font = Font_14;
     [_bottomView addSubview:_codeText];
     
     _getCodeBtn = [JKCountDownButton buttonWithType:UIButtonTypeCustom];
@@ -111,6 +113,7 @@
     _keyText.secureTextEntry = YES;
     _keyText.borderStyle = UITextBorderStyleNone;
     _keyText.placeholder = @"密码为6-14位数字和字母组合";
+    _keyText.font = Font_14;
     [_bottomView addSubview:_keyText];
     
     //CGFloat eyeX = bottomWith  - (100  - [ConFunc getBtnTitleWidth:_getCodeBtn])/2.f - 20;

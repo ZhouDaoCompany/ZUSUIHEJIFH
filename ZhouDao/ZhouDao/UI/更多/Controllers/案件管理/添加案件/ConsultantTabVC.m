@@ -64,8 +64,14 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
             [weakSelf.textConArr addObject:model.content];
         }];
         
-        NSString *sign_time = [QZManager changeTimeMethods:[_basicModel.sign_time doubleValue] withType:@"yyyy-MM-dd"];
-        NSString *sign_endtime = [QZManager changeTimeMethods:[_basicModel.sign_endtime doubleValue] withType:@"yyyy-MM-dd"];
+        NSString *sign_time = @"";
+        if ([_basicModel.sign_time intValue] != 0) {
+            sign_time = [QZManager changeTimeMethods:[_basicModel.sign_time doubleValue] withType:@"yyyy-MM-dd"];
+        }
+        NSString *sign_endtime = @"";
+        if ([_basicModel.sign_endtime intValue] !=0) {
+            sign_endtime = [QZManager changeTimeMethods:[_basicModel.sign_endtime doubleValue] withType:@"yyyy-MM-dd"];
+        }
 
         _textBasiArr = [NSMutableArray arrayWithObjects:_basicModel.client,sign_time,sign_endtime,_basicModel.contacts,_basicModel.phone,_basicModel.mail, nil];
         
@@ -169,9 +175,13 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
             cCell.textField.section = section;
             cCell.textField.row = row;
             cCell.textField.delegate = self;
-            cCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_basicTitleArrays[row]];
             cCell.textField.text = _textBasiArr[row];
-            
+            if (_ConType == ConFromManager && _isEdit == NO) {
+                cCell.textField.enabled = NO;
+            }else{
+                cCell.textField.enabled = YES;
+                cCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_basicTitleArrays[row]];
+            }
 
         }else {
             
@@ -182,17 +192,16 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
                 cCell.textField.section = section;
                 cCell.textField.row = row;
                 cCell.textField.delegate = self;
-                cCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_moreTilArr[row]];
+                if (_ConType == ConFromManager && _isEdit == NO) {
+                    cCell.textField.enabled = NO;
+                }else{
+                    cCell.textField.enabled = YES;
+                    cCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_moreTilArr[row]];
+                }
                 cCell.textField.text = conArr[row];
             }
         }
         
-        if (_ConType == ConFromManager && _isEdit == NO) {
-            
-            cCell.textField.enabled = NO;
-        }else{
-            cCell.textField.enabled = YES;
-        }
 
         [GcNoticeUtil handleNotification:UITextFieldTextDidChangeNotification Selector:@selector(textFieldChanged:) Observer:self Object:cCell.textField];
 
@@ -204,15 +213,17 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
         rCell.textView.delegate = self;
         rCell.textView.tag = 5000 + section;
         rCell.textView.text = [NSString stringWithFormat:@"%@",[conArr lastObject]];
-        if (rCell.textView.text.length >0) {
-            rCell.placeHoldlab.text = @"";
-        }else {
-            rCell.placeHoldlab.text = @" 写备注...";
-        }
         if (_ConType == ConFromManager && _isEdit == NO) {
             rCell.textView.editable = NO;
+            rCell.placeHoldlab.text = @"";
         }else{
             rCell.textView.editable = YES;
+            
+            if (rCell.textView.text.length >0) {
+                rCell.placeHoldlab.text = @"";
+            }else {
+                rCell.placeHoldlab.text = @" 写备注...";
+            }
         }
 
 //        rCell.placeHoldlab.tag = 8200 + section;

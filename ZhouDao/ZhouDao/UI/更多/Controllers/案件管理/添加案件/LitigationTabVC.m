@@ -67,6 +67,10 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     
     if (_litEditType == LitiDetails ) {
         
+        if ([_basicModel.thytake_time  integerValue] == 0) {
+            _basicModel.thytake_time = @"";
+        }
+        
         _textBasiArr = [NSMutableArray arrayWithObjects:_basicModel.number,_basicModel.name,_basicModel.client,_basicModel.client_phone,_basicModel.client_mail, _basicModel.client_address,_basicModel.thytake_time,_basicModel.plaintiff,_basicModel.defendant,nil];
         _contentArr = [NSMutableArray array];
         _categoryArr = [NSMutableArray array];
@@ -122,29 +126,54 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
 }
 - (void)deleteAlertMethods:(NSString *)selectStr withSection:(NSInteger)section
 {WEAKSELF;
-    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"修改后该审理下的信息清空，确定修改?" withType:DelType];
-    delWindow.DelBlock = ^(){
+    
+    NSMutableArray *contentArr = _contentArr[section-1];
+
+    __block BOOL isHave;
+
+    [contentArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        __block NSInteger buttonIndex = 0;
-        [weakSelf.kindsArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isEqualToString:selectStr]) {
-                buttonIndex = idx;
+        if (idx > 0) {
+            if(obj.length >0){
+                *stop  = YES;
+                isHave = YES;
+                return ;
             }
-        }];
-        DLog(@"第几个----%ld",buttonIndex);
-        NSString *classIndex = [NSString stringWithFormat:@"%ld",buttonIndex + 1];
-        [weakSelf.categoryArr replaceObjectAtIndex:section-1 withObject:classIndex];
-        NSArray *arr = weakSelf.contentTilArr[buttonIndex];
-        __block NSMutableArray *conArr = [NSMutableArray array];
-        NSString *titStr = weakSelf.kindsArr[buttonIndex];
-        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            (idx == 0)?[conArr addObject:titStr]:[conArr addObject:@""];
-        }];
-        [weakSelf.contentArr replaceObjectAtIndex:section-1 withObject:conArr];
-        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
-        
-    };
-    [self.view.superview addSubview:delWindow];
+        }
+    }];
+    
+    if (isHave == YES) {
+        ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"修改后该审理下的信息清空，确定修改?" withType:DelType];
+        delWindow.DelBlock = ^(){
+            
+            [weakSelf delCheckmsg:selectStr withSection:section];
+        };
+        [self.view.superview addSubview:delWindow];
+
+    }else {
+        [self delCheckmsg:selectStr withSection:section];
+    }
+    
+}
+- (void)delCheckmsg:(NSString *)selectStr withSection:(NSInteger)section
+{WEAKSELF;
+    __block NSInteger buttonIndex = 0;
+    [weakSelf.kindsArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqualToString:selectStr]) {
+            buttonIndex = idx;
+        }
+    }];
+    DLog(@"第几个----%ld",buttonIndex);
+    NSString *classIndex = [NSString stringWithFormat:@"%ld",buttonIndex + 1];
+    [weakSelf.categoryArr replaceObjectAtIndex:section-1 withObject:classIndex];
+    NSArray *arr = weakSelf.contentTilArr[buttonIndex];
+    __block NSMutableArray *conArr = [NSMutableArray array];
+    NSString *titStr = weakSelf.kindsArr[buttonIndex];
+    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        (idx == 0)?[conArr addObject:titStr]:[conArr addObject:@""];
+    }];
+    [weakSelf.contentArr replaceObjectAtIndex:section-1 withObject:conArr];
+    [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark - Table view data source
 
@@ -196,11 +225,14 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
             if (_basiArr.count >0) {
                 
                 lCell.titleLab.text = _basiArr[row];
-                lCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_basiArr[row]];
-                
+                if (_litEditType == LitiDetails && _isEdit == NO) {
+                    lCell.textField.enabled = NO;
+                }else{
+                    lCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_basiArr[row]];
+                    lCell.textField.enabled = YES;
+                }
                 NSString *text = @"";
                 if ([NSString stringWithFormat:@"%@",_textBasiArr[row]].length >0) {
-                    
                     if ([_basiArr[row] isEqualToString:@"收案日期"]) {
                         text = [QZManager changeTimeMethods:[_textBasiArr[row] doubleValue] withType:@"yyyy-MM-dd"];
                     }else {
@@ -221,7 +253,13 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
                 NSArray *titArr = _contentTilArr[[cateStr intValue]-1];
                 NSMutableArray *contentArr = _contentArr[section-1];
                 lCell.titleLab.text = titArr[row];
-                lCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",titArr[row]];
+                
+                if (_litEditType == LitiDetails && _isEdit == NO) {
+                    lCell.textField.enabled = NO;
+                }else{
+                    lCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",titArr[row]];
+                    lCell.textField.enabled = YES;
+                }
                 
                 NSString *text = @"";
                 if ([NSString stringWithFormat:@"%@",contentArr[row]].length >0) {
@@ -240,12 +278,6 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
             }
         }
         
-        if (_litEditType == LitiDetails && _isEdit == NO) {
-            lCell.textField.enabled = NO;
-        }else {
-            lCell.textField.enabled = YES;
-        }
-        
         [GcNoticeUtil handleNotification:UITextFieldTextDidChangeNotification Selector:@selector(textFieldChanged:) Observer:self Object:lCell.textField];
         
     }else if ([cell isKindOfClass:[RemarkTabCell class]]){
@@ -256,18 +288,18 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
         rCell.textView.text = contentArr[row];
         rCell.textView.tag = section + 1000;
 //        rCell.placeHoldlab.tag = 8800 +section;
-        if (rCell.textView.text.length >0) {
-            rCell.placeHoldlab.text = @"";
-        }else {
-            rCell.placeHoldlab.text = @" 写备注...";
-        }
         
         if (_litEditType == LitiDetails && _isEdit == NO) {
             rCell.textView.editable = NO;
+            rCell.placeHoldlab.text = @"";
         }else{
             rCell.textView.editable = YES;
+            if (rCell.textView.text.length >0) {
+                rCell.placeHoldlab.text = @"";
+            }else {
+                rCell.placeHoldlab.text = @" 写备注...";
+            }
         }
-
     }
 
 }
