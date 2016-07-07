@@ -129,6 +129,16 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
         aCell.textField.tag = 7000+row;
         aCell.titleLab.text = _titleArrays[row];
         
+        if (_isEdit == NO && _accType == AccFromManager) {
+            aCell.textField.enabled = NO;
+            aCell.isEdit = NO;
+        }else{
+            aCell.textField.enabled = YES;
+            aCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_titleArrays[row]];
+            aCell.isEdit = YES;
+        }
+
+        
         if (row == 6 || row == 7)
         {
             if (_textArr.count >0) {
@@ -137,17 +147,12 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
             
         }else{
             aCell.textField.delegate = self;
-            
-            if (_isEdit == NO && _accType == AccFromManager) {
-                aCell.textField.enabled = NO;
-            }else{
-                aCell.textField.enabled = YES;
-                aCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_titleArrays[row]];
-            }
 
             [GcNoticeUtil handleNotification:UITextFieldTextDidChangeNotification Selector:@selector(textFieldChanged:) Observer:self Object:aCell.textField];
             aCell.textField.text = _textArr[row];
         }
+        
+        [aCell settingFrame];
         
     }else if ([cell isKindOfClass:[RemarkTabCell class]]){
         

@@ -168,6 +168,7 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
             ToolsWedViewVC *vc = [ToolsWedViewVC new];
             vc.url = url;
             vc.tType = FromHotType;
+            vc.shareContent = model.title;
             vc.navTitle = @"";//model.title;
             [self.navigationController  pushViewController:vc animated:YES];
 

@@ -45,7 +45,7 @@
 }
 - (void)initUI
 {
-    self.zd_superView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-120, zd_width-150)];
+    self.zd_superView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-120, 224)];
     self.zd_superView.backgroundColor = [UIColor whiteColor];
     self.zd_superView.center = CGPointMake(zd_width/2.0,0);
     [UIView animateWithDuration:1 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -62,7 +62,7 @@
     /**
      *
      */
-     float height = zd_width-150;
+     float height = 224;
     
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-120, 54)];
     headView.backgroundColor  = KNavigationBarColor;
@@ -70,7 +70,7 @@
     
     UILabel *titLab = [[UILabel alloc] init];
     titLab.center = headView.center;
-    titLab.bounds = CGRectMake(0, 0, 120, 20);
+    titLab.bounds = CGRectMake(0, 0, zd_width-150, 20);
     titLab.backgroundColor = [UIColor clearColor];
     titLab.text = self.titleString;
     titLab.textColor = [UIColor whiteColor];
@@ -127,7 +127,7 @@
         UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         cancelBtn.titleLabel.font = Font_15;
         cancelBtn.tag = 4001;
-        cancelBtn.backgroundColor = [UIColor colorWithHexString:@"#d2d2d2"];
+        cancelBtn.backgroundColor = KNavigationBarColor;
         cancelBtn.frame = CGRectMake(15, Orgin_y(_contentjScrollView) +5, (zd_width-165)/2.f , 40);
         [cancelBtn setTitle:@"取消" forState:0];
         cancelBtn.layer.masksToBounds = YES;

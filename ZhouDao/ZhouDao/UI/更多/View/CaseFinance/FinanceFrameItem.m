@@ -107,7 +107,7 @@
             
         }else {
             self.ContentF1 = CGRectMake(15, tagY + tagH +1.f, kMainScreenWidth - 30, 34.f);
-            self.ContentF2 = CGRectMake(15, tagY + tagH +5.f, kMainScreenWidth - 30, size.height);
+            self.ContentF2 = CGRectMake(15, tagY + tagH +1.f, kMainScreenWidth - 30, size.height);
 
             self.cellHeight1 = tagY +tagH +10.f + 34.f +20.f;
             self.cellHeight2 = tagY +tagH +10.f + size.height +20.f;

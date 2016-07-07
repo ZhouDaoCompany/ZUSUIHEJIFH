@@ -77,6 +77,7 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
         [_moreArr enumerateObjectsUsingBlock:^(MoreModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
             
             [weakSelf.categoryArr addObject:model.type];
+            
             [weakSelf.contentArr addObject:model.content];
         }];
 
@@ -129,7 +130,7 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     
     NSMutableArray *contentArr = _contentArr[section-1];
 
-    __block BOOL isHave;
+    __block BOOL isHave = NO;
 
     [contentArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -222,14 +223,17 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
         lCell.rowIndex = row;
         if (section == 0)
         {
-            if (_basiArr.count >0) {
+            if (_basiArr.count >0)
+            {
                 
                 lCell.titleLab.text = _basiArr[row];
                 if (_litEditType == LitiDetails && _isEdit == NO) {
                     lCell.textField.enabled = NO;
+                    lCell.isEdit = NO;
                 }else{
                     lCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_basiArr[row]];
                     lCell.textField.enabled = YES;
+                    lCell.isEdit = YES;
                 }
                 NSString *text = @"";
                 if ([NSString stringWithFormat:@"%@",_textBasiArr[row]].length >0) {
@@ -244,6 +248,8 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
                 lCell.textField.text = _textBasiArr[row];
                 lCell.textField.section = section;
                 lCell.textField.row = row;
+                
+                [lCell settingFrame];
             }
         }else{
             
@@ -256,9 +262,11 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
                 
                 if (_litEditType == LitiDetails && _isEdit == NO) {
                     lCell.textField.enabled = NO;
+                    lCell.isEdit = NO;
                 }else{
                     lCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",titArr[row]];
                     lCell.textField.enabled = YES;
+                    lCell.isEdit = YES;
                 }
                 
                 NSString *text = @"";
@@ -275,6 +283,8 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
                 
                 lCell.textField.section = section;
                 lCell.textField.row = row;
+                
+                [lCell settingFrame];
             }
         }
         
@@ -520,7 +530,7 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     [msgDic setObjectWithNullValidate:GET(@"1") forKey:@"type"];
     
     NSArray *paraArr = [NSArray arrayWithObjects:@"number",@"name",@"client",@"client_phone",@"client_mail",@"client_address",@"thytake_time",@"plaintiff",@"defendant", nil];
-    __block BOOL _isReturn;
+    __block BOOL _isReturn = NO;
 
     [_textBasiArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == 1) {

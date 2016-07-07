@@ -17,52 +17,91 @@
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        self.titleLab = [[UILabel alloc] init];
-        self.titleLab.textAlignment = NSTextAlignmentLeft;
-        self.titleLab.font = Font_15;
-        self.titleLab.textColor = thirdColor;
-        [self.contentView addSubview:self.titleLab];
         
-        self.deviceLabel = [[UILabel alloc] init];
-        self.deviceLabel.textAlignment = NSTextAlignmentRight;
-        self.deviceLabel.font = Font_14;
-        self.deviceLabel.textColor = thirdColor;
-        [self.contentView addSubview:self.deviceLabel];
-        
-        self.textField = [[CaseTextField alloc] init];
-        self.textField.backgroundColor = [UIColor clearColor];
-        self.textField.borderStyle = UITextBorderStyleNone;
-        self.textField.textAlignment = NSTextAlignmentRight;
-        self.textField.font = Font_14;
-//        [self.textField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
-//        [self.textField setValue:[UIFont  systemFontOfSize:9] forKeyPath:@"_placeholderLabel.font"];
-
-        [self.contentView addSubview:self.textField];
+        [self titleLab];
+        [self deviceLabel];
+        [self textField];
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 49.4f, kMainScreenWidth-15.f, .6f)];
         lineView.backgroundColor = [UIColor colorWithHexString:@"#D4D4D4"];//lineColor;
         [self.contentView addSubview:lineView];
         
-        _imgview1 = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth-21, 20, 6, 10)];
-        _imgview1.image = [UIImage imageNamed:@"Esearch_jiantou"];
-        _imgview1.userInteractionEnabled = YES;
-        [self.contentView addSubview:_imgview1];
+        [self imgview1];
         
     }
     return self;
 }
-- (void)AdjustmentOfTheCell{
+- (UILabel *)titleLab
+{
+    if (!_titleLab) {
+        
+        _titleLab = [[UILabel alloc] init];
+        _titleLab.textAlignment = NSTextAlignmentLeft;
+        _titleLab.font = Font_15;
+        _titleLab.textColor = thirdColor;
+        [self.contentView addSubview:_titleLab];
+    }
+    return _titleLab;
+}
+- (UILabel *)deviceLabel
+{
+    if(!_deviceLabel){
+        
+        _deviceLabel = [[UILabel alloc] init];
+        _deviceLabel.textAlignment = NSTextAlignmentRight;
+        _deviceLabel.font = Font_14;
+       _deviceLabel.textColor = thirdColor;
+        [self.contentView addSubview:_deviceLabel];
+    }
+    return _deviceLabel;
+}
+- (CaseTextField *)textField
+{
+    if (!_textField)
+    {
+        self.textField = [[CaseTextField alloc] init];
+        self.textField.backgroundColor = [UIColor clearColor];
+        self.textField.borderStyle = UITextBorderStyleNone;
+        self.textField.textAlignment = NSTextAlignmentRight;
+        self.textField.font = Font_14;
+        //        [self.textField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+        //        [self.textField setValue:[UIFont  systemFontOfSize:9] forKeyPath:@"_placeholderLabel.font"];
+        [self.contentView addSubview:self.textField];
+    }
+    return _textField;
+}
+- (UIImageView *)imgview1
+{
+    if (!_imgview1) {
+        _imgview1 = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth-21, 20, 6, 10)];
+        _imgview1.image = [UIImage imageNamed:@"Esearch_jiantou"];
+        _imgview1.userInteractionEnabled = YES;
+        [self.contentView addSubview:_imgview1];
+    }
     
+    return _imgview1;
+}
+- (void)settingFrame
+{
     self.titleLab.frame = CGRectMake(15, 15, 140, 20);
+    
+    if (_isEdit == YES) {
+        if (_deviceLabel.text.length == 0) {
+            NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请选择"];
+            NSRange range1=[[hintString string]rangeOfString:@"请选择"];
+            [hintString addAttribute:NSForegroundColorAttributeName value:sixColor range:range1];
+            _deviceLabel.attributedText=hintString;
+        }
+    }
     
     if (_section == 0)
     {
-        
         if (_rowIndex == 6) {
             _deviceLabel.hidden = NO;
             _imgview1.hidden = NO;
             _textField.hidden = YES;
             _deviceLabel.frame = CGRectMake(kMainScreenWidth - 175.f, 10, 150, 30);
+            
         }else{
             _deviceLabel.hidden = YES;
             _imgview1.hidden = YES;
@@ -77,12 +116,14 @@
         }
     }else{
         
-        if ([_titleLab.text isEqualToString:@"审理类别"] || [_titleLab.text isEqualToString:@"仲裁结果"] || [_titleLab.text isEqualToString:@"审判结果"] || [_titleLab.text isEqualToString:@"收到法律文书时间"]) {
+        if ([_titleLab.text isEqualToString:@"审理类别"] || [_titleLab.text isEqualToString:@"仲裁结果"] || [_titleLab.text isEqualToString:@"审判结果"] || [_titleLab.text isEqualToString:@"收到法律文书时间"])
+        {
             
             _deviceLabel.hidden = NO;
             _imgview1.hidden = NO;
             _textField.hidden = YES;
             _deviceLabel.frame = CGRectMake(kMainScreenWidth - 175.f, 10, 150, 30);
+            
         }else {
             
             _deviceLabel.hidden = YES;
@@ -100,12 +141,7 @@
         
     }
 
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    [self AdjustmentOfTheCell];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

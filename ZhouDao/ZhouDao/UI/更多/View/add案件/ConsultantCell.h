@@ -18,4 +18,8 @@
 @property (nonatomic, assign) NSInteger rowIndex;
 @property (nonatomic, assign) NSInteger sectionIndex;
 
+@property (nonatomic, assign) BOOL isEdit;
+
+- (void)settingFrame;
+
 @end

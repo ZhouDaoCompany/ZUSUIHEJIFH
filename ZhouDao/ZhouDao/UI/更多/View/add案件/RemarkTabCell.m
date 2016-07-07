@@ -17,38 +17,53 @@
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-        UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 100, 20)];
-        titleLab.textAlignment = NSTextAlignmentLeft;
-        titleLab.font = Font_15;
-        titleLab.text = @"备注:";
-//        titleLab.backgroundColor = [UIColor blackColor];
-        _titLab = titleLab;
-        [self.contentView addSubview:_titLab];
+        [self titleLab];
+        [self textView];
         
-        UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 30, kMainScreenWidth - 30.f, 75)];
-        textView.textColor = [UIColor blackColor];//设置textview里面的字体颜色
-        textView.font = Font_14;
-        textView.backgroundColor = [UIColor whiteColor];//设置它的背景颜色
-        textView.returnKeyType = UIReturnKeyDefault;//返回键的类型
-        textView.keyboardType = UIKeyboardTypeDefault;//键盘类型
-        textView.scrollEnabled = YES;//是否可以拖动
-        textView.layer.borderColor = ABORDERColor.CGColor;
-        textView.layer.borderWidth = .6f;
-        self.textView = textView;
-        [self.contentView addSubview: self.textView];//加入到整个页面中
-        
-        UILabel *placeHoldlab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth - 30.f, 30)];
-        placeHoldlab.font = Font_14;
-        placeHoldlab.backgroundColor = [UIColor clearColor];
-        placeHoldlab.text = @" 写备注...";
-        placeHoldlab.textColor = sixColor;
-        _placeHoldlab = placeHoldlab;
-        [self.textView addSubview:_placeHoldlab];
-        
+        [self placeHoldlab];
     }
     return self;
 }
-
+- (UILabel *)titleLab
+{
+    if (!_titLab) {
+       _titLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 100, 20)];
+        _titLab.textAlignment = NSTextAlignmentLeft;
+        _titLab.font = Font_15;
+        _titLab.text = @"备注:";
+        [self.contentView addSubview:_titLab];
+    }
+    return _titLab;
+}
+- (UITextView *)textView
+{
+    if (!_textView) {
+        
+        _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 30, kMainScreenWidth - 30.f, 75)];
+        _textView.textColor = [UIColor blackColor];//设置textview里面的字体颜色
+        _textView.font = Font_14;
+        _textView.backgroundColor = [UIColor whiteColor];//设置它的背景颜色
+        _textView.returnKeyType = UIReturnKeyDefault;//返回键的类型
+        _textView.keyboardType = UIKeyboardTypeDefault;//键盘类型
+        _textView.scrollEnabled = YES;//是否可以拖动
+        _textView.layer.borderColor = ABORDERColor.CGColor;
+        _textView.layer.borderWidth = .6f;
+        [self.contentView addSubview:_textView];//加入到整个页面中
+    }
+    return _textView;
+}
+- (UILabel *)placeHoldlab
+{
+    if (!_placeHoldlab) {
+        _placeHoldlab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth - 30.f, 30)];
+        _placeHoldlab.font = Font_14;
+        _placeHoldlab.backgroundColor = [UIColor clearColor];
+        _placeHoldlab.text = @" 写备注...";
+        _placeHoldlab.textColor = sixColor;
+        [self.textView addSubview:_placeHoldlab];
+    }
+    return _placeHoldlab;
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

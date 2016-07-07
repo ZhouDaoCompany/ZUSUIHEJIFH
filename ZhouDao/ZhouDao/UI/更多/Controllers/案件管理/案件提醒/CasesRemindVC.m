@@ -76,6 +76,7 @@ static NSString *const CASEREMINDID = @"cellcaseremindIdentifer";
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    (_dataArrays.count == 0)?[self.view addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
     return [_dataArrays count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -178,10 +178,13 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
             cCell.textField.text = _textBasiArr[row];
             if (_ConType == ConFromManager && _isEdit == NO) {
                 cCell.textField.enabled = NO;
+                cCell.isEdit = NO;
             }else{
                 cCell.textField.enabled = YES;
                 cCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_basicTitleArrays[row]];
+                cCell.isEdit = YES;
             }
+            [cCell settingFrame];
 
         }else {
             
@@ -193,16 +196,20 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
                 cCell.textField.row = row;
                 cCell.textField.delegate = self;
                 if (_ConType == ConFromManager && _isEdit == NO) {
+                    
                     cCell.textField.enabled = NO;
+                    cCell.isEdit = NO;
                 }else{
+                    
                     cCell.textField.enabled = YES;
                     cCell.textField.placeholder = [NSString stringWithFormat:@"请输入%@",_moreTilArr[row]];
+                    cCell.isEdit = YES;
                 }
                 cCell.textField.text = conArr[row];
             }
         }
         
-
+        [cCell settingFrame];
         [GcNoticeUtil handleNotification:UITextFieldTextDidChangeNotification Selector:@selector(textFieldChanged:) Observer:self Object:cCell.textField];
 
     }else if ([cell isKindOfClass:[RemarkTabCell class]]){
@@ -407,7 +414,7 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
     [msgDic setObjectWithNullValidate:GET(UID) forKey:@"uid"];
     [msgDic setObjectWithNullValidate:GET(@"3") forKey:@"type"];
     
-    __block BOOL _isReturn;
+    __block BOOL _isReturn = NO;
     [_textBasiArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == 0) {
             if (obj.length == 0) {

@@ -1718,9 +1718,18 @@
         NSDictionary *dataDic = jsonDic[@"data"];
         NSString *version = dataDic[@"version"];
         NSString *desc = dataDic[@"desc"];
-        if (![version isEqualToString:[QZManager getBuildVersion]]) {
+        
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        // app build版本
+        NSString *app_build = [NSString stringWithFormat:@"%@", [infoDictionary objectForKey:@"CFBundleVersion"]];
+
+        if ([version floatValue] > [app_build floatValue]) {
             success(desc);
         }
+        
+//        if (![version isEqualToString:[QZManager getBuildVersion]]) {
+//            success(desc);
+//        }
     } fail:^{
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];

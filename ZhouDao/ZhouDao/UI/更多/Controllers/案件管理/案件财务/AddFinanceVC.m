@@ -234,7 +234,7 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
             [btnObj setTitleColor:thirdColor forState:0];
         }
     }];
-   __block BOOL isHave;
+   __block BOOL isHave = NO;
     [_commitArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         if (obj.length >0) {
