@@ -233,6 +233,12 @@
 		186AA14D1CE46E7C0009C0D5 /* CollectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 186AA14C1CE46E7C0009C0D5 /* CollectionData.m */; };
 		186DF0CE1CB5094900D66994 /* template_Share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186DF0CC1CB5094900D66994 /* template_Share@2x.png */; };
 		186DF0CF1CB5094900D66994 /* template_shoucang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186DF0CD1CB5094900D66994 /* template_shoucang@2x.png */; };
+		187349D41D2F3D43001A3E91 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187349D31D2F3D43001A3E91 /* ScanViewController.m */; };
+		187349DB1D2F4F96001A3E91 /* scan_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187349D61D2F4F96001A3E91 /* scan_1@2x.png */; };
+		187349DC1D2F4F96001A3E91 /* scan_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187349D71D2F4F96001A3E91 /* scan_2@2x.png */; };
+		187349DD1D2F4F96001A3E91 /* scan_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187349D81D2F4F96001A3E91 /* scan_3@2x.png */; };
+		187349DE1D2F4F96001A3E91 /* scan_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187349D91D2F4F96001A3E91 /* scan_4@2x.png */; };
+		187349DF1D2F4F96001A3E91 /* scan_net@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187349DA1D2F4F96001A3E91 /* scan_net@2x.png */; };
 		1878213B1CB788B6007503DB /* ZD_CaseWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1878213A1CB788B6007503DB /* ZD_CaseWindow.m */; };
 		187D68AC1CCF362100C3946A /* NetWorkMangerTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 187D68AB1CCF362100C3946A /* NetWorkMangerTools.m */; };
 		187DB8BD1CDC6216009CF1D6 /* GovListmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DB8BC1CDC6216009CF1D6 /* GovListmodel.m */; };
@@ -817,6 +823,13 @@
 		186D08E51D0E65CB00328A1A /* WZLSerializeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLSerializeKit.h; sourceTree = "<group>"; };
 		186DF0CC1CB5094900D66994 /* template_Share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "template_Share@2x.png"; sourceTree = "<group>"; };
 		186DF0CD1CB5094900D66994 /* template_shoucang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "template_shoucang@2x.png"; sourceTree = "<group>"; };
+		187349D21D2F3D43001A3E91 /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
+		187349D31D2F3D43001A3E91 /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
+		187349D61D2F4F96001A3E91 /* scan_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_1@2x.png"; sourceTree = "<group>"; };
+		187349D71D2F4F96001A3E91 /* scan_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_2@2x.png"; sourceTree = "<group>"; };
+		187349D81D2F4F96001A3E91 /* scan_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_3@2x.png"; sourceTree = "<group>"; };
+		187349D91D2F4F96001A3E91 /* scan_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_4@2x.png"; sourceTree = "<group>"; };
+		187349DA1D2F4F96001A3E91 /* scan_net@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_net@2x.png"; sourceTree = "<group>"; };
 		187821391CB788B6007503DB /* ZD_CaseWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZD_CaseWindow.h; sourceTree = "<group>"; };
 		1878213A1CB788B6007503DB /* ZD_CaseWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZD_CaseWindow.m; sourceTree = "<group>"; };
 		187D68AA1CCF362100C3946A /* NetWorkMangerTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkMangerTools.h; sourceTree = "<group>"; };
@@ -1929,6 +1942,7 @@
 		181292AB1C87E7B100EBB5CD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				187349D11D2F3C92001A3E91 /* Scan */,
 				10FF87D81CA6CF62005EBC8A /* 下载阅读 */,
 				108DBFF81C9F9D7300FD1221 /* 我的认证 */,
 				104B44211C9BCC5700FC19B3 /* 我的擅长 */,
@@ -2179,6 +2193,27 @@
 				186D08E51D0E65CB00328A1A /* WZLSerializeKit.h */,
 			);
 			path = WZLSerializeKit;
+			sourceTree = "<group>";
+		};
+		187349D11D2F3C92001A3E91 /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				187349D21D2F3D43001A3E91 /* ScanViewController.h */,
+				187349D31D2F3D43001A3E91 /* ScanViewController.m */,
+			);
+			path = Scan;
+			sourceTree = "<group>";
+		};
+		187349D51D2F4F96001A3E91 /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				187349D61D2F4F96001A3E91 /* scan_1@2x.png */,
+				187349D71D2F4F96001A3E91 /* scan_2@2x.png */,
+				187349D81D2F4F96001A3E91 /* scan_3@2x.png */,
+				187349D91D2F4F96001A3E91 /* scan_4@2x.png */,
+				187349DA1D2F4F96001A3E91 /* scan_net@2x.png */,
+			);
+			path = Scan;
 			sourceTree = "<group>";
 		};
 		187E6D521C841A10009169C2 = {
@@ -2565,6 +2600,7 @@
 		18CD01E31C9021CC009DE385 /* vcImg */ = {
 			isa = PBXGroup;
 			children = (
+				187349D51D2F4F96001A3E91 /* Scan */,
 				188F9E321CF7FAF2000F9B2D /* GuidePage */,
 				18F2F1AC1CBE1DA20068453D /* 案例查找 */,
 				10241A2D1CBA8E63000CBEAE /* 案件 */,
@@ -3231,6 +3267,7 @@
 				187E6D6E1C841A12009169C2 /* LaunchScreen.storyboard in Resources */,
 				18FBD84A1CED90CD00674D1E /* case_txt@2x.png in Resources */,
 				10241A1D1CB9FCDE000CBEAE /* pc_gongshang@2x.png in Resources */,
+				187349DE1D2F4F96001A3E91 /* scan_4@2x.png in Resources */,
 				18B5834B1C9A98C700CB3009 /* PlanTableViewCell.xib in Resources */,
 				180B31671C8ECFFF00360A23 /* recommentUnSelect@2x.png in Resources */,
 				1065C34A1CA91BA4003F4089 /* law_wodeshoucang@2x.png in Resources */,
@@ -3257,10 +3294,12 @@
 				187DB9451CDC706F009CF1D6 /* GovListCell.xib in Resources */,
 				181BA40F1CE598B600A29E2E /* share_platform_qqfriends@2x.png in Resources */,
 				187DB8BF1CDC6310009CF1D6 /* gov_tupian@2x.png in Resources */,
+				187349DC1D2F4F96001A3E91 /* scan_2@2x.png in Resources */,
 				18CC2E1F1D2243CC004B37DA /* Case_WhiteSD@2x.png in Resources */,
 				188F9E3C1CF81B14000F9B2D /* laws_GovSearch.jpg in Resources */,
 				18FD83351CBB858F00D50E20 /* case_share@2x.png in Resources */,
 				10D31D801CDEEA09008D6F42 /* Gov_phone@2x.png in Resources */,
+				187349DB1D2F4F96001A3E91 /* scan_1@2x.png in Resources */,
 				18B16AD41CFD5CE300561CD5 /* WeiboSDK.bundle in Resources */,
 				18B16AD11CFD5CE300561CD5 /* UMSShareListController.xib in Resources */,
 				10D31D7F1CDEEA09008D6F42 /* Gov_location@2x.png in Resources */,
@@ -3320,6 +3359,7 @@
 				18F666AA1D07C37B0004FF55 /* tapbar_top_line@2x.png in Resources */,
 				108DC0261C9FA38E00FD1221 /* login_key@2x.png in Resources */,
 				18B16AD71CFD5CE300561CD5 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				187349DF1D2F4F96001A3E91 /* scan_net@2x.png in Resources */,
 				10D31D7C1CDEE92C008D6F42 /* GovDetailCell.xib in Resources */,
 				10172BE81CBBF1F300B7553E /* case_wifi@2x.png in Resources */,
 				18FD83321CBB858F00D50E20 /* case_delete@2x.png in Resources */,
@@ -3374,6 +3414,7 @@
 				10241A1E1CB9FCDE000CBEAE /* pc_jiaotong@2x.png in Resources */,
 				184983111D2A0CA7009AF29F /* case_mangeFS@2x.png in Resources */,
 				10D31D701CDE1DDB008D6F42 /* jiantou@3x.png in Resources */,
+				187349DD1D2F4F96001A3E91 /* scan_3@2x.png in Resources */,
 				10241A311CBA8FD0000CBEAE /* case_edit@2x.png in Resources */,
 				10D31D741CDE2459008D6F42 /* sanjiao@3x.png in Resources */,
 				108DC0231C9FA38E00FD1221 /* find_code@2x.png in Resources */,
@@ -3534,6 +3575,7 @@
 				18F878A51D055D730069E68A /* MapNavViewController.m in Sources */,
 				18D66ACD1CE1BD0300BF2C17 /* LawDetailModel.m in Sources */,
 				1817D29D1CC089C400FF6EEE /* LitigationCell.m in Sources */,
+				187349D41D2F3D43001A3E91 /* ScanViewController.m in Sources */,
 				18A686141D17DE31001BEA41 /* SDWebImageManager+MJ.m in Sources */,
 				18FF3F3D1C8529CA0098C60B /* JKPromptView.m in Sources */,
 				18FF3F521C852BDB0098C60B /* UIColor+Helper.m in Sources */,
@@ -3819,8 +3861,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3843,7 +3885,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2b2927f5-a712-4700-9af4-b28dd0bb90a5";
+				PROVISIONING_PROFILE = "7bb2371a-21bb-448a-9142-b0c43f07d10f";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
@@ -3854,8 +3896,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3878,7 +3920,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2b2927f5-a712-4700-9af4-b28dd0bb90a5";
+				PROVISIONING_PROFILE = "7bb2371a-21bb-448a-9142-b0c43f07d10f";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;

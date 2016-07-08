@@ -1715,6 +1715,7 @@
             [JKPromptView showWithImageName:nil message:msg];
             return ;
         }
+        
         NSDictionary *dataDic = jsonDic[@"data"];
         NSString *version = dataDic[@"version"];
         NSString *desc = dataDic[@"desc"];
