@@ -161,8 +161,6 @@
 		10D31D7C1CDEE92C008D6F42 /* GovDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10D31D7A1CDEE92C008D6F42 /* GovDetailCell.xib */; };
 		10D31D7F1CDEEA09008D6F42 /* Gov_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10D31D7D1CDEEA09008D6F42 /* Gov_location@2x.png */; };
 		10D31D801CDEEA09008D6F42 /* Gov_phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10D31D7E1CDEEA09008D6F42 /* Gov_phone@2x.png */; };
-		10DA75DC1CA7AD6000B00A53 /* ParallaxHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DA75D91CA7AD6000B00A53 /* ParallaxHeaderView.m */; };
-		10DA75DD1CA7AD6000B00A53 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DA75DB1CA7AD6000B00A53 /* UIImage+ImageEffects.m */; };
 		10E3D5681C9587210004DC2C /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E3D5671C9587210004DC2C /* FeedbackViewController.m */; };
 		10ECB1AF1CCD127600EE7341 /* NSString+MHCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 10ECB1AC1CCD127600EE7341 /* NSString+MHCommon.m */; };
 		10ECB1B01CCD127600EE7341 /* NSString+YXFAddtions.m in Sources */ = {isa = PBXBuildFile; fileRef = 10ECB1AE1CCD127600EE7341 /* NSString+YXFAddtions.m */; };
@@ -255,6 +253,7 @@
 		187E6D6E1C841A12009169C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187E6D6C1C841A12009169C2 /* LaunchScreen.storyboard */; };
 		187E6D791C841A15009169C2 /* ZhouDaoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E6D781C841A15009169C2 /* ZhouDaoTests.m */; };
 		187E6D841C841A15009169C2 /* ZhouDaoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E6D831C841A15009169C2 /* ZhouDaoUITests.m */; };
+		1883B8C51D3361DE00380D09 /* UIScrollView+HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883B8C41D3361DE00380D09 /* UIScrollView+HeaderView.m */; };
 		188638F81C9AA5D200E91F78 /* AddAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188638F71C9AA5D200E91F78 /* AddAlertVC.m */; };
 		188651A71D25FBE900E030F7 /* FinanceDesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651A51D25FBE900E030F7 /* FinanceDesCell.m */; };
 		188651AC1D26031800E030F7 /* CasesRemindVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651AB1D26031800E030F7 /* CasesRemindVC.m */; };
@@ -441,7 +440,6 @@
 		18FF3F5A1C852E820098C60B /* UIView+WhenTappedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3F591C852E820098C60B /* UIView+WhenTappedBlocks.m */; };
 		18FF3F5E1C852EF80098C60B /* FMUString.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3F5D1C852EF80098C60B /* FMUString.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18FF3F611C8530290098C60B /* FMUSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3F601C8530290098C60B /* FMUSystem.m */; };
-		18FF3F781C85614B0098C60B /* UIImageView+LBBlurredImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3F761C85614B0098C60B /* UIImageView+LBBlurredImage.m */; };
 		18FF3F7B1C85617A0098C60B /* QHCommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3F7A1C85617A0098C60B /* QHCommonUtil.m */; };
 		18FF42D91C97AF6F00C6B29A /* MoveTopTabViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF42D71C97AF6F00C6B29A /* MoveTopTabViewCell.m */; };
 		18FF42DA1C97AF6F00C6B29A /* MoveTopTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FF42D81C97AF6F00C6B29A /* MoveTopTabViewCell.xib */; };
@@ -690,10 +688,6 @@
 		10D31D7A1CDEE92C008D6F42 /* GovDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GovDetailCell.xib; sourceTree = "<group>"; };
 		10D31D7D1CDEEA09008D6F42 /* Gov_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gov_location@2x.png"; sourceTree = "<group>"; };
 		10D31D7E1CDEEA09008D6F42 /* Gov_phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gov_phone@2x.png"; sourceTree = "<group>"; };
-		10DA75D81CA7AD6000B00A53 /* ParallaxHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxHeaderView.h; sourceTree = "<group>"; };
-		10DA75D91CA7AD6000B00A53 /* ParallaxHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxHeaderView.m; sourceTree = "<group>"; };
-		10DA75DA1CA7AD6000B00A53 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
-		10DA75DB1CA7AD6000B00A53 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		10E3D5661C9587210004DC2C /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		10E3D5671C9587210004DC2C /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		10ECB1AB1CCD127600EE7341 /* NSString+MHCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MHCommon.h"; sourceTree = "<group>"; };
@@ -861,6 +855,8 @@
 		187E6D7F1C841A15009169C2 /* ZhouDaoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZhouDaoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		187E6D831C841A15009169C2 /* ZhouDaoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZhouDaoUITests.m; sourceTree = "<group>"; };
 		187E6D851C841A15009169C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1883B8C31D3361DE00380D09 /* UIScrollView+HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+HeaderView.h"; sourceTree = "<group>"; };
+		1883B8C41D3361DE00380D09 /* UIScrollView+HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+HeaderView.m"; sourceTree = "<group>"; };
 		188638F61C9AA5D200E91F78 /* AddAlertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAlertVC.h; sourceTree = "<group>"; };
 		188638F71C9AA5D200E91F78 /* AddAlertVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAlertVC.m; sourceTree = "<group>"; };
 		188651A41D25FBE900E030F7 /* FinanceDesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceDesCell.h; sourceTree = "<group>"; };
@@ -1167,8 +1163,6 @@
 		18FF3F5D1C852EF80098C60B /* FMUString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMUString.m; sourceTree = "<group>"; };
 		18FF3F5F1C8530290098C60B /* FMUSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMUSystem.h; sourceTree = "<group>"; };
 		18FF3F601C8530290098C60B /* FMUSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMUSystem.m; sourceTree = "<group>"; };
-		18FF3F751C85614B0098C60B /* UIImageView+LBBlurredImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+LBBlurredImage.h"; sourceTree = "<group>"; };
-		18FF3F761C85614B0098C60B /* UIImageView+LBBlurredImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+LBBlurredImage.m"; sourceTree = "<group>"; };
 		18FF3F791C85617A0098C60B /* QHCommonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHCommonUtil.h; sourceTree = "<group>"; };
 		18FF3F7A1C85617A0098C60B /* QHCommonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHCommonUtil.m; sourceTree = "<group>"; };
 		18FF42D61C97AF6F00C6B29A /* MoveTopTabViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveTopTabViewCell.h; sourceTree = "<group>"; };
@@ -1684,17 +1678,6 @@
 				10C019421CE4CA5A0058586A /* ShareView.m */,
 			);
 			path = ShareView;
-			sourceTree = "<group>";
-		};
-		10DA75D71CA7AD6000B00A53 /* stretch */ = {
-			isa = PBXGroup;
-			children = (
-				10DA75D81CA7AD6000B00A53 /* ParallaxHeaderView.h */,
-				10DA75D91CA7AD6000B00A53 /* ParallaxHeaderView.m */,
-				10DA75DA1CA7AD6000B00A53 /* UIImage+ImageEffects.h */,
-				10DA75DB1CA7AD6000B00A53 /* UIImage+ImageEffects.m */,
-			);
-			path = stretch;
 			sourceTree = "<group>";
 		};
 		10E3D5651C9586FE0004DC2C /* 意见反馈 */ = {
@@ -2280,6 +2263,15 @@
 				187E6D851C841A15009169C2 /* Info.plist */,
 			);
 			path = ZhouDaoUITests;
+			sourceTree = "<group>";
+		};
+		1883B8BC1D334EC900380D09 /* CorePullScale */ = {
+			isa = PBXGroup;
+			children = (
+				1883B8C31D3361DE00380D09 /* UIScrollView+HeaderView.h */,
+				1883B8C41D3361DE00380D09 /* UIScrollView+HeaderView.m */,
+			);
+			path = CorePullScale;
 			sourceTree = "<group>";
 		};
 		188651A91D2602E700E030F7 /* 案件提醒 */ = {
@@ -2900,6 +2892,7 @@
 		18FF3F371C8529CA0098C60B /* Toos */ = {
 			isa = PBXGroup;
 			children = (
+				1883B8BC1D334EC900380D09 /* CorePullScale */,
 				188F9E461CF82077000F9B2D /* SCIntroView */,
 				10C019401CE4C84B0058586A /* ShareView */,
 				18A622891CD352260073B886 /* NSDate+Category */,
@@ -2907,7 +2900,6 @@
 				18A4284C1CC0C8F100CEB30E /* DateTimePickView */,
 				103D25871CAE66C200F2B93A /* JSDropDownMenu */,
 				108323271CAA10D7004B8045 /* UIWebView+Load */,
-				10DA75D71CA7AD6000B00A53 /* stretch */,
 				10457F471C9EEEFA00E1D3B2 /* 常用方法 */,
 				10457F4A1C9EEEFA00E1D3B2 /* 音乐音效 */,
 				10457F4D1C9EEEFA00E1D3B2 /* StoreKit */,
@@ -3063,8 +3055,6 @@
 		18FF3F721C85614B0098C60B /* LBBlurredImage */ = {
 			isa = PBXGroup;
 			children = (
-				18FF3F751C85614B0098C60B /* UIImageView+LBBlurredImage.h */,
-				18FF3F761C85614B0098C60B /* UIImageView+LBBlurredImage.m */,
 				18FF3F791C85617A0098C60B /* QHCommonUtil.h */,
 				18FF3F7A1C85617A0098C60B /* QHCommonUtil.m */,
 				181292CC1C87EBF100EBB5CD /* UIImage+Extend.h */,
@@ -3638,7 +3628,6 @@
 				18F2F1D71CBE47000068453D /* OrdinaryVC.m in Sources */,
 				181CE8291CC9FF5500529F5E /* NavMapWindow.m in Sources */,
 				108DBFFC1C9F9D7300FD1221 /* CertificationVC.m in Sources */,
-				10DA75DC1CA7AD6000B00A53 /* ParallaxHeaderView.m in Sources */,
 				10ECB1B01CCD127600EE7341 /* NSString+YXFAddtions.m in Sources */,
 				10580FF81D0845FB00973E03 /* DeriveMapVC.m in Sources */,
 				18474DB01CCDED3400515CD6 /* EditCaseVC.m in Sources */,
@@ -3692,7 +3681,6 @@
 				104304971CA515CA009D7072 /* FGGDownloadManager.m in Sources */,
 				10A031401D1FE2AF00D31935 /* ConsultantHeadView.m in Sources */,
 				189AB24F1D20C1190032F580 /* CaseTextField.m in Sources */,
-				10DA75DD1CA7AD6000B00A53 /* UIImage+ImageEffects.m in Sources */,
 				10C019431CE4CA5A0058586A /* ShareView.m in Sources */,
 				188651B31D2604F900E030F7 /* AddCaseRemindVC.m in Sources */,
 				10241A131CB9F36D000CBEAE /* CompensationVC.m in Sources */,
@@ -3704,7 +3692,6 @@
 				1825B08D1C966EB6003B2096 /* UIImageView+Curled.m in Sources */,
 				181292BB1C87E84E00EBB5CD /* ToolsViewController.m in Sources */,
 				10FF87E11CA6D00F005EBC8A /* ReadViewController.m in Sources */,
-				18FF3F781C85614B0098C60B /* UIImageView+LBBlurredImage.m in Sources */,
 				18DE72511C992C130068F7E5 /* MineSettingVC.m in Sources */,
 				18B717551C9121CB00F2AAED /* BaseViewController.m in Sources */,
 				18FBBF301D06C83B002AED81 /* AllPlanViewController.m in Sources */,
@@ -3714,6 +3701,7 @@
 				18D9D68D1CBCD2CA008F9CC8 /* FilterCollectionViewCell.m in Sources */,
 				187DB92E1CDC6B33009CF1D6 /* GovernmentListVC.m in Sources */,
 				18FF3F561C852D550098C60B /* NSString+SPStr.m in Sources */,
+				1883B8C51D3361DE00380D09 /* UIScrollView+HeaderView.m in Sources */,
 				1065C2C31CA8E13F003F4089 /* SecrchLawsVC.m in Sources */,
 				18CD4DA61C928111001838D2 /* WHC_PhotoListCell.m in Sources */,
 				181E51311CD1F34700BBA10D /* NewPhoneVC.m in Sources */,

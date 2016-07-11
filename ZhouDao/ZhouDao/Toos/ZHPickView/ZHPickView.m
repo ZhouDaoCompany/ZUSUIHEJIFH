@@ -66,7 +66,6 @@
         [vc.view addSubview:self];
     }
     
-    
     [bgView whenCancelTapped:^{
             [weakSelf hide];
     }];

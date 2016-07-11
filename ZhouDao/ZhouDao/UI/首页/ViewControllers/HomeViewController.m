@@ -113,17 +113,8 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         }
         
     };
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-114.f) style:UITableViewStylePlain];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.backgroundColor = [UIColor clearColor];
-    _tableView.showsHorizontalScrollIndicator = NO;
-    [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [ self.view addSubview:_tableView];
-    _tableView.tableHeaderView = _headView;
-    [_tableView registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier:HomeCellIdentifier];
-    //MJRefreshBackNormalFooter MJRefreshAutoNormalFooter
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
+   
+    [self.view addSubview:self.tableView];
     
     [self loadCacheData];
     
@@ -141,6 +132,22 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     [moreBtn addTarget:self action:@selector(loadMoreData) forControlEvents:UIControlEventTouchUpInside];
     _tableView.tableFooterView = moreBtn;
 }
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-114.f) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.showsHorizontalScrollIndicator = NO;
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        _tableView.tableHeaderView = _headView;
+        [_tableView registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier:HomeCellIdentifier];
+        //MJRefreshBackNormalFooter MJRefreshAutoNormalFooter
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
+    }
+    return _tableView;
+}
+
 #pragma mark ------ 下拉刷新
 - (void)upRefresh:(id)sender
 {

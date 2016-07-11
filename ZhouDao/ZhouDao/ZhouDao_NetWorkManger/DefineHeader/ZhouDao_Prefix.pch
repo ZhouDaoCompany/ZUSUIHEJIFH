@@ -115,6 +115,14 @@
 #define  standardCollect      @"5"       //赔偿标准
 #define  UID                  GET([PublicFunction ShareInstance].m_user.data.uid)
 
+/**
+ *  查询 bundle文件
+ *
+ */
+#define MYBUNDLE_NAME @ "MyBundle.bundle"
+#define MYBUNDLE_PATH [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: MYBUNDLE_NAME]
+#define MYBUNDLE [NSBundle bundleWithPath: MYBUNDLE_PATH]
+
 //#define LocProv  GET([PublicFunction ShareInstance].locProv）
 //#define LocCity  GET([PublicFunction ShareInstance].locCity）
 

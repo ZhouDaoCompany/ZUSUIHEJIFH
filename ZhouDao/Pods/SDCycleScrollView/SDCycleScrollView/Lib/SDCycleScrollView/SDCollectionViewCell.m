@@ -85,8 +85,15 @@
 - (void)setTitle:(NSString *)title
 {
     _title = [title copy];
-    if (_title.length >22) {
-        title = [NSString stringWithFormat:@"%@...",[title substringToIndex:21]];
+    
+    if ([UIScreen mainScreen].bounds.size.width <= 375.f) {
+        if (_title.length >16) {
+            title = [NSString stringWithFormat:@"%@...",[title substringToIndex:15]];
+        }
+    }else {
+        if (_title.length >19) {
+            title = [NSString stringWithFormat:@"%@...",[title substringToIndex:18]];
+        }
     }
     _titleLabel.text = [NSString stringWithFormat:@"   %@", title];
 }

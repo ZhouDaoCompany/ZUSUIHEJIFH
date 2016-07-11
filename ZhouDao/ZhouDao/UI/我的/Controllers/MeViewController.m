@@ -235,6 +235,7 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
         weakSelf.domainArrays = arr;
         _twoSectionH = height;
         dispatch_async(dispatch_get_main_queue(), ^{
+            
             [weakSelf.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:_sectionCount - 4], nil] withRowAnimation:UITableViewRowAnimationNone];
         });
     }];

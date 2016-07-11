@@ -13,7 +13,6 @@
 #import "WHC_CameraVC.h"
 #import "LCActionSheet.h"
 #import "MyPickView.h"
-#import "UIImageView+LBBlurredImage.h"
 #import "QHCommonUtil.h"
 #import "ZHPickView.h"
 #import "FindKeyViewController.h"
@@ -302,22 +301,6 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 - (void)WHCCameraVC:(WHC_CameraVC *)cameraVC didSelectedPhoto:(UIImage *)photo{
     
     [self WHCChoicePictureVC:nil didSelectedPhotoArr:@[photo]];
-}
-- (void)configureViewBlurWith:(float)nValue scale:(float)nScale
-{
-    if(_mainBackgroundIV == nil)
-    {
-        _mainBackgroundIV = [[UIImageView alloc] initWithFrame:self.view.bounds];
-        _mainBackgroundIV.userInteractionEnabled = YES;
-        
-        UIImage *image = [QHCommonUtil getImageFromView:self.view];
-        [_mainBackgroundIV setImageToBlur:image
-                               blurRadius:kLBBlurredImageDefaultBlurRadius
-                          completionBlock:^(){}];
-        
-        [self.view addSubview:_mainBackgroundIV];
-    }
-    [_mainBackgroundIV setAlpha:(nValue/self.view.frame.size.width) * nScale];
 }
 #pragma mark - 查询文件
 -(float )folderSizeAtPath:(NSString*) folderPath{

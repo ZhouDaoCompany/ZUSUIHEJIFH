@@ -65,9 +65,7 @@
         [_scrollview addSubview:self.imageview];
         _scrollview.delegate = self;
         _scrollview.clipsToBounds = YES;
-        
         [self adjustFrames];
-
     }else{
         
         if ([_format isEqualToString:@"Noti"]) {

@@ -43,20 +43,8 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
     _headView = [[RecomHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 379)];
     _headView.delegate = self;
 
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-114.f) style:UITableViewStylePlain];
-    //    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.showsHorizontalScrollIndicator = NO;
-    _tableView.showsVerticalScrollIndicator = NO;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [ self.view addSubview:_tableView];
-    _tableView.tableHeaderView = _headView;
-    [_tableView registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier:RecomCellIdentifier];
-    //MJRefreshBackNormalFooter MJRefreshAutoNormalFooter
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-    // 马上进入刷新状态
+    [ self.view addSubview:self.tableView];
+    
     
     [self loadCacheData];
     [self loadNewData];
@@ -70,6 +58,23 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
     [moreBtn setTitle:@"点击查看更多" forState:0];
     [moreBtn addTarget:self action:@selector(loadMoreData) forControlEvents:UIControlEventTouchUpInside];
     _tableView.tableFooterView = moreBtn;
+}
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-114.f) style:UITableViewStylePlain];
+        //    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.showsHorizontalScrollIndicator = NO;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        _tableView.tableHeaderView = _headView;
+        [_tableView registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier:RecomCellIdentifier];
+        //MJRefreshBackNormalFooter MJRefreshAutoNormalFooter
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
+    }
+    return _tableView;
 }
 #pragma mark ------ 下拉刷新
 - (void)upRefresh:(id)sender

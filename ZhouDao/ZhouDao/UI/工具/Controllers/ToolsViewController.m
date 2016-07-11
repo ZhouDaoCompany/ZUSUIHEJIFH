@@ -125,6 +125,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         BasicModel *model = _dataSourceArr[indexPath.row];
         NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,api_tools,model.py];
         [NetWorkMangerTools apiToolsWith:url RequestSuccess:^(NSString *htmlString) {
+            
             ToolsWedViewVC *vc = [ToolsWedViewVC new];
             vc.url = htmlString;
             vc.tType = FromToolsType;

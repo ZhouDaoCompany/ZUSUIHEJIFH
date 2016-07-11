@@ -41,6 +41,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.fd_interactivePopDisabled = YES;//禁止滑回
+
     self.view.clipsToBounds = YES;
     [self setupNaviBarWithTitle:@"二维码"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
@@ -66,7 +68,7 @@
     
     float borderW = ((zd_height -  zd_width - 30.f) > 150.f)?(zd_height -  zd_width - 30.f):150.f;
     
-        mask.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7].CGColor;
+        mask.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor;
     mask.layer.borderWidth = borderW;
     
     mask.frame = CGRectMake(60 - borderW,150 - borderW, zd_width + 2*(borderW - 60), zd_height+ (borderW -150));
@@ -103,9 +105,10 @@
     [topRight setImage:[UIImage imageNamed:@"scan_2"] forState:UIControlStateNormal];
     [scanWindow addSubview:topRight];
     
-    UIButton *bottomLeft = [[UIButton alloc] initWithFrame:CGRectMake(0, scanWindowH - buttonWH, buttonWH, buttonWH)];
+    UIButton *bottomLeft = [[UIButton alloc] initWithFrame:CGRectMake(0, scanWindowH - buttonWH + 2.f, buttonWH, buttonWH)];
     [bottomLeft setImage:[UIImage imageNamed:@"scan_3"] forState:UIControlStateNormal];
     [scanWindow addSubview:bottomLeft];
+
     
     UIButton *bottomRight = [[UIButton alloc] initWithFrame:CGRectMake(topRight.sd_x, bottomLeft.sd_y, buttonWH, buttonWH)];
     [bottomRight setImage:[UIImage imageNamed:@"scan_4"] forState:UIControlStateNormal];

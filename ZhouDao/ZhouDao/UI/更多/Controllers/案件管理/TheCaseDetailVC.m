@@ -27,13 +27,14 @@
 #import "CaseFIViewController.h"
 #import "CasesRemindVC.h"
 
-#import "ParallaxHeaderView.h"
+#import "UIScrollView+HeaderView.h"
+
 
 static NSString *const headCellIdentifier = @"headCellIdentifier";
 static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 #define kHeaderImageHeight     126.f
 
-@interface TheCaseDetailVC ()<UITableViewDataSource,UITableViewDelegate,CaseDetailTabCellPro,WHC_ChoicePictureVCDelegate,WHC_CameraVCDelegate,DownLoadViewPro>
+@interface TheCaseDetailVC ()<UITableViewDataSource,UITableViewDelegate,HeaderDelegate,CaseDetailTabCellPro,WHC_ChoicePictureVCDelegate,WHC_CameraVCDelegate,DownLoadViewPro>
 {
     float _contentOffsetY;
 }
@@ -43,7 +44,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 @property (nonatomic, strong) NSIndexPath* openedIndexPath;
 @property (nonatomic, strong) NSMutableArray* tableData;
 @property (nonatomic, assign) BOOL isMove;//是否可以移动
-@property (nonatomic, strong)ParallaxHeaderView *headView;
+//@property (nonatomic, weak) MyHeaderImageView *headerView;
 @property (nonatomic, strong)  UILabel *namelab;
 
 @end
@@ -68,23 +69,28 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     self.tableData = [NSMutableArray array];
     self.emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0,171.5f, kMainScreenWidth, kMainScreenHeight-171.5f) WithText:@"暂无案件文件"];
 
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [self.view addSubview:_tableView];
+    [self.view addSubview:self.tableView];
 
 
     [self creatTabHeadView];
     [self loadListViewData];
 }
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    }
+    return _tableView;
+}
 #pragma mark - 表头
 -(void)creatTabHeadView
 {
-    self.headView = [ParallaxHeaderView parallaxHeaderViewWithImage:[UIImage imageNamed:@"case_detailHead.jpg"]
-                                                            forSize:CGSizeMake(kMainScreenWidth, kHeaderImageHeight)];
-    
+    [_tableView addScrollViewHeaderWithImage:[UIImage imageNamed:@"case_detailHead.jpg"] withHeight:kHeaderImageHeight target:self];
+    _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kHeaderImageHeight)];
+
     UILabel *namelab = [[UILabel alloc] initWithFrame:CGRectMake(80, 42, kMainScreenWidth - 160.f, 42.f)];
     namelab.textAlignment = NSTextAlignmentCenter;
     namelab.text = _caseName;
@@ -92,10 +98,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     namelab.font=Font_18;
     namelab.numberOfLines = 0;
     _namelab = namelab;
-    [_headView addSubview:_namelab];
-    
-    _tableView.tableHeaderView = self.headView;
-
+    [_tableView addSubview:_namelab];
 }
 #pragma mark - 数据请求
 - (void)loadListViewData
@@ -107,15 +110,14 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         [weakSelf.tableView reloadData];
     }];
 }
+#pragma mark - HeaderDelegate
+-(void)clickHeaderView:(MyHeaderImageView *)header{
+//    _headerView = header;
+}
 #pragma mark - UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     _contentOffsetY = _tableView.contentOffset.y;
-    if (scrollView == _tableView)
-    {
-        [(ParallaxHeaderView*)_tableView.tableHeaderView  layoutHeaderViewForScrollViewOffset:scrollView.contentOffset];
-    }
-
 }
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

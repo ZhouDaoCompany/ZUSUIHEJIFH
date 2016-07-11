@@ -238,6 +238,8 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     [self dismissKeyBoard];
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+
 //    NSUInteger section = indexPath.section;
     NSUInteger row = indexPath.row;
     ManagerData *model =(_isSearch == YES)?_searchDataArr[row]:_dataSourceArr[row];
