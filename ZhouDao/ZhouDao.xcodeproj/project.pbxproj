@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		100982EC1D33C7CE00768D9A /* ParallaxHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 100982EB1D33C7CE00768D9A /* ParallaxHeaderView.m */; };
 		10172BE01CBBF16C00B7553E /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 10172BDF1CBBF16C00B7553E /* KxMenu.m */; };
 		10172BE61CBBF1F300B7553E /* case_paiZhao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10172BE11CBBF1F300B7553E /* case_paiZhao@2x.png */; };
 		10172BE71CBBF1F300B7553E /* case_shangC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10172BE21CBBF1F300B7553E /* case_shangC@2x.png */; };
@@ -253,7 +254,6 @@
 		187E6D6E1C841A12009169C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187E6D6C1C841A12009169C2 /* LaunchScreen.storyboard */; };
 		187E6D791C841A15009169C2 /* ZhouDaoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E6D781C841A15009169C2 /* ZhouDaoTests.m */; };
 		187E6D841C841A15009169C2 /* ZhouDaoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E6D831C841A15009169C2 /* ZhouDaoUITests.m */; };
-		1883B8C51D3361DE00380D09 /* UIScrollView+HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1883B8C41D3361DE00380D09 /* UIScrollView+HeaderView.m */; };
 		188638F81C9AA5D200E91F78 /* AddAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188638F71C9AA5D200E91F78 /* AddAlertVC.m */; };
 		188651A71D25FBE900E030F7 /* FinanceDesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651A51D25FBE900E030F7 /* FinanceDesCell.m */; };
 		188651AC1D26031800E030F7 /* CasesRemindVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651AB1D26031800E030F7 /* CasesRemindVC.m */; };
@@ -466,6 +466,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		100982EA1D33C7CE00768D9A /* ParallaxHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxHeaderView.h; sourceTree = "<group>"; };
+		100982EB1D33C7CE00768D9A /* ParallaxHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxHeaderView.m; sourceTree = "<group>"; };
 		10172BDE1CBBF16C00B7553E /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
 		10172BDF1CBBF16C00B7553E /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
 		10172BE11CBBF1F300B7553E /* case_paiZhao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_paiZhao@2x.png"; sourceTree = "<group>"; };
@@ -855,8 +857,6 @@
 		187E6D7F1C841A15009169C2 /* ZhouDaoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZhouDaoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		187E6D831C841A15009169C2 /* ZhouDaoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZhouDaoUITests.m; sourceTree = "<group>"; };
 		187E6D851C841A15009169C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1883B8C31D3361DE00380D09 /* UIScrollView+HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+HeaderView.h"; sourceTree = "<group>"; };
-		1883B8C41D3361DE00380D09 /* UIScrollView+HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+HeaderView.m"; sourceTree = "<group>"; };
 		188638F61C9AA5D200E91F78 /* AddAlertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAlertVC.h; sourceTree = "<group>"; };
 		188638F71C9AA5D200E91F78 /* AddAlertVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAlertVC.m; sourceTree = "<group>"; };
 		188651A41D25FBE900E030F7 /* FinanceDesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceDesCell.h; sourceTree = "<group>"; };
@@ -1234,6 +1234,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		100982E91D33C7CE00768D9A /* Stretch */ = {
+			isa = PBXGroup;
+			children = (
+				100982EA1D33C7CE00768D9A /* ParallaxHeaderView.h */,
+				100982EB1D33C7CE00768D9A /* ParallaxHeaderView.m */,
+			);
+			path = Stretch;
+			sourceTree = "<group>";
+		};
 		10172BDD1CBBF16C00B7553E /* KXMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -2265,15 +2274,6 @@
 			path = ZhouDaoUITests;
 			sourceTree = "<group>";
 		};
-		1883B8BC1D334EC900380D09 /* CorePullScale */ = {
-			isa = PBXGroup;
-			children = (
-				1883B8C31D3361DE00380D09 /* UIScrollView+HeaderView.h */,
-				1883B8C41D3361DE00380D09 /* UIScrollView+HeaderView.m */,
-			);
-			path = CorePullScale;
-			sourceTree = "<group>";
-		};
 		188651A91D2602E700E030F7 /* 案件提醒 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2892,7 +2892,7 @@
 		18FF3F371C8529CA0098C60B /* Toos */ = {
 			isa = PBXGroup;
 			children = (
-				1883B8BC1D334EC900380D09 /* CorePullScale */,
+				100982E91D33C7CE00768D9A /* Stretch */,
 				188F9E461CF82077000F9B2D /* SCIntroView */,
 				10C019401CE4C84B0058586A /* ShareView */,
 				18A622891CD352260073B886 /* NSDate+Category */,
@@ -3619,6 +3619,7 @@
 				10FA014B1CA0EAFE00E691FB /* ImmediatelyVC.m in Sources */,
 				18A428521CC0D19100CEB30E /* AccusingTheCell.m in Sources */,
 				186AA1491CE430F90009C0D5 /* ExampleDetailData.m in Sources */,
+				100982EC1D33C7CE00768D9A /* ParallaxHeaderView.m in Sources */,
 				104304961CA515CA009D7072 /* FGGDownloader.m in Sources */,
 				181125D21CDADBF200ACA16D /* CompensationData.m in Sources */,
 				18C4B03C1CB4A4E200D3CB8B /* TemplateViewController.m in Sources */,
@@ -3701,7 +3702,6 @@
 				18D9D68D1CBCD2CA008F9CC8 /* FilterCollectionViewCell.m in Sources */,
 				187DB92E1CDC6B33009CF1D6 /* GovernmentListVC.m in Sources */,
 				18FF3F561C852D550098C60B /* NSString+SPStr.m in Sources */,
-				1883B8C51D3361DE00380D09 /* UIScrollView+HeaderView.m in Sources */,
 				1065C2C31CA8E13F003F4089 /* SecrchLawsVC.m in Sources */,
 				18CD4DA61C928111001838D2 /* WHC_PhotoListCell.m in Sources */,
 				181E51311CD1F34700BBA10D /* NewPhoneVC.m in Sources */,
