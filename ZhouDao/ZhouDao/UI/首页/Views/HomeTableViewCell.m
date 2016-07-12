@@ -7,7 +7,7 @@
 //
 
 #import "HomeTableViewCell.h"
-
+#import "FMUString.h"
 @implementation HomeTableViewCell
 
 - (void)awakeFromNib {
@@ -39,12 +39,14 @@
     _mdoel = mdoel;
     _titlab.text = _mdoel.title;
     [_headImgView sd_setImageWithURL:[NSURL URLWithString:_mdoel.pic] placeholderImage:[UIImage imageNamed:@"home_palcehold"]];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[_mdoel.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-        _contentLab.text = attrStr.string;
-//        _contentLab.attributedText = attrStr;
-    });
+    
+    _contentLab.text = [FMUString filterHtml:_mdoel.content];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        
+//        NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[_mdoel.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+//        _contentLab.text = attrStr.string;
+////        _contentLab.attributedText = attrStr;
+//    });
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

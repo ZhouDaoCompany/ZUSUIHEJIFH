@@ -102,21 +102,10 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
     };
     [self.view addSubview:_headView];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
-    //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.showsHorizontalScrollIndicator= NO;
-    self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    [ self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [ self.view addSubview:_tableView];
-    _tableView.tableHeaderView = _headView;
-    [self.tableView registerNib:[UINib nibWithNibName:@"LawsTableViewCell" bundle:nil] forCellReuseIdentifier:twoCellIdentifier];
+    [self.view addSubview:self.tableView];
 
     //MJRefreshBackNormalFooter MJRefreshAutoNormalFooter
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-//    // 马上进入刷新状态
+   //    // 马上进入刷新状态
 //    [_tableView.mj_header beginRefreshing];
     
     NSArray *arrays = DEF_PERSISTENT_GET_OBJECT(LawsStorage);
@@ -141,6 +130,23 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
     [moreBtn addTarget:self action:@selector(loadMoreData) forControlEvents:UIControlEventTouchUpInside];
     _moreBtn = moreBtn;
     _tableView.tableFooterView = _moreBtn;*/
+}
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
+        //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.showsHorizontalScrollIndicator= NO;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        _tableView.tableHeaderView = _headView;
+        [_tableView registerNib:[UINib nibWithNibName:@"LawsTableViewCell" bundle:nil] forCellReuseIdentifier:twoCellIdentifier];
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
+    }
+    return _tableView;
 }
 #pragma mark - 请求
 - (void)loadNewData{

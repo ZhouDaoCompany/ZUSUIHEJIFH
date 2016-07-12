@@ -203,9 +203,6 @@
 		181E51311CD1F34700BBA10D /* NewPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E51301CD1F34700BBA10D /* NewPhoneVC.m */; };
 		18230CF21CC7455400F4ACCF /* CustomMenuBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 18230CF11CC7455400F4ACCF /* CustomMenuBtn.m */; };
 		18230CF51CC7580700F4ACCF /* NewsLawsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18230CF41CC7580700F4ACCF /* NewsLawsVC.m */; };
-		1825B08B1C966EB6003B2096 /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825B0861C966EB6003B2096 /* CurledViewBase.m */; };
-		1825B08C1C966EB6003B2096 /* UIButton+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825B0881C966EB6003B2096 /* UIButton+Curled.m */; };
-		1825B08D1C966EB6003B2096 /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825B08A1C966EB6003B2096 /* UIImageView+Curled.m */; };
 		1825B0A61C969287003B2096 /* CollectEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825B0A51C969287003B2096 /* CollectEmptyView.m */; };
 		1825B0A91C969386003B2096 /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825B0A81C969386003B2096 /* NSString+Size.m */; };
 		1829B66A1CEAB9E40086CF67 /* BasicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829B6691CEAB9E40086CF67 /* BasicModel.m */; };
@@ -760,12 +757,6 @@
 		18230CF61CC76F1800F4ACCF /* QZPathDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZPathDefine.h; sourceTree = "<group>"; };
 		18230CF71CC76F8300F4ACCF /* QZPersistentDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZPersistentDefine.h; sourceTree = "<group>"; };
 		18230CF81CC76FA800F4ACCF /* QZViewDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZViewDefine.h; sourceTree = "<group>"; };
-		1825B0851C966EB6003B2096 /* CurledViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurledViewBase.h; sourceTree = "<group>"; };
-		1825B0861C966EB6003B2096 /* CurledViewBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurledViewBase.m; sourceTree = "<group>"; };
-		1825B0871C966EB6003B2096 /* UIButton+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Curled.h"; sourceTree = "<group>"; };
-		1825B0881C966EB6003B2096 /* UIButton+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Curled.m"; sourceTree = "<group>"; };
-		1825B0891C966EB6003B2096 /* UIImageView+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Curled.h"; sourceTree = "<group>"; };
-		1825B08A1C966EB6003B2096 /* UIImageView+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Curled.m"; sourceTree = "<group>"; };
 		1825B0A41C969287003B2096 /* CollectEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectEmptyView.h; sourceTree = "<group>"; };
 		1825B0A51C969287003B2096 /* CollectEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectEmptyView.m; sourceTree = "<group>"; };
 		1825B0A71C969386003B2096 /* NSString+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Size.h"; sourceTree = "<group>"; };
@@ -2033,19 +2024,6 @@
 			path = "add案件";
 			sourceTree = "<group>";
 		};
-		1825B0841C966EB6003B2096 /* CurledView */ = {
-			isa = PBXGroup;
-			children = (
-				1825B0851C966EB6003B2096 /* CurledViewBase.h */,
-				1825B0861C966EB6003B2096 /* CurledViewBase.m */,
-				1825B0871C966EB6003B2096 /* UIButton+Curled.h */,
-				1825B0881C966EB6003B2096 /* UIButton+Curled.m */,
-				1825B0891C966EB6003B2096 /* UIImageView+Curled.h */,
-				1825B08A1C966EB6003B2096 /* UIImageView+Curled.m */,
-			);
-			path = CurledView;
-			sourceTree = "<group>";
-		};
 		1829BA731CE2F58700F0143F /* 查询 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2906,7 +2884,6 @@
 				18B5833B1C9A4E3200CB3009 /* 日历控件 */,
 				18BE61351C99541D00F7E99F /* 弹出框 */,
 				18DE724A1C98F2160068F7E5 /* AnimationTools */,
-				1825B0841C966EB6003B2096 /* CurledView */,
 				1863DFE01C8D2B5B00F7A84E /* GcNoticeUtil */,
 				1863DFD01C8D0FC700F7A84E /* 省市区 */,
 				18DD1EB71C88389B004630C1 /* ZHPickView */,
@@ -3496,7 +3473,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1825B08B1C966EB6003B2096 /* CurledViewBase.m in Sources */,
 				1829BA7C1CE32CA400F0143F /* ExampleListVC.m in Sources */,
 				188651B61D26073100E030F7 /* AddRemindCell.m in Sources */,
 				1068EAF41CB3907B00AAADD4 /* AlertView.m in Sources */,
@@ -3575,7 +3551,6 @@
 				1068EAF51CB3907B00AAADD4 /* PopupView.m in Sources */,
 				18C4B05C1CB4BFB500D3CB8B /* TemplateDetailVC.m in Sources */,
 				18230CF51CC7580700F4ACCF /* NewsLawsVC.m in Sources */,
-				1825B08C1C966EB6003B2096 /* UIButton+Curled.m in Sources */,
 				18FF3F7B1C85617A0098C60B /* QHCommonUtil.m in Sources */,
 				1031B1141CB01B43006CE3FB /* LocalLawsVC.m in Sources */,
 				10C86B811CABB78D002A75AC /* HomeHeadView.m in Sources */,
@@ -3690,7 +3665,6 @@
 				1829BA791CE3264A00F0143F /* CaseModel.m in Sources */,
 				1083232A1CAA10D7004B8045 /* UIWebView+Load.m in Sources */,
 				181CE82A1CC9FF5500529F5E /* ZD_SelectDateWindow.m in Sources */,
-				1825B08D1C966EB6003B2096 /* UIImageView+Curled.m in Sources */,
 				181292BB1C87E84E00EBB5CD /* ToolsViewController.m in Sources */,
 				10FF87E11CA6D00F005EBC8A /* ReadViewController.m in Sources */,
 				18DE72511C992C130068F7E5 /* MineSettingVC.m in Sources */,
