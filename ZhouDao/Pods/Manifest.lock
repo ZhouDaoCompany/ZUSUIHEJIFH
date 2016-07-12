@@ -30,7 +30,7 @@ PODS:
     - AMapFoundation (~> 1.0)
   - AMapSearch (4.0.0):
     - AMapFoundation (= 1.0.0)
-  - CYLTabBarController (1.4.4)
+  - CYLTabBarController (1.5.6)
   - DLWidgetMenu (1.1)
   - FDFullscreenPopGesture (1.1)
   - IQKeyboardManager (3.3.7)
@@ -54,7 +54,7 @@ DEPENDENCIES:
   - AMapLocation (~> 2.0.0)
   - AMapNavi (~> 2.0.0)
   - AMapSearch (~> 4.0.0)
-  - CYLTabBarController (~> 1.4.4)
+  - CYLTabBarController (~> 1.5.6)
   - DLWidgetMenu
   - FDFullscreenPopGesture (= 1.1)
   - IQKeyboardManager (~> 3.3.4)
@@ -76,7 +76,7 @@ SPEC CHECKSUMS:
   AMapLocation: 40141a31e7c584e59d590079eb8e565a90ecdf4d
   AMapNavi: d6d94118143ce1d3e3117d8085750fae5af55af4
   AMapSearch: 867e89123c927436713372803156ac9848d9868a
-  CYLTabBarController: 71d00c3287359fa6fe06dbc04d2a2d103141c763
+  CYLTabBarController: 5b7328765e6103e1776ae296b8e009a3da0e4c4b
   DLWidgetMenu: 5e4d0937e02831e34694a0730c599afeb4e6fbcf
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   IQKeyboardManager: 249c3946acf61345c18b038eb50863fe2793e3a8

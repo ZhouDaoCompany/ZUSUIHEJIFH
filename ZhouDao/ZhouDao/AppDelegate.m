@@ -19,6 +19,7 @@
 #import "SDImageCache.h"
 #import "GcNoticeUtil.h"
 #import "PushAlertWindow.h"
+
 /**
  高德地图
  */
@@ -48,6 +49,7 @@
 
 @interface AppDelegate ()<UITabBarControllerDelegate,SKStoreProductViewControllerDelegate>
 
+
 @end
 
 @implementation AppDelegate
@@ -59,9 +61,7 @@
     application.applicationIconBadgeNumber = 0;
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
-    [NSThread sleepForTimeInterval:1.f];
-
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
 
         //键盘配置

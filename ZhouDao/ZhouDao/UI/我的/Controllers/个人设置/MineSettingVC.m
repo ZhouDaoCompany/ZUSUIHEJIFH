@@ -50,9 +50,15 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     [self setupNaviBarWithTitle:@"我"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
+    
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
+    float folderSize = [self folderSizeAtPath:path];
+    NSString *cacheString = @"";
+    (folderSize <=0.01f)?(cacheString = @"0M"):(cacheString =[NSString stringWithFormat:@"%.2fM", folderSize]);
+    
     self.view.backgroundColor = rgb(242, 242, 242);
     _imageArrays = [NSArray arrayWithObjects:@"",@"",@"",@"",@"",@"",nil];
-    _titArrays = [NSArray arrayWithObjects:@"我的头像",@"我的账号",@"密码",@"通讯地址",@"我的职业",@"清除缓存", nil];
+    _titArrays = [NSArray arrayWithObjects:@"我的头像",@"我的账号",@"密码",@"通讯地址",@"我的职业",@"清理缓存", nil];
     
     NSString *type = @"";
     NSString *pString = [PublicFunction ShareInstance].m_user.data.type;
@@ -77,7 +83,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
         address = [PublicFunction ShareInstance].m_user.data.address;
     }
 
-    _msgArrays = [NSMutableArray arrayWithObjects:@"",[PublicFunction ShareInstance].m_user.data.mobile,@"修改",address, type,@"",nil];
+    _msgArrays = [NSMutableArray arrayWithObjects:@"",[PublicFunction ShareInstance].m_user.data.mobile,@"修改",address, type,cacheString,nil];
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,74, kMainScreenWidth, 300.f) style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -93,7 +99,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     exitBtn.layer.cornerRadius = 5.f;
     exitBtn.backgroundColor  = KNavigationBarColor;
     [exitBtn setTitleColor:[UIColor whiteColor] forState:0];
-    [exitBtn setTitle:@"退出登录" forState:0];
+    [exitBtn setTitle:@"退出当前帐号" forState:0];
     exitBtn.titleLabel.font = Font_14;
     [exitBtn addTarget:self action:@selector(exitBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:exitBtn];
@@ -117,9 +123,6 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     }else{
         [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[PublicFunction ShareInstance].m_user.data.photo] placeholderImage:[UIImage imageNamed:@"mine_head"]];
     }
-    
-
-
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -171,19 +174,14 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
         }];
         
     }else if (indexPath.row == 5){
-        [SVProgressHUD showWithStatus:@"查询中..."];
-        NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
-        float folderSize = [self folderSizeAtPath:path];
-        [SVProgressHUD dismiss];
-        if (folderSize <=0.01f) {
-            [JKPromptView showWithImageName:nil message:@"暂无缓存"];
-            return;
-        }
-        ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:[NSString stringWithFormat:@"缓存大小为%.2fM,确定要清理吗?", folderSize] withType:DelType];
-        delWindow.DelBlock = ^(){
-            [weakSelf clearApplicationCaChe];
-        };
-        [self.view addSubview:delWindow];
+        
+        LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"确定"] redButtonIndex:-1 clicked:^(NSInteger buttonIndex) {
+            DLog(@"> Block way -> Clicked Index: %ld", (long)buttonIndex);
+            if (buttonIndex == 0) {
+                [weakSelf clearApplicationCaChe];
+             }
+        }];
+        [sheet show];
     }
 }
 #pragma mark -查询认证审核
@@ -216,31 +214,40 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 - (void)exitBtnEvent:(id)sender
 {
     WEAKSELF;
-    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"您确定退出登录吗?" withType:DelType];
-    delWindow.DelBlock = ^(){
-        [USER_D removeObjectForKey:StoragePhone];
-        [USER_D removeObjectForKey:StoragePassword];
-        [USER_D removeObjectForKey:keyIdentifer];
-        [USER_D removeObjectForKey:SearchIdentifer];
+    
+    LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"退出"] redButtonIndex:-1 clicked:^(NSInteger buttonIndex) {
+        DLog(@"> Block way -> Clicked Index: %ld", (long)buttonIndex);
+        if (buttonIndex == 0) {
+            [USER_D removeObjectForKey:StoragePhone];
+            [USER_D removeObjectForKey:StoragePassword];
+            [USER_D removeObjectForKey:keyIdentifer];
+            [USER_D removeObjectForKey:SearchIdentifer];
+            
+            [USER_D synchronize];
+            
+            //删除别名
+            [UMessage removeAlias:[NSString stringWithFormat:@"uid_%@",UID] type:@"ZDHF" response:^(id responseObject, NSError *error) {
+                DLog(@"移除成功-----%@",responseObject);
+            }];
+            //删除所有标签
+            [UMessage removeAllTags:^(id  _Nonnull responseObject, NSInteger remain, NSError * _Nonnull error) {
+                DLog(@"移除标签成功-----%@",responseObject);
+            }];
+            //清空闹铃
+            //        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+            
+            [PublicFunction ShareInstance].m_bLogin = NO;
+            weakSelf.exitBlock();
+            [weakSelf.navigationController popViewControllerAnimated:NO];
+        }
+    }];
+    [sheet show];
 
-        [USER_D synchronize];
-        
-        //删除别名
-        [UMessage removeAlias:[NSString stringWithFormat:@"uid_%@",UID] type:@"ZDHF" response:^(id responseObject, NSError *error) {
-            DLog(@"移除成功-----%@",responseObject);
-        }];
-        //删除所有标签
-        [UMessage removeAllTags:^(id  _Nonnull responseObject, NSInteger remain, NSError * _Nonnull error) {
-            DLog(@"移除标签成功-----%@",responseObject);
-        }];
-        //清空闹铃
-//        [[UIApplication sharedApplication] cancelAllLocalNotifications];
-
-        [PublicFunction ShareInstance].m_bLogin = NO;
-        weakSelf.exitBlock();
-        [weakSelf.navigationController popViewControllerAnimated:NO];
-    };
-    [self.view addSubview:delWindow];
+    
+//    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"您确定退出登录吗?" withType:DelType];
+//    delWindow.DelBlock = ^(){
+//    };
+//    [self.view addSubview:delWindow];
 }
 - (void)addActionSheet
 {
@@ -363,6 +370,8 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 {
     [SVProgressHUD dismiss];
     [JKPromptView showWithImageName:nil message:@"清除成功"];
+    [_msgArrays replaceObjectAtIndex:5 withObject:@"0M"];
+    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:5 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)didReceiveMemoryWarning {
