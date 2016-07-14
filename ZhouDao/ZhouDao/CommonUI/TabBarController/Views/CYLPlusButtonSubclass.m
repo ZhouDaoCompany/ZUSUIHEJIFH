@@ -121,66 +121,69 @@
 
 - (void)clickPublish:(id)sender {
     
-    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
-    UIViewController *viewController = tabBarController.selectedViewController;
-    
+    WEAKSELF;
     [HyPopMenuView CreatingPopMenuObjectItmes:Objs SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
         DLog(@"index:%ld ItmeNmae:%@",(long)index,menuLabel.title);
-        if (index == 0)
-        {
-            LawsViewController *lawVC = [LawsViewController new];
-            lawVC.lawType = LawFromAdd;
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:lawVC];
-            //            lawVC.modalPresentationStyle = UIModalPresentationNone;/*设置这个属性背景就是透明的，而不是黑色的了*/
-            [viewController presentViewController:nav animated:NO completion:nil];
-        }else if (index == 1){
-            GovermentVC *govVC = [GovermentVC new];
-            govVC.Govtype = GovFromAdd;
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:govVC];
-            [viewController presentViewController:nav animated:NO completion:nil];
-        }else if (index == 2){
-            
-            TemplateViewController *templateVC = [TemplateViewController new];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:templateVC];
-            [viewController presentViewController:nav animated:NO completion:nil];
-        }else if (index == 3){
-            
-            CompensationVC *vc = [CompensationVC new];
-            vc.pType = CompensationFromAdd;
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-            [viewController presentViewController:nav animated:NO completion:nil];
-        }else if (index == 4){
-            ExampleSearchVC *vc = [ExampleSearchVC new];
-            vc.sType = SearchFromAdd;
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-            [viewController presentViewController:nav animated:NO completion:nil];
-        }else if (index == 5){
-            //            [JKPromptView showWithImageName:nil message:@"功能正在开发中,敬请期待"];
-            if ([PublicFunction ShareInstance].m_bLogin == YES) {
-                TheCaseManageVC *vc = [TheCaseManageVC new];
-                vc.type = FromAddType;
-                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-                [viewController presentViewController:nav animated:NO completion:nil];
-            }else{
-                LoginViewController *loginVc = [LoginViewController new];
-                loginVc.closeBlock = ^{
-                    if ([PublicFunction ShareInstance].m_bLogin == YES)
-                    {
-                        TheCaseManageVC *vc = [TheCaseManageVC new];
-                        vc.type = FromAddType;
-                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-                        [viewController presentViewController:nav animated:NO completion:nil];
-                    }
-                };
-                [viewController presentViewController:[[UINavigationController alloc]initWithRootViewController:loginVc] animated:YES completion:nil];
-                
-            }
-        }
-
+        [weakSelf selectedButtonWithIndex:index];
     }];
     
 }
+- (void)selectedButtonWithIndex:(NSInteger)index{
+    
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    UIViewController *viewController = tabBarController.selectedViewController;
 
+    if (index == 0)
+    {
+        LawsViewController *lawVC = [LawsViewController new];
+        lawVC.lawType = LawFromAdd;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:lawVC];
+        //            lawVC.modalPresentationStyle = UIModalPresentationNone;/*设置这个属性背景就是透明的，而不是黑色的了*/
+        [viewController presentViewController:nav animated:NO completion:nil];
+    }else if (index == 1){
+        GovermentVC *govVC = [GovermentVC new];
+        govVC.Govtype = GovFromAdd;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:govVC];
+        [viewController presentViewController:nav animated:NO completion:nil];
+    }else if (index == 2){
+        
+        TemplateViewController *templateVC = [TemplateViewController new];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:templateVC];
+        [viewController presentViewController:nav animated:NO completion:nil];
+    }else if (index == 3){
+        
+        CompensationVC *vc = [CompensationVC new];
+        vc.pType = CompensationFromAdd;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [viewController presentViewController:nav animated:NO completion:nil];
+    }else if (index == 4){
+        ExampleSearchVC *vc = [ExampleSearchVC new];
+        vc.sType = SearchFromAdd;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [viewController presentViewController:nav animated:NO completion:nil];
+    }else if (index == 5){
+        //            [JKPromptView showWithImageName:nil message:@"功能正在开发中,敬请期待"];
+        if ([PublicFunction ShareInstance].m_bLogin == YES) {
+            TheCaseManageVC *vc = [TheCaseManageVC new];
+            vc.type = FromAddType;
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [viewController presentViewController:nav animated:NO completion:nil];
+        }else{
+            LoginViewController *loginVc = [LoginViewController new];
+            loginVc.closeBlock = ^{
+                if ([PublicFunction ShareInstance].m_bLogin == YES)
+                {
+                    TheCaseManageVC *vc = [TheCaseManageVC new];
+                    vc.type = FromAddType;
+                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+                    [viewController presentViewController:nav animated:NO completion:nil];
+                }
+            };
+            [viewController presentViewController:[[UINavigationController alloc]initWithRootViewController:loginVc] animated:YES completion:nil];
+            
+        }
+    }
+}
 
 #pragma mark - CYLPlusButtonSubclassing
 
