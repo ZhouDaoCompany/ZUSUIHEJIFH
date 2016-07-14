@@ -86,7 +86,7 @@
         lineView.hidden = YES;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.textColor = rgb(43, 44, 45);
+    cell.textLabel.textColor = LRRGBColor(43, 44, 45);
     cell.textLabel.font = Font_15;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;

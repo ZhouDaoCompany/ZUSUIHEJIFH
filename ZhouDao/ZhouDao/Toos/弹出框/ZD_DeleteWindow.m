@@ -59,7 +59,7 @@
         headlab.textAlignment = NSTextAlignmentCenter;
         headlab.font = Font_14;
         headlab.numberOfLines = 0;
-        headlab.textColor = rgb(96, 101, 111);
+        headlab.textColor = LRRGBColor(96, 101, 111);
         [self.zd_superView addSubview:headlab];
     }else{
 //        self.zd_superView.center = CGPointMake(zd_width/2.0,0);

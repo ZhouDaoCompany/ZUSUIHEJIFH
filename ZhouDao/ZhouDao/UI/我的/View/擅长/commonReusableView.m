@@ -14,7 +14,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = rgb(242, 242, 242);
+        self.backgroundColor = LRRGBColor(242, 242, 242);
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 100, 20)];
         self.label.font = [UIFont systemFontOfSize:13.f];
         [self.label setTextColor:sixColor];

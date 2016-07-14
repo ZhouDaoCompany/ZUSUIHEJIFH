@@ -33,7 +33,7 @@
     
     self.bottomView.layer.masksToBounds = YES;
     self.bottomView.layer.cornerRadius = 5.f;
-    self.bottomView.layer.borderColor = RGBACOLOR(215, 215, 215, 1).CGColor;
+    self.bottomView.layer.borderColor = LRRGBAColor(215, 215, 215, 1).CGColor;
     self.bottomView.layer.borderWidth = .5f;
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.codeText.keyboardType = UIKeyboardTypeNumberPad;

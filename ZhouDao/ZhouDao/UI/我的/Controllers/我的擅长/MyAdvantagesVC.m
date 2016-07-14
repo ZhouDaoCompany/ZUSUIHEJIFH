@@ -118,9 +118,9 @@ static float const kCollectionViewCellsHorizonMargin          = 5.f;//每个item
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 
-    self.statusBarView.backgroundColor = rgb(242, 242, 242);//[UIColor colorWithHexString:@"#"];
-    self.naviBarView.backgroundColor = rgb(242, 242, 242);
-    self.view.backgroundColor = rgb(242, 242, 242);
+    self.statusBarView.backgroundColor = LRRGBColor(242, 242, 242);//[UIColor colorWithHexString:@"#"];
+    self.naviBarView.backgroundColor = LRRGBColor(242, 242, 242);
+    self.view.backgroundColor = LRRGBColor(242, 242, 242);
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"mine_guanbi"];
 
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -130,7 +130,7 @@ static float const kCollectionViewCellsHorizonMargin          = 5.f;//每个item
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    self.collectionView.backgroundColor = rgb(242, 242, 242);
+    self.collectionView.backgroundColor = LRRGBColor(242, 242, 242);
     //self.collectionView.bounces = NO;
     self.collectionView.allowsMultipleSelection = YES;
     self.collectionView.showsHorizontalScrollIndicator = NO;

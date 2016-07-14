@@ -1,32 +1,24 @@
 //
 //  HyPopMenuView.h
-//  HyPopMenuView
+//  ZhouDao
 //
-//  Created by  H y on 15/9/8.
-//  Copyright (c) 2015年 ouy.Aberi. All rights reserved.
+//  Created by apple on 16/7/14.
+//  Copyright © 2016年 CQZ. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "CustomButton.h"
-#import "ImageView.h"
 @class MenuLabel;
 
 typedef void(^SelectdCompletionBlock)(MenuLabel *menuLabel,NSInteger index);
 
-
 @interface HyPopMenuView : UIView
-
 /**
- *  类方法,一句代码弹出PopMenuView
+ *  类方法,一句代码弹出HyPopMenuView
  *
- *  @param Items                      传入MenuLabel的实例数组
- *  @param topView                    顶部View的自定义 (可为nil)
- *  @param openOrCloseAudioDictionary 音频 (可为nil)
- *  @param block                      回调block
+ *  @param Items 传入MenuLabel的实例数组
+ *  @param block  回调block
  */
 +(void)CreatingPopMenuObjectItmes:(NSArray<MenuLabel *> *)Items
-                          TopView:(UIView *)topView
-       OpenOrCloseAudioDictionary:(NSDictionary *)openOrCloseAudioDictionary
            SelectdCompletionBlock:(SelectdCompletionBlock)block;
 
 /**
@@ -47,5 +39,3 @@ typedef void(^SelectdCompletionBlock)(MenuLabel *menuLabel,NSInteger index);
 -(instancetype) initWithItmes:(NSArray<MenuLabel *> *)Itmes;
 
 @end
-
-

@@ -139,9 +139,7 @@
 		10A031401D1FE2AF00D31935 /* ConsultantHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A0313F1D1FE2AF00D31935 /* ConsultantHeadView.m */; };
 		10BA91AF1CEDEBFE000889A4 /* NewlyCreatedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BA91AD1CEDEBFE000889A4 /* NewlyCreatedVC.m */; };
 		10BA91B31CEE0D39000889A4 /* CasesDirectoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 10BA91B21CEE0D39000889A4 /* CasesDirectoryVC.m */; };
-		10C019431CE4CA5A0058586A /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C019421CE4CA5A0058586A /* ShareView.m */; };
 		10C019461CE4CE260058586A /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C019451CE4CE260058586A /* CustomButton.m */; };
-		10C019491CE4CF320058586A /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C019481CE4CF320058586A /* ImageView.m */; };
 		10C01AF11CA7D1090000EF7A /* LawSview.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C01AF01CA7D1090000EF7A /* LawSview.m */; };
 		10C01AF41CA7D13C0000EF7A /* DPHorizontalScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C01AF31CA7D13C0000EF7A /* DPHorizontalScrollView.m */; };
 		10C01AFB1CA7F01A0000EF7A /* LawsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C01AF91CA7F01A0000EF7A /* LawsTableViewCell.m */; };
@@ -214,6 +212,8 @@
 		183498571CE03694009707E2 /* LawsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 183498561CE03694009707E2 /* LawsDataModel.m */; };
 		18360F791CA287F300077914 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC08C1C9FF92000FD1221 /* CoreLocation.framework */; };
 		183CE1A51D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CE1A31D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a */; };
+		183FFCB11D3783F6007D0494 /* HyPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183FFCB01D3783F6007D0494 /* HyPopMenuView.m */; };
+		183FFCB41D378546007D0494 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183FFCB31D378546007D0494 /* ShareView.m */; };
 		18474DB01CCDED3400515CD6 /* EditCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DAF1CCDED3400515CD6 /* EditCaseVC.m */; };
 		18474DB31CCE098300515CD6 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DB21CCE098300515CD6 /* UserData.m */; };
 		184983111D2A0CA7009AF29F /* case_mangeFS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1849830E1D2A0CA7009AF29F /* case_mangeFS@2x.png */; };
@@ -360,9 +360,7 @@
 		18CD4DB91C92985B001838D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18CD4DB81C92985B001838D2 /* UIKit.framework */; };
 		18CD4DBB1C929862001838D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18CD4DBA1C929862001838D2 /* Foundation.framework */; };
 		18CD4DC01C92996A001838D2 /* libCCPRestSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18CD4DBE1C92996A001838D2 /* libCCPRestSDK.a */; };
-		18CD4DC91C92ABD3001838D2 /* HyPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CD4DC41C92ABD3001838D2 /* HyPopMenuView.m */; };
 		18CD4DCA1C92ABD3001838D2 /* MenuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CD4DC61C92ABD3001838D2 /* MenuLabel.m */; };
-		18CD4DCB1C92ABD3001838D2 /* UIColor+ImageGetColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CD4DC81C92ABD3001838D2 /* UIColor+ImageGetColor.m */; };
 		18D66AC71CE16DDE00BF2C17 /* template_SC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D66AC61CE16DDE00BF2C17 /* template_SC@2x.png */; };
 		18D66ACA1CE1B85000BF2C17 /* IndemnityData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D66AC91CE1B85000BF2C17 /* IndemnityData.m */; };
 		18D66ACD1CE1BD0300BF2C17 /* LawDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D66ACC1CE1BD0300BF2C17 /* LawDetailModel.m */; };
@@ -652,12 +650,8 @@
 		10BA91AD1CEDEBFE000889A4 /* NewlyCreatedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewlyCreatedVC.m; sourceTree = "<group>"; };
 		10BA91B11CEE0D39000889A4 /* CasesDirectoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CasesDirectoryVC.h; sourceTree = "<group>"; };
 		10BA91B21CEE0D39000889A4 /* CasesDirectoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CasesDirectoryVC.m; sourceTree = "<group>"; };
-		10C019411CE4CA5A0058586A /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
-		10C019421CE4CA5A0058586A /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		10C019441CE4CE260058586A /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
 		10C019451CE4CE260058586A /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
-		10C019471CE4CF320058586A /* ImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
-		10C019481CE4CF320058586A /* ImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageView.m; sourceTree = "<group>"; };
 		10C01AEF1CA7D1090000EF7A /* LawSview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LawSview.h; sourceTree = "<group>"; };
 		10C01AF01CA7D1090000EF7A /* LawSview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LawSview.m; sourceTree = "<group>"; };
 		10C01AF21CA7D13C0000EF7A /* DPHorizontalScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPHorizontalScrollView.h; sourceTree = "<group>"; };
@@ -779,6 +773,10 @@
 		183CE1A41D10F06C00A8ADAF /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		183CE1A91D1127EF00A8ADAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		183CE1AA1D1127FE00A8ADAF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		183FFCAF1D3783F6007D0494 /* HyPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyPopMenuView.h; sourceTree = "<group>"; };
+		183FFCB01D3783F6007D0494 /* HyPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyPopMenuView.m; sourceTree = "<group>"; };
+		183FFCB21D378546007D0494 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
+		183FFCB31D378546007D0494 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		18474DAE1CCDED3400515CD6 /* EditCaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCaseVC.h; sourceTree = "<group>"; };
 		18474DAF1CCDED3400515CD6 /* EditCaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCaseVC.m; sourceTree = "<group>"; };
 		18474DB11CCE098300515CD6 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
@@ -1032,12 +1030,8 @@
 		18CD4DBA1C929862001838D2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18CD4DBD1C92996A001838D2 /* CCPRestSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPRestSDK.h; sourceTree = "<group>"; };
 		18CD4DBE1C92996A001838D2 /* libCCPRestSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCCPRestSDK.a; sourceTree = "<group>"; };
-		18CD4DC31C92ABD3001838D2 /* HyPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyPopMenuView.h; sourceTree = "<group>"; };
-		18CD4DC41C92ABD3001838D2 /* HyPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyPopMenuView.m; sourceTree = "<group>"; };
 		18CD4DC51C92ABD3001838D2 /* MenuLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuLabel.h; sourceTree = "<group>"; };
 		18CD4DC61C92ABD3001838D2 /* MenuLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuLabel.m; sourceTree = "<group>"; };
-		18CD4DC71C92ABD3001838D2 /* UIColor+ImageGetColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ImageGetColor.h"; sourceTree = "<group>"; };
-		18CD4DC81C92ABD3001838D2 /* UIColor+ImageGetColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ImageGetColor.m"; sourceTree = "<group>"; };
 		18D66AC61CE16DDE00BF2C17 /* template_SC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "template_SC@2x.png"; sourceTree = "<group>"; };
 		18D66AC81CE1B85000BF2C17 /* IndemnityData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndemnityData.h; sourceTree = "<group>"; };
 		18D66AC91CE1B85000BF2C17 /* IndemnityData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndemnityData.m; sourceTree = "<group>"; };
@@ -1672,8 +1666,8 @@
 		10C019401CE4C84B0058586A /* ShareView */ = {
 			isa = PBXGroup;
 			children = (
-				10C019411CE4CA5A0058586A /* ShareView.h */,
-				10C019421CE4CA5A0058586A /* ShareView.m */,
+				183FFCB21D378546007D0494 /* ShareView.h */,
+				183FFCB31D378546007D0494 /* ShareView.m */,
 			);
 			path = ShareView;
 			sourceTree = "<group>";
@@ -2641,16 +2635,12 @@
 		18CD4DC21C92ABD3001838D2 /* HyPopMenu */ = {
 			isa = PBXGroup;
 			children = (
-				18CD4DC31C92ABD3001838D2 /* HyPopMenuView.h */,
-				18CD4DC41C92ABD3001838D2 /* HyPopMenuView.m */,
 				10C019441CE4CE260058586A /* CustomButton.h */,
 				10C019451CE4CE260058586A /* CustomButton.m */,
-				10C019471CE4CF320058586A /* ImageView.h */,
-				10C019481CE4CF320058586A /* ImageView.m */,
 				18CD4DC51C92ABD3001838D2 /* MenuLabel.h */,
 				18CD4DC61C92ABD3001838D2 /* MenuLabel.m */,
-				18CD4DC71C92ABD3001838D2 /* UIColor+ImageGetColor.h */,
-				18CD4DC81C92ABD3001838D2 /* UIColor+ImageGetColor.m */,
+				183FFCAF1D3783F6007D0494 /* HyPopMenuView.h */,
+				183FFCB01D3783F6007D0494 /* HyPopMenuView.m */,
 			);
 			path = HyPopMenu;
 			sourceTree = "<group>";
@@ -3483,7 +3473,6 @@
 				18FF3F611C8530290098C60B /* FMUSystem.m in Sources */,
 				18FF42E01C9805C200C6B29A /* PublicFunction.m in Sources */,
 				18B583431C9A4E3200CB3009 /* FDCalendarItem.m in Sources */,
-				18CD4DCB1C92ABD3001838D2 /* UIColor+ImageGetColor.m in Sources */,
 				18FF3F511C852BDB0098C60B /* NSString+Emoji.m in Sources */,
 				104157551C94587300EE5303 /* CommonViewCell.m in Sources */,
 				10457F521C9EEEFA00E1D3B2 /* StoreKitManager.m in Sources */,
@@ -3522,6 +3511,7 @@
 				189AB2591D20CE020032F580 /* RemarkTabCell.m in Sources */,
 				183498571CE03694009707E2 /* LawsDataModel.m in Sources */,
 				10172BE01CBBF16C00B7553E /* KxMenu.m in Sources */,
+				183FFCB41D378546007D0494 /* ShareView.m in Sources */,
 				18AD6AAE1CD99D500053F46B /* TheContractData.m in Sources */,
 				18D9570B1CF5ADED00F0E4DB /* ToolsIntroduceVC.m in Sources */,
 				18CD4DAB1C928111001838D2 /* WHC_PictureListVC.m in Sources */,
@@ -3550,6 +3540,7 @@
 				18FF3F7B1C85617A0098C60B /* QHCommonUtil.m in Sources */,
 				1031B1141CB01B43006CE3FB /* LocalLawsVC.m in Sources */,
 				10C86B811CABB78D002A75AC /* HomeHeadView.m in Sources */,
+				183FFCB11D3783F6007D0494 /* HyPopMenuView.m in Sources */,
 				187DB94A1CDC803C009CF1D6 /* GovClassData.m in Sources */,
 				10C86B841CABBE34002A75AC /* LawsKindView.m in Sources */,
 				18AD6AB11CD9EC930053F46B /* TemplateData.m in Sources */,
@@ -3577,7 +3568,6 @@
 				18FF3F3E1C8529CB0098C60B /* UIView+JKPicker.m in Sources */,
 				18FF3F5E1C852EF80098C60B /* FMUString.m in Sources */,
 				1817D2931CC0819500FF6EEE /* LitigationTabVC.m in Sources */,
-				18CD4DC91C92ABD3001838D2 /* HyPopMenuView.m in Sources */,
 				18230CF21CC7455400F4ACCF /* CustomMenuBtn.m in Sources */,
 				10241A171CB9F5A0000CBEAE /* CompensationTabCell.m in Sources */,
 				1083233C1CAA5339004B8045 /* SetCollectionViewCell.m in Sources */,
@@ -3622,7 +3612,6 @@
 				18A686121D17DE31001BEA41 /* MJPhotoToolbar.m in Sources */,
 				181CE82D1CCA005D00529F5E /* ZD_DeleteWindow.m in Sources */,
 				18B7177D1C916C5200F2AAED /* RegisterViewController.m in Sources */,
-				10C019491CE4CF320058586A /* ImageView.m in Sources */,
 				18B583421C9A4E3200CB3009 /* FDCalendar.m in Sources */,
 				10BA91B31CEE0D39000889A4 /* CasesDirectoryVC.m in Sources */,
 				18A6228F1CD352260073B886 /* NSDateFormatter+Category.m in Sources */,
@@ -3653,7 +3642,6 @@
 				104304971CA515CA009D7072 /* FGGDownloadManager.m in Sources */,
 				10A031401D1FE2AF00D31935 /* ConsultantHeadView.m in Sources */,
 				189AB24F1D20C1190032F580 /* CaseTextField.m in Sources */,
-				10C019431CE4CA5A0058586A /* ShareView.m in Sources */,
 				188651B31D2604F900E030F7 /* AddCaseRemindVC.m in Sources */,
 				10241A131CB9F36D000CBEAE /* CompensationVC.m in Sources */,
 				1065C3201CA91689003F4089 /* ContentViewController.m in Sources */,

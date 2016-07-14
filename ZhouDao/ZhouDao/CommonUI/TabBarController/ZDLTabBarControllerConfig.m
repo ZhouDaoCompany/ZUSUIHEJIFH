@@ -147,7 +147,7 @@
     
     // set the bar shadow image
     // This shadow image attribute is ignored if the tab bar does not also have a custom background image.So at least set somthing.
-    [[UITabBar appearance] setBackgroundImage:[QZManager createImageWithColor:RGBACOLOR(248, 248, 248, 1) size:CGSizeMake(kMainScreenWidth,kTabBarHeight)]];
+    [[UITabBar appearance] setBackgroundImage:[QZManager createImageWithColor:LRRGBAColor(248, 248, 248, 1) size:CGSizeMake(kMainScreenWidth,kTabBarHeight)]];
     [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
     [[UITabBar appearance] setShadowImage:[UIImage imageNamed:@"tapbar_top_line"]];
     

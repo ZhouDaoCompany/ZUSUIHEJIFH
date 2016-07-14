@@ -17,7 +17,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = rgb(242, 242, 242);        
+        self.backgroundColor = LRRGBColor(242, 242, 242);
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 160, 20)];
         lab.font = [UIFont systemFontOfSize:15.f];
         lab.text = @"擅长领域分类列表";

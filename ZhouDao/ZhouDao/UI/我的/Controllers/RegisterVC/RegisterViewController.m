@@ -48,7 +48,7 @@
     //bottom
     _bottomView = [[UIView alloc] initWithFrame:CGRectMake(25, 194, kMainScreenWidth -50, 160)];
     _bottomView.backgroundColor = [UIColor whiteColor];
-    _bottomView.layer.borderColor = RGBACOLOR(215, 215, 215, 1).CGColor;
+    _bottomView.layer.borderColor = LRRGBAColor(215, 215, 215, 1).CGColor;
     _bottomView.layer.borderWidth = .5f;
     _bottomView.layer.masksToBounds = YES;
     _bottomView.layer.cornerRadius = 5.f;
@@ -71,7 +71,7 @@
     [_bottomView addSubview:_phoneText];
     
     UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 40, bottomWith, .5f)];
-    lineView1.backgroundColor = RGBACOLOR(215, 215, 215, 1);
+    lineView1.backgroundColor = LRRGBAColor(215, 215, 215, 1);
     [_bottomView    addSubview:lineView1];
     
     //2
@@ -89,7 +89,7 @@
     
     _getCodeBtn = [JKCountDownButton buttonWithType:UIButtonTypeCustom];
     _getCodeBtn.frame = CGRectMake(bottomWith-100, 40, 100, 40);
-    _getCodeBtn.backgroundColor  = RGBACOLOR(0, 201, 173, 1);
+    _getCodeBtn.backgroundColor  = LRRGBAColor(0, 201, 173, 1);
     [_getCodeBtn setTitleColor:[UIColor whiteColor] forState:0];
     [_getCodeBtn setTitle:@"获取验证码" forState:0];
     _getCodeBtn.titleLabel.font = Font_14;
@@ -99,7 +99,7 @@
     [_bottomView addSubview:_getCodeBtn];
     
     UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 80, bottomWith, .5f)];
-    lineView2.backgroundColor = RGBACOLOR(215, 215, 215, 1);
+    lineView2.backgroundColor = LRRGBAColor(215, 215, 215, 1);
     [_bottomView    addSubview:lineView2];
 
     //3
@@ -135,7 +135,7 @@
     [_bottomView addSubview:_eyeImgView];
     
     UIView *lineView3 = [[UIView alloc] initWithFrame:CGRectMake(0, 120, bottomWith, .5f)];
-    lineView3.backgroundColor = RGBACOLOR(215, 215, 215, 1);
+    lineView3.backgroundColor = LRRGBAColor(215, 215, 215, 1);
     [_bottomView    addSubview:lineView3];
     
     //4
@@ -175,7 +175,7 @@
     _registerBtn.frame = CGRectMake(26, 375, kMainScreenWidth - 52, 40);
     _registerBtn.layer.masksToBounds = YES;
     _registerBtn.layer.cornerRadius = 5.f;
-    _registerBtn.backgroundColor  = RGBACOLOR(0, 201, 173, 1);
+    _registerBtn.backgroundColor  = LRRGBAColor(0, 201, 173, 1);
     [_registerBtn setTitleColor:[UIColor whiteColor] forState:0];
     [_registerBtn setTitle:@"注册" forState:0];
     _registerBtn.titleLabel.font = Font_14;
@@ -189,8 +189,8 @@
     _goLoginBtn.layer.masksToBounds = YES;
     _goLoginBtn.layer.cornerRadius = 5.f;
     _goLoginBtn.layer.borderWidth = 1.f;
-    _goLoginBtn.layer.borderColor = RGBACOLOR(0, 201, 173, 1).CGColor;
-    [_goLoginBtn setTitleColor:RGBACOLOR(0, 201, 173, 1) forState:0];
+    _goLoginBtn.layer.borderColor = LRRGBAColor(0, 201, 173, 1).CGColor;
+    [_goLoginBtn setTitleColor:LRRGBAColor(0, 201, 173, 1) forState:0];
     [_goLoginBtn setTitle:@"已有账号，直接登录>" forState:0];
     _goLoginBtn.titleLabel.font = Font_14;
     _goLoginBtn.tag = 3011;

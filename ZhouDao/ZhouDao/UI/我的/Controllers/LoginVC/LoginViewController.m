@@ -45,17 +45,17 @@
     
     self.bottomView.layer.masksToBounds = YES;
     self.bottomView.layer.cornerRadius = 5.f;
-    self.bottomView.layer.borderColor = RGBACOLOR(215, 215, 215, 1).CGColor;
+    self.bottomView.layer.borderColor = LRRGBAColor(215, 215, 215, 1).CGColor;
     self.bottomView.layer.borderWidth = .5f;
     
     UIView *lineView = [[UIView alloc] init];
     lineView.frame = CGRectMake(0, 44, kMainScreenWidth-50.f, .5);
-    lineView.backgroundColor = RGBACOLOR(215, 215, 215, 1);
+    lineView.backgroundColor = LRRGBAColor(215, 215, 215, 1);
     [_bottomView addSubview:lineView];
     
     self.loginBtn.layer.masksToBounds = YES;
     self.loginBtn.layer.cornerRadius = 5.f;
-    [self.forgetBtn setTitleColor:RGBACOLOR(103, 215, 195, 1) forState:0];
+    [self.forgetBtn setTitleColor:LRRGBAColor(103, 215, 195, 1) forState:0];
     self.forgetBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     
     self.registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];

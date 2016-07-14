@@ -10,7 +10,6 @@
 #import "CYLTabBarController.h"
 #import "MenuLabel.h"
 #import "HyPopMenuView.h"
-#import <POP.h>
 #import "LawsViewController.h" //法规
 #import "GovermentVC.h" //司法机关
 #import "TemplateViewController.h"
@@ -125,10 +124,8 @@
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
     UIViewController *viewController = tabBarController.selectedViewController;
     
-    
-    [HyPopMenuView CreatingPopMenuObjectItmes:Objs TopView:nil /*nil*/OpenOrCloseAudioDictionary:nil /*nil*/ SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+    [HyPopMenuView CreatingPopMenuObjectItmes:Objs SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
         DLog(@"index:%ld ItmeNmae:%@",(long)index,menuLabel.title);
-        
         if (index == 0)
         {
             LawsViewController *lawVC = [LawsViewController new];
@@ -158,27 +155,28 @@
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
             [viewController presentViewController:nav animated:NO completion:nil];
         }else if (index == 5){
-//            [JKPromptView showWithImageName:nil message:@"功能正在开发中,敬请期待"];
-                        if ([PublicFunction ShareInstance].m_bLogin == YES) {
-                            TheCaseManageVC *vc = [TheCaseManageVC new];
-                            vc.type = FromAddType;
-                            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-                            [viewController presentViewController:nav animated:NO completion:nil];
-                        }else{
-                            LoginViewController *loginVc = [LoginViewController new];
-                            loginVc.closeBlock = ^{
-                                if ([PublicFunction ShareInstance].m_bLogin == YES)
-                                {
-                                    TheCaseManageVC *vc = [TheCaseManageVC new];
-                                    vc.type = FromAddType;
-                                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-                                    [viewController presentViewController:nav animated:NO completion:nil];
-                                }
-                            };
-                            [viewController presentViewController:[[UINavigationController alloc]initWithRootViewController:loginVc] animated:YES completion:nil];
-            
-                        }
+            //            [JKPromptView showWithImageName:nil message:@"功能正在开发中,敬请期待"];
+            if ([PublicFunction ShareInstance].m_bLogin == YES) {
+                TheCaseManageVC *vc = [TheCaseManageVC new];
+                vc.type = FromAddType;
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+                [viewController presentViewController:nav animated:NO completion:nil];
+            }else{
+                LoginViewController *loginVc = [LoginViewController new];
+                loginVc.closeBlock = ^{
+                    if ([PublicFunction ShareInstance].m_bLogin == YES)
+                    {
+                        TheCaseManageVC *vc = [TheCaseManageVC new];
+                        vc.type = FromAddType;
+                        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+                        [viewController presentViewController:nav animated:NO completion:nil];
+                    }
+                };
+                [viewController presentViewController:[[UINavigationController alloc]initWithRootViewController:loginVc] animated:YES completion:nil];
+                
+            }
         }
+
     }];
     
 }

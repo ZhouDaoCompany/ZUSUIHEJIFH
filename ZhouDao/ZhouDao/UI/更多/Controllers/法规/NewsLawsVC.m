@@ -84,8 +84,8 @@ static NSString *const NewsCellIdentifier = @"NewsCellIdentifier";
     _timeArr = [NSMutableArray arrayWithObjects:@"按颁布时间",@"按生效时间", nil];
     
     _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
-    _jsMenu.indicatorColor = rgb(175, 175, 175);
-    _jsMenu.separatorColor = rgb(210, 210, 210);
+    _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
+    _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
     _jsMenu.textColor = thirdColor;
     _jsMenu.dataSource = self;
     _jsMenu.delegate = self;

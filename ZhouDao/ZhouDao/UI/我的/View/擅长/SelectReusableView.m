@@ -16,7 +16,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor =rgb(242, 242, 242);
+        self.backgroundColor =LRRGBColor(242, 242, 242);
         self.titLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 100, 20)];
         self.titLab.font = [UIFont systemFontOfSize:15.f];
         self.titLab.text = @"您的擅长领域";

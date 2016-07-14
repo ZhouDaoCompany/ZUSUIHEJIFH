@@ -37,19 +37,19 @@
     self.imgArrays = [NSMutableArray array];
     [self setupNaviBarWithBackAndTitle:@"意见反馈"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:@"" img:@"backVC"];
-    self.view.backgroundColor = rgb(241, 242, 243);
+    self.view.backgroundColor = LRRGBColor(241, 242, 243);
     UILabel *thankLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 84, kMainScreenWidth - 30.f, 50)];
     thankLab.text = @"欢迎您提出宝贵的建议，您留下来的每个字都将用来改善我们的软件。我们由衷的对您表示感谢！";
     thankLab.numberOfLines = 0;
     thankLab.font = Font_14;
-    thankLab.textColor = rgb(49, 50, 51);
+    thankLab.textColor = LRRGBColor(49, 50, 51);
     [self.view addSubview:thankLab];
     
     _msgText = [[UITextView alloc] initWithFrame:CGRectMake(15, Orgin_y(thankLab) +15, kMainScreenWidth - 30, 120)];
     _msgText.delegate =self;
     _msgText.font = Font_14;
     _msgText.backgroundColor = [UIColor whiteColor];
-    _msgText.layer.borderColor = rgb(214, 215, 216).CGColor;
+    _msgText.layer.borderColor = LRRGBColor(214, 215, 216).CGColor;
     _msgText.layer.borderWidth = 1.f;
     [self.view addSubview:_msgText];
     
@@ -63,7 +63,7 @@
     _phoneTextF = [[UITextField alloc] initWithFrame:CGRectMake(15, Orgin_y(_msgText) +15 , kMainScreenWidth - 30.f, 40)];
     _phoneTextF.backgroundColor = [UIColor whiteColor];
     _phoneTextF.borderStyle = UITextBorderStyleNone;
-    _phoneTextF.layer.borderColor = rgb(214, 215, 216).CGColor;
+    _phoneTextF.layer.borderColor = LRRGBColor(214, 215, 216).CGColor;
     _phoneTextF.layer.borderWidth = 1.f;
     _phoneTextF.font = Font_14;
     _phoneTextF.keyboardType = UIKeyboardTypeNumberPad;

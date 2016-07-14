@@ -50,13 +50,12 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     [self setupNaviBarWithTitle:@"我"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
-    
     NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
     float folderSize = [self folderSizeAtPath:path];
     NSString *cacheString = @"";
     (folderSize <=0.01f)?(cacheString = @"0M"):(cacheString =[NSString stringWithFormat:@"%.2fM", folderSize]);
     
-    self.view.backgroundColor = rgb(242, 242, 242);
+    self.view.backgroundColor = LRRGBColor(242, 242, 242);
     _imageArrays = [NSArray arrayWithObjects:@"",@"",@"",@"",@"",@"",nil];
     _titArrays = [NSArray arrayWithObjects:@"我的头像",@"我的账号",@"密码",@"通讯地址",@"我的职业",@"清理缓存", nil];
     

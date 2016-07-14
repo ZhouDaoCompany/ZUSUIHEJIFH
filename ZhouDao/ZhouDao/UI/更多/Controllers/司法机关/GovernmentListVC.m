@@ -155,8 +155,8 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     _oneData1SelectedIndex = 0;
     
     _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
-    _jsMenu.indicatorColor = rgb(175, 175, 175);
-    _jsMenu.separatorColor = rgb(210, 210, 210);
+    _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
+    _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
     _jsMenu.textColor = thirdColor;
     _jsMenu.backgroundColor = [UIColor whiteColor];
     _jsMenu.dataSource = self;
