@@ -93,14 +93,14 @@
 }
 
 + (void)showIntrolViewFromView:(UIView *)fromView dataSource:(id)dataSource introViewDoneMode:(SCIntroViewDoneMode)introViewDoneMode {
-    CGRect frame = [UIScreen mainScreen].bounds;
+    CGRect frame = kMainScreenFrameRect;
     SCIntroView *introView = [[self alloc] initWithFrame:frame introViewDoneMode:introViewDoneMode dataSource:dataSource];
     [fromView addSubview:introView];
 }
 
 + (void)showIntrolViewFromView:(UIView *)fromView dataSource:(id)dataSource
      introViewContentImageMode:(SCIntroViewContentImageMode)introViewContentImageMode introViewDoneMode:(SCIntroViewDoneMode)introViewDoneMode {
-    CGRect frame = [UIScreen mainScreen].bounds;
+    CGRect frame = kMainScreenFrameRect;
     SCIntroView *introView = [[self alloc] initWithFrame:frame introViewContentImageMode:introViewContentImageMode introViewDoneMode:introViewDoneMode dataSource:dataSource];
     [fromView addSubview:introView];
     [fromView bringSubviewToFront:introView];
@@ -161,12 +161,13 @@
     switch (self.introViewDoneMode) {
         case SCIntroViewDoneModePanGesture:
         case SCIntroViewDoneModePanGestureWithAnimation:
-            self.scrollView.contentSize = CGSizeMake(self.frame.size.width*(self.contentImages.count+1), self.scrollView.frame.size.height);
+            self.scrollView.contentSize = CGSizeMake(kMainScreenWidth*(self.contentImages.count+1), self.scrollView.frame.size.height);
             break;
         default:
-            self.scrollView.contentSize = CGSizeMake(self.frame.size.width*self.contentImages.count, self.scrollView.frame.size.height);
+            self.scrollView.contentSize = CGSizeMake(kMainScreenWidth*self.contentImages.count, self.scrollView.frame.size.height);
             break;
     }
+    self.scrollView.backgroundColor = [UIColor blackColor];
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
     self.scrollView.bounces = NO;
@@ -215,13 +216,13 @@
         UIImageView *imageview;
         switch (self.introViewContentImageMode) {
             case SCIntroViewContentImageModeCenter:
-                imageview = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width*.1, self.frame.size.height*.1, self.frame.size.width*.8, self.frame.size.width)];
+                imageview = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width*.1, self.frame.size.height*.1, self.frame.size.width*0.8f, self.frame.size.width)];
                 break;
             default:
                 imageview = [[UIImageView alloc] initWithFrame:view.bounds];
                 break;
         }
-        imageview.contentMode = UIViewContentModeScaleAspectFit;
+        imageview.contentMode = UIViewContentModeScaleToFill;
         imageview.image = self.contentImages[i];
         [view addSubview:imageview];
         

@@ -87,9 +87,9 @@
     _listModel = listModel;
     
     if (_indexRow <10) {
-        _indexLabel.text = [NSString stringWithFormat:@"0%ld.",_indexRow];
+        _indexLabel.text = [NSString stringWithFormat:@"0%ld.",(long)_indexRow];
     }else{
-        _indexLabel.text = [NSString stringWithFormat:@"%ld.",_indexRow];
+        _indexLabel.text = [NSString stringWithFormat:@"%ld.",(long)_indexRow];
     }
     
     _titLab.text = _listModel.name;
@@ -202,7 +202,7 @@
 - (void)getMoreEvent:(UIButton *)btn
 {
     NSUInteger index = btn.tag;
-    DLog(@"tag:%ld",index);
+    DLog(@"tag:%ld",(unsigned long)index);
     
     if ([_listModel.type_file isEqualToString:@"2"] && index == 1002) {
         [JKPromptView showWithImageName:nil message:@"文件夹暂不提供下载功能"];

@@ -158,7 +158,7 @@ static float const kCollectionViewCellsHorizonMargin          = 25.f;//每个ite
     
     NSUInteger section = indexPath.section;
     NSUInteger row = indexPath.row;
-    DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",section,row);
+    DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(unsigned long)section,row);
     
     if (section == 0)
     {

@@ -157,7 +157,8 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 //
 //}
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+
     if (_dataSourceArr.count >0) {
         ExampleData *model = _dataSourceArr[indexPath.row];
         ExampleListVC *vc = [ExampleListVC new];

@@ -164,7 +164,7 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
             buttonIndex = idx;
         }
     }];
-    DLog(@"第几个----%ld",buttonIndex);
+    DLog(@"第几个----%ld",(long)buttonIndex);
     NSString *classIndex = [NSString stringWithFormat:@"%ld",buttonIndex + 1];
     [weakSelf.categoryArr replaceObjectAtIndex:section-1 withObject:classIndex];
     NSArray *arr = weakSelf.contentTilArr[buttonIndex];
@@ -426,7 +426,7 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"确定删除吗?" withType:DelType];
     delWindow.DelBlock = ^(){
         
-        DLog(@"section-----%ld",section);
+        DLog(@"section-----%ld",(unsigned long)section);
         [weakSelf.contentArr removeObjectAtIndex:section-1];
         [weakSelf.categoryArr removeObjectAtIndex:section-1];
         [weakSelf.tableView deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];

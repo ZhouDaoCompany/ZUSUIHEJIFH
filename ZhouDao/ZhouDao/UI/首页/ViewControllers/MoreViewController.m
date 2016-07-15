@@ -87,7 +87,7 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
         }];
 
     }else {
-        NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,dailyHistory,_page];
+        NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,dailyHistory,(unsigned long)_page];
         
         [NetWorkMangerTools FocusOnTheHistoryWithUrl:url RequestSuccess:^(NSArray *arrays) {
             
@@ -111,7 +111,7 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
 
     if (_moreType == RecomType) {
         
-        NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,hotspotAll,_page];
+        NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,hotspotAll,(unsigned long)_page];
         [NetWorkMangerTools loadMoreDataHomePage:url RequestSuccess:^(NSArray *arr) {
             
             [weakSelf.dataSourceArrays addObjectsFromArray:arr];
@@ -123,7 +123,7 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
 
     }else {
         
-        NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,dailyHistory,_page];
+        NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,dailyHistory,(unsigned long)_page];
         
         [NetWorkMangerTools FocusOnTheHistoryWithUrl:url RequestSuccess:^(NSArray *arrays) {
             

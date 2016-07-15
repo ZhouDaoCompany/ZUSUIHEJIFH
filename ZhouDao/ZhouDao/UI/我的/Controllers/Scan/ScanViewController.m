@@ -95,7 +95,7 @@
     [scanNetImageView.layer addAnimation:_scanNetAnimation forKey:nil];
     [scanWindow addSubview:_scanNetImageView];
     
-    CGFloat buttonWH = 18;
+    CGFloat buttonWH = 17;
     
     UIButton *topLeft = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWH, buttonWH)];
     [topLeft setImage:[UIImage imageNamed:@"scan_1"] forState:UIControlStateNormal];
@@ -105,7 +105,7 @@
     [topRight setImage:[UIImage imageNamed:@"scan_2"] forState:UIControlStateNormal];
     [scanWindow addSubview:topRight];
     
-    UIButton *bottomLeft = [[UIButton alloc] initWithFrame:CGRectMake(0, scanWindowH - buttonWH + 2.f, buttonWH, buttonWH)];
+    UIButton *bottomLeft = [[UIButton alloc] initWithFrame:CGRectMake(0, scanWindowH - buttonWH +2.5f, buttonWH, buttonWH)];
     [bottomLeft setImage:[UIImage imageNamed:@"scan_3"] forState:UIControlStateNormal];
     [scanWindow addSubview:bottomLeft];
 

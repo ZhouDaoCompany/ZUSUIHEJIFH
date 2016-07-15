@@ -356,7 +356,7 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
     ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"确定删除吗?" withType:DelType];
     delWindow.DelBlock = ^(){
         
-        DLog(@"section-----%ld",section);
+        DLog(@"section-----%ld",(unsigned long)section);
         [weakSelf.textConArr removeObjectAtIndex:section-1];
         [weakSelf.tableView deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];
         [weakSelf.tableView reloadData];

@@ -952,7 +952,7 @@
 + (void)LawsSearchResultKeyWords:(NSString *)keyStr withPage:(NSUInteger)page RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
 {
     [SVProgressHUD show];
-    NSString *url = [NSString stringWithFormat:@"%@%@%@&page=%ld",kProjectBaseUrl,LawsSearchResult,keyStr,page];
+    NSString *url = [NSString stringWithFormat:@"%@%@%@&page=%ld",kProjectBaseUrl,LawsSearchResult,keyStr,(unsigned long)page];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
@@ -1003,7 +1003,7 @@
 + (void)LegalIssuesSelfCheckResult:(NSString *)text withPage:(NSUInteger)page RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
 {
     [SVProgressHUD show];
-    NSString *url = [NSString stringWithFormat:@"%@%@caseDetail=%@&page=%ld",kProjectBaseUrl,ResultInspeList,text,page];
+    NSString *url = [NSString stringWithFormat:@"%@%@caseDetail=%@&page=%ld",kProjectBaseUrl,ResultInspeList,text,(unsigned long)page];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
@@ -1017,10 +1017,12 @@
         NSMutableArray *allArr = [NSMutableArray array];
         [arrays enumerateObjectsUsingBlock:^(NSArray *arr, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            [arr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                CaseModel *model = [[CaseModel alloc] initWithDictionary:obj];
-                [allArr addObject:model];
-            }];
+            if (![arr isEqual:[NSNull null]]) {
+                [arr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    CaseModel *model = [[CaseModel alloc] initWithDictionary:obj];
+                    [allArr addObject:model];
+                }];
+            }
         }];
         success(allArr);
     } fail:^{

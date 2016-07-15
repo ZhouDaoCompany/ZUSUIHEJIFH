@@ -208,6 +208,7 @@
             break;
     }
 }
+#pragma mark -第三方登录
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {

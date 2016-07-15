@@ -214,6 +214,7 @@
 		183CE1A51D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CE1A31D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a */; };
 		183FFCB11D3783F6007D0494 /* HyPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183FFCB01D3783F6007D0494 /* HyPopMenuView.m */; };
 		183FFCB41D378546007D0494 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183FFCB31D378546007D0494 /* ShareView.m */; };
+		1843C5B71D38CD2800414C2E /* ThirdPartyLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843C5B61D38CD2800414C2E /* ThirdPartyLoginView.m */; };
 		18474DB01CCDED3400515CD6 /* EditCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DAF1CCDED3400515CD6 /* EditCaseVC.m */; };
 		18474DB31CCE098300515CD6 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DB21CCE098300515CD6 /* UserData.m */; };
 		184983111D2A0CA7009AF29F /* case_mangeFS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1849830E1D2A0CA7009AF29F /* case_mangeFS@2x.png */; };
@@ -777,6 +778,8 @@
 		183FFCB01D3783F6007D0494 /* HyPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyPopMenuView.m; sourceTree = "<group>"; };
 		183FFCB21D378546007D0494 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
 		183FFCB31D378546007D0494 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
+		1843C5B51D38CD2800414C2E /* ThirdPartyLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdPartyLoginView.h; sourceTree = "<group>"; };
+		1843C5B61D38CD2800414C2E /* ThirdPartyLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdPartyLoginView.m; sourceTree = "<group>"; };
 		18474DAE1CCDED3400515CD6 /* EditCaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCaseVC.h; sourceTree = "<group>"; };
 		18474DAF1CCDED3400515CD6 /* EditCaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCaseVC.m; sourceTree = "<group>"; };
 		18474DB11CCE098300515CD6 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
@@ -2058,6 +2061,15 @@
 			path = UMessage_Sdk_1.3.0;
 			sourceTree = "<group>";
 		};
+		1843C5B41D38CCF700414C2E /* Third-party login */ = {
+			isa = PBXGroup;
+			children = (
+				1843C5B51D38CD2800414C2E /* ThirdPartyLoginView.h */,
+				1843C5B61D38CD2800414C2E /* ThirdPartyLoginView.m */,
+			);
+			path = "Third-party login";
+			sourceTree = "<group>";
+		};
 		1856EC941D18E15400016778 /* 案件财务 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2857,6 +2869,7 @@
 		18FF3F371C8529CA0098C60B /* Toos */ = {
 			isa = PBXGroup;
 			children = (
+				1843C5B41D38CCF700414C2E /* Third-party login */,
 				100982E91D33C7CE00768D9A /* Stretch */,
 				188F9E461CF82077000F9B2D /* SCIntroView */,
 				10C019401CE4C84B0058586A /* ShareView */,
@@ -3621,6 +3634,7 @@
 				1856EC971D18E1A000016778 /* CaseFIViewController.m in Sources */,
 				10BA91AF1CEDEBFE000889A4 /* NewlyCreatedVC.m in Sources */,
 				10E3D5681C9587210004DC2C /* FeedbackViewController.m in Sources */,
+				1843C5B71D38CD2800414C2E /* ThirdPartyLoginView.m in Sources */,
 				18D9D68F1CBCD2CA008F9CC8 /* FilterView.m in Sources */,
 				108323431CAA70A5004B8045 /* ZD_ListView.m in Sources */,
 				104157691C947A6F00EE5303 /* AboutZDVC.m in Sources */,

@@ -157,7 +157,8 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,(long)indexPath.row);
     if ([_dataSourceArr[indexPath.row] isKindOfClass:[TheContractData class]]) {
         TheContractData *model = _dataSourceArr[indexPath.row];

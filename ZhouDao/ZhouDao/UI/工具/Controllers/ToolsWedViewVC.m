@@ -57,14 +57,8 @@
 
     if ([_format isEqualToString:@"jpg"]) {
 
-        _imageview = [[UIImageView alloc] init];
-        [_imageview sd_setImageWithURL:[NSURL URLWithString:_url] placeholderImage:[UIImage imageNamed:@"gov_tupian"]];
-        _scrollview = [[UIScrollView alloc] init];
-        _scrollview.frame = CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64.f);
-        [self.view addSubview:_scrollview];
+        [self.view addSubview:self.scrollview];
         [_scrollview addSubview:self.imageview];
-        _scrollview.delegate = self;
-        _scrollview.clipsToBounds = YES;
         [self adjustFrames];
     }else{
         
@@ -73,14 +67,8 @@
             self.fd_interactivePopDisabled = YES;
         }
         
-        _webView.backgroundColor = [UIColor clearColor];
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
-        _webView.delegate = self;
-        [self.view addSubview:_webView];
-        _webView.dataDetectorTypes = UIDataDetectorTypeNone;
-        _webView.scrollView.showsVerticalScrollIndicator = NO;
-        _webView.scalesPageToFit = NO;//禁止用户缩放页面
-        [_webView setOpaque:NO]; //不设置这个值 页面背景始终是白色
+        
+        [self.view addSubview:self.webView];
         
         if (_tType == FromHotType || _tType == FromRecHDType) {
             
@@ -88,9 +76,7 @@
             [self loadCommonMethod];
 
         }else if (_tType == FromToolsType){
-            
             [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"tools_introduce"];
-            _webView.scrollView.bounces = NO;
             if (_bridge) { return; }
             [_webView loadURL:_url];
             [WebViewJavascriptBridge enableLogging];
@@ -110,11 +96,71 @@
         }else if (_tType == FromEveryType){
             
             [self loadCommonMethod];
-            [self checkLookHistoryAndShare];
+            [self.view addSubview:self.shareImgView];
+            [self.view addSubview:self.historyImgView];
         }
 
     }
     
+}
+#pragma mark - getters and setters
+- (UIScrollView *)scrollview
+{
+    if (!_scrollview) {
+        _scrollview = [[UIScrollView alloc] init];
+        _scrollview.frame = CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64.f);
+        _scrollview.delegate = self;
+        _scrollview.clipsToBounds = YES;
+    }
+    return _scrollview;
+}
+- (UIImageView *)imageview
+{
+    if (_imageview) {
+        _imageview = [[UIImageView alloc] init];
+        [_imageview sd_setImageWithURL:[NSURL URLWithString:_url] placeholderImage:[UIImage imageNamed:@"gov_tupian"]];
+    }
+    return _imageview;
+}
+- (UIWebView *)webView
+{
+    if (!_webView) {
+        _webView.backgroundColor = [UIColor clearColor];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
+        _webView.delegate = self;
+        _webView.dataDetectorTypes = UIDataDetectorTypeNone;
+        _webView.scrollView.showsVerticalScrollIndicator = NO;
+        _webView.scalesPageToFit = NO;//禁止用户缩放页面
+        [_webView setOpaque:NO]; //不设置这个值 页面背景始终是白色
+    }
+    return _webView;
+}
+- (UIImageView *)shareImgView
+{
+    if (!_shareImgView) {WEAKSELF;
+       _shareImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -40.f,32.f, 20, 20)];
+        _shareImgView.image = [UIImage imageNamed:@"template_Share"];
+        _shareImgView.userInteractionEnabled = YES;
+        [_shareImgView whenTapped:^{
+            [weakSelf rightBtnAction];
+        }];
+    }
+    return _shareImgView;
+}
+- (UIImageView *)historyImgView
+{
+    if (!_historyImgView) {WEAKSELF;
+       _historyImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -85.f,32.f, 20, 20)];
+        _historyImgView.image = [UIImage imageNamed:@"everyDay_history"];
+        _historyImgView.userInteractionEnabled = YES;
+        [_historyImgView whenTapped:^{
+            
+            MoreViewController *moreVC = [MoreViewController new];
+            moreVC.moreType = ToolsWebType;
+            [weakSelf.navigationController  pushViewController:moreVC animated:YES];
+        }];
+    }
+    return _historyImgView;
 }
 #pragma mark - private method
 - (void)loadCommonMethod{
@@ -138,33 +184,6 @@
             }
         }];
     }];
-}
-#pragma mark - 历史记录按钮
-- (void)checkLookHistoryAndShare
-{WEAKSELF;
-    UIImageView *addImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -40.f,32.f, 20, 20)];
-    addImgView.image = [UIImage imageNamed:@"template_Share"];
-    addImgView.userInteractionEnabled = YES;
-    _shareImgView = addImgView;
-    [self.view addSubview:_shareImgView];
-    [_shareImgView whenTapped:^{
-        
-        [weakSelf rightBtnAction];
-
-    }];
-    
-    UIImageView *shareImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -85.f,32.f, 20, 20)];
-    shareImgView.image = [UIImage imageNamed:@"everyDay_history"];
-    shareImgView.userInteractionEnabled = YES;
-    _historyImgView = shareImgView;
-    [self.view addSubview:_historyImgView];
-    [_historyImgView whenTapped:^{
-        
-        MoreViewController *moreVC = [MoreViewController new];
-        moreVC.moreType = ToolsWebType;
-        [weakSelf.navigationController  pushViewController:moreVC animated:YES];
-    }];
-
 }
 - (void)testImg:(NSMutableArray *)arr withInte:(NSUInteger)index{
     DLog(@"diaoqi");
