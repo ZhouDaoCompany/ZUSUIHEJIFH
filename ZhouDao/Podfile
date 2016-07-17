@@ -11,8 +11,7 @@ pod 'SDCycleScrollView', '~> 1.62'
 #友盟应用统计 无广告标识符
 #pod 'UMengAnalytics', '~> 3.6.6'
 pod 'UMengAnalytics-NO-IDFA', '~> 4.0.1'
-#底部弹出
-pod 'LCActionSheet', '~> 1.2.0'
+pod 'LCActionSheet', '~> 1.2.3'
  #百度地图SDK
 #pod 'BaiduMapKit'
 #高德地图

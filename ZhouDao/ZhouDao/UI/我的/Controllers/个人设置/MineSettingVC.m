@@ -174,12 +174,14 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
         
     }else if (indexPath.row == 5){
         
-        LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"确定"] redButtonIndex:-1 clicked:^(NSInteger buttonIndex) {
+
+        LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"确定"] redButtonIndex:0 clicked:^(NSInteger buttonIndex) {
             DLog(@"> Block way -> Clicked Index: %ld", (long)buttonIndex);
             if (buttonIndex == 0) {
                 [weakSelf clearApplicationCaChe];
              }
         }];
+        
         [sheet show];
     }
 }
@@ -214,7 +216,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 {
     WEAKSELF;
     
-    LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"退出"] redButtonIndex:-1 clicked:^(NSInteger buttonIndex) {
+    LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"退出"] redButtonIndex:0 clicked:^(NSInteger buttonIndex) {
         DLog(@"> Block way -> Clicked Index: %ld", (long)buttonIndex);
         if (buttonIndex == 0) {
             [USER_D removeObjectForKey:StoragePhone];

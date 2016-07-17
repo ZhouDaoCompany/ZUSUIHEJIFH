@@ -12,6 +12,7 @@
 #import "FindKeyViewController.h"
 #import "NSString+MHCommon.h"
 #import "UMessage.h"
+#import "ThirdPartyLoginView.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *logoImgView;
@@ -21,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *forgetBtn;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (nonatomic , strong) UIButton *registerBtn;//注册按钮
-
+@property (nonatomic, strong) ThirdPartyLoginView * loginView;
 - (IBAction)forgetAndLoginEvent:(id)sender;
 @end
 
@@ -60,10 +61,13 @@
     
     self.registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.registerBtn.backgroundColor = [UIColor clearColor];
-    [self.registerBtn setTitle:@"没有账号，直接注册>>" forState:0];
+    [self.registerBtn setTitle:@"注册账号" forState:0];
     [self.registerBtn setTitleColor:KNavigationBarColor forState:0];
     self.registerBtn.titleLabel.font = Font_14;
-    self.registerBtn.frame = CGRectMake(26, kMainScreenHeight - 55, kMainScreenWidth - 52.f, 40);
+    CGRect registFrame = self.forgetBtn.frame;
+    registFrame.origin.x = Orgin_x(_bottomView) - _bottomView.bounds.size.width;
+    self.registerBtn.frame = registFrame;
+//    self.registerBtn.frame = CGRectMake(26, kMainScreenHeight - 55, kMainScreenWidth - 52.f, 40);
     [self.registerBtn addTarget:self action:@selector(gotoRegister:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.registerBtn];
     
@@ -83,10 +87,32 @@
     self.keyText.delegate = self;
     self.keyText.tag = 3001;
     self.keyText.secureTextEntry = YES;
+    
+    [self.view addSubview:self.loginView];
+    
+}
+#pragma mark -getters and seters
+- (ThirdPartyLoginView *)loginView
+{
+    if (!_loginView) {
+        _loginView = [[ThirdPartyLoginView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 45, kMainScreenWidth, 45)];
+        _loginView.isLook = NO;
+    }
+    return _loginView;
 }
 #pragma mark -手势
 - (void)dismissKeyBoard{
     [self.view endEditing:YES];
+    _loginView.isLook = !_loginView.isLook;
+    if (_loginView.isLook == YES) {
+        [UIView animateWithDuration:0.25f animations:^{
+            _loginView.frame = CGRectMake(0, kMainScreenHeight - 150, kMainScreenWidth, 150);
+        }];
+    }else {
+        [UIView animateWithDuration:0.25f animations:^{
+            _loginView.frame = CGRectMake(0, kMainScreenHeight - 45, kMainScreenWidth, 45);
+        }];
+    }
 }
 - (void)textFieldChanged:(NSNotification*)noti{
     

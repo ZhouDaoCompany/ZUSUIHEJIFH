@@ -10,6 +10,6 @@
 
 @interface ThirdPartyLoginView : UIView
 
-
+@property (nonatomic, assign) BOOL isLook;//是否可见
 - (id)initWithFrame:(CGRect)frame;
 @end

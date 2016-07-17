@@ -34,7 +34,7 @@ PODS:
   - DLWidgetMenu (1.1)
   - FDFullscreenPopGesture (1.1)
   - IQKeyboardManager (3.3.7)
-  - LCActionSheet (1.2.0)
+  - LCActionSheet (1.2.3)
   - MJRefresh (3.1.0)
   - pop (1.0.9)
   - QiniuUpload (1.5):
@@ -58,7 +58,7 @@ DEPENDENCIES:
   - DLWidgetMenu
   - FDFullscreenPopGesture (= 1.1)
   - IQKeyboardManager (~> 3.3.4)
-  - LCActionSheet (~> 1.2.0)
+  - LCActionSheet (~> 1.2.3)
   - MJRefresh (~> 3.1.0)
   - pop (~> 1.0.9)
   - QiniuUpload (~> 1.5)
@@ -80,7 +80,7 @@ SPEC CHECKSUMS:
   DLWidgetMenu: 5e4d0937e02831e34694a0730c599afeb4e6fbcf
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   IQKeyboardManager: 249c3946acf61345c18b038eb50863fe2793e3a8
-  LCActionSheet: 1f5be2b0d663f032973cdd71bf6cad7a041aa18f
+  LCActionSheet: 690882cd8b9a6713f1b2881c3bb2c7f11954d034
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   QiniuUpload: 723b717cff1ac94cbaa36f1276172185dfdde2c7

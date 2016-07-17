@@ -95,7 +95,7 @@
     
     CGColorRef cgColor = [uiColor CGColor];
     
-    int numComponents = CGColorGetNumberOfComponents(cgColor);
+    NSUInteger numComponents = CGColorGetNumberOfComponents(cgColor);
 
     if (numComponents == 4){
         static CGFloat * components = Nil;

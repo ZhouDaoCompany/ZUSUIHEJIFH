@@ -143,7 +143,6 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-
     GovernmentListVC *vc = [GovernmentListVC new];
     GovData *model = _datasourceArr[indexPath.row];
     vc.nameString = model.ctname;

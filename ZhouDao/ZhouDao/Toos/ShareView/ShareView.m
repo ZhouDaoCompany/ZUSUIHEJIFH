@@ -25,7 +25,7 @@
     UIWindow *window;
 }
 @property (nonatomic,copy)    SelectdCompletionBlock block;
-@property (nonatomic,retain)  NSArray *items;
+@property (nonatomic,strong)  NSArray *items;
 @property (nonatomic,strong)  UIView *whiteView;
 @property (nonatomic,strong)  UILabel *headlab;
 @property (nonatomic,strong) NSArray *shareArrays;//分享数组
