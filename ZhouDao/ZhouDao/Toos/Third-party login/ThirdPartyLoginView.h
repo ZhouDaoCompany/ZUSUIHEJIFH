@@ -7,9 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol ThirdPartyLoginPro;
 
 @interface ThirdPartyLoginView : UIView
 
-@property (nonatomic, assign) BOOL isLook;//是否可见
-- (id)initWithFrame:(CGRect)frame;
+
+@property (nonatomic, copy) ZDIndexBlock frameBlock;
+@property (nonatomic, weak)  id<ThirdPartyLoginPro>delegate;
+
+- (id)initWithFrame:(CGRect)frame
+      withPresentVC:(UIViewController *)superVC;
+@end
+
+@protocol ThirdPartyLoginPro <NSObject>
+
+- (void)ThirdPartyLoginSuccess;
 @end

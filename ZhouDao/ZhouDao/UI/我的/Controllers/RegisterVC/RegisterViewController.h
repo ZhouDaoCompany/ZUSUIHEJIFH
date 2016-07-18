@@ -18,14 +18,14 @@ typedef void(^RegisterBlock)(NSString *,NSString *);
 @property (strong, nonatomic)  UITextField *phoneText;
 @property (strong, nonatomic)  UITextField *codeText;
 @property (strong, nonatomic)  UITextField *keyText;
-@property (strong,nonatomic) UILabel *professionalLab;
-@property (strong,nonatomic) UILabel *placeLab;
+@property (strong, nonatomic)  UILabel *professionalLab;
+@property (strong, nonatomic)  UILabel *placeLab;
 
 @property (strong, nonatomic)  JKCountDownButton *getCodeBtn;
 @property (strong, nonatomic)  UIImageView *eyeImgView;
 @property (strong, nonatomic)  UIButton *registerBtn;
 @property (strong, nonatomic)  UIButton *goLoginBtn;
-@property (nonatomic, copy) ZDBlock regiestCloseBlock;
-@property (nonatomic,copy) RegisterBlock successRegisterBlock;
+@property (nonatomic, copy)    ZDBlock regiestCloseBlock;
+@property (nonatomic,copy)     RegisterBlock successRegisterBlock;
 
 @end

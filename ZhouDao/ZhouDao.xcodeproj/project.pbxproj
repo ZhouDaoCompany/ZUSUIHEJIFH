@@ -221,6 +221,7 @@
 		184983121D2A0CA7009AF29F /* case_mangerGW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1849830F1D2A0CA7009AF29F /* case_mangerGW@2x.png */; };
 		184983131D2A0CA7009AF29F /* case_mangeSS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184983101D2A0CA7009AF29F /* case_mangeSS@2x.png */; };
 		184983161D2A0D63009AF29F /* OnlyAddCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 184983151D2A0D63009AF29F /* OnlyAddCaseVC.m */; };
+		18539B391D3CA3A400ADE566 /* BindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18539B381D3CA3A400ADE566 /* BindingViewController.m */; };
 		1856EC971D18E1A000016778 /* CaseFIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856EC961D18E1A000016778 /* CaseFIViewController.m */; };
 		1856F7031C869217003A0C17 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856F7001C869217003A0C17 /* HomeViewController.m */; };
 		1863DFE31C8D2B5B00F7A84E /* GcNoticeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863DFE21C8D2B5B00F7A84E /* GcNoticeUtil.m */; };
@@ -789,6 +790,8 @@
 		184983101D2A0CA7009AF29F /* case_mangeSS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_mangeSS@2x.png"; sourceTree = "<group>"; };
 		184983141D2A0D63009AF29F /* OnlyAddCaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlyAddCaseVC.h; sourceTree = "<group>"; };
 		184983151D2A0D63009AF29F /* OnlyAddCaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnlyAddCaseVC.m; sourceTree = "<group>"; };
+		18539B371D3CA3A400ADE566 /* BindingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindingViewController.h; sourceTree = "<group>"; };
+		18539B381D3CA3A400ADE566 /* BindingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindingViewController.m; sourceTree = "<group>"; };
 		1856EC951D18E1A000016778 /* CaseFIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseFIViewController.h; sourceTree = "<group>"; };
 		1856EC961D18E1A000016778 /* CaseFIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseFIViewController.m; sourceTree = "<group>"; };
 		1856F6FF1C869217003A0C17 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -2567,6 +2570,8 @@
 				18CD01DE1C90206F009DE385 /* LoginViewController.h */,
 				18CD01DF1C90206F009DE385 /* LoginViewController.m */,
 				18CD01E01C90206F009DE385 /* LoginViewController.xib */,
+				18539B371D3CA3A400ADE566 /* BindingViewController.h */,
+				18539B381D3CA3A400ADE566 /* BindingViewController.m */,
 			);
 			path = LoginVC;
 			sourceTree = "<group>";
@@ -3548,6 +3553,7 @@
 				10FA3E231CAD648A005C4C0C /* RemindSoundVCr.m in Sources */,
 				18F878A91D0568150069E68A /* SpeechSynthesizer.m in Sources */,
 				1068EAF51CB3907B00AAADD4 /* PopupView.m in Sources */,
+				18539B391D3CA3A400ADE566 /* BindingViewController.m in Sources */,
 				18C4B05C1CB4BFB500D3CB8B /* TemplateDetailVC.m in Sources */,
 				18230CF51CC7580700F4ACCF /* NewsLawsVC.m in Sources */,
 				18FF3F7B1C85617A0098C60B /* QHCommonUtil.m in Sources */,
@@ -3821,8 +3827,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3845,7 +3851,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "462a9c64-4839-4abb-8053-071f79d96c29";
+				PROVISIONING_PROFILE = "7bb2371a-21bb-448a-9142-b0c43f07d10f";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
@@ -3856,8 +3862,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3880,7 +3886,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "462a9c64-4839-4abb-8053-071f79d96c29";
+				PROVISIONING_PROFILE = "7bb2371a-21bb-448a-9142-b0c43f07d10f";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;

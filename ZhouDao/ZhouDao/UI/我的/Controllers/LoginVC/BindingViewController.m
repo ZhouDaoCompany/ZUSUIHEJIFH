@@ -1,31 +1,49 @@
 //
-//  RegisterViewController.m
+//  BindingViewController.m
 //  ZhouDao
 //
-//  Created by apple on 16/3/10.
+//  Created by apple on 16/7/18.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-#import "RegisterViewController.h"
+#import "BindingViewController.h"
+#import "JKCountDownButton.h"
 #import "ZHPickView.h"
-#import "LoginViewController.h"
 #import "CCPRestSDK.h"
 #import "NSString+MHCommon.h"
-/**
- * 认证
- *  #import "ImmediatelyVC.h"
- */
 
-@interface RegisterViewController ()<UITextFieldDelegate>
+@interface BindingViewController ()<UIScrollViewDelegate,UITextFieldDelegate>
 {
     BOOL _isLook;
     NSString *_typeString;//职业类型
     NSString *_codeStr;//验证码
+
 }
+@property (strong, nonatomic)  UIScrollView *bigScrollView;
+@property (strong, nonatomic)  UIImageView  *iconImgView;
+
+//注册绑定
+@property (strong, nonatomic)  UIView       *bottomView;
+@property (strong, nonatomic)  UITextField  *phoneText;
+@property (strong, nonatomic)  UITextField  *codeText;
+@property (strong, nonatomic)  UITextField  *keyText;
+@property (strong, nonatomic)  UILabel      *professionalLab;
+@property (strong, nonatomic)  UILabel      *placeLab;
+@property (strong, nonatomic)  JKCountDownButton *getCodeBtn;
+@property (strong, nonatomic)  UIImageView *eyeImgView;
+@property (strong, nonatomic)  UIButton    *registerBtn;
+@property (strong, nonatomic)  UILabel     *alertLab1;//已有注册帐号？点击这里
+//登录绑定
+@property (strong, nonatomic)  UIView       *bottomView2;
+@property (strong, nonatomic)  UILabel      *alertLab2;//木有帐号？现在注册绑定
+@property (strong, nonatomic)  UITextField  *loginNameText;
+@property (strong, nonatomic)  UITextField  *loginKeyText;
+@property (strong, nonatomic)  UIButton     *loginBtn;
 
 @end
 
-@implementation RegisterViewController
+@implementation BindingViewController
+#pragma mark - Life cycle
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear: animated];
@@ -33,23 +51,26 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.navigationController.navigationBarHidden = YES;
+    // Do any additional setup after loading the view.
+    
     [self initUI];
 }
-#pragma mark - life cycle
 - (void)initUI
-{
+{WEAKSELF;
+    [self setupNaviBarWithTitle:@"绑定手机号码"];
+    [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
+
+    [self.view addSubview:self.iconImgView];
+    [self.view addSubview:self.bigScrollView];
+    
+    
+    /*************************有注册 注册**************************************/
     _codeStr = @"";
     _typeString = @"9";
-    [self setupNaviBarWithTitle:@"注册"];
-    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Count_close_normal_"];
-    
-    [self.view addSubview:self.logoImgView];
-    [self.view addSubview:self.bottomView ];
+    [self.bigScrollView addSubview:self.bottomView ];
     
     float bottomWith = _bottomView.frame.size.width;
-
+    
     //1
     UIImageView *nameImg  = [[UIImageView alloc] initWithFrame:CGRectMake(10, 9, 18, 21)];
     nameImg.image = [UIImage imageNamed:@"login_name"];
@@ -72,7 +93,7 @@
     UIView *lineView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 80, bottomWith, .5f)];
     lineView2.backgroundColor = LRRGBAColor(215, 215, 215, 1);
     [_bottomView    addSubview:lineView2];
-
+    
     //3
     UIImageView *keyImg  = [[UIImageView alloc] initWithFrame:CGRectMake(10, 89, 18, 21)];
     keyImg.image = [UIImage imageNamed:@"login_key"];
@@ -95,15 +116,32 @@
     [_bottomView   addSubview:self.placeLab];
     
     [_bottomView addSubview:self.professionalLab];
-    
+    [_professionalLab whenTapped:^{
+        [weakSelf dismissKeyBoard];
+        ZHPickView *pickView = [[ZHPickView alloc] init];
+        [pickView setDataViewWithItem:@[@"执业律师",@"实习律师",@"公司法务",@"法律专业学生",@"公务员",@"其他"] title:@"选择职业"];
+        [pickView showPickView:self];
+        pickView.block = ^(NSString *selectedStr,NSString *type)
+        {
+            weakSelf.placeLab.text = @"";
+            weakSelf.professionalLab.text = selectedStr;
+            _typeString = type;
+        };
+    }];
+
     UIImageView *jiantouimg = [[UIImageView alloc] initWithFrame:CGRectMake(_professionalLab.frame.size.width - 24, 10, 9, 15)];
     jiantouimg.userInteractionEnabled = YES;
     jiantouimg.image = [UIImage imageNamed:@"mine_jiantou"];
     [_professionalLab addSubview:jiantouimg];
-
-    [self.view addSubview:self.registerBtn];
-    [self.view addSubview:self.goLoginBtn];
     
+    [self.bigScrollView addSubview:self.registerBtn];
+    [self.bigScrollView addSubview:self.alertLab1];
+    [self.alertLab1 whenTapped:^{
+        [UIView animateWithDuration:.25f animations:^{
+            weakSelf.bigScrollView.contentOffset = CGPointMake(kMainScreenWidth, 0);
+        }];
+    }];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification
@@ -116,13 +154,56 @@
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification
                                                object:self.keyText];
+    
+    /*************************有手机号直接登录**************************************/
+    
+    [self.bigScrollView addSubview:self.bottomView2];
+    [_bottomView2 addSubview:self.loginNameText];
+    [_bottomView2 addSubview:self.loginKeyText];
+    [self.bigScrollView addSubview:self.loginBtn];
+    [self.bigScrollView addSubview:self.alertLab2];
+    [self.alertLab2 whenTapped:^{
+        [UIView animateWithDuration:.25f animations:^{
+            weakSelf.bigScrollView.contentOffset = CGPointMake(0, 0);
+        }];
+    }];
+
+    UIImageView *loginNameImg  = [[UIImageView alloc] initWithFrame:CGRectMake(10, 9, 18, 21)];
+    loginNameImg.image = [UIImage imageNamed:@"login_name"];
+    [_bottomView2    addSubview:loginNameImg];
+    UIView *loglineView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, bottomWith, .5f)];
+    loglineView.backgroundColor = LRRGBAColor(215, 215, 215, 1);
+    [_bottomView2    addSubview:loglineView];
+    UIImageView *logCodeImg  = [[UIImageView alloc] initWithFrame:CGRectMake(10, 55, 18, 21)];
+    logCodeImg.image = kGetImage(@"login_key");
+    [_bottomView2    addSubview:logCodeImg];
 
 }
 #pragma mark - private methods
-#pragma mark - getters and setters
+#pragma mark -getters add setters
+- (UIImageView *)iconImgView
+{
+    if (!_iconImgView) {
+        _iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake((kMainScreenWidth - 74)/2.f, 114, 74, 74)];
+        _iconImgView.image  = kGetImage(@"login_logo");
+    }
+    return _iconImgView;
+}
+- (UIScrollView *)bigScrollView{
+    if (!_bigScrollView) {
+        _bigScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,Orgin_y(_iconImgView) + 20, kMainScreenWidth, kMainScreenHeight - 208)];
+        CGFloat contentX = 2 * [UIScreen mainScreen].bounds.size.width;
+        _bigScrollView.showsVerticalScrollIndicator = NO;
+        _bigScrollView.contentSize = CGSizeMake(contentX, 0);
+        _bigScrollView.pagingEnabled = YES;
+        _bigScrollView.scrollEnabled = NO;
+        _bigScrollView.delegate = self;
+    }
+    return _bigScrollView;
+}
 - (UIView *)bottomView{
     if (!_bottomView) {
-        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(25, 194, kMainScreenWidth -50, 160)];
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(25, 0, kMainScreenWidth -50, 160)];
         _bottomView.backgroundColor = [UIColor whiteColor];
         _bottomView.layer.borderColor = LRRGBAColor(215, 215, 215, 1).CGColor;
         _bottomView.layer.borderWidth = .5f;
@@ -131,21 +212,13 @@
     }
     return _bottomView;
 }
-- (UIImageView *)logoImgView
-{
-    if (!_logoImgView) {
-        _logoImgView = [[UIImageView alloc] initWithFrame:CGRectMake((kMainScreenWidth -74)/2.f, 84, 74, 74)];
-        _logoImgView.image = kGetImage(@"login_logo");
-    }
-    return _logoImgView;
-}
 - (UITextField *)phoneText
 {
     if (!_phoneText) {
         _phoneText = [[UITextField alloc] initWithFrame:CGRectMake(40, 5, _bottomView.frame.size.width -40, 30)];
         _phoneText.borderStyle = UITextBorderStyleNone;
         _phoneText.delegate = self;
-        _phoneText.tag = 3012;
+        _phoneText.tag = 3020;
         _phoneText.font = Font_14;
         _phoneText.placeholder = @"手机号";
         _phoneText.keyboardType = UIKeyboardTypeNumberPad;
@@ -157,7 +230,7 @@
     if (!_codeText) {
         _codeText = [[UITextField alloc] initWithFrame:CGRectMake(40, 45, _bottomView.frame.size.width -140, 30)];
         _codeText.delegate = self;
-        _codeText.tag = 3013;
+        _codeText.tag = 3021;
         _codeText.borderStyle = UITextBorderStyleNone;
         _codeText.placeholder = @"验证码";
         _codeText.font = Font_14;
@@ -183,12 +256,11 @@
     if (!_keyText) {
         _keyText = [[UITextField alloc] initWithFrame:CGRectMake(40, 85, _bottomView.frame.size.width -140, 30)];
         _keyText.delegate = self;
-        _keyText.tag = 3014;
+        _keyText.tag = 3022;
         _keyText.secureTextEntry = YES;
         _keyText.borderStyle = UITextBorderStyleNone;
         _keyText.placeholder = @"密码为6-14位数字和字母组合";
         _keyText.font = Font_14;
-
     }
     return _keyText;
 }
@@ -227,18 +299,6 @@
     if (!_professionalLab) {
         _professionalLab = [[UILabel alloc] initWithFrame:CGRectMake(40, 125, _bottomView.frame.size.width -40, 30)];
         _professionalLab.font = Font_14;
-        [_professionalLab whenTapped:^{
-            [self dismissKeyBoard];
-            ZHPickView *pickView = [[ZHPickView alloc] init];
-            [pickView setDataViewWithItem:@[@"执业律师",@"实习律师",@"公司法务",@"法律专业学生",@"公务员",@"其他"] title:@"选择职业"];
-            [pickView showPickView:self];
-            pickView.block = ^(NSString *selectedStr,NSString *type)
-            {
-                _placeLab.text = @"";
-                _professionalLab.text = selectedStr;
-                _typeString = type;
-            };
-        }];
     }
     return _professionalLab;
 }
@@ -246,37 +306,96 @@
 {
     if (!_registerBtn) {
         _registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _registerBtn.frame = CGRectMake(26, 375, kMainScreenWidth - 52, 40);
+        _registerBtn.frame = CGRectMake(26, Orgin_y(_bottomView) +15, kMainScreenWidth - 52, 40);
         _registerBtn.layer.masksToBounds = YES;
         _registerBtn.layer.cornerRadius = 5.f;
         _registerBtn.backgroundColor  = LRRGBAColor(0, 201, 173, 1);
         [_registerBtn setTitleColor:[UIColor whiteColor] forState:0];
-        [_registerBtn setTitle:@"注册" forState:0];
+        [_registerBtn setTitle:@"注册并绑定" forState:0];
         _registerBtn.titleLabel.font = Font_14;
-        _registerBtn.tag = 3010;
-        [_registerBtn addTarget:self action:@selector(allBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
+        _registerBtn.tag = 3023;
+        [_registerBtn addTarget:self action:@selector(bindingBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _registerBtn;
 }
-- (UIButton *)goLoginBtn
+- (UILabel *)alertLab1
 {
-    if (!_goLoginBtn) {
-        _goLoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _goLoginBtn.frame = CGRectMake(26, 430, kMainScreenWidth - 52, 40);
-        _goLoginBtn.backgroundColor  = [UIColor whiteColor];
-        _goLoginBtn.layer.masksToBounds = YES;
-        _goLoginBtn.layer.cornerRadius = 5.f;
-        _goLoginBtn.layer.borderWidth = 1.f;
-        _goLoginBtn.layer.borderColor = LRRGBAColor(0, 201, 173, 1).CGColor;
-        [_goLoginBtn setTitleColor:LRRGBAColor(0, 201, 173, 1) forState:0];
-        [_goLoginBtn setTitle:@"已有账号，直接登录>" forState:0];
-        _goLoginBtn.titleLabel.font = Font_14;
-        _goLoginBtn.tag = 3011;
-        [_goLoginBtn addTarget:self action:@selector(allBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
-
+    if (!_alertLab1) {
+        _alertLab1 = [[UILabel alloc] initWithFrame:CGRectMake(26, Orgin_y(_registerBtn) + 15, kMainScreenWidth - 52, 30)];
+        _alertLab1.text = @"已有注册帐号？点击这里";
+        _alertLab1.textColor =  LRRGBAColor(103, 215, 195, 1);
+        _alertLab1.backgroundColor = [UIColor clearColor];
+        _alertLab1.textAlignment = NSTextAlignmentCenter;
+        _alertLab1.font = Font_14;
     }
-    return _goLoginBtn;
+    return _alertLab1;
 }
+- (UIView *)bottomView2{
+    if (!_bottomView2) {
+        _bottomView2 = [[UIView alloc] initWithFrame:CGRectMake(25 + kMainScreenWidth, 0, kMainScreenWidth -50, 89)];
+        _bottomView2.backgroundColor = [UIColor whiteColor];
+        _bottomView2.layer.borderColor = LRRGBAColor(215, 215, 215, 1).CGColor;
+        _bottomView2.layer.borderWidth = .5f;
+        _bottomView2.layer.masksToBounds = YES;
+        _bottomView2.layer.cornerRadius = 5.f;
+    }
+    return _bottomView2;
+}
+- (UITextField *)loginNameText
+{
+    if (!_loginNameText) {
+        _loginNameText = [[UITextField alloc] initWithFrame:CGRectMake(40, 6, _bottomView2.frame.size.width -40, 30)];
+        _loginNameText.borderStyle = UITextBorderStyleNone;
+        _loginNameText.delegate = self;
+        _loginNameText.tag = 3024;
+        _loginNameText.font = Font_14;
+        _loginNameText.placeholder = @"手机号";
+        _loginNameText.keyboardType = UIKeyboardTypeNumberPad;
+    }
+    return _loginNameText;
+}
+- (UITextField *)loginKeyText
+{
+    if (!_loginKeyText) {
+        _loginKeyText = [[UITextField alloc] initWithFrame:CGRectMake(40, 50, _bottomView2.frame.size.width -40, 30)];
+        _loginKeyText.borderStyle = UITextBorderStyleNone;
+        _loginKeyText.delegate = self;
+        _loginKeyText.tag = 3025;
+        _loginKeyText.font = Font_14;
+        _loginKeyText.placeholder = @"密码";
+    }
+    return _loginKeyText;
+}
+- (UIButton *)loginBtn
+{
+    if (!_loginBtn) {
+        _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _loginBtn.frame = CGRectMake(26 + kMainScreenWidth, Orgin_y(_bottomView2) +15, kMainScreenWidth - 52, 40);
+        _loginBtn.layer.masksToBounds = YES;
+        _loginBtn.layer.cornerRadius = 5.f;
+        _loginBtn.backgroundColor  = LRRGBAColor(0, 201, 173, 1);
+        [_loginBtn setTitleColor:[UIColor whiteColor] forState:0];
+        [_loginBtn setTitle:@"登录并绑定" forState:0];
+        _loginBtn.titleLabel.font = Font_14;
+        _loginBtn.tag = 3026;
+        [_loginBtn addTarget:self action:@selector(bindingBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _loginBtn;
+}
+- (UILabel *)alertLab2
+{
+    if (!_alertLab2) {
+        _alertLab2 = [[UILabel alloc] initWithFrame:CGRectMake(26 + kMainScreenWidth, Orgin_y(_loginBtn) + 15, kMainScreenWidth - 52, 30)];
+        _alertLab2.text = @"木有帐号？现在注册绑定";
+        _alertLab2.textColor =  LRRGBAColor(103, 215, 195, 1);
+        _alertLab2.backgroundColor = [UIColor clearColor];
+        _alertLab2.textAlignment = NSTextAlignmentCenter;
+        _alertLab2.font = Font_14;
+    }
+    return _alertLab2;
+}
+
+
 - (void)textFieldChanged:(NSNotification*)noti{
     
     UITextField *textField = (UITextField *)noti.object;
@@ -284,7 +403,7 @@
     if (flag){
         textField.text = [NSString disable_emoji:textField.text];
     }
-    if (textField.tag == 3012) {
+    if (textField.tag == 3020) {
         if (textField.text.length >11) {
             textField.text = [textField.text substringToIndex:11 ];
         }
@@ -299,74 +418,16 @@
 {
     return YES;
 }
-
-#pragma mark -UIButtonEvent
-- (void)allBtnEvent:(id)sender
+#pragma mark - event response
+- (void)bindingBtnEvent:(UIButton *)sender
 {
-    UIButton *btn = (UIButton *)sender;
-    NSUInteger index = btn.tag;
-    switch (index) {
-        case 3009:
-        {//发送验证码
-            
-            if (_phoneText.text.length == 11  && [QZManager isPureInt:_phoneText.text] == YES)
-            {
-                [NetWorkMangerTools validationPhoneNumber:_phoneText.text RequestSuccess:^{
-                    
-                    [self timerInit:sender];
-                    CCPRestSDK* ccpRestSdk = [[CCPRestSDK alloc] initWithServerIP:YTXSEVERIP andserverPort:YTXPORT];
-                    [ccpRestSdk setApp_ID:YTXAPPID];
-                    [ccpRestSdk enableLog:YES];
-                    [ccpRestSdk setAccountWithAccountSid: YTXACCOUNSID andAccountToken:YTXAUTHTOKEN];
-                    _codeStr = [QZManager getSixEvent];
-                    NSArray*  arr = [NSArray arrayWithObjects:_codeStr,@"验证码" ,nil];
-                    [ccpRestSdk sendTemplateSMSWithTo:_phoneText.text andTemplateId:YTXTEMPLATE andDatas:arr];
-//                    DLog(@"打印出来－－－%@",[NSString stringWithFormat:@"%@",dict]);
-                }];
-            }
-
-            
-        }
-            break;
-        case 3010:
-        {
-            [self loadRegisterData];
-        }
-            break;
-        case 3011:
-        {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-            break;
-
-        default:
-            break;
-    }
+    NSInteger tag = sender.tag;
     
-}
-#pragma mark - timer相关
-- (void)timerInit:(id)sender
-{
-    JKCountDownButton *btn = (JKCountDownButton *)sender;
-    btn.enabled = NO;
-    [sender startCountDownWithSecond:60];
-    [sender countDownChanging:^NSString *(JKCountDownButton *countDownButton,NSUInteger second) {
-        NSString *title = [NSString stringWithFormat:@"%zd秒",second];
-        return title;
-    }];
-    [sender countDownFinished:^NSString *(JKCountDownButton *countDownButton, NSUInteger second) {
-        countDownButton.enabled = YES;
-        return @"重新获取";
-    }];
-}
-
-#pragma mark -UIButtonEvent
-- (void)rightBtnAction
-{
-    LoginViewController *loginVC = self.navigationController.viewControllers[0];
-    loginVC.closeBlock();
-    [self dismissViewControllerAnimated:YES completion:^{
-    }];
+    if (tag == 3023) {
+        
+    }else {//3026
+        
+    }
 }
 #pragma mark -手势
 - (void)dismissKeyBoard{
@@ -376,84 +437,7 @@
 {
     [self dismissKeyBoard];
 }
-#pragma mark -注册请求
-- (void)loadRegisterData
-{
-    WEAKSELF;
-    if (_phoneText.text.length<=0) {
-        [JKPromptView showWithImageName:nil message:@"请您检查手机号码是否填写"];
-        return;
-    }else if (_keyText.text.length <=0){
-        [JKPromptView showWithImageName:nil message:@"请您检查密码是否填写"];
-        return;
-    }else if(_codeText.text.length <=0){
-        [JKPromptView showWithImageName:nil message:@"请您检查验证码是否填写"];
-        return;
-    }else if(![_codeText.text isEqualToString:_codeStr]){
-        [JKPromptView showWithImageName:nil message:@"验证码不正确"];
-        return;
-    }else if (_professionalLab.text.length <=0){
-        [JKPromptView showWithImageName:nil message:@"请您检查职业是否选择"];
-        return;
-    }else if ([QZManager isValidatePassword:_keyText.text] == NO)
-    {
-        [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合，请您仔细检查"];
-        return;
-    }else if ([QZManager isIncludeSpecialCharact:_keyText.text]){
-        [JKPromptView showWithImageName:nil message:@"密码中包含非法字符，请您检查"];
-        return;
-    }
-    
-    [SVProgressHUD show];
-    UIDevice *device = [UIDevice currentDevice];
-    NSString *deviceUDID = [NSString stringWithFormat:@"%@",device.identifierForVendor];
-    DLog(@"输出设备的id---%@",deviceUDID);
 
-    NSString *regiserUrl = [NSString stringWithFormat:@"%@%@mobile=%@&pw=%@&type=%@&udid=%@",kProjectBaseUrl,RegisterUrlString,_phoneText.text,[_keyText.text md5],_typeString,deviceUDID];
-    [ZhouDao_NetWorkManger GetJSONWithUrl:regiserUrl success:^(NSDictionary *jsonDic) {
-        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
-        NSString *msg = jsonDic[@"info"];
-        if (errorcode !=1) {
-            [SVProgressHUD showErrorWithStatus:msg];
-            return ;
-        }
-        [SVProgressHUD showSuccessWithStatus:msg];
-//        self.successRegisterBlock(_phoneText.text,_keyText.text);
-        [weakSelf loginMethod];
-        
-        /*****************立即认证*******************************/
-//        if ([_professionalLab.text isEqualToString:@"执业律师"]) {
-//            ImmediatelyVC *vc = [ImmediatelyVC new];
-//            vc.cerType = FromRegister;
-//            [weakSelf.navigationController pushViewController:vc animated:YES];
-//        }else{
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
-//        }
-    } fail:^{
-        [SVProgressHUD showErrorWithStatus:AlrertMsg];
-    }];
-    
-}
-- (void)loginMethod
-{
-    NSString *loginurl = [NSString stringWithFormat:@"%@%@mobile=%@&pw=%@",kProjectBaseUrl,LoginUrlString,_phoneText.text,[_keyText.text md5]];
-    [ZhouDao_NetWorkManger GetJSONWithUrl:loginurl success:^(NSDictionary *jsonDic) {
-        
-        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
-        NSString *msg = jsonDic[@"info"];
-        if (errorcode !=1) {
-            [JKPromptView showWithImageName:nil message:msg];
-            return ;
-        }
-        [USER_D setObject:_phoneText.text forKey:StoragePhone];
-        [USER_D setObject:[_keyText.text md5] forKey:StoragePassword];
-        [USER_D synchronize];
-        UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
-        [PublicFunction ShareInstance].m_user = model;
-        [PublicFunction ShareInstance].m_bLogin = YES;
-    } fail:^{
-    }];
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

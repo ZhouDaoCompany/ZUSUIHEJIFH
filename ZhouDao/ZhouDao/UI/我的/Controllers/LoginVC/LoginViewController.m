@@ -13,8 +13,9 @@
 #import "NSString+MHCommon.h"
 #import "UMessage.h"
 #import "ThirdPartyLoginView.h"
+#import "BindingViewController.h"
 
-@interface LoginViewController ()<UITextFieldDelegate>
+@interface LoginViewController ()<UITextFieldDelegate,ThirdPartyLoginPro>
 @property (weak, nonatomic) IBOutlet UIImageView *logoImgView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
@@ -30,7 +31,7 @@
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +43,7 @@
 }
 - (void)initUI{
     [self setupNaviBarWithTitle:@"登录"];
-    [self setupNaviBarWithBtn:NaviRightBtn title:@"关闭" img:nil];
+    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Count_close_normal_"];
     
     self.bottomView.layer.masksToBounds = YES;
     self.bottomView.layer.cornerRadius = 5.f;
@@ -62,7 +63,7 @@
     self.registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.registerBtn.backgroundColor = [UIColor clearColor];
     [self.registerBtn setTitle:@"注册账号" forState:0];
-    [self.registerBtn setTitleColor:KNavigationBarColor forState:0];
+    [self.registerBtn setTitleColor:LRRGBAColor(103, 215, 195, 1) forState:0];
     self.registerBtn.titleLabel.font = Font_14;
     CGRect registFrame = self.forgetBtn.frame;
     registFrame.origin.x = Orgin_x(_bottomView) - _bottomView.bounds.size.width;
@@ -94,25 +95,32 @@
 #pragma mark -getters and seters
 - (ThirdPartyLoginView *)loginView
 {
-    if (!_loginView) {
-        _loginView = [[ThirdPartyLoginView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 45, kMainScreenWidth, 45)];
-        _loginView.isLook = NO;
+    if (!_loginView) {WEAKSELF;
+        _loginView = [[ThirdPartyLoginView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 40, kMainScreenWidth, 40) withPresentVC:self];
+        _loginView.delegate = self;
+        _loginView.frameBlock = ^(NSInteger index){
+            if (index == 1) {
+                [UIView animateWithDuration:0.25f animations:^{
+                    weakSelf.loginView.frame = CGRectMake(0, kMainScreenHeight - 130, kMainScreenWidth, 130);
+                }];
+            }else {
+                [UIView animateWithDuration:0.25f animations:^{
+                    weakSelf.loginView.frame = CGRectMake(0, kMainScreenHeight - 40, kMainScreenWidth, 40);
+                }];
+            }
+        };
     }
     return _loginView;
+}
+#pragma mark -ThirdPartyLoginPro
+- (void)ThirdPartyLoginSuccess
+{
+    BindingViewController *bindVC = [BindingViewController new];
+    [self.navigationController pushViewController:bindVC animated:YES];
 }
 #pragma mark -手势
 - (void)dismissKeyBoard{
     [self.view endEditing:YES];
-    _loginView.isLook = !_loginView.isLook;
-    if (_loginView.isLook == YES) {
-        [UIView animateWithDuration:0.25f animations:^{
-            _loginView.frame = CGRectMake(0, kMainScreenHeight - 150, kMainScreenWidth, 150);
-        }];
-    }else {
-        [UIView animateWithDuration:0.25f animations:^{
-            _loginView.frame = CGRectMake(0, kMainScreenHeight - 45, kMainScreenWidth, 45);
-        }];
-    }
 }
 - (void)textFieldChanged:(NSNotification*)noti{
     
