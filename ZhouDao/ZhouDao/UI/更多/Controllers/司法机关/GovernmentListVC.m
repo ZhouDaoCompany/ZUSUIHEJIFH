@@ -157,7 +157,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         _tableView.delegate = self;
         _tableView.backgroundColor = [UIColor clearColor];
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerNib:[UINib nibWithNibName:@"GovListCell" bundle:nil] forCellReuseIdentifier:JudicialIdentifier];
+        [_tableView registerClass:[GovListCell class] forCellReuseIdentifier:JudicialIdentifier];
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
         _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
     }

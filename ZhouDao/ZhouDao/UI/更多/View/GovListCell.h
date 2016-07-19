@@ -11,10 +11,10 @@
 
 @interface GovListCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *telLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *organImage;
-@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (strong, nonatomic)  UILabel *nameLabel;
+@property (strong, nonatomic)  UILabel *telLabel;
+@property (strong, nonatomic)  UIImageView *organImage;
+@property (strong, nonatomic)  UILabel *addressLabel;
 
 @property (nonatomic, strong) GovListmodel *listModel;
 

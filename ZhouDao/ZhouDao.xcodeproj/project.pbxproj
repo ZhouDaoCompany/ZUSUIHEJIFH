@@ -243,7 +243,6 @@
 		187DB8BF1CDC6310009CF1D6 /* gov_tupian@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187DB8BE1CDC6310009CF1D6 /* gov_tupian@2x.png */; };
 		187DB92E1CDC6B33009CF1D6 /* GovernmentListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DB92D1CDC6B33009CF1D6 /* GovernmentListVC.m */; };
 		187DB9441CDC706F009CF1D6 /* GovListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DB9421CDC706F009CF1D6 /* GovListCell.m */; };
-		187DB9451CDC706F009CF1D6 /* GovListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187DB9431CDC706F009CF1D6 /* GovListCell.xib */; };
 		187DB94A1CDC803C009CF1D6 /* GovClassData.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DB9471CDC803C009CF1D6 /* GovClassData.m */; };
 		187DB94B1CDC803C009CF1D6 /* GovClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DB9491CDC803C009CF1D6 /* GovClassModel.m */; };
 		187DB9501CDC9BA5009CF1D6 /* JSDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 187DB94F1CDC9BA5009CF1D6 /* JSDropDownMenu.m */; };
@@ -831,7 +830,6 @@
 		187DB92D1CDC6B33009CF1D6 /* GovernmentListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GovernmentListVC.m; sourceTree = "<group>"; };
 		187DB9411CDC706F009CF1D6 /* GovListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GovListCell.h; sourceTree = "<group>"; };
 		187DB9421CDC706F009CF1D6 /* GovListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GovListCell.m; sourceTree = "<group>"; };
-		187DB9431CDC706F009CF1D6 /* GovListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GovListCell.xib; sourceTree = "<group>"; };
 		187DB9461CDC803C009CF1D6 /* GovClassData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GovClassData.h; sourceTree = "<group>"; };
 		187DB9471CDC803C009CF1D6 /* GovClassData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GovClassData.m; sourceTree = "<group>"; };
 		187DB9481CDC803C009CF1D6 /* GovClassModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GovClassModel.h; sourceTree = "<group>"; };
@@ -1825,7 +1823,6 @@
 				10D31D7A1CDEE92C008D6F42 /* GovDetailCell.xib */,
 				187DB9411CDC706F009CF1D6 /* GovListCell.h */,
 				187DB9421CDC706F009CF1D6 /* GovListCell.m */,
-				187DB9431CDC706F009CF1D6 /* GovListCell.xib */,
 				10C01AF81CA7F01A0000EF7A /* LawsTableViewCell.h */,
 				10C01AF91CA7F01A0000EF7A /* LawsTableViewCell.m */,
 				10C01AFA1CA7F01A0000EF7A /* LawsTableViewCell.xib */,
@@ -3263,7 +3260,6 @@
 				108DC01F1C9FA38E00FD1221 /* backVC@2x.png in Resources */,
 				18CB0F0E1CBF77E6009C41CE /* Esearch_jiantou@2x.png in Resources */,
 				18FD83341CBB858F00D50E20 /* case_look@2x.png in Resources */,
-				187DB9451CDC706F009CF1D6 /* GovListCell.xib in Resources */,
 				181BA40F1CE598B600A29E2E /* share_platform_qqfriends@2x.png in Resources */,
 				187DB8BF1CDC6310009CF1D6 /* gov_tupian@2x.png in Resources */,
 				187349DC1D2F4F96001A3E91 /* scan_2@2x.png in Resources */,

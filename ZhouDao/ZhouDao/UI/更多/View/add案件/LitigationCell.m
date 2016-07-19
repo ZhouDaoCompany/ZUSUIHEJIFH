@@ -18,15 +18,16 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         
-        [self titleLab];
-        [self deviceLabel];
-        [self textField];
-        
+        [self.contentView addSubview:self.titleLab];
+        [self.contentView addSubview:self.deviceLabel];
+        [self.contentView addSubview:self.textField];
+        [self.contentView addSubview:self.imgview1];
+
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 49.4f, kMainScreenWidth-15.f, .6f)];
         lineView.backgroundColor = [UIColor colorWithHexString:@"#D4D4D4"];//lineColor;
         [self.contentView addSubview:lineView];
         
-        [self imgview1];
+
         
     }
     return self;
@@ -39,7 +40,6 @@
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.font = Font_15;
         _titleLab.textColor = thirdColor;
-        [self.contentView addSubview:_titleLab];
     }
     return _titleLab;
 }
@@ -51,7 +51,6 @@
         _deviceLabel.textAlignment = NSTextAlignmentRight;
         _deviceLabel.font = Font_14;
        _deviceLabel.textColor = thirdColor;
-        [self.contentView addSubview:_deviceLabel];
     }
     return _deviceLabel;
 }
@@ -66,7 +65,6 @@
         self.textField.font = Font_14;
         //        [self.textField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
         //        [self.textField setValue:[UIFont  systemFontOfSize:9] forKeyPath:@"_placeholderLabel.font"];
-        [self.contentView addSubview:self.textField];
     }
     return _textField;
 }
@@ -76,7 +74,6 @@
         _imgview1 = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth-21, 20, 6, 10)];
         _imgview1.image = [UIImage imageNamed:@"Esearch_jiantou"];
         _imgview1.userInteractionEnabled = YES;
-        [self.contentView addSubview:_imgview1];
     }
     
     return _imgview1;
