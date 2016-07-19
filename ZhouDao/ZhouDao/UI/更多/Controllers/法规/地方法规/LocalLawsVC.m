@@ -78,9 +78,10 @@ static NSString *const LocalCellIdentifier = @"LocalCellIdentifier";
 #pragma mark ------ 下拉刷新
 - (void)upRefresh:(id)sender
 {WEAKSELF;
-    [self.dataArrays removeAllObjects];
      _page = 0;
     [NetWorkMangerTools lawsNewsListWithUrl:AreaLawsList withPage:_page witheff:_city withTime:_time RequestSuccess:^(NSArray *arr) {
+        
+        [weakSelf.dataArrays removeAllObjects];
         
         [_dataArrays addObjectsFromArray:arr];
         [weakSelf.tableView reloadData];
@@ -99,7 +100,8 @@ static NSString *const LocalCellIdentifier = @"LocalCellIdentifier";
 {WEAKSELF;
     [SVProgressHUD show];
     [NetWorkMangerTools lawsNewsListWithUrl:AreaLawsList withPage:_page witheff:_city withTime:_time RequestSuccess:^(NSArray *arr) {
-        [_dataArrays addObjectsFromArray:arr];
+        
+        [weakSelf.dataArrays addObjectsFromArray:arr];
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_footer endRefreshing];
         _page ++;
@@ -134,19 +136,22 @@ static NSString *const LocalCellIdentifier = @"LocalCellIdentifier";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    LawsDataModel *model = _dataArrays[indexPath.row];
-    TaskModel *tmodel = [TaskModel new];
-    [NetWorkMangerTools lawsDetailData:model.id RequestSuccess:^(id obj) {
-        LawDetailModel *tempModel = (LawDetailModel *)obj;
-        tmodel.idString =tempModel.id;
-        tmodel.name = model.name;
-        tmodel.content = tempModel.content;
-        tmodel.is_collection = [NSString stringWithFormat:@"%@",tempModel.is_collection];
-        ContentViewController *vc = [ContentViewController new];
-        vc.dType = lawsType;
-        vc.model = tmodel;
-        [self.navigationController pushViewController:vc animated:YES];
-    }];
+    if (_dataArrays.count >0) {
+        LawsDataModel *model = _dataArrays[indexPath.row];
+        TaskModel *tmodel = [TaskModel new];
+        [NetWorkMangerTools lawsDetailData:model.id RequestSuccess:^(id obj) {
+            
+            LawDetailModel *tempModel = (LawDetailModel *)obj;
+            tmodel.idString =tempModel.id;
+            tmodel.name = model.name;
+            tmodel.content = tempModel.content;
+            tmodel.is_collection = [NSString stringWithFormat:@"%@",tempModel.is_collection];
+            ContentViewController *vc = [ContentViewController new];
+            vc.dType = lawsType;
+            vc.model = tmodel;
+            [self.navigationController pushViewController:vc animated:YES];
+        }];
+    }
 }
 
 #pragma mark -JSDropDownMenuDataSource
@@ -235,9 +240,10 @@ static NSString *const LocalCellIdentifier = @"LocalCellIdentifier";
 - (void)didSelectRowMenu{
     WEAKSELF;
      _page = 0;
-    [_dataArrays removeAllObjects];
     [NetWorkMangerTools lawsNewsListWithUrl:AreaLawsList withPage:_page witheff:_city withTime:_time RequestSuccess:^(NSArray *arr) {
-        [_dataArrays addObjectsFromArray:arr];
+        
+        [weakSelf.dataArrays removeAllObjects];
+        [weakSelf.dataArrays addObjectsFromArray:arr];
         if (arr.count==0) {
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
         }

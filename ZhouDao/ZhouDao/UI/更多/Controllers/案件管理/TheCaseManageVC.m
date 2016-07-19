@@ -62,8 +62,10 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
 - (void)initUI{
     
     if (_type == FromMineType) {
+        
         [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     }else{
+        
         [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
         //假的截屏
         _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];
@@ -104,12 +106,13 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
     WEAKSELF;
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
-        [weakSelf.dataSourceArr removeAllObjects];
         [weakSelf.collectionView.mj_header endRefreshing];
         _page = 0;
         _searchField.text = @"";
         [SVProgressHUD show];
         [NetWorkMangerTools arrangeListWithPage:_page RequestSuccess:^(NSArray *arr) {
+            
+            [weakSelf.dataSourceArr removeAllObjects];
             [weakSelf.dataSourceArr addObjectsFromArray:arr];
             [weakSelf.collectionView reloadData];
             [weakSelf.collectionView.mj_footer endRefreshing];
@@ -406,9 +409,9 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
     }
     [self dismissKeyBoard];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&content=%@",kProjectBaseUrl,arrangeSearch,UID,_searchField.text];
-    [_searchDataArr removeAllObjects];
     [NetWorkMangerTools arrangeSearchUrl:url RequestSuccess:^(NSArray *arr) {
         
+        [weakSelf.searchDataArr removeAllObjects];
         [weakSelf.searchDataArr addObjectsFromArray:arr];
         [weakSelf.collectionView reloadData];
         [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];

@@ -75,6 +75,7 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
         
         NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,hotspotAll,(unsigned long)_page];
         [NetWorkMangerTools loadMoreDataHomePage:url RequestSuccess:^(NSArray *arr) {
+            
             [weakSelf.dataSourceArrays removeAllObjects];
             [weakSelf.dataSourceArrays addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];

@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingTabCell : UITableViewCell
+
 @property (strong, nonatomic)  UILabel *nameLab;
 @property (strong, nonatomic) UILabel *addresslab;
-@property (assign, nonatomic) NSUInteger row;
+@property (assign, nonatomic) NSInteger row;
+@property (assign, nonatomic) NSInteger section;
 @property (nonatomic, strong) UIImageView *headImg;
+@property (strong, nonatomic) UISwitch *switchButton;
 
+- (void)settingUI;
 @end

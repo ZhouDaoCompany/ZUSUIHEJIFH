@@ -58,8 +58,9 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 }
 - (void)loadListViewData
 {WEAKSELF;
-    [self.tableData removeAllObjects];
     [NetWorkMangerTools arrangeFileListWithType:_pid withCid:_caseId RequestSuccess:^(NSArray *arr) {
+        
+        [weakSelf.tableData removeAllObjects];
         [weakSelf.tableData addObjectsFromArray:arr];
         [weakSelf.tableView reloadData];
     }];

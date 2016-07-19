@@ -160,7 +160,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     [NetWorkMangerTools homeViewAllDataRequestSuccess:^(NSArray *hdArr, NSArray *hotArr) {
         
         [weakSelf.dataSourceArrays removeAllObjects];
-        [_dataSourceArrays addObjectsFromArray:hotArr];
+        [weakSelf.dataSourceArrays addObjectsFromArray:hotArr];
         [weakSelf.headView setDataArrays:hdArr];
         [weakSelf.tableView reloadData];
     } fail:^{
@@ -173,7 +173,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         
         [weakSelf.dataSourceArrays removeAllObjects];
         [weakSelf.headView setDataArrays:hdArr];
-        [_dataSourceArrays addObjectsFromArray:hotArr];
+        [weakSelf.dataSourceArrays addObjectsFromArray:hotArr];
         [weakSelf.tableView reloadData];
     }];
 }

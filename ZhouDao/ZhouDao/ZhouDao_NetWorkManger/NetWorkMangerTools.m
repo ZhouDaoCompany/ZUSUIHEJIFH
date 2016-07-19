@@ -767,9 +767,7 @@
             }
             NSDictionary *classDic = [NSDictionary dictionaryWithObjectsAndKeys:@"",@"classid",@"全部",@"ctname",@"",@"id",@"",@"pic",@"",@"pid",@"",@"sorting", nil];
             GovClassData *dataModel = [[GovClassData alloc] initWithDictionary:classDic];
-            
             [model.data insertObject:dataModel atIndex:0];
-            
             [allArr addObject:model];
         }];
         success(allArr,index);
@@ -1018,6 +1016,7 @@
         [arrays enumerateObjectsUsingBlock:^(NSArray *arr, NSUInteger idx, BOOL * _Nonnull stop) {
             
             if (![arr isEqual:[NSNull null]]) {
+                
                 [arr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     CaseModel *model = [[CaseModel alloc] initWithDictionary:obj];
                     [allArr addObject:model];

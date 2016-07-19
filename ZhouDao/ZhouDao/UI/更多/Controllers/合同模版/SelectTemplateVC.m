@@ -100,11 +100,13 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
 - (void)upRefresh:(id)sender
 {
     WEAKSELF;
-    [_dataSourceArr removeAllObjects];
     _page = 0;
     [NetWorkMangerTools theContractListView:_cidString withscid:_scid withPage:_page withOrid:_orid RequestSuccess:^(NSArray *arrays) {
+        
         _page ++;
-        [_dataSourceArr addObjectsFromArray:arrays];
+        [weakSelf.dataSourceArr removeAllObjects];
+
+        [weakSelf.dataSourceArr addObjectsFromArray:arrays];
         [weakSelf.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
         [weakSelf.tableView.mj_footer endRefreshing];
@@ -218,10 +220,11 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
         _classCurrent = indexPath.row;
         _page = 0;
         _cidString = _cidArrays[indexPath.row];
-        [_dataSourceArr removeAllObjects];
         [NetWorkMangerTools theContractListView:_cidString withscid:_scid withPage:_page withOrid:_orid RequestSuccess:^(NSArray *arrays) {
             _page ++;
-            [_dataSourceArr addObjectsFromArray:arrays];
+            [weakSelf.dataSourceArr removeAllObjects];
+
+            [weakSelf.dataSourceArr addObjectsFromArray:arrays];
             [weakSelf.tableView reloadData];
         } fail:^{
             [weakSelf.tableView reloadData];
@@ -230,10 +233,11 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
         _sortCurrent = indexPath.row;
         _orid = [NSString stringWithFormat:@"%d",(int)indexPath.row+1];
         _page = 0;
-        [_dataSourceArr removeAllObjects];
         [NetWorkMangerTools theContractListView:_cidString withscid:_scid withPage:_page withOrid:_orid RequestSuccess:^(NSArray *arrays) {
+            
             _page ++;
-            [_dataSourceArr addObjectsFromArray:arrays];
+            [weakSelf.dataSourceArr removeAllObjects];
+            [weakSelf.dataSourceArr addObjectsFromArray:arrays];
             [weakSelf.tableView reloadData];
         } fail:^{
             [weakSelf.tableView reloadData];

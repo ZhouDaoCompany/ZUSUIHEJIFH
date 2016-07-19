@@ -47,34 +47,52 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
      */
     [self getData];
     
-    _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
-    _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
-    _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
-    _jsMenu.textColor = thirdColor;
-    _jsMenu.dataSource = self;
-    _jsMenu.delegate = self;
-    [self.view addSubview:_jsMenu];
+    [self.view addSubview:self.jsMenu];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(_jsMenu), kMainScreenWidth, .6f)];
     lineView.backgroundColor = lineColor;
     [self.view addSubview:lineView];
     
     _dataArrays = [NSMutableArray array];
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,104.6f, kMainScreenWidth, kMainScreenHeight-104.6f) style:UITableViewStylePlain];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [self.view addSubview:_tableView];
-    [self.tableView registerNib:[UINib nibWithNibName:@"TwoCompensationCell" bundle:nil] forCellReuseIdentifier:TwoCompensationID];
+    [self.view addSubview:self.tableView];
+    
     [self loadData:_cityString withYear:_yearString];
 }
+#pragma mark - private methods
+#pragma mark - setters and getters
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,104.6f, kMainScreenWidth, kMainScreenHeight-104.6f) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView registerNib:[UINib nibWithNibName:@"TwoCompensationCell" bundle:nil] forCellReuseIdentifier:TwoCompensationID];
+    }
+    return _tableView;
+}
+- (JSDropDownMenu *)jsMenu
+{
+    if (!_jsMenu) {
+        _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
+        _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
+        _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
+        _jsMenu.textColor = thirdColor;
+        _jsMenu.dataSource = self;
+        _jsMenu.delegate = self;
+    }
+    return _jsMenu;
+}
+
+
 - (void)loadData:(NSString *)city withYear:(NSString *)year
 {
-    [_dataArrays removeAllObjects];
     WEAKSELF;
     [NetWorkMangerTools getcompensationList:_classId withCity:city withYear:year RequestSuccess:^(NSArray *arrays) {
+        
+        [weakSelf.dataArrays removeAllObjects];
         [weakSelf.dataArrays addObjectsFromArray:arrays];
         [weakSelf.tableView reloadData];
     } fail:^{
@@ -142,6 +160,7 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
     
     WEAKSELF;
     [NetWorkMangerTools getcompensationDetailswith:model.id RequestSuccess:^(id obj) {
+        
         IndemnityData *dataModel = (IndemnityData *)obj;
         tModel.idString = dataModel.id;
         tModel.name = dataModel.title;

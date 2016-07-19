@@ -100,9 +100,9 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 #pragma mark - 数据请求
 - (void)loadListViewData
 {WEAKSELF;
-    [self.tableData removeAllObjects];
     [NetWorkMangerTools arrangeFileListWithType:@"" withCid:_caseId RequestSuccess:^(NSArray *arr) {
         
+        [weakSelf.tableData removeAllObjects];
         [weakSelf.tableData addObjectsFromArray:arr];
         [weakSelf.tableView reloadData];
     }];

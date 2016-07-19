@@ -73,11 +73,12 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
 - (void)loadData{
     WEAKSELF;
     [SVProgressHUD show];
-    [self.zdArr removeAllObjects];
-    [self.normalArr removeAllObjects];
     _page =0;
     [NetWorkMangerTools collectionListMine:_typeString withPage:_page RequestSuccess:^(NSArray *zdArr, NSArray *comArr) {
         
+        [weakSelf.zdArr removeAllObjects];
+        [weakSelf.normalArr removeAllObjects];
+
         [weakSelf.zdArr addObjectsFromArray:zdArr];
         [weakSelf.normalArr addObjectsFromArray:comArr];
         [weakSelf.tableView reloadData];

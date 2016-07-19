@@ -115,8 +115,8 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 {WEAKSELF;
     [NetWorkMangerTools loadCutInspectionRequestSuccess:^(NSArray *arr) {
         if (arr.count >0) {
-            [_dataSourceArr removeAllObjects];
-            [_dataSourceArr addObjectsFromArray:arr];
+            [weakSelf.dataSourceArr removeAllObjects];
+            [weakSelf.dataSourceArr addObjectsFromArray:arr];
             [weakSelf.collectionView reloadData];
             NSMutableArray *arrays = [NSMutableArray array];
             [arr enumerateObjectsUsingBlock:^(ExampleData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -129,7 +129,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     } fail:^{
         NSArray *arrays = [USER_D objectForKey:ExampleSearchStorage];
         if (arrays.count >0) {
-            [_dataSourceArr removeAllObjects];
+            [weakSelf.dataSourceArr removeAllObjects];
             [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 ExampleData *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
                 [weakSelf.dataSourceArr addObject:model];

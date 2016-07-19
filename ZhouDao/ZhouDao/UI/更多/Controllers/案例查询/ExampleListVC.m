@@ -63,12 +63,12 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 #pragma mark ------ 下拉刷新
 - (void)upRefresh:(id)sender
 {WEAKSELF;
-    [self.dataArrays removeAllObjects];
     _page = 1;
     if (_exampleType == FromComType) {
         [NetWorkMangerTools inspeTypeList:_idString withPage:_page RequestSuccess:^(NSArray *arr) {
             
-            [_dataArrays addObjectsFromArray:arr];
+            [weakSelf.dataArrays removeAllObjects];
+            [weakSelf.dataArrays addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshing];
@@ -100,6 +100,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 {WEAKSELF;[SVProgressHUD show];
     if (_exampleType == FromComType) {
         [NetWorkMangerTools inspeTypeList:_idString withPage:_page RequestSuccess:^(NSArray *arr) {
+            
             [_dataArrays addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];
             arr.count>0?[self.tableView.mj_footer endRefreshing]:[self.tableView.mj_footer endRefreshingWithNoMoreData];

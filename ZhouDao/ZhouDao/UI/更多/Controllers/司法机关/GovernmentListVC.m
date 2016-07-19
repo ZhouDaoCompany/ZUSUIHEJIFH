@@ -82,11 +82,13 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         NSArray *tempArr = dict[obj];
         NSMutableArray *cityArr = [NSMutableArray array];
         if ([obj isEqualToString:@"北京"] || [obj isEqualToString:@"重庆"] || [obj isEqualToString:@"天津"] || [obj isEqualToString:@"上海"]) {
+            
             [cityArr addObjectsFromArray:[weakSelf getTownArrays:dict withProvArr:obj]];
             [cityArr insertObject:@"全部" atIndex:0];
             if (![[PublicFunction ShareInstance].locProv rangeOfString:obj].location) {
                 _prov = obj;
                 [cityArr enumerateObjectsUsingBlock:^(NSString *cityObj, NSUInteger cityIdx, BOOL * _Nonnull stop) {
+                    
                     if ([cityObj isEqualToString:[PublicFunction ShareInstance].locDistrict]) {
                         weakSelf.twoData1SelectedIndex = cityIdx;
                         weakSelf.twoCurrent = idx +1;
@@ -120,12 +122,15 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     
     NSDictionary *countryDic = [NSDictionary dictionaryWithObjectsAndKeys:@"全国",@"title",[NSArray arrayWithObject:@"全国"],@"data", nil];
     [_twoArrays insertObject:countryDic atIndex:0];
+    
     [NetWorkMangerTools goverAllClasslistwithName:_nameString RequestSuccess:^(NSArray *arr, NSUInteger index) {
-        [_oneArrays addObjectsFromArray:arr];
+        
+        [weakSelf.oneArrays addObjectsFromArray:arr];
         _oneCurrent = index;
-        [self getRegionData:index];
+        [weakSelf getRegionData:index];
         [NetWorkMangerTools goverListViewWithPid:_pid withCid:_cid withPage:_page withProv:_prov withCity:_city RequestSuccess:^(NSArray *arr) {
-            [_dataSourceArr addObjectsFromArray:arr];
+            
+            [weakSelf.dataSourceArr addObjectsFromArray:arr];
             _page ++;
             [weakSelf.tableView reloadData];
         } fail:^{
@@ -137,7 +142,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 {
     GovClassModel *model = nil;
     GovClassData *dataModel = nil;
-    if (_oneArrays.count>0) {
+    if (_oneArrays.count> index) {
          model = _oneArrays[index];
         if (model.data.count >0) {
             dataModel = model.data[0];
@@ -168,9 +173,10 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 {
     WEAKSELF;
     _page = 0;
-    [_dataSourceArr removeAllObjects];
     [NetWorkMangerTools goverListViewWithPid:_pid withCid:_cid withPage:_page withProv:_prov withCity:_city RequestSuccess:^(NSArray *arr) {
-        [_dataSourceArr addObjectsFromArray:arr];
+        
+        [weakSelf.dataSourceArr removeAllObjects];
+        [weakSelf.dataSourceArr addObjectsFromArray:arr];
         _page ++;
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_header endRefreshing];
@@ -185,7 +191,8 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 - (void)downRefresh:(id)sender
 {    WEAKSELF;
     [NetWorkMangerTools goverListViewWithPid:_pid withCid:_cid withPage:_page withProv:_prov withCity:_city RequestSuccess:^(NSArray *arr) {
-        [_dataSourceArr addObjectsFromArray:arr];
+        
+        [weakSelf.dataSourceArr addObjectsFromArray:arr];
         _page ++;
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_footer endRefreshing];
@@ -223,6 +230,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     if (_dataSourceArr.count>0) {
         GovListmodel *model = _dataSourceArr[indexPath.row];
         [NetWorkMangerTools goverDetailWithId:model.id RequestSuccess:^(id obj) {
+            
             GovListmodel *tempModel = (GovListmodel *)obj;
             GovernmentDetailVC *vc = [GovernmentDetailVC new];
             vc.model = tempModel;
@@ -274,7 +282,6 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
             NSDictionary *menuDic = [_twoArrays objectAtIndex:leftRow];
             return [[menuDic objectForKey:@"data"] count];
         }
-
     }
 }
 - (NSString *)menu:(JSDropDownMenu *)menu titleForColumn:(NSInteger)column{
@@ -366,9 +373,10 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 - (void)didSelectRowMenu{
     WEAKSELF;
     _page = 0;
-    [_dataSourceArr removeAllObjects];
     [NetWorkMangerTools goverListViewWithPid:_pid withCid:_cid withPage:_page withProv:_prov withCity:_city RequestSuccess:^(NSArray *arr) {
-        [_dataSourceArr addObjectsFromArray:arr];
+        
+        [weakSelf.dataSourceArr removeAllObjects];
+        [weakSelf.dataSourceArr addObjectsFromArray:arr];
         _page ++;
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_footer endRefreshing];

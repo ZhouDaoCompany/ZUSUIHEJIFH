@@ -166,7 +166,7 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
     } fail:^{
         NSArray *arrays = [USER_D objectForKey:LawsStorage];
         if (arrays.count >0) {
-            [_dataArrays removeAllObjects];
+            [weakSelf.dataArrays removeAllObjects];
             [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 LawsDataModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
                 [_dataArrays addObject:model];
@@ -179,7 +179,6 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
 - (void)upRefresh:(id)sender
 {
     [self.tableView.mj_header endRefreshing];
-    [self.dataArrays removeAllObjects];
     [SVProgressHUD showWithStatus:@"加载中..."];
 
     [self loadNewData];

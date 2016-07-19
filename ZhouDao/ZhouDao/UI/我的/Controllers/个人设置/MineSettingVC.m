@@ -18,7 +18,7 @@
 #import "FindKeyViewController.h"
 #import "ReplacePhoneVC.h"
 #import "UMessage.h"
-
+#import "ConsultantHeadView.h"
 /**
  *  认证
  *  #import "ImmediatelyVC.h"
@@ -83,17 +83,19 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     }
 
     _msgArrays = [NSMutableArray arrayWithObjects:@"",[PublicFunction ShareInstance].m_user.data.mobile,@"修改",address, type,cacheString,nil];
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,74, kMainScreenWidth, 300.f) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,74, kMainScreenWidth, kMainScreenHeight - 74.f) style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.backgroundColor = [UIColor clearColor];
-    _tableView.scrollEnabled = NO;
+//    _tableView.scrollEnabled = NO;
     [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [ self.view addSubview:_tableView];
     [_tableView  registerClass:[SettingTabCell class] forCellReuseIdentifier:TwoSettingIdentifer];
 
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 75.f)];
+    footView.backgroundColor = [UIColor clearColor];
     UIButton *exitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    exitBtn.frame = CGRectMake(26, Orgin_y(_tableView) +30, kMainScreenWidth - 52, 45);
+    exitBtn.frame = CGRectMake(26, 30, kMainScreenWidth - 52, 45);
     exitBtn.layer.masksToBounds = YES;
     exitBtn.layer.cornerRadius = 5.f;
     exitBtn.backgroundColor  = KNavigationBarColor;
@@ -101,12 +103,16 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     [exitBtn setTitle:@"退出当前帐号" forState:0];
     exitBtn.titleLabel.font = Font_14;
     [exitBtn addTarget:self action:@selector(exitBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:exitBtn];
+    [footView addSubview:exitBtn];
+    _tableView.tableFooterView = footView;
 }
 #pragma mark -UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_titArrays count];
+    return (section == 0)?[_titArrays count]:2;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -114,19 +120,26 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     NSUInteger row = indexPath.row;
     SettingTabCell *cell = (SettingTabCell *)[tableView dequeueReusableCellWithIdentifier:TwoSettingIdentifer];
     cell.row = row;
-    cell.nameLab.text = _titArrays[row];
-    cell.addresslab.text = _msgArrays[row];
-    if (_headImage)
-    {
-        cell.headImg.image = _headImage;
-    }else{
-        [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[PublicFunction ShareInstance].m_user.data.photo] placeholderImage:[UIImage imageNamed:@"mine_head"]];
+    cell.section = indexPath.section;
+    [cell settingUI];
+    
+    if (indexPath.section == 0) {
+        cell.nameLab.text = _titArrays[row];
+        cell.addresslab.text = _msgArrays[row];
+        if (_headImage)
+        {
+            cell.headImg.image = _headImage;
+        }else{
+            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[PublicFunction ShareInstance].m_user.data.photo] placeholderImage:[UIImage imageNamed:@"mine_head"]];
+        }
+    }else {
+        (row == 0)?[cell.nameLab setText:@"微信"]:[cell.nameLab setText:@"腾讯QQ"];
     }
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0 && indexPath.section == 0) {
         return 80.f;
     }
     return 44.f;
@@ -134,56 +147,72 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WEAKSELF;
-    if (indexPath.row ==0) {
-        [self addActionSheet];
-    }else if (indexPath.row == 1){
-        
-        ReplacePhoneVC *VC = [ReplacePhoneVC new];
-        [self.navigationController pushViewController:VC animated:YES];
-        
-    }else if (indexPath.row == 2){
-        
-        FindKeyViewController *findVC = [FindKeyViewController new];
-        findVC.findBlock = ^(NSString *str){
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row ==0) {
+            [self addActionSheet];
+        }else if (indexPath.row == 1){
             
-        };
-        [self.navigationController pushViewController:findVC animated:YES];
-        
-    }else if (indexPath.row == 3){
-
-        //[self configureViewBlurWith:self.view.frame.size.width scale:0.8];
-        UIWindow *windows = [UIApplication sharedApplication].windows[0];
-        MyPickView *pickView = [[MyPickView  alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight)];
-        pickView.pickBlock = ^(NSString *provice,NSString *city,NSString *area){
-            DLog(@"地区是－－－%@:%@,%@",provice,city,area);
-            NSString *tempStr = [NSString stringWithFormat:@"%@-%@-%@",provice,city,area];
-            [NetWorkMangerTools resetUserAddress:tempStr RequestSuccess:^{
-                [_msgArrays replaceObjectAtIndex:3 withObject:tempStr];
-                [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:3 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
+            ReplacePhoneVC *VC = [ReplacePhoneVC new];
+            [self.navigationController pushViewController:VC animated:YES];
+            
+        }else if (indexPath.row == 2){
+            
+            FindKeyViewController *findVC = [FindKeyViewController new];
+            findVC.findBlock = ^(NSString *str){
+                
+            };
+            [self.navigationController pushViewController:findVC animated:YES];
+            
+        }else if (indexPath.row == 3){
+            
+            //[self configureViewBlurWith:self.view.frame.size.width scale:0.8];
+            UIWindow *windows = [UIApplication sharedApplication].windows[0];
+            MyPickView *pickView = [[MyPickView  alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight)];
+            pickView.pickBlock = ^(NSString *provice,NSString *city,NSString *area){
+                DLog(@"地区是－－－%@:%@,%@",provice,city,area);
+                NSString *tempStr = [NSString stringWithFormat:@"%@-%@-%@",provice,city,area];
+                [NetWorkMangerTools resetUserAddress:tempStr RequestSuccess:^{
+                    [_msgArrays replaceObjectAtIndex:3 withObject:tempStr];
+                    [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:3 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
+                }];
+            };
+            pickView.blurBlock = ^{
+                // [weakSelf configureViewBlurWith:0 scale:1];
+            };
+            [windows addSubview:pickView];
+            
+        }else if (indexPath.row == 4){
+            [NetWorkMangerTools getApplyInfoRequestSuccess:^{
+                [weakSelf requestMyCertification];
             }];
-        };
-        pickView.blurBlock = ^{
-           // [weakSelf configureViewBlurWith:0 scale:1];
-        };
-        [windows addSubview:pickView];
-
-    }else if (indexPath.row == 4){
-        [NetWorkMangerTools getApplyInfoRequestSuccess:^{
-            [weakSelf requestMyCertification];
-        }];
+        }else if (indexPath.row == 5){
+            
+            LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"确定"] redButtonIndex:0 clicked:^(NSInteger buttonIndex) {
+                DLog(@"> Block way -> Clicked Index: %ld", (long)buttonIndex);
+                if (buttonIndex == 0) {
+                    [weakSelf clearApplicationCaChe];
+                }
+            }];
+            [sheet show];
+        }
+  
+    }else {
         
-    }else if (indexPath.row == 5){
-        
-
-        LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"确定"] redButtonIndex:0 clicked:^(NSInteger buttonIndex) {
-            DLog(@"> Block way -> Clicked Index: %ld", (long)buttonIndex);
-            if (buttonIndex == 0) {
-                [weakSelf clearApplicationCaChe];
-             }
-        }];
-        
-        [sheet show];
     }
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    ConsultantHeadView *headView = [[ConsultantHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 45.f) withSection:section];
+    if (section == 1) {
+        headView.delBtn.hidden = YES;
+        [headView setLabelText:@"账号绑定"];
+    }
+    return headView;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return (section == 0)?0.f:45.f;
 }
 #pragma mark -查询认证审核
 - (void)requestMyCertification

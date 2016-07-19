@@ -96,10 +96,10 @@ static NSString *const NewsCellIdentifier = @"NewsCellIdentifier";
 - (void)upRefresh:(id)sender
 {WEAKSELF;
     _page = 0;
-    [self.dataArrays removeAllObjects];
     [NetWorkMangerTools lawsNewsListWithUrl:_urlString withPage:_page witheff:_eff withTime:_time RequestSuccess:^(NSArray *arr) {
         
-        [_dataArrays addObjectsFromArray:arr];
+        [weakSelf.dataArrays removeAllObjects];
+        [weakSelf.dataArrays addObjectsFromArray:arr];
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_header endRefreshing];
         [weakSelf.tableView.mj_footer endRefreshing];
@@ -245,9 +245,10 @@ static NSString *const NewsCellIdentifier = @"NewsCellIdentifier";
 - (void)didSelectRowMenu{
     WEAKSELF;
     _page = 0;
-    [_dataArrays removeAllObjects];
     [NetWorkMangerTools lawsNewsListWithUrl:_urlString withPage:_page witheff:_eff withTime:_time RequestSuccess:^(NSArray *arr) {
-        [_dataArrays addObjectsFromArray:arr];
+        
+        [weakSelf.dataArrays removeAllObjects];
+        [weakSelf.dataArrays addObjectsFromArray:arr];
         [weakSelf.tableView reloadData];
         _page ++;
     } fail:^{

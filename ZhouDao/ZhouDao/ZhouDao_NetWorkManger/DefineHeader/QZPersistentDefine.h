@@ -39,7 +39,6 @@ NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];               
  */
 #define DEF_PERSISTENT_REMOVE_ALLDATA   [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]]
 
-
 /**
  *  清除 NSUserDefaults 保存的指定数据
  */
