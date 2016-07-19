@@ -51,29 +51,14 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     _twoArrays = [NSMutableArray array];
     _twoCurrent = 0;
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,109.f, kMainScreenWidth, kMainScreenHeight-109.f) style:UITableViewStylePlain];
-    //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.showsHorizontalScrollIndicator= NO;
-    self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [self.view addSubview:_tableView];
-    [self.tableView registerNib:[UINib nibWithNibName:@"GovListCell" bundle:nil] forCellReuseIdentifier:JudicialIdentifier];
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
-//    // 马上进入刷新状态
-//    [_tableView.mj_header beginRefreshing];
+    
+    [self.view addSubview:self.tableView];
+    
     [self loadClassData];
 }
 #pragma mark -获取所有分类
 - (void)loadClassData{
     WEAKSELF;
-//    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"areas" ofType:@"txt"];
-//    NSString *dataS = [NSString stringWithContentsOfFile:pathSource encoding:NSUTF8StringEncoding error:nil];
-//    NSData *data = [dataS dataUsingEncoding:NSUTF8StringEncoding];
-//   __block NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
     NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"Areas" ofType:@"plist"];
    __block NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
 
@@ -159,14 +144,36 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     //默认选中
     _oneData1SelectedIndex = 0;
     
-    _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
-    _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
-    _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
-    _jsMenu.textColor = thirdColor;
-    _jsMenu.backgroundColor = [UIColor whiteColor];
-    _jsMenu.dataSource = self;
-    _jsMenu.delegate = self;
-    [self.view addSubview:_jsMenu];
+    [self.view addSubview:self.jsMenu];
+}
+#pragma mark - getters and setters
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,109.f, kMainScreenWidth, kMainScreenHeight-109.f) style:UITableViewStylePlain];
+        _tableView.showsHorizontalScrollIndicator= NO;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView registerNib:[UINib nibWithNibName:@"GovListCell" bundle:nil] forCellReuseIdentifier:JudicialIdentifier];
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
+        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
+    }
+    return _tableView;
+}
+- (JSDropDownMenu *)jsMenu{
+    if (!_jsMenu) {
+        _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
+        _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
+        _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
+        _jsMenu.textColor = thirdColor;
+        _jsMenu.backgroundColor = [UIColor whiteColor];
+        _jsMenu.dataSource = self;
+        _jsMenu.delegate = self;
+    }
+    return _jsMenu;
 }
 #pragma mark ------ 下拉刷新
 - (void)upRefresh:(id)sender
