@@ -49,6 +49,11 @@ Copyright © 2014 AutoNavi. All Rights Reserved.
 Copyright © 2014 AutoNavi. All Rights Reserved.
 
 
+## Bugly
+
+Copyright 2016 tencent.com. All rights reserved.
+
+
 ## CYLTabBarController
 
 Copyright (c) 2015 CYLTabBarController(https://github.com/ChenYilong/CYLTabBarController), L.L.C. All rights reserved.

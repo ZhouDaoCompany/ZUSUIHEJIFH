@@ -47,6 +47,8 @@ pod 'DLWidgetMenu'
 #pod 'MJExtension', '~> 3.0.10'
 pod 'WebViewJavascriptBridge', '~> 5.0.5'
 
+#错误日志
+pod 'Bugly', '~> 2.3.1'
 #掉帧测试
 #pod 'KMCGeigerCounter', '~> 0.2.2'
 #pod 'XHRealTimeBlur'
