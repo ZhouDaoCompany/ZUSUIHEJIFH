@@ -115,7 +115,7 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
             LawsDataModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
             [_dataArrays addObject:model];
         }];
-        [weakSelf.tableView reloadData];
+        [_tableView reloadData];
     }else{
         [SVProgressHUD showWithStatus:@"加载中..."];
     }
@@ -169,9 +169,9 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
             [weakSelf.dataArrays removeAllObjects];
             [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 LawsDataModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-                [_dataArrays addObject:model];
+                [weakSelf.dataArrays addObject:model];
             }];
-            [weakSelf.tableView reloadData];
+            [_tableView reloadData];
         }
     }];
 }

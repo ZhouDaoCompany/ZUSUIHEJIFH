@@ -72,7 +72,7 @@
     _nameLabel.text = _listModel.name;
     _telLabel.text  =[NSString stringWithFormat:@"电话:%@",_listModel.phone];
     _addressLabel.text =[NSString stringWithFormat:@"地址:%@",_listModel.address];
-    [_organImage sd_setImageWithURL:[NSURL URLWithString:_listModel.photo] placeholderImage:[UIImage imageNamed:@"gov_tupian"]];
+//    [_organImage sd_setImageWithURL:[NSURL URLWithString:_listModel.photo] placeholderImage:[UIImage imageNamed:@"gov_tupian"]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

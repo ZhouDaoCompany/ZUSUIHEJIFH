@@ -105,7 +105,7 @@ static NSString *const NewsCellIdentifier = @"NewsCellIdentifier";
         [weakSelf.tableView.mj_footer endRefreshing];
         _page ++;
     } fail:^{
-        
+        [weakSelf.dataArrays removeAllObjects];
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_header endRefreshing];
         [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -252,6 +252,7 @@ static NSString *const NewsCellIdentifier = @"NewsCellIdentifier";
         [weakSelf.tableView reloadData];
         _page ++;
     } fail:^{
+        [weakSelf.dataArrays removeAllObjects];
         [weakSelf.tableView reloadData];
     }];
 }

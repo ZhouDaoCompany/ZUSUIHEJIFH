@@ -87,6 +87,8 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
         _page++;
     } fail:^{
         
+        [weakSelf.zdArr removeAllObjects];
+        [weakSelf.normalArr removeAllObjects];
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_header endRefreshing];
         [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];

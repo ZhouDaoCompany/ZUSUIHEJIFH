@@ -10,15 +10,52 @@
 #import "FMUString.h"
 @implementation HomeTableViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    _titlab.textColor = thirdColor;
-    _contentLab.numberOfLines = 0;
-    _headImgView.contentMode = UIViewContentModeScaleToFill;
-    _contentLab.textColor = [UIColor colorWithHexString:@"#999999"];
+    if (self)
+    {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        [self.contentView addSubview:self.titlab];
+        [self.contentView addSubview:self.contentLab];
+        [self.contentView addSubview:self.headImgView];
+    }
+    return self;
+}
+
+#pragma mark - getters and setters
+- (UILabel *)titlab
+{
+    if (!_titlab)
+    {
+        _titlab = [[UILabel alloc] initWithFrame:CGRectMake(105, 18, kMainScreenWidth - 125.f, 20)];
+        _titlab.font  = Font_15;
+        _titlab.textColor = thirdColor;
+    }
+    return _titlab;
+}
+- (UILabel *)contentLab
+{
+    if (!_contentLab)
+    {
+        _contentLab = [[UILabel alloc] initWithFrame:CGRectMake(105, 40, kMainScreenWidth - 125.f, 35)];
+        _contentLab.font  = Font_14;
+        _contentLab.numberOfLines = 0;
+        _contentLab.textColor = NINEColor;
+    }
+    return _contentLab;
+}
+- (UIImageView *)headImgView
+{
+    if (!_headImgView) {
+        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 80, 65)];
+        _headImgView.image = [UIImage imageNamed:@"home_palcehold"];
+        _headImgView.contentMode = UIViewContentModeScaleToFill;
+        _headImgView.userInteractionEnabled = YES;
+    }
+    return _headImgView;
 }
 - (void)setHistoryModel:(HistoryModel *)historyModel
 {

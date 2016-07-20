@@ -102,7 +102,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [self.tableView registerNib:[UINib nibWithNibName:@"GovListCell" bundle:nil] forCellReuseIdentifier:DetailCellIdentifier];
+        [self.tableView registerClass:[GovListCell class] forCellReuseIdentifier:DetailCellIdentifier];
         GovListCell *cell = (GovListCell *)[tableView dequeueReusableCellWithIdentifier:DetailCellIdentifier];
         [cell setListModel:_model];
         cell.telLabel.hidden = YES;

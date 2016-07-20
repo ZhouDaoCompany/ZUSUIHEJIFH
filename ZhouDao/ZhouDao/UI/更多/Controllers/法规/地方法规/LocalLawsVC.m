@@ -83,7 +83,7 @@ static NSString *const LocalCellIdentifier = @"LocalCellIdentifier";
         
         [weakSelf.dataArrays removeAllObjects];
         
-        [_dataArrays addObjectsFromArray:arr];
+        [weakSelf.dataArrays addObjectsFromArray:arr];
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_header endRefreshing];
         [weakSelf.tableView.mj_footer endRefreshing];

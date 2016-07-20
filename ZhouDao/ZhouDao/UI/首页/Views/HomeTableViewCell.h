@@ -11,9 +11,9 @@
 #import "HistoryModel.h"
 
 @interface HomeTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *headImgView;
-@property (weak, nonatomic) IBOutlet UILabel *titlab;
-@property (weak, nonatomic) IBOutlet UILabel *contentLab;
+@property (strong, nonatomic)  UIImageView *headImgView;
+@property (strong, nonatomic)  UILabel *titlab;
+@property (strong, nonatomic)  UILabel *contentLab;
 
 @property (strong, nonatomic) BasicModel *mdoel;
 @property (strong, nonatomic) HistoryModel *historyModel;

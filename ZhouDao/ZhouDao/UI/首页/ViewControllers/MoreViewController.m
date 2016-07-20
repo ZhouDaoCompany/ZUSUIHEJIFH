@@ -57,7 +57,7 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.showsVerticalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier:MoreCellIdentifier];
+        [_tableView registerClass:[HomeTableViewCell class] forCellReuseIdentifier:MoreCellIdentifier];
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
         _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
     }
@@ -83,6 +83,8 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
             _page ++;
             
         } fail:^{
+            [weakSelf.dataSourceArrays removeAllObjects];
+            [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
         }];
@@ -98,6 +100,8 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
             _page ++;
 
         } fail:^{
+            [weakSelf.dataSourceArrays removeAllObjects];
+            [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
         }];

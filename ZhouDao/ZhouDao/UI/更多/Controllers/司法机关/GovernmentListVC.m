@@ -188,8 +188,9 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_header endRefreshing];
         [weakSelf.tableView.mj_footer endRefreshing];
-
     } fail:^{
+        [weakSelf.dataSourceArr removeAllObjects];
+        [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_header endRefreshing];
         [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
     }];
@@ -279,15 +280,22 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         if (leftOrRight==0) {
             return _oneArrays.count;
         } else{
-            GovClassModel *model = _oneArrays[leftRow];
-            return [model.data count];
+            
+            if (_oneArrays.count > leftRow) {
+                GovClassModel *model = _oneArrays[leftRow];
+                return [model.data count];
+            }
+            return 0;
         }
     }else{
         if (leftOrRight==0) {
             return _twoArrays.count;
         } else{
-            NSDictionary *menuDic = [_twoArrays objectAtIndex:leftRow];
-            return [[menuDic objectForKey:@"data"] count];
+            if (_twoArrays.count > leftRow) {
+                NSDictionary *menuDic = [_twoArrays objectAtIndex:leftRow];
+                return [[menuDic objectForKey:@"data"] count];
+            }
+            return 0;
         }
     }
 }
@@ -388,6 +396,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_footer endRefreshing];
     } fail:^{
+        [weakSelf.dataSourceArr removeAllObjects];
         [weakSelf.tableView reloadData];
     }];
 }

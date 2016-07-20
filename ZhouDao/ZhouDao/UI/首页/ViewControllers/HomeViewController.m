@@ -141,7 +141,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
         _tableView.tableHeaderView = _headView;
-        [_tableView registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier:HomeCellIdentifier];
+        [_tableView registerClass:[HomeTableViewCell class] forCellReuseIdentifier:HomeCellIdentifier];
         //MJRefreshBackNormalFooter MJRefreshAutoNormalFooter
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
     }

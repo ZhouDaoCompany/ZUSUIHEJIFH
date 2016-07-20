@@ -105,12 +105,13 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
         
         _page ++;
         [weakSelf.dataSourceArr removeAllObjects];
-
         [weakSelf.dataSourceArr addObjectsFromArray:arrays];
         [weakSelf.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
         [weakSelf.tableView.mj_footer endRefreshing];
     } fail:^{
+        [weakSelf.dataSourceArr removeAllObjects];
+        [weakSelf.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
         [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
     }];
@@ -227,6 +228,7 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
             [weakSelf.dataSourceArr addObjectsFromArray:arrays];
             [weakSelf.tableView reloadData];
         } fail:^{
+            [weakSelf.dataSourceArr removeAllObjects];
             [weakSelf.tableView reloadData];
         }];
     }else{
@@ -240,6 +242,7 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
             [weakSelf.dataSourceArr addObjectsFromArray:arrays];
             [weakSelf.tableView reloadData];
         } fail:^{
+            [weakSelf.dataSourceArr removeAllObjects];
             [weakSelf.tableView reloadData];
         }];
     }

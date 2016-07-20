@@ -96,6 +96,7 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
         [weakSelf.dataArrays addObjectsFromArray:arrays];
         [weakSelf.tableView reloadData];
     } fail:^{
+        [weakSelf.dataArrays removeAllObjects];
         [weakSelf.tableView reloadData];
     }];
 }

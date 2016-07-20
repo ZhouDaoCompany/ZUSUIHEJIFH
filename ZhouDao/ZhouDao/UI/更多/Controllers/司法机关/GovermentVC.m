@@ -119,7 +119,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     } fail:^{
         NSArray *arrays = [USER_D objectForKey:GovermentStorage];
         if (arrays.count >0) {
-            [_datasourceArr removeAllObjects];
+            [weakSelf.datasourceArr removeAllObjects];
             [arrays enumerateObjectsUsingBlock:^(NSDictionary  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 GovData *model = [[GovData alloc] initWithDictionary:obj];
                 [weakSelf.datasourceArr addObject:model];

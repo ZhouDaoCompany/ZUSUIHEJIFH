@@ -70,7 +70,7 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
         _tableView.backgroundColor = [UIColor clearColor];
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
         _tableView.tableHeaderView = _headView;
-        [_tableView registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier:RecomCellIdentifier];
+        [_tableView registerClass:[HomeTableViewCell class] forCellReuseIdentifier:RecomCellIdentifier];
         //MJRefreshBackNormalFooter MJRefreshAutoNormalFooter
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
     }

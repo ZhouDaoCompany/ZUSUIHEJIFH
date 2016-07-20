@@ -75,6 +75,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 
             _page ++;
         } fail:^{
+            [weakSelf.dataArrays removeAllObjects];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];

@@ -119,6 +119,8 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
             _page ++;
         } fail:^{
             _page ++;
+            [weakSelf.dataSourceArr removeAllObjects];
+            [weakSelf.collectionView reloadData];
             [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
         }];
     }];
@@ -416,6 +418,8 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
         [weakSelf.collectionView reloadData];
         [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
     } fail:^{
+        [weakSelf.searchDataArr removeAllObjects];
+        [weakSelf.collectionView reloadData];
         [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
     }];
 }
