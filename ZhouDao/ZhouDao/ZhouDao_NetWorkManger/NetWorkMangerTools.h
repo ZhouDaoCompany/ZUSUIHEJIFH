@@ -56,7 +56,9 @@
  *验证手机号是否注册
  */
 + (void)validationPhoneNumber:(NSString *)phone
-               RequestSuccess:(void(^)())success;
+               RequestSuccess:(void(^)())success
+                         fail:(void (^)(NSString *msg))fail;
+
 /*
  *更改手机号
  */

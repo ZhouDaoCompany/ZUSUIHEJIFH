@@ -323,7 +323,9 @@
     [uploader startUpload];
 }
 #pragma mark -验证手机号是否注册
-+ (void)validationPhoneNumber:(NSString *)phone RequestSuccess:(void(^)())success
++ (void)validationPhoneNumber:(NSString *)phone
+               RequestSuccess:(void(^)())success
+                         fail:(void (^)(NSString *msg))fail
 {
     //发个请求验证手机号码
     NSString *phoneUrl = [NSString stringWithFormat:@"%@%@mobile=%@",kProjectBaseUrl,VerifyTheMobile,phone];
@@ -331,10 +333,10 @@
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
-            [JKPromptView showWithImageName:nil message:msg];
-            return ;
+            fail(msg);
+        }else {
+            success();
         }
-        success();
     } fail:^{
     }];
 }

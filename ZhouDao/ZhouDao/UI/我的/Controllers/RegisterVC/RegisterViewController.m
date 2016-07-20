@@ -311,6 +311,7 @@
             
             if (_phoneText.text.length == 11  && [QZManager isPureInt:_phoneText.text] == YES)
             {
+
                 [NetWorkMangerTools validationPhoneNumber:_phoneText.text RequestSuccess:^{
                     
                     [self timerInit:sender];
@@ -321,7 +322,9 @@
                     _codeStr = [QZManager getSixEvent];
                     NSArray*  arr = [NSArray arrayWithObjects:_codeStr,@"验证码" ,nil];
                     [ccpRestSdk sendTemplateSMSWithTo:_phoneText.text andTemplateId:YTXTEMPLATE andDatas:arr];
-//                    DLog(@"打印出来－－－%@",[NSString stringWithFormat:@"%@",dict]);
+
+                } fail:^(NSString *msg) {
+                    [JKPromptView showWithImageName:nil message:msg];
                 }];
             }
 

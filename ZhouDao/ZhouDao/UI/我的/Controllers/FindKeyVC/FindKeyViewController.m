@@ -19,6 +19,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -117,15 +118,20 @@
             if (_phoneText.text.length >0) {
                 if (_phoneText.text.length == 11  && [QZManager isPureInt:_phoneText.text] == YES)
                 {
-                    [self timerInit:sender];
-                    
-                    CCPRestSDK* ccpRestSdk = [[CCPRestSDK alloc] initWithServerIP:YTXSEVERIP andserverPort:YTXPORT];
-                    [ccpRestSdk setApp_ID:YTXAPPID];
-                    [ccpRestSdk enableLog:YES];
-                    [ccpRestSdk setAccountWithAccountSid: YTXACCOUNSID andAccountToken:YTXAUTHTOKEN];
-                    _codeStr = [QZManager getSixEvent];
-                    NSArray*  arr = [NSArray arrayWithObjects:_codeStr,@"验证码" ,nil];
-                   [ccpRestSdk sendTemplateSMSWithTo:_phoneText.text andTemplateId:YTXTEMPLATE andDatas:arr];
+                    [NetWorkMangerTools validationPhoneNumber:_phoneText.text RequestSuccess:^{
+                        
+                        [JKPromptView showWithImageName:@"" message:@"该号码还没有注册，请您注册"];
+                    } fail:^(NSString *msg) {
+                        
+                        [self timerInit:sender];
+                        CCPRestSDK* ccpRestSdk = [[CCPRestSDK alloc] initWithServerIP:YTXSEVERIP andserverPort:YTXPORT];
+                        [ccpRestSdk setApp_ID:YTXAPPID];
+                        [ccpRestSdk enableLog:YES];
+                        [ccpRestSdk setAccountWithAccountSid: YTXACCOUNSID andAccountToken:YTXAUTHTOKEN];
+                        _codeStr = [QZManager getSixEvent];
+                        NSArray*  arr = [NSArray arrayWithObjects:_codeStr,@"验证码" ,nil];
+                        [ccpRestSdk sendTemplateSMSWithTo:_phoneText.text andTemplateId:YTXTEMPLATE andDatas:arr];
+                    }];
                 }else{
                     [JKPromptView showWithImageName:nil message:@"请您检查手机号码!"];
                 }
