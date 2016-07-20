@@ -181,7 +181,6 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
     
     return NO;
 }
-
 -(BOOL)haveRightTableViewInColumn:(NSInteger)column{
     
     return NO;

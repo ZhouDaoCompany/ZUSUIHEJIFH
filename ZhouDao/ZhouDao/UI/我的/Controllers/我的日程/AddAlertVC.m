@@ -137,7 +137,7 @@ static NSString *const cellIdentifer = @"cellIdentifer";
     cell.textLabel.text = _titleArrays[indexPath.row];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 44.5, kMainScreenWidth, .5f)];
-    line.backgroundColor = [UIColor colorWithHexString:@"#D7D7D7"];
+    line.backgroundColor = hexColor(D7D7D7);
     [cell.contentView addSubview:line];
     
     NSUInteger row = indexPath.row;
@@ -196,7 +196,7 @@ static NSString *const cellIdentifer = @"cellIdentifer";
         [removeLab removeFromSuperview];
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -230, 12, 200, 20)];
         lab.tag = indexPath.row + 8000;
-        lab.textColor = [UIColor colorWithHexString:@"#333333"];
+        lab.textColor = thirdColor;
         [lab setText:_msgArrays[row - 1]];
         lab.textAlignment = NSTextAlignmentRight;
         lab.font = Font_12;

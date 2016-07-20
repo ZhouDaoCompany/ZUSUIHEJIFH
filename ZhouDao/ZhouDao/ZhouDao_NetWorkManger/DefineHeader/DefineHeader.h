@@ -19,9 +19,9 @@
 
 #define LRRGBColor(r,g,b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1.0f]
 
-#define hexColor(colorV) [UIColor colorWithHexColorString:@#colorV]
+#define hexColor(colorV) [UIColor colorWithHexString:@#colorV]
 
-#define hexColorAlpha(colorV,a) [UIColor colorWithHexColorString:@#colorV alpha:a];
+#define hexColorAlpha(colorV,a) [UIColor colorWithHexString:@#colorV alpha:a];
 
 #define LRRandomColor [UIColor colorWithRed:arc4random_uniform(255)/255.0f green:arc4random_uniform(255)/255.0f blue:arc4random_uniform(255)/255.0f alpha:1.0f]
 

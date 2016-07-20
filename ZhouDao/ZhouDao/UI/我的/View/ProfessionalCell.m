@@ -27,7 +27,7 @@
 }
 - (void)initUI
 {
-    _iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 24, 24)];
+    _iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 13.5f, 17, 17)];
 //    _iconImgView.backgroundColor = [UIColor redColor];
 //    _iconImgView.layer.masksToBounds = YES;
 //    _iconImgView.layer.cornerRadius = 12;
