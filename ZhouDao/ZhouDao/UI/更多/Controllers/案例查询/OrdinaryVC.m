@@ -262,7 +262,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 - (void)searchKeyText:(NSString *)text
 {
     [SVProgressHUD show];
-    NSUInteger page = 0;
+    NSInteger page = 1;
     [NetWorkMangerTools LegalIssuesSelfCheckResult:text withPage:page RequestSuccess:^(NSArray *arr) {
         ExampleListVC *vc = [ExampleListVC new];
         vc.titString = @"案例搜索结果";

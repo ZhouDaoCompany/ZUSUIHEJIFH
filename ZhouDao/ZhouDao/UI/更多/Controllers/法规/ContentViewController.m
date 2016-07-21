@@ -450,7 +450,11 @@
             break;
         case 9000:
         {//相关
-            [self aboutLawMethod];
+            if ([_navTitle isEqualToString:@"案例详情"]) {
+                [JKPromptView showWithImageName:nil message:@"暂无相关案例"];
+            }else {
+                [self aboutLawMethod];
+            }
         }
             break;
         default:

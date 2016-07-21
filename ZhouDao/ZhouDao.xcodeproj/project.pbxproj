@@ -745,7 +745,7 @@
 		18230CF01CC7455400F4ACCF /* CustomMenuBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMenuBtn.h; sourceTree = "<group>"; };
 		18230CF11CC7455400F4ACCF /* CustomMenuBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMenuBtn.m; sourceTree = "<group>"; };
 		18230CF31CC7580700F4ACCF /* NewsLawsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLawsVC.h; sourceTree = "<group>"; };
-		18230CF41CC7580700F4ACCF /* NewsLawsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLawsVC.m; sourceTree = "<group>"; };
+		18230CF41CC7580700F4ACCF /* NewsLawsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsLawsVC.m; path = "法规/NewsLawsVC.m"; sourceTree = "<group>"; };
 		18230CF61CC76F1800F4ACCF /* QZPathDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZPathDefine.h; sourceTree = "<group>"; };
 		18230CF71CC76F8300F4ACCF /* QZPersistentDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZPersistentDefine.h; sourceTree = "<group>"; };
 		18230CF81CC76FA800F4ACCF /* QZViewDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZViewDefine.h; sourceTree = "<group>"; };
@@ -1500,7 +1500,6 @@
 				1065C31E1CA91689003F4089 /* ContentViewController.h */,
 				1065C31F1CA91689003F4089 /* ContentViewController.m */,
 				18230CF31CC7580700F4ACCF /* NewsLawsVC.h */,
-				18230CF41CC7580700F4ACCF /* NewsLawsVC.m */,
 				1031B1111CB01933006CE3FB /* 地方法规 */,
 			);
 			path = "法规";
@@ -1769,6 +1768,7 @@
 				10241A201CBA4001000CBEAE /* 案件管理 */,
 				10241A101CB9F279000CBEAE /* 赔偿标准 */,
 				18C4B0391CB4A41100D3CB8B /* 合同模版 */,
+				18230CF41CC7580700F4ACCF /* NewsLawsVC.m */,
 				103D258D1CAE70EA00F2B93A /* 司法机关 */,
 				1065C2B81CA8E13F003F4089 /* 法规 */,
 			);
@@ -3844,7 +3844,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7bb2371a-21bb-448a-9142-b0c43f07d10f";
+				PROVISIONING_PROFILE = "1ade4bd5-a348-4181-8fc1-397e769156aa";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
@@ -3879,7 +3879,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7bb2371a-21bb-448a-9142-b0c43f07d10f";
+				PROVISIONING_PROFILE = "1ade4bd5-a348-4181-8fc1-397e769156aa";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;

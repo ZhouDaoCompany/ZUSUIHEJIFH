@@ -56,6 +56,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
         // 马上进入刷新状态
         [_tableView.mj_header beginRefreshing];
     }else{
+        _page = 2;
         [_dataArrays addObjectsFromArray:_searArr];
         [_tableView reloadData];
     }
@@ -72,24 +73,26 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshing];
-
             _page ++;
         } fail:^{
             [weakSelf.dataArrays removeAllObjects];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
-
         }];
     }else{
         [NetWorkMangerTools LegalIssuesSelfCheckResult:_searText withPage:_page RequestSuccess:^(NSArray *arr) {
             
-            [_dataArrays addObjectsFromArray:arr];
+            [weakSelf.dataArrays removeAllObjects];
+            [weakSelf.dataArrays addObjectsFromArray:weakSelf.searArr];
+            [weakSelf.dataArrays addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshing];
             _page ++;
         } fail:^{
+            
+            [weakSelf.dataArrays removeAllObjects];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -102,7 +105,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
     if (_exampleType == FromComType) {
         [NetWorkMangerTools inspeTypeList:_idString withPage:_page RequestSuccess:^(NSArray *arr) {
             
-            [_dataArrays addObjectsFromArray:arr];
+            [weakSelf.dataArrays addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];
             arr.count>0?[self.tableView.mj_footer endRefreshing]:[self.tableView.mj_footer endRefreshingWithNoMoreData];
             _page ++;
@@ -111,7 +114,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
         }];
     }else{
         [NetWorkMangerTools LegalIssuesSelfCheckResult:_searText withPage:_page RequestSuccess:^(NSArray *arr) {
-            [_dataArrays addObjectsFromArray:arr];
+            [weakSelf.dataArrays addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];
             arr.count>0?[self.tableView.mj_footer endRefreshing]:[self.tableView.mj_footer endRefreshingWithNoMoreData];
             _page ++;
@@ -149,6 +152,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
     CaseModel *model = _dataArrays[indexPath.row];
     TaskModel *tmodel = [TaskModel new];
     [NetWorkMangerTools loadExampleDetailData:model.id RequestSuccess:^(id obj) {
+        
         ExampleDetailData *tempModel = (ExampleDetailData *)obj;
         tmodel.idString =tempModel.id;
         tmodel.name = model.title;

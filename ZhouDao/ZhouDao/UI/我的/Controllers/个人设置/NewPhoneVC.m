@@ -160,6 +160,10 @@
             }
             
             [NetWorkMangerTools resetPhoneNumber:_phoneText.text RequestSuccess:^{
+                
+                [USER_D setObject:_phoneText.text forKey:StoragePhone];
+                [USER_D synchronize];
+
                 [weakSelf.navigationController popToRootViewControllerAnimated:YES];
             }];
         }

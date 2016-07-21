@@ -16,8 +16,6 @@
 static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 @interface GovernmentListVC ()<JSDropDownMenuDataSource,JSDropDownMenuDelegate,UITableViewDelegate,UITableViewDataSource>
 {
-    NSUInteger _oneCurrent;
-    NSUInteger _oneData1SelectedIndex;
     //请求
     NSString *_pid;
     NSString *_cid;
@@ -30,6 +28,9 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 @property (nonatomic, strong) JSDropDownMenu *jsMenu;
 @property (nonatomic, assign) NSUInteger twoCurrent;
 @property (nonatomic, assign) NSUInteger twoData1SelectedIndex;
+@property (nonatomic, assign) NSUInteger oneCurrent;
+@property (nonatomic, assign) NSUInteger oneData1SelectedIndex;
+
 @property (nonatomic, copy) NSString *city;
 @property (nonatomic, copy) NSString *prov;
 @end
@@ -71,30 +72,31 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
             [cityArr addObjectsFromArray:[weakSelf getTownArrays:dict withProvArr:obj]];
             [cityArr insertObject:@"全部" atIndex:0];
             if (![[PublicFunction ShareInstance].locProv rangeOfString:obj].location) {
-                _prov = obj;
                 [cityArr enumerateObjectsUsingBlock:^(NSString *cityObj, NSUInteger cityIdx, BOOL * _Nonnull stop) {
                     
                     if ([cityObj isEqualToString:[PublicFunction ShareInstance].locDistrict]) {
                         weakSelf.twoData1SelectedIndex = cityIdx;
                         weakSelf.twoCurrent = idx +1;
                         weakSelf.city = [PublicFunction ShareInstance].locDistrict;
+                        weakSelf.prov = obj;
                         *stop = YES;
                         return ;
                     }
                 }];
             }
         }else{
-            
+        
             [cityArr addObjectsFromArray:[tempArr[0]  allKeys]];
             [cityArr insertObject:@"全部" atIndex:0];
             
             if (![[PublicFunction ShareInstance].locProv rangeOfString:obj].location)
             {
-                _prov = obj;
                 [cityArr enumerateObjectsUsingBlock:^(NSString *cityObj, NSUInteger cityIdx, BOOL * _Nonnull stop) {
                     if ([cityObj isEqualToString:[PublicFunction ShareInstance].locCity]) {
                         weakSelf.twoData1SelectedIndex = cityIdx;
+                        weakSelf.twoCurrent = idx +1;
                         weakSelf.city = [PublicFunction ShareInstance].locCity;
+                        weakSelf.prov = obj;
                         *stop = YES;
                         return ;
                     }
@@ -108,7 +110,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     NSDictionary *countryDic = [NSDictionary dictionaryWithObjectsAndKeys:@"全国",@"title",[NSArray arrayWithObject:@"全国"],@"data", nil];
     [_twoArrays insertObject:countryDic atIndex:0];
     
-    [NetWorkMangerTools goverAllClasslistwithName:_nameString RequestSuccess:^(NSArray *arr, NSUInteger index) {
+    [NetWorkMangerTools goverAllClasslistwithName:_nameString RequestSuccess:^(NSArray *arr, NSInteger index) {
         
         [weakSelf.oneArrays addObjectsFromArray:arr];
         _oneCurrent = index;
@@ -123,7 +125,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         }];
     }];
 }
-- (void)getRegionData:(NSUInteger)index
+- (void)getRegionData:(NSInteger)index
 {
     GovClassModel *model = nil;
     GovClassData *dataModel = nil;
@@ -303,12 +305,13 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     
     switch (column) {
         case 0: {
-            GovClassModel *model = _oneArrays[_oneCurrent];
-            GovClassData *dataModel = model.data[_oneData1SelectedIndex];
-            if ([dataModel.ctname isEqualToString:@"全部"]) {
-                return model.ctname;
-            }
-            return dataModel.ctname;
+//            GovClassModel *model = _oneArrays[_oneCurrent];
+//            GovClassData *dataModel = model.data[_oneData1SelectedIndex];
+//            if ([dataModel.ctname isEqualToString:@"全部"]) {
+//                return model.ctname;
+//            }
+//            return dataModel.ctname;
+            return _nameString;
         }
             break;
         case 1: {

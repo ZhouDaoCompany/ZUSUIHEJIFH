@@ -36,10 +36,8 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
     if (_moreType == RecomType) {
-        
         [self setupNaviBarWithTitle:@"时事热点"];
     }else {
-        
         [self setupNaviBarWithTitle:@"历史记录"];
     }
 
@@ -70,7 +68,6 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
     _page = 0;
     [weakSelf.tableView.mj_header endRefreshing];
     
-    
     if (_moreType == RecomType) {
         
         NSString *url = [NSString stringWithFormat:@"%@%@&page=%ld",kProjectBaseUrl,hotspotAll,(unsigned long)_page];
@@ -83,6 +80,7 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
             _page ++;
             
         } fail:^{
+            
             [weakSelf.dataSourceArrays removeAllObjects];
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];

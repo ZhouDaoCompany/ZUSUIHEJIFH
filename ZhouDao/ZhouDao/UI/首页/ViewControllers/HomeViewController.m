@@ -65,7 +65,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     [SVProgressHUD setDefaultAnimationType:SVProgressHUDAnimationTypeNative];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
-    
+
     [self initUI];
     
 }

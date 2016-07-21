@@ -157,7 +157,7 @@
  * 司法机关全部分类
  */
 + (void)goverAllClasslistwithName:(NSString *)name
-                   RequestSuccess:(void (^)(NSArray *arr,NSUInteger index))success;
+                   RequestSuccess:(void (^)(NSArray *arr,NSInteger index))success;
 /*
  * 司法机关列表
  */

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '2D859950E2E70B5C794280B5'
+               BlueprintIdentifier = '23EB1163F6176C624E6FFFD2'
                BlueprintName = 'DLWidgetMenu'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libDLWidgetMenu.a'>

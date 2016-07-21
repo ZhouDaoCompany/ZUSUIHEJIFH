@@ -58,7 +58,9 @@
     if ([_format isEqualToString:@"jpg"]) {
 
         [self.view addSubview:self.scrollview];
-        [_scrollview addSubview:self.imageview];
+        _imageview = [[UIImageView alloc] init];
+        [_imageview sd_setImageWithURL:[NSURL URLWithString:_url] placeholderImage:[UIImage imageNamed:@"gov_tupian"]];
+        [self.scrollview addSubview:_imageview];
         [self adjustFrames];
     }else{
         
@@ -113,14 +115,6 @@
         _scrollview.clipsToBounds = YES;
     }
     return _scrollview;
-}
-- (UIImageView *)imageview
-{
-    if (_imageview) {
-        _imageview = [[UIImageView alloc] init];
-        [_imageview sd_setImageWithURL:[NSURL URLWithString:_url] placeholderImage:[UIImage imageNamed:@"gov_tupian"]];
-    }
-    return _imageview;
 }
 - (UIWebView *)webView
 {

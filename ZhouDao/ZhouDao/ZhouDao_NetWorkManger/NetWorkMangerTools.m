@@ -747,7 +747,7 @@
 }
 
 #pragma mark - 司法机关全部分类
-+ (void)goverAllClasslistwithName:(NSString *)name RequestSuccess:(void (^)(NSArray *arr,NSUInteger index))success
++ (void)goverAllClasslistwithName:(NSString *)name RequestSuccess:(void (^)(NSArray *arr,NSInteger index))success
 {
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,goverAllClasslist];
@@ -761,7 +761,7 @@
         }
         NSArray *arrays = jsonDic[@"data"];
         NSMutableArray *allArr = [NSMutableArray array];
-        __block NSUInteger index = 0;
+        __block NSInteger index = 0;
         [arrays enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             GovClassModel *model = [[GovClassModel alloc] initWithDictionary:obj];
             if ([model.ctname isEqualToString:name]) {

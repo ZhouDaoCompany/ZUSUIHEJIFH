@@ -148,7 +148,6 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     vc.nameString = model.ctname;
     [self.navigationController pushViewController:vc animated:YES];
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,indexPath.row);
-    
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
