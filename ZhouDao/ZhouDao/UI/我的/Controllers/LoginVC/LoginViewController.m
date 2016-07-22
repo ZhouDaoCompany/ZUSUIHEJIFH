@@ -85,8 +85,10 @@
     self.nameText.tag = 3000;
     self.nameText.keyboardType = UIKeyboardTypeNumberPad;
     self.nameText.delegate = self;
+    _nameText.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.keyText.delegate = self;
     self.keyText.tag = 3001;
+    _keyText.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.keyText.secureTextEntry = YES;
     
     [self.view addSubview:self.loginView];
