@@ -10,7 +10,7 @@
 
 @interface FlipPageView : UIView
 
-@property(nonatomic,assign)NSInteger                iDisplayTime; //广告文字轮播时停留的时间，默认0秒不会轮播
+@property(nonatomic,assign) NSInteger                iDisplayTime; //广告文字轮播时停留的时间，默认0秒不会轮播
 
 /**
  *  启动函数

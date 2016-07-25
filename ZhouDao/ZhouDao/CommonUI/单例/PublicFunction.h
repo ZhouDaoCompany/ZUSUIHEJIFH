@@ -22,6 +22,9 @@
 @property (nonatomic, strong) NSString *locCity;
 @property (nonatomic, strong) NSString *locDistrict;
 
+//timer字典
+@property (nonatomic, strong) NSMutableDictionary *timercontainer;
+
 +(PublicFunction *)ShareInstance;
 //是否登录
 - (BOOL)isLogin;
@@ -31,4 +34,5 @@
  *  @return YES:是第一次启动  NO:否
  */
 - (BOOL)isFirstLaunch;
+
 @end

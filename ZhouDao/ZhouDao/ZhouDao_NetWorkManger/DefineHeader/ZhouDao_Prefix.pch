@@ -116,6 +116,12 @@
 #define  UID                  GET([PublicFunction ShareInstance].m_user.data.uid)
 
 /**
+ *   JX_GCDTimerManager 红定义
+ */
+#define  standardCollect      @"5"       //赔偿标准
+
+
+/**
  *  查询 bundle文件
  *
  */

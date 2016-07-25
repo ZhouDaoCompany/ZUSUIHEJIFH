@@ -7,16 +7,19 @@
 //
 
 #import "FlipPageView.h"
+#import "JX_GCDTimerManager.h"
 
 @interface FlipPageView() <UIScrollViewDelegate>
-@property (nonatomic,assign)int                 indexShow;
-@property (nonatomic,strong)NSArray               *arrText;
-@property (nonatomic,strong)UIScrollView        *scView;
-@property (nonatomic,strong)UILabel         *labelPrev;
-@property (nonatomic,strong)UILabel         *labelCurrent;
-@property (nonatomic,strong)UILabel         *labelNext;
-@property (nonatomic,strong)NSTimer             *myTimer;
-@property (nonatomic,copy)ZDIndexBlock   myBlock;
+@property (nonatomic, assign) int                   indexShow;
+@property (nonatomic, strong) NSArray               *arrText;
+@property (nonatomic, strong) UIScrollView          *scView;
+@property (nonatomic, strong) UILabel               *labelPrev;
+@property (nonatomic, strong) UILabel               *labelCurrent;
+@property (nonatomic, strong) UILabel               *labelNext;
+//@property (nonatomic, strong)NSTimer              *myTimer;
+@property (nonatomic, copy)   NSString               *myTimer;
+
+@property (nonatomic, copy)   ZDIndexBlock          myBlock;
 
 @end
 @implementation FlipPageView
@@ -41,8 +44,7 @@
     UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAds)];
     [_scView addGestureRecognizer:tap];
     
-
-    
+    _myTimer = @"shuffling";
     [_scView addSubview:self.labelPrev];
     [_scView addSubview:self.labelCurrent];
     [_scView addSubview:self.labelNext];
@@ -133,9 +135,7 @@
     [self reloadTexts];
 }
 - (void)stopAds {
-    if (_myTimer) {
-        [_myTimer invalidate];
-    }
+    [[JX_GCDTimerManager sharedInstance] cancelTimerWithName:_myTimer];
 }
 /**
  *  点击lab
@@ -145,10 +145,12 @@
     if (self.myBlock != NULL) {
         self.myBlock(_indexShow);
     }
-    if (_myTimer){
-        [_myTimer invalidate];
-        _myTimer = nil;
-    }
+//    if (_myTimer){
+//        [_myTimer invalidate];
+//        _myTimer = nil;
+//    }
+    [[JX_GCDTimerManager sharedInstance] cancelTimerWithName:_myTimer];
+
     if (_iDisplayTime > 0)
         [self startTimerPlay];
 }
@@ -183,26 +185,37 @@
  */
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if (_myTimer)
-        [_myTimer invalidate];
+    
+    [[JX_GCDTimerManager sharedInstance] cancelTimerWithName:_myTimer];
     if (scrollView.contentOffset.y >=self.frame.size.height*2)
         _indexShow++;
     else if (scrollView.contentOffset.y < self.frame.size.height)
         _indexShow--;
     [self reloadTexts];
 }
-- (void)startTimerPlay {
-        _myTimer = [NSTimer scheduledTimerWithTimeInterval:_iDisplayTime target:self selector:@selector(doTextGoDisplay) userInfo:nil repeats:NO];
+- (void)startTimerPlay {WEAKSELF;
+    [[JX_GCDTimerManager sharedInstance] scheduledDispatchTimerWithName:_myTimer
+                                                           timeInterval:_iDisplayTime
+                                                                  queue:nil
+                                                                repeats:YES
+                                                           actionOption:AbandonPreviousAction
+                                                                 action:^{
+         [weakSelf doTextGoDisplay];
+    }];
+    
 }
-
 /**
  *  轮播文字
  */
-- (void)doTextGoDisplay {
+- (void)doTextGoDisplay {WEAKSELF;
     [_scView scrollRectToVisible:CGRectMake(0, self.frame.size.height*2, self.frame.size.width, self.frame.size.height) animated:YES];
     _indexShow++;
-    [self performSelector:@selector(reloadTexts) withObject:nil afterDelay:0.3];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf reloadTexts];
+    });
 }
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

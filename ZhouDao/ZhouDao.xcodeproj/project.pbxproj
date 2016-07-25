@@ -405,6 +405,22 @@
 		18F593E51CB5F40400F5619D /* UIWebView_SearchWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F593E41CB5F40400F5619D /* UIWebView_SearchWebView.m */; };
 		18F593E71CB636A500F5619D /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 18F593E61CB636A500F5619D /* SearchWebView.js */; };
 		18F666AA1D07C37B0004FF55 /* tapbar_top_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F666A91D07C37B0004FF55 /* tapbar_top_line@2x.png */; };
+		18F8126C1D45C2110099A353 /* JX_GCDTimerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F8126B1D45C2110099A353 /* JX_GCDTimerManager.m */; };
+		18F812AF1D45F45C0099A353 /* NSAttributedString+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812961D45F45C0099A353 /* NSAttributedString+YYText.m */; };
+		18F812B01D45F45C0099A353 /* NSParagraphStyle+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812981D45F45C0099A353 /* NSParagraphStyle+YYText.m */; };
+		18F812B11D45F45C0099A353 /* UIPasteboard+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F8129A1D45F45C0099A353 /* UIPasteboard+YYText.m */; };
+		18F812B21D45F45C0099A353 /* UIView+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F8129C1D45F45C0099A353 /* UIView+YYText.m */; };
+		18F812B31D45F45C0099A353 /* YYTextArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F8129E1D45F45C0099A353 /* YYTextArchiver.m */; };
+		18F812B41D45F45C0099A353 /* YYTextAsyncLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812A01D45F45C0099A353 /* YYTextAsyncLayer.m */; };
+		18F812B51D45F45C0099A353 /* YYTextAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812A21D45F45C0099A353 /* YYTextAttribute.m */; };
+		18F812B61D45F45C0099A353 /* YYTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812A41D45F45C0099A353 /* YYTextParser.m */; };
+		18F812B71D45F45C0099A353 /* YYTextRubyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812A61D45F45C0099A353 /* YYTextRubyAnnotation.m */; };
+		18F812B81D45F45C0099A353 /* YYTextRunDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812A81D45F45C0099A353 /* YYTextRunDelegate.m */; };
+		18F812B91D45F45C0099A353 /* YYTextTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812AA1D45F45C0099A353 /* YYTextTransaction.m */; };
+		18F812BA1D45F45C0099A353 /* YYTextUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812AC1D45F45C0099A353 /* YYTextUtilities.m */; };
+		18F812BB1D45F45C0099A353 /* YYTextWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812AE1D45F45C0099A353 /* YYTextWeakProxy.m */; };
+		18F812C01D45F4EE0099A353 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812BD1D45F4EE0099A353 /* YYFPSLabel.m */; };
+		18F812C11D45F4EE0099A353 /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F812BF1D45F4EE0099A353 /* YYWeakProxy.m */; };
 		18F878A51D055D730069E68A /* MapNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F878A41D055D730069E68A /* MapNavViewController.m */; };
 		18F878A91D0568150069E68A /* SpeechSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F878A81D0568150069E68A /* SpeechSynthesizer.m */; };
 		18F878AD1D056E260069E68A /* MoreMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F878AC1D056E260069E68A /* MoreMenuView.m */; };
@@ -745,7 +761,7 @@
 		18230CF01CC7455400F4ACCF /* CustomMenuBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMenuBtn.h; sourceTree = "<group>"; };
 		18230CF11CC7455400F4ACCF /* CustomMenuBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMenuBtn.m; sourceTree = "<group>"; };
 		18230CF31CC7580700F4ACCF /* NewsLawsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLawsVC.h; sourceTree = "<group>"; };
-		18230CF41CC7580700F4ACCF /* NewsLawsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsLawsVC.m; path = "法规/NewsLawsVC.m"; sourceTree = "<group>"; };
+		18230CF41CC7580700F4ACCF /* NewsLawsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsLawsVC.m; sourceTree = "<group>"; };
 		18230CF61CC76F1800F4ACCF /* QZPathDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZPathDefine.h; sourceTree = "<group>"; };
 		18230CF71CC76F8300F4ACCF /* QZPersistentDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZPersistentDefine.h; sourceTree = "<group>"; };
 		18230CF81CC76FA800F4ACCF /* QZViewDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZViewDefine.h; sourceTree = "<group>"; };
@@ -1101,6 +1117,38 @@
 		18F593E41CB5F40400F5619D /* UIWebView_SearchWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebView_SearchWebView.m; sourceTree = "<group>"; };
 		18F593E61CB636A500F5619D /* SearchWebView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchWebView.js; sourceTree = "<group>"; };
 		18F666A91D07C37B0004FF55 /* tapbar_top_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tapbar_top_line@2x.png"; sourceTree = "<group>"; };
+		18F8126A1D45C2110099A353 /* JX_GCDTimerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JX_GCDTimerManager.h; sourceTree = "<group>"; };
+		18F8126B1D45C2110099A353 /* JX_GCDTimerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JX_GCDTimerManager.m; sourceTree = "<group>"; };
+		18F812951D45F45C0099A353 /* NSAttributedString+YYText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+YYText.h"; sourceTree = "<group>"; };
+		18F812961D45F45C0099A353 /* NSAttributedString+YYText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+YYText.m"; sourceTree = "<group>"; };
+		18F812971D45F45C0099A353 /* NSParagraphStyle+YYText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+YYText.h"; sourceTree = "<group>"; };
+		18F812981D45F45C0099A353 /* NSParagraphStyle+YYText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+YYText.m"; sourceTree = "<group>"; };
+		18F812991D45F45C0099A353 /* UIPasteboard+YYText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPasteboard+YYText.h"; sourceTree = "<group>"; };
+		18F8129A1D45F45C0099A353 /* UIPasteboard+YYText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPasteboard+YYText.m"; sourceTree = "<group>"; };
+		18F8129B1D45F45C0099A353 /* UIView+YYText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YYText.h"; sourceTree = "<group>"; };
+		18F8129C1D45F45C0099A353 /* UIView+YYText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YYText.m"; sourceTree = "<group>"; };
+		18F8129D1D45F45C0099A353 /* YYTextArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextArchiver.h; sourceTree = "<group>"; };
+		18F8129E1D45F45C0099A353 /* YYTextArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextArchiver.m; sourceTree = "<group>"; };
+		18F8129F1D45F45C0099A353 /* YYTextAsyncLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextAsyncLayer.h; sourceTree = "<group>"; };
+		18F812A01D45F45C0099A353 /* YYTextAsyncLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextAsyncLayer.m; sourceTree = "<group>"; };
+		18F812A11D45F45C0099A353 /* YYTextAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextAttribute.h; sourceTree = "<group>"; };
+		18F812A21D45F45C0099A353 /* YYTextAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextAttribute.m; sourceTree = "<group>"; };
+		18F812A31D45F45C0099A353 /* YYTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextParser.h; sourceTree = "<group>"; };
+		18F812A41D45F45C0099A353 /* YYTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextParser.m; sourceTree = "<group>"; };
+		18F812A51D45F45C0099A353 /* YYTextRubyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextRubyAnnotation.h; sourceTree = "<group>"; };
+		18F812A61D45F45C0099A353 /* YYTextRubyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextRubyAnnotation.m; sourceTree = "<group>"; };
+		18F812A71D45F45C0099A353 /* YYTextRunDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextRunDelegate.h; sourceTree = "<group>"; };
+		18F812A81D45F45C0099A353 /* YYTextRunDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextRunDelegate.m; sourceTree = "<group>"; };
+		18F812A91D45F45C0099A353 /* YYTextTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextTransaction.h; sourceTree = "<group>"; };
+		18F812AA1D45F45C0099A353 /* YYTextTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextTransaction.m; sourceTree = "<group>"; };
+		18F812AB1D45F45C0099A353 /* YYTextUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextUtilities.h; sourceTree = "<group>"; };
+		18F812AC1D45F45C0099A353 /* YYTextUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextUtilities.m; sourceTree = "<group>"; };
+		18F812AD1D45F45C0099A353 /* YYTextWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextWeakProxy.h; sourceTree = "<group>"; };
+		18F812AE1D45F45C0099A353 /* YYTextWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextWeakProxy.m; sourceTree = "<group>"; };
+		18F812BC1D45F4EE0099A353 /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
+		18F812BD1D45F4EE0099A353 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
+		18F812BE1D45F4EE0099A353 /* YYWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWeakProxy.h; sourceTree = "<group>"; };
+		18F812BF1D45F4EE0099A353 /* YYWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWeakProxy.m; sourceTree = "<group>"; };
 		18F8789F1D053CCA0069E68A /* APIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIKey.h; sourceTree = "<group>"; };
 		18F878A41D055D730069E68A /* MapNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapNavViewController.m; sourceTree = "<group>"; };
 		18F878A71D0568150069E68A /* SpeechSynthesizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechSynthesizer.h; sourceTree = "<group>"; };
@@ -1500,6 +1548,7 @@
 				1065C31E1CA91689003F4089 /* ContentViewController.h */,
 				1065C31F1CA91689003F4089 /* ContentViewController.m */,
 				18230CF31CC7580700F4ACCF /* NewsLawsVC.h */,
+				18230CF41CC7580700F4ACCF /* NewsLawsVC.m */,
 				1031B1111CB01933006CE3FB /* 地方法规 */,
 			);
 			path = "法规";
@@ -1768,7 +1817,6 @@
 				10241A201CBA4001000CBEAE /* 案件管理 */,
 				10241A101CB9F279000CBEAE /* 赔偿标准 */,
 				18C4B0391CB4A41100D3CB8B /* 合同模版 */,
-				18230CF41CC7580700F4ACCF /* NewsLawsVC.m */,
 				103D258D1CAE70EA00F2B93A /* 司法机关 */,
 				1065C2B81CA8E13F003F4089 /* 法规 */,
 			);
@@ -2820,6 +2868,53 @@
 			path = "案例查找";
 			sourceTree = "<group>";
 		};
+		18F812691D45C2110099A353 /* JX_GCDTimer */ = {
+			isa = PBXGroup;
+			children = (
+				18F8126A1D45C2110099A353 /* JX_GCDTimerManager.h */,
+				18F8126B1D45C2110099A353 /* JX_GCDTimerManager.m */,
+			);
+			name = JX_GCDTimer;
+			path = Utility/JX_GCDTimer;
+			sourceTree = "<group>";
+		};
+		18F8126D1D45F20D0099A353 /* YYFPSLabel */ = {
+			isa = PBXGroup;
+			children = (
+				18F812951D45F45C0099A353 /* NSAttributedString+YYText.h */,
+				18F812961D45F45C0099A353 /* NSAttributedString+YYText.m */,
+				18F812971D45F45C0099A353 /* NSParagraphStyle+YYText.h */,
+				18F812981D45F45C0099A353 /* NSParagraphStyle+YYText.m */,
+				18F812991D45F45C0099A353 /* UIPasteboard+YYText.h */,
+				18F8129A1D45F45C0099A353 /* UIPasteboard+YYText.m */,
+				18F8129B1D45F45C0099A353 /* UIView+YYText.h */,
+				18F8129C1D45F45C0099A353 /* UIView+YYText.m */,
+				18F8129D1D45F45C0099A353 /* YYTextArchiver.h */,
+				18F8129E1D45F45C0099A353 /* YYTextArchiver.m */,
+				18F8129F1D45F45C0099A353 /* YYTextAsyncLayer.h */,
+				18F812A01D45F45C0099A353 /* YYTextAsyncLayer.m */,
+				18F812A11D45F45C0099A353 /* YYTextAttribute.h */,
+				18F812A21D45F45C0099A353 /* YYTextAttribute.m */,
+				18F812A31D45F45C0099A353 /* YYTextParser.h */,
+				18F812A41D45F45C0099A353 /* YYTextParser.m */,
+				18F812A51D45F45C0099A353 /* YYTextRubyAnnotation.h */,
+				18F812A61D45F45C0099A353 /* YYTextRubyAnnotation.m */,
+				18F812A71D45F45C0099A353 /* YYTextRunDelegate.h */,
+				18F812A81D45F45C0099A353 /* YYTextRunDelegate.m */,
+				18F812A91D45F45C0099A353 /* YYTextTransaction.h */,
+				18F812AA1D45F45C0099A353 /* YYTextTransaction.m */,
+				18F812AB1D45F45C0099A353 /* YYTextUtilities.h */,
+				18F812AC1D45F45C0099A353 /* YYTextUtilities.m */,
+				18F812AD1D45F45C0099A353 /* YYTextWeakProxy.h */,
+				18F812AE1D45F45C0099A353 /* YYTextWeakProxy.m */,
+				18F812BC1D45F4EE0099A353 /* YYFPSLabel.h */,
+				18F812BD1D45F4EE0099A353 /* YYFPSLabel.m */,
+				18F812BE1D45F4EE0099A353 /* YYWeakProxy.h */,
+				18F812BF1D45F4EE0099A353 /* YYWeakProxy.m */,
+			);
+			path = YYFPSLabel;
+			sourceTree = "<group>";
+		};
 		18F878A61D0568150069E68A /* SpeechSynthesizer */ = {
 			isa = PBXGroup;
 			children = (
@@ -2868,6 +2963,7 @@
 		18FF3F371C8529CA0098C60B /* Toos */ = {
 			isa = PBXGroup;
 			children = (
+				18F8126D1D45F20D0099A353 /* YYFPSLabel */,
 				1843C5B41D38CCF700414C2E /* Third-party login */,
 				100982E91D33C7CE00768D9A /* Stretch */,
 				188F9E461CF82077000F9B2D /* SCIntroView */,
@@ -2988,6 +3084,7 @@
 			isa = PBXGroup;
 			children = (
 				103D48C41CE8705500ED0864 /* Areas.plist */,
+				18F812691D45C2110099A353 /* JX_GCDTimer */,
 				18E2E7FC1D0FD08D00330AFA /* JKCountDownButton */,
 				10FA3E241CAD6B14005C4C0C /* 铃声 */,
 				18CD4D951C928111001838D2 /* Utility */,
@@ -3493,6 +3590,7 @@
 				1863DFE31C8D2B5B00F7A84E /* GcNoticeUtil.m in Sources */,
 				10C01AFB1CA7F01A0000EF7A /* LawsTableViewCell.m in Sources */,
 				10C01AF11CA7D1090000EF7A /* LawSview.m in Sources */,
+				18F812B01D45F45C0099A353 /* NSParagraphStyle+YYText.m in Sources */,
 				188638F81C9AA5D200E91F78 /* AddAlertVC.m in Sources */,
 				18A622871CD3441C0073B886 /* RemindData.m in Sources */,
 				181125D61CDB36FB00ACA16D /* GovData.m in Sources */,
@@ -3507,6 +3605,7 @@
 				1065C2C21CA8E13F003F4089 /* LawsViewController.m in Sources */,
 				108DBFFF1C9F9DBF00FD1221 /* MineCerVCr.m in Sources */,
 				18F593E51CB5F40400F5619D /* UIWebView_SearchWebView.m in Sources */,
+				18F812B41D45F45C0099A353 /* YYTextAsyncLayer.m in Sources */,
 				18FD83041CBB54F500D50E20 /* TheCaseCollectionCell.m in Sources */,
 				18F2F1AB1CBE16710068453D /* ExampleSearView.m in Sources */,
 				18CB0F0B1CBF5E00009C41CE /* SeniorTabViewCell.m in Sources */,
@@ -3522,6 +3621,7 @@
 				183498571CE03694009707E2 /* LawsDataModel.m in Sources */,
 				10172BE01CBBF16C00B7553E /* KxMenu.m in Sources */,
 				183FFCB41D378546007D0494 /* ShareView.m in Sources */,
+				18F812B61D45F45C0099A353 /* YYTextParser.m in Sources */,
 				18AD6AAE1CD99D500053F46B /* TheContractData.m in Sources */,
 				18D9570B1CF5ADED00F0E4DB /* ToolsIntroduceVC.m in Sources */,
 				18CD4DAB1C928111001838D2 /* WHC_PictureListVC.m in Sources */,
@@ -3535,10 +3635,12 @@
 				18F878AD1D056E260069E68A /* MoreMenuView.m in Sources */,
 				108323391CAA5101004B8045 /* ZD_SettingBottomBar.m in Sources */,
 				18F878A51D055D730069E68A /* MapNavViewController.m in Sources */,
+				18F812BB1D45F45C0099A353 /* YYTextWeakProxy.m in Sources */,
 				18D66ACD1CE1BD0300BF2C17 /* LawDetailModel.m in Sources */,
 				1817D29D1CC089C400FF6EEE /* LitigationCell.m in Sources */,
 				187349D41D2F3D43001A3E91 /* ScanViewController.m in Sources */,
 				18A686141D17DE31001BEA41 /* SDWebImageManager+MJ.m in Sources */,
+				18F812B21D45F45C0099A353 /* UIView+YYText.m in Sources */,
 				18FF3F3D1C8529CA0098C60B /* JKPromptView.m in Sources */,
 				18FF3F521C852BDB0098C60B /* UIColor+Helper.m in Sources */,
 				104B44301C9BCCE400FC19B3 /* AllReusableView.m in Sources */,
@@ -3559,6 +3661,7 @@
 				18F2F1CB1CBE2D840068453D /* SeniorViewController.m in Sources */,
 				10241A291CBA4CE0000CBEAE /* TheCaseDetailVC.m in Sources */,
 				1052A95B1CF3360D0070C11C /* MoreViewController.m in Sources */,
+				18F812B81D45F45C0099A353 /* YYTextRunDelegate.m in Sources */,
 				18A622881CD3441C0073B886 /* RemindModel.m in Sources */,
 				1083232F1CAA19B2004B8045 /* UIColor+Change.m in Sources */,
 				10D31D771CDEE847008D6F42 /* GovernmentDetailVC.m in Sources */,
@@ -3579,6 +3682,7 @@
 				18FF3F3E1C8529CB0098C60B /* UIView+JKPicker.m in Sources */,
 				18FF3F5E1C852EF80098C60B /* FMUString.m in Sources */,
 				1817D2931CC0819500FF6EEE /* LitigationTabVC.m in Sources */,
+				18F812B31D45F45C0099A353 /* YYTextArchiver.m in Sources */,
 				18230CF21CC7455400F4ACCF /* CustomMenuBtn.m in Sources */,
 				10241A171CB9F5A0000CBEAE /* CompensationTabCell.m in Sources */,
 				1083233C1CAA5339004B8045 /* SetCollectionViewCell.m in Sources */,
@@ -3614,6 +3718,7 @@
 				1866404A1D24E9B700E1F455 /* FinanceModel.m in Sources */,
 				18D9D68E1CBCD2CA008F9CC8 /* FilterReusableView.m in Sources */,
 				188651A71D25FBE900E030F7 /* FinanceDesCell.m in Sources */,
+				18F812BA1D45F45C0099A353 /* YYTextUtilities.m in Sources */,
 				1825B0A61C969287003B2096 /* CollectEmptyView.m in Sources */,
 				186AA14D1CE46E7C0009C0D5 /* CollectionData.m in Sources */,
 				18CD4DA71C928111001838D2 /* WHC_CameraVC.m in Sources */,
@@ -3625,19 +3730,23 @@
 				18B7177D1C916C5200F2AAED /* RegisterViewController.m in Sources */,
 				18B583421C9A4E3200CB3009 /* FDCalendar.m in Sources */,
 				10BA91B31CEE0D39000889A4 /* CasesDirectoryVC.m in Sources */,
+				18F8126C1D45C2110099A353 /* JX_GCDTimerManager.m in Sources */,
 				18A6228F1CD352260073B886 /* NSDateFormatter+Category.m in Sources */,
 				1878213B1CB788B6007503DB /* ZD_CaseWindow.m in Sources */,
 				10457F511C9EEEFA00E1D3B2 /* SoundManager.m in Sources */,
+				18F812C01D45F4EE0099A353 /* YYFPSLabel.m in Sources */,
 				1829B66D1CEB20B60086CF67 /* ToolsWedViewVC.m in Sources */,
 				1856EC971D18E1A000016778 /* CaseFIViewController.m in Sources */,
 				10BA91AF1CEDEBFE000889A4 /* NewlyCreatedVC.m in Sources */,
 				10E3D5681C9587210004DC2C /* FeedbackViewController.m in Sources */,
 				1843C5B71D38CD2800414C2E /* ThirdPartyLoginView.m in Sources */,
+				18F812B91D45F45C0099A353 /* YYTextTransaction.m in Sources */,
 				18D9D68F1CBCD2CA008F9CC8 /* FilterView.m in Sources */,
 				108323431CAA70A5004B8045 /* ZD_ListView.m in Sources */,
 				104157691C947A6F00EE5303 /* AboutZDVC.m in Sources */,
 				104157581C945C0200EE5303 /* ProfessionalCell.m in Sources */,
 				18AF33F41CC0DFD30063485E /* ConsultantCell.m in Sources */,
+				18F812C11D45F4EE0099A353 /* YYWeakProxy.m in Sources */,
 				108323301CAA19B2004B8045 /* UIWebView+HTML5.m in Sources */,
 				104157521C94530F00EE5303 /* HeadTableViewCell.m in Sources */,
 				104B44331C9BCCE400FC19B3 /* SelectReusableView.m in Sources */,
@@ -3647,6 +3756,7 @@
 				18CB0F021CBF2496009C41CE /* TwoCompensationVC.m in Sources */,
 				18E2E7FF1D0FD08E00330AFA /* JKCountDownButton.m in Sources */,
 				1043049B1CA51648009D7072 /* TaskModel.m in Sources */,
+				18F812B51D45F45C0099A353 /* YYTextAttribute.m in Sources */,
 				1060DA0A1CACB2AA00D779A5 /* QZManager.m in Sources */,
 				104B44311C9BCCE400FC19B3 /* ChannelCollectionCell.m in Sources */,
 				1825B0A91C969386003B2096 /* NSString+Size.m in Sources */,
@@ -3672,13 +3782,16 @@
 				18D9D68D1CBCD2CA008F9CC8 /* FilterCollectionViewCell.m in Sources */,
 				187DB92E1CDC6B33009CF1D6 /* GovernmentListVC.m in Sources */,
 				18FF3F561C852D550098C60B /* NSString+SPStr.m in Sources */,
+				18F812B11D45F45C0099A353 /* UIPasteboard+YYText.m in Sources */,
 				1065C2C31CA8E13F003F4089 /* SecrchLawsVC.m in Sources */,
 				18CD4DA61C928111001838D2 /* WHC_PhotoListCell.m in Sources */,
 				181E51311CD1F34700BBA10D /* NewPhoneVC.m in Sources */,
 				187DB8BD1CDC6216009CF1D6 /* GovListmodel.m in Sources */,
 				186640471D24AEC800E1F455 /* GBTagListView.m in Sources */,
 				184983161D2A0D63009AF29F /* OnlyAddCaseVC.m in Sources */,
+				18F812AF1D45F45C0099A353 /* NSAttributedString+YYText.m in Sources */,
 				18FF3F361C85234A0098C60B /* ZhouDao_NetWorkManger.m in Sources */,
+				18F812B71D45F45C0099A353 /* YYTextRubyAnnotation.m in Sources */,
 				18CB0F061CBF42EA009C41CE /* TwoCompensationCell.m in Sources */,
 				18EE958C1D2373150030AE2B /* AddFinanceVC.m in Sources */,
 				187DB94B1CDC803C009CF1D6 /* GovClassModel.m in Sources */,

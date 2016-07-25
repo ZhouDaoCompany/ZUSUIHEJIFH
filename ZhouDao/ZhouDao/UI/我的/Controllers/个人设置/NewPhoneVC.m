@@ -8,16 +8,15 @@
 
 #import "NewPhoneVC.h"
 #import "CCPRestSDK.h"
+#import "JKCountDownButton.h"
 
 @interface NewPhoneVC ()<UITextFieldDelegate>
 {
     NSString *_codeStr;//验证码
-    NSInteger _countDown;
 }
 @property (nonatomic, strong) UITextField *codeText;
 @property (nonatomic, strong) UITextField *phoneText;
-@property (nonatomic, strong) UIButton *sendBtn;
-@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) JKCountDownButton *sendBtn;
 @property (nonatomic, strong) UIButton *commitBtn;
 
 @end
@@ -61,7 +60,7 @@
     [oneView addSubview:_phoneText];
     
     //按钮
-    _sendBtn= [UIButton buttonWithType:UIButtonTypeCustom];
+    _sendBtn= [JKCountDownButton buttonWithType:UIButtonTypeCustom];
     _sendBtn.backgroundColor = KNavigationBarColor;
     _sendBtn.titleLabel.font = Font_14;
     _sendBtn.frame = CGRectMake(oneView.frame.size.width - 130, 6, 120 , 33);
@@ -128,7 +127,7 @@
             {
                 [NetWorkMangerTools validationPhoneNumber:_phoneText.text RequestSuccess:^{
                     
-                    [self timerInit];
+                    [self timerInit:sender];
                     CCPRestSDK* ccpRestSdk = [[CCPRestSDK alloc] initWithServerIP:YTXSEVERIP andserverPort:YTXPORT];
                     [ccpRestSdk setApp_ID:YTXAPPID];
                     [ccpRestSdk enableLog:YES];
@@ -187,12 +186,10 @@
     {
         _commitBtn.enabled = YES;
         [_commitBtn setTitleColor:[UIColor whiteColor] forState:0];
-        
     }else{
         _commitBtn.enabled = NO;
         [_commitBtn setTitleColor:[UIColor colorWithHexString:@"#dadada"] forState:0];
     }
-    
 }
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -204,26 +201,20 @@
     return YES;
 }
 #pragma mark - timer相关
-- (void)timerInit
+- (void)timerInit:(id)sender
 {
-    _countDown = 60;
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
-}
-- (void)timerFireMethod:(NSTimer *)theTimer
-{
-    _countDown--;
-    if (_countDown <= 0)
-    {
-        [self.timer invalidate];
-        _sendBtn.enabled = YES;
-        [_sendBtn setTitle:@"重新获取" forState:0];
-    }
-    else
-    {
-        _sendBtn.enabled = NO;
-        NSString *msg = [NSString stringWithFormat:@"%ld秒", (long)_countDown];
-        [_sendBtn setTitle:msg forState:UIControlStateNormal];
-    }
+    JKCountDownButton *btn = (JKCountDownButton *)sender;
+    btn.enabled = NO;
+    [sender startCountDownWithSecond:60];
+    [sender countDownChanging:^NSString *(JKCountDownButton *countDownButton,NSUInteger second) {
+        NSString *title = [NSString stringWithFormat:@"%zd秒",second];
+        return title;
+    }];
+    [sender countDownFinished:^NSString *(JKCountDownButton *countDownButton, NSUInteger second) {
+        countDownButton.enabled = YES;
+        return @"重新获取";
+    }];
+
 }
 
 #pragma mark -手势

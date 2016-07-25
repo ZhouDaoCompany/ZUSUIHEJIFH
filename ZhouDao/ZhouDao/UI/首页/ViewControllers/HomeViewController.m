@@ -29,7 +29,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
 @property (strong, nonatomic) HomeHeadView *headView;
 
-@property(nonatomic, strong) AMapSearchAPI *search;
+@property (nonatomic, strong) AMapSearchAPI *search;
 @property (nonatomic, strong) AMapLocationManager *locationService;//定位服务
 @property (nonatomic, strong) CLLocation *userLocation;  //我的位置
 
@@ -131,6 +131,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     [moreBtn setTitle:@"点击查看更多" forState:0];
     [moreBtn addTarget:self action:@selector(loadMoreData) forControlEvents:UIControlEventTouchUpInside];
     _tableView.tableFooterView = moreBtn;
+    
 }
 -(UITableView *)tableView{
     if (!_tableView) {

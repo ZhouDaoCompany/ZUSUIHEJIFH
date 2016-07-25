@@ -327,8 +327,6 @@
                     [JKPromptView showWithImageName:nil message:msg];
                 }];
             }
-
-            
         }
             break;
         case 3010:
@@ -341,11 +339,9 @@
             [self.navigationController popViewControllerAnimated:YES];
         }
             break;
-
         default:
             break;
     }
-    
 }
 #pragma mark - timer相关
 - (void)timerInit:(id)sender

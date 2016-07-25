@@ -15,6 +15,8 @@
 #import "PushAlertWindow.h"
 #import "ToolsWedViewVC.h"
 
+#import "YYFPSLabel.h"
+
 @interface BaseViewController ()
 {
     CGFloat barSpacing;
@@ -132,6 +134,9 @@
 
     self.view.backgroundColor = ViewBackColor;
     
+    YYFPSLabel *fps = [YYFPSLabel new];
+    fps.frame = CGRectMake((kMainScreenWidth - 100)/2.f, 0, 100, 20);
+    [self.naviBarView addSubview:fps];
 }
 - (void)viewWillAppear:(BOOL)animated
 {

@@ -14,9 +14,9 @@
 #define oftenLaws     [UIScreen mainScreen].bounds.size.width*(311.f/750.f)
 @interface RecomHeadView()<SDCycleScrollViewDelegate>
 @property (strong, nonatomic) FlipPageView *adView;
-@property (strong,nonatomic) SDCycleScrollView *cycleScrollView;
-@property (nonatomic,strong)NSMutableArray *imageArrays;
-@property (nonatomic,strong) NSMutableArray *titleArrays;
+@property (strong, nonatomic) SDCycleScrollView *cycleScrollView;
+@property (nonatomic, strong) NSMutableArray *imageArrays;
+@property (nonatomic, strong) NSMutableArray *titleArrays;
 @property (strong, nonatomic) UIView *newslLawView;
 @property (strong, nonatomic) UIImageView *imgView3;
 @end
