@@ -203,7 +203,6 @@
 		1825B0A61C969287003B2096 /* CollectEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825B0A51C969287003B2096 /* CollectEmptyView.m */; };
 		1825B0A91C969386003B2096 /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825B0A81C969386003B2096 /* NSString+Size.m */; };
 		1829B66A1CEAB9E40086CF67 /* BasicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829B6691CEAB9E40086CF67 /* BasicModel.m */; };
-		1829B66D1CEB20B60086CF67 /* ToolsWedViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829B66C1CEB20B60086CF67 /* ToolsWedViewVC.m */; };
 		1829BA761CE2F58700F0143F /* ExampleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829BA751CE2F58700F0143F /* ExampleData.m */; };
 		1829BA791CE3264A00F0143F /* CaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829BA781CE3264A00F0143F /* CaseModel.m */; };
 		1829BA7C1CE32CA400F0143F /* ExampleListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829BA7B1CE32CA400F0143F /* ExampleListVC.m */; };
@@ -216,6 +215,7 @@
 		1843C5B71D38CD2800414C2E /* ThirdPartyLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843C5B61D38CD2800414C2E /* ThirdPartyLoginView.m */; };
 		18474DB01CCDED3400515CD6 /* EditCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DAF1CCDED3400515CD6 /* EditCaseVC.m */; };
 		18474DB31CCE098300515CD6 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DB21CCE098300515CD6 /* UserData.m */; };
+		18496D621D4757A10071E689 /* ToolsWedViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18496D601D4757A00071E689 /* ToolsWedViewVC.m */; };
 		184983111D2A0CA7009AF29F /* case_mangeFS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1849830E1D2A0CA7009AF29F /* case_mangeFS@2x.png */; };
 		184983121D2A0CA7009AF29F /* case_mangerGW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1849830F1D2A0CA7009AF29F /* case_mangerGW@2x.png */; };
 		184983131D2A0CA7009AF29F /* case_mangeSS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184983101D2A0CA7009AF29F /* case_mangeSS@2x.png */; };
@@ -772,8 +772,6 @@
 		1829B6601CEAA4130086CF67 /* ThemeColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeColor.h; sourceTree = "<group>"; };
 		1829B6681CEAB9E40086CF67 /* BasicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicModel.h; sourceTree = "<group>"; };
 		1829B6691CEAB9E40086CF67 /* BasicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicModel.m; sourceTree = "<group>"; };
-		1829B66B1CEB20B60086CF67 /* ToolsWedViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsWedViewVC.h; sourceTree = "<group>"; };
-		1829B66C1CEB20B60086CF67 /* ToolsWedViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsWedViewVC.m; sourceTree = "<group>"; };
 		1829BA741CE2F58700F0143F /* ExampleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleData.h; sourceTree = "<group>"; };
 		1829BA751CE2F58700F0143F /* ExampleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleData.m; sourceTree = "<group>"; };
 		1829BA771CE3264A00F0143F /* CaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseModel.h; sourceTree = "<group>"; };
@@ -798,6 +796,8 @@
 		18474DAF1CCDED3400515CD6 /* EditCaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCaseVC.m; sourceTree = "<group>"; };
 		18474DB11CCE098300515CD6 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
 		18474DB21CCE098300515CD6 /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
+		18496D5F1D4757A00071E689 /* ToolsWedViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsWedViewVC.h; sourceTree = "<group>"; };
+		18496D601D4757A00071E689 /* ToolsWedViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsWedViewVC.m; sourceTree = "<group>"; };
 		1849830E1D2A0CA7009AF29F /* case_mangeFS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_mangeFS@2x.png"; sourceTree = "<group>"; };
 		1849830F1D2A0CA7009AF29F /* case_mangerGW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_mangerGW@2x.png"; sourceTree = "<group>"; };
 		184983101D2A0CA7009AF29F /* case_mangeSS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_mangeSS@2x.png"; sourceTree = "<group>"; };
@@ -1891,8 +1891,8 @@
 			children = (
 				181292B81C87E84E00EBB5CD /* ToolsViewController.h */,
 				181292B91C87E84E00EBB5CD /* ToolsViewController.m */,
-				1829B66B1CEB20B60086CF67 /* ToolsWedViewVC.h */,
-				1829B66C1CEB20B60086CF67 /* ToolsWedViewVC.m */,
+				18496D5F1D4757A00071E689 /* ToolsWedViewVC.h */,
+				18496D601D4757A00071E689 /* ToolsWedViewVC.m */,
 				18D957091CF5ADED00F0E4DB /* ToolsIntroduceVC.h */,
 				18D9570A1CF5ADED00F0E4DB /* ToolsIntroduceVC.m */,
 			);
@@ -3590,6 +3590,7 @@
 				1863DFE31C8D2B5B00F7A84E /* GcNoticeUtil.m in Sources */,
 				10C01AFB1CA7F01A0000EF7A /* LawsTableViewCell.m in Sources */,
 				10C01AF11CA7D1090000EF7A /* LawSview.m in Sources */,
+				18496D621D4757A10071E689 /* ToolsWedViewVC.m in Sources */,
 				18F812B01D45F45C0099A353 /* NSParagraphStyle+YYText.m in Sources */,
 				188638F81C9AA5D200E91F78 /* AddAlertVC.m in Sources */,
 				18A622871CD3441C0073B886 /* RemindData.m in Sources */,
@@ -3735,7 +3736,6 @@
 				1878213B1CB788B6007503DB /* ZD_CaseWindow.m in Sources */,
 				10457F511C9EEEFA00E1D3B2 /* SoundManager.m in Sources */,
 				18F812C01D45F4EE0099A353 /* YYFPSLabel.m in Sources */,
-				1829B66D1CEB20B60086CF67 /* ToolsWedViewVC.m in Sources */,
 				1856EC971D18E1A000016778 /* CaseFIViewController.m in Sources */,
 				10BA91AF1CEDEBFE000889A4 /* NewlyCreatedVC.m in Sources */,
 				10E3D5681C9587210004DC2C /* FeedbackViewController.m in Sources */,

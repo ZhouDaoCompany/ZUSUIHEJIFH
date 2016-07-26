@@ -7,6 +7,7 @@
 //
 
 #import "CaseDetailTabCell.h"
+
 #define BtnWidth [UIScreen mainScreen].bounds.size.width/4.f
 //#define leftX    (BtnWidth-20.f)/2.f
 #define TopY     13.f

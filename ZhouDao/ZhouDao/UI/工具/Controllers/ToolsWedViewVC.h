@@ -2,9 +2,13 @@
 //  ToolsWedViewVC.h
 //  ZhouDao
 //
-//  Created by apple on 16/5/17.
+//  Created by apple on 16/7/26.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
+
+#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
+
 typedef NS_ENUM(NSInteger, ToolsType)
 {
     FromCaseType  =   0,     //案件管理
@@ -13,8 +17,6 @@ typedef NS_ENUM(NSInteger, ToolsType)
     FromEveryType =   3,     //每日轮播
     FromRecHDType =   4,     //推荐页幻灯
 };
-#import <UIKit/UIKit.h>
-#import "BaseViewController.h"
 
 @interface ToolsWedViewVC : BaseViewController
 
@@ -24,4 +26,5 @@ typedef NS_ENUM(NSInteger, ToolsType)
 @property (nonatomic, copy) NSString *format;//格式
 @property (nonatomic, copy) NSString *introContent;
 @property (nonatomic, copy) NSString *shareContent;
+
 @end

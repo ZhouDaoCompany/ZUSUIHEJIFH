@@ -19,6 +19,8 @@
 #import "NewlyCreatedVC.h"
 #import "CasesDirectoryVC.h"
 #import "CollectEmptyView.h"
+#import "MJPhotoBrowser.h"
+#import "MJPhoto.h"
 
 //下载
 #import "TaskModel.h"
@@ -156,7 +158,8 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DetaillistModel *model = _tableData[indexPath.row];
-    [self checkTheFile:model];
+    CaseDetailTabCell *cCell = (CaseDetailTabCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [self checkTheFile:model withCell:cCell];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -207,7 +210,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     switch (tag) {
         case 1001:
         {
-            [self checkTheFile:model];
+            [self checkTheFile:model withCell:cell];
         }
             break;
         case 1002:
@@ -416,36 +419,11 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
 }
-#pragma mark -照片上传
-#pragma mark - WHC_ChoicePictureVCDelegate
-- (void)WHCChoicePictureVC:(WHC_ChoicePictureVC *)choicePictureVC didSelectedPhotoArr:(NSArray *)photoArr{         UIImage *image = photoArr[0];
-    WEAKSELF;
-   __block NSData *data = UIImageJPEGRepresentation(image, .5f);
-    
-    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"" withType:RenameType];
-    delWindow.renameBlock = ^(NSString *name){
-        //[QZManager stringFromDate:[NSDate date]]
-        [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
-            
-            [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"image/jpeg" RequestSuccess:^(NSString *key) {
-                [NetWorkMangerTools arrangeFileAddwithPid:@"" withName:name withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
-                    [weakSelf loadListViewData];
-                }];
-            } fail:^{
-            }];
-        }];
-    };
-    [self.view addSubview:delWindow];
-}
-#pragma mark - WHC_CameraVCDelegate
-- (void)WHCCameraVC:(WHC_CameraVC *)cameraVC didSelectedPhoto:(UIImage *)photo{
-    [self WHCChoicePictureVC:nil didSelectedPhotoArr:@[photo]];
-}
 
 
 #pragma mark -查看文件
-- (void)checkTheFile:(DetaillistModel *)model
-{WEAKSELF;
+- (void)checkTheFile:(DetaillistModel *)model withCell:(CaseDetailTabCell *)cCell
+{
     NSString *path = DownLoadCachePath;
     if (![FILE_M fileExistsAtPath:path]) {
         [FILE_M createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
@@ -461,20 +439,13 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         if ([FILE_M fileExistsAtPath:filePath]) {
             NSURL *lastUrl = [[NSURL alloc] initFileURLWithPath:filePath];
             NSString *htmlString = [lastUrl absoluteString];
-            ToolsWedViewVC *vc = [ToolsWedViewVC new];
-            vc.url = htmlString;
-            vc.tType = FromCaseType;
-            vc.navTitle = model.name;
-            vc.format = format;
-            [self.navigationController  pushViewController:vc animated:YES];
+            
+            [self checkPhotoFile:htmlString withImgView:cCell withModel:model withFormat:format];
+
         }else{
             [NetWorkMangerTools arrangeFileInfoWithid:model.id withCaseId:_caseId RequestSuccess:^(NSString *htmlString) {
-                ToolsWedViewVC *vc = [ToolsWedViewVC new];
-                vc.url = htmlString;
-                vc.tType = FromCaseType;
-                vc.navTitle = model.name;
-                vc.format = format;
-                [weakSelf.navigationController  pushViewController:vc animated:YES];
+                
+                [self checkPhotoFile:htmlString withImgView:cCell withModel:model withFormat:format];
             }];
         }
     }else{
@@ -485,6 +456,36 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         vc.filePath = casePath;
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+#pragma mark - private methods
+- (void)checkPhotoFile:(NSString *)urlString withImgView:(CaseDetailTabCell *)cell withModel:(DetaillistModel *)model withFormat:(NSString *)format
+{
+    if ([format isEqualToString:@"jpg"]) {
+        
+        NSMutableArray *photos = [NSMutableArray array];
+        // 替换为中等尺寸图片
+        NSString *url = [urlString stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = [NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]; // 图片路径
+        photo.srcImageView = cell.headImgView; // 来源于哪个UIImageView
+        [photos addObject:photo];
+        // 2.显示相册
+        MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+        browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
+        browser.photos = photos; // 设置所有的图片
+        //            browser.urlPhotos = arr;
+        [browser show];
+
+    }else {
+        
+        ToolsWedViewVC *vc = [ToolsWedViewVC new];
+        vc.url = urlString;
+        vc.tType = FromCaseType;
+        vc.navTitle = model.name;
+        vc.format = format;
+        [self.navigationController  pushViewController:vc animated:YES];
+    }
+
 }
 #pragma mark -下载
 - (void)downLoadMethods:(DetaillistModel *)model
@@ -521,6 +522,32 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     }];
 
 }
+#pragma mark -照片上传
+#pragma mark - WHC_ChoicePictureVCDelegate
+- (void)WHCChoicePictureVC:(WHC_ChoicePictureVC *)choicePictureVC didSelectedPhotoArr:(NSArray *)photoArr{         UIImage *image = photoArr[0];
+    WEAKSELF;
+    __block NSData *data = UIImageJPEGRepresentation(image, .5f);
+    
+    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"" withType:RenameType];
+    delWindow.renameBlock = ^(NSString *name){
+        //[QZManager stringFromDate:[NSDate date]]
+        [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+            
+            [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"image/jpeg" RequestSuccess:^(NSString *key) {
+                [NetWorkMangerTools arrangeFileAddwithPid:@"" withName:name withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
+                    [weakSelf loadListViewData];
+                }];
+            } fail:^{
+            }];
+        }];
+    };
+    [self.view addSubview:delWindow];
+}
+#pragma mark - WHC_CameraVCDelegate
+- (void)WHCCameraVC:(WHC_CameraVC *)cameraVC didSelectedPhoto:(UIImage *)photo{
+    [self WHCChoicePictureVC:nil didSelectedPhotoArr:@[photo]];
+}
+
 #pragma mark -DownLoadViewPro
 - (void)getDownloadState:(NSString *)downStr readPath:(NSString *)path
 {

@@ -10,20 +10,12 @@
 
 @implementation UIWebView (Load)
 - (void)loadURL:(NSString*)URLString{
+    
+    NSStringEncoding * usedEncoding = nil;
+
     NSString *encodedUrl = (__bridge NSString *) CFURLCreateStringByAddingPercentEscapes (NULL, (__bridge CFStringRef) URLString, NULL, NULL,kCFStringEncodingUTF8);
     NSURL *url = [NSURL URLWithString:encodedUrl];
-    NSURLRequest *req = [NSURLRequest requestWithURL:url];
-    [self loadRequest:req];
-}
-- (void)loadHtml:(NSString*)htmlName{
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:htmlName ofType:@"html"];
-    NSURL *url = [NSURL fileURLWithPath:filePath?:@""];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [self loadRequest:request];
-}
-- (void)loadTxtFileUrl:(NSString *)URLString{
-    NSStringEncoding * usedEncoding = nil;
-    NSURL *url = [NSURL URLWithString:URLString];
+    
     //带编码头的如 utf-8等 这里会识别
     NSString *body = [NSString stringWithContentsOfURL:url usedEncoding:usedEncoding error:nil];
     if (!body)
@@ -39,12 +31,16 @@
     }
     if (body) {
         [self loadHTMLString:body baseURL:nil];
-    }
-    else {
+    }else {
         DLog(@"没有合适的编码");
         [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]];
     }
-
+}
+- (void)loadHtml:(NSString*)htmlName{
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:htmlName ofType:@"html"];
+    NSURL *url = [NSURL fileURLWithPath:filePath?:@""];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [self loadRequest:request];
 }
 - (void)clearCookies
 {
