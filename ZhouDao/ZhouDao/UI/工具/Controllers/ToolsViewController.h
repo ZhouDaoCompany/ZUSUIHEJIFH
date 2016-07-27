@@ -11,4 +11,5 @@
 
 @interface ToolsViewController : BaseViewController
 
+@property (nonatomic, copy) NSString *shareImgURLString;
 @end

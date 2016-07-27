@@ -11,7 +11,7 @@
 #import "CustomButton.h"
 
 #define Duration 0.2
-#define MenuButtonHeight 110
+#define MenuButtonHeight ([UIScreen mainScreen].bounds.size.width > 320)?110:100
 #define MenuButtonVerticalPadding 10
 #define MenuButtonHorizontalMargin 10
 #define MenuButtonAnimationTime 0.2
@@ -24,8 +24,8 @@
     UIWindow *window;
 }
 
-@property (nonatomic,retain) NSArray *items;
-@property (nonatomic,strong) SelectdCompletionBlock block;
+@property (nonatomic,strong) NSArray *items;
+@property (nonatomic,copy)   SelectdCompletionBlock block;
 @property (nonatomic,strong) UIView *botomView;//白底
 @property (nonatomic,strong) UIImageView *botomImgView; //
 @property (nonatomic,strong) UIImageView *rotatingImg;
@@ -45,7 +45,6 @@
         _items = Itmes;
         [self show];
         [self setup];
-        
     }
     return self;
 }
@@ -71,7 +70,13 @@
 - (UIView *)botomView
 {
     if (!_botomView) {
-        _botomView = [[UIView alloc] initWithFrame:CGRectMake(15, kMainScreenHeight-299,kMainScreenWidth-30 , 250)];
+        CGRect rect;
+        if(kMainScreenWidth >320){
+            rect = CGRectMake(15, kMainScreenHeight-299,kMainScreenWidth-30 , 250);
+        }else {
+            rect = CGRectMake(15, kMainScreenHeight-269,kMainScreenWidth-30 , 220);
+        }
+        _botomView = [[UIView alloc] initWithFrame:rect];
         _botomView.backgroundColor = [UIColor whiteColor];
         LRViewBorderRadius(_botomView, 5.f, 0, [UIColor clearColor]);
     }
@@ -137,6 +142,9 @@
 #pragma mark -消失动画
     [button SelectdAnimation];
     [self HidDelay:0.25f CompletionBlock:^(BOOL completion) {
+        if (!weakSelf.block) {
+            return ;
+        }
         weakSelf.block(button.MenuData,tag);
     }];
 }
@@ -157,9 +165,7 @@ CompletionBlock:(void(^)(BOOL completion))blcok
     [UIView animateKeyframesWithDuration:Duration delay:delay options:UIViewKeyframeAnimationOptionLayoutSubviews animations:^{
         weakSelf.botomView.frame = CGRectMake(0, kMainScreenHeight, kMainScreenWidth, 360);
         weakSelf.botomImgView.frame = CGRectMake(0, kMainScreenHeight +360, 145.5f, 48);
-        [UIView animateWithDuration:.35 animations:^{
-            weakSelf.rotatingImg.transform =CGAffineTransformRotate(_rotatingImg.transform, REES_TO_RADIANS(-45));//CGAffineTransformIdentity;
-        }];
+        weakSelf.rotatingImg.transform =CGAffineTransformRotate(_rotatingImg.transform, REES_TO_RADIANS(-45));//CGAffineTransformIdentity;
 
     } completion:^(BOOL finished) {
         [weakSelf removeFromSuperview];

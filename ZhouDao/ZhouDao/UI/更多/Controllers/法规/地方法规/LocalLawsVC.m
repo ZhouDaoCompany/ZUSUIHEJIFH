@@ -71,7 +71,7 @@ static NSString *const LocalCellIdentifier = @"LocalCellIdentifier";
     [self.view addSubview:_tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"LawsTableViewCell" bundle:nil] forCellReuseIdentifier:LocalCellIdentifier];
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
     // 马上进入刷新状态
     [_tableView.mj_header beginRefreshing];
 }

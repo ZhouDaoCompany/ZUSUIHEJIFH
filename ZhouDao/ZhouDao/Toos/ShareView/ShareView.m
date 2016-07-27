@@ -24,12 +24,12 @@
 {
     UIWindow *window;
 }
-@property (nonatomic,copy)    SelectdCompletionBlock block;
-@property (nonatomic,strong)  NSArray *items;
-@property (nonatomic,strong)  UIView *whiteView;
-@property (nonatomic,strong)  UILabel *headlab;
-@property (nonatomic,strong) NSArray *shareArrays;//分享数组
-@property (nonatomic,strong) UIViewController *superVC;
+@property (nonatomic, copy)    SelectdCompletionBlock block;
+@property (nonatomic, strong)  NSArray *items;
+@property (nonatomic, strong)  UIView *whiteView;
+@property (nonatomic, strong)  UILabel *headlab;
+@property (nonatomic, strong) NSArray *shareArrays;//分享数组
+@property (nonatomic, strong) UIViewController *superVC;
 
 @end
 

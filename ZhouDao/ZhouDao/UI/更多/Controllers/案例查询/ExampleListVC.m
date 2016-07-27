@@ -51,7 +51,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ExampleIdentifier];
     
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
     if (_exampleType == FromComType) {
         // 马上进入刷新状态
         [_tableView.mj_header beginRefreshing];

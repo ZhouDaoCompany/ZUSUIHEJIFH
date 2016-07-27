@@ -19,8 +19,7 @@
 #import "NewlyCreatedVC.h"
 #import "CasesDirectoryVC.h"
 #import "CollectEmptyView.h"
-#import "MJPhotoBrowser.h"
-#import "MJPhoto.h"
+ #import "SDPhotoBrowser.h"
 
 //下载
 #import "TaskModel.h"
@@ -35,18 +34,20 @@ static NSString *const headCellIdentifier = @"headCellIdentifier";
 static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 #define kHeaderImageHeight     126.f
 
-@interface TheCaseDetailVC ()<UITableViewDataSource,UITableViewDelegate,CaseDetailTabCellPro,WHC_ChoicePictureVCDelegate,WHC_CameraVCDelegate,DownLoadViewPro>
+@interface TheCaseDetailVC ()<UITableViewDataSource,UITableViewDelegate,CaseDetailTabCellPro,WHC_ChoicePictureVCDelegate,WHC_CameraVCDelegate,DownLoadViewPro,SDPhotoBrowserDelegate>
 {
     float _contentOffsetY;
+
 }
 @property (nonatomic,strong) CollectEmptyView *emptyView;   //无案件时候
 
-@property (strong,nonatomic) UITableView *tableView;
-@property (nonatomic, strong) NSIndexPath* openedIndexPath;
-@property (nonatomic, strong) NSMutableArray* tableData;
-@property (nonatomic, assign) BOOL isMove;//是否可以移动
-@property (nonatomic, strong) ParallaxHeaderView *headerView;
+@property (strong,nonatomic)  UITableView *tableView;
+@property (nonatomic, strong)  NSIndexPath* openedIndexPath;
+@property (nonatomic, strong)  NSMutableArray* tableData;
+@property (nonatomic, assign)  BOOL isMove;//是否可以移动
+@property (nonatomic, strong)  ParallaxHeaderView *headerView;
 @property (nonatomic, strong)  UILabel *namelab;
+@property (nonatomic, copy)    NSString *imgURLStrng;
 
 @end
 
@@ -462,18 +463,12 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 {
     if ([format isEqualToString:@"jpg"]) {
         
-        NSMutableArray *photos = [NSMutableArray array];
-        // 替换为中等尺寸图片
-        NSString *url = [urlString stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
-        MJPhoto *photo = [[MJPhoto alloc] init];
-        photo.url = [NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]; // 图片路径
-        photo.srcImageView = cell.headImgView; // 来源于哪个UIImageView
-        [photos addObject:photo];
-        // 2.显示相册
-        MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-        browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
-        browser.photos = photos; // 设置所有的图片
-        //            browser.urlPhotos = arr;
+        _imgURLStrng = urlString;
+        SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+        browser.imageCount = 1; // 图片总数
+        browser.currentImageIndex = 0;
+        browser.delegate = self;
+        browser.sourceImagesContainerView = cell; // 原图的父控件
         [browser show];
 
     }else {
@@ -487,6 +482,19 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     }
 
 }
+#pragma mark - photobrowser代理方法
+// 返回临时占位图片（即原来的小图）
+- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+{
+    return kGetImage(@"home_Shuff");
+}
+// 返回高质量图片的url
+- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+{
+    NSString *urlStr = [_imgURLStrng stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
+    return [NSURL URLWithString:urlStr];
+}
+
 #pragma mark -下载
 - (void)downLoadMethods:(DetaillistModel *)model
 {

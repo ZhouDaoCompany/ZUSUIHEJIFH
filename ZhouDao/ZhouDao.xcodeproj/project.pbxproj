@@ -207,6 +207,9 @@
 		1829BA791CE3264A00F0143F /* CaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829BA781CE3264A00F0143F /* CaseModel.m */; };
 		1829BA7C1CE32CA400F0143F /* ExampleListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829BA7B1CE32CA400F0143F /* ExampleListVC.m */; };
 		182DF4EF1CC8BE9E007BA359 /* JRNLocalNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DF4EE1CC8BE9E007BA359 /* JRNLocalNotificationCenter.m */; };
+		1830E06F1D4863B9005D287E /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830E0691D4863B9005D287E /* SDBrowserImageView.m */; };
+		1830E0701D4863B9005D287E /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830E06B1D4863B9005D287E /* SDPhotoBrowser.m */; };
+		1830E0711D4863B9005D287E /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830E06E1D4863B9005D287E /* SDWaitingView.m */; };
 		183498571CE03694009707E2 /* LawsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 183498561CE03694009707E2 /* LawsDataModel.m */; };
 		18360F791CA287F300077914 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC08C1C9FF92000FD1221 /* CoreLocation.framework */; };
 		183CE1A51D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CE1A31D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a */; };
@@ -275,13 +278,6 @@
 		18A622881CD3441C0073B886 /* RemindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A622861CD3441C0073B886 /* RemindModel.m */; };
 		18A6228E1CD352260073B886 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A6228B1CD352260073B886 /* NSDate+Category.m */; };
 		18A6228F1CD352260073B886 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A6228D1CD352260073B886 /* NSDateFormatter+Category.m */; };
-		18A6860D1D17DE31001BEA41 /* MJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A685FF1D17DE30001BEA41 /* MJPhoto.m */; };
-		18A6860F1D17DE31001BEA41 /* MJPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A686021D17DE30001BEA41 /* MJPhotoBrowser.m */; };
-		18A686101D17DE31001BEA41 /* MJPhotoLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A686041D17DE30001BEA41 /* MJPhotoLoadingView.m */; };
-		18A686111D17DE31001BEA41 /* MJPhotoProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A686061D17DE30001BEA41 /* MJPhotoProgressView.m */; };
-		18A686121D17DE31001BEA41 /* MJPhotoToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A686081D17DE30001BEA41 /* MJPhotoToolbar.m */; };
-		18A686131D17DE31001BEA41 /* MJPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A6860A1D17DE31001BEA41 /* MJPhotoView.m */; };
-		18A686141D17DE31001BEA41 /* SDWebImageManager+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A6860C1D17DE31001BEA41 /* SDWebImageManager+MJ.m */; };
 		18AD6AAE1CD99D500053F46B /* TheContractData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AD6AAD1CD99D500053F46B /* TheContractData.m */; };
 		18AD6AB11CD9EC930053F46B /* TemplateData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AD6AB01CD9EC930053F46B /* TemplateData.m */; };
 		18AF33F41CC0DFD30063485E /* ConsultantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF33F31CC0DFD30063485E /* ConsultantCell.m */; };
@@ -780,6 +776,13 @@
 		1829BA7B1CE32CA400F0143F /* ExampleListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleListVC.m; sourceTree = "<group>"; };
 		182DF4ED1CC8BE9E007BA359 /* JRNLocalNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRNLocalNotificationCenter.h; sourceTree = "<group>"; };
 		182DF4EE1CC8BE9E007BA359 /* JRNLocalNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRNLocalNotificationCenter.m; sourceTree = "<group>"; };
+		1830E0681D4863B9005D287E /* SDBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserImageView.h; sourceTree = "<group>"; };
+		1830E0691D4863B9005D287E /* SDBrowserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBrowserImageView.m; sourceTree = "<group>"; };
+		1830E06A1D4863B9005D287E /* SDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowser.h; sourceTree = "<group>"; };
+		1830E06B1D4863B9005D287E /* SDPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPhotoBrowser.m; sourceTree = "<group>"; };
+		1830E06C1D4863B9005D287E /* SDPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserConfig.h; sourceTree = "<group>"; };
+		1830E06D1D4863B9005D287E /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
+		1830E06E1D4863B9005D287E /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
 		183498551CE03694009707E2 /* LawsDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LawsDataModel.h; sourceTree = "<group>"; };
 		183498561CE03694009707E2 /* LawsDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LawsDataModel.m; sourceTree = "<group>"; };
 		183CE1A31D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
@@ -903,20 +906,6 @@
 		18A6228B1CD352260073B886 /* NSDate+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
 		18A6228C1CD352260073B886 /* NSDateFormatter+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Category.h"; sourceTree = "<group>"; };
 		18A6228D1CD352260073B886 /* NSDateFormatter+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Category.m"; sourceTree = "<group>"; };
-		18A685FE1D17DE30001BEA41 /* MJPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhoto.h; sourceTree = "<group>"; };
-		18A685FF1D17DE30001BEA41 /* MJPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhoto.m; sourceTree = "<group>"; };
-		18A686011D17DE30001BEA41 /* MJPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhotoBrowser.h; sourceTree = "<group>"; };
-		18A686021D17DE30001BEA41 /* MJPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhotoBrowser.m; sourceTree = "<group>"; };
-		18A686031D17DE30001BEA41 /* MJPhotoLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhotoLoadingView.h; sourceTree = "<group>"; };
-		18A686041D17DE30001BEA41 /* MJPhotoLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhotoLoadingView.m; sourceTree = "<group>"; };
-		18A686051D17DE30001BEA41 /* MJPhotoProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhotoProgressView.h; sourceTree = "<group>"; };
-		18A686061D17DE30001BEA41 /* MJPhotoProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhotoProgressView.m; sourceTree = "<group>"; };
-		18A686071D17DE30001BEA41 /* MJPhotoToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhotoToolbar.h; sourceTree = "<group>"; };
-		18A686081D17DE30001BEA41 /* MJPhotoToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhotoToolbar.m; sourceTree = "<group>"; };
-		18A686091D17DE31001BEA41 /* MJPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhotoView.h; sourceTree = "<group>"; };
-		18A6860A1D17DE31001BEA41 /* MJPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhotoView.m; sourceTree = "<group>"; };
-		18A6860B1D17DE31001BEA41 /* SDWebImageManager+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDWebImageManager+MJ.h"; sourceTree = "<group>"; };
-		18A6860C1D17DE31001BEA41 /* SDWebImageManager+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDWebImageManager+MJ.m"; sourceTree = "<group>"; };
 		18AD6AAC1CD99D500053F46B /* TheContractData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheContractData.h; sourceTree = "<group>"; };
 		18AD6AAD1CD99D500053F46B /* TheContractData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheContractData.m; sourceTree = "<group>"; };
 		18AD6AAF1CD9EC930053F46B /* TemplateData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateData.h; sourceTree = "<group>"; };
@@ -2087,6 +2076,20 @@
 			path = JRNLocalNotificationCenter;
 			sourceTree = "<group>";
 		};
+		1830E0671D4863B9005D287E /* SDPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				1830E0681D4863B9005D287E /* SDBrowserImageView.h */,
+				1830E0691D4863B9005D287E /* SDBrowserImageView.m */,
+				1830E06A1D4863B9005D287E /* SDPhotoBrowser.h */,
+				1830E06B1D4863B9005D287E /* SDPhotoBrowser.m */,
+				1830E06C1D4863B9005D287E /* SDPhotoBrowserConfig.h */,
+				1830E06D1D4863B9005D287E /* SDWaitingView.h */,
+				1830E06E1D4863B9005D287E /* SDWaitingView.m */,
+			);
+			path = SDPhotoBrowser;
+			sourceTree = "<group>";
+		};
 		183498541CE03694009707E2 /* 法规 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2374,27 +2377,6 @@
 			path = "NSDate+Category";
 			sourceTree = "<group>";
 		};
-		18A685E91D17DD27001BEA41 /* MJPhotoBrowser */ = {
-			isa = PBXGroup;
-			children = (
-				18A685FE1D17DE30001BEA41 /* MJPhoto.h */,
-				18A685FF1D17DE30001BEA41 /* MJPhoto.m */,
-				18A686011D17DE30001BEA41 /* MJPhotoBrowser.h */,
-				18A686021D17DE30001BEA41 /* MJPhotoBrowser.m */,
-				18A686031D17DE30001BEA41 /* MJPhotoLoadingView.h */,
-				18A686041D17DE30001BEA41 /* MJPhotoLoadingView.m */,
-				18A686051D17DE30001BEA41 /* MJPhotoProgressView.h */,
-				18A686061D17DE30001BEA41 /* MJPhotoProgressView.m */,
-				18A686071D17DE30001BEA41 /* MJPhotoToolbar.h */,
-				18A686081D17DE30001BEA41 /* MJPhotoToolbar.m */,
-				18A686091D17DE31001BEA41 /* MJPhotoView.h */,
-				18A6860A1D17DE31001BEA41 /* MJPhotoView.m */,
-				18A6860B1D17DE31001BEA41 /* SDWebImageManager+MJ.h */,
-				18A6860C1D17DE31001BEA41 /* SDWebImageManager+MJ.m */,
-			);
-			path = MJPhotoBrowser;
-			sourceTree = "<group>";
-		};
 		18AD6AAB1CD99D500053F46B /* 合同 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2640,8 +2622,10 @@
 			isa = PBXGroup;
 			children = (
 				18F8789F1D053CCA0069E68A /* APIKey.h */,
+				1830E0671D4863B9005D287E /* SDPhotoBrowser */,
+				18F812691D45C2110099A353 /* JX_GCDTimer */,
+				18E2E7FC1D0FD08D00330AFA /* JKCountDownButton */,
 				186640441D24AEC800E1F455 /* GBTagListView2.0 */,
-				18A685E91D17DD27001BEA41 /* MJPhotoBrowser */,
 				183CE1A21D10F06C00A8ADAF /* UMessage_Sdk_1.3.0 */,
 				186D08E41D0E65CB00328A1A /* WZLSerializeKit */,
 				18F878A61D0568150069E68A /* SpeechSynthesizer */,
@@ -2812,8 +2796,7 @@
 				18E2E7FD1D0FD08E00330AFA /* JKCountDownButton.h */,
 				18E2E7FE1D0FD08E00330AFA /* JKCountDownButton.m */,
 			);
-			name = JKCountDownButton;
-			path = Utility/JKCountDownButton;
+			path = JKCountDownButton;
 			sourceTree = "<group>";
 		};
 		18EE958D1D237A3F0030AE2B /* CaseFinance */ = {
@@ -2874,8 +2857,7 @@
 				18F8126A1D45C2110099A353 /* JX_GCDTimerManager.h */,
 				18F8126B1D45C2110099A353 /* JX_GCDTimerManager.m */,
 			);
-			name = JX_GCDTimer;
-			path = Utility/JX_GCDTimer;
+			path = JX_GCDTimer;
 			sourceTree = "<group>";
 		};
 		18F8126D1D45F20D0099A353 /* YYFPSLabel */ = {
@@ -3084,8 +3066,6 @@
 			isa = PBXGroup;
 			children = (
 				103D48C41CE8705500ED0864 /* Areas.plist */,
-				18F812691D45C2110099A353 /* JX_GCDTimer */,
-				18E2E7FC1D0FD08D00330AFA /* JKCountDownButton */,
 				10FA3E241CAD6B14005C4C0C /* 铃声 */,
 				18CD4D951C928111001838D2 /* Utility */,
 				18FF3F631C85348B0098C60B /* Image */,
@@ -3575,7 +3555,7 @@
 				18CD01E11C90206F009DE385 /* LoginViewController.m in Sources */,
 				1817D2961CC081DA00FF6EEE /* AccusingTheTabVC.m in Sources */,
 				187DB9501CDC9BA5009CF1D6 /* JSDropDownMenu.m in Sources */,
-				18A686111D17DE31001BEA41 /* MJPhotoProgressView.m in Sources */,
+				1830E06F1D4863B9005D287E /* SDBrowserImageView.m in Sources */,
 				181292C01C87E85F00EBB5CD /* MeViewController.m in Sources */,
 				18FF3F611C8530290098C60B /* FMUSystem.m in Sources */,
 				18FF42E01C9805C200C6B29A /* PublicFunction.m in Sources */,
@@ -3620,11 +3600,13 @@
 				18FF3F5A1C852E820098C60B /* UIView+WhenTappedBlocks.m in Sources */,
 				189AB2591D20CE020032F580 /* RemarkTabCell.m in Sources */,
 				183498571CE03694009707E2 /* LawsDataModel.m in Sources */,
+				1830E0711D4863B9005D287E /* SDWaitingView.m in Sources */,
 				10172BE01CBBF16C00B7553E /* KxMenu.m in Sources */,
 				183FFCB41D378546007D0494 /* ShareView.m in Sources */,
 				18F812B61D45F45C0099A353 /* YYTextParser.m in Sources */,
 				18AD6AAE1CD99D500053F46B /* TheContractData.m in Sources */,
 				18D9570B1CF5ADED00F0E4DB /* ToolsIntroduceVC.m in Sources */,
+				1830E0701D4863B9005D287E /* SDPhotoBrowser.m in Sources */,
 				18CD4DAB1C928111001838D2 /* WHC_PictureListVC.m in Sources */,
 				18FF42D91C97AF6F00C6B29A /* MoveTopTabViewCell.m in Sources */,
 				181E512E1CD1E81E00BBA10D /* ReplacePhoneVC.m in Sources */,
@@ -3640,7 +3622,6 @@
 				18D66ACD1CE1BD0300BF2C17 /* LawDetailModel.m in Sources */,
 				1817D29D1CC089C400FF6EEE /* LitigationCell.m in Sources */,
 				187349D41D2F3D43001A3E91 /* ScanViewController.m in Sources */,
-				18A686141D17DE31001BEA41 /* SDWebImageManager+MJ.m in Sources */,
 				18F812B21D45F45C0099A353 /* UIView+YYText.m in Sources */,
 				18FF3F3D1C8529CA0098C60B /* JKPromptView.m in Sources */,
 				18FF3F521C852BDB0098C60B /* UIColor+Helper.m in Sources */,
@@ -3668,7 +3649,6 @@
 				10D31D771CDEE847008D6F42 /* GovernmentDetailVC.m in Sources */,
 				1817D2991CC081FE00FF6EEE /* ConsultantTabVC.m in Sources */,
 				104B44321C9BCCE400FC19B3 /* commonReusableView.m in Sources */,
-				18A686101D17DE31001BEA41 /* MJPhotoLoadingView.m in Sources */,
 				18C4B0651CB4FC7600D3CB8B /* SelectTemplateCell.m in Sources */,
 				18FBD8421CED8B0E00674D1E /* DetaillistModel.m in Sources */,
 				18FD83181CBB6F9C00D50E20 /* CaseDetailTabCell.m in Sources */,
@@ -3679,7 +3659,6 @@
 				10D31D7B1CDEE92C008D6F42 /* GovDetailCell.m in Sources */,
 				18E1F4271D13EB2D003C94CD /* PushAlertWindow.m in Sources */,
 				10405B5B1CB276D000B61919 /* AboutReadView.m in Sources */,
-				18A686131D17DE31001BEA41 /* MJPhotoView.m in Sources */,
 				18FF3F3E1C8529CB0098C60B /* UIView+JKPicker.m in Sources */,
 				18FF3F5E1C852EF80098C60B /* FMUString.m in Sources */,
 				1817D2931CC0819500FF6EEE /* LitigationTabVC.m in Sources */,
@@ -3701,7 +3680,6 @@
 				181125D21CDADBF200ACA16D /* CompensationData.m in Sources */,
 				18C4B03C1CB4A4E200D3CB8B /* TemplateViewController.m in Sources */,
 				188651AC1D26031800E030F7 /* CasesRemindVC.m in Sources */,
-				18A6860F1D17DE31001BEA41 /* MJPhotoBrowser.m in Sources */,
 				18FF3F461C852A370098C60B /* DTApiBaseBean.m in Sources */,
 				18F2F1D71CBE47000068453D /* OrdinaryVC.m in Sources */,
 				181CE8291CC9FF5500529F5E /* NavMapWindow.m in Sources */,
@@ -3723,10 +3701,8 @@
 				1825B0A61C969287003B2096 /* CollectEmptyView.m in Sources */,
 				186AA14D1CE46E7C0009C0D5 /* CollectionData.m in Sources */,
 				18CD4DA71C928111001838D2 /* WHC_CameraVC.m in Sources */,
-				18A6860D1D17DE31001BEA41 /* MJPhoto.m in Sources */,
 				18B5834A1C9A98C700CB3009 /* PlanTableViewCell.m in Sources */,
 				180B31591C8EB5F600360A23 /* Provice.m in Sources */,
-				18A686121D17DE31001BEA41 /* MJPhotoToolbar.m in Sources */,
 				181CE82D1CCA005D00529F5E /* ZD_DeleteWindow.m in Sources */,
 				18B7177D1C916C5200F2AAED /* RegisterViewController.m in Sources */,
 				18B583421C9A4E3200CB3009 /* FDCalendar.m in Sources */,

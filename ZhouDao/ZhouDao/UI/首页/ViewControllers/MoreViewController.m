@@ -44,7 +44,6 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
     [ self.view addSubview:self.tableView];
         // 马上进入刷新状态
     [_tableView.mj_header beginRefreshing];
-
 }
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -57,7 +56,8 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
         [_tableView registerClass:[HomeTableViewCell class] forCellReuseIdentifier:MoreCellIdentifier];
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
+        //MJRefreshAutoNormalFooter MJRefreshBackNormalFooter
+        _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
     }
     return _tableView;
 }

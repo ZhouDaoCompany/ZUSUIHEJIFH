@@ -7,10 +7,9 @@
 //
 
 #import "SettingTabCell.h"
-#import "MJPhotoBrowser.h"
-#import "MJPhoto.h"
+#import "SDPhotoBrowser.h"
 
-@interface SettingTabCell()
+@interface SettingTabCell()<SDPhotoBrowserDelegate>
 @property (nonatomic, strong) UIView *lineView;
 
 @end
@@ -40,30 +39,39 @@
     [self.contentView addSubview:self.lineView];
     [self.contentView addSubview:self.switchButton];
     
-    NSString *mineImg = [PublicFunction ShareInstance].m_user.data.photo;
     if ([PublicFunction ShareInstance].m_user.data.photo.length >0)
     {
         //放大头像
+        WEAKSELF;
         [_headImg whenTapped:^{
             
-            NSMutableArray *photos = [NSMutableArray array];
-            // 替换为中等尺寸图片
-            NSString *url = [mineImg stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
-            MJPhoto *photo = [[MJPhoto alloc] init];
-            photo.url = [NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]; // 图片路径
-            photo.srcImageView = _headImg; // 来源于哪个UIImageView
-            [photos addObject:photo];
-            // 2.显示相册
-            MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-            browser.currentPhotoIndex = 0; // 弹出相册时显示的第一张图片是？
-            browser.photos = photos; // 设置所有的图片
-//            browser.urlPhotos = arr;
+            
+            SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+            browser.imageCount = 1; // 图片总数
+            browser.currentImageIndex = 0;
+            browser.delegate = self;
+            browser.sourceImagesContainerView = weakSelf.headImg; // 原图的父控件
             [browser show];
         }];
     }
     
 
 }
+#pragma mark - photobrowser代理方法
+
+// 返回临时占位图片（即原来的小图）
+- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+{
+    return kGetImage(@"home_Shuff");
+}
+// 返回高质量图片的url
+- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+{
+    NSString *imgUrl = GET([PublicFunction ShareInstance].m_user.data.photo);
+    NSString *urlStr = [imgUrl stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
+    return [NSURL URLWithString:urlStr];
+}
+
 #pragma mark - private methods
 #pragma mark - setters and getters
 - (UILabel *)nameLab
@@ -157,7 +165,6 @@
         
     }else{
         DLog(@"close");
-        
         
     }
     

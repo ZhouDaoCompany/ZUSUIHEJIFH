@@ -12,18 +12,17 @@
 #import "MenuLabel.h"
 #import "ToolsIntroduceVC.h"
 #import "WebViewJavascriptBridge.h"
-#import "MJPhotoBrowser.h"
-#import "MJPhoto.h"
 #import "MoreViewController.h"
+#import "SDPhotoBrowser.h"
 
-@interface ToolsWedViewVC ()<UIWebViewDelegate>
+@interface ToolsWedViewVC ()<UIWebViewDelegate,SDPhotoBrowserDelegate>
 
 @property (nonatomic, strong) UIWebView *webView;
 @property WebViewJavascriptBridge* bridge;
 
 @property (nonatomic, strong) UIImageView *historyImgView;
 @property (nonatomic, strong) UIImageView *shareImgView;
-
+@property (nonatomic, strong) NSMutableArray *imgArrays;
 @end
 
 @implementation ToolsWedViewVC
@@ -44,6 +43,7 @@
         self.fd_interactivePopDisabled = YES;
     }
     
+    _imgArrays = [NSMutableArray array];
     [self.view addSubview:self.webView];
     [self loadCommonMethod];
     
@@ -84,6 +84,7 @@
             NSDictionary *dataDic = (NSDictionary *)data;
             NSMutableArray *arr = dataDic[@"all"];
             NSString *curr = dataDic[@"curr"];
+            [weakSelf.imgArrays addObjectsFromArray:arr];
             [arr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if ([curr isEqualToString:obj]) {
                     [weakSelf testImg:arr withInte:idx];
@@ -97,26 +98,30 @@
 - (void)testImg:(NSMutableArray *)arr withInte:(NSUInteger)index{
     DLog(@"diaoqi");
     
-    //    NSUInteger count = tap.imgsArray.count;
-    //    // 1.封装图片数据
-    NSMutableArray *photos = [NSMutableArray array];
-    [arr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        // 替换为中等尺寸图片
-        NSString *url = [obj stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
-        MJPhoto *photo = [[MJPhoto alloc] init];
-        photo.url = [NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]; // 图片路径
-        //        photo.srcImageView = tap.iiiView.subviews[i]; // 来源于哪个UIImageView
-        [photos addObject:photo];
-    }];
-    // 2.显示相册
-    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-    browser.currentPhotoIndex = index; // 弹出相册时显示的第一张图片是？
-    browser.photos = photos; // 设置所有的图片
-    browser.urlPhotos = arr;
+    SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+    browser.imageCount = arr.count; // 图片总数
+    browser.currentImageIndex = index;
+    browser.delegate = self;
+    browser.sourceImagesContainerView = self.webView; // 原图的父控件
     [browser show];
-    
 }
+#pragma mark - photobrowser代理方法
+
+// 返回临时占位图片（即原来的小图）
+- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+{
+    return kGetImage(@"home_Shuff");
+}
+// 返回高质量图片的url
+- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+{
+    if (_imgArrays.count >0) {
+        NSString *urlStr = [_imgArrays[index] stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
+        return [NSURL URLWithString:urlStr];
+    }
+    return nil;
+}
+
 #pragma mark -分享按钮
 - (void)testObjcCallback:(NSDictionary *)dict
 {WEAKSELF;
@@ -135,8 +140,8 @@
                                 contentArrays:arrays
                       withPresentedController:self
                        SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+                           
                        }];
-        
     }];
 }
 
@@ -168,7 +173,6 @@
         }];
         
     }
-    
     
     
     if (_tType == FromToolsType){

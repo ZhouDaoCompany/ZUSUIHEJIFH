@@ -65,7 +65,7 @@
     {
         if ([name isEqualToString:@"法规"]) {
             index = 0;
-        }else if ([name isEqualToString:@"查询案例"]){
+        }else if ([name isEqualToString:@"案例查询"]){
             index = 1;
         }else if ([name isEqualToString:@"司法机关"]){
             index = 2;

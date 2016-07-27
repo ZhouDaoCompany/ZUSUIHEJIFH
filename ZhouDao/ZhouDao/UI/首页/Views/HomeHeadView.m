@@ -68,7 +68,7 @@
     _cycleScrollView.autoresizingMask = YES;
     [self addSubview:_cycleScrollView];
     
-    _titleArrays = [NSMutableArray arrayWithObjects:@"法律法规",@"查询案例",@"司法机关",@"赔偿标准", nil];
+    _titleArrays = [NSMutableArray arrayWithObjects:@"法律法规",@"案例查询",@"司法机关",@"赔偿标准", nil];
     _imageArrays = [NSMutableArray arrayWithObjects:@"home_fagui",@"tabbar_CaseQuery",@"tabbar_judicial",@"home_peichangbiaozhun", nil];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(_cycleScrollView), width, 110)];

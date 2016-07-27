@@ -45,7 +45,7 @@ static NSString *const SearchResultsIdentifier = @"SearchResultsIdentifier";
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     [self.view addSubview:_tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"LawsTableViewCell" bundle:nil] forCellReuseIdentifier:SearchResultsIdentifier];
-    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
 }
 #pragma mark ------ 上拉加载
 - (void)downRefresh:(id)sender

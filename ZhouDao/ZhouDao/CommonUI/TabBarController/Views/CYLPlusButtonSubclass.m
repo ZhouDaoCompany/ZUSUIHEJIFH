@@ -20,7 +20,7 @@
 
 #define TOP_VIEW  [[UIApplication sharedApplication]keyWindow].rootViewController.view
 
-#define Objs @[[MenuLabel CreatelabelIconName:@"tabbar_LawsRegular" Title:@"法律法规"],[MenuLabel CreatelabelIconName:@"tabbar_judicial" Title:@"司法机关"],[MenuLabel CreatelabelIconName:@"tabbar_template" Title:@"合同模版"],[MenuLabel CreatelabelIconName:@"home_peichangbiaozhun" Title:@"赔偿标准"],[MenuLabel CreatelabelIconName:@"tabbar_CaseQuery" Title:@"查询案例"],[MenuLabel CreatelabelIconName:@"tabbar_management" Title:@"案件管理"]]
+#define Objs @[[MenuLabel CreatelabelIconName:@"tabbar_LawsRegular" Title:@"法律法规"],[MenuLabel CreatelabelIconName:@"tabbar_judicial" Title:@"司法机关"],[MenuLabel CreatelabelIconName:@"tabbar_template" Title:@"合同模版"],[MenuLabel CreatelabelIconName:@"home_peichangbiaozhun" Title:@"赔偿标准"],[MenuLabel CreatelabelIconName:@"tabbar_CaseQuery" Title:@"案例查询"],[MenuLabel CreatelabelIconName:@"tabbar_management" Title:@"案件管理"]]
 
 
 @interface CYLPlusButtonSubclass () {

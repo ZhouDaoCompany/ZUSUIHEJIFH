@@ -125,7 +125,7 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
         }];
     }];
     
-    self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         
         [SVProgressHUD show];
         [NetWorkMangerTools arrangeListWithPage:_page RequestSuccess:^(NSArray *arr) {
