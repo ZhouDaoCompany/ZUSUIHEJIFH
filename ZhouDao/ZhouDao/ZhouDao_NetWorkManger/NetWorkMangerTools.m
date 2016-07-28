@@ -779,14 +779,21 @@
     }];
 }
 #pragma mark - 司法机关列表
-+ (void)goverListViewWithPid:(NSString *)pid withCid:(NSString *)cid withPage:(NSUInteger)page withProv:(NSString *)prov withCity:(NSString *)city RequestSuccess:(void (^)(NSArray *arr))success  fail:(void (^)())fail
++ (void)goverListViewWithPid:(NSString *)pid
+                     withCid:(NSString *)cid
+                    withPage:(NSUInteger)page
+                    withProv:(NSString *)prov
+                    withCity:(NSString *)city
+                   withareas:(NSString *)areas
+              RequestSuccess:(void (^)(NSArray *arr))success
+                        fail:(void (^)())fail
 {
     [SVProgressHUD show];
     NSString *url = nil;
     if (prov.length == 0) {
         url = [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld",kProjectBaseUrl,judicialList,pid,cid,(unsigned long)page];
     }else{
-        url = [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld&prov=%@&city=%@",kProjectBaseUrl,judicialList,pid,cid,(unsigned long)page,prov,city];
+        url = [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld&prov=%@&city=%@&area=%@",kProjectBaseUrl,judicialList,pid,cid,(unsigned long)page,prov,city,areas];
     }
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         [SVProgressHUD dismiss];

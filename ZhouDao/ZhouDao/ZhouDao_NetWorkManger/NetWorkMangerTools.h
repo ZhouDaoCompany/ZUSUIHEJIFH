@@ -166,6 +166,7 @@
                     withPage:(NSUInteger)page
                     withProv:(NSString *)prov
                     withCity:(NSString *)city
+                    withareas:(NSString *)areas
               RequestSuccess:(void (^)(NSArray *arr))success
                         fail:(void (^)())fail;
 /*

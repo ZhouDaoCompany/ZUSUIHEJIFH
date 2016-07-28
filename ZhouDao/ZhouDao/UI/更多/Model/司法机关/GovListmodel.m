@@ -41,6 +41,7 @@
 @synthesize sync_time = _sync_time;
 @synthesize zipcode = _zipcode;
 @synthesize is_collection = _is_collection;
+@synthesize is_audit = _is_audit;
 
 -(id)initWithDictionary:(NSDictionary*)dict
 {
@@ -65,6 +66,7 @@
 		DTAPI_DICT_ASSIGN_STRING(sync_time, @"");
 		DTAPI_DICT_ASSIGN_STRING(zipcode, @"");
         DTAPI_DICT_ASSIGN_NUMBER(is_collection, @"0");
+        DTAPI_DICT_ASSIGN_STRING(is_audit, @"");
 
     }
     
@@ -94,6 +96,8 @@
 	DTAPI_DICT_EXPORT_BASICTYPE(sync_time);
 	DTAPI_DICT_EXPORT_BASICTYPE(zipcode);
     DTAPI_DICT_EXPORT_BASICTYPE(is_collection);
+    DTAPI_DICT_EXPORT_BASICTYPE(is_audit);
+
     return md;
 }
 

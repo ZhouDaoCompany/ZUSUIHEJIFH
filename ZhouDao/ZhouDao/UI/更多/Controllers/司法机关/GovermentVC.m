@@ -146,6 +146,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     GovernmentListVC *vc = [GovernmentListVC new];
     GovData *model = _datasourceArr[indexPath.row];
     vc.nameString = model.ctname;
+    vc.prov = @"北京";
     [self.navigationController pushViewController:vc animated:YES];
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,indexPath.row);
 }

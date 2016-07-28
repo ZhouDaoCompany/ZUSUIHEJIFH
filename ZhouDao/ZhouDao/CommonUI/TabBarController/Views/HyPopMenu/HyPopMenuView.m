@@ -156,7 +156,6 @@
         [buttons CancelAnimation];
     }
     [self HidDelay:0.25f CompletionBlock:^(BOOL completion) {
-        
     }];
 }
 -(void)HidDelay:(NSTimeInterval)delay
@@ -168,11 +167,8 @@ CompletionBlock:(void(^)(BOOL completion))blcok
         weakSelf.rotatingImg.transform =CGAffineTransformRotate(_rotatingImg.transform, REES_TO_RADIANS(-45));//CGAffineTransformIdentity;
 
     } completion:^(BOOL finished) {
-        [weakSelf removeFromSuperview];
-        if (!blcok) {
-            return ;
-        }
         blcok(finished);
+        [weakSelf removeFromSuperview];
     }];
 }
 
@@ -250,6 +246,5 @@ CompletionBlock:(void(^)(BOOL completion))blcok
     
     [view pop_addAnimation:springAnimation forKey:@"POPSpringAnimationKey"];
 }
-
 
 @end

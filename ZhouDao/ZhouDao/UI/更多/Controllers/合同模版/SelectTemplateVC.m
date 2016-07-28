@@ -53,7 +53,7 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
     [self.view addSubview:_tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"SelectTemplateCell" bundle:nil] forCellReuseIdentifier:selectCellIdentifier];
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
+    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
     
     _cidString = _model.id;
     _page = 0;

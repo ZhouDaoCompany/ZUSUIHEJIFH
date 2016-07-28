@@ -178,11 +178,7 @@
 @property (nonatomic, assign) BOOL show;
 @property (nonatomic, assign) NSInteger numOfMenu;
 @property (nonatomic, assign) CGPoint origin;
-@property (nonatomic, strong) UIView *backGroundView;
 @property (nonatomic, strong) UIView *bottomShadow;
-@property (nonatomic, strong) UITableView *leftTableView;
-@property (nonatomic, strong) UITableView *rightTableView;
-@property (nonatomic, strong) UICollectionView *collectionView;
 //data source
 @property (nonatomic, copy) NSArray *array;
 //layers array

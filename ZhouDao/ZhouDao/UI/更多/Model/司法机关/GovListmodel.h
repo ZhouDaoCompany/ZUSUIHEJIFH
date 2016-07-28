@@ -36,6 +36,7 @@
 	NSString *_sync_time;
 	NSString *_zipcode;
     NSNumber *_is_collection;
+    NSString *_is_audit;
 }
 
 
@@ -57,6 +58,8 @@
 @property (nonatomic, copy) NSString *province;
 @property (nonatomic, copy) NSString *sync_time;
 @property (nonatomic, copy) NSString *zipcode;
+@property (nonatomic, copy) NSString *is_audit;
+
 @property (nonatomic, copy) NSNumber *is_collection;
 -(id)initWithDictionary:(NSDictionary*)dict;
 -(NSDictionary*)dictionaryValue;

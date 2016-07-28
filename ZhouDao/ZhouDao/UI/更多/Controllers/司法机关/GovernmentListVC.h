@@ -12,4 +12,5 @@
 @interface GovernmentListVC : BaseViewController
 
 @property (nonatomic, copy) NSString *nameString;
+@property (nonatomic, copy) NSString *prov;//定位省
 @end

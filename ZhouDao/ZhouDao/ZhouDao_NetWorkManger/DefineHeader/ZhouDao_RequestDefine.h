@@ -12,9 +12,9 @@
 #endif /* ZhouDao_RequestDefine_h */
 
 //线上
-#define kProjectBaseUrl         @"http://zapi.zhoudao.cc/pro/"
+//#define kProjectBaseUrl         @"http://zapi.zhoudao.cc/pro/"
 //测试地址
-//#define kProjectBaseUrl         @"http://testapi.zhoudao.cc/pro/"
+#define kProjectBaseUrl         @"http://testapi.zhoudao.cc/pro/"
 
 
 /*

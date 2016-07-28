@@ -107,6 +107,11 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         [cell setListModel:_model];
         cell.telLabel.hidden = YES;
         cell.addressLabel.hidden = YES;
+        
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(96, 41, 44, 18)];
+        [_model.is_audit isEqualToString:@"1"]?[imgView setImage:kGetImage(@"gov_NoReview")]:[imgView setImage:kGetImage(@"gov_Review")];
+        [cell.contentView   addSubview:imgView];
+        
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 99.4f, kMainScreenWidth, .6f)];
         lineView.backgroundColor = lineColor;
         [cell.contentView addSubview:lineView];

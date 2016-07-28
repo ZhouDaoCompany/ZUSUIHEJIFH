@@ -298,6 +298,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         [PublicFunction ShareInstance].locProv = response.regeocode.addressComponent.province;
         [PublicFunction ShareInstance].locCity = response.regeocode.addressComponent.city;
         [PublicFunction ShareInstance].locDistrict = response.regeocode.addressComponent.district;
+        DLog(@"%@-----%@-----%@",[PublicFunction ShareInstance].locProv, [PublicFunction ShareInstance].locCity,[PublicFunction ShareInstance].locDistrict);
     }
 }
 @end
