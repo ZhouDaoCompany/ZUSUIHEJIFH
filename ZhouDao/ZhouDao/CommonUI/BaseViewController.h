@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UINavigationController+FDFullscreenPopGesture.h"
-
+#import "BaseRightBtn.h"
 enum{
     NaviLeftBtn = 101,//自定义NavBar左侧的按钮tag值
     NaviRightBtn,//自定义NavBar右侧的按钮tag值
@@ -22,7 +22,7 @@ typedef NSUInteger NaviBarBtn;
 @property (strong, nonatomic) UIView *naviBarView;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIButton *leftBtn;
-@property (strong, nonatomic) UIButton *rightBtn;
+@property (strong, nonatomic) BaseRightBtn *rightBtn;
 
 //底部划线
 @property (strong, nonatomic) UIView *tarBarBgView;

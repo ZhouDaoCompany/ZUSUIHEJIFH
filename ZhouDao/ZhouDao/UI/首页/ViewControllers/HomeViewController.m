@@ -132,6 +132,9 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     [moreBtn addTarget:self action:@selector(loadMoreData) forControlEvents:UIControlEventTouchUpInside];
     _tableView.tableFooterView = moreBtn;
     
+//    [PublicFunction ShareInstance].locProv = @"内蒙古自治区";
+//    [PublicFunction ShareInstance].locCity = @"呼伦贝尔市";
+
 }
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -220,6 +223,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         ToolsWedViewVC *vc = [ToolsWedViewVC new];
         vc.url = url;
         vc.tType = FromHotType;
+        vc.imgUrlString = model.pic;
         vc.shareContent = model.title;
         vc.navTitle = @"";//model.title;
         [self.navigationController  pushViewController:vc animated:YES];
@@ -295,8 +299,24 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     if(response.regeocode != nil)
     {
         //通过AMapReGeocodeSearchResponse对象处理搜索结果
-        [PublicFunction ShareInstance].locProv = response.regeocode.addressComponent.province;
-        [PublicFunction ShareInstance].locCity = response.regeocode.addressComponent.city;
+        NSString *provience = response.regeocode.addressComponent.province;
+        NSString *city = response.regeocode.addressComponent.city;
+
+        if ([QZManager isString:provience withContainsStr:@"北京"]) {
+            provience = @"北京";
+            city  = @"北京市";
+        }else if ([QZManager isString:provience withContainsStr:@"上海"]){
+            provience = @"上海";
+            city  = @"上海市";
+        }else if ([QZManager isString:provience withContainsStr:@"重庆"]){
+            provience = @"重庆";
+            city  = @"重庆市";
+        }else if ([QZManager isString:provience withContainsStr:@"天津"]){
+            provience = @"天津";
+            city  = @"天津市";
+        }
+        [PublicFunction ShareInstance].locProv = provience;
+        [PublicFunction ShareInstance].locCity = city;
         [PublicFunction ShareInstance].locDistrict = response.regeocode.addressComponent.district;
         DLog(@"%@-----%@-----%@",[PublicFunction ShareInstance].locProv, [PublicFunction ShareInstance].locCity,[PublicFunction ShareInstance].locDistrict);
     }

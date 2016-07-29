@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger,DetailType){
  请求端口
  */
 @property (nonatomic, copy) NSString  *url;
+
 @property (nonatomic, strong) TaskModel *model;
 //@property (nonatomic, copy) NSString *titleStr;
 //@property (nonatomic, copy) NSString  *idString;//文章ID

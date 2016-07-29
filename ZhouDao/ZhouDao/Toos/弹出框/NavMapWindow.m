@@ -52,14 +52,14 @@ static NSString *const NavCellIdentifier = @"NavCellIdentifier";
 {
     
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-120, 60)];
-    headView.backgroundColor  = KNavigationBarColor;
+    headView.backgroundColor  = [UIColor clearColor];
     [self.zd_superView addSubview:headView];
     
     UILabel *headlab = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, zd_width-150, 20)];
     headlab.text = @"选择导航方式";
-    headlab.textAlignment = NSTextAlignmentCenter;
+    headlab.textAlignment = NSTextAlignmentLeft;
     headlab.font = Font_18;
-    headlab.textColor = [UIColor whiteColor];
+//    headlab.textColor = [UIColor whiteColor];
     [self.zd_superView addSubview:headlab];
     
     

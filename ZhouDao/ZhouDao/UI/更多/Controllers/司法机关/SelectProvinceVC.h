@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef void(^StringBlock)(NSString *string,NSString *str);
+
 #import "BaseViewController.h"
 
 @interface SelectProvinceVC : BaseViewController
 
-@property (nonatomic, copy) ZDStringBlock selectBlock;
+@property (nonatomic, copy) StringBlock selectBlock;
 @end

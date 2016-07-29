@@ -251,7 +251,7 @@
     }
     NSString *title = @"周道慧法分享";
     NSString *contentString = GET(_model.name);
-    NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url, nil];
+    NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url,@"",nil];
     [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
         
     }];

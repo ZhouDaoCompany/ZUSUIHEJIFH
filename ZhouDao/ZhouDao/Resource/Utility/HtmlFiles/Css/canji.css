@@ -1,0 +1,13 @@
+.cck{border-bottom: 1px solid #d4d4d4;margin-left: 2%;padding: 3% 0;}
+.ipt{width: 62%;display: inline-block;vertical-align: middle;font-size: 0.8em;color: #666;border: none;float:right}
+.cck ul{width: 30%; display: table;margin-right:5%;}
+.cck ul li{display: table-cell;text-align: center;border: solid 1px #00c8aa;}
+.cck2{margin-left: 2%;padding: 3% 0;overflow: hidden;}
+.jibie{width: 70%;display: inline-block;vertical-align: middle;font-size: 1em;color: #666;border: none;float:right}
+.jibie label{font-size: .9em;color:#999;width: 24%;display: inline-table;}
+.duoxuan{display: none;}
+.duoji{display: none;}
+.all{border-top-left-radius: 0.3em;border-bottom-left-radius: 0.3em;}
+.half{border-top-right-radius: 0.3em;border-bottom-right-radius: 0.3em;}
+.active{background-color:#00C8AA;color:#FFF;}
+.tian{display: inline-block;float:right;position: absolute;right:3%;color:#00c8aa;font-size: 1em;}

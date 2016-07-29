@@ -10,6 +10,7 @@
 #import "GovCollectionViewCell.h"
 #import "GovData.h"
 #import "GovernmentListVC.h"
+#import "SelectProvinceVC.h"
 
 #define govWidth     [UIScreen mainScreen].bounds.size.width/4.f -1.f
 #define govHeight    93.5f
@@ -28,6 +29,8 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 @property (nonatomic,strong) NSMutableArray *datasourceArr;
 @property (nonatomic, strong) UIImageView *falseImgView;
 @property (nonatomic,strong) UIImageView *collectionHeadView;
+@property (nonatomic, copy) NSString *showLocal;
+@property (nonatomic, copy) NSString *provString;
 
 @end
 
@@ -46,6 +49,22 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 - (void)initView
 {
     [self setupNaviBarWithTitle:@"司法机关"];
+    
+    if ([PublicFunction ShareInstance].locProv.length >0) {
+        _provString = [PublicFunction ShareInstance].locProv;
+        if ([QZManager isString:_provString withContainsStr:@"内蒙古"]== YES || [QZManager isString:_provString withContainsStr:@"黑龙江"]== YES) {
+            _showLocal = [_provString  substringToIndex:3];
+        } else {
+            _showLocal = [_provString  substringToIndex:2];
+        }
+    }else {
+        _provString = @"上海";
+        _showLocal =  @"上海";
+    }
+    
+    [self setupNaviBarWithBtn:NaviRightBtn title:_showLocal img:@"gov_SelectLoc"];
+    self.rightBtn.titleLabel.font = Font_15;
+
     if (_Govtype == GovFromHome) {
         [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     }else{
@@ -142,11 +161,18 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    WEAKSELF;
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     GovernmentListVC *vc = [GovernmentListVC new];
     GovData *model = _datasourceArr[indexPath.row];
     vc.nameString = model.ctname;
-    vc.prov = @"北京";
+    vc.prov = _provString;
+    vc.showLocal = _showLocal;
+    vc.localBlock = ^(NSString *prov, NSString *local){
+        weakSelf.provString = prov;
+        weakSelf.showLocal  = local;
+        [weakSelf.rightBtn setTitle:local forState:0];
+    };
     [self.navigationController pushViewController:vc animated:YES];
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,indexPath.row);
 }
@@ -199,7 +225,16 @@ referenceSizeForHeaderInSection:(NSInteger)section
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
+- (void)rightBtnAction
+{WEAKSELF;
+    SelectProvinceVC *selectVC = [SelectProvinceVC new];
+    selectVC.selectBlock = ^(NSString *province, NSString *local){
+        weakSelf.showLocal = local;
+        weakSelf.provString = province;
+        [weakSelf.rightBtn setTitle:local forState:0];
+    };
+    [self presentViewController:selectVC animated:YES completion:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

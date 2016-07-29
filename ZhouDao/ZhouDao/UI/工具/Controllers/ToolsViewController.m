@@ -123,16 +123,18 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,(long)indexPath.row);
     if ([_dataSourceArr[indexPath.row] isKindOfClass:[BasicModel class]]) {
         BasicModel *model = _dataSourceArr[indexPath.row];
-        NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,api_tools,model.py];
-        [NetWorkMangerTools apiToolsWith:url RequestSuccess:^(NSString *htmlString) {
-            
-            ToolsWedViewVC *vc = [ToolsWedViewVC new];
-            vc.url = htmlString;
-            vc.tType = FromToolsType;
-            vc.navTitle = model.title;
-            vc.introContent = model.content;
-            [weakSelf.navigationController  pushViewController:vc animated:YES];
-        }];
+//        NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,api_tools,model.py];
+//        [NetWorkMangerTools apiToolsWith:url RequestSuccess:^(NSString *htmlString) {
+//            
+//        }];
+        ToolsWedViewVC *vc = [ToolsWedViewVC new];
+        vc.url = [NSString stringWithFormat:@"ToolsCalculate%ld",indexPath.row];;
+        vc.tType = FromToolsType;
+        vc.navTitle = model.title;
+        vc.imgUrlString = model.app_icon;
+        vc.introContent = model.content;
+        [weakSelf.navigationController  pushViewController:vc animated:YES];
+
         [_collectionView deselectItemAtIndexPath:indexPath animated:YES];
 //        [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
     }

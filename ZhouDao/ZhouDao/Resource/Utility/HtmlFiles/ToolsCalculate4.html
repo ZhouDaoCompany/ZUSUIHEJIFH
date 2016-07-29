@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="yes" name="apple-mobile-web-app-capable" />
+        <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+        <meta content="telephone=no" name="format-detection" />
+        <title>日期计算器</title>
+        <link href="Js/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="Js/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" href="riqi/css/normalize3.0.2.min.css" />
+        <link href="riqi/css/mobiscroll.css" rel="stylesheet" />
+        <link href="riqi/css/mobiscroll_date.css" rel="stylesheet" />
+        <link href="Css/base.css" rel="stylesheet" />
+        <link href="Css/riqi.css" rel="stylesheet" />
+        <style>
+            #datetimepicker td.day{padding:3%;}
+            #datetimepicker .datetimepicker-inline{width:90%}
+            .table-condensed thead > tr > th{padding:10px;}
+            .table-condensed{width:100%;}
+            #datetimepicker td.day.active{background:#00C8AA;}
+            .datetimepicker-days .table-condensed td.day.active{background:#00C8AA;}
+            .datetimepicker-days .table-condensed td.month.active{background:#00C8AA;}
+            .datetimepicker-days .table-condensed td.year.active{background:#00C8AA;}
+            .datetimepicker-days .table-condensed .today{background:#eee;}
+            .inputForm .share{float: right;margin-right:1em;}
+        </style>
+        <script type="text/javascript">
+            function showZhoudaoToast(toast,aa) {
+                javascript:zhoudao.shareZhoudao(toast,aa,'riqi');
+            }
+            function setupWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+                if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+                window.WVJBCallbacks = [callback];
+                var WVJBIframe = document.createElement('iframe');
+                WVJBIframe.style.display = 'none';
+                WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                document.documentElement.appendChild(WVJBIframe);
+                setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+            } 
+        </script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="inputForm">
+                <dl>
+                    <dt>起始日</dt>
+                    <dd><input type="text" id="beginTime" name="stateTime" class="ipt" placeholder="点击选择起算日期" data-date-format="yyyy-mm-dd" readonly></dd>
+                </dl>
+                <dl>
+                    <dt>间隔总天数</dt>
+                    <dd><input type="number" name="day" class="days" placeholder="间隔总天数"></dd>
+                </dl>
+                <div class="operation">
+                    <input type="submit" class="btn sub" value="计算" />
+                    <input type="reset" class="btn reset" value="重置" />
+                </div>
+                <a href="#" id="buttons" class="share"><img src="Images/share.png"/></a>
+                <div id="datePlugin"></div>
+            </div>
+            <div id="datetimepicker">
+                <input type="hidden" readonly>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+        </div>
+        <script src="Js/jquery.min.js"></script>
+        <script type="text/javascript" src="Js/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="Js/bootstrap/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="Js/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+        <script src="riqi/js/mobiscroll_date.js" charset="gb2312"></script>
+        <script src="riqi/js/mobiscroll.js"></script>
+    </body>
+</html>
+<script type="text/javascript">
+    function conditions(){
+        var beginTime = $("#beginTime").val();
+        var a1 = beginTime;
+        var day = $("input[name='day']").val();
+        var a2 = day;
+
+        var a = a1 + "," + a2;
+        return a;
+    }
+    function results(){
+        var beginTime = $("#beginTime").val();
+        var day = $("input[name='day']").val();
+        //比较日期
+        var a1 = beginTime.split("-");
+        var d1 = new Date(a1);
+        var dtNew=new Date(d1.getTime()+day*24*60*60*1000);
+        var update = new Date();
+        var update = dtNew.getFullYear()+'-'+[dtNew.getMonth()+1]+'-'+dtNew.getDate();
+
+        return update;
+    }
+
+    $(".sub").click(function(){
+        var beginTime = $("#beginTime").val();
+        if(beginTime==''){
+            alert('请输入起始日！！！');
+            return false;
+        }
+        //获得间隔总天数
+        var day = $("input[name='day']").val();
+        if(day==''){
+            alert('请输入间隔总天数！！！');
+            return false;
+        }
+
+        //比较日期
+        var a1 = beginTime.split(",");
+        var d1 = new Date(a1);
+        var dtNew=new Date(d1.getTime()+day*24*60*60*1000);
+        var update = new Date();
+        var update = dtNew.getFullYear()+'-'+[dtNew.getMonth()+1]+'-'+dtNew.getDate();
+        $("#datetimepicker").datetimepicker('update',update);
+
+    });
+
+    $(".share").click(function(){
+        var a = conditions();
+        var b = results();
+        showZhoudaoToast(a,b);
+    });
+    setupWebViewJavascriptBridge(function(bridge) {
+        var callbackButton = document.getElementById('buttons')
+        callbackButton.onclick = function(e) {
+            var a = conditions()
+            var b = results()
+
+            bridge.callHandler('shareZhoudao', {'conditions': a,'results': b,'type': 'riqi',})
+        }
+    })
+
+
+    var currYear = (new Date()).getFullYear();
+    var opt={};
+    opt.date = {preset : 'date'};
+    opt.datetime = {preset : 'datetime'};
+    opt.time = {preset : 'time'};
+    opt.default = {
+        theme: 'android-ics light', //皮肤样式
+        display: 'modal', //显示方式
+        mode: 'scroller', //日期选择模式
+        dateFormat: 'yyyy-mm-dd',
+        lang: 'zh',
+        showNow: true,
+        nowText: "今天",
+        startYear: currYear - 100, //开始年份
+        endYear: currYear + 20 //结束年份
+    };
+    $("#beginTime").mobiscroll($.extend(opt['date'], opt['default']));
+    $('#datetimepicker').datetimepicker({
+        language:  'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true, 
+        todayBtn: 1,     
+        weekStart: 1, 
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>

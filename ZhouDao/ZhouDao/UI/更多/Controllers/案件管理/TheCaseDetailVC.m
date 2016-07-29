@@ -221,13 +221,6 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
             break;
         case 1003:
         {
-            NSString *title = @"周道慧法";
-            NSString *contentString = @"案件详情";
-            NSString *url = @"http://www.iswifting.com";
-            NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url, nil];
-            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
-                
-            }];
         }
             break;
         case 1004:

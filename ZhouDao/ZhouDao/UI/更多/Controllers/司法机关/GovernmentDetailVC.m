@@ -17,7 +17,7 @@
 #import "DeriveMapVC.h"
 #import "MapNavViewController.h"
 #import "NavMapWindow.h"
-
+#import "ZD_Window.h"
 
 static NSString *const DetailCellIdentifier = @"DetailCellIdentifier";
 static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
@@ -171,12 +171,17 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {WEAKSELF;
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.row == 0) {
+        ZD_Window * window = [[ZD_Window alloc] initWithFrame:kMainScreenFrameRect];
+        [self.view addSubview:window];
+    }
+    
     if (indexPath.row == 2) {
         if (_model.phone.length > 0) {
             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_model.phone]]];
             [self.callPhoneWebView loadRequest:request];
         }
-
 //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:_model.phone delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"呼叫", nil];
 //        alert.tag = 1001;
 //        [alert show];

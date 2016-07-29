@@ -99,8 +99,10 @@
         NSString *title = @"周道慧法";
         NSString *contentString = @"周道慧法 - 一款律师专属智能化办公工具";
         NSString *url = @"http://www.zhoudao.cc/mobile/pro.html";
+        NSString *imgUrlString = @"";
+
 //        NSString *url = @"https://itunes.apple.com/cn/app/zhou-dao-hui-fa/id1105833212?mt=8";
-        NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url, nil];
+        NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url,imgUrlString, nil];
         [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
         }];
 //        NSString *shareText = @"分享的文字";        //分享内嵌文字

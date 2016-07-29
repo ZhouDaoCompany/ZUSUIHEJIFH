@@ -65,7 +65,7 @@
      float height = 224;
     
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-120, 54)];
-    headView.backgroundColor  = KNavigationBarColor;
+    headView.backgroundColor  = [UIColor clearColor];
     [self.zd_superView addSubview:headView];
     
     UILabel *titLab = [[UILabel alloc] init];
@@ -73,8 +73,8 @@
     titLab.bounds = CGRectMake(0, 0, zd_width-150, 20);
     titLab.backgroundColor = [UIColor clearColor];
     titLab.text = self.titleString;
-    titLab.textColor = [UIColor whiteColor];
-    titLab.textAlignment = NSTextAlignmentCenter;
+//    titLab.textColor = [UIColor whiteColor];
+    titLab.textAlignment = NSTextAlignmentLeft;
     [headView addSubview:titLab];
     
     self.contentjScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, Orgin_y(headView) +10, zd_width-140, height-114.f)];

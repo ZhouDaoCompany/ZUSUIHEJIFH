@@ -161,7 +161,7 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
                 
                 [homeCell setMdoel:_dataSourceArrays[indexPath.row]];
             }else {
-                [homeCell setMdoel:_dataSourceArrays[indexPath.row]];
+                [homeCell setHistoryModel:_dataSourceArrays[indexPath.row]];
             }
         }
     }
@@ -176,6 +176,7 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
             NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,DetailsEventHotSpot,model.id];
             ToolsWedViewVC *vc = [ToolsWedViewVC new];
             vc.url = url;
+            vc.imgUrlString = model.pic;
             vc.tType = FromHotType;
             vc.shareContent = model.title;
             vc.navTitle = @"";//model.title;
@@ -188,6 +189,7 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
             ToolsWedViewVC *vc = [ToolsWedViewVC new];
             vc.url = url;
             vc.tType = FromEveryType;
+            vc.imgUrlString = hisModel.pic;
             vc.shareContent = hisModel.title;
             vc.navTitle = @"";//model.title;
             [self.navigationController  pushViewController:vc animated:YES];

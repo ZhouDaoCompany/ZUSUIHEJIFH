@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>延迟利息计算器</title>
+        <link href="tools/Js/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="tools/Js/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+        <link href="tools/Css/base.css" rel="stylesheet" />
+        <style>
+            img{display: block;margin:0 auto;}
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div class="inputForm">
+                <dl>
+                    <dt>标的金额（元）</dt>
+                    <dd><?php echo ($conditions[0]); ?></dd>
+                </dl>
+                <dl class="appoint">
+                    <dt>利率选项</dt>
+                    <dd>
+                        <select class="select" disabled="disabled" name="category">
+                        <?php
+                            switch ($conditions[1]) {
+                                case '1':echo '<option value="1">日利率</option>';break;
+                                case '2':echo '<option value="2">月利率</option>';break;
+                                case '3':echo '<option value="3">年利率</option>';break;
+                            }
+                        ?>
+                        </select>
+                    </dd>
+                </dl>
+                <dl class="one">
+                    <dt>约定利率(%)</dt>
+                    <dd><?php echo ($conditions[2]); ?></dd>
+                </dl>
+                <dl>
+                    <dt>起算日期</dt>
+                    <dd><?php echo ($conditions[3]); ?></dd>
+                </dl>
+                <dl>
+                    <dt>截至日期</dt>
+                    <dd><?php echo ($conditions[4]); ?></dd>
+                </dl>
+            </div>
+            <div class="resultsBox">
+                <div class="hd">
+                    <h2>计算结果</h2>
+                </div>
+                <div class="options">
+                    <ul>
+                        <li class="all <?php if($results[0] == 1) echo 'active';?>" value="1">按约定利率</li>
+                        <li class="half <?php if($results[0] == 2) echo 'active';?>" value="2">人民银行同期利率</li>
+                    </ul>
+                </div>
+                <div class="resultsCon">
+                    <div>
+                        <dl>
+                            <dt>一般债务利息</dt>
+                            <dd class="sum singelDebt"><?php echo ($results[1]); ?></dd>
+                        </dl>
+                        <dl>
+                            <dt>加倍部分债务利息</dt>
+                            <dd class="sum doubleDebt"><?php echo ($results[2]); ?></dd>
+                        </dl>
+                        <dl>
+                            <dt>延迟期间债务利息</dt>
+                            <dd class="sum delayDebt"><?php echo ($results[3]); ?></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="beizhu"><p>注：迟延期间的债务利息是一般债务利息与加倍部分债务利息相加所得。</p><br /></div>
+            </div>
+            <div>
+                <img src="tools/Images/erweima.png"/>
+            </div>
+        <script src="tools/Js/jquery.min.js"></script>
+        <script src="tools/Js/share.js"></script>
+        <script type="text/javascript" src="tools/Js/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="tools/Js/bootstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="tools/Js/bootstrap/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+        <script src="tools/Js/lixi.js"></script>
+    </body>
+</html>

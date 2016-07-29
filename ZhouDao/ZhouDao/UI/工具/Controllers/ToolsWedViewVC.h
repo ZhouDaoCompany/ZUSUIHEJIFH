@@ -22,6 +22,8 @@ typedef NS_ENUM(NSInteger, ToolsType)
 
 @property (nonatomic ,assign) ToolsType tType ;//全部
 @property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *imgUrlString;
+
 @property (nonatomic, copy) NSString *navTitle;
 @property (nonatomic, copy) NSString *format;//格式
 @property (nonatomic, copy) NSString *introContent;

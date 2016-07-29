@@ -80,8 +80,9 @@
 {
     NSString *title = @"周道慧法";
     NSString *contentString = GET(_model.content);
-    NSString *shareUrl =  [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TheContractShareUrl,_idStr];;
-    NSArray *arrays = [NSArray arrayWithObjects:title,contentString,shareUrl, nil];
+    NSString *shareUrl =  [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TheContractShareUrl,_idStr];
+    NSString *imgUrlString = @"";
+    NSArray *arrays = [NSArray arrayWithObjects:title,contentString,shareUrl,imgUrlString,nil];
     [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
     }];
 }

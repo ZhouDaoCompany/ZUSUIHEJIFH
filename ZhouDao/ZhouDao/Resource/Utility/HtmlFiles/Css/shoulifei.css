@@ -1,0 +1,11 @@
+.cck1{border-bottom: 1px solid #d4d4d4;margin-left: 2%;overflow: hidden;color:#00c8aa;}
+.cck1 ul{width: 40%; display: table;float: right;margin-right:4%;}
+.cck1 ul li{display: table-cell;text-align: center;border: solid 1px #00c8aa;}
+.all{border-top-left-radius: 0.3em;border-bottom-left-radius: 0.3em;}
+.half{border-top-right-radius: 0.3em;border-bottom-right-radius: 0.3em;}
+.active{background:#00c8aa;color:#fff;}
+.ipt{width: 62%;display: inline-block;vertical-align: middle;font-size: 0.8em;color: #666;border: none;float:right}
+.cck ul{width: 30%; display: table;margin-right:1%;}
+.cck ul li{display: table-cell;text-align: center;border: solid 1px #00c8aa;}
+dl dt{width:59%;}
+dl dd{width:41%;}

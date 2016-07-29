@@ -65,10 +65,13 @@
             [weakSelf testObjcCallback:dataDic];
             responseCallback(@"Response from shareZhoudao");
         }];
+        [_webView loadHtml:_url];
         
     }else if (_tType == FromEveryType){
         [self.view addSubview:self.shareImgView];
         [self.view addSubview:self.historyImgView];
+        [_webView loadURL:_url];
+        
     }else if (_tType == FromHotType || _tType == FromRecHDType) {
         
         [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_Share"];
@@ -91,9 +94,10 @@
                 }
             }];
         }];
+        
+        [_webView loadURL:_url];
     }
 
-    [_webView loadURL:_url];
 }
 - (void)testImg:(NSMutableArray *)arr withInte:(NSUInteger)index{
     DLog(@"diaoqi");
@@ -135,7 +139,8 @@
         }
         NSString *title = @"周道慧法";
         NSString *url = GET(shareUrl);
-        NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url, nil];
+        NSString *imgUrlString = _imgUrlString;
+        NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url,imgUrlString, nil];
         [ShareView CreatingPopMenuObjectItmes:ShareObjs
                                 contentArrays:arrays
                       withPresentedController:self
@@ -154,21 +159,22 @@
     if (_tType == FromHotType) {
         NSArray *array = [_url componentsSeparatedByString:@"&"];
         NSString *url = [NSString stringWithFormat:@"%@share_hotspot.php?%@",kProjectBaseUrl,[array lastObject]];
-        NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url, nil];
+        
+        NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url,_imgUrlString, nil];
         [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
         }];
         
     }else if (_tType == FromEveryType){
         NSArray *array = [_url componentsSeparatedByString:@"&"];
         NSString *url = [NSString stringWithFormat:@"%@share_daily.php?%@",kProjectBaseUrl,[array lastObject]];
-        NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url, nil];
+        NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url,_imgUrlString, nil];
         [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
         }];
         
     }else if (_tType == FromRecHDType){
         NSArray *array = [_url componentsSeparatedByString:@"&"];
         NSString *url = [NSString stringWithFormat:@"%@share_slide.php?%@",kProjectBaseUrl,[array lastObject]];
-        NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url, nil];
+        NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url,_imgUrlString,nil];
         [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
         }];
         

@@ -243,7 +243,8 @@ CompletionBlock:(void(^)(BOOL completion))blcok
     NSString *title =@"";
     NSString *contentString = @"";
     NSString *url = @"";
-    
+    NSString *imgUrlString = @"";
+
     for (NSUInteger i = 0; i<_shareArrays.count; i++) {
         if (i == 0) {
             title =_shareArrays[0];
@@ -251,28 +252,31 @@ CompletionBlock:(void(^)(BOOL completion))blcok
             contentString = _shareArrays[1];
         }else if (i == 2){
             url = [_shareArrays[2] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        }else if (i == 3) {
+            imgUrlString = [_shareArrays[3] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         }
     }
     
     switch (tag) {
         case 0:{//微信好友
-            [self shareToWX:title withContent:contentString withUrl:url];
+            [self shareToWX:title withContent:contentString withUrl:url withImg:imgUrlString];
         }
             break;
         case 1:{//朋友圈
-            [self shareToWXFriend:title withContent:contentString withUrl:url];
+            
+            [self shareToWXFriend:title withContent:contentString withUrl:url withImg:imgUrlString];
         }
             break;
         case 2:{//qq好友
-            [self shareToQQ:title withContent:contentString withUrl:url];
+            [self shareToQQ:title withContent:contentString withUrl:url withImg:imgUrlString];
         }
             break;
         case 3:{//qq空间
-            [self shareToQQFriends:title withContent:contentString withUrl:url];
+            [self shareToQQFriends:title withContent:contentString withUrl:url withImg:imgUrlString];
         }
             break;
         case 4:{//新浪
-            [self shareToSina:title withContent:contentString withUrl:url];
+            [self shareToSina:title withContent:contentString withUrl:url withImg:imgUrlString];
         }
             break;
             
@@ -292,13 +296,20 @@ CompletionBlock:(void(^)(BOOL completion))blcok
 - (void)shareToSina:(NSString *)title
         withContent:(NSString *)content
             withUrl:(NSString *)url
+            withImg:(NSString *)imgUrlString
+
 {
     NSString *shareContent = [NSString stringWithFormat:@"%@\n%@ %@",title,content,url];
-    UIImage *shareImg = [QZManager getAppIcon];
     //    [[UMSocialControllerService defaultControllerService] setShareText:shareContent shareImage:shareImg socialUIDelegate:self];
     //    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(_superVC,[UMSocialControllerService defaultControllerService],YES);
-    
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToSina] content:shareContent image:shareImg location:nil urlResource:nil presentedController:_superVC completion:^(UMSocialResponseEntity *response){
+    UMSocialUrlResource *urlResource = nil;
+    if (imgUrlString.length >0) {
+        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imgUrlString];
+    }else {
+        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb url:imgUrlString];
+    }
+
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToSina] content:shareContent image:nil location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             DLog(@"分享成功！");
         }
@@ -321,13 +332,20 @@ CompletionBlock:(void(^)(BOOL completion))blcok
 - (void)shareToQQ:(NSString *)title
       withContent:(NSString *)content
           withUrl:(NSString *)url
+          withImg:(NSString *)imgUrlString
 {
     [UMSocialData defaultData].extConfig.qqData.url = url;
     [UMSocialData defaultData].extConfig.qqData.title = title;
-    UIImage *shareImg = [QZManager getAppIcon];
+    [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
+
+    UMSocialUrlResource *urlResource = nil;
+    if (imgUrlString.length >0) {
+        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imgUrlString];
+    }else {
+        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb url:imgUrlString];
+    }
     
-    //    UMSocialUrlResource *urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:url];
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:content image:shareImg location:nil urlResource:nil presentedController:_superVC completion:^(UMSocialResponseEntity *response){
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:content image:nil location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             DLog(@"分享成功！");
         }
@@ -337,12 +355,19 @@ CompletionBlock:(void(^)(BOOL completion))blcok
 - (void)shareToQQFriends:(NSString *)title
              withContent:(NSString *)content
                  withUrl:(NSString *)url
+                 withImg:(NSString *)imgUrlString
+
 {
     [UMSocialData defaultData].extConfig.qzoneData.url = url;
     [UMSocialData defaultData].extConfig.qzoneData.title = title;
-    UIImage *shareImg = [QZManager getAppIcon];
-    
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:content image:shareImg location:nil urlResource:nil presentedController:_superVC completion:^(UMSocialResponseEntity *response){
+    [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
+    UMSocialUrlResource *urlResource = nil;
+    if (imgUrlString.length >0) {
+        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imgUrlString];
+    }else {
+        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb url:imgUrlString];
+    }
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:content image:nil location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             DLog(@"分享成功！");
         }
@@ -351,14 +376,18 @@ CompletionBlock:(void(^)(BOOL completion))blcok
 #pragma mark - 分享到微信朋友圈
 - (void)shareToWXFriend:(NSString *)title
             withContent:(NSString *)content
-                withUrl:(NSString *)url
+                withUrl:(NSString *)url  withImg:(NSString *)imgUrlString
 {
     [UMSocialData defaultData].extConfig.wechatTimelineData.url = url;
     [UMSocialData defaultData].extConfig.wechatTimelineData.title = content;
-    UIImage *shareImg = [QZManager getAppIcon];
-    
-    //    UMSocialUrlResource *urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:url];
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:content image:shareImg location:nil urlResource:nil presentedController:_superVC completion:^(UMSocialResponseEntity *response){
+    UMSocialUrlResource *urlResource = nil;
+    if (imgUrlString.length >0) {
+        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imgUrlString];
+        
+    }else {
+        [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
+    }
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:content image:nil location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             DLog(@"分享成功！");
         }
@@ -367,13 +396,19 @@ CompletionBlock:(void(^)(BOOL completion))blcok
 #pragma mark - 分享到微信
 - (void)shareToWX:(NSString *)title
       withContent:(NSString *)content
-          withUrl:(NSString *)url
+          withUrl:(NSString *)url withImg:(NSString *)imgUrlString
 {
     [UMSocialData defaultData].extConfig.wechatSessionData.url = url;
-    [UMSocialData defaultData].extConfig.wechatSessionData.title = title;
-    UIImage *shareImg = [QZManager getAppIcon];
+    [UMSocialData defaultData].extConfig.wechatSessionData.title = content;
     
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:content image:shareImg location:nil urlResource:nil presentedController:_superVC completion:^(UMSocialResponseEntity *response){
+    UMSocialUrlResource *urlResource = nil;
+    if (imgUrlString.length >0) {
+        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imgUrlString];
+
+    }else {
+        [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
+    }
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:title image:nil location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             DLog(@"分享成功！");
         }

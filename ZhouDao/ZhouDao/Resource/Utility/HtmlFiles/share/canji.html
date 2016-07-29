@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>残疾赔偿金计算器</title>
+        <link href="tools/Js/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="tools/Js/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+        <link href="tools/Css/base.css" rel="stylesheet" />
+        <link href="tools/Css/canji.css" rel="stylesheet" />
+
+        <style>
+            img{display: block;margin:0 auto;}
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div class="inputForm">
+                <form>
+                    <dl>
+                        <dt>适用标准</dt>
+                        <dd><?php echo ($conditions[0]); ?></dd>
+                    </dl>
+                    <dl>
+                        <dt>出生年月日</dt>
+                        <dd><?php echo ($conditions[1]); ?></dd>
+                    </dl>
+                    <dl>
+                        <dt>定残年月日</dt>
+                        <dd><?php echo ($conditions[2]); ?></dd>
+                    </dl>
+                    <dl class="cck">
+                        <ul class="ipt">
+                            <li class="all <?php if($conditions[3] == 1) echo 'active'; ?>" value="1">一级</li>
+                            <li class="half <?php if($conditions[3] == 2) echo 'active'; ?>" value="2">多级</li>
+                        </ul>
+                    </dl>
+                    <div class="cck2">
+                        <label>伤残等级</label>
+                        <div class="jibie">
+                            <ul class="danxuan">
+                                 <label><?php echo ($conditions[4]); ?></label>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="resultsBox">
+                <div class="hd">
+                    <h2>计算结果</h2>
+                </div>
+                <div class="appoint">
+                    <dl>
+                        <dt>残疾保障金(元)</dt>
+                        <dd class="sum danxuan_money"><?php echo ($results[0]); ?></dd>
+                    </dl>
+                </div>
+            </div>
+            </div>
+            <div>
+                <img src="tools/Images/erweima.png"/>
+            </div>
+        <script src="tools/Js/jquery.min.js"></script>
+        <script src="tools/Js/share.js"></script>
+        <script type="text/javascript" src="tools/Js/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="tools/Js/bootstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="tools/Js/bootstrap/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+        <script src="tools/Js/canji.js"></script>
+    </body>
+</html>

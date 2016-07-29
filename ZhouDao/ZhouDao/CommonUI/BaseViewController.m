@@ -71,11 +71,11 @@
     }
     return _leftBtn;
 }
-- (UIButton *)rightBtn
+- (BaseRightBtn *)rightBtn
 {
     if (!_rightBtn) {
         CGRect frame = CGRectMake(CGRectGetWidth(_naviBarView.bounds) - kDefaultWidth, 0.0, kDefaultWidth, kDefaultWidth);
-        self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.rightBtn = [BaseRightBtn buttonWithType:UIButtonTypeCustom];
         self.rightBtn.frame = frame;
         [self.rightBtn addTarget:self
                           action:@selector(handleBtnAction:)
@@ -375,13 +375,14 @@
         
         if (image) {
             frame.size.width = image.size.width + [QZManager getLabelWidth:btn.titleLabel] + 20.0;
+
         } else {
             frame.size.width = [QZManager getLabelWidth:btn.titleLabel] + 20.0;
         }
     }
     
     frame.size.width = MAX(CGRectGetWidth(frame), CGRectGetWidth(btn.frame));
-    
+
     if (btn.tag == NaviRightBtn) {
         frame.origin.x = CGRectGetWidth(_naviBarView.bounds) - CGRectGetWidth(frame);
     }

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>受理费计算器</title>
+        <link href="Css/base.css" rel="stylesheet" />
+        <link href="Css/shoulifei.css" rel="stylesheet" />
+        <script type="text/javascript">
+            function showZhoudaoToast(toast,aa) {
+                javascript:zhoudao.shareZhoudao(toast,aa,'shoulifei');
+            }
+            function setupWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+                if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+                window.WVJBCallbacks = [callback];
+                var WVJBIframe = document.createElement('iframe');
+                WVJBIframe.style.display = 'none';
+                WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                document.documentElement.appendChild(WVJBIframe);
+                setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+            } 
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <div class="inputForm">
+                <form>
+                    <dl>
+                        <dt>标的金额（元）</dt>
+                        <dd><input type="number" class="ipt" placeholder="请输入标的金额"></dd>
+                    </dl>
+                    <dl class="cck">
+                        <ul class="ipt">
+                            <li class="all active" value="1">全额</li>
+                            <li class="half" value="2">减半</li>
+                        </ul>
+                    </dl>
+                    <dl class="cck">
+                        <dt>离婚案件</dt>
+                            <select id="lh" class="select" name="category">
+                                <option value="50">上海  50</option>
+                                <option value="100">北京  100</option>
+                                <option value="200">广州  200</option>
+                                <option value="250">深圳  250</option>
+                                <option value="300">南京  300</option>
+                            </select>
+                    </dl>
+                    <dl class="cck">
+                        <dt>人格权案件</dt>
+                        <select id="rg" class="select" name="category">
+                                <option value="100">上海  100</option>
+                                <option value="150">广州  150</option>
+                                <option value="200">北京  200</option>
+                                <option value="350">深圳  350</option>
+                                <option value="500">南京  500</option>
+                            </select>
+                    </dl>
+                    <div class="operation">
+                        <input type="submit" class="btn sub" value="计算" />
+                        <input type="reset" class="btn reset" value="重置" />
+                    </div>
+                </form>
+            </div>
+            <div class="resultsBox">
+                <div class="hd">
+                    <h2>计算结果</h2>
+                    <a href="#" id="buttons" class="share"><img src="Images/share.png"/></a>
+                </div>
+                <dl>
+                    <dt>财产案件（元）</dt>
+                    <dd class="sum caichan">0.00</dd>
+                </dl>
+                <dl>
+                    <dt>破产案件（元）</dt>
+                    <dd class="sum pochan">0.00</dd>
+                </dl>
+                <dl>
+                    <dt>离婚案件（元）</dt>
+                    <dd class="sum lihun">0.00</dd>
+                </dl>
+                <dl>
+                    <dt class="pkuan">人格侵权损害案件（元）</dt>
+                    <dd class="sum renge kuan">0.00</dd>
+                </dl>
+                <dl>
+                    <dt>申请支付令（元）</dt>
+                    <dd class="sum pay">0.00</dd>
+                </dl>
+        </div>
+            </div>
+        <script src="Js/jquery.min.js"></script>
+        <script src="Js/share.js"></script>    
+        <script src="Js/shoulifei.js"></script>
+        <script>
+            function conditions(){
+                //选项
+                var a1 = $(".ipt").val();
+                var a2 = $(".active").val();
+                var a3 = $("#lh").find("option:selected").val();
+                var a4 = $("#rg").find("option:selected").val();
+
+                var a = a1 + "," + a2 + "," + a3 + ","+a4;
+                return a;
+            }
+            function results(){
+                //结果
+                var b1 = $(".caichan").text();
+                var b2 = $(".pochan").text();
+                var b3 = $(".lihun").text();
+                var b4 = $(".renge").text();
+                var b5 = $(".pay").text();
+
+                var b = b1+ ","+b2+","+b3+","+b4+","+b5;
+                
+                return b;
+            }
+
+
+            $(".share").click(function(){
+                var a = conditions();
+                var b = results();
+                showZhoudaoToast(a,b);
+            });
+            setupWebViewJavascriptBridge(function(bridge) {
+                var callbackButton = document.getElementById('buttons')
+                callbackButton.onclick = function(e) {
+                    var a = conditions()
+                    var b = results()
+
+                    bridge.callHandler('shareZhoudao', {'conditions': a,'results': b,'type': 'shoulifei'})
+                }
+            })
+        </script>
+    </body>
+</html>

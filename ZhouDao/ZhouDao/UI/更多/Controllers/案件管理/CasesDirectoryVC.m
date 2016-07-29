@@ -141,12 +141,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
             break;
         case 1003:
         {
-            NSString *title = @"周道慧法分享";
-            NSString *contentString = @"分享的文字内容";
-            NSString *url = @"http://a07545.atobo.com.cn";
-            NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url, nil];
-            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
-            }];
+
         }
             break;
         case 1004:

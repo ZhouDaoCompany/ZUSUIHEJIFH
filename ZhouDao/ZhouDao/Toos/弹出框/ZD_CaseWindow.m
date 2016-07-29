@@ -67,7 +67,7 @@
     float height = zd_width-100;
 
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-100, 64)];
-    headView.backgroundColor  = KNavigationBarColor;
+    headView.backgroundColor  = [UIColor clearColor];
     [self.zd_superView addSubview:headView];
 
     UILabel *titLab = [[UILabel alloc] init];
@@ -75,7 +75,7 @@
     titLab.bounds = CGRectMake(0, 0, 100, 20);
     titLab.backgroundColor = [UIColor clearColor];
     titLab.text = self.titleString;
-    titLab.textColor = [UIColor whiteColor];
+//    titLab.textColor = [UIColor whiteColor];
     titLab.textAlignment = NSTextAlignmentCenter;
     [headView addSubview:titLab];
     

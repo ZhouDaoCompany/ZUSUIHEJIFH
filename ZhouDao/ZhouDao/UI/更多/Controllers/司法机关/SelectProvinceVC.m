@@ -58,8 +58,15 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DLog(@"indexRow----%ld",indexPath.row);
+    NSString *selectString = _dataSourceArr[indexPath.row];
+    if ([QZManager isString:selectString withContainsStr:@"内蒙古"]== YES || [QZManager isString:selectString withContainsStr:@"黑龙江"]== YES) {
+        selectString = [selectString substringToIndex:3];
+    }else {
+        selectString = [selectString substringToIndex:2];
+    }
     
-    self.selectBlock(_dataSourceArr[indexPath.row]);
+    [PublicFunction ShareInstance].locProv = _dataSourceArr[indexPath.row];
+    self.selectBlock(_dataSourceArr[indexPath.row],selectString);
     [self dismissViewControllerAnimated:YES completion:^{
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];

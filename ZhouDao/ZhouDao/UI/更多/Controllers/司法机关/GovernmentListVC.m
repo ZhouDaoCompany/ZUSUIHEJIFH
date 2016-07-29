@@ -49,7 +49,9 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 {
     [self setupNaviBarWithTitle:@"司法机关"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
-    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"backVC"];
+
+    [self setupNaviBarWithBtn:NaviRightBtn title:_showLocal img:@"gov_SelectLoc"];
+    self.rightBtn.titleLabel.font = Font_15;
 
     _dataSourceArr = [NSMutableArray array];
     _oneArrays = [NSMutableArray array];
@@ -135,8 +137,9 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 - (void)rightBtnAction
 {WEAKSELF;
     SelectProvinceVC *selectVC = [SelectProvinceVC new];
-    selectVC.selectBlock = ^(NSString *province){
+    selectVC.selectBlock = ^(NSString *province, NSString *local){
         
+        weakSelf.localBlock(province,local);
         [weakSelf.twoArrays removeAllObjects];
         [weakSelf.jsMenu.leftTableView removeFromSuperview];
         weakSelf.jsMenu.leftTableView = nil;
@@ -148,6 +151,8 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         [weakSelf.jsMenu removeFromSuperview];
         weakSelf.jsMenu = nil;
         weakSelf.prov = province;
+        weakSelf.showLocal = local;
+        [weakSelf.rightBtn setTitle:weakSelf.showLocal forState:0];
         [weakSelf loadAreasPlistfile];
         [weakSelf.view addSubview:weakSelf.jsMenu];
 
@@ -155,10 +160,10 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         indexPath1.column = 1;
         indexPath1.leftOrRight = 1;
         [weakSelf menu:weakSelf.jsMenu didSelectRowAtIndexPath:indexPath1];
-        
     };
     [self presentViewController:selectVC animated:YES completion:nil];
 }
+
 #pragma mark - getters and setters
 
 - (UITableView *)tableView
@@ -385,11 +390,11 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
             NSInteger leftRow = indexPath.leftRow;
             NSDictionary *menuDic = [_twoArrays objectAtIndex:leftRow];
             _city = [menuDic objectForKey:@"title"];
+            [PublicFunction ShareInstance].locCity = _city;
             _areas = [[menuDic objectForKey:@"data"] objectAtIndex:indexPath.row];
             if ([_areas isEqualToString:@"全部"]) {
                 _areas = @"";
             }
-
             [weakSelf didSelectRowMenu];
         }
     }

@@ -194,7 +194,6 @@
 		181BA4121CE598B600A29E2E /* share_platform_wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181BA40D1CE598B600A29E2E /* share_platform_wechat@2x.png */; };
 		181BA4131CE598B600A29E2E /* share_platform_wechattimeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181BA40E1CE598B600A29E2E /* share_platform_wechattimeline@2x.png */; };
 		181CE8291CC9FF5500529F5E /* NavMapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 181CE8261CC9FF5500529F5E /* NavMapWindow.m */; };
-		181CE82A1CC9FF5500529F5E /* ZD_SelectDateWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 181CE8281CC9FF5500529F5E /* ZD_SelectDateWindow.m */; };
 		181CE82D1CCA005D00529F5E /* ZD_DeleteWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 181CE82C1CCA005D00529F5E /* ZD_DeleteWindow.m */; };
 		181E512E1CD1E81E00BBA10D /* ReplacePhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E512D1CD1E81E00BBA10D /* ReplacePhoneVC.m */; };
 		181E51311CD1F34700BBA10D /* NewPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E51301CD1F34700BBA10D /* NewPhoneVC.m */; };
@@ -206,6 +205,109 @@
 		1829BA761CE2F58700F0143F /* ExampleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829BA751CE2F58700F0143F /* ExampleData.m */; };
 		1829BA791CE3264A00F0143F /* CaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829BA781CE3264A00F0143F /* CaseModel.m */; };
 		1829BA7C1CE32CA400F0143F /* ExampleListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829BA7B1CE32CA400F0143F /* ExampleListVC.m */; };
+		182D31AE1D4AE89300883660 /* BaseRightBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 182D31AD1D4AE89300883660 /* BaseRightBtn.m */; };
+		182D31B21D4B083A00883660 /* gov_SelectLoc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D31B11D4B083A00883660 /* gov_SelectLoc@2x.png */; };
+		182D322C1D4B3AD200883660 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31C31D4B3AD200883660 /* base.css */; };
+		182D322D1D4B3AD200883660 /* canji.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31C41D4B3AD200883660 /* canji.css */; };
+		182D322E1D4B3AD200883660 /* jquery.mobile.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31C51D4B3AD200883660 /* jquery.mobile.min.css */; };
+		182D322F1D4B3AD200883660 /* riqi.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31C61D4B3AD200883660 /* riqi.css */; };
+		182D32301D4B3AD200883660 /* shoulifei.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31C71D4B3AD200883660 /* shoulifei.css */; };
+		182D32311D4B3AD200883660 /* weiyuejin.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31C81D4B3AD200883660 /* weiyuejin.css */; };
+		182D32321D4B3AD200883660 /* erweima.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D31CA1D4B3AD200883660 /* erweima.png */; };
+		182D32331D4B3AD200883660 /* f_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D31CB1D4B3AD200883660 /* f_icon.png */; };
+		182D32341D4B3AD200883660 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D31CC1D4B3AD200883660 /* more.png */; };
+		182D32351D4B3AD200883660 /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = 182D31CD1D4B3AD200883660 /* share.png */; };
+		182D32361D4B3AD200883660 /* bootstrap-datetimepicker.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31D11D4B3AD200883660 /* bootstrap-datetimepicker.css */; };
+		182D32371D4B3AD200883660 /* bootstrap-datetimepicker.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31D21D4B3AD200883660 /* bootstrap-datetimepicker.min.css */; };
+		182D32381D4B3AD200883660 /* bootstrap-theme.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31D31D4B3AD200883660 /* bootstrap-theme.css */; };
+		182D32391D4B3AD200883660 /* bootstrap-theme.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31D41D4B3AD200883660 /* bootstrap-theme.min.css */; };
+		182D323A1D4B3AD200883660 /* bootstrap.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31D51D4B3AD200883660 /* bootstrap.css */; };
+		182D323B1D4B3AD200883660 /* bootstrap.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D31D61D4B3AD200883660 /* bootstrap.min.css */; };
+		182D323C1D4B3AD200883660 /* glyphicons-halflings-regular.eot in Resources */ = {isa = PBXBuildFile; fileRef = 182D31D81D4B3AD200883660 /* glyphicons-halflings-regular.eot */; };
+		182D323D1D4B3AD200883660 /* glyphicons-halflings-regular.svg in Resources */ = {isa = PBXBuildFile; fileRef = 182D31D91D4B3AD200883660 /* glyphicons-halflings-regular.svg */; };
+		182D323E1D4B3AD200883660 /* glyphicons-halflings-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 182D31DA1D4B3AD200883660 /* glyphicons-halflings-regular.ttf */; };
+		182D323F1D4B3AD200883660 /* glyphicons-halflings-regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = 182D31DB1D4B3AD200883660 /* glyphicons-halflings-regular.woff */; };
+		182D32401D4B3AD200883660 /* bootstrap-datetimepicker.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31DD1D4B3AD200883660 /* bootstrap-datetimepicker.js */; };
+		182D32411D4B3AD200883660 /* bootstrap-datetimepicker.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31DE1D4B3AD200883660 /* bootstrap-datetimepicker.min.js */; };
+		182D32421D4B3AD200883660 /* bootstrap.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31DF1D4B3AD200883660 /* bootstrap.js */; };
+		182D32431D4B3AD200883660 /* bootstrap.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31E01D4B3AD200883660 /* bootstrap.min.js */; };
+		182D32441D4B3AD200883660 /* bootstrap-datetimepicker.ar.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31E21D4B3AD200883660 /* bootstrap-datetimepicker.ar.js */; };
+		182D32451D4B3AD200883660 /* bootstrap-datetimepicker.az.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31E31D4B3AD200883660 /* bootstrap-datetimepicker.az.js */; };
+		182D32461D4B3AD200883660 /* bootstrap-datetimepicker.bg.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31E41D4B3AD200883660 /* bootstrap-datetimepicker.bg.js */; };
+		182D32471D4B3AD200883660 /* bootstrap-datetimepicker.bn.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31E51D4B3AD200883660 /* bootstrap-datetimepicker.bn.js */; };
+		182D32481D4B3AD200883660 /* bootstrap-datetimepicker.ca.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31E61D4B3AD200883660 /* bootstrap-datetimepicker.ca.js */; };
+		182D32491D4B3AD200883660 /* bootstrap-datetimepicker.cs.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31E71D4B3AD200883660 /* bootstrap-datetimepicker.cs.js */; };
+		182D324A1D4B3AD200883660 /* bootstrap-datetimepicker.da.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31E81D4B3AD200883660 /* bootstrap-datetimepicker.da.js */; };
+		182D324B1D4B3AD200883660 /* bootstrap-datetimepicker.de.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31E91D4B3AD200883660 /* bootstrap-datetimepicker.de.js */; };
+		182D324C1D4B3AD200883660 /* bootstrap-datetimepicker.ee.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31EA1D4B3AD200883660 /* bootstrap-datetimepicker.ee.js */; };
+		182D324D1D4B3AD200883660 /* bootstrap-datetimepicker.el.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31EB1D4B3AD200883660 /* bootstrap-datetimepicker.el.js */; };
+		182D324E1D4B3AD200883660 /* bootstrap-datetimepicker.es.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31EC1D4B3AD200883660 /* bootstrap-datetimepicker.es.js */; };
+		182D324F1D4B3AD200883660 /* bootstrap-datetimepicker.fi.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31ED1D4B3AD200883660 /* bootstrap-datetimepicker.fi.js */; };
+		182D32501D4B3AD200883660 /* bootstrap-datetimepicker.fr.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31EE1D4B3AD200883660 /* bootstrap-datetimepicker.fr.js */; };
+		182D32511D4B3AD200883660 /* bootstrap-datetimepicker.he.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31EF1D4B3AD200883660 /* bootstrap-datetimepicker.he.js */; };
+		182D32521D4B3AD200883660 /* bootstrap-datetimepicker.hr.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31F01D4B3AD200883660 /* bootstrap-datetimepicker.hr.js */; };
+		182D32531D4B3AD200883660 /* bootstrap-datetimepicker.hu.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31F11D4B3AD200883660 /* bootstrap-datetimepicker.hu.js */; };
+		182D32541D4B3AD200883660 /* bootstrap-datetimepicker.hy.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31F21D4B3AD200883660 /* bootstrap-datetimepicker.hy.js */; };
+		182D32551D4B3AD200883660 /* bootstrap-datetimepicker.id.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31F31D4B3AD200883660 /* bootstrap-datetimepicker.id.js */; };
+		182D32561D4B3AD200883660 /* bootstrap-datetimepicker.is.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31F41D4B3AD200883660 /* bootstrap-datetimepicker.is.js */; };
+		182D32571D4B3AD200883660 /* bootstrap-datetimepicker.it.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31F51D4B3AD200883660 /* bootstrap-datetimepicker.it.js */; };
+		182D32581D4B3AD200883660 /* bootstrap-datetimepicker.ja.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31F61D4B3AD200883660 /* bootstrap-datetimepicker.ja.js */; };
+		182D32591D4B3AD200883660 /* bootstrap-datetimepicker.ka.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31F71D4B3AD200883660 /* bootstrap-datetimepicker.ka.js */; };
+		182D325A1D4B3AD200883660 /* bootstrap-datetimepicker.ko.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31F81D4B3AD200883660 /* bootstrap-datetimepicker.ko.js */; };
+		182D325B1D4B3AD200883660 /* bootstrap-datetimepicker.lt.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31F91D4B3AD200883660 /* bootstrap-datetimepicker.lt.js */; };
+		182D325C1D4B3AD200883660 /* bootstrap-datetimepicker.lv.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31FA1D4B3AD200883660 /* bootstrap-datetimepicker.lv.js */; };
+		182D325D1D4B3AD200883660 /* bootstrap-datetimepicker.ms.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31FB1D4B3AD200883660 /* bootstrap-datetimepicker.ms.js */; };
+		182D325E1D4B3AD200883660 /* bootstrap-datetimepicker.nb.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31FC1D4B3AD200883660 /* bootstrap-datetimepicker.nb.js */; };
+		182D325F1D4B3AD200883660 /* bootstrap-datetimepicker.nl.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31FD1D4B3AD200883660 /* bootstrap-datetimepicker.nl.js */; };
+		182D32601D4B3AD200883660 /* bootstrap-datetimepicker.no.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31FE1D4B3AD200883660 /* bootstrap-datetimepicker.no.js */; };
+		182D32611D4B3AD200883660 /* bootstrap-datetimepicker.pl.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D31FF1D4B3AD200883660 /* bootstrap-datetimepicker.pl.js */; };
+		182D32621D4B3AD200883660 /* bootstrap-datetimepicker.pt-BR.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32001D4B3AD200883660 /* bootstrap-datetimepicker.pt-BR.js */; };
+		182D32631D4B3AD200883660 /* bootstrap-datetimepicker.pt.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32011D4B3AD200883660 /* bootstrap-datetimepicker.pt.js */; };
+		182D32641D4B3AD200883660 /* bootstrap-datetimepicker.ro.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32021D4B3AD200883660 /* bootstrap-datetimepicker.ro.js */; };
+		182D32651D4B3AD200883660 /* bootstrap-datetimepicker.rs-latin.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32031D4B3AD200883660 /* bootstrap-datetimepicker.rs-latin.js */; };
+		182D32661D4B3AD200883660 /* bootstrap-datetimepicker.rs.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32041D4B3AD200883660 /* bootstrap-datetimepicker.rs.js */; };
+		182D32671D4B3AD200883660 /* bootstrap-datetimepicker.ru.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32051D4B3AD200883660 /* bootstrap-datetimepicker.ru.js */; };
+		182D32681D4B3AD200883660 /* bootstrap-datetimepicker.sk.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32061D4B3AD200883660 /* bootstrap-datetimepicker.sk.js */; };
+		182D32691D4B3AD200883660 /* bootstrap-datetimepicker.sl.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32071D4B3AD200883660 /* bootstrap-datetimepicker.sl.js */; };
+		182D326A1D4B3AD200883660 /* bootstrap-datetimepicker.sv.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32081D4B3AD200883660 /* bootstrap-datetimepicker.sv.js */; };
+		182D326B1D4B3AD200883660 /* bootstrap-datetimepicker.sw.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32091D4B3AD200883660 /* bootstrap-datetimepicker.sw.js */; };
+		182D326C1D4B3AD200883660 /* bootstrap-datetimepicker.th.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D320A1D4B3AD200883660 /* bootstrap-datetimepicker.th.js */; };
+		182D326D1D4B3AD200883660 /* bootstrap-datetimepicker.tr.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D320B1D4B3AD200883660 /* bootstrap-datetimepicker.tr.js */; };
+		182D326E1D4B3AD200883660 /* bootstrap-datetimepicker.ua.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D320C1D4B3AD200883660 /* bootstrap-datetimepicker.ua.js */; };
+		182D326F1D4B3AD200883660 /* bootstrap-datetimepicker.uk.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D320D1D4B3AD200883660 /* bootstrap-datetimepicker.uk.js */; };
+		182D32701D4B3AD200883660 /* bootstrap-datetimepicker.zh-CN.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D320E1D4B3AD200883660 /* bootstrap-datetimepicker.zh-CN.js */; };
+		182D32711D4B3AD200883660 /* bootstrap-datetimepicker.zh-TW.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D320F1D4B3AD200883660 /* bootstrap-datetimepicker.zh-TW.js */; };
+		182D32721D4B3AD200883660 /* canji.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32101D4B3AD200883660 /* canji.js */; };
+		182D32731D4B3AD200883660 /* ccbq.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32111D4B3AD200883660 /* ccbq.js */; };
+		182D32741D4B3AD200883660 /* jquery-1.7.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32121D4B3AD200883660 /* jquery-1.7.1.min.js */; };
+		182D32751D4B3AD200883660 /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32131D4B3AD200883660 /* jquery.min.js */; };
+		182D32761D4B3AD200883660 /* jquery.mobile.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32141D4B3AD200883660 /* jquery.mobile.min.js */; };
+		182D32771D4B3AD200883660 /* lixi.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32151D4B3AD200883660 /* lixi.js */; };
+		182D32781D4B3AD200883660 /* share.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32161D4B3AD200883660 /* share.js */; };
+		182D32791D4B3AD200883660 /* shoulifei.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32171D4B3AD200883660 /* shoulifei.js */; };
+		182D327A1D4B3AD200883660 /* weiyuejin.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32181D4B3AD200883660 /* weiyuejin.js */; };
+		182D327B1D4B3AD200883660 /* zhixing.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32191D4B3AD200883660 /* zhixing.js */; };
+		182D327C1D4B3AD200883660 /* mobiscroll.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D321C1D4B3AD200883660 /* mobiscroll.css */; };
+		182D327D1D4B3AD200883660 /* mobiscroll_date.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D321D1D4B3AD200883660 /* mobiscroll_date.css */; };
+		182D327E1D4B3AD200883660 /* normalize3.0.2.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D321E1D4B3AD200883660 /* normalize3.0.2.min.css */; };
+		182D327F1D4B3AD200883660 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 182D321F1D4B3AD200883660 /* style.css */; };
+		182D32801D4B3AD200883660 /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32211D4B3AD200883660 /* jquery.min.js */; };
+		182D32811D4B3AD200883660 /* mobiscroll.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32221D4B3AD200883660 /* mobiscroll.js */; };
+		182D32821D4B3AD200883660 /* mobiscroll_date.js in Resources */ = {isa = PBXBuildFile; fileRef = 182D32231D4B3AD200883660 /* mobiscroll_date.js */; };
+		182D32831D4B3AD200883660 /* caichan.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32251D4B3AD200883660 /* caichan.html */; };
+		182D32841D4B3AD200883660 /* canji.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32261D4B3AD200883660 /* canji.html */; };
+		182D32851D4B3AD200883660 /* lixi.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32271D4B3AD200883660 /* lixi.html */; };
+		182D32861D4B3AD200883660 /* riqi.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32281D4B3AD200883660 /* riqi.html */; };
+		182D32871D4B3AD200883660 /* shoulifei.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32291D4B3AD200883660 /* shoulifei.html */; };
+		182D32881D4B3AD200883660 /* weiyuejin.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D322A1D4B3AD200883660 /* weiyuejin.html */; };
+		182D32891D4B3AD200883660 /* zhixing.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D322B1D4B3AD200883660 /* zhixing.html */; };
+		182D32AD1D4B3D8C00883660 /* ToolsCalculate0.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32A61D4B3D8C00883660 /* ToolsCalculate0.html */; };
+		182D32AE1D4B3D8C00883660 /* ToolsCalculate1.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32A71D4B3D8C00883660 /* ToolsCalculate1.html */; };
+		182D32AF1D4B3D8C00883660 /* ToolsCalculate2.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32A81D4B3D8C00883660 /* ToolsCalculate2.html */; };
+		182D32B01D4B3D8C00883660 /* ToolsCalculate3.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32A91D4B3D8C00883660 /* ToolsCalculate3.html */; };
+		182D32B11D4B3D8C00883660 /* ToolsCalculate4.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32AA1D4B3D8C00883660 /* ToolsCalculate4.html */; };
+		182D32B21D4B3D8C00883660 /* ToolsCalculate5.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32AB1D4B3D8C00883660 /* ToolsCalculate5.html */; };
+		182D32B31D4B3D8C00883660 /* ToolsCalculate6.html in Resources */ = {isa = PBXBuildFile; fileRef = 182D32AC1D4B3D8C00883660 /* ToolsCalculate6.html */; };
 		182DF4EF1CC8BE9E007BA359 /* JRNLocalNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DF4EE1CC8BE9E007BA359 /* JRNLocalNotificationCenter.m */; };
 		1830E06F1D4863B9005D287E /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830E0691D4863B9005D287E /* SDBrowserImageView.m */; };
 		1830E0701D4863B9005D287E /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830E06B1D4863B9005D287E /* SDPhotoBrowser.m */; };
@@ -398,7 +500,6 @@
 		18F2F1A71CBE157B0068453D /* ExampleSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F1A61CBE157B0068453D /* ExampleSearchVC.m */; };
 		18F2F1AB1CBE16710068453D /* ExampleSearView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F1AA1CBE16710068453D /* ExampleSearView.m */; };
 		18F2F1C41CBE1DA20068453D /* Esearch_graySousuo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F1B81CBE1DA20068453D /* Esearch_graySousuo@2x.png */; };
-		18F2F1CB1CBE2D840068453D /* SeniorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F1C91CBE2D840068453D /* SeniorViewController.m */; };
 		18F2F1CE1CBE2EC40068453D /* Esearch_SouSuo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F1CD1CBE2EC40068453D /* Esearch_SouSuo@2x.png */; };
 		18F2F1D71CBE47000068453D /* OrdinaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F1D61CBE47000068453D /* OrdinaryVC.m */; };
 		18F593E51CB5F40400F5619D /* UIWebView_SearchWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F593E41CB5F40400F5619D /* UIWebView_SearchWebView.m */; };
@@ -734,8 +835,6 @@
 		181BA40E1CE598B600A29E2E /* share_platform_wechattimeline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_platform_wechattimeline@2x.png"; sourceTree = "<group>"; };
 		181CE8251CC9FF5500529F5E /* NavMapWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavMapWindow.h; sourceTree = "<group>"; };
 		181CE8261CC9FF5500529F5E /* NavMapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavMapWindow.m; sourceTree = "<group>"; };
-		181CE8271CC9FF5500529F5E /* ZD_SelectDateWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZD_SelectDateWindow.h; sourceTree = "<group>"; };
-		181CE8281CC9FF5500529F5E /* ZD_SelectDateWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZD_SelectDateWindow.m; sourceTree = "<group>"; };
 		181CE82B1CCA005D00529F5E /* ZD_DeleteWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZD_DeleteWindow.h; sourceTree = "<group>"; };
 		181CE82C1CCA005D00529F5E /* ZD_DeleteWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZD_DeleteWindow.m; sourceTree = "<group>"; };
 		181E512C1CD1E81E00BBA10D /* ReplacePhoneVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplacePhoneVC.h; sourceTree = "<group>"; };
@@ -762,6 +861,110 @@
 		1829BA781CE3264A00F0143F /* CaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseModel.m; sourceTree = "<group>"; };
 		1829BA7A1CE32CA400F0143F /* ExampleListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleListVC.h; sourceTree = "<group>"; };
 		1829BA7B1CE32CA400F0143F /* ExampleListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleListVC.m; sourceTree = "<group>"; };
+		182D31AC1D4AE89300883660 /* BaseRightBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRightBtn.h; sourceTree = "<group>"; };
+		182D31AD1D4AE89300883660 /* BaseRightBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRightBtn.m; sourceTree = "<group>"; };
+		182D31B11D4B083A00883660 /* gov_SelectLoc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gov_SelectLoc@2x.png"; sourceTree = "<group>"; };
+		182D31C31D4B3AD200883660 /* base.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = base.css; sourceTree = "<group>"; };
+		182D31C41D4B3AD200883660 /* canji.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = canji.css; sourceTree = "<group>"; };
+		182D31C51D4B3AD200883660 /* jquery.mobile.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = jquery.mobile.min.css; sourceTree = "<group>"; };
+		182D31C61D4B3AD200883660 /* riqi.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = riqi.css; sourceTree = "<group>"; };
+		182D31C71D4B3AD200883660 /* shoulifei.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = shoulifei.css; sourceTree = "<group>"; };
+		182D31C81D4B3AD200883660 /* weiyuejin.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = weiyuejin.css; sourceTree = "<group>"; };
+		182D31CA1D4B3AD200883660 /* erweima.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = erweima.png; sourceTree = "<group>"; };
+		182D31CB1D4B3AD200883660 /* f_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = f_icon.png; sourceTree = "<group>"; };
+		182D31CC1D4B3AD200883660 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
+		182D31CD1D4B3AD200883660 /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
+		182D31D11D4B3AD200883660 /* bootstrap-datetimepicker.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "bootstrap-datetimepicker.css"; sourceTree = "<group>"; };
+		182D31D21D4B3AD200883660 /* bootstrap-datetimepicker.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "bootstrap-datetimepicker.min.css"; sourceTree = "<group>"; };
+		182D31D31D4B3AD200883660 /* bootstrap-theme.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "bootstrap-theme.css"; sourceTree = "<group>"; };
+		182D31D41D4B3AD200883660 /* bootstrap-theme.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "bootstrap-theme.min.css"; sourceTree = "<group>"; };
+		182D31D51D4B3AD200883660 /* bootstrap.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = bootstrap.css; sourceTree = "<group>"; };
+		182D31D61D4B3AD200883660 /* bootstrap.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = bootstrap.min.css; sourceTree = "<group>"; };
+		182D31D81D4B3AD200883660 /* glyphicons-halflings-regular.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glyphicons-halflings-regular.eot"; sourceTree = "<group>"; };
+		182D31D91D4B3AD200883660 /* glyphicons-halflings-regular.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "glyphicons-halflings-regular.svg"; sourceTree = "<group>"; };
+		182D31DA1D4B3AD200883660 /* glyphicons-halflings-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glyphicons-halflings-regular.ttf"; sourceTree = "<group>"; };
+		182D31DB1D4B3AD200883660 /* glyphicons-halflings-regular.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glyphicons-halflings-regular.woff"; sourceTree = "<group>"; };
+		182D31DD1D4B3AD200883660 /* bootstrap-datetimepicker.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.js"; sourceTree = "<group>"; };
+		182D31DE1D4B3AD200883660 /* bootstrap-datetimepicker.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.min.js"; sourceTree = "<group>"; };
+		182D31DF1D4B3AD200883660 /* bootstrap.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bootstrap.js; sourceTree = "<group>"; };
+		182D31E01D4B3AD200883660 /* bootstrap.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bootstrap.min.js; sourceTree = "<group>"; };
+		182D31E21D4B3AD200883660 /* bootstrap-datetimepicker.ar.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ar.js"; sourceTree = "<group>"; };
+		182D31E31D4B3AD200883660 /* bootstrap-datetimepicker.az.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.az.js"; sourceTree = "<group>"; };
+		182D31E41D4B3AD200883660 /* bootstrap-datetimepicker.bg.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.bg.js"; sourceTree = "<group>"; };
+		182D31E51D4B3AD200883660 /* bootstrap-datetimepicker.bn.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.bn.js"; sourceTree = "<group>"; };
+		182D31E61D4B3AD200883660 /* bootstrap-datetimepicker.ca.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ca.js"; sourceTree = "<group>"; };
+		182D31E71D4B3AD200883660 /* bootstrap-datetimepicker.cs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.cs.js"; sourceTree = "<group>"; };
+		182D31E81D4B3AD200883660 /* bootstrap-datetimepicker.da.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.da.js"; sourceTree = "<group>"; };
+		182D31E91D4B3AD200883660 /* bootstrap-datetimepicker.de.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.de.js"; sourceTree = "<group>"; };
+		182D31EA1D4B3AD200883660 /* bootstrap-datetimepicker.ee.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ee.js"; sourceTree = "<group>"; };
+		182D31EB1D4B3AD200883660 /* bootstrap-datetimepicker.el.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.el.js"; sourceTree = "<group>"; };
+		182D31EC1D4B3AD200883660 /* bootstrap-datetimepicker.es.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.es.js"; sourceTree = "<group>"; };
+		182D31ED1D4B3AD200883660 /* bootstrap-datetimepicker.fi.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.fi.js"; sourceTree = "<group>"; };
+		182D31EE1D4B3AD200883660 /* bootstrap-datetimepicker.fr.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.fr.js"; sourceTree = "<group>"; };
+		182D31EF1D4B3AD200883660 /* bootstrap-datetimepicker.he.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.he.js"; sourceTree = "<group>"; };
+		182D31F01D4B3AD200883660 /* bootstrap-datetimepicker.hr.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.hr.js"; sourceTree = "<group>"; };
+		182D31F11D4B3AD200883660 /* bootstrap-datetimepicker.hu.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.hu.js"; sourceTree = "<group>"; };
+		182D31F21D4B3AD200883660 /* bootstrap-datetimepicker.hy.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.hy.js"; sourceTree = "<group>"; };
+		182D31F31D4B3AD200883660 /* bootstrap-datetimepicker.id.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.id.js"; sourceTree = "<group>"; };
+		182D31F41D4B3AD200883660 /* bootstrap-datetimepicker.is.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.is.js"; sourceTree = "<group>"; };
+		182D31F51D4B3AD200883660 /* bootstrap-datetimepicker.it.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.it.js"; sourceTree = "<group>"; };
+		182D31F61D4B3AD200883660 /* bootstrap-datetimepicker.ja.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ja.js"; sourceTree = "<group>"; };
+		182D31F71D4B3AD200883660 /* bootstrap-datetimepicker.ka.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ka.js"; sourceTree = "<group>"; };
+		182D31F81D4B3AD200883660 /* bootstrap-datetimepicker.ko.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ko.js"; sourceTree = "<group>"; };
+		182D31F91D4B3AD200883660 /* bootstrap-datetimepicker.lt.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.lt.js"; sourceTree = "<group>"; };
+		182D31FA1D4B3AD200883660 /* bootstrap-datetimepicker.lv.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.lv.js"; sourceTree = "<group>"; };
+		182D31FB1D4B3AD200883660 /* bootstrap-datetimepicker.ms.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ms.js"; sourceTree = "<group>"; };
+		182D31FC1D4B3AD200883660 /* bootstrap-datetimepicker.nb.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.nb.js"; sourceTree = "<group>"; };
+		182D31FD1D4B3AD200883660 /* bootstrap-datetimepicker.nl.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.nl.js"; sourceTree = "<group>"; };
+		182D31FE1D4B3AD200883660 /* bootstrap-datetimepicker.no.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.no.js"; sourceTree = "<group>"; };
+		182D31FF1D4B3AD200883660 /* bootstrap-datetimepicker.pl.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.pl.js"; sourceTree = "<group>"; };
+		182D32001D4B3AD200883660 /* bootstrap-datetimepicker.pt-BR.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.pt-BR.js"; sourceTree = "<group>"; };
+		182D32011D4B3AD200883660 /* bootstrap-datetimepicker.pt.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.pt.js"; sourceTree = "<group>"; };
+		182D32021D4B3AD200883660 /* bootstrap-datetimepicker.ro.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ro.js"; sourceTree = "<group>"; };
+		182D32031D4B3AD200883660 /* bootstrap-datetimepicker.rs-latin.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.rs-latin.js"; sourceTree = "<group>"; };
+		182D32041D4B3AD200883660 /* bootstrap-datetimepicker.rs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.rs.js"; sourceTree = "<group>"; };
+		182D32051D4B3AD200883660 /* bootstrap-datetimepicker.ru.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ru.js"; sourceTree = "<group>"; };
+		182D32061D4B3AD200883660 /* bootstrap-datetimepicker.sk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.sk.js"; sourceTree = "<group>"; };
+		182D32071D4B3AD200883660 /* bootstrap-datetimepicker.sl.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.sl.js"; sourceTree = "<group>"; };
+		182D32081D4B3AD200883660 /* bootstrap-datetimepicker.sv.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.sv.js"; sourceTree = "<group>"; };
+		182D32091D4B3AD200883660 /* bootstrap-datetimepicker.sw.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.sw.js"; sourceTree = "<group>"; };
+		182D320A1D4B3AD200883660 /* bootstrap-datetimepicker.th.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.th.js"; sourceTree = "<group>"; };
+		182D320B1D4B3AD200883660 /* bootstrap-datetimepicker.tr.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.tr.js"; sourceTree = "<group>"; };
+		182D320C1D4B3AD200883660 /* bootstrap-datetimepicker.ua.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ua.js"; sourceTree = "<group>"; };
+		182D320D1D4B3AD200883660 /* bootstrap-datetimepicker.uk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.uk.js"; sourceTree = "<group>"; };
+		182D320E1D4B3AD200883660 /* bootstrap-datetimepicker.zh-CN.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.zh-CN.js"; sourceTree = "<group>"; };
+		182D320F1D4B3AD200883660 /* bootstrap-datetimepicker.zh-TW.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.zh-TW.js"; sourceTree = "<group>"; };
+		182D32101D4B3AD200883660 /* canji.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = canji.js; sourceTree = "<group>"; };
+		182D32111D4B3AD200883660 /* ccbq.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ccbq.js; sourceTree = "<group>"; };
+		182D32121D4B3AD200883660 /* jquery-1.7.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.7.1.min.js"; sourceTree = "<group>"; };
+		182D32131D4B3AD200883660 /* jquery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
+		182D32141D4B3AD200883660 /* jquery.mobile.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.mobile.min.js; sourceTree = "<group>"; };
+		182D32151D4B3AD200883660 /* lixi.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = lixi.js; sourceTree = "<group>"; };
+		182D32161D4B3AD200883660 /* share.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = share.js; sourceTree = "<group>"; };
+		182D32171D4B3AD200883660 /* shoulifei.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = shoulifei.js; sourceTree = "<group>"; };
+		182D32181D4B3AD200883660 /* weiyuejin.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = weiyuejin.js; sourceTree = "<group>"; };
+		182D32191D4B3AD200883660 /* zhixing.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = zhixing.js; sourceTree = "<group>"; };
+		182D321C1D4B3AD200883660 /* mobiscroll.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = mobiscroll.css; sourceTree = "<group>"; };
+		182D321D1D4B3AD200883660 /* mobiscroll_date.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = mobiscroll_date.css; sourceTree = "<group>"; };
+		182D321E1D4B3AD200883660 /* normalize3.0.2.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = normalize3.0.2.min.css; sourceTree = "<group>"; };
+		182D321F1D4B3AD200883660 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		182D32211D4B3AD200883660 /* jquery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
+		182D32221D4B3AD200883660 /* mobiscroll.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mobiscroll.js; sourceTree = "<group>"; };
+		182D32231D4B3AD200883660 /* mobiscroll_date.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mobiscroll_date.js; sourceTree = "<group>"; };
+		182D32251D4B3AD200883660 /* caichan.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = caichan.html; sourceTree = "<group>"; };
+		182D32261D4B3AD200883660 /* canji.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = canji.html; sourceTree = "<group>"; };
+		182D32271D4B3AD200883660 /* lixi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = lixi.html; sourceTree = "<group>"; };
+		182D32281D4B3AD200883660 /* riqi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = riqi.html; sourceTree = "<group>"; };
+		182D32291D4B3AD200883660 /* shoulifei.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = shoulifei.html; sourceTree = "<group>"; };
+		182D322A1D4B3AD200883660 /* weiyuejin.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = weiyuejin.html; sourceTree = "<group>"; };
+		182D322B1D4B3AD200883660 /* zhixing.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = zhixing.html; sourceTree = "<group>"; };
+		182D32A61D4B3D8C00883660 /* ToolsCalculate0.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate0.html; sourceTree = "<group>"; };
+		182D32A71D4B3D8C00883660 /* ToolsCalculate1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate1.html; sourceTree = "<group>"; };
+		182D32A81D4B3D8C00883660 /* ToolsCalculate2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate2.html; sourceTree = "<group>"; };
+		182D32A91D4B3D8C00883660 /* ToolsCalculate3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate3.html; sourceTree = "<group>"; };
+		182D32AA1D4B3D8C00883660 /* ToolsCalculate4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate4.html; sourceTree = "<group>"; };
+		182D32AB1D4B3D8C00883660 /* ToolsCalculate5.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate5.html; sourceTree = "<group>"; };
+		182D32AC1D4B3D8C00883660 /* ToolsCalculate6.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate6.html; sourceTree = "<group>"; };
 		182DF4ED1CC8BE9E007BA359 /* JRNLocalNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRNLocalNotificationCenter.h; sourceTree = "<group>"; };
 		182DF4EE1CC8BE9E007BA359 /* JRNLocalNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRNLocalNotificationCenter.m; sourceTree = "<group>"; };
 		1830E0681D4863B9005D287E /* SDBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserImageView.h; sourceTree = "<group>"; };
@@ -1089,8 +1292,6 @@
 		18F2F1A91CBE16710068453D /* ExampleSearView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleSearView.h; sourceTree = "<group>"; };
 		18F2F1AA1CBE16710068453D /* ExampleSearView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleSearView.m; sourceTree = "<group>"; };
 		18F2F1B81CBE1DA20068453D /* Esearch_graySousuo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Esearch_graySousuo@2x.png"; sourceTree = "<group>"; };
-		18F2F1C81CBE2D840068453D /* SeniorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeniorViewController.h; sourceTree = "<group>"; };
-		18F2F1C91CBE2D840068453D /* SeniorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeniorViewController.m; sourceTree = "<group>"; };
 		18F2F1CD1CBE2EC40068453D /* Esearch_SouSuo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Esearch_SouSuo@2x.png"; sourceTree = "<group>"; };
 		18F2F1D51CBE47000068453D /* OrdinaryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrdinaryVC.h; sourceTree = "<group>"; };
 		18F2F1D61CBE47000068453D /* OrdinaryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrdinaryVC.m; sourceTree = "<group>"; };
@@ -1319,6 +1520,7 @@
 				187DB8BE1CDC6310009CF1D6 /* gov_tupian@2x.png */,
 				185838851D49B9FC00C6A0EE /* gov_NoReview@2x.png */,
 				185838861D49B9FC00C6A0EE /* gov_Review@2x.png */,
+				182D31B11D4B083A00883660 /* gov_SelectLoc@2x.png */,
 			);
 			path = "司法机关";
 			sourceTree = "<group>";
@@ -2033,6 +2235,210 @@
 			path = "查询";
 			sourceTree = "<group>";
 		};
+		182D31B31D4B390000883660 /* HtmlFiles */ = {
+			isa = PBXGroup;
+			children = (
+				182D32A61D4B3D8C00883660 /* ToolsCalculate0.html */,
+				182D32A71D4B3D8C00883660 /* ToolsCalculate1.html */,
+				182D32A81D4B3D8C00883660 /* ToolsCalculate2.html */,
+				182D32A91D4B3D8C00883660 /* ToolsCalculate3.html */,
+				182D32AA1D4B3D8C00883660 /* ToolsCalculate4.html */,
+				182D32AB1D4B3D8C00883660 /* ToolsCalculate5.html */,
+				182D32AC1D4B3D8C00883660 /* ToolsCalculate6.html */,
+				182D31C21D4B3AD200883660 /* Css */,
+				182D31C91D4B3AD200883660 /* Images */,
+				182D31CE1D4B3AD200883660 /* Js */,
+				182D321A1D4B3AD200883660 /* riqi */,
+				182D32241D4B3AD200883660 /* share */,
+			);
+			path = HtmlFiles;
+			sourceTree = "<group>";
+		};
+		182D31C21D4B3AD200883660 /* Css */ = {
+			isa = PBXGroup;
+			children = (
+				182D31C31D4B3AD200883660 /* base.css */,
+				182D31C41D4B3AD200883660 /* canji.css */,
+				182D31C51D4B3AD200883660 /* jquery.mobile.min.css */,
+				182D31C61D4B3AD200883660 /* riqi.css */,
+				182D31C71D4B3AD200883660 /* shoulifei.css */,
+				182D31C81D4B3AD200883660 /* weiyuejin.css */,
+			);
+			path = Css;
+			sourceTree = "<group>";
+		};
+		182D31C91D4B3AD200883660 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				182D31CA1D4B3AD200883660 /* erweima.png */,
+				182D31CB1D4B3AD200883660 /* f_icon.png */,
+				182D31CC1D4B3AD200883660 /* more.png */,
+				182D31CD1D4B3AD200883660 /* share.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		182D31CE1D4B3AD200883660 /* Js */ = {
+			isa = PBXGroup;
+			children = (
+				182D31CF1D4B3AD200883660 /* bootstrap */,
+				182D32101D4B3AD200883660 /* canji.js */,
+				182D32111D4B3AD200883660 /* ccbq.js */,
+				182D32121D4B3AD200883660 /* jquery-1.7.1.min.js */,
+				182D32131D4B3AD200883660 /* jquery.min.js */,
+				182D32141D4B3AD200883660 /* jquery.mobile.min.js */,
+				182D32151D4B3AD200883660 /* lixi.js */,
+				182D32161D4B3AD200883660 /* share.js */,
+				182D32171D4B3AD200883660 /* shoulifei.js */,
+				182D32181D4B3AD200883660 /* weiyuejin.js */,
+				182D32191D4B3AD200883660 /* zhixing.js */,
+			);
+			path = Js;
+			sourceTree = "<group>";
+		};
+		182D31CF1D4B3AD200883660 /* bootstrap */ = {
+			isa = PBXGroup;
+			children = (
+				182D31D01D4B3AD200883660 /* css */,
+				182D31D71D4B3AD200883660 /* fonts */,
+				182D31DC1D4B3AD200883660 /* js */,
+			);
+			path = bootstrap;
+			sourceTree = "<group>";
+		};
+		182D31D01D4B3AD200883660 /* css */ = {
+			isa = PBXGroup;
+			children = (
+				182D31D11D4B3AD200883660 /* bootstrap-datetimepicker.css */,
+				182D31D21D4B3AD200883660 /* bootstrap-datetimepicker.min.css */,
+				182D31D31D4B3AD200883660 /* bootstrap-theme.css */,
+				182D31D41D4B3AD200883660 /* bootstrap-theme.min.css */,
+				182D31D51D4B3AD200883660 /* bootstrap.css */,
+				182D31D61D4B3AD200883660 /* bootstrap.min.css */,
+			);
+			path = css;
+			sourceTree = "<group>";
+		};
+		182D31D71D4B3AD200883660 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				182D31D81D4B3AD200883660 /* glyphicons-halflings-regular.eot */,
+				182D31D91D4B3AD200883660 /* glyphicons-halflings-regular.svg */,
+				182D31DA1D4B3AD200883660 /* glyphicons-halflings-regular.ttf */,
+				182D31DB1D4B3AD200883660 /* glyphicons-halflings-regular.woff */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		182D31DC1D4B3AD200883660 /* js */ = {
+			isa = PBXGroup;
+			children = (
+				182D31DD1D4B3AD200883660 /* bootstrap-datetimepicker.js */,
+				182D31DE1D4B3AD200883660 /* bootstrap-datetimepicker.min.js */,
+				182D31DF1D4B3AD200883660 /* bootstrap.js */,
+				182D31E01D4B3AD200883660 /* bootstrap.min.js */,
+				182D31E11D4B3AD200883660 /* locales */,
+			);
+			path = js;
+			sourceTree = "<group>";
+		};
+		182D31E11D4B3AD200883660 /* locales */ = {
+			isa = PBXGroup;
+			children = (
+				182D31E21D4B3AD200883660 /* bootstrap-datetimepicker.ar.js */,
+				182D31E31D4B3AD200883660 /* bootstrap-datetimepicker.az.js */,
+				182D31E41D4B3AD200883660 /* bootstrap-datetimepicker.bg.js */,
+				182D31E51D4B3AD200883660 /* bootstrap-datetimepicker.bn.js */,
+				182D31E61D4B3AD200883660 /* bootstrap-datetimepicker.ca.js */,
+				182D31E71D4B3AD200883660 /* bootstrap-datetimepicker.cs.js */,
+				182D31E81D4B3AD200883660 /* bootstrap-datetimepicker.da.js */,
+				182D31E91D4B3AD200883660 /* bootstrap-datetimepicker.de.js */,
+				182D31EA1D4B3AD200883660 /* bootstrap-datetimepicker.ee.js */,
+				182D31EB1D4B3AD200883660 /* bootstrap-datetimepicker.el.js */,
+				182D31EC1D4B3AD200883660 /* bootstrap-datetimepicker.es.js */,
+				182D31ED1D4B3AD200883660 /* bootstrap-datetimepicker.fi.js */,
+				182D31EE1D4B3AD200883660 /* bootstrap-datetimepicker.fr.js */,
+				182D31EF1D4B3AD200883660 /* bootstrap-datetimepicker.he.js */,
+				182D31F01D4B3AD200883660 /* bootstrap-datetimepicker.hr.js */,
+				182D31F11D4B3AD200883660 /* bootstrap-datetimepicker.hu.js */,
+				182D31F21D4B3AD200883660 /* bootstrap-datetimepicker.hy.js */,
+				182D31F31D4B3AD200883660 /* bootstrap-datetimepicker.id.js */,
+				182D31F41D4B3AD200883660 /* bootstrap-datetimepicker.is.js */,
+				182D31F51D4B3AD200883660 /* bootstrap-datetimepicker.it.js */,
+				182D31F61D4B3AD200883660 /* bootstrap-datetimepicker.ja.js */,
+				182D31F71D4B3AD200883660 /* bootstrap-datetimepicker.ka.js */,
+				182D31F81D4B3AD200883660 /* bootstrap-datetimepicker.ko.js */,
+				182D31F91D4B3AD200883660 /* bootstrap-datetimepicker.lt.js */,
+				182D31FA1D4B3AD200883660 /* bootstrap-datetimepicker.lv.js */,
+				182D31FB1D4B3AD200883660 /* bootstrap-datetimepicker.ms.js */,
+				182D31FC1D4B3AD200883660 /* bootstrap-datetimepicker.nb.js */,
+				182D31FD1D4B3AD200883660 /* bootstrap-datetimepicker.nl.js */,
+				182D31FE1D4B3AD200883660 /* bootstrap-datetimepicker.no.js */,
+				182D31FF1D4B3AD200883660 /* bootstrap-datetimepicker.pl.js */,
+				182D32001D4B3AD200883660 /* bootstrap-datetimepicker.pt-BR.js */,
+				182D32011D4B3AD200883660 /* bootstrap-datetimepicker.pt.js */,
+				182D32021D4B3AD200883660 /* bootstrap-datetimepicker.ro.js */,
+				182D32031D4B3AD200883660 /* bootstrap-datetimepicker.rs-latin.js */,
+				182D32041D4B3AD200883660 /* bootstrap-datetimepicker.rs.js */,
+				182D32051D4B3AD200883660 /* bootstrap-datetimepicker.ru.js */,
+				182D32061D4B3AD200883660 /* bootstrap-datetimepicker.sk.js */,
+				182D32071D4B3AD200883660 /* bootstrap-datetimepicker.sl.js */,
+				182D32081D4B3AD200883660 /* bootstrap-datetimepicker.sv.js */,
+				182D32091D4B3AD200883660 /* bootstrap-datetimepicker.sw.js */,
+				182D320A1D4B3AD200883660 /* bootstrap-datetimepicker.th.js */,
+				182D320B1D4B3AD200883660 /* bootstrap-datetimepicker.tr.js */,
+				182D320C1D4B3AD200883660 /* bootstrap-datetimepicker.ua.js */,
+				182D320D1D4B3AD200883660 /* bootstrap-datetimepicker.uk.js */,
+				182D320E1D4B3AD200883660 /* bootstrap-datetimepicker.zh-CN.js */,
+				182D320F1D4B3AD200883660 /* bootstrap-datetimepicker.zh-TW.js */,
+			);
+			path = locales;
+			sourceTree = "<group>";
+		};
+		182D321A1D4B3AD200883660 /* riqi */ = {
+			isa = PBXGroup;
+			children = (
+				182D321B1D4B3AD200883660 /* css */,
+				182D32201D4B3AD200883660 /* js */,
+			);
+			path = riqi;
+			sourceTree = "<group>";
+		};
+		182D321B1D4B3AD200883660 /* css */ = {
+			isa = PBXGroup;
+			children = (
+				182D321C1D4B3AD200883660 /* mobiscroll.css */,
+				182D321D1D4B3AD200883660 /* mobiscroll_date.css */,
+				182D321E1D4B3AD200883660 /* normalize3.0.2.min.css */,
+				182D321F1D4B3AD200883660 /* style.css */,
+			);
+			path = css;
+			sourceTree = "<group>";
+		};
+		182D32201D4B3AD200883660 /* js */ = {
+			isa = PBXGroup;
+			children = (
+				182D32211D4B3AD200883660 /* jquery.min.js */,
+				182D32221D4B3AD200883660 /* mobiscroll.js */,
+				182D32231D4B3AD200883660 /* mobiscroll_date.js */,
+			);
+			path = js;
+			sourceTree = "<group>";
+		};
+		182D32241D4B3AD200883660 /* share */ = {
+			isa = PBXGroup;
+			children = (
+				182D32251D4B3AD200883660 /* caichan.html */,
+				182D32261D4B3AD200883660 /* canji.html */,
+				182D32271D4B3AD200883660 /* lixi.html */,
+				182D32281D4B3AD200883660 /* riqi.html */,
+				182D32291D4B3AD200883660 /* shoulifei.html */,
+				182D322A1D4B3AD200883660 /* weiyuejin.html */,
+				182D322B1D4B3AD200883660 /* zhixing.html */,
+			);
+			path = share;
+			sourceTree = "<group>";
+		};
 		182DF4EC1CC8BE9E007BA359 /* JRNLocalNotificationCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -2515,8 +2921,6 @@
 			children = (
 				181CE8251CC9FF5500529F5E /* NavMapWindow.h */,
 				181CE8261CC9FF5500529F5E /* NavMapWindow.m */,
-				181CE8271CC9FF5500529F5E /* ZD_SelectDateWindow.h */,
-				181CE8281CC9FF5500529F5E /* ZD_SelectDateWindow.m */,
 				18BE61391C99556F00F7E99F /* ZD_Window.h */,
 				18BE613A1C99556F00F7E99F /* ZD_Window.m */,
 				187821391CB788B6007503DB /* ZD_CaseWindow.h */,
@@ -2588,6 +2992,7 @@
 			isa = PBXGroup;
 			children = (
 				18F8789F1D053CCA0069E68A /* APIKey.h */,
+				182D31B31D4B390000883660 /* HtmlFiles */,
 				1830E0671D4863B9005D287E /* SDPhotoBrowser */,
 				18F812691D45C2110099A353 /* JX_GCDTimer */,
 				18E2E7FC1D0FD08D00330AFA /* JKCountDownButton */,
@@ -2789,8 +3194,6 @@
 				18D66ACF1CE1D52500BF2C17 /* SearchResultsVC.m */,
 				18F2F1D51CBE47000068453D /* OrdinaryVC.h */,
 				18F2F1D61CBE47000068453D /* OrdinaryVC.m */,
-				18F2F1C81CBE2D840068453D /* SeniorViewController.h */,
-				18F2F1C91CBE2D840068453D /* SeniorViewController.m */,
 			);
 			path = "案例查询";
 			sourceTree = "<group>";
@@ -2920,6 +3323,8 @@
 			children = (
 				18FF3F401C852A370098C60B /* BaseViewController.h */,
 				18B717541C9121CB00F2AAED /* BaseViewController.m */,
+				182D31AC1D4AE89300883660 /* BaseRightBtn.h */,
+				182D31AD1D4AE89300883660 /* BaseRightBtn.m */,
 				18FF42DD1C9805B300C6B29A /* 单例 */,
 				181292941C87E61D00EBB5CD /* TabBarController */,
 				18FF3F421C852A370098C60B /* Beans */,
@@ -3184,7 +3589,7 @@
 				TargetAttributes = {
 					187E6D5A1C841A11009169C2 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = DX33K55M2K;
+						DevelopmentTeam = 6W5UTJ2U6X;
 					};
 					187E6D731C841A15009169C2 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -3222,43 +3627,67 @@
 			files = (
 				18CC2E241D224DD5004B37DA /* case_lookicon@2x.png in Resources */,
 				180B31631C8ECFFF00360A23 /* homeUnselect@2x.png in Resources */,
+				182D32B31D4B3D8C00883660 /* ToolsCalculate6.html in Resources */,
 				18CD01D71C901367009DE385 /* tabbar_judicial@2x.png in Resources */,
 				1065C3471CA91BA4003F4089 /* law_shezhi@2x.png in Resources */,
+				182D32B01D4B3D8C00883660 /* ToolsCalculate3.html in Resources */,
 				1060DA151CACF8D400D779A5 /* recommedArticle.jpg in Resources */,
 				18CD4DA81C928111001838D2 /* WHC_CameraVC.xib in Resources */,
+				182D323C1D4B3AD200883660 /* glyphicons-halflings-regular.eot in Resources */,
 				108DC0241C9FA38E00FD1221 /* find_eye@2x.png in Resources */,
+				182D31B21D4B083A00883660 /* gov_SelectLoc@2x.png in Resources */,
 				18FD83311CBB858F00D50E20 /* case_cmingming@2x.png in Resources */,
 				1060DA0F1CACD69700D779A5 /* home_palcehold@2x.png in Resources */,
 				18CB0F131CBF8F3F009C41CE /* Esearch_dateSelect@2x.png in Resources */,
+				182D32511D4B3AD200883660 /* bootstrap-datetimepicker.he.js in Resources */,
+				182D32331D4B3AD200883660 /* f_icon.png in Resources */,
 				108DC0371C9FA38E00FD1221 /* mine_moveTop@2x.png in Resources */,
 				18B16ACF1CFD5CE300561CD5 /* UMSLoginViewController.xib in Resources */,
+				182D32AF1D4B3D8C00883660 /* ToolsCalculate2.html in Resources */,
+				182D32371D4B3AD200883660 /* bootstrap-datetimepicker.min.css in Resources */,
 				18FBD84C1CED90CD00674D1E /* case_word@2x.png in Resources */,
 				108DC0211C9FA38E00FD1221 /* compose_pic_add@2x.png in Resources */,
 				18E6ECEC1CEEF1E300ED74E3 /* law_selectedSC@2x.png in Resources */,
+				182D32441D4B3AD200883660 /* bootstrap-datetimepicker.ar.js in Resources */,
 				187E6D6E1C841A12009169C2 /* LaunchScreen.storyboard in Resources */,
+				182D326B1D4B3AD200883660 /* bootstrap-datetimepicker.sw.js in Resources */,
 				18FBD84A1CED90CD00674D1E /* case_txt@2x.png in Resources */,
 				10241A1D1CB9FCDE000CBEAE /* pc_gongshang@2x.png in Resources */,
 				187349DE1D2F4F96001A3E91 /* scan_4@2x.png in Resources */,
+				182D32AE1D4B3D8C00883660 /* ToolsCalculate1.html in Resources */,
+				182D32491D4B3AD200883660 /* bootstrap-datetimepicker.cs.js in Resources */,
 				18B5834B1C9A98C700CB3009 /* PlanTableViewCell.xib in Resources */,
+				182D323B1D4B3AD200883660 /* bootstrap.min.css in Resources */,
+				182D32751D4B3AD200883660 /* jquery.min.js in Resources */,
 				180B31671C8ECFFF00360A23 /* recommentUnSelect@2x.png in Resources */,
 				1065C34A1CA91BA4003F4089 /* law_wodeshoucang@2x.png in Resources */,
+				182D324D1D4B3AD200883660 /* bootstrap-datetimepicker.el.js in Resources */,
 				188651BB1D264DDC00E030F7 /* CaseRemindListCell.xib in Resources */,
+				182D32311D4B3AD200883660 /* weiyuejin.css in Resources */,
+				182D322C1D4B3AD200883660 /* base.css in Resources */,
 				108DC03A1C9FA38E00FD1221 /* mine_recommend@2x.png in Resources */,
+				182D327B1D4B3AD200883660 /* zhixing.js in Resources */,
 				184983121D2A0CA7009AF29F /* case_mangerGW@2x.png in Resources */,
 				108DC02D1C9FA38E00FD1221 /* mine_calendar@2x.png in Resources */,
 				18C4B0661CB4FC7600D3CB8B /* SelectTemplateCell.xib in Resources */,
 				18CC2E251D224DD5004B37DA /* case_moneyicon@2x.png in Resources */,
 				18C4B0681CB4FCCB00D3CB8B /* template_yuedu@2x.png in Resources */,
 				108DC0251C9FA38E00FD1221 /* find_eyeSelect@2x.png in Resources */,
+				182D32771D4B3AD200883660 /* lixi.js in Resources */,
 				18DD1E8D1C8812F7004630C1 /* post_normal@2x.png in Resources */,
 				181BA4131CE598B600A29E2E /* share_platform_wechattimeline@2x.png in Resources */,
+				182D326A1D4B3AD200883660 /* bootstrap-datetimepicker.sv.js in Resources */,
 				181BA4101CE598B600A29E2E /* share_platform_qzone@2x.png in Resources */,
 				108DC0311C9FA38E00FD1221 /* mine_delete@2x.png in Resources */,
+				182D32391D4B3AD200883660 /* bootstrap-theme.min.css in Resources */,
+				182D32B11D4B3D8C00883660 /* ToolsCalculate4.html in Resources */,
+				182D32811D4B3AD200883660 /* mobiscroll.js in Resources */,
 				18CD01D91C901367009DE385 /* tabbar_management@2x.png in Resources */,
 				108DC0301C9FA38E00FD1221 /* mine_collection@2x.png in Resources */,
 				108DC0221C9FA38E00FD1221 /* compose_pic_add@3x.png in Resources */,
 				18B16ACB1CFD5CE300561CD5 /* UMSCommentInputController.xib in Resources */,
 				108DC01F1C9FA38E00FD1221 /* backVC@2x.png in Resources */,
+				182D32301D4B3AD200883660 /* shoulifei.css in Resources */,
 				18CB0F0E1CBF77E6009C41CE /* Esearch_jiantou@2x.png in Resources */,
 				18FD83341CBB858F00D50E20 /* case_look@2x.png in Resources */,
 				181BA40F1CE598B600A29E2E /* share_platform_qqfriends@2x.png in Resources */,
@@ -3267,9 +3696,11 @@
 				18CC2E1F1D2243CC004B37DA /* Case_WhiteSD@2x.png in Resources */,
 				188F9E3C1CF81B14000F9B2D /* laws_GovSearch.jpg in Resources */,
 				18FD83351CBB858F00D50E20 /* case_share@2x.png in Resources */,
+				182D32501D4B3AD200883660 /* bootstrap-datetimepicker.fr.js in Resources */,
 				10D31D801CDEEA09008D6F42 /* Gov_phone@2x.png in Resources */,
 				187349DB1D2F4F96001A3E91 /* scan_1@2x.png in Resources */,
 				18B16AD41CFD5CE300561CD5 /* WeiboSDK.bundle in Resources */,
+				182D32461D4B3AD200883660 /* bootstrap-datetimepicker.bg.js in Resources */,
 				18B16AD11CFD5CE300561CD5 /* UMSShareListController.xib in Resources */,
 				10D31D7F1CDEEA09008D6F42 /* Gov_location@2x.png in Resources */,
 				108DC0321C9FA38E00FD1221 /* mine_good@2x.png in Resources */,
@@ -3283,36 +3714,57 @@
 				1060DA131CACF8D400D779A5 /* commonRegulations@2x.png in Resources */,
 				1065C34B1CA91BA4003F4089 /* law_xiangguan@2x.png in Resources */,
 				187E6D6B1C841A12009169C2 /* Assets.xcassets in Resources */,
+				182D32321D4B3AD200883660 /* erweima.png in Resources */,
 				1060DA171CACFBBC00D779A5 /* recommedNew@2x.png in Resources */,
 				18FD831B1CBB70DF00D50E20 /* case_sandian@2x.png in Resources */,
+				182D32481D4B3AD200883660 /* bootstrap-datetimepicker.ca.js in Resources */,
 				108DC02E1C9FA38E00FD1221 /* mine_cer@2x.png in Resources */,
 				10172BE61CBBF1F300B7553E /* case_paiZhao@2x.png in Resources */,
 				18CD01E21C90206F009DE385 /* LoginViewController.xib in Resources */,
+				182D32871D4B3AD200883660 /* shoulifei.html in Resources */,
 				1068EADE1CB3485000AAADD4 /* mine_NZSelected@2x.png in Resources */,
 				18CD4DAC1C928111001838D2 /* WHC_PictureListVC.xib in Resources */,
+				182D324B1D4B3AD200883660 /* bootstrap-datetimepicker.de.js in Resources */,
 				18D957081CF5AC0400F0E4DB /* tools_introduce@2x.png in Resources */,
 				1068EADF1CB3485000AAADD4 /* mine_NZUnSelected@2x.png in Resources */,
+				182D32821D4B3AD200883660 /* mobiscroll_date.js in Resources */,
 				1065C3441CA91BA4003F4089 /* law_fanhuidingbu@2x.png in Resources */,
+				182D322D1D4B3AD200883660 /* canji.css in Resources */,
 				108DC0271C9FA38E00FD1221 /* login_lice.jpg in Resources */,
 				10D31D6F1CDE1DDB008D6F42 /* jiantou@2x.png in Resources */,
 				18CB0F071CBF42EA009C41CE /* TwoCompensationCell.xib in Resources */,
 				108DC0381C9FA38E00FD1221 /* mine_nobanner.jpg in Resources */,
+				182D32471D4B3AD200883660 /* bootstrap-datetimepicker.bn.js in Resources */,
 				10D31D731CDE2459008D6F42 /* sanjiao@2x.png in Resources */,
 				18B16ACD1CFD5CE300561CD5 /* UMShareEditViewController.xib in Resources */,
 				18CD01D51C901367009DE385 /* tabbar_CaseQuery@2x.png in Resources */,
 				1060DA141CACF8D400D779A5 /* CompensationStandard@2x.png in Resources */,
 				188F9E371CF7FAF2000F9B2D /* Intro_2@2x.png in Resources */,
+				182D32781D4B3AD200883660 /* share.js in Resources */,
+				182D32881D4B3AD200883660 /* weiyuejin.html in Resources */,
+				182D32361D4B3AD200883660 /* bootstrap-datetimepicker.css in Resources */,
 				18F2F19F1CBDDAD70068453D /* case_juanzong4s@2x.png in Resources */,
 				181BA4111CE598B600A29E2E /* share_platform_sina@2x.png in Resources */,
+				182D32431D4B3AD200883660 /* bootstrap.min.js in Resources */,
 				108DC02B1C9FA38E00FD1221 /* mine_banner.jpg in Resources */,
 				1065C3451CA91BA4003F4089 /* law_jiegou@2x.png in Resources */,
 				108DC03E1C9FBC3100FD1221 /* blackBack@2x.png in Resources */,
 				188F9E361CF7FAF2000F9B2D /* Intro_1@2x.png in Resources */,
 				108DC0341C9FA38E00FD1221 /* mine_head@2x.png in Resources */,
+				182D32411D4B3AD200883660 /* bootstrap-datetimepicker.min.js in Resources */,
+				182D327F1D4B3AD200883660 /* style.css in Resources */,
+				182D326E1D4B3AD200883660 /* bootstrap-datetimepicker.ua.js in Resources */,
 				108DC0391C9FA38E00FD1221 /* mine_noScer@2x.png in Resources */,
+				182D32671D4B3AD200883660 /* bootstrap-datetimepicker.ru.js in Resources */,
 				18EE95951D23E5B70030AE2B /* case_up@2x.png in Resources */,
+				182D322E1D4B3AD200883660 /* jquery.mobile.min.css in Resources */,
+				182D32541D4B3AD200883660 /* bootstrap-datetimepicker.hy.js in Resources */,
 				18167E971CBBA03C00193EB6 /* case_juanzong@2x.png in Resources */,
+				182D32681D4B3AD200883660 /* bootstrap-datetimepicker.sk.js in Resources */,
+				182D323E1D4B3AD200883660 /* glyphicons-halflings-regular.ttf in Resources */,
+				182D324A1D4B3AD200883660 /* bootstrap-datetimepicker.da.js in Resources */,
 				18D9D67C1CBCA78A008F9CC8 /* case_jianTou@2x.png in Resources */,
+				182D327C1D4B3AD200883660 /* mobiscroll.css in Resources */,
 				1065C34F1CA91BA4003F4089 /* wpp_readall_top_down_normal@2x.png in Resources */,
 				18CC2E231D224DD5004B37DA /* case_alerticon@2x.png in Resources */,
 				18C4B05E1CB4DD9500D3CB8B /* template_Word@2x.png in Resources */,
@@ -3320,7 +3772,12 @@
 				18DB8E481D001F1E000C9D8B /* woman_court.caf in Resources */,
 				18FD82FD1CBB4E8C00D50E20 /* case_detailHead.jpg in Resources */,
 				108DC0361C9FA38E00FD1221 /* mine_manager@2x.png in Resources */,
+				182D32611D4B3AD200883660 /* bootstrap-datetimepicker.pl.js in Resources */,
+				182D324E1D4B3AD200883660 /* bootstrap-datetimepicker.es.js in Resources */,
+				182D32701D4B3AD200883660 /* bootstrap-datetimepicker.zh-CN.js in Resources */,
+				182D32721D4B3AD200883660 /* canji.js in Resources */,
 				108DC02C1C9FA38E00FD1221 /* mine_box@2x.png in Resources */,
+				182D32651D4B3AD200883660 /* bootstrap-datetimepicker.rs-latin.js in Resources */,
 				18B16AD01CFD5CE300561CD5 /* UMSnsAccountViewController.xib in Resources */,
 				18CD01D81C901367009DE385 /* tabbar_LawsRegular@2x.png in Resources */,
 				18CD01DA1C901367009DE385 /* tabbar_template@2x.png in Resources */,
@@ -3328,6 +3785,9 @@
 				108DC0261C9FA38E00FD1221 /* login_key@2x.png in Resources */,
 				18B16AD71CFD5CE300561CD5 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				187349DF1D2F4F96001A3E91 /* scan_net@2x.png in Resources */,
+				182D325B1D4B3AD200883660 /* bootstrap-datetimepicker.lt.js in Resources */,
+				182D32B21D4B3D8C00883660 /* ToolsCalculate5.html in Resources */,
+				182D323A1D4B3AD200883660 /* bootstrap.css in Resources */,
 				10D31D7C1CDEE92C008D6F42 /* GovDetailCell.xib in Resources */,
 				10172BE81CBBF1F300B7553E /* case_wifi@2x.png in Resources */,
 				18FD83321CBB858F00D50E20 /* case_delete@2x.png in Resources */,
@@ -3339,15 +3799,20 @@
 				180B31691C8ECFFF00360A23 /* ToolsUnSelect@2x.png in Resources */,
 				18DB8E461D001F1E000C9D8B /* man_meeting.caf in Resources */,
 				18DB8E491D001F1E000C9D8B /* woman_meeting.caf in Resources */,
+				182D32741D4B3AD200883660 /* jquery-1.7.1.min.js in Resources */,
 				18CD01CE1C8FEFA0009DE385 /* BottomImg@2x.png in Resources */,
 				10241A181CB9F5A0000CBEAE /* CompensationTabCell.xib in Resources */,
 				180B31621C8ECFFF00360A23 /* homeSelect@2x.png in Resources */,
 				10241A2F1CBA8E63000CBEAE /* case_add@2x.png in Resources */,
 				18D66AC71CE16DDE00BF2C17 /* template_SC@2x.png in Resources */,
 				108DC02A1C9FA38E00FD1221 /* mine_about@2x.png in Resources */,
+				182D32421D4B3AD200883660 /* bootstrap.js in Resources */,
 				10C86B861CABC00A002A75AC /* home_peichangbiaozhun@2x.png in Resources */,
 				180B31651C8ECFFF00360A23 /* mineUnSelect@2x.png in Resources */,
+				182D32841D4B3AD200883660 /* canji.html in Resources */,
 				18FBD8491CED90CD00674D1E /* case_photo@2x.png in Resources */,
+				182D32551D4B3AD200883660 /* bootstrap-datetimepicker.id.js in Resources */,
+				182D327E1D4B3AD200883660 /* normalize3.0.2.min.css in Resources */,
 				18DB8E471D001F1E000C9D8B /* woman_contract.caf in Resources */,
 				1065C3461CA91BA4003F4089 /* law_share@2x.png in Resources */,
 				108323321CAA2B14004B8045 /* law_contentSearch@2x.png in Resources */,
@@ -3356,36 +3821,71 @@
 				18DB8E441D001F1E000C9D8B /* man_contract.caf in Resources */,
 				18F593E71CB636A500F5619D /* SearchWebView.js in Resources */,
 				18F2F1CE1CBE2EC40068453D /* Esearch_SouSuo@2x.png in Resources */,
+				182D32AD1D4B3D8C00883660 /* ToolsCalculate0.html in Resources */,
 				188F9E381CF7FAF2000F9B2D /* Intro_3@2x.png in Resources */,
+				182D32571D4B3AD200883660 /* bootstrap-datetimepicker.it.js in Resources */,
+				182D325C1D4B3AD200883660 /* bootstrap-datetimepicker.lv.js in Resources */,
 				10241A1F1CB9FCDE000CBEAE /* pc_yiliao@2x.png in Resources */,
+				182D32761D4B3AD200883660 /* jquery.mobile.min.js in Resources */,
 				1065C3431CA91BA4003F4089 /* law_difangfagui@2x.png in Resources */,
+				182D325D1D4B3AD200883660 /* bootstrap-datetimepicker.ms.js in Resources */,
+				182D325A1D4B3AD200883660 /* bootstrap-datetimepicker.ko.js in Resources */,
 				108DC0351C9FA38E00FD1221 /* mine_jiantou@2x.png in Resources */,
 				18B16ADA1CFD5CE300561CD5 /* UMSocialSDKResourcesNew.bundle in Resources */,
+				182D325F1D4B3AD200883660 /* bootstrap-datetimepicker.nl.js in Resources */,
 				18CD01DC1C90172A009DE385 /* fork@2x.png in Resources */,
+				182D32381D4B3AD200883660 /* bootstrap-theme.css in Resources */,
+				182D326C1D4B3AD200883660 /* bootstrap-datetimepicker.th.js in Resources */,
 				186DF0CE1CB5094900D66994 /* template_Share@2x.png in Resources */,
 				108DC0291C9FA38E00FD1221 /* login_name@2x.png in Resources */,
+				182D32341D4B3AD200883660 /* more.png in Resources */,
+				182D323F1D4B3AD200883660 /* glyphicons-halflings-regular.woff in Resources */,
 				18DB8E451D001F1E000C9D8B /* man_court.caf in Resources */,
 				18E7C47F1CFC312E00E01A11 /* law_placeHold@2x.png in Resources */,
+				182D32351D4B3AD200883660 /* share.png in Resources */,
 				18B16ACC1CFD5CE300561CD5 /* UMSCommentInputControlleriPad.xib in Resources */,
+				182D324C1D4B3AD200883660 /* bootstrap-datetimepicker.ee.js in Resources */,
+				182D32711D4B3AD200883660 /* bootstrap-datetimepicker.zh-TW.js in Resources */,
 				189B78561C8572D30022BCEA /* picker_alert_sigh@2x.png in Resources */,
 				1065C34C1CA91BA4003F4089 /* law_xinfasudi@2x.png in Resources */,
 				108DC0201C9FA38E00FD1221 /* CollectEmpty@2x.png in Resources */,
+				182D322F1D4B3AD200883660 /* riqi.css in Resources */,
+				182D32891D4B3AD200883660 /* zhixing.html in Resources */,
+				182D32451D4B3AD200883660 /* bootstrap-datetimepicker.az.js in Resources */,
+				182D32831D4B3AD200883660 /* caichan.html in Resources */,
+				182D32851D4B3AD200883660 /* lixi.html in Resources */,
 				180B31681C8ECFFF00360A23 /* ToolsSelect@2x.png in Resources */,
 				18CD4DAA1C928111001838D2 /* WHC_ChoicePictureVC.xib in Resources */,
+				182D325E1D4B3AD200883660 /* bootstrap-datetimepicker.nb.js in Resources */,
+				182D32561D4B3AD200883660 /* bootstrap-datetimepicker.is.js in Resources */,
 				10C01AFC1CA7F01A0000EF7A /* LawsTableViewCell.xib in Resources */,
+				182D32601D4B3AD200883660 /* bootstrap-datetimepicker.no.js in Resources */,
 				108DC03C1C9FA38E00FD1221 /* mine_shadow@2x.png in Resources */,
 				10C86B881CABC042002A75AC /* home_fagui@2x.png in Resources */,
+				182D32731D4B3AD200883660 /* ccbq.js in Resources */,
+				182D32641D4B3AD200883660 /* bootstrap-datetimepicker.ro.js in Resources */,
+				182D327D1D4B3AD200883660 /* mobiscroll_date.css in Resources */,
 				1065C3401CA91BA4003F4089 /* law_changyongfagui@2x.png in Resources */,
 				1065C3481CA91BA4003F4089 /* law_shoucang@2x.png in Resources */,
+				182D32401D4B3AD200883660 /* bootstrap-datetimepicker.js in Resources */,
 				18B717601C9149A800F2AAED /* FindKeyViewController.xib in Resources */,
+				182D324F1D4B3AD200883660 /* bootstrap-datetimepicker.fi.js in Resources */,
 				108DC02F1C9FA38E00FD1221 /* mine_close@2x.png in Resources */,
+				182D32791D4B3AD200883660 /* shoulifei.js in Resources */,
+				182D323D1D4B3AD200883660 /* glyphicons-halflings-regular.svg in Resources */,
 				10172BEA1CBBF1F300B7553E /* case_xjwjj@2x.png in Resources */,
 				10241A1E1CB9FCDE000CBEAE /* pc_jiaotong@2x.png in Resources */,
+				182D32521D4B3AD200883660 /* bootstrap-datetimepicker.hr.js in Resources */,
 				184983111D2A0CA7009AF29F /* case_mangeFS@2x.png in Resources */,
 				10D31D701CDE1DDB008D6F42 /* jiantou@3x.png in Resources */,
 				187349DD1D2F4F96001A3E91 /* scan_3@2x.png in Resources */,
 				10241A311CBA8FD0000CBEAE /* case_edit@2x.png in Resources */,
+				182D326D1D4B3AD200883660 /* bootstrap-datetimepicker.tr.js in Resources */,
+				182D326F1D4B3AD200883660 /* bootstrap-datetimepicker.uk.js in Resources */,
+				182D32691D4B3AD200883660 /* bootstrap-datetimepicker.sl.js in Resources */,
 				10D31D741CDE2459008D6F42 /* sanjiao@3x.png in Resources */,
+				182D32801D4B3AD200883660 /* jquery.min.js in Resources */,
+				182D32581D4B3AD200883660 /* bootstrap-datetimepicker.ja.js in Resources */,
 				108DC0231C9FA38E00FD1221 /* find_code@2x.png in Resources */,
 				10C86B8A1CABCC28002A75AC /* home_hot@2x.png in Resources */,
 				184983131D2A0CA7009AF29F /* case_mangeSS@2x.png in Resources */,
@@ -3393,17 +3893,24 @@
 				10172BE71CBBF1F300B7553E /* case_shangC@2x.png in Resources */,
 				185838871D49B9FC00C6A0EE /* gov_NoReview@2x.png in Resources */,
 				181BA4121CE598B600A29E2E /* share_platform_wechat@2x.png in Resources */,
+				182D32631D4B3AD200883660 /* bootstrap-datetimepicker.pt.js in Resources */,
 				18FBD8481CED90CD00674D1E /* case_pdf@2x.png in Resources */,
 				188651BD1D26609600E030F7 /* everyDay_history@2x.png in Resources */,
 				1065C3411CA91BA4003F4089 /* law_contenAdd@2x.png in Resources */,
 				108DC0331C9FA38E00FD1221 /* mine_guanbi@2x.png in Resources */,
+				182D32861D4B3AD200883660 /* riqi.html in Resources */,
 				10FA3E3E1CAD73A2005C4C0C /* defaultSound.caf in Resources */,
 				186DF0CF1CB5094900D66994 /* template_shoucang@2x.png in Resources */,
+				182D32621D4B3AD200883660 /* bootstrap-datetimepicker.pt-BR.js in Resources */,
+				182D32531D4B3AD200883660 /* bootstrap-datetimepicker.hu.js in Resources */,
+				182D32661D4B3AD200883660 /* bootstrap-datetimepicker.rs.js in Resources */,
 				18F2F1C41CBE1DA20068453D /* Esearch_graySousuo@2x.png in Resources */,
 				1065C3491CA91BA4003F4089 /* law_sousuo@2x.png in Resources */,
 				18B16ACE1CFD5CE300561CD5 /* UMShareEditViewControlleriPad.xib in Resources */,
 				18E1F4241D13A2CF003C94CD /* Count_close_normal_@2x.png in Resources */,
 				18FD83331CBB858F00D50E20 /* case_download@2x.png in Resources */,
+				182D327A1D4B3AD200883660 /* weiyuejin.js in Resources */,
+				182D32591D4B3AD200883660 /* bootstrap-datetimepicker.ka.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3565,7 +4072,6 @@
 				10C86B841CABBE34002A75AC /* LawsKindView.m in Sources */,
 				18AD6AB11CD9EC930053F46B /* TemplateData.m in Sources */,
 				18D66ACA1CE1B85000BF2C17 /* IndemnityData.m in Sources */,
-				18F2F1CB1CBE2D840068453D /* SeniorViewController.m in Sources */,
 				10241A291CBA4CE0000CBEAE /* TheCaseDetailVC.m in Sources */,
 				1052A95B1CF3360D0070C11C /* MoreViewController.m in Sources */,
 				18A622881CD3441C0073B886 /* RemindModel.m in Sources */,
@@ -3582,6 +4088,7 @@
 				18B7175F1C9149A800F2AAED /* FindKeyViewController.m in Sources */,
 				10D31D7B1CDEE92C008D6F42 /* GovDetailCell.m in Sources */,
 				18E1F4271D13EB2D003C94CD /* PushAlertWindow.m in Sources */,
+				182D31AE1D4AE89300883660 /* BaseRightBtn.m in Sources */,
 				10405B5B1CB276D000B61919 /* AboutReadView.m in Sources */,
 				18FF3F3E1C8529CB0098C60B /* UIView+JKPicker.m in Sources */,
 				18FF3F5E1C852EF80098C60B /* FMUString.m in Sources */,
@@ -3665,7 +4172,6 @@
 				1858388B1D49D15800C6A0EE /* SelectProvinceVC.m in Sources */,
 				1829BA791CE3264A00F0143F /* CaseModel.m in Sources */,
 				1083232A1CAA10D7004B8045 /* UIWebView+Load.m in Sources */,
-				181CE82A1CC9FF5500529F5E /* ZD_SelectDateWindow.m in Sources */,
 				181292BB1C87E84E00EBB5CD /* ToolsViewController.m in Sources */,
 				10FF87E11CA6D00F005EBC8A /* ReadViewController.m in Sources */,
 				18DE72511C992C130068F7E5 /* MineSettingVC.m in Sources */,
@@ -3824,7 +4330,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
@@ -3860,7 +4366,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

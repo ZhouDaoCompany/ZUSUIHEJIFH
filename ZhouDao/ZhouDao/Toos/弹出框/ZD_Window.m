@@ -20,7 +20,7 @@
         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
         self.windowLevel = UIWindowLevelAlert;
         
-        self.zd_superView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-100, 300)];
+        self.zd_superView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-100, 179)];
         self.zd_superView.backgroundColor = [UIColor whiteColor];
         self.zd_superView.center = CGPointMake(zd_width/2.0,0);
         [UIView animateWithDuration:1 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -33,9 +33,6 @@
         self.zd_superView.clipsToBounds = YES;
         [self addSubview:self.zd_superView];
         
-        UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-100, 64)];
-        headView.backgroundColor  = KNavigationBarColor;
-        [self.zd_superView addSubview:headView];
         [self initUI];
         [self makeKeyAndVisible];
         
@@ -45,13 +42,36 @@
 #pragma mark -布局界面
 - (void)initUI
 {
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-100, 64)];
+    headView.backgroundColor  = [UIColor clearColor];
+    [self.zd_superView addSubview:headView];
+
+    UILabel *headlab = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, zd_width-150, 20)];
+    headlab.text = @"审查说明";
+    headlab.textAlignment = NSTextAlignmentLeft;
+    headlab.font = Font_18;
+    [self.zd_superView addSubview:headlab];
+
+    
     UILabel *msgLab = [[UILabel alloc] init];
     msgLab.center = self.zd_superView.center;
-    msgLab.frame = CGRectMake(0, 100, zd_width-100, 30);
+    msgLab.frame = CGRectMake(15, 54, zd_width-130, 100);
     msgLab.font = Font_14 ;
-    msgLab.textAlignment  = NSTextAlignmentCenter;
-    msgLab.text = @"暂未开发 -_-!!";
+//    msgLab.textAlignment  = NSTextAlignmentCenter;
+    msgLab.numberOfLines = 0;
+    msgLab.text = @"已审查：信息已和官方网站信息核对一致。\n \n 未审查：信息正在马不停蹄的审核中，请您耐心等待。";
     [self.zd_superView addSubview:msgLab];
+    
+    [self.zd_superView whenCancelTapped:^{
+        
+    }];
+    
+    [self whenTapped:^{
+        
+        [self zd_Windowclose];
+        
+    }];
+    
     
 }
 #pragma mark -关闭
@@ -62,10 +82,6 @@
     } completion:^(BOOL finished) {
         self.hidden = YES;
     }];
-}
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    // 点击消失
-    [self zd_Windowclose];
 }
 
 /*

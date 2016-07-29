@@ -61,10 +61,9 @@
 {
     _historyModel = nil;
     _historyModel = historyModel;
-    
     _titlab.text = _historyModel.title;
     
-    [_headImgView sd_setImageWithURL:[NSURL URLWithString:_mdoel.pic] placeholderImage:[UIImage imageNamed:@"home_palcehold"]];
+    [_headImgView sd_setImageWithURL:[NSURL URLWithString:_historyModel.pic] placeholderImage:[UIImage imageNamed:@"home_palcehold"]];
 
     NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[_historyModel.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
     _contentLab.text = attrStr.string;
