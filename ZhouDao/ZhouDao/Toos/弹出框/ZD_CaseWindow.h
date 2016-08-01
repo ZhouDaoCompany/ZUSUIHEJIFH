@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZD_CaseWindow : UIWindow
+@interface ZD_CaseWindow : UIView
 
 @property (nonatomic ,strong) UIView *zd_superView;
 

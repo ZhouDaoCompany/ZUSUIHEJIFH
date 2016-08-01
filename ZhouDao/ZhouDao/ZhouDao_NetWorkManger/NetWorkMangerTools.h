@@ -119,7 +119,8 @@
  * 合同模版详情
  */
 + (void)theContractContent:(NSString *)temolateId
-            RequestSuccess:(void (^)(TemplateData *model))success;
+            RequestSuccess:(void (^)(TemplateData *model))success
+                      fail:(void (^)())fail;
 /*
  * 添加收藏
  */

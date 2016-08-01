@@ -399,7 +399,7 @@ CompletionBlock:(void(^)(BOOL completion))blcok
           withUrl:(NSString *)url withImg:(NSString *)imgUrlString
 {
     [UMSocialData defaultData].extConfig.wechatSessionData.url = url;
-    [UMSocialData defaultData].extConfig.wechatSessionData.title = content;
+    [UMSocialData defaultData].extConfig.wechatSessionData.title = title;
     
     UMSocialUrlResource *urlResource = nil;
     if (imgUrlString.length >0) {
@@ -408,7 +408,7 @@ CompletionBlock:(void(^)(BOOL completion))blcok
     }else {
         [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
     }
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:title image:nil location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:content image:nil location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             DLog(@"分享成功！");
         }

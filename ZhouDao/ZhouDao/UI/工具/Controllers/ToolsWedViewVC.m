@@ -15,13 +15,15 @@
 #import "MoreViewController.h"
 #import "SDPhotoBrowser.h"
 
-@interface ToolsWedViewVC ()<UIWebViewDelegate,SDPhotoBrowserDelegate>
-
+@interface ToolsWedViewVC ()<UIWebViewDelegate,SDPhotoBrowserDelegate,UIGestureRecognizerDelegate>
+{
+    UITapGestureRecognizer* _singleTap;//失败重新加载
+}
 @property (nonatomic, strong) UIWebView *webView;
 @property WebViewJavascriptBridge* bridge;
 
-@property (nonatomic, strong) UIImageView *historyImgView;
-@property (nonatomic, strong) UIImageView *shareImgView;
+@property (nonatomic, strong) UIButton *historyBtn;
+@property (nonatomic, strong) UIButton *shareBtn;
 @property (nonatomic, strong) NSMutableArray *imgArrays;
 @end
 
@@ -37,6 +39,7 @@
 - (void)initUI{
     [self setupNaviBarWithTitle:_navTitle];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     if ([_format isEqualToString:@"Noti"]) {
         [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"Count_close_normal_"];
@@ -45,18 +48,19 @@
     
     _imgArrays = [NSMutableArray array];
     [self.view addSubview:self.webView];
+    
     [self loadCommonMethod];
     
 }
 - (void)loadCommonMethod{
     
-    
     if (_tType == FromToolsType){
         [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"tools_introduce"];
         if (_bridge) { return; }
         [WebViewJavascriptBridge enableLogging];
-        _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
-        
+        self.bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
+        [self.bridge setWebViewDelegate:self];
+
         WEAKSELF;
         [_bridge registerHandler:@"shareZhoudao" handler:^(id data, WVJBResponseCallback responseCallback) {
             
@@ -67,37 +71,44 @@
         }];
         [_webView loadHtml:_url];
         
-    }else if (_tType == FromEveryType){
-        [self.view addSubview:self.shareImgView];
-        [self.view addSubview:self.historyImgView];
-        [_webView loadURL:_url];
-        
-    }else if (_tType == FromHotType || _tType == FromRecHDType) {
-        
-        [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_Share"];
-        WEAKSELF;
-        if (_bridge) { return; }
-        [WebViewJavascriptBridge enableLogging];
-        _bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
-        
-        [_bridge registerHandler:@"imgAll" handler:^(id data, WVJBResponseCallback responseCallback) {
-            
-            DLog(@" called: %@", data);
-            responseCallback(@"Response from imgAll");
-            NSDictionary *dataDic = (NSDictionary *)data;
-            NSMutableArray *arr = dataDic[@"all"];
-            NSString *curr = dataDic[@"curr"];
-            [weakSelf.imgArrays addObjectsFromArray:arr];
-            [arr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([curr isEqualToString:obj]) {
-                    [weakSelf testImg:arr withInte:idx];
-                }
-            }];
-        }];
-        
-        [_webView loadURL:_url];
-    }
+    }else {
 
+        if (_tType == FromHotType || _tType == FromRecHDType) {
+            [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_Share"];
+        }else if (_tType == FromEveryType){
+            [self.view addSubview:self.shareBtn];
+            [self.view addSubview:self.historyBtn];
+        }
+
+        WEAKSELF;
+        if (!_bridge){
+            [WebViewJavascriptBridge enableLogging];
+            self.bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
+            [self.bridge setWebViewDelegate:self];
+            
+            [_bridge registerHandler:@"imgAll" handler:^(id data, WVJBResponseCallback responseCallback) {
+                
+                DLog(@" called: %@", data);
+                responseCallback(@"Response from imgAll");
+                NSDictionary *dataDic = (NSDictionary *)data;
+                NSMutableArray *arr = dataDic[@"all"];
+                NSString *curr = dataDic[@"curr"];
+                [weakSelf.imgArrays addObjectsFromArray:arr];
+                [arr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([curr isEqualToString:obj]) {
+                        [weakSelf testImg:arr withInte:idx];
+                    }
+                }];
+            }];
+        }
+        
+        [_webView loadURL:_url];
+
+    }
+    
+    if (_singleTap) {
+        [_webView removeGestureRecognizer:_singleTap];
+    }
 }
 - (void)testImg:(NSMutableArray *)arr withInte:(NSUInteger)index{
     DLog(@"diaoqi");
@@ -177,9 +188,7 @@
         NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url,_imgUrlString,nil];
         [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
         }];
-        
     }
-    
     
     if (_tType == FromToolsType){
         
@@ -193,6 +202,12 @@
         }
     }
 }
+- (void)chenckHistoryEvent
+{
+    MoreViewController *moreVC = [MoreViewController new];
+    moreVC.moreType = ToolsWebType;
+    [self.navigationController  pushViewController:moreVC animated:YES];
+}
 - (void)leftBtnAction
 {
     if ([_format isEqualToString:@"Noti"]) {
@@ -205,51 +220,59 @@
 }
 
 #pragma mark - UIWebViewDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
+}
 - (void)webViewDidStartLoad:(UIWebView *)webView{
+    [SVProgressHUD show];
     DLog(@"开始加载");
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [SVProgressHUD dismiss];
+    });
     DLog(@"加载完成");
-
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error{
-    DLog(@"开始失败");
-
+    [SVProgressHUD dismiss];
+    
+    [_webView loadHtml:@"error"];
+    _singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(againLoad)];
+    _singleTap.cancelsTouchesInView = NO;
+    _singleTap.delegate = self;
+    [_webView addGestureRecognizer:_singleTap];
+    DLog(@"加载失败");
+}
+- (void)againLoad{
+    DLog(@"重新加载");
+    [self loadCommonMethod];
 }
 #pragma mark - getters and setters
-- (UIImageView *)shareImgView
+- (UIButton *)shareBtn
 {
-    if (!_shareImgView) {WEAKSELF;
-        _shareImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -40.f,32.f, 20, 20)];
-        _shareImgView.image = [UIImage imageNamed:@"template_Share"];
-        _shareImgView.userInteractionEnabled = YES;
-        [_shareImgView whenTapped:^{
-            [weakSelf rightBtnAction];
-        }];
+    if (!_shareBtn) {
+        _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _shareBtn.frame = CGRectMake(kMainScreenWidth -45.f,27.f, 30, 30);
+        [_shareBtn setImage:kGetImage(@"template_Share") forState:0];
+        [_shareBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _shareImgView;
+    return _shareBtn;
 }
-- (UIImageView *)historyImgView
+- (UIButton *)historyBtn
 {
-    if (!_historyImgView) {WEAKSELF;
-        _historyImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -85.f,32.f, 20, 20)];
-        _historyImgView.image = [UIImage imageNamed:@"everyDay_history"];
-        _historyImgView.userInteractionEnabled = YES;
-        [_historyImgView whenTapped:^{
-            
-            MoreViewController *moreVC = [MoreViewController new];
-            moreVC.moreType = ToolsWebType;
-            [weakSelf.navigationController  pushViewController:moreVC animated:YES];
-        }];
+    if (!_historyBtn) {
+        _historyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _historyBtn.frame = CGRectMake(kMainScreenWidth - 90.f,27.f, 30, 30);
+        [_historyBtn setImage:kGetImage(@"everyDay_history") forState:0];
+        [_historyBtn addTarget:self action:@selector(chenckHistoryEvent) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _historyImgView;
+    return _historyBtn;
 }
 - (UIWebView *)webView
 {
     if (!_webView) {
         _webView.backgroundColor = [UIColor clearColor];
         _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
-        _webView.delegate = self;
         _webView.dataDetectorTypes = UIDataDetectorTypeNone;
         _webView.scrollView.showsVerticalScrollIndicator = NO;
         _webView.scalesPageToFit = NO;//禁止用户缩放页面
@@ -257,7 +280,6 @@
     }
     return _webView;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

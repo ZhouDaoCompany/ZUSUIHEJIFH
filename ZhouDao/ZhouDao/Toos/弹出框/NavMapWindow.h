@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NavMapWindow : UIWindow
+@interface NavMapWindow : UIView
 
 @property (nonatomic ,strong) UIView *zd_superView;
 @property (nonatomic, copy) ZDStringBlock navBlock;

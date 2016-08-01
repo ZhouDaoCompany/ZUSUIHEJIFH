@@ -136,6 +136,15 @@ else\
 tmp = value;\
 tmp;\
 })\
+//view安全释放
+#define TTVIEW_RELEASE_SAFELY(__REF) \
+{\
+if (nil != (__REF))\
+{\
+[__REF removeFromSuperview];\
+__REF = nil;\
+}\
+}
 
 /**
  * NSLog宏，限定仅在Debug时才打印,release不打印，防止拖慢程序运行

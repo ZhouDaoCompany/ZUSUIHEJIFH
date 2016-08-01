@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, WindowType)
 
 #import <UIKit/UIKit.h>
 
-@interface ZD_DeleteWindow : UIWindow
+@interface ZD_DeleteWindow : UIView
 
 @property (nonatomic ,strong) UIView *zd_superView;
 @property (nonatomic,strong) UILabel *titleLab;

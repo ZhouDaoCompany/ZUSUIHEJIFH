@@ -32,14 +32,14 @@
     if (self)
     {
         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-        self.windowLevel = UIWindowLevelAlert;
+//        self.windowLevel = UIWindowLevelAlert;
         //内容 标题
         self.contentString = contentStr;
         self.titleString = title;
         self.type = type;
         
         [self initUI];
-        [self makeKeyAndVisible];
+//        [self makeKeyAndVisible];
     }
     return self;
 }
@@ -53,8 +53,7 @@
         self.zd_superView.center = CGPointMake(zd_width/2.0,zd_height/2.0);
     } completion:^(BOOL finished) {
     }];
-    self.zd_superView.layer.borderWidth = 1;
-    self.zd_superView.layer.borderColor = [UIColor clearColor].CGColor;
+
     self.zd_superView.layer.cornerRadius = 5.f;
     self.zd_superView.clipsToBounds = YES;
     [self addSubview:self.zd_superView];
@@ -146,16 +145,11 @@
         sureBtn.layer.cornerRadius = 5.f;
         [sureBtn addTarget:self action:@selector(cancelOrSureEvent:) forControlEvents:UIControlEventTouchUpInside];
         [self.zd_superView addSubview:sureBtn];
-
     }
-    
-
 
     [self.zd_superView whenCancelTapped:^{
         
     }];
-    
-
     
 }
 - (void)cancelOrSureEvent:(id)sender
@@ -177,7 +171,6 @@
         case 4003:
         {//确定  消息自定义
             _pushBlock();
-
         }
             break;
 
@@ -188,14 +181,19 @@
     [self zd_Windowclose];
 }
 #pragma mark -关闭
-- (void)zd_Windowclose {
+- (void)zd_Windowclose {WEAKSELF;
     [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        self.zd_superView.center = CGPointMake(zd_width/2.0,-zd_width+100);
+        weakSelf.zd_superView.center = CGPointMake(zd_width/2.0,-zd_width+100);
         
     } completion:^(BOOL finished) {
-        self.hidden = YES;
+        [weakSelf removeFromSuperview];
     }];
 }
+- (void)dealloc
+{
+    TTVIEW_RELEASE_SAFELY(self.zd_superView)
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

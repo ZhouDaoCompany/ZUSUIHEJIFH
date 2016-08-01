@@ -177,7 +177,9 @@
 /*
  37 司法机关列表
  */
-#define judicialList            @"api_judicial.php?key=16248ef5&c=judiciallist&"
+//#define judicialList            @"api_judicial.php?key=16248ef5&c=judiciallist&"
+#define judicialList            @"api_judicial.php?key=16248ef5&c=judiciallistNew&"
+
 /*
  38 司法机关详情
  */

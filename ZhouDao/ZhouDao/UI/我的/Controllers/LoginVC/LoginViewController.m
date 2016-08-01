@@ -12,10 +12,10 @@
 #import "FindKeyViewController.h"
 #import "NSString+MHCommon.h"
 #import "UMessage.h"
-#import "ThirdPartyLoginView.h"
+//#import "ThirdPartyLoginView.h"
 #import "BindingViewController.h"
 
-@interface LoginViewController ()<UITextFieldDelegate,ThirdPartyLoginPro>
+@interface LoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *logoImgView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *forgetBtn;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (nonatomic , strong) UIButton *registerBtn;//注册按钮
-@property (nonatomic, strong) ThirdPartyLoginView * loginView;
+//@property (nonatomic, strong) ThirdPartyLoginView * loginView;
 - (IBAction)forgetAndLoginEvent:(id)sender;
 @end
 
@@ -91,29 +91,29 @@
     _keyText.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.keyText.secureTextEntry = YES;
     
-    [self.view addSubview:self.loginView];
+//    [self.view addSubview:self.loginView];
     
 }
-#pragma mark -getters and seters
-- (ThirdPartyLoginView *)loginView
-{
-    if (!_loginView) {WEAKSELF;
-        _loginView = [[ThirdPartyLoginView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 40, kMainScreenWidth, 40) withPresentVC:self];
-        _loginView.delegate = self;
-        _loginView.frameBlock = ^(NSInteger index){
-            if (index == 1) {
-                [UIView animateWithDuration:0.25f animations:^{
-                    weakSelf.loginView.frame = CGRectMake(0, kMainScreenHeight - 130, kMainScreenWidth, 130);
-                }];
-            }else {
-                [UIView animateWithDuration:0.25f animations:^{
-                    weakSelf.loginView.frame = CGRectMake(0, kMainScreenHeight - 40, kMainScreenWidth, 40);
-                }];
-            }
-        };
-    }
-    return _loginView;
-}
+//#pragma mark -getters and seters
+//- (ThirdPartyLoginView *)loginView
+//{
+//    if (!_loginView) {WEAKSELF;
+//        _loginView = [[ThirdPartyLoginView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 40, kMainScreenWidth, 40) withPresentVC:self];
+//        _loginView.delegate = self;
+//        _loginView.frameBlock = ^(NSInteger index){
+//            if (index == 1) {
+//                [UIView animateWithDuration:0.25f animations:^{
+//                    weakSelf.loginView.frame = CGRectMake(0, kMainScreenHeight - 130, kMainScreenWidth, 130);
+//                }];
+//            }else {
+//                [UIView animateWithDuration:0.25f animations:^{
+//                    weakSelf.loginView.frame = CGRectMake(0, kMainScreenHeight - 40, kMainScreenWidth, 40);
+//                }];
+//            }
+//        };
+//    }
+//    return _loginView;
+//}
 #pragma mark -ThirdPartyLoginPro
 - (void)ThirdPartyLoginSuccess
 {

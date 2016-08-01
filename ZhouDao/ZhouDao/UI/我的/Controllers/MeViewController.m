@@ -20,7 +20,7 @@
 #import "MyAdvantagesVC.h"
 #import "AdvantagesModel.h"
 #import "TheCaseManageVC.h"//案件管理
-#import "ScanViewController.h" //扫一扫
+//#import "ScanViewController.h" //扫一扫
 
 //#import ""
 static NSString *const HeadCellIdentifier = @"MeCellIdentifier";
@@ -62,7 +62,7 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
 - (void)initView
 {
     [self setupNaviBarWithTitle:@"我的"];
-    [self setupNaviBarWithBtn:NaviRightBtn title:@"扫一扫" img:nil];
+//    [self setupNaviBarWithBtn:NaviRightBtn title:@"扫一扫" img:nil];
 
     self.view.backgroundColor = ViewBackColor;
     
@@ -220,11 +220,11 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
     [self presentViewController:advantageVC animated:YES completion:nil];
 }
 #pragma mark - event respose
-- (void)rightBtnAction
-{
-    ScanViewController *vc = [ScanViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
-}
+//- (void)rightBtnAction
+//{
+//    ScanViewController *vc = [ScanViewController new];
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
 #pragma mark - 获取用户擅长领域
 - (void)getDomainUser
 {

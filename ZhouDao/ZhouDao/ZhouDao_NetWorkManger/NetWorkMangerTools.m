@@ -594,8 +594,9 @@
     }];
 }
 #pragma mark - 合同模版详情
-+ (void)theContractContent:(NSString *)temolateId RequestSuccess:(void (^)(TemplateData *model))success
-{
++ (void)theContractContent:(NSString *)temolateId
+            RequestSuccess:(void (^)(TemplateData *model))success
+                      fail:(void (^)())fail{
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,TheContractContent,temolateId,UID,templateCollect];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
@@ -603,6 +604,7 @@
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
+            fail();
             [JKPromptView showWithImageName:nil message:msg];
             return ;
         }
@@ -610,6 +612,7 @@
         TemplateData *model = [[TemplateData alloc] initWithDictionary:dataDic];
         success(model);
     } fail:^{
+        fail();
         [SVProgressHUD dismiss];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];

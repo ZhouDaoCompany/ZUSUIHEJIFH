@@ -15,9 +15,10 @@
 
 #define kCachePath (NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0])
 
-@interface TemplateDetailVC ()<UIWebViewDelegate>
+@interface TemplateDetailVC ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 {
     BOOL _exist;
+    UITapGestureRecognizer* _singleTap;//失败重新加载
 }
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) TaskModel *model;
@@ -37,7 +38,11 @@
 }
 - (void)loadData
 {WEAKSELF;
-    [NetWorkMangerTools theContractContent:_idString RequestSuccess:^(TemplateData *model){
+    if (_singleTap) {
+        [_webView removeGestureRecognizer:_singleTap];
+    }
+    [NetWorkMangerTools theContractContent:_idString RequestSuccess:^(TemplateData *model) {
+        
         _dataModel = model;
         [self setupNaviBarWithTitle:_dataModel.title];
         if ([weakSelf.dataModel.is_collection  integerValue] == 0) {
@@ -47,7 +52,16 @@
         }
         [_webView loadHTMLString:_dataModel.content baseURL:nil];
         [self downLoadTemplate];
+    } fail:^{
+        [self addGestureReloadData];
     }];
+}
+- (void)addGestureReloadData{
+    [_webView loadHtml:@"error"];
+    _singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(againLoad)];
+    _singleTap.cancelsTouchesInView = NO;
+    _singleTap.delegate = self;
+    [_webView addGestureRecognizer:_singleTap];
 }
 - (void)initUI
 {
@@ -97,17 +111,28 @@
     _label = label;
     [self.view addSubview:_label];
 }
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
+}
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     [SVProgressHUD show];
+    DLog(@"开始加载");
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [SVProgressHUD dismiss];
+    DLog(@"加载完成");
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error
-{
+{    DLog(@"加载失败");
     [SVProgressHUD dismiss];
+}
+- (void)againLoad{
+    DLog(@"重新加载");
+    [self loadData];
 }
 #pragma mark -UIButtonEvent
 - (void)downloadThisTemplate:(id)sender
@@ -145,7 +170,8 @@
         loginVc.closeBlock = ^{
             if ([PublicFunction ShareInstance].m_bLogin == YES)
             {
-                [NetWorkMangerTools theContractContent:_idString RequestSuccess:^(TemplateData *model){
+                [NetWorkMangerTools theContractContent:_idString RequestSuccess:^(TemplateData *model) {
+                    
                     _dataModel = model;
                     if ([weakSelf.dataModel.is_collection  integerValue] == 0) {
                         [weakSelf setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_shoucang"];
@@ -153,6 +179,8 @@
                     }else{
                         [weakSelf setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_SC"];
                     }
+                } fail:^{
+                    [self addGestureReloadData];
                 }];
             }
         };

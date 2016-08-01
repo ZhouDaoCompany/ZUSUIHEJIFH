@@ -183,6 +183,7 @@
         self.introViewPageControl.dotColor = KNavigationBarColor;
         self.introViewPageControl.dotSize = CGSizeMake(10, 10);
         self.introViewPageControl.userInteractionEnabled = NO;
+        self.introViewPageControl.spacingBetweenDots = 24;
         self.introViewPageControl.numberOfPages = self.contentImages.count;
         [self addSubview:self.introViewPageControl];
     }

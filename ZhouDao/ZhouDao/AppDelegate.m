@@ -279,6 +279,7 @@
 {
     //第一种方法  直接跳转
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1105833212"]];
+//    exit(0);
 }
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController __TVOS_PROHIBITED NS_AVAILABLE_IOS(6_0);
 {

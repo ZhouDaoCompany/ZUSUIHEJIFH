@@ -28,7 +28,7 @@
         _cusType = type;
         _title = title;
         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-        self.windowLevel = UIWindowLevelAlert;
+//        self.windowLevel = UIWindowLevelAlert;
         
         self.zd_superView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, delWidth, 100)];
         self.zd_superView.backgroundColor = [UIColor whiteColor];
@@ -37,14 +37,12 @@
             self.zd_superView.center = CGPointMake(zd_width/2.0,zd_height/2.0);
         } completion:^(BOOL finished) {
         }];
-        self.zd_superView.layer.borderWidth = 1.f;
-        self.zd_superView.layer.borderColor = [UIColor clearColor].CGColor;
-        self.zd_superView.layer.cornerRadius = 3.f;
+        self.zd_superView.layer.cornerRadius = 1.f;
         self.zd_superView.clipsToBounds = YES;
         [self addSubview:self.zd_superView];
         
         [self initUI];
-        [self makeKeyAndVisible];
+//        [self makeKeyAndVisible];
     }
     return self;
 }
@@ -177,18 +175,25 @@
 }
 
 #pragma mark -关闭
-- (void)zd_Windowclose {
+- (void)zd_Windowclose {WEAKSELF;
     [UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        self.zd_superView.center = CGPointMake(zd_width/2.0,-230);
+        weakSelf.zd_superView.center = CGPointMake(zd_width/2.0,-230);
         
     } completion:^(BOOL finished) {
-        self.hidden = YES;
+        [weakSelf removeFromSuperview];
     }];
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self endEditing:YES];
 }
+- (void)dealloc
+{
+    TTVIEW_RELEASE_SAFELY(self.zd_superView)
+    TTVIEW_RELEASE_SAFELY(self.titleLab)
+    TTVIEW_RELEASE_SAFELY(self.nameTextF)
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
