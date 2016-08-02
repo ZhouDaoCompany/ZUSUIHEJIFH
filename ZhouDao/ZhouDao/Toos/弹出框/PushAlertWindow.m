@@ -191,7 +191,7 @@
 }
 - (void)dealloc
 {
-    TTVIEW_RELEASE_SAFELY(self.zd_superView)
+    TTVIEW_RELEASE_SAFELY(self.zd_superView);
 }
 
 /*
