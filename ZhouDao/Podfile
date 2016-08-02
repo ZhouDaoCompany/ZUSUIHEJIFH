@@ -4,7 +4,7 @@ pod 'AFNetworking', '~> 2.5.4'
 #键盘控制
 pod 'IQKeyboardManager', '~> 3.3.4'
 #轮播图
-pod 'SDCycleScrollView', '~> 1.62'
+pod 'SDCycleScrollView', '~> 1.65'
 #友盟分享 太大 手动导入
 #pod 'UMengSocialCOM', '~> 5.2.1'
 #友盟应用统计 无广告标识符

@@ -16,13 +16,21 @@
 @property (nonatomic, strong) UILabel               *labelPrev;
 @property (nonatomic, strong) UILabel               *labelCurrent;
 @property (nonatomic, strong) UILabel               *labelNext;
-//@property (nonatomic, strong)NSTimer              *myTimer;
 @property (nonatomic, copy)   NSString               *myTimer;
 
 @property (nonatomic, copy)   ZDIndexBlock          myBlock;
 
 @end
 @implementation FlipPageView
+
+- (void)dealloc
+{
+    TTVIEW_RELEASE_SAFELY(_scView);
+    TTVIEW_RELEASE_SAFELY(_labelPrev);
+    TTVIEW_RELEASE_SAFELY(_labelNext);
+    TTVIEW_RELEASE_SAFELY(_labelCurrent);
+}
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {

@@ -23,6 +23,13 @@
 
 @implementation RecomHeadView
 
+- (void)dealloc
+{
+    TTVIEW_RELEASE_SAFELY(_adView);
+    TTVIEW_RELEASE_SAFELY(_cycleScrollView);
+    TTVIEW_RELEASE_SAFELY(_imgView3);
+    TTVIEW_RELEASE_SAFELY(_newslLawView);
+}
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -33,91 +40,18 @@
     }
     return self;
 }
-- (void)setFlipPageArr:(NSArray *)flipPageArr
-{WEAKSELF;
-    _flipPageArr = nil;
-    _flipPageArr = flipPageArr;
-    float width = self.bounds.size.width;
-    
-    NSMutableArray *nameArr = [NSMutableArray array];
-    [flipPageArr enumerateObjectsUsingBlock:^(GovListmodel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if (![obj.name isEqual:[NSNull null]]) {
-            [nameArr addObject:obj.name];
-        }
-    }];
-
-    if (_adView) {
-        [_adView removeFromSuperview];
-    }
-    //广告文字
-    _adView = [[FlipPageView alloc] initWithFrame:CGRectMake(118.5f, 5,width - 118.5f, 40)];
-    _adView.iDisplayTime = 3.f;
-    
-    [_adView startAdsWithBlock:nameArr block:^(NSInteger clickIndex){
-        [weakSelf.adView stopAds];
-        DLog(@"%d",(int)clickIndex);
-        GovListmodel *model = _flipPageArr[clickIndex];
-        if ([weakSelf.delegate respondsToSelector:@selector(startAdsClick:)])
-        {
-            [weakSelf.delegate startAdsClick:model.id];
-        }
-    }];
-    [_newslLawView addSubview:_adView];
-}
-- (void)setRecomArrays:(NSArray *)recomArrays
-{
-    if(recomArrays.count ==0){
-        return;
-    }
-    _recomArrays  = nil;
-    _recomArrays = recomArrays;
-   __block  NSMutableArray *picArr   = [NSMutableArray array];
-   __block  NSMutableArray *titleArr = [NSMutableArray array];
-    [_recomArrays enumerateObjectsUsingBlock:^(BasicModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        [picArr addObject:obj.slide_pic];
-        [titleArr addObject:obj.slide_name];
-    }];
-    _cycleScrollView.imageURLStringsGroup = picArr;
-    _cycleScrollView.titlesGroup = titleArr;
-}
-- (void)setJdArrays:(NSArray *)jdArrays
-{
-    if (jdArrays.count ==0) {
-        return;
-    }
-    _jdArrays = nil;
-    _jdArrays = jdArrays;
-    BasicModel *model = _jdArrays[0];
-    [_imgView3 sd_setImageWithURL:[NSURL URLWithString:model.slide_pic] placeholderImage:[UIImage imageNamed:@"recommedArticle.jpg"]];
-}
+#pragma mark - private methods
 
 - (void)initUI
 {
     WEAKSELF;
     float width = self.bounds.size.width;
     float height = self.bounds.size.height;
-
-    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, width, 150) delegate:self placeholderImage:[UIImage imageNamed:@"home_Shuff"]];
-    //    _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
-    _cycleScrollView.autoScroll = YES;
-    _cycleScrollView.titleLabelHeight = 30.f;
-    _cycleScrollView.titleLabelTextFont = Font_15;
-    _cycleScrollView.autoScrollTimeInterval = 3.f;
-    _cycleScrollView.pageDotColor = [UIColor whiteColor];
-    _cycleScrollView.currentPageDotColor = KNavigationBarColor;
-    //_cycleScrollView.pageControlDotSize = CGSizeMake(4, 4);
-   _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
-    _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
-    _cycleScrollView.autoresizingMask = YES;
-    [self addSubview:_cycleScrollView];
+    
+    [self addSubview:self.cycleScrollView];
     
     //新法速递
-    UIView *newslLawView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(_cycleScrollView), width, 50)];
-    newslLawView.backgroundColor = [UIColor whiteColor];
-    _newslLawView = newslLawView;
-    [self addSubview:_newslLawView];
+    [self addSubview:self.newslLawView];
     
     UIImageView *newImg = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 20, 20)];
     newImg.image = [UIImage imageNamed:@"recommedNew"];
@@ -152,7 +86,7 @@
         }
         
     }];
-
+    
     
     //2
     UIImageView *imgView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, Orgin_y(imgView1) +.5f, oftenLaws, 61.75f)];
@@ -166,23 +100,11 @@
             [weakSelf.delegate theCompensationStandard];
         }
     }];
-
+    
     
     //3
-    _imgView3 = [[UIImageView alloc] initWithFrame:CGRectMake(oftenLaws +.5f, 0 , width - oftenLaws-.5f, 124.f)];
-//    _imgView3.image = [UIImage imageNamed:@"recommedArticle"];
-    _imgView3.userInteractionEnabled = YES;
-    [imgBgView addSubview:_imgView3];
-
-    [_imgView3 whenCancelTapped:^{
-        
-        if ([weakSelf.delegate respondsToSelector:@selector(recommendTheArticle)])
-        {
-            [weakSelf.delegate recommendTheArticle];
-        }
-
-    }];
-
+    [imgBgView addSubview:self.imgView3];
+    
     
     UIView *sectionView = [[UIView alloc] initWithFrame: CGRectMake(0, height-55, width, 10)];
     sectionView.backgroundColor = ViewBackColor;
@@ -206,20 +128,135 @@
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 44.5, width-15, .5f)];
     lineView.backgroundColor = lineColor;
     [hotView addSubview:lineView];
-
+    
 }
+
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     DLog(@"---点击了第%ld张图片", (long)index);
-//    NSString *str = [NSString stringWithFormat:@"%ld",(long)index];
-//    SHOW_ALERT(str);
+    //    NSString *str = [NSString stringWithFormat:@"%ld",(long)index];
+    //    SHOW_ALERT(str);
     if ([self.delegate respondsToSelector:@selector(getSlideWithCount:)])
     {
         [self.delegate getSlideWithCount:index];
         
     }
 }
+
+#pragma mark - setters and getters
+
+- (SDCycleScrollView *)cycleScrollView
+{
+    if (!_cycleScrollView) {
+        float width = self.bounds.size.width;
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, width, 150) delegate:self placeholderImage:[UIImage imageNamed:@"home_Shuff"]];
+        //    _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
+        _cycleScrollView.autoScroll = YES;
+        _cycleScrollView.titleLabelHeight = 30.f;
+        _cycleScrollView.titleLabelTextFont = Font_15;
+        _cycleScrollView.autoScrollTimeInterval = 3.f;
+        _cycleScrollView.pageDotColor = [UIColor whiteColor];
+        _cycleScrollView.currentPageDotColor = KNavigationBarColor;
+        //_cycleScrollView.pageControlDotSize = CGSizeMake(4, 4);
+        _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+        _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+        _cycleScrollView.autoresizingMask = YES;
+    }
+    return _cycleScrollView;
+}
+- (UIView *)newslLawView{
+    if (!_newslLawView) {
+        float width = self.bounds.size.width;
+        _newslLawView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(_cycleScrollView), width, 50)];
+        _newslLawView.backgroundColor = [UIColor whiteColor];
+    }
+    return _newslLawView;
+}
+- (UIImageView *)imgView3
+{WEAKSELF;
+    float width = self.bounds.size.width;
+    if (!_imgView3) {
+        _imgView3 = [[UIImageView alloc] initWithFrame:CGRectMake(oftenLaws +.5f, 0 , width - oftenLaws-.5f, 124.f)];
+        _imgView3.userInteractionEnabled = YES;
+        
+        [_imgView3 whenCancelTapped:^{
+            
+            if ([weakSelf.delegate respondsToSelector:@selector(recommendTheArticle)])
+            {
+                [weakSelf.delegate recommendTheArticle];
+            }
+            
+        }];
+    }
+    return _imgView3;
+}
+- (void)setFlipPageArr:(NSArray *)flipPageArr
+{WEAKSELF;
+    _flipPageArr = nil;
+    _flipPageArr = flipPageArr;
+    
+    NSMutableArray *nameArr = [NSMutableArray array];
+    [flipPageArr enumerateObjectsUsingBlock:^(GovListmodel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (![obj.name isEqual:[NSNull null]]) {
+            [nameArr addObject:obj.name];
+        }
+    }];
+
+    if (_adView) {
+        
+        TTVIEW_RELEASE_SAFELY(_adView);
+    }
+    //广告文字
+    [_newslLawView addSubview:self.adView];
+    [_adView startAdsWithBlock:nameArr block:^(NSInteger clickIndex){
+        [weakSelf.adView stopAds];
+        DLog(@"%d",(int)clickIndex);
+        GovListmodel *model = _flipPageArr[clickIndex];
+        if ([weakSelf.delegate respondsToSelector:@selector(startAdsClick:)])
+        {
+            [weakSelf.delegate startAdsClick:model.id];
+        }
+    }];
+}
+- (FlipPageView *)adView
+{
+    if (!_adView) {
+        float width = self.bounds.size.width;
+        _adView = [[FlipPageView alloc] initWithFrame:CGRectMake(118.5f, 5,width - 118.5f, 40)];
+        _adView.iDisplayTime = 3.f;
+    }
+    return _adView;
+}
+- (void)setRecomArrays:(NSArray *)recomArrays
+{
+    if(recomArrays.count ==0){
+        return;
+    }
+    _recomArrays  = nil;
+    _recomArrays = recomArrays;
+   __block  NSMutableArray *picArr   = [NSMutableArray array];
+   __block  NSMutableArray *titleArr = [NSMutableArray array];
+    [_recomArrays enumerateObjectsUsingBlock:^(BasicModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        [picArr addObject:obj.slide_pic];
+        [titleArr addObject:obj.slide_name];
+    }];
+    _cycleScrollView.imageURLStringsGroup = picArr;
+    _cycleScrollView.titlesGroup = titleArr;
+}
+- (void)setJdArrays:(NSArray *)jdArrays
+{
+    if (jdArrays.count ==0) {
+        return;
+    }
+    _jdArrays = nil;
+    _jdArrays = jdArrays;
+    BasicModel *model = _jdArrays[0];
+    [_imgView3 sd_setImageWithURL:[NSURL URLWithString:model.slide_pic] placeholderImage:[UIImage imageNamed:@"recommedArticle.jpg"]];
+}
+
 
 
 /*

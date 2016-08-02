@@ -40,6 +40,8 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
 @end
 
 @implementation MeViewController
+
+#pragma mark - life cycle
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -59,6 +61,7 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
 //    }
     [self initView];
 }
+#pragma mark - private methods
 - (void)initView
 {
     [self setupNaviBarWithTitle:@"我的"];
@@ -73,13 +76,7 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
 
     _twoSectionH = 44.f;
     _domainArrays = [NSMutableArray array];
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,74, kMainScreenWidth, kMainScreenHeight-123.f) style:UITableViewStylePlain];
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [self.view addSubview:_tableView];
+    [self.view addSubview:self.tableView];
     
 }
 #pragma mark -UITableViewDataSource
@@ -240,7 +237,19 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
         });
     }];
 }
-
+#pragma mark - setters and getters
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,74, kMainScreenWidth, kMainScreenHeight-123.f) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    }
+    return _tableView;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

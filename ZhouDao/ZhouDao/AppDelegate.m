@@ -257,6 +257,7 @@
      3、每日轮播
      4、自定义消息
      */
+    
     [UMessage sendClickReportForRemoteNotification:userInfo];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"presentView"

@@ -108,7 +108,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 }
 #pragma mark -UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

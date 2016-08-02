@@ -45,7 +45,6 @@
         WEAKSELF;
         [_headImg whenTapped:^{
             
-            
             SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
             browser.imageCount = 1; // 图片总数
             browser.currentImageIndex = 0;
@@ -54,7 +53,6 @@
             [browser show];
         }];
     }
-    
 
 }
 #pragma mark - photobrowser代理方法

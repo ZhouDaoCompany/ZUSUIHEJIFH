@@ -73,9 +73,11 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
 {
     _dataSourceArrays = [NSMutableArray array];
     [self setupNaviBarWithTitle:@"首页"];
-    _headView = [[HomeHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 315.f)];
-    _headView.delegate = self;
     WEAKSELF;
+    
+    [self.view addSubview:self.tableView];
+    _tableView.tableHeaderView = self.headView;
+
     _headView.indexBlock = ^(NSInteger index){
         
         switch (index) {
@@ -114,8 +116,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         
     };
    
-    [self.view addSubview:self.tableView];
-    
+
     [self loadCacheData];
     
     [self loadNewData];
@@ -136,6 +137,13 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
 //    [PublicFunction ShareInstance].locCity = @"呼伦贝尔市";
 
 }
+- (HomeHeadView *)headView{
+    if (!_headView) {
+        _headView = [[HomeHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 315.f)];
+        _headView.delegate = self;
+    }
+    return _headView;
+}
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-114.f) style:UITableViewStylePlain];
@@ -144,7 +152,6 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        _tableView.tableHeaderView = _headView;
         [_tableView registerClass:[HomeTableViewCell class] forCellReuseIdentifier:HomeCellIdentifier];
         //MJRefreshBackNormalFooter MJRefreshAutoNormalFooter
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];

@@ -40,11 +40,10 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
     _dataSourceArrays = [NSMutableArray array];
     [self setupNaviBarWithTitle:@"推荐"];
     
-    _headView = [[RecomHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 379)];
-    _headView.delegate = self;
 
     [ self.view addSubview:self.tableView];
-    
+    _tableView.tableHeaderView = self.headView;
+
     
     [self loadCacheData];
     [self loadNewData];
@@ -59,6 +58,14 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
     [moreBtn addTarget:self action:@selector(loadMoreData) forControlEvents:UIControlEventTouchUpInside];
     _tableView.tableFooterView = moreBtn;
 }
+- (RecomHeadView *)headView
+{
+    if(!_headView){
+        _headView = [[RecomHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 379)];
+        _headView.delegate = self;
+    }
+    return _headView;
+}
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-114.f) style:UITableViewStylePlain];
@@ -69,7 +76,6 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = [UIColor clearColor];
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        _tableView.tableHeaderView = _headView;
         [_tableView registerClass:[HomeTableViewCell class] forCellReuseIdentifier:RecomCellIdentifier];
         //MJRefreshBackNormalFooter MJRefreshAutoNormalFooter
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
