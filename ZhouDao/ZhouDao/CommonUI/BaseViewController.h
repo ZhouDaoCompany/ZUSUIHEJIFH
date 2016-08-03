@@ -17,7 +17,6 @@ typedef NSUInteger NaviBarBtn;
 
 @interface BaseViewController : UIViewController
 
-
 @property (strong, nonatomic) UIView *statusBarView;
 @property (strong, nonatomic) UIView *naviBarView;
 @property (strong, nonatomic) UILabel *titleLabel;

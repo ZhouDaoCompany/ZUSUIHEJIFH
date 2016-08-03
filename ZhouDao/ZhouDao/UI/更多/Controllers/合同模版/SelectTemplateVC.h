@@ -15,4 +15,6 @@
 @property (nonatomic, strong) NSMutableArray *cidArrays;//一级分类id
 @property (nonatomic, copy) NSString *cidString;//一级id
 @property (nonatomic, strong)  TheContractData *model;
+
+@property (nonatomic, copy) NSString *imageUrl;//图片链接
 @end

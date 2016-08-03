@@ -27,7 +27,7 @@
             self.zd_superView.center = CGPointMake(zd_width/2.0,zd_height/2.0);
         } completion:^(BOOL finished) {
         }];
-        self.zd_superView.layer.cornerRadius = 1.f;
+        self.zd_superView.layer.cornerRadius = 3.f;
         self.zd_superView.clipsToBounds = YES;
         [self addSubview:self.zd_superView];
         
@@ -49,7 +49,6 @@
     headlab.textAlignment = NSTextAlignmentLeft;
     headlab.font = Font_18;
     [self.zd_superView addSubview:headlab];
-
     
     UILabel *msgLab = [[UILabel alloc] init];
     msgLab.center = self.zd_superView.center;
@@ -57,7 +56,7 @@
     msgLab.font = Font_14 ;
 //    msgLab.textAlignment  = NSTextAlignmentCenter;
     msgLab.numberOfLines = 0;
-    msgLab.text = @"已审查：信息已和官方网站信息核对一致。\n \n 未审查：信息正在马不停蹄的审核中，请您耐心等待。";
+    msgLab.text = @"已审查：信息已和官方网站信息核对一致。\n \n未审查：信息正在马不停蹄的审核中，请您耐心等待。";
     [self.zd_superView addSubview:msgLab];
     
     [self.zd_superView whenCancelTapped:^{

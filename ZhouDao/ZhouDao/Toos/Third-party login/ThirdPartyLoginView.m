@@ -49,7 +49,7 @@
     lineView1.backgroundColor = lineColor;
     [self addSubview:lineView1];
     
-    _items= @[[MenuLabel CreatelabelIconName:@"share_platform_wechat" Title:@"微信"],[MenuLabel CreatelabelIconName:@"share_platform_qqfriends" Title:@"QQ"]];
+    _items= @[[MenuLabel CreatelabelIconName:@"share_platform_wechat" Title:@"微信"],[MenuLabel CreatelabelIconName:@"share_platform_qqfriends" Title:@"QQ"],[MenuLabel CreatelabelIconName:@"share_platform_sina" Title:@"新浪"]];
 
     for (NSUInteger index = 0; index <_items.count; index ++) {
         
@@ -57,7 +57,7 @@
         MenuLabel *objs = _items[index];
         button.MenuData = objs;
         button.tag = kMenuButtonBaseTag +index;
-        CGRect toRect = CGRectMake((kMainScreenWidth - 200)/2.f + 120*index, 40, 80, 80);
+        CGRect toRect = CGRectMake((kMainScreenWidth - 280)/2.f + 100*index, 40, 80, 80);
         [button setFrame:toRect];
     }
     
@@ -74,7 +74,6 @@
             weakSelf.frameBlock(0);
         }
     }];
-    
 }
 -(CustomButton *)AllockButtonIndex:(NSInteger)index
 {
@@ -112,7 +111,7 @@
         });
 
         
-    }else {
+    }else if (tag == 1) {
         //qq
         UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
         
@@ -134,8 +133,31 @@
                 
             }});
 
+    } else {
+        
+        //新浪
+        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
+        
+        snsPlatform.loginClickHandler(_superVC,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+            
+            //          获取微博用户名、uid、token等
+            
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                
+                NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
+                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
+                DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
+                
+                if ([weakSelf.delegate respondsToSelector:@selector(ThirdPartyLoginSuccess)])
+                {
+                    [weakSelf.delegate ThirdPartyLoginSuccess];
+                }
+                
+            }});
         
     }
+    
+    
 }
 
 

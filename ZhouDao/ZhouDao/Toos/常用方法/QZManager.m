@@ -102,7 +102,20 @@ singleton_for_class(QZManager)
         return @"";
     }
 }
+#pragma mark - 找到 UIViewController
 
++ (UIViewController *)getViewControllerByView:(UIView *)view
+{
+    for (UIView* next = [view superview]; next; next =
+         next.superview) {
+        UIResponder* nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController
+                                          class]]) {
+            return (UIViewController*)nextResponder;
+        }
+    }
+    return nil;
+}
 #pragma mark - 姓名验证
 + (BOOL)isValidateName:(NSString *)name
 {
@@ -1033,6 +1046,27 @@ singleton_for_class(QZManager)
         changeString = (NSMutableString *)[changeString stringByAppendingString:getStr];
     }
     return (NSString *)changeString;
+}
+
+#pragma mark - 使用CAShapeLayer和UIBezierPath来设置圆角
++ (void)setLayerAndBezierPathCutCircularWithView:(UIView *) view
+{
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+    CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+    layer.frame = view.bounds;
+    layer.path = path.CGPath;
+    view.layer.mask = layer;
+}
+
+#pragma mark - 使用Core Graphics框架 和 UIBezierPath 画出一个圆角
+- (void)setGraphicsCutCirculayWithView:(UIImageView *) view
+{
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 1.0);
+    [[UIBezierPath bezierPathWithRoundedRect:view.bounds cornerRadius:5] addClip];
+    [view drawRect:view.bounds];
+    view.image = UIGraphicsGetImageFromCurrentImageContext();
+    //结束
+    UIGraphicsEndImageContext();
 }
 
 @end

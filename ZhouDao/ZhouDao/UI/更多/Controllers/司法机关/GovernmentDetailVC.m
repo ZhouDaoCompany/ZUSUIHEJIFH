@@ -172,7 +172,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 {WEAKSELF;
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0  && indexPath.section == 0) {
         ZD_Window * window = [[ZD_Window alloc] initWithFrame:kMainScreenFrameRect];
         [self.view addSubview:window];
     }

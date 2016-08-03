@@ -68,6 +68,16 @@ singleton_for_header(QZManager)
  */
 +(NSString *)getTheHiddenMobile:(NSString *)mobile;
 
+#pragma mark - 找到 UIViewController
+/**
+ *  找到 UIViewController
+ *
+ *  @param view 传入UIView
+ *
+ *  @return UIViewController
+ */
++ (UIViewController *)getViewControllerByView:(UIView *)view;
+
 #pragma mark - 姓名验证
 /**
  *  姓名验证
@@ -459,6 +469,21 @@ singleton_for_header(QZManager)
  */
 + (NSString *)getSixEvent;
 
+#pragma mark - 使用CAShapeLayer和UIBezierPath来设置圆角
+/**
+ *  使用CAShapeLayer和UIBezierPath来设置圆角
+ *
+ *  @param view UIView
+ */
++ (void)setLayerAndBezierPathCutCircularWithView:(UIView *) view;
+
+#pragma mark - 使用Core Graphics框架 和 UIBezierPath 画出一个圆角
+/**
+ *  使用Core Graphics框架 和 UIBezierPath 画出一个圆角
+ *
+ *  @param view UIImageView
+ */
++ (void)setGraphicsCutCirculayWithView:(UIImageView *) view;
 
 @end
 

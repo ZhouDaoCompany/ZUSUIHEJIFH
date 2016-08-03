@@ -297,16 +297,15 @@ CompletionBlock:(void(^)(BOOL completion))blcok
         withContent:(NSString *)content
             withUrl:(NSString *)url
             withImg:(NSString *)imgUrlString
-
 {
-    NSString *shareContent = [NSString stringWithFormat:@"%@\n%@ %@",title,content,url];
+    NSString *shareContent = [NSString stringWithFormat:@"%@ \n%@",content,url];
     //    [[UMSocialControllerService defaultControllerService] setShareText:shareContent shareImage:shareImg socialUIDelegate:self];
     //    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(_superVC,[UMSocialControllerService defaultControllerService],YES);
     UMSocialUrlResource *urlResource = nil;
     if (imgUrlString.length >0) {
         urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imgUrlString];
     }else {
-        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb url:imgUrlString];
+        [[UMSocialData defaultData].urlResource setResourceType:UMSocialUrlResourceTypeWeb url:url];
     }
 
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToSina] content:shareContent image:nil location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
@@ -339,13 +338,15 @@ CompletionBlock:(void(^)(BOOL completion))blcok
     [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
 
     UMSocialUrlResource *urlResource = nil;
+    UIImage *image = nil;
     if (imgUrlString.length >0) {
         urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imgUrlString];
     }else {
-        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb url:imgUrlString];
+        image = [QZManager getAppIcon];
+        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb url:url];
     }
     
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:content image:nil location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:content image:image location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             DLog(@"分享成功！");
         }
@@ -362,12 +363,13 @@ CompletionBlock:(void(^)(BOOL completion))blcok
     [UMSocialData defaultData].extConfig.qzoneData.title = title;
     [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
     UMSocialUrlResource *urlResource = nil;
+    UIImage *image = nil;
     if (imgUrlString.length >0) {
         urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imgUrlString];
     }else {
-        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb url:imgUrlString];
+        image = [QZManager getAppIcon];
     }
-    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:content image:nil location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQzone] content:content image:image location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             DLog(@"分享成功！");
         }

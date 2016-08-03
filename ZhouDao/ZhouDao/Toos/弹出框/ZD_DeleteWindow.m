@@ -37,7 +37,7 @@
             self.zd_superView.center = CGPointMake(zd_width/2.0,zd_height/2.0);
         } completion:^(BOOL finished) {
         }];
-        self.zd_superView.layer.cornerRadius = 1.f;
+        self.zd_superView.layer.cornerRadius = 3.f;
         self.zd_superView.clipsToBounds = YES;
         [self addSubview:self.zd_superView];
         

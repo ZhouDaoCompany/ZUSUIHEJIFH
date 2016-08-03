@@ -36,20 +36,16 @@
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_Share"];
 
     self.view.backgroundColor = ViewBackColor;
-    UIWebView * webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
-    _webView = webView;
-    _webView.dataDetectorTypes = UIDataDetectorTypeNone;
-    _webView.delegate = self;
-    _webView.scrollView.showsVerticalScrollIndicator = NO;
-    //支持缩放
-    webView.scalesPageToFit = YES;
-    //添加长按手势
+    
+    [self.view addSubview:self.webView];
+
+    
     UILongPressGestureRecognizer *longtapGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longClik:)];
     longtapGesture.delegate = self;
     longtapGesture.minimumPressDuration = 0.2;
     [_webView addGestureRecognizer:longtapGesture];
-    [self.view addSubview:_webView];
 
+    
     if (_rType == FileExist) {
         NSURL *lastUrl = [NSURL fileURLWithPath:_model.destinationPath];
         NSString *htmlString = [lastUrl absoluteString];
@@ -81,7 +77,7 @@
     NSString *title = @"周道慧法";
     NSString *contentString = GET(_model.content);
     NSString *shareUrl =  [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TheContractShareUrl,_idStr];
-    NSString *imgUrlString = @"";
+    NSString *imgUrlString = _imageUrl;
     NSArray *arrays = [NSArray arrayWithObjects:title,contentString,shareUrl,imgUrlString,nil];
     [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
     }];
@@ -89,7 +85,7 @@
 #pragma mark - UIWebViewDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    //[SVProgressHUD show];
+    [SVProgressHUD show];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
@@ -112,13 +108,25 @@
     // 如果是手势开始的状态才执行
     if (longPressGesture.state==UIGestureRecognizerStateBegan) {
         
-        
         CGPoint p = [(UILongPressGestureRecognizer *)longPressGesture locationInView:_webView.scrollView];
         
         DLog(@"当前点击位置x%f y%f",p.x,p.y);
-        
     }
+}
+
+#pragma mark - setters  and getters
+- (UIWebView *)webView{
     
+    if (!_webView) {
+        _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
+        _webView.dataDetectorTypes = UIDataDetectorTypeNone;
+        _webView.delegate = self;
+        _webView.scrollView.showsVerticalScrollIndicator = NO;
+        //支持缩放
+        _webView.scalesPageToFit = YES;
+        //添加长按手势
+    }
+    return _webView;
 }
 
 - (void)didReceiveMemoryWarning {

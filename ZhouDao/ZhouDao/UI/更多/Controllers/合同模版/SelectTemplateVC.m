@@ -154,6 +154,7 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
     TemplateDetailVC *detailVC = [TemplateDetailVC new];
     TemplateData *model =  _dataSourceArr[indexPath.row];
     detailVC.idString = model.id;
+    detailVC.imageUrl = _imageUrl;
 //    detailVC.url = [NSString stringWithFormat:@"%@%@id=%@",kProjectBaseUrl,TheContractContent,@"30"];
 //    detailVC.url = @"http://wdl1.cache.wps.cn/wps/cdnwps//upload/official/template/2015-1-15/54b76f0994b2f.doc";
     [self.navigationController  pushViewController:detailVC animated:YES];

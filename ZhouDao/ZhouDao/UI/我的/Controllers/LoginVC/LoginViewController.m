@@ -15,7 +15,8 @@
 #import "ThirdPartyLoginView.h"
 #import "BindingViewController.h"
 
-@interface LoginViewController ()<UITextFieldDelegate>
+@interface LoginViewController ()<UITextFieldDelegate,ThirdPartyLoginPro>
+
 @property (weak, nonatomic) IBOutlet UIImageView *logoImgView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
@@ -91,26 +92,27 @@
     _keyText.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.keyText.secureTextEntry = YES;
     
-    [self.view addSubview:self.loginView];
+    [self.view addSubview:self.loginView];WEAKSELF
+    _loginView.frameBlock = ^(NSInteger index){
+        if (index == 1) {
+            [UIView animateWithDuration:0.25f animations:^{
+                weakSelf.loginView.frame = CGRectMake(0, kMainScreenHeight - 130, kMainScreenWidth, 130);
+            }];
+        }else {
+            [UIView animateWithDuration:0.25f animations:^{
+                weakSelf.loginView.frame = CGRectMake(0, kMainScreenHeight - 40, kMainScreenWidth, 40);
+            }];
+        }
+    };
+
     
 }
 #pragma mark -getters and seters
 - (ThirdPartyLoginView *)loginView
 {
-    if (!_loginView) {WEAKSELF;
+    if (!_loginView) {
         _loginView = [[ThirdPartyLoginView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 40, kMainScreenWidth, 40) withPresentVC:self];
         _loginView.delegate = self;
-        _loginView.frameBlock = ^(NSInteger index){
-            if (index == 1) {
-                [UIView animateWithDuration:0.25f animations:^{
-                    weakSelf.loginView.frame = CGRectMake(0, kMainScreenHeight - 130, kMainScreenWidth, 130);
-                }];
-            }else {
-                [UIView animateWithDuration:0.25f animations:^{
-                    weakSelf.loginView.frame = CGRectMake(0, kMainScreenHeight - 40, kMainScreenWidth, 40);
-                }];
-            }
-        };
     }
     return _loginView;
 }

@@ -54,7 +54,7 @@
     } completion:^(BOOL finished) {
     }];
 
-    self.zd_superView.layer.cornerRadius = 5.f;
+    self.zd_superView.layer.cornerRadius = 3.f;
     self.zd_superView.clipsToBounds = YES;
     [self addSubview:self.zd_superView];
     

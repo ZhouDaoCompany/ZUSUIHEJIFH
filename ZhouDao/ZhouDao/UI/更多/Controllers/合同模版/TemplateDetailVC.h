@@ -12,5 +12,5 @@
 
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *idString;
-
+@property (nonatomic, copy) NSString *imageUrl;//图片链接
 @end

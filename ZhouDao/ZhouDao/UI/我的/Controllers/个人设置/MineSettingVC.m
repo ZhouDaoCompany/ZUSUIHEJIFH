@@ -38,13 +38,17 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 
 }
 @property (strong,nonatomic) UITableView *tableView;
+
 @end
 @implementation MineSettingVC
+
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initUI];
 }
+#pragma mark - private methods
 - (void)initUI
 {
     [self setupNaviBarWithTitle:@"我"];
@@ -83,14 +87,8 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     }
 
     _msgArrays = [NSMutableArray arrayWithObjects:@"",[PublicFunction ShareInstance].m_user.data.mobile,@"修改",address, type,cacheString,nil];
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,74, kMainScreenWidth, kMainScreenHeight - 74.f) style:UITableViewStylePlain];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.backgroundColor = [UIColor clearColor];
-//    _tableView.scrollEnabled = NO;
-    [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [ self.view addSubview:_tableView];
-    [_tableView  registerClass:[SettingTabCell class] forCellReuseIdentifier:TwoSettingIdentifer];
+    [ self.view addSubview:self.tableView];
+   
 
     UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 75.f)];
     footView.backgroundColor = [UIColor clearColor];
@@ -112,7 +110,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?[_titArrays count]:2;
+    return (section == 0)?[_titArrays count]:3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -133,7 +131,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
             [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[PublicFunction ShareInstance].m_user.data.photo] placeholderImage:[UIImage imageNamed:@"mine_head"]];
         }
     }else {
-        (row == 0)?[cell.nameLab setText:@"微信"]:[cell.nameLab setText:@"腾讯QQ"];
+        cell.ParentView = self;
     }
     return cell;
 }
@@ -173,6 +171,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
                 DLog(@"地区是－－－%@:%@,%@",provice,city,area);
                 NSString *tempStr = [NSString stringWithFormat:@"%@-%@-%@",provice,city,area];
                 [NetWorkMangerTools resetUserAddress:tempStr RequestSuccess:^{
+                    
                     [_msgArrays replaceObjectAtIndex:3 withObject:tempStr];
                     [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:3 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
                 }];
@@ -189,6 +188,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
         }else if (indexPath.row == 5){
             
             LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"确定"] redButtonIndex:0 clicked:^(NSInteger buttonIndex) {
+                
                 DLog(@"> Block way -> Clicked Index: %ld", (long)buttonIndex);
                 if (buttonIndex == 0) {
                     [weakSelf clearApplicationCaChe];
@@ -197,8 +197,6 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
             [sheet show];
         }
   
-    }else {
-        
     }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -214,6 +212,9 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 {
     return (section == 0)?0.f:45.f;
 }
+#pragma mark -
+#pragma mark - 解除 绑定 和绑定
+
 #pragma mark -查询认证审核
 - (void)requestMyCertification
 {WEAKSELF;
@@ -403,6 +404,21 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     [_msgArrays replaceObjectAtIndex:5 withObject:@"0M"];
     [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:5 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
+
+#pragma mark -
+#pragma mark - setters and getters
+- (UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,74, kMainScreenWidth, kMainScreenHeight - 74.f) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView  registerClass:[SettingTabCell class] forCellReuseIdentifier:TwoSettingIdentifer];
+    }
+    return _tableView;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

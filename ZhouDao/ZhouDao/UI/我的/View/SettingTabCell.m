@@ -8,6 +8,7 @@
 
 #import "SettingTabCell.h"
 #import "SDPhotoBrowser.h"
+#import "UMSocial.h"
 
 @interface SettingTabCell()<SDPhotoBrowserDelegate>
 @property (nonatomic, strong) UIView *lineView;
@@ -124,7 +125,6 @@
 }
 - (void)settingUI{
     
-
     if (_section == 0) {
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
@@ -149,7 +149,23 @@
         _switchButton.hidden = NO;
         _headImg.hidden = YES;
         _addresslab .hidden = YES;
-        _row ==1?[_lineView setHidden:YES]:[_lineView setHidden:NO];
+        
+        
+        if (_row == 0) {
+            
+            _nameLab.text = @"微信";
+            _lineView.hidden = NO;
+
+        }else if (_row == 1){
+            _nameLab.text = @"腾讯QQ信";
+            _lineView.hidden = NO;
+
+
+        }else {
+            _nameLab.text = @"新浪微博";
+            _lineView.hidden = YES;
+        }
+        
     }
 
 }
@@ -160,12 +176,86 @@
     
     if (isButton) {
         DLog(@"open");
-        
+        [self OpenTheBindingWith];
+
     }else{
         DLog(@"close");
-        
+        [self removeTheBinding];
     }
+}
+- (void)OpenTheBindingWith{
     
+    if (_row == 0) {
+        //微信
+        
+        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
+        
+        snsPlatform.loginClickHandler(_ParentView,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+            
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                
+                NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
+                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
+                DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
+            }
+            
+        });
+        
+    } else if (_row == 1) {
+        
+        //qq
+        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
+        
+        snsPlatform.loginClickHandler(_ParentView,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+            
+            //          获取微博用户名、uid、token等
+            
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                
+                NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
+                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
+                DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
+            }});
+        
+    } else {
+        //新浪
+        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
+        
+        snsPlatform.loginClickHandler(_ParentView,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+            
+            //          获取微博用户名、uid、token等
+            
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                
+                NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
+                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
+                DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
+            }});
+    }
+
+}
+- (void)removeTheBinding
+{
+    if (_row == 0) {
+        //微信
+        
+    } else if (_row == 1) {
+        //QQ
+        
+    } else {
+        //新浪
+        [[UMSocialDataService defaultDataService] requestUnOauthWithType:UMShareToSina  completion:^(UMSocialResponseEntity *response){
+            DLog(@"response is %@",response);
+            
+        }];
+    }
+}
+- (void)dealloc {
+    TTVIEW_RELEASE_SAFELY(_nameLab);
+    TTVIEW_RELEASE_SAFELY(_addresslab);
+    TTVIEW_RELEASE_SAFELY(_headImg);
+    TTVIEW_RELEASE_SAFELY(_switchButton);
+
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

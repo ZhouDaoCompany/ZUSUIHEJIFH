@@ -142,6 +142,7 @@
         ReadViewController *readVC = [ReadViewController new];
         readVC.model = _model;
         readVC.rType = FileExist;
+        readVC.imageUrl = _imageUrl;
         readVC.idStr = _dataModel.id;
         [self.navigationController pushViewController:readVC animated:YES];
     }else{
@@ -152,6 +153,7 @@
             weakSelf.model.url = [[NSString stringWithFormat:@"%@%@",DownloadThePrefix,htmlString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             readVC.model = _model;
             readVC.rType = FileNOExist;
+            readVC.imageUrl = weakSelf.imageUrl;
             readVC.idStr = weakSelf.dataModel.id;
             readVC.readBlock  = ^(NSString *str){
                 _label.text = str;

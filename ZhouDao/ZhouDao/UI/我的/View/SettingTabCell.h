@@ -16,6 +16,6 @@
 @property (assign, nonatomic) NSInteger section;
 @property (nonatomic, strong) UIImageView *headImg;
 @property (strong, nonatomic) UISwitch *switchButton;
-
+@property (strong, nonatomic) UIViewController *ParentView;
 - (void)settingUI;
 @end
