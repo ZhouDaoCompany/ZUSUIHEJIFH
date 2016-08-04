@@ -24,6 +24,9 @@
 @synthesize uid = _uid;
 @synthesize name = _name;
 @synthesize address = _address;
+@synthesize qq_au = _qq_au;
+@synthesize wb_au = _wb_au;
+@synthesize wx_au = _wx_au;
 
 -(id)initWithDictionary:(NSDictionary*)dict
 {
@@ -36,6 +39,9 @@
 		DTAPI_DICT_ASSIGN_STRING(uid, @"");
         DTAPI_DICT_ASSIGN_STRING(name, @"");
         DTAPI_DICT_ASSIGN_STRING(address, @"");
+        DTAPI_DICT_ASSIGN_STRING(qq_au, @"");
+        DTAPI_DICT_ASSIGN_STRING(wb_au, @"");
+        DTAPI_DICT_ASSIGN_STRING(wx_au, @"");
 
     }
     
@@ -52,7 +58,10 @@
 	DTAPI_DICT_EXPORT_BASICTYPE(uid);
     DTAPI_DICT_EXPORT_BASICTYPE(name);
     DTAPI_DICT_EXPORT_BASICTYPE(address);
-    
+    DTAPI_DICT_EXPORT_BASICTYPE(qq_au);
+    DTAPI_DICT_EXPORT_BASICTYPE(wb_au);
+    DTAPI_DICT_EXPORT_BASICTYPE(wx_au);
+
     return md;
 }
 @end

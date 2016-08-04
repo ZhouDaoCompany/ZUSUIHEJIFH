@@ -11,4 +11,5 @@
 
 @interface BindingViewController : BaseViewController
 
+@property (nonatomic, copy) NSString *usid;
 @end

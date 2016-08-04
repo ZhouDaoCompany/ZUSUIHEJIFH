@@ -80,6 +80,7 @@
     CustomButton *button = [CustomButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(selectd:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:button];
+
     return button;
 }
 #pragma mark -分享事件
@@ -97,15 +98,27 @@
             
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
-                NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
                 DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
                 
-                if ([weakSelf.delegate respondsToSelector:@selector(ThirdPartyLoginSuccess)])
-                {
-                    [weakSelf.delegate ThirdPartyLoginSuccess];
-                }
-                
+                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=3",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
+                [NetWorkMangerTools LoginWithThirdPlatformwithURLString:url RequestSuccess:^(NSString *state, id obj) {
+                    
+                    if ([state isEqualToString:@"1"]) {
+                        if ([weakSelf.delegate respondsToSelector:@selector(isBoundToLoginSuccessfully)])
+                        {
+                            [weakSelf.delegate isBoundToLoginSuccessfully];
+                        }
+
+                    }else {
+                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:)])
+                        {
+                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid];
+                        }
+                    }
+                    
+                }];
+
             }
             
         });
@@ -121,15 +134,26 @@
             
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
-                NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
                 DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
                 
-                if ([weakSelf.delegate respondsToSelector:@selector(ThirdPartyLoginSuccess)])
-                {
-                    [weakSelf.delegate ThirdPartyLoginSuccess];
-                }
-
+                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=1",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
+                [NetWorkMangerTools LoginWithThirdPlatformwithURLString:url RequestSuccess:^(NSString *state, id obj) {
+                    
+                    if ([state isEqualToString:@"1"]) {
+                        if ([weakSelf.delegate respondsToSelector:@selector(isBoundToLoginSuccessfully)])
+                        {
+                            [weakSelf.delegate isBoundToLoginSuccessfully];
+                        }
+                        
+                    }else {
+                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:)])
+                        {
+                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid];
+                        }
+                    }
+                    
+                }];
                 
             }});
 
@@ -144,23 +168,32 @@
             
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
-                NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
                 DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
                 
-                if ([weakSelf.delegate respondsToSelector:@selector(ThirdPartyLoginSuccess)])
-                {
-                    [weakSelf.delegate ThirdPartyLoginSuccess];
-                }
+                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=2",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
+                [NetWorkMangerTools LoginWithThirdPlatformwithURLString:url RequestSuccess:^(NSString *state, id obj) {
+                    
+                    if ([state isEqualToString:@"1"]) {
+                        if ([weakSelf.delegate respondsToSelector:@selector(isBoundToLoginSuccessfully)])
+                        {
+                            [weakSelf.delegate isBoundToLoginSuccessfully];
+                        }
+                        
+                    }else {
+                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:)])
+                        {
+                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid];
+                        }
+                    }
+                    
+                }];
                 
             }});
         
     }
     
-    
 }
-
-
 
 /*
 // Only override drawRect: if you perform custom drawing.

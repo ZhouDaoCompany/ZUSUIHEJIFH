@@ -73,7 +73,6 @@ static float const kCollectionViewCellsHorizonMargin          = 5.f;//每个item
 //    NSData *data = [dataS dataUsingEncoding:NSUTF8StringEncoding];
 //    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
 //   // DLog(@"输出文件字典－－－－－%@",dict);
-    
 }
 - (void)analyticalData:(NSDictionary *)dict
 {
@@ -123,25 +122,9 @@ static float const kCollectionViewCellsHorizonMargin          = 5.f;//每个item
     self.view.backgroundColor = LRRGBColor(242, 242, 242);
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"mine_guanbi"];
 
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , SCREENWIDTH ,SCREENHEIGHT-64) collectionViewLayout:layout];
-    //layout.headerReferenceSize = CGSizeMake(SCREENWIDTH, 40);
-    
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    self.collectionView.backgroundColor = LRRGBColor(242, 242, 242);
-    //self.collectionView.bounces = NO;
-    self.collectionView.allowsMultipleSelection = YES;
-    self.collectionView.showsHorizontalScrollIndicator = NO;
-    self.collectionView.showsVerticalScrollIndicator = NO;
+  
     [self.view addSubview:self.collectionView];
-    [self.collectionView registerClass:[ChannelCollectionCell class] forCellWithReuseIdentifier:KCellIdentifier];
-    
-    _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, .5f)];
-    _lineView.backgroundColor = [UIColor colorWithHexString:@"D7D7D7"];
-    [self.view addSubview:_lineView];
-    _lineView.hidden = YES;
+    [self.view addSubview:self.lineView];
     [self.view bringSubviewToFront:_lineView];
     
 }
@@ -174,6 +157,7 @@ static float const kCollectionViewCellsHorizonMargin          = 5.f;//每个item
         if (_isShake == YES){
             cell.delImgView.hidden = NO;
             [AnimationTools shakeAnimationWith:cell];
+
         }else{
             [cell.layer removeAllAnimations];
         }
@@ -422,6 +406,36 @@ referenceSizeForHeaderInSection:(NSInteger)section
 //
 //    }
     
+}
+
+#pragma mark - setters and getters
+- (UICollectionView *)collectionView{
+    
+    if (!_collectionView) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , SCREENWIDTH ,SCREENHEIGHT-64) collectionViewLayout:layout];
+        //layout.headerReferenceSize = CGSizeMake(SCREENWIDTH, 40);
+        
+        self.collectionView.dataSource = self;
+        self.collectionView.delegate = self;
+        self.collectionView.backgroundColor = LRRGBColor(242, 242, 242);
+        //self.collectionView.bounces = NO;
+        self.collectionView.allowsMultipleSelection = YES;
+        self.collectionView.showsHorizontalScrollIndicator = NO;
+        self.collectionView.showsVerticalScrollIndicator = NO;
+        [self.collectionView registerClass:[ChannelCollectionCell class] forCellWithReuseIdentifier:KCellIdentifier];
+    }
+    return _collectionView;
+}
+- (UIView *)lineView
+{
+    if (!_lineView) {
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, .5f)];
+        _lineView.backgroundColor = [UIColor colorWithHexString:@"D7D7D7"];
+        _lineView.hidden = YES;
+    }
+    return _lineView;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

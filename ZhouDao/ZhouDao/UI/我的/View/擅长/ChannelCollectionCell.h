@@ -8,10 +8,18 @@
 
 
 #import <UIKit/UIKit.h>
+//@protocol ChannelCollectionPro;
+
 
 @interface ChannelCollectionCell : UICollectionViewCell
 
-@property (nonatomic,strong) UILabel *titleLab;
-@property (nonatomic,strong) UIImageView *delImgView;
-
+@property (nonatomic, strong) UILabel *titleLab;
+@property (nonatomic, strong) UIImageView *delImgView;
+//@property (nonatomic, weak)   id<ChannelCollectionPro>delegate;
 @end
+
+//@protocol ChannelCollectionPro <NSObject>
+//
+//- (void)getChannelCellPath:(ChannelCollectionCell *)cell;
+//
+//@end

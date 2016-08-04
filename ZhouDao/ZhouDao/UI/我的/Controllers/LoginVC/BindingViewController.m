@@ -247,7 +247,7 @@
         [_getCodeBtn setTitle:@"获取验证码" forState:0];
         _getCodeBtn.titleLabel.font = Font_14;
         _getCodeBtn.tag = 3009;
-        [_getCodeBtn addTarget:self action:@selector(allBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
+        [_getCodeBtn addTarget:self action:@selector(getCodeBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _getCodeBtn;
 }
@@ -369,6 +369,7 @@
 - (UIButton *)loginBtn
 {
     if (!_loginBtn) {
+        
         _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _loginBtn.frame = CGRectMake(26 + kMainScreenWidth, Orgin_y(_bottomView2) +15, kMainScreenWidth - 52, 40);
         _loginBtn.layer.masksToBounds = YES;
@@ -394,7 +395,6 @@
     }
     return _alertLab2;
 }
-
 
 - (void)textFieldChanged:(NSNotification*)noti{
     
@@ -428,6 +428,11 @@
     }else {//3026
         
     }
+}
+- (void)getCodeBtnEvent:(id)sender
+{
+    DLog(@"获取验证码");
+    
 }
 #pragma mark -手势
 - (void)dismissKeyBoard{

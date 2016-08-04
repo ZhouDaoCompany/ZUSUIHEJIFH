@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B7436D16-BF63-4E33-8932-E79FAF4E20CC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DocInteractionBug</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F2634CC9-BEF9-484D-A5A0-197F35924BB0</key>
+		<string>https://github.com/AdamEsgie/DocInteractionBug.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>DocInteractionBug.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F2634CC9-BEF9-484D-A5A0-197F35924BB0</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/AdamEsgie/DocInteractionBug.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F2634CC9-BEF9-484D-A5A0-197F35924BB0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F2634CC9-BEF9-484D-A5A0-197F35924BB0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DocInteractionBug</string>
+		</dict>
+	</array>
+</dict>
+</plist>

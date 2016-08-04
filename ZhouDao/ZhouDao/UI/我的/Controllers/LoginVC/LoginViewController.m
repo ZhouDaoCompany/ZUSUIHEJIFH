@@ -117,7 +117,11 @@
     return _loginView;
 }
 #pragma mark -ThirdPartyLoginPro
-- (void)ThirdPartyLoginSuccess
+- (void)isBoundToLoginSuccessfully
+{
+    [self rightBtnAction];
+}
+- (void)unboundedAccountToBindwithUsid:(NSString *)usid
 {
     BindingViewController *bindVC = [BindingViewController new];
     [self.navigationController pushViewController:bindVC animated:YES];

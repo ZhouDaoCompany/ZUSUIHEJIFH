@@ -194,7 +194,6 @@
             
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
-                NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
                 DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
             }
@@ -212,7 +211,6 @@
             
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
-                NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
                 DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
             }});
@@ -227,7 +225,6 @@
             
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
-                NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
                 DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
             }});
@@ -238,6 +235,13 @@
 {
     if (_row == 0) {
         //微信
+        NSString *URL = [NSString stringWithFormat:@"%@%@au=%@&s=%@&uid=%@",kProjectBaseUrl,AuBindingOCURL,[PublicFunction ShareInstance].m_user.data.qq_au,@"3",UID];
+        [NetWorkMangerTools UnboundAccountwithURLString:URL
+                                         RequestSuccess:^{
+                                             
+                                         } fail:^{
+                                             
+                                         }];
         
     } else if (_row == 1) {
         //QQ

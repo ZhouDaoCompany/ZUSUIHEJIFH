@@ -12,9 +12,9 @@
 #endif /* ZhouDao_RequestDefine_h */
 
 //线上
-#define kProjectBaseUrl         @"http://zapi.zhoudao.cc/pro/"
+//#define kProjectBaseUrl         @"http://zapi.zhoudao.cc/pro/"
 //测试地址
-//#define kProjectBaseUrl         @"http://testapi.zhoudao.cc/pro/"
+#define kProjectBaseUrl         @"http://testapi.zhoudao.cc/pro/"
 
 
 /*
@@ -371,6 +371,21 @@
  *  84 焦点历史记录
  */
 #define dailyHistory            @"api_recom.php?key=16248ef5&c=dailyHistory"
+
+/**
+ *  85 第三方授权后判断是否已经绑定手机号
+ */
+#define ThirdPartyLogin         @"api_login.php?key=16248ef5&c=otherLogin&au="
+
+/**
+ *  86 绑定账号
+ */
+#define AuBindingURLString      @"api_login.php?key=16248ef5&c=auBinding&"
+
+/**
+ *  87 解绑账号
+ */
+#define AuBindingOCURL          @"api_user.php?key=16248ef5&c=auBindingOc&"
 
 
 /**************************分享的链接***************************/

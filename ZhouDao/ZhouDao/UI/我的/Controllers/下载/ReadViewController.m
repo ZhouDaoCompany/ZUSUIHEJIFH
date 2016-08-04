@@ -16,10 +16,12 @@
 
 #define kCachePath (NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0])
 
-@interface ReadViewController ()<UIGestureRecognizerDelegate,DownLoadViewPro,UIWebViewDelegate>
+@interface ReadViewController ()<UIGestureRecognizerDelegate,DownLoadViewPro,UIWebViewDelegate,UIDocumentInteractionControllerDelegate>
+
 @property (nonatomic, strong) DownLoadView *downView;
-//@property (nonatomic, strong) NSMutableArray *dataArrays;//数据源
 @property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) UIDocumentInteractionController *documentInteractionController;
+
 @end
 
 @implementation ReadViewController
@@ -40,23 +42,51 @@
     [self.view addSubview:self.webView];
 
     
-    UILongPressGestureRecognizer *longtapGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longClik:)];
-    longtapGesture.delegate = self;
-    longtapGesture.minimumPressDuration = 0.2;
-    [_webView addGestureRecognizer:longtapGesture];
+//    UILongPressGestureRecognizer *longtapGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longClik:)];
+//    longtapGesture.delegate = self;
+//    longtapGesture.minimumPressDuration = 0.2;
+//    [_webView addGestureRecognizer:longtapGesture];
 
     
     if (_rType == FileExist) {
         NSURL *lastUrl = [NSURL fileURLWithPath:_model.destinationPath];
+//        NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"二期需求规格说明书" ofType:@"docx"]];
+//        NSString *urlStr = [url absoluteString];
+
         NSString *htmlString = [lastUrl absoluteString];
         DLog(@"本地文件路径==%@",_model.destinationPath);
-        [_webView loadURL:[htmlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//        self.documentInteractionController = [UIDocumentInteractionController interactionControllerWithURL:lastUrl];
+//        self.documentInteractionController.delegate = self;
+//        self.documentInteractionController.UTI = @"public.plain-text";
+//        self.documentInteractionController.name = @"详细设计说明书";
+//        [self.documentInteractionController presentOptionsMenuFromRect:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight - 64.f) inView:self.view animated:YES];
+        
+        _documentInteractionController = [UIDocumentInteractionController
+                                          interactionControllerWithURL:lastUrl];
+ 
+        self.documentInteractionController.delegate = self;
+        [_documentInteractionController presentOpenInMenuFromRect:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight - 64.f) inView:self.view animated:YES];
+
+
+//        [_webView loadURL:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     }else{
         _downView = [[DownLoadView alloc] initWithFrame:kMainScreenFrameRect];
         _downView.delegate = self;
         _downView.model = _model;
         [self.view addSubview:_downView];
     }
+}
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller
+{
+    return self;
+}
+- (UIView*)documentInteractionControllerViewForPreview:(UIDocumentInteractionController*)controller
+{
+    return self.view;
+}
+- (CGRect)documentInteractionControllerRectForPreview:(UIDocumentInteractionController*)controller
+{
+    return CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight - 64.f);
 }
 #pragma mark -DownLoadViewPro
 - (void)getDownloadState:(NSString *)downStr readPath:(NSString *)path

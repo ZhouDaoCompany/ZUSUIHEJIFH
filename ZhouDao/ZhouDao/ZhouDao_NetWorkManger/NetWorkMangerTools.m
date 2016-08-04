@@ -1825,6 +1825,7 @@
 #pragma mark - 案件整理 财务管理删除
 + (void)arrangeFinanceDelWithUrl:(NSString *)url RequestSuccess:(void (^)())success
 {
+    [SVProgressHUD show];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
@@ -1845,6 +1846,7 @@
 
 + (void)arrangeRemindListWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success
 {
+    [SVProgressHUD show];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
@@ -1872,7 +1874,9 @@
 #pragma mark - 焦点历史记录
 + (void)FocusOnTheHistoryWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success fail:(void (^)())fail
 {
+    [SVProgressHUD show];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+        
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
@@ -1899,11 +1903,67 @@
         [SVProgressHUD dismiss];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
-
-    
 }
+#pragma mark - 第三方授权后判断是否已经绑定手机号
++ (void)LoginWithThirdPlatformwithURLString:(NSString *)urlString
+                             RequestSuccess:(void (^)(NSString *state, id obj))success
+{
+    [SVProgressHUD show];
+    [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
+        
+        [SVProgressHUD dismiss];
+        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+        NSString *stateCode = [NSString stringWithFormat:@"%@",jsonDic[@"state"]];
+        if (errorcode !=1) {
+            
+            [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
+            success(stateCode,nil);
+            return ;
+        }
+        UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
+        [PublicFunction ShareInstance].m_user = model;
+        [PublicFunction ShareInstance].m_bLogin = YES;
+        
+        [UMessage setAlias:[NSString stringWithFormat:@"uid_%@",UID] type:@"ZDHF" response:^(id responseObject, NSError *error) {
+            
+            DLog(@"添加成功-----%@",responseObject);
+        }];
+        [UMessage addTag:[NSString stringWithFormat:@"type_%@",[PublicFunction ShareInstance].m_user.data.type]
+                response:^(id responseObject, NSInteger remain, NSError *error) {
+                    DLog(@"添加标签成功-----%@",responseObject);
+                }];
 
+        success(stateCode,model);
+    } fail:^{
+        [SVProgressHUD dismiss];
+        [JKPromptView showWithImageName:nil message:AlrertMsg];
+    }];
 
+}
+#pragma mark - 87 解绑账号
++ (void)UnboundAccountwithURLString:(NSString *)urlString
+                     RequestSuccess:(void (^)())success
+                               fail:(void (^)())fail
+{
+    [SVProgressHUD show];
+    
+    [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
+        
+        [SVProgressHUD dismiss];
+        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+        [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
+        if (errorcode !=1) {
+            fail();
+            return ;
+        }
+        success();
+    } fail:^{
+        fail();
+        [SVProgressHUD dismiss];
+        [JKPromptView showWithImageName:nil message:AlrertMsg];
+    }];
+
+}
 
 /**
  *  判断铃声

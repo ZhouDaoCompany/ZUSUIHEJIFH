@@ -386,7 +386,18 @@
  *  焦点历史记录
  *
  */
-+ (void)FocusOnTheHistoryWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success fail:(void (^)())fail;;
++ (void)FocusOnTheHistoryWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success fail:(void (^)())fail;
+
+/**
+ *  85 第三方授权后判断是否已经绑定手机号
+ */
++ (void)LoginWithThirdPlatformwithURLString:(NSString *)urlString
+                             RequestSuccess:(void (^)(NSString *state, id obj))success;
+/**
+ *  87 解绑账号
+ */
++ (void)UnboundAccountwithURLString:(NSString *)urlString
+                     RequestSuccess:(void (^)())success fail:(void (^)())fail;;
 
 /*
  * 自动登录
