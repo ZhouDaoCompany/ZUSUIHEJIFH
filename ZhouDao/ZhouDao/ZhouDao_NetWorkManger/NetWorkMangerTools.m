@@ -45,9 +45,7 @@
         NSString *userUrl = [NSString  stringWithFormat:@"%@%@uid=%@",kProjectBaseUrl,DomainUser,UID];
         [ZhouDao_NetWorkManger GetJSONWithUrl:userUrl success:^(NSDictionary *jsonDic) {
             NSUInteger errorcode = [jsonDic[@"state"] integerValue];
-//            NSString *msg = jsonDic[@"info"];
             if (errorcode !=1) {
-//                [JKPromptView showWithImageName:nil message:msg];
                 return ;
             }
             NSDictionary *dataDic = jsonDic[@"data"];
@@ -108,11 +106,12 @@
 #pragma mark -修改用户职业
 + (void)resetUserJobInfo:(NSString *)type RequestSuccess:(void(^)())success
 {
-   /* http://zapi.zhoudao.cc/pro/api_user.php?key=16248ef5&c=uploadJob&uid=用户id&type=职业id */
+    [SVProgressHUD show];
     NSString *Url = [NSString  stringWithFormat:@"%@%@uid=%@&type=%@",kProjectBaseUrl,UploadJob,UID,type];
     
     [ZhouDao_NetWorkManger GetJSONWithUrl:Url success:^(NSDictionary *jsonDic) {
         
+        [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         [JKPromptView showWithImageName:nil message:msg];
@@ -130,10 +129,12 @@
 #pragma mark -更改通讯地址
 + (void)resetUserAddress:(NSString *)address RequestSuccess:(void(^)())success
 {
-    //http://zapi.zhoudao.cc/pro/api_user.php?key=16248ef5&c=uploadAddress&uid=用户id&address=地址-地址-地址
+    [SVProgressHUD show];
     NSString *Url = [NSString  stringWithFormat:@"%@%@uid=%@&address=%@",kProjectBaseUrl,UploadUserAddress,UID,address];
 
     [ZhouDao_NetWorkManger GetJSONWithUrl:Url success:^(NSDictionary *jsonDic) {
+        
+        [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         [JKPromptView showWithImageName:nil message:msg];
@@ -346,6 +347,7 @@
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&oldMobile=%@&NewMobile=%@",kProjectBaseUrl,ResetMobile,UID,[PublicFunction ShareInstance].m_user.data.mobile,phone];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+        
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
@@ -354,14 +356,10 @@
         if (errorcode !=1) {
             return ;
         }
-        
         [PublicFunction ShareInstance].m_user.data.mobile = phone;
-
         success();
-        
     } fail:^{
         [SVProgressHUD dismiss];
-
     }];
 }
 #pragma mark -添加日程
@@ -369,8 +367,8 @@
 {
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,RemindAdd];
-    
     [ZhouDao_NetWorkManger PostJSONWithUrl:url parameters:dictionary success:^(NSDictionary *jsonDic) {
+        
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
@@ -391,8 +389,8 @@
 {
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,RemindEditInfo];
-    
     [ZhouDao_NetWorkManger PostJSONWithUrl:url parameters:dictionary success:^(NSDictionary *jsonDic) {
+        
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
@@ -412,6 +410,7 @@
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@",kProjectBaseUrl,RemindDelete,idString,UID];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+        
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
@@ -430,6 +429,7 @@
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@type=%@&city=%@&year=%@",kProjectBaseUrl,compensationStandard,comId,city,year];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+        
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
@@ -459,6 +459,7 @@
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,compensationDetails,idstring,UID,standardCollect];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+        
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
@@ -475,7 +476,6 @@
 #pragma mark - 合同一级分类列表
 + (void)theContractFirstListRequestSuccess:(void (^)(NSArray *arrays, NSArray *nameArr,NSArray *idArrays))success fail:(void (^)())fail;
 {
-//    [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,TheContractFirstList];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         [SVProgressHUD dismiss];
@@ -655,13 +655,12 @@
         [SVProgressHUD dismiss];
     }];
 }
-/*
- * 收藏置顶
- */
+#pragma mark - 收藏置顶
 + (void)collectionTopMine:(NSString *)idString RequestSuccess:(void (^)())success{
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,collectionTop,idString,UID,templateCollect];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+        
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
@@ -674,9 +673,7 @@
         [SVProgressHUD dismiss];
     }];
 }
-/*
- * 收藏取消置顶
- */
+#pragma mark -收藏取消置顶
 + (void)collectionTopDelMine:(NSString *)idString RequestSuccess:(void (^)())success{
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,collectionTopDel,idString,UID,templateCollect];
@@ -693,9 +690,7 @@
         [SVProgressHUD dismiss];
     }];
 }
-/*
- * 收藏列表
- */
+#pragma mark - 收藏列表
 + (void)collectionListMine:(NSString *)type withPage:(NSUInteger)page RequestSuccess:(void (^)(NSArray *zdArr,NSArray *comArr))success fail:(void (^)())fail
 {
     [SVProgressHUD show];
@@ -1076,6 +1071,8 @@
 {
     NSString *nameString = [USER_D objectForKey:StoragePhone];
     NSString *passWord = [USER_D objectForKey:StoragePassword];
+    NSString *loginType = [USER_D objectForKey:StorageTYPE];
+    NSString *loginUsid = [USER_D objectForKey:StorageUSID];
     if (nameString.length>0)
     {
         NSString *loginurl = [NSString stringWithFormat:@"%@%@mobile=%@&pw=%@",kProjectBaseUrl,LoginUrlString,nameString,passWord];
@@ -1088,32 +1085,50 @@
             }else
             {
                 UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
-                [PublicFunction ShareInstance].m_user = model;
-                [PublicFunction ShareInstance].m_bLogin = YES;
-                
-                [UMessage setAlias:[NSString stringWithFormat:@"uid_%@",UID] type:@"ZDHF" response:^(id responseObject, NSError *error) {
-                    
-                    DLog(@"添加成功-----%@",responseObject);
-                }];
-                [UMessage addTag:[NSString stringWithFormat:@"type_%@",[PublicFunction ShareInstance].m_user.data.type]
-                        response:^(id responseObject, NSInteger remain, NSError *error) {
-                            DLog(@"添加标签成功-----%@",responseObject);
-                        }];
-
-//                [NetWorkMangerTools getaWekRemindsRequestSuccess:^{
-//                }];
+                [[self class] parsingUserModel:model];
             }
         } fail:^{
         }];
+    } else if (loginType.length >0){
+        
+        NSString *urlString = [NSString stringWithFormat:@"%@%@%@&s=%@",kProjectBaseUrl,ThirdPartyLogin,loginUsid,loginType];
+        [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
+            
+            NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+            if (errorcode !=1) {
+                [USER_D removeObjectForKey:StorageTYPE];
+                [USER_D removeObjectForKey:StorageUSID];
+                return ;
+            }
+            UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
+            [[self class] parsingUserModel:model];
+        } fail:^{
+            [SVProgressHUD dismiss];
+            [JKPromptView showWithImageName:nil message:AlrertMsg];
+        }];
     }
 }
-
++ (void)parsingUserModel:(UserModel *)model
+{
+    [PublicFunction ShareInstance].m_user = model;
+    [PublicFunction ShareInstance].m_bLogin = YES;
+    
+    [UMessage setAlias:[NSString stringWithFormat:@"uid_%@",UID] type:@"ZDHF" response:^(id responseObject, NSError *error) {
+        
+        DLog(@"添加成功-----%@",responseObject);
+    }];
+    [UMessage addTag:[NSString stringWithFormat:@"type_%@",[PublicFunction ShareInstance].m_user.data.type]
+            response:^(id responseObject, NSInteger remain, NSError *error) {
+                DLog(@"添加标签成功-----%@",responseObject);
+            }];
+}
 #pragma mark - 案例详情
 + (void)loadExampleDetailData:(NSString* )idString RequestSuccess:(void (^)(id obj))success;
 {
     [SVProgressHUD show];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,CaseInspeInfo,idString,UID,aboutCollect];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+        
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
@@ -1134,6 +1149,7 @@
 {
     [SVProgressHUD show];
     [ZhouDao_NetWorkManger PostJSONWithUrl:url parameters:dict success:^(NSDictionary *jsonDic) {
+        
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
@@ -1381,7 +1397,6 @@
             [cacheArr1 addObject:model];
         }];
     }
-    
     if (arr2.count >0) {
         [arr2 enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             GovListmodel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
@@ -1394,15 +1409,12 @@
             [cacheArr3 addObject:model];
         }];
     }
-    
     if (arr4.count >0) {
         [arr4 enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             BasicModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
             [cacheArr4 addObject:model];
         }];
     }
-//    if (arr1.count>0 && arr2.count>0 && arr3.count >0 && arr4.count>0) {
-
     success(cacheArr1,cacheArr2,cacheArr3,cacheArr4);
 }
 #pragma mark -首页缓存
@@ -1419,14 +1431,12 @@
             [cacheArr1 addObject:model];
         }];
     }
-    
     if (arr2.count >0) {
         [arr2 enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             BasicModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
             [cacheArr2 addObject:model];
         }];
     }
-    
     success(cacheArr1,cacheArr2);
 }
 #pragma mark - 首页全部
@@ -1535,9 +1545,7 @@
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         [SVProgressHUD dismiss];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
-//        NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
-//            [JKPromptView showWithImageName:nil message:msg];
             return ;
         }
         NSArray *arrays = jsonDic[@"data"];
@@ -1741,9 +1749,6 @@
             success(desc);
         }
         
-//        if (![version isEqualToString:[QZManager getBuildVersion]]) {
-//            success(desc);
-//        }
     } fail:^{
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
@@ -1905,8 +1910,10 @@
     }];
 }
 #pragma mark - 第三方授权后判断是否已经绑定手机号
-+ (void)LoginWithThirdPlatformwithURLString:(NSString *)urlString
-                             RequestSuccess:(void (^)(NSString *state, id obj))success
++ (void)LoginWithThirdPlatformwithPlatform:(NSString *)platform
+                                  withUsid:(NSString *)usid
+                             withURLString:(NSString *)urlString
+                            RequestSuccess:(void (^)(NSString *state, id obj))success
 {
     [SVProgressHUD show];
     [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
@@ -1915,14 +1922,20 @@
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *stateCode = [NSString stringWithFormat:@"%@",jsonDic[@"state"]];
         if (errorcode !=1) {
-            
-            [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
             success(stateCode,nil);
             return ;
         }
         UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
         [PublicFunction ShareInstance].m_user = model;
         [PublicFunction ShareInstance].m_bLogin = YES;
+        
+        //存储登录方式
+        [USER_D setObject:platform forKey:StorageTYPE];
+        [USER_D setObject:usid forKey:StorageUSID];
+        [USER_D removeObjectForKey:StoragePhone];
+        [USER_D removeObjectForKey:StoragePassword];
+
+        [USER_D synchronize];
         
         [UMessage setAlias:[NSString stringWithFormat:@"uid_%@",UID] type:@"ZDHF" response:^(id responseObject, NSError *error) {
             
@@ -1940,6 +1953,27 @@
     }];
 
 }
+#pragma mark - 单纯验证账号是否绑定过
++ (void)whetherAccountBindingOnImmediatelyWithURLString:(NSString *)urlString
+                                         RequestSuccess:(void (^)())success
+{
+    [SVProgressHUD show];
+    [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
+        
+        [SVProgressHUD dismiss];
+        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+        if (errorcode !=1) {
+            success();
+            return ;
+        }
+        [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
+
+    } fail:^{
+        [SVProgressHUD dismiss];
+        [JKPromptView showWithImageName:nil message:AlrertMsg];
+    }];
+    
+}
 #pragma mark - 87 解绑账号
 + (void)UnboundAccountwithURLString:(NSString *)urlString
                      RequestSuccess:(void (^)())success
@@ -1956,6 +1990,9 @@
             fail();
             return ;
         }
+        [USER_D removeObjectForKey:StorageTYPE];
+        [USER_D removeObjectForKey:StorageUSID];
+        [USER_D synchronize];
         success();
     } fail:^{
         fail();
@@ -1963,6 +2000,75 @@
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 
+}
+
+#pragma mark - 绑定账号
++ (void)auBindingwithPlatform:(NSString *)platform
+                     withUsid:(NSString *)usid
+                withURLString:(NSString *)urlString
+               RequestSuccess:(void (^)())success
+                         fail:(void (^)())fail
+{
+    [SVProgressHUD show];
+    [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
+        
+        [SVProgressHUD dismiss];
+        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+        [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
+        if (errorcode !=1) {
+            fail();
+            return ;
+        }
+        
+        UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
+        [PublicFunction ShareInstance].m_user = model;
+        [PublicFunction ShareInstance].m_bLogin = YES;
+        
+        //存储登录方式
+        [USER_D setObject:platform forKey:StorageTYPE];
+        [USER_D setObject:usid forKey:StorageUSID];
+        [USER_D removeObjectForKey:StoragePhone];
+        [USER_D removeObjectForKey:StoragePassword];
+        
+        [USER_D synchronize];
+
+        [UMessage setAlias:[NSString stringWithFormat:@"uid_%@",UID] type:@"ZDHF" response:^(id responseObject, NSError *error) {
+            
+            DLog(@"添加成功-----%@",responseObject);
+        }];
+        [UMessage addTag:[NSString stringWithFormat:@"type_%@",[PublicFunction ShareInstance].m_user.data.type]
+                response:^(id responseObject, NSInteger remain, NSError *error) {
+                    DLog(@"添加标签成功-----%@",responseObject);
+                }];
+
+        success();
+    } fail:^{
+        fail();
+        [SVProgressHUD dismiss];
+        [JKPromptView showWithImageName:nil message:AlrertMsg];
+    }];
+}
+#pragma mark - 88 单纯绑定账号 不登录
++ (void)pureAuBindingURLString:(NSString *)urlString
+                RequestSuccess:(void (^)())success
+                          fail:(void (^)())fail
+{
+    [SVProgressHUD show];
+    [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
+        
+        [SVProgressHUD dismiss];
+        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+        if (errorcode !=1) {
+            [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
+            fail();
+            return ;
+        }
+        success();
+    } fail:^{
+        fail();
+        [SVProgressHUD dismiss];
+        [JKPromptView showWithImageName:nil message:AlrertMsg];
+    }];
 }
 
 /**

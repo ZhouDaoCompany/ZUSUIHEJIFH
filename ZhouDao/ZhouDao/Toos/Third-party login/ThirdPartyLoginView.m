@@ -102,21 +102,20 @@
                 DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
                 
                 NSString *url = [NSString stringWithFormat:@"%@%@%@&s=3",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
-                [NetWorkMangerTools LoginWithThirdPlatformwithURLString:url RequestSuccess:^(NSString *state, id obj) {
+                [NetWorkMangerTools LoginWithThirdPlatformwithPlatform:@"3" withUsid:snsAccount.usid withURLString:url RequestSuccess:^(NSString *state, id obj) {
                     
                     if ([state isEqualToString:@"1"]) {
                         if ([weakSelf.delegate respondsToSelector:@selector(isBoundToLoginSuccessfully)])
                         {
                             [weakSelf.delegate isBoundToLoginSuccessfully];
                         }
-
+                        
                     }else {
-                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:)])
+                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:withs:)])
                         {
-                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid];
+                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid withs:@"3"];
                         }
                     }
-                    
                 }];
 
             }
@@ -138,7 +137,7 @@
                 DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
                 
                 NSString *url = [NSString stringWithFormat:@"%@%@%@&s=1",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
-                [NetWorkMangerTools LoginWithThirdPlatformwithURLString:url RequestSuccess:^(NSString *state, id obj) {
+                [NetWorkMangerTools LoginWithThirdPlatformwithPlatform:@"1" withUsid:snsAccount.usid withURLString:url RequestSuccess:^(NSString *state, id obj) {
                     
                     if ([state isEqualToString:@"1"]) {
                         if ([weakSelf.delegate respondsToSelector:@selector(isBoundToLoginSuccessfully)])
@@ -147,9 +146,9 @@
                         }
                         
                     }else {
-                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:)])
+                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:withs:)])
                         {
-                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid];
+                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid withs:@"1"];
                         }
                     }
                     
@@ -172,7 +171,7 @@
                 DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
                 
                 NSString *url = [NSString stringWithFormat:@"%@%@%@&s=2",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
-                [NetWorkMangerTools LoginWithThirdPlatformwithURLString:url RequestSuccess:^(NSString *state, id obj) {
+                [NetWorkMangerTools LoginWithThirdPlatformwithPlatform:@"2" withUsid:snsAccount.usid withURLString:url RequestSuccess:^(NSString *state, id obj) {
                     
                     if ([state isEqualToString:@"1"]) {
                         if ([weakSelf.delegate respondsToSelector:@selector(isBoundToLoginSuccessfully)])
@@ -181,9 +180,9 @@
                         }
                         
                     }else {
-                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:)])
+                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:withs:)])
                         {
-                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid];
+                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid withs:@"2"];
                         }
                     }
                     

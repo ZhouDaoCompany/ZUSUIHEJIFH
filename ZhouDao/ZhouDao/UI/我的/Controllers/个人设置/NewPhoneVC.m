@@ -13,6 +13,8 @@
 @interface NewPhoneVC ()<UITextFieldDelegate>
 {
     NSString *_codeStr;//验证码
+    NSString *_phoneString;//验证手机号是否是同一个
+
 }
 @property (nonatomic, strong) UITextField *codeText;
 @property (nonatomic, strong) UITextField *phoneText;
@@ -153,15 +155,18 @@
                 return;
             }
             
-            if (![_codeText.text isEqualToString:_codeStr]) {
+            if (![_codeText.text isEqualToString:_codeStr] || ![_phoneText.text isEqualToString:_phoneString]) {
                 [JKPromptView showWithImageName:nil message:@"验证码错误!"];
                 return;
             }
             
             [NetWorkMangerTools resetPhoneNumber:_phoneText.text RequestSuccess:^{
                 
-                [USER_D setObject:_phoneText.text forKey:StoragePhone];
-                [USER_D synchronize];
+                NSString *loginType = [USER_D objectForKey:StorageTYPE];
+                if (loginType.length == 0) {
+                    [USER_D setObject:_phoneText.text forKey:StoragePhone];
+                    [USER_D synchronize];
+                }
 
                 [weakSelf.navigationController popToRootViewControllerAnimated:YES];
             }];
@@ -203,6 +208,7 @@
 #pragma mark - timer相关
 - (void)timerInit:(id)sender
 {
+    _phoneString = _phoneText.text;
     JKCountDownButton *btn = (JKCountDownButton *)sender;
     btn.enabled = NO;
     [sender startCountDownWithSecond:60];

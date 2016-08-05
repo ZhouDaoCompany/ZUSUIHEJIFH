@@ -21,6 +21,7 @@
     BOOL _isLook;
     NSString *_typeString;//职业类型
     NSString *_codeStr;//验证码
+    NSString *_phoneString;//验证手机号是否是同一个
 }
 
 @end
@@ -42,6 +43,7 @@
 {
     _codeStr = @"";
     _typeString = @"9";
+    _phoneString = @"";
     [self setupNaviBarWithTitle:@"注册"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Count_close_normal_"];
     
@@ -346,6 +348,7 @@
 #pragma mark - timer相关
 - (void)timerInit:(id)sender
 {
+    _phoneString = _phoneText.text;
     JKCountDownButton *btn = (JKCountDownButton *)sender;
     btn.enabled = NO;
     [sender startCountDownWithSecond:60];
@@ -388,7 +391,7 @@
     }else if(_codeText.text.length <=0){
         [JKPromptView showWithImageName:nil message:@"请您检查验证码是否填写"];
         return;
-    }else if(![_codeText.text isEqualToString:_codeStr]){
+    }else if(![_codeText.text isEqualToString:_codeStr] || ![_phoneText.text isEqualToString:_phoneString]){
         [JKPromptView showWithImageName:nil message:@"验证码不正确"];
         return;
     }else if (_professionalLab.text.length <=0){
@@ -446,6 +449,9 @@
         }
         [USER_D setObject:_phoneText.text forKey:StoragePhone];
         [USER_D setObject:[_keyText.text md5] forKey:StoragePassword];
+        [USER_D removeObjectForKey:StorageTYPE];
+        [USER_D removeObjectForKey:StorageUSID];
+
         [USER_D synchronize];
         UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
         [PublicFunction ShareInstance].m_user = model;

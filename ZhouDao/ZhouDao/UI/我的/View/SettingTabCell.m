@@ -16,10 +16,6 @@
 @end
 @implementation SettingTabCell
 
-//- (void)awakeFromNib {
-//    // Initialization code
-//
-//}
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -153,15 +149,24 @@
         
         if (_row == 0) {
             
+            if ([PublicFunction ShareInstance].m_user.data.wx_au.length >0) {
+                [_switchButton setOn:YES];
+            }
             _nameLab.text = @"微信";
             _lineView.hidden = NO;
 
         }else if (_row == 1){
-            _nameLab.text = @"腾讯QQ信";
+            if ([PublicFunction ShareInstance].m_user.data.qq_au.length >0) {
+                [_switchButton setOn:YES];
+            }
+            _nameLab.text = @"腾讯QQ";
             _lineView.hidden = NO;
 
 
         }else {
+            if ([PublicFunction ShareInstance].m_user.data.wb_au.length >0) {
+                [_switchButton setOn:YES];
+            }
             _nameLab.text = @"新浪微博";
             _lineView.hidden = YES;
         }
@@ -176,14 +181,17 @@
     
     if (isButton) {
         DLog(@"open");
-        [self OpenTheBindingWith];
+        [self OpenTheBindingWith:switchButton];
 
     }else{
         DLog(@"close");
-        [self removeTheBinding];
+        [self removeTheBinding:switchButton];
     }
 }
-- (void)OpenTheBindingWith{
+- (void)OpenTheBindingWith:(UISwitch *)switchBtn{
+    
+    NSString *nameString = [PublicFunction ShareInstance].m_user.data.mobile;
+    NSString *typeString = [PublicFunction ShareInstance].m_user.data.type;
     
     if (_row == 0) {
         //微信
@@ -195,9 +203,21 @@
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-                DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
+                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=3",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
+                [NetWorkMangerTools whetherAccountBindingOnImmediatelyWithURLString:url RequestSuccess:^{
+                    
+                    NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&type=%@&udid=%@&sy=%@&ly=%@",kProjectBaseUrl,AuBindingURLString,snsAccount.usid,@"3",nameString,typeString,@"",@"2",@"2"];
+                    [NetWorkMangerTools pureAuBindingURLString:urlString RequestSuccess:^{
+                        
+                    } fail:^{
+                        [switchBtn setOn:NO];//失败关闭
+                    }];
+                }];
+                
+            } else {
+                
+                [switchBtn setOn:NO];//失败关闭
             }
-            
         });
         
     } else if (_row == 1) {
@@ -212,8 +232,21 @@
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-                DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
-            }});
+                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=1",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
+                [NetWorkMangerTools whetherAccountBindingOnImmediatelyWithURLString:url RequestSuccess:^{
+                    
+                    NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&type=%@&udid=%@&sy=%@&ly=%@",kProjectBaseUrl,AuBindingURLString,snsAccount.usid,@"1",nameString,typeString,@"",@"2",@"2"];
+                    [NetWorkMangerTools pureAuBindingURLString:urlString RequestSuccess:^{
+                        
+                    } fail:^{
+                        [switchBtn setOn:NO];//失败关闭
+                    }];
+                }];
+                
+            } else {
+                [switchBtn setOn:NO];//失败关闭
+            }
+        });
         
     } else {
         //新浪
@@ -222,39 +255,72 @@
         snsPlatform.loginClickHandler(_ParentView,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
             
             //          获取微博用户名、uid、token等
-            
             if (response.responseCode == UMSResponseCodeSuccess) {
                 
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-                DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
-            }});
+                
+                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=2",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
+                [NetWorkMangerTools whetherAccountBindingOnImmediatelyWithURLString:url RequestSuccess:^{
+                    
+                    NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&type=%@&udid=%@&sy=%@&ly=%@",kProjectBaseUrl,AuBindingURLString,snsAccount.usid,@"2",nameString,typeString,@"",@"2",@"2"];
+                    [NetWorkMangerTools pureAuBindingURLString:urlString RequestSuccess:^{
+                        
+                    } fail:^{
+                        [switchBtn setOn:NO];//失败关闭
+                    }];
+                }];
+                
+            } else {
+                [switchBtn setOn:NO];//失败关闭
+            }
+        });
     }
 
 }
-- (void)removeTheBinding
+- (void)removeTheBinding:(UISwitch *)switchBtn
 {
     if (_row == 0) {
         //微信
-        NSString *URL = [NSString stringWithFormat:@"%@%@au=%@&s=%@&uid=%@",kProjectBaseUrl,AuBindingOCURL,[PublicFunction ShareInstance].m_user.data.qq_au,@"3",UID];
+        NSString *URL = [NSString stringWithFormat:@"%@%@au=%@&s=%@&uid=%@",kProjectBaseUrl,AuBindingOCURL,[PublicFunction ShareInstance].m_user.data.wx_au,@"3",UID];
         [NetWorkMangerTools UnboundAccountwithURLString:URL
                                          RequestSuccess:^{
                                              
                                          } fail:^{
                                              
+                                             [switchBtn setOn:YES];
                                          }];
         
     } else if (_row == 1) {
         //QQ
+        NSString *URL = [NSString stringWithFormat:@"%@%@au=%@&s=%@&uid=%@",kProjectBaseUrl,AuBindingOCURL,[PublicFunction ShareInstance].m_user.data.qq_au,@"1",UID];
+        [NetWorkMangerTools UnboundAccountwithURLString:URL
+                                         RequestSuccess:^{
+                                             
+                                         } fail:^{
+                                             
+                                             [switchBtn setOn:YES];
+                                         }];
         
     } else {
         //新浪
-        [[UMSocialDataService defaultDataService] requestUnOauthWithType:UMShareToSina  completion:^(UMSocialResponseEntity *response){
-            DLog(@"response is %@",response);
-            
-        }];
+        NSString *URL = [NSString stringWithFormat:@"%@%@au=%@&s=%@&uid=%@",kProjectBaseUrl,AuBindingOCURL,[PublicFunction ShareInstance].m_user.data.qq_au,@"2",UID];
+        [NetWorkMangerTools UnboundAccountwithURLString:URL
+                                         RequestSuccess:^{
+                                             
+                                             [[UMSocialDataService defaultDataService] requestUnOauthWithType:UMShareToSina  completion:^(UMSocialResponseEntity *response){
+                                                 DLog(@"response is %@",response);
+                                                 
+                                             }];
+
+                                         } fail:^{
+                                             
+                                             [switchBtn setOn:YES];
+                                         }];
+
     }
 }
 - (void)dealloc {
+    
     TTVIEW_RELEASE_SAFELY(_nameLab);
     TTVIEW_RELEASE_SAFELY(_addresslab);
     TTVIEW_RELEASE_SAFELY(_headImg);

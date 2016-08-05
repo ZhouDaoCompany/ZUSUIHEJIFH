@@ -108,6 +108,7 @@
     
 }
 #pragma mark -getters and seters
+#pragma mark -第三方登录
 - (ThirdPartyLoginView *)loginView
 {
     if (!_loginView) {
@@ -121,9 +122,11 @@
 {
     [self rightBtnAction];
 }
-- (void)unboundedAccountToBindwithUsid:(NSString *)usid
+- (void)unboundedAccountToBindwithUsid:(NSString *)usid withs:(NSString *)sString
 {
     BindingViewController *bindVC = [BindingViewController new];
+    bindVC.sString = sString;
+    bindVC.usid = usid;
     [self.navigationController pushViewController:bindVC animated:YES];
 }
 #pragma mark -手势
@@ -217,6 +220,9 @@
                 
                 [USER_D setObject:_nameText.text forKey:StoragePhone];
                 [USER_D setObject:[_keyText.text md5] forKey:StoragePassword];
+                [USER_D removeObjectForKey:StorageTYPE];
+                [USER_D removeObjectForKey:StorageUSID];
+
                 [USER_D synchronize];
                 UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
                 [PublicFunction ShareInstance].m_user = model;
@@ -250,7 +256,6 @@
             break;
     }
 }
-#pragma mark -第三方登录
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {

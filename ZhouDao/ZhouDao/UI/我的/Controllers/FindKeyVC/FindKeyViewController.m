@@ -13,6 +13,7 @@
 {
     BOOL _isLook;
     NSString *_codeStr;//验证码
+    NSString *_phoneString;//验证手机号是否是同一个
 }
 @end
 @implementation FindKeyViewController
@@ -155,7 +156,7 @@
             }else if(_codeText.text.length <=0){
                 [JKPromptView showWithImageName:nil message:@"请您检查验证码是否填写!"];
                 return;
-            }else if(![_codeText.text isEqualToString:_codeStr]){
+            }else if(![_codeText.text isEqualToString:_codeStr] || ![_phoneText.text isEqualToString:_phoneString]){
                 [JKPromptView showWithImageName:nil message:@"验证码不正确!"];
                 return;
             }else if ([QZManager isValidatePassword:_keyText.text] == NO)
@@ -179,6 +180,9 @@
                 
                 [USER_D setObject:_phoneText.text forKey:StoragePhone];
                 [USER_D setObject:[_keyText.text md5] forKey:StoragePassword];
+                [USER_D removeObjectForKey:StorageTYPE];
+                [USER_D removeObjectForKey:StorageUSID];
+
                 [USER_D synchronize];
                 
                 self.findBlock(_phoneText.text);
@@ -197,6 +201,7 @@
 #pragma mark - timer相关
 - (void)timerInit:(id)sender
 {
+    _phoneString = _phoneText.text;
     JKCountDownButton *btn = (JKCountDownButton *)sender;
     btn.enabled = NO;
     [sender startCountDownWithSecond:60];

@@ -420,7 +420,16 @@
 /*
  登录密码
  */
-#define StoragePassword                @"storageKey"
+#define   StoragePassword              @"storageKey"
+/*
+ 三方登录方式QQ 微信 新浪微博
+ */
+#define   StorageTYPE                  @"loginType"
+/*
+ 三方登录uSid
+ */
+#define   StorageUSID                  @"otherLoginUSid"
+
 /*
  请求失败 提示语
  */

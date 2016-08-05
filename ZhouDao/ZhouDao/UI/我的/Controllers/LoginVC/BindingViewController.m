@@ -17,6 +17,7 @@
     BOOL _isLook;
     NSString *_typeString;//职业类型
     NSString *_codeStr;//验证码
+    NSString *_phoneString;//验证手机号是否是同一个
 
 }
 @property (strong, nonatomic)  UIScrollView *bigScrollView;
@@ -64,9 +65,10 @@
     [self.view addSubview:self.bigScrollView];
     
     
-    /*************************有注册 注册**************************************/
+    /*************************没注册 注册**************************************/
     _codeStr = @"";
     _typeString = @"9";
+    _phoneString = @"";
     [self.bigScrollView addSubview:self.bottomView ];
     
     float bottomWith = _bottomView.frame.size.width;
@@ -177,7 +179,15 @@
     UIImageView *logCodeImg  = [[UIImageView alloc] initWithFrame:CGRectMake(10, 55, 18, 21)];
     logCodeImg.image = kGetImage(@"login_key");
     [_bottomView2    addSubview:logCodeImg];
-
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textFieldChanged:)
+                                                 name:UITextFieldTextDidChangeNotification
+                                               object:self.loginKeyText];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textFieldChanged:)
+                                                 name:UITextFieldTextDidChangeNotification
+                                               object:self.loginNameText];
 }
 #pragma mark - private methods
 #pragma mark -getters add setters
@@ -215,6 +225,7 @@
 - (UITextField *)phoneText
 {
     if (!_phoneText) {
+        
         _phoneText = [[UITextField alloc] initWithFrame:CGRectMake(40, 5, _bottomView.frame.size.width -40, 30)];
         _phoneText.borderStyle = UITextBorderStyleNone;
         _phoneText.delegate = self;
@@ -228,6 +239,7 @@
 - (UITextField *)codeText
 {
     if (!_codeText) {
+        
         _codeText = [[UITextField alloc] initWithFrame:CGRectMake(40, 45, _bottomView.frame.size.width -140, 30)];
         _codeText.delegate = self;
         _codeText.tag = 3021;
@@ -240,6 +252,7 @@
 - (JKCountDownButton *)getCodeBtn
 {
     if (!_getCodeBtn) {
+        
         _getCodeBtn = [JKCountDownButton buttonWithType:UIButtonTypeCustom];
         _getCodeBtn.frame = CGRectMake(_bottomView.frame.size.width-100, 40, 100, 40);
         _getCodeBtn.backgroundColor  = LRRGBAColor(0, 201, 173, 1);
@@ -254,6 +267,7 @@
 - (UITextField *)keyText
 {
     if (!_keyText) {
+        
         _keyText = [[UITextField alloc] initWithFrame:CGRectMake(40, 85, _bottomView.frame.size.width -140, 30)];
         _keyText.delegate = self;
         _keyText.tag = 3022;
@@ -407,6 +421,10 @@
         if (textField.text.length >11) {
             textField.text = [textField.text substringToIndex:11 ];
         }
+    } else if (textField.tag == 3024) {
+        if (textField.text.length >11) {
+            textField.text = [textField.text substringToIndex:11 ];
+        }
     }
 }
 #pragma mark -UITextFieldDelegate
@@ -420,19 +438,106 @@
 }
 #pragma mark - event response
 - (void)bindingBtnEvent:(UIButton *)sender
-{
+{    WEAKSELF;
     NSInteger tag = sender.tag;
     
     if (tag == 3023) {
+        //注册并绑定
+        if (_phoneText.text.length<=0) {
+            [JKPromptView showWithImageName:nil message:@"请您检查手机号码是否填写"];
+            return;
+        }else if (_keyText.text.length <=0){
+            [JKPromptView showWithImageName:nil message:@"请您检查密码是否填写"];
+            return;
+        }else if(_codeText.text.length <=0){
+            [JKPromptView showWithImageName:nil message:@"请您检查验证码是否填写"];
+            return;
+        }else if(![_codeText.text isEqualToString:_codeStr] || ![_phoneText.text isEqualToString:_phoneString]){
+            [JKPromptView showWithImageName:nil message:@"验证码不正确"];
+            return;
+        }else if (_professionalLab.text.length <=0){
+            [JKPromptView showWithImageName:nil message:@"请您检查职业是否选择"];
+            return;
+        }else if ([QZManager isValidatePassword:_keyText.text] == NO)
+        {
+            [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合，请您仔细检查"];
+            return;
+        }else if ([QZManager isIncludeSpecialCharact:_keyText.text]){
+            [JKPromptView showWithImageName:nil message:@"密码中包含非法字符，请您检查"];
+            return;
+        }
+        NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&pw=%@&type=%@&udid=%@&sy=%@",kProjectBaseUrl,AuBindingURLString,weakSelf.usid,weakSelf.sString,_phoneText.text,[_keyText.text md5],_typeString,@"",@"1"];
+        [NetWorkMangerTools auBindingwithPlatform:_sString withUsid:_usid withURLString:urlString RequestSuccess:^{
+            
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+            }];
+        } fail:^{
+            
+        }];
+
+    }else {
+        //登录并绑定
         
-    }else {//3026
+        if (_loginNameText.text.length<=0) {
+            [JKPromptView showWithImageName:nil message:@"请您检查手机号码是否填写"];
+            return;
+        }else if (_loginKeyText.text.length <=0){
+            [JKPromptView showWithImageName:nil message:@"请您检查密码是否填写"];
+            return;
+        }else if ([QZManager isValidatePassword:_loginKeyText.text] == NO)
+        {
+            [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合，请您仔细检查"];
+            return;
+        }else if ([QZManager isIncludeSpecialCharact:_loginKeyText.text]){
+            [JKPromptView showWithImageName:nil message:@"密码中包含非法字符，请您检查"];
+            return;
+        }
         
+        NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&pw=%@&type=%@&udid=%@&sy=%@",kProjectBaseUrl,AuBindingURLString,weakSelf.usid,weakSelf.sString,_loginNameText.text,[_loginKeyText.text md5],_typeString,@"",@"2"];
+        [NetWorkMangerTools auBindingwithPlatform:_sString withUsid:_usid withURLString:urlString RequestSuccess:^{
+            
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        } fail:^{
+        }];
     }
 }
 - (void)getCodeBtnEvent:(id)sender
+{    DLog(@"发送验证码");
+    if (_phoneText.text.length == 11  && [QZManager isPureInt:_phoneText.text] == YES)
+    {
+        [NetWorkMangerTools validationPhoneNumber:_phoneText.text RequestSuccess:^{
+            
+            [self timerInit:sender];
+            CCPRestSDK* ccpRestSdk = [[CCPRestSDK alloc] initWithServerIP:YTXSEVERIP andserverPort:YTXPORT];
+            [ccpRestSdk setApp_ID:YTXAPPID];
+            [ccpRestSdk enableLog:YES];
+            [ccpRestSdk setAccountWithAccountSid: YTXACCOUNSID andAccountToken:YTXAUTHTOKEN];
+            _codeStr = [QZManager getSixEvent];
+            NSArray*  arr = [NSArray arrayWithObjects:_codeStr,@"验证码" ,nil];
+            [ccpRestSdk sendTemplateSMSWithTo:_phoneText.text andTemplateId:YTXTEMPLATE andDatas:arr];
+
+        } fail:^(NSString *msg) {
+            [JKPromptView showWithImageName:nil message:msg];
+        }];
+    }
+}
+#pragma mark - timer相关
+- (void)timerInit:(id)sender
 {
-    DLog(@"获取验证码");
-    
+    _phoneString = _phoneText.text;//保持手机号一致
+    JKCountDownButton *btn = (JKCountDownButton *)sender;
+    btn.enabled = NO;
+    [sender startCountDownWithSecond:60];
+    [sender countDownChanging:^NSString *(JKCountDownButton *countDownButton,NSUInteger second) {
+        NSString *title = [NSString stringWithFormat:@"%zd秒",second];
+        return title;
+    }];
+    [sender countDownFinished:^NSString *(JKCountDownButton *countDownButton, NSUInteger second) {
+        countDownButton.enabled = YES;
+        return @"重新获取";
+    }];
 }
 #pragma mark -手势
 - (void)dismissKeyBoard{

@@ -22,5 +22,5 @@
 @protocol ThirdPartyLoginPro <NSObject>
 
 - (void)isBoundToLoginSuccessfully;
-- (void)unboundedAccountToBindwithUsid:(NSString *)usid;
+- (void)unboundedAccountToBindwithUsid:(NSString *)usid withs:(NSString *)sString;
 @end

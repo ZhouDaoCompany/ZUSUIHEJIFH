@@ -251,9 +251,10 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
         if (buttonIndex == 0) {
             [USER_D removeObjectForKey:StoragePhone];
             [USER_D removeObjectForKey:StoragePassword];
+            [USER_D removeObjectForKey:StorageTYPE];
+            [USER_D removeObjectForKey:StorageUSID];
             [USER_D removeObjectForKey:keyIdentifer];
             [USER_D removeObjectForKey:SearchIdentifer];
-            
             [USER_D synchronize];
             
             //删除别名

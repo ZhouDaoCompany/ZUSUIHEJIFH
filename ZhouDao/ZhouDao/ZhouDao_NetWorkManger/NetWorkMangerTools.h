@@ -391,14 +391,34 @@
 /**
  *  85 第三方授权后判断是否已经绑定手机号
  */
-+ (void)LoginWithThirdPlatformwithURLString:(NSString *)urlString
++ (void)LoginWithThirdPlatformwithPlatform:(NSString *)platform
+                                  withUsid:(NSString *)usid
+                             withURLString:(NSString *)urlString
                              RequestSuccess:(void (^)(NSString *state, id obj))success;
+
++ (void)whetherAccountBindingOnImmediatelyWithURLString:(NSString *)urlString
+                                         RequestSuccess:(void (^)())success;
 /**
  *  87 解绑账号
  */
 + (void)UnboundAccountwithURLString:(NSString *)urlString
-                     RequestSuccess:(void (^)())success fail:(void (^)())fail;;
+                     RequestSuccess:(void (^)())success
+                               fail:(void (^)())fail;
 
+/**
+ *  88 绑定账号
+ */
++ (void)auBindingwithPlatform:(NSString *)platform
+                     withUsid:(NSString *)usid
+                withURLString:(NSString *)urlString
+            RequestSuccess:(void (^)())success
+                      fail:(void (^)())fail;
+/**
+ *  88 单纯绑定账号 不登录
+ */
++ (void)pureAuBindingURLString:(NSString *)urlString
+                RequestSuccess:(void (^)())success
+                          fail:(void (^)())fail;
 /*
  * 自动登录
  */
