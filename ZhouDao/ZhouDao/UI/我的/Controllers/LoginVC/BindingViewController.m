@@ -493,7 +493,7 @@
             return;
         }
         
-        NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&pw=%@&type=%@&udid=%@&sy=%@",kProjectBaseUrl,AuBindingURLString,weakSelf.usid,weakSelf.sString,_loginNameText.text,[_loginKeyText.text md5],_typeString,@"",@"2"];
+        NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&pw=%@&udid=%@&sy=%@",kProjectBaseUrl,AuBindingURLString,weakSelf.usid,weakSelf.sString,_loginNameText.text,[_loginKeyText.text md5],@"",@"2"];
         [NetWorkMangerTools auBindingwithPlatform:_sString withUsid:_usid withURLString:urlString RequestSuccess:^{
             
             [weakSelf dismissViewControllerAnimated:YES completion:^{

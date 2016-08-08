@@ -1,0 +1,404 @@
+<!doctype html>
+
+<head>
+    <title>鸟巢模板在线编辑器</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="codemirror.css">
+    <link rel="stylesheet" href="foldgutter.css"/>
+    <script type="text/javascript" src="jsl.format.js"></script>
+    <script type="text/javascript" src="jsl.parser.js"></script>
+    <script type="text/javascript" src="codemirror-compressed.js"></script>
+    <script type="text/javascript" src="zepto.min.js"></script>
+    <style type="text/css">
+
+        html, body {
+            margin: 0;
+            font-family: 'courier', 'serif';
+        }
+
+        .editor_tab {
+            float: left;
+            line-height: 28px;
+            display: block;
+            height: 28px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-family: 'courier', 'serif';
+            cursor: pointer;
+            text-align: center;
+            color: #000;
+            background: #fff;
+            font-size: 14px;
+            margin-right: 4px;
+            font-weight: bold;
+            min-width: 80px;
+        }
+
+        .editor_tab.hover {
+            color: #fff;
+            background: #64B8E4;
+        }
+
+        .Contentbox {
+            clear: both;
+            margin-top: 0px;
+            border-top: none;
+            padding-top: 8px;
+            height: 100%;
+        }
+
+        #tplIdInput {
+            flex: 1;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-family: courier, serif;
+            font-size: 14px;
+            margin-left: 10px;
+            margin-right: 10px;
+            height: 24px;
+            border: none
+        }
+
+        #btAddTab {
+            background-color: #3060D0;
+            color: white;
+            font-size: 20px;
+            outline: none;
+            border: none;
+            width: 28px;
+            height: 28px;
+        }
+
+        #editor {
+            border: none;
+            margin: 0 auto;
+            height: 100%;
+            width: 100%;
+            padding-top: 4px;
+            background: #ccc;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+
+        .tab_host {
+            display: flex;
+            flex-direction: row;
+            height: 28px;
+            background: #ccc;
+            border: none;
+        }
+
+        #tabHost {
+            border: none;
+        }
+
+        #btDelete {
+            font-size: 14px;
+            width: 72px;
+            height: 24px;
+            border: none;
+            color: #fff;
+            background-color: #a00;
+            margin-right: 4px;
+        }
+
+        .btFunction {
+            min-width: 60px;
+            height: 30px;
+            text-align: center;
+            display: block;
+            margin-left: 10px;
+            vertical-align: middle;
+            font-size: 14px;
+            font-family: courier, serif;
+            outline: none;
+            border: none;
+            background-color: #aaaaaa;
+        }
+
+        .btFunction:hover {
+            color: #eee;
+            background-color: #0055aa;
+        }
+    </style>
+</head>
+
+<body style="padding-left:12px; padding-right: 20px;background:#ddd;">
+<div style="display:flex;align-items:center;">
+    <h4 style="flex:1;">鸟巢模板在线编辑器</h4>
+    <button id="render" style="border-color:transparent; background-color: #f00;
+                color: #fff; font-weight: bold; font-size: 16px;cursor: pointer;
+                width:120px; height:30px; font-family: courier,serif" type="button">Run >
+    </button>
+</div>
+
+<div id="editor">
+    <div class="tab_host">
+        <div id="tabHost">
+        </div>
+        <button id="btAddTab" onclick="addEditor();">+</button>
+    </div>
+    <div id="tabContent" class="Contentbox">
+
+    </div>
+</div>
+
+<div id="editorModule"
+     style="visibility: hidden; display:flex; flex-direction:column; ">
+    <div style="display:flex;align-items:center;">
+        <label style="">模板Id:</label>
+        <input id="tplIdInput" type="text"/>
+        <button id="btDelete">删除
+        </button>
+    </div>
+    <div style="display:flex; width:100%; flex:1;margin-top:10px">
+        <div style="flex:1;margin-bottom: 1em;">
+            <div style="display:flex; flex-direction: row; padding-bottom: 5px">
+                <label style="height:30px;display:block;">HTML模板</label>
+            </div>
+            <textarea id="tplcontent" placeholder="请在这儿输入你的模板内容（HTML格式）"></textarea>
+        </div>
+        <div style="width: 480px;margin-bottom: 1em;">
+            <div style="display:flex; flex-direction: row; padding-bottom: 5px">
+                <label style="height:30px; text-align:center; line-height: 30px; display:block;">JSON数据</label>
+                <button id="btFormatJson" class="btFunction">格式化</button>
+                <button id="btCheckJson" class="btFunction">校验</button>
+            </div>
+            <textarea id="tpldata" placeholder="请在这儿输入你的模板数据（JSON格式）">{}</textarea>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    console.log("window width " + window.screen.width + " height " + window.screen.height);
+    var editors = {};
+    var tmpNewIndexCounter = 1;
+    var currentTabTplId;
+    var editorModule = document.getElementById("editorModule");
+    document.body.removeChild(editorModule);
+
+    function addEditor() {
+        var tabId = "tab_" + new Date().getTime();
+        var tempTplId = "unnamedTemplate_" + tmpNewIndexCounter++;
+
+        // tab节点
+        var newTab = document.createElement("div");
+        newTab.className = "editor_tab";
+        newTab.id = tabId;
+        newTab.innerText = tempTplId;
+        newTab.onclick = function () {
+            setTab(tabId);
+        };
+        document.getElementById("tabHost").appendChild(newTab);
+
+        // 编辑器节点
+        var newEditor = editorModule.cloneNode(true);
+        newEditor.id = "editor_" + tabId;
+        newEditor.style.visibility = "visible";
+        document.getElementById("tabContent").appendChild(newEditor);
+
+        var editor = createEditor(newTab, newEditor);
+        editor.setTplIdShow(tempTplId);
+        editors[tabId] = editor;
+
+        // 设置tab
+        setTab(tabId);
+    }
+
+    function setTab(tabId) {
+        var tabs = document.getElementById("tabHost").children;
+        var editorList = document.getElementById("tabContent").children;
+        var length = tabs.length;
+        for (var i = 0; i < length; i++) {
+            tabs[i].className = (tabs[i].id == tabId)
+                    ? "editor_tab hover" : "editor_tab";
+        }
+        length = editorList.length;
+        for (i = 0; i < length; i++) {
+            var display = "none";
+            var editor = editorList[i];
+            if (editor.id == "editor_" + tabId) {
+                display = "block";
+                currentTabTplId = editors[tabId].getTplId();
+            }
+            editor.style.display = display;
+        }
+    }
+
+    function createEditor(tabDiv, editorDiv) {
+        var textareas = editorDiv.getElementsByTagName("textarea");
+        var dataEditor = CodeMirror.fromTextArea(textareas[1], {
+            mode: {
+                "name": "javascript",
+                "json": true
+            },
+            lineNumbers: true,
+            lineWrapping: true,
+            extraKeys: {
+                "Ctrl-Q": function (cm) {
+                    cm.foldCode(cm.getCursor());
+                }
+            },
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+        });
+        var tplEditor = CodeMirror.fromTextArea(textareas[0], {
+            mode: "htmlmixed",
+            lineNumbers: true,
+            lineWrapping: true,
+            extraKeys: {
+                "Ctrl-Q": function (cm) {
+                    cm.foldCode(cm.getCursor());
+                }
+            },
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+        });
+        var editor = {
+            id: editorDiv.id,
+            tab: tabDiv,
+            tplIdInput: editorDiv.getElementsByTagName("input")[0],
+            deleteButton: editorDiv.getElementsByTagName("button")[0],
+            btFormatJson: editorDiv.getElementsByTagName("button")[1],
+            btCheckJson: editorDiv.getElementsByTagName("button")[2],
+            tplContentInput: tplEditor,
+            tplDataInput: dataEditor,
+
+            getTabId: function () {
+                return this.tab.id;
+            },
+
+            getEditorId: function () {
+                return this.id;
+            },
+
+            setTplIdShow: function (tplId) {
+                this.tplIdInput.value = tplId;
+                this.tab.innerText = tplId;
+            },
+
+            getTplId: function () {
+                return this.tplIdInput.value;
+            },
+
+            getTplContent: function () {
+                return this.tplContentInput.getDoc().getValue();
+            },
+
+            getTplData: function () {
+                return this.tplDataInput.getDoc().getValue();
+            },
+
+            setTplData: function (text) {
+                this.tplDataInput.getDoc().setValue(text);
+            }
+        };
+
+        editor.tplIdInput.onkeypress = function () {
+            var key = window.event.keyCode;
+            if (key == 13) {
+                editor.updateTplId();
+                return false;
+            } else {
+                return true;
+            }
+        };
+
+        editor.tplIdInput.onblur = function () {
+            editor.updateTplId();
+        };
+
+        editor.updateTplId = function () {
+            var newTplId = editor.getTplId();
+            var oldTplId = editor.tab.innerText;
+            if (oldTplId != newTplId) {
+                editor.setTplIdShow(newTplId);
+            }
+        }
+
+        editor.deleteButton.onclick = function () {
+            if (confirm("是否删除模板[" + editor.getTplId() + "]")) {
+                var index = 0;
+                var tabHost = document.getElementById("tabHost");
+                var tabCount = tabHost.children.length;
+                for (var i = 0; i < tabCount; i++) {
+                    if (tabHost.children[i].id == editor.getTabId()) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                tabHost.removeChild(editor.tab);
+                document.getElementById("tabContent").removeChild(editorDiv);
+                delete editors[editor.id];
+                if (tabCount > 1) {
+                    if (index > 0) {
+                        index -= 1;
+                    }
+                    setTab(tabHost.children[index].id);
+                } else {
+                    addEditor();
+                }
+            }
+        };
+
+        editor.btFormatJson.onclick = function () {
+            var jsonText = editor.getTplData();
+            editor.setTplData(jsl.format.formatJson(jsonText));
+        };
+
+        editor.btCheckJson.onclick = function () {
+            var jsonText = editor.getTplData();
+            jsonText = jsl.format.formatJson(jsonText);
+            editor.setTplData(jsl.format.formatJson(jsonText));
+            var result, error;
+            try {
+                result = jsl.parser.parse(jsonText);
+            } catch (e) {
+                error = e;
+            }
+
+            if (error !== undefined) {
+                console.log("parse result: " + error);
+                alert(error);
+            }
+        };
+
+        return editor;
+    }
+
+    window.onload = function () {
+        addEditor();
+    };
+</script>
+
+<script type="text/javascript">
+    $('#render').on('click', function (e) {
+        var package = {};
+        for (var editorId in editors) {
+            var editor = editors[editorId];
+            package[editor.getTplId()] = JSON.stringify({
+                'tplcontent': editor.getTplContent(),
+                'tpldata': editor.getTplData()
+            });
+        }
+        $.ajax({
+            'url': "/update",
+            'type': 'POST',
+            'data': {
+                'tplId': currentTabTplId,
+                'tplcontent': "{}",
+                'tpldata': "{}",
+                'package': JSON.stringify(package),
+            },
+            'success': function () {
+                alert('success');
+            },
+            'error': function (e) {
+            }
+        });
+    });
+
+</script>
+</body>
