@@ -74,7 +74,7 @@
         [self setIFlyVoice];
         [NetWorkMangerTools isAutoLogin];
         //监测版本
-        [self MonitorVersion];
+        [self checkVersionUpdate];
         
     });
     //友盟分享
@@ -147,7 +147,7 @@
      */
 }
 #pragma mark -监测版本
-- (void)MonitorVersion{
+- (void)checkVersionUpdate{
     
     [NetWorkMangerTools checkHistoryVersionRequestSuccess:^(NSString *desc) {
         
@@ -262,7 +262,6 @@
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"presentView"
                                                         object:userInfo];
-    
 }
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

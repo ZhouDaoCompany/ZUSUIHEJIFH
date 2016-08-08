@@ -1932,8 +1932,8 @@
         //存储登录方式
         [USER_D setObject:platform forKey:StorageTYPE];
         [USER_D setObject:usid forKey:StorageUSID];
-        [USER_D removeObjectForKey:StoragePhone];
-        [USER_D removeObjectForKey:StoragePassword];
+//        [USER_D removeObjectForKey:StoragePhone];
+//        [USER_D removeObjectForKey:StoragePassword];
 
         [USER_D synchronize];
         
@@ -2019,7 +2019,6 @@
             fail();
             return ;
         }
-        
         UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
         [PublicFunction ShareInstance].m_user = model;
         [PublicFunction ShareInstance].m_bLogin = YES;
@@ -2027,8 +2026,8 @@
         //存储登录方式
         [USER_D setObject:platform forKey:StorageTYPE];
         [USER_D setObject:usid forKey:StorageUSID];
-        [USER_D removeObjectForKey:StoragePhone];
-        [USER_D removeObjectForKey:StoragePassword];
+//        [USER_D removeObjectForKey:StoragePhone];
+//        [USER_D removeObjectForKey:StoragePassword];
         
         [USER_D synchronize];
 

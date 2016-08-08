@@ -498,6 +498,7 @@
 		18EE958C1D2373150030AE2B /* AddFinanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE958B1D2373150030AE2B /* AddFinanceVC.m */; };
 		18EE95901D237C040030AE2B /* FinanceTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE958F1D237C040030AE2B /* FinanceTabCell.m */; };
 		18EE95951D23E5B70030AE2B /* case_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EE95941D23E5B70030AE2B /* case_up@2x.png */; };
+		18EE9F051D586A4400F217BD /* Gov_Edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EE9F041D586A4400F217BD /* Gov_Edit@2x.png */; };
 		18F2F19F1CBDDAD70068453D /* case_juanzong4s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F19E1CBDDAD70068453D /* case_juanzong4s@2x.png */; };
 		18F2F1A11CBDE0930068453D /* case_juanzong6p@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F1A01CBDE0930068453D /* case_juanzong6p@3x.png */; };
 		18F2F1A71CBE157B0068453D /* ExampleSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F1A61CBE157B0068453D /* ExampleSearchVC.m */; };
@@ -1291,6 +1292,7 @@
 		18EE958E1D237C040030AE2B /* FinanceTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceTabCell.h; sourceTree = "<group>"; };
 		18EE958F1D237C040030AE2B /* FinanceTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceTabCell.m; sourceTree = "<group>"; };
 		18EE95941D23E5B70030AE2B /* case_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_up@2x.png"; sourceTree = "<group>"; };
+		18EE9F041D586A4400F217BD /* Gov_Edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gov_Edit@2x.png"; sourceTree = "<group>"; };
 		18F2F19E1CBDDAD70068453D /* case_juanzong4s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_juanzong4s@2x.png"; sourceTree = "<group>"; };
 		18F2F1A01CBDE0930068453D /* case_juanzong6p@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_juanzong6p@3x.png"; sourceTree = "<group>"; };
 		18F2F1A51CBE157B0068453D /* ExampleSearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleSearchVC.h; sourceTree = "<group>"; };
@@ -1527,6 +1529,7 @@
 				185838851D49B9FC00C6A0EE /* gov_NoReview@2x.png */,
 				185838861D49B9FC00C6A0EE /* gov_Review@2x.png */,
 				182D31B11D4B083A00883660 /* gov_SelectLoc@2x.png */,
+				18EE9F041D586A4400F217BD /* Gov_Edit@2x.png */,
 			);
 			path = "司法机关";
 			sourceTree = "<group>";
@@ -3729,6 +3732,7 @@
 				18FBD84B1CED90CD00674D1E /* case_wenjainjia@2x.png in Resources */,
 				18FF42DA1C97AF6F00C6B29A /* MoveTopTabViewCell.xib in Resources */,
 				1856A0EB1D4F35150070B93E /* glyphicons-halflings-regular.eot in Resources */,
+				18EE9F051D586A4400F217BD /* Gov_Edit@2x.png in Resources */,
 				1065C34D1CA91BA4003F4089 /* law_yuyin@2x.png in Resources */,
 				1856A0F81D4F35150070B93E /* bootstrap-datetimepicker.cs.js in Resources */,
 				188F9E3A1CF81AB7000F9B2D /* laws_lawsSearch@2x.png in Resources */,

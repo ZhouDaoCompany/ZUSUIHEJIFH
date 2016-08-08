@@ -209,6 +209,8 @@
                     NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&type=%@&udid=%@&sy=%@&ly=%@",kProjectBaseUrl,AuBindingURLString,snsAccount.usid,@"3",nameString,typeString,@"",@"2",@"2"];
                     [NetWorkMangerTools pureAuBindingURLString:urlString RequestSuccess:^{
                         
+                        [PublicFunction ShareInstance].m_user.data.wx_au = snsAccount.usid;
+                        
                     } fail:^{
                         [switchBtn setOn:NO];//失败关闭
                     }];
@@ -238,6 +240,8 @@
                     NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&type=%@&udid=%@&sy=%@&ly=%@",kProjectBaseUrl,AuBindingURLString,snsAccount.usid,@"1",nameString,typeString,@"",@"2",@"2"];
                     [NetWorkMangerTools pureAuBindingURLString:urlString RequestSuccess:^{
                         
+                        [PublicFunction ShareInstance].m_user.data.qq_au = snsAccount.usid;
+                        
                     } fail:^{
                         [switchBtn setOn:NO];//失败关闭
                     }];
@@ -265,6 +269,8 @@
                     NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&type=%@&udid=%@&sy=%@&ly=%@",kProjectBaseUrl,AuBindingURLString,snsAccount.usid,@"2",nameString,typeString,@"",@"2",@"2"];
                     [NetWorkMangerTools pureAuBindingURLString:urlString RequestSuccess:^{
                         
+                        [PublicFunction ShareInstance].m_user.data.wb_au = snsAccount.usid;
+
                     } fail:^{
                         [switchBtn setOn:NO];//失败关闭
                     }];
@@ -278,13 +284,17 @@
 
 }
 - (void)removeTheBinding:(UISwitch *)switchBtn
-{
+{WEAKSELF;
+    
     if (_row == 0) {
         //微信
         NSString *URL = [NSString stringWithFormat:@"%@%@au=%@&s=%@&uid=%@",kProjectBaseUrl,AuBindingOCURL,[PublicFunction ShareInstance].m_user.data.wx_au,@"3",UID];
         [NetWorkMangerTools UnboundAccountwithURLString:URL
                                          RequestSuccess:^{
                                              
+                                             [PublicFunction ShareInstance].m_user.data.wx_au = @"";
+                                             [weakSelf chooseAWayToLogin];
+
                                          } fail:^{
                                              
                                              [switchBtn setOn:YES];
@@ -296,6 +306,9 @@
         [NetWorkMangerTools UnboundAccountwithURLString:URL
                                          RequestSuccess:^{
                                              
+                                             [PublicFunction ShareInstance].m_user.data.qq_au = @"";
+                                             [weakSelf chooseAWayToLogin];
+                                             
                                          } fail:^{
                                              
                                              [switchBtn setOn:YES];
@@ -303,10 +316,12 @@
         
     } else {
         //新浪
-        NSString *URL = [NSString stringWithFormat:@"%@%@au=%@&s=%@&uid=%@",kProjectBaseUrl,AuBindingOCURL,[PublicFunction ShareInstance].m_user.data.qq_au,@"2",UID];
+        NSString *URL = [NSString stringWithFormat:@"%@%@au=%@&s=%@&uid=%@",kProjectBaseUrl,AuBindingOCURL,[PublicFunction ShareInstance].m_user.data.wb_au,@"2",UID];
         [NetWorkMangerTools UnboundAccountwithURLString:URL
                                          RequestSuccess:^{
                                              
+                                             [PublicFunction ShareInstance].m_user.data.wb_au = @"";
+                                             [weakSelf chooseAWayToLogin];
                                              [[UMSocialDataService defaultDataService] requestUnOauthWithType:UMShareToSina  completion:^(UMSocialResponseEntity *response){
                                                  DLog(@"response is %@",response);
                                                  
@@ -318,6 +333,28 @@
                                          }];
 
     }
+}
+
+- (void)chooseAWayToLogin
+{
+    if ([PublicFunction ShareInstance].m_user.data.wx_au.length > 0) {
+        
+        [USER_D setObject:[PublicFunction ShareInstance].m_user.data.wx_au forKey:StorageUSID];
+        [USER_D setObject:@"3" forKey:StorageTYPE];
+        [USER_D synchronize];
+    }else if ([PublicFunction ShareInstance].m_user.data.wb_au.length > 0){
+        
+        [USER_D setObject:[PublicFunction ShareInstance].m_user.data.wb_au forKey:StorageUSID];
+        [USER_D setObject:@"2" forKey:StorageTYPE];
+        [USER_D synchronize];
+        
+    }else if ([PublicFunction ShareInstance].m_user.data.qq_au.length > 0){
+        
+        [USER_D setObject:[PublicFunction ShareInstance].m_user.data.qq_au forKey:StorageUSID];
+        [USER_D setObject:@"1" forKey:StorageTYPE];
+        [USER_D synchronize];
+    }
+    
 }
 - (void)dealloc {
     

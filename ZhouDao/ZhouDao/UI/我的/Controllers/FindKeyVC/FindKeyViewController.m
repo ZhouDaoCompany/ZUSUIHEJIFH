@@ -180,8 +180,8 @@
                 
                 [USER_D setObject:_phoneText.text forKey:StoragePhone];
                 [USER_D setObject:[_keyText.text md5] forKey:StoragePassword];
-                [USER_D removeObjectForKey:StorageTYPE];
-                [USER_D removeObjectForKey:StorageUSID];
+//                [USER_D removeObjectForKey:StorageTYPE];
+//                [USER_D removeObjectForKey:StorageUSID];
 
                 [USER_D synchronize];
                 

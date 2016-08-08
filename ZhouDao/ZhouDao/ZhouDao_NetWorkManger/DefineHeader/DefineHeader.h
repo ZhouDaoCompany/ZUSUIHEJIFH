@@ -136,6 +136,17 @@ else\
 tmp = value;\
 tmp;\
 })\
+
+
+
+#define TT_RELEASE_SAFELY(__REF) \
+{\
+if (nil != (__REF)) \
+{\
+__REF = nil;\
+}\
+}
+
 //view安全释放
 #define TTVIEW_RELEASE_SAFELY(__REF) \
 {\
@@ -144,6 +155,13 @@ if (nil != (__REF))\
 [__REF removeFromSuperview];\
 __REF = nil;\
 }\
+}
+
+//释放定时器
+#define TT_INVALIDATE_TIMER(__TIMER) \
+{\
+[__TIMER invalidate];\
+__TIMER = nil;\
 }
 
 /**
