@@ -158,7 +158,6 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
             
             FindKeyViewController *findVC = [FindKeyViewController new];
             findVC.findBlock = ^(NSString *str){
-                
             };
             [self.navigationController pushViewController:findVC animated:YES];
             
