@@ -65,6 +65,10 @@
                                                     name:noticeName
                                                   object:object];
 }
++ (void)removeAllNotification:(id)observer
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:observer];
+}
 
 
 @end

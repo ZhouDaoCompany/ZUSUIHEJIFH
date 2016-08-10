@@ -40,6 +40,9 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
     }
     return _callPhoneWebView;
 }
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

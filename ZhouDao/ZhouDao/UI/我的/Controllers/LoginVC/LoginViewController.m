@@ -29,10 +29,9 @@
 @end
 
 @implementation LoginViewController
-- (void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

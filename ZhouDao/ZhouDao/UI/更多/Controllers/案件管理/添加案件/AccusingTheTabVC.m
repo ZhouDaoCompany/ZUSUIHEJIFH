@@ -34,6 +34,9 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
     }
     return _callPhoneWebView;
 }
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -41,5 +41,5 @@ typedef void(^GcNoticeHander)();
 + (void)handleNotification:(NSString *)noticeName Selector:(SEL)selector Observer:(id)observer Object:(id)object;
 
 + (void)removeNotification:(NSString *)noticeName Observer:(id)observer Object:(id)object;
-
++ (void)removeAllNotification:(id)observer;
 @end

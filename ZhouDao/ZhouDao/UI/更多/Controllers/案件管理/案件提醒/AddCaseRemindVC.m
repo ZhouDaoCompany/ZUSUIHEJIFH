@@ -31,7 +31,9 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
 @end
 
 @implementation AddCaseRemindVC
-
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
