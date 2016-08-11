@@ -102,7 +102,7 @@
         UIButton *buttonClose = [UIButton buttonWithType:UIButtonTypeCustom];
         buttonClose.frame = CGRectMake(60, -5, 25, 25);
         buttonClose.tag = 3000 + i;
-        [buttonClose setBackgroundImage:[UIImage imageNamed:@"mine-close"] forState:UIControlStateNormal];
+        [buttonClose setBackgroundImage:[UIImage imageNamed:@"close_icon_highlight"] forState:UIControlStateNormal];
         [buttonClose addTarget:self action:@selector(deletePhoto:) forControlEvents:UIControlEventTouchUpInside];
         [iv addSubview:buttonClose];
 
@@ -166,18 +166,17 @@
     if (_imgArrays.count == 0)
     {
         [NetWorkMangerTools feedBackWithImage:nil withPhone:phoneS withContent:_msgText.text RequestSuccess:^{
+            
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
     }else{
         [NetWorkMangerTools getQiNiuToken:NO RequestSuccess:^{
             [NetWorkMangerTools feedBackWithImage:_imgArrays[0] withPhone:phoneS withContent:_msgText.text RequestSuccess:^{
+                
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }];
         }];
     }
-    
-    
-    
 }
 #pragma mark -提交
 #pragma mark -选取照片
@@ -201,7 +200,6 @@
     
     for (UIImageView *currentSubView in _picScrolView.subviews)
     {
-        
         if (deletedPhoto == currentSubView.tag)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -210,13 +208,10 @@
                 {
                     [imgView removeFromSuperview];
                 }
-                
                 [self selectPhotoMethod];
             });
         }
-        
     }
-
 }
 
 #pragma mark -选择相机
@@ -252,6 +247,7 @@
     if (photoArr.count >0) {
         [self.imgArrays addObjectsFromArray:photoArr];
         dispatch_async(dispatch_get_main_queue(), ^{
+            
             [self selectPhotoMethod];
         });
     }

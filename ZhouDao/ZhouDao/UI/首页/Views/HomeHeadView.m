@@ -78,6 +78,7 @@
     _horizontalScrollView = [[DPHorizontalScrollView alloc] initWithFrame:CGRectMake(0, Orgin_y(_cycleScrollView), width, 110)];
     _horizontalScrollView.scrollViewDelegate = self;
     _horizontalScrollView.showsHorizontalScrollIndicator = NO;
+    _horizontalScrollView.scrollsToTop = NO;
     [self addSubview:_horizontalScrollView];
     
     _sectionView = [[UIView alloc] initWithFrame: CGRectMake(0, height-55, width, 10)];

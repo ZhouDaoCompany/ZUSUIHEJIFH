@@ -70,6 +70,7 @@
         _scView.contentSize = CGSizeMake(width, height*3);
         _scView.showsHorizontalScrollIndicator = NO;
         _scView.showsVerticalScrollIndicator = NO;
+        _scView.scrollsToTop = NO;
         [_scView setTranslatesAutoresizingMaskIntoConstraints:YES];
     }
     return _scView;

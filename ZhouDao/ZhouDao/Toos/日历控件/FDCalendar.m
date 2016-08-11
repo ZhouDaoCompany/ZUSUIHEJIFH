@@ -172,6 +172,7 @@ static NSDateFormatter *dateFormattor;
 - (void)setupScrollView {
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
+    self.scrollView.scrollsToTop = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.backgroundColor = [UIColor clearColor];

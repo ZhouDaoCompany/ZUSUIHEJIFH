@@ -38,7 +38,7 @@
     [self.view addSubview:self.smallScrollView];
     self.smallScrollView.showsHorizontalScrollIndicator = NO;
     self.smallScrollView.showsVerticalScrollIndicator = NO;
-    
+    self.smallScrollView.scrollsToTop = NO;
     [self addChildController];
     [self addLable];
     
@@ -55,7 +55,7 @@
     self.bigScrollView.pagingEnabled = YES;
     self.bigScrollView.scrollEnabled = NO;
     self.bigScrollView.delegate = self;
-    
+    self.bigScrollView.scrollsToTop = NO;
     // 添加默认控制器
     CollectionTableVC *vc = [self.childViewControllers firstObject];
     vc.typeString = @"1";

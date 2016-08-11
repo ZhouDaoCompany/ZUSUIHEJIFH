@@ -18,6 +18,7 @@
 #import "MapNavViewController.h"
 #import "NavMapWindow.h"
 #import "ZD_Window.h"
+#import "GovHECViewController.h"
 
 static NSString *const DetailCellIdentifier = @"DetailCellIdentifier";
 static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
@@ -26,22 +27,17 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 {
 }
 @property(nonatomic, strong) AMapSearchAPI *search;
-@property (strong,nonatomic) UITableView *tableView;
-@property (nonatomic, strong) UIWebView *callPhoneWebView;
-@property (nonatomic, strong) AMapNaviPoint *endPoint; //导航时候 目标终点
-@property (nonatomic, strong) AMapNaviPoint *startPoint;
-@property (nonatomic, strong) AMapLocationManager *locationService;//定位服务
-
+@property (nonatomic, strong)  UITableView *tableView;
+@property (nonatomic, strong)  UIWebView *callPhoneWebView;
+@property (nonatomic, strong)  AMapNaviPoint *endPoint; //导航时候 目标终点
+@property (nonatomic, strong)  AMapNaviPoint *startPoint;
+@property (nonatomic, strong)  AMapLocationManager *locationService;//定位服务
+@property (nonatomic, strong)  UIButton *storeBtn;//收藏
+@property (nonatomic, strong)  UIButton *errorBtn;//纠错
 @end
 
 @implementation GovernmentDetailVC
-#pragma mark -打电话
-- (UIWebView *)callPhoneWebView {
-    if (!_callPhoneWebView) {
-        _callPhoneWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
-    }
-    return _callPhoneWebView;
-}
+#pragma mark - life cycle
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -61,23 +57,12 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 {
     [self setupNaviBarWithTitle:@"详情"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
-    if ([self.model.is_collection  integerValue] == 0) {
-        [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_shoucang"];
-    }else{
-        [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_SC"];
-    }
 
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-139.f) style:UITableViewStylePlain];
-    //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.showsHorizontalScrollIndicator= NO;
-    self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [self.view addSubview:_tableView];
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.errorBtn];
+    [self.view addSubview:self.storeBtn];
     
+    self.view.backgroundColor = [UIColor whiteColor];
     UILabel *footLab = [[UILabel alloc] initWithFrame:CGRectMake(45, kMainScreenHeight - 60.f, kMainScreenWidth - 90.f, 30.f)];
     footLab.backgroundColor = LRRGBColor(233.f, 229.f, 228.f);
     footLab.textColor = LRRGBColor(135.f, 131.f, 130.f);
@@ -234,10 +219,10 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
                     GovListmodel *tempModel = (GovListmodel *)obj;
                      _model = tempModel;
                     if ([weakSelf.model.is_collection  integerValue] == 0) {
-                        [weakSelf setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_shoucang"];
+                        [weakSelf.storeBtn setImage:kGetImage(@"template_shoucang") forState:0];
                         [weakSelf govCollectionMethod];
                     }else{
-                        [weakSelf setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_SC"];
+                        [weakSelf.storeBtn setImage:kGetImage(@"template_SC") forState:0];
                     }
                 }];
             }
@@ -251,18 +236,69 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     }else{
         [NetWorkMangerTools collectionDelMine:_model.id withType:govCollect RequestSuccess:^{
             _model.is_collection = @0;
-            [weakSelf setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_shoucang"];
+            [weakSelf.storeBtn setImage:kGetImage(@"template_shoucang") forState:0];
         }];
     }
 }
 - (void)govCollectionMethod{
-     WEAKSELF;
+    WEAKSELF;
     NSString *timeSJC = [NSString stringWithFormat:@"%ld",(long)[[NSDate date] timeIntervalSince1970]];
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:govCollect,@"type",_model.id,@"article_id",_model.name,@"article_title",_model.address,@"article_subtitle",timeSJC,@"article_time",UID,@"uid", nil];
     [NetWorkMangerTools collectionAddMine:dictionary RequestSuccess:^{
+        
         _model.is_collection = @1;
-        [weakSelf setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_SC"];
+        [weakSelf.storeBtn setImage:kGetImage(@"template_SC") forState:0];
     }];
+}
+- (void)goToErrorEvent:(id)sender
+{
+    GovHECViewController *vc = [GovHECViewController new];
+    vc.model = _model;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+#pragma mark - getters and setters
+- (UIButton *)storeBtn
+{
+    if (!_storeBtn) {
+        _storeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _storeBtn.frame = CGRectMake(kMainScreenWidth -45.f,27.f, 30, 30);
+        if ([self.model.is_collection  integerValue] == 0) {
+            [_storeBtn setImage:kGetImage(@"template_shoucang") forState:0];
+        }else{
+            [_storeBtn setImage:kGetImage(@"template_SC") forState:0];
+        }
+        [_storeBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _storeBtn;
+}
+- (UIButton *)errorBtn
+{
+    if (!_errorBtn) {
+        _errorBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _errorBtn.frame = CGRectMake(kMainScreenWidth - 90.f,27.f, 30, 30);
+        [_errorBtn setImage:kGetImage(@"Gov_Edit") forState:0];
+        [_errorBtn addTarget:self action:@selector(goToErrorEvent:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _errorBtn;
+}
+#pragma mark -打电话
+- (UIWebView *)callPhoneWebView {
+    if (!_callPhoneWebView) {
+        _callPhoneWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    }
+    return _callPhoneWebView;
+}
+- (UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-139.f) style:UITableViewStylePlain];
+        _tableView.showsHorizontalScrollIndicator= NO;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    }
+    return _tableView;
 }
 #pragma mark -获取地理位置信息
 - (void)userLocationService

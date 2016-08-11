@@ -301,12 +301,14 @@
         _leftTableView.separatorColor = [UIColor colorWithRed:220.f/255.0f green:220.f/255.0f blue:220.f/255.0f alpha:1.0];
         _leftTableView.dataSource = self;
         _leftTableView.delegate = self;
-        
+        _leftTableView.scrollsToTop = NO;
+
         _rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.frame.size.width, self.frame.origin.y + self.frame.size.height, 0, 0) style:UITableViewStyleGrouped];
         _rightTableView.rowHeight = 40;
         _rightTableView.separatorColor = [UIColor colorWithRed:220.f/255.0f green:220.f/255.0f blue:220.f/255.0f alpha:1.0];
         _rightTableView.dataSource = self;
         _rightTableView.delegate = self;
+        _rightTableView.scrollsToTop = NO;
         
         UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
         flowLayout.minimumInteritemSpacing = 0;
@@ -316,7 +318,7 @@
         _collectionView.backgroundColor = [UIColor colorWithRed:220.f/255.0f green:220.f/255.0f blue:220.f/255.0f alpha:1.0];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        
+        _collectionView.scrollsToTop = NO;
         
         self.autoresizesSubviews = NO;
         _leftTableView.autoresizesSubviews = NO;

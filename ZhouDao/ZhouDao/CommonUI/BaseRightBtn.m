@@ -18,8 +18,8 @@
     
     if (self.imageView.image && self.titleLabel.text.length >0) {
         self.titleLabel.textAlignment = NSTextAlignmentRight;
-        rectFrame = CGRectMake(0, 12, self.frame.size.width - 25, 20);
-        imgFrame = CGRectMake(self.frame.size.width - 25, 6, 20, 30);
+        rectFrame = CGRectMake(0, 12, self.frame.size.width - 28, 20);
+        imgFrame = CGRectMake(self.frame.size.width - 28, 6, 20, 30);
     }else if (!self.imageView.image && self.titleLabel.text.length >0){
         self.titleLabel.textAlignment = NSTextAlignmentLeft;
         rectFrame = CGRectMake(0, 12, self.frame.size.width, 20);
