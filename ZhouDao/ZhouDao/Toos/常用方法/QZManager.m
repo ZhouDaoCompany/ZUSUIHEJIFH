@@ -1052,10 +1052,10 @@ singleton_for_class(QZManager)
 + (void)setLayerAndBezierPathCutCircularWithView:(UIView *) view
 {
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
-    CAShapeLayer *layer = [[CAShapeLayer alloc] init];
-    layer.frame = view.bounds;
-    layer.path = path.CGPath;
-    view.layer.mask = layer;
+    CAShapeLayer *layers = [[CAShapeLayer alloc] init];
+    layers.frame = view.bounds;
+    layers.path = path.CGPath;
+    view.layer.mask = layers;
 }
 
 #pragma mark - 使用Core Graphics框架 和 UIBezierPath 画出一个圆角

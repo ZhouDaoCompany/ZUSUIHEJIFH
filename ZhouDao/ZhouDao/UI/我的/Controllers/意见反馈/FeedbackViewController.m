@@ -154,7 +154,6 @@
     }
     NSString *phoneS = [PublicFunction ShareInstance].m_user.data.mobile;
     
-//    DLog(@"iiiiii-----%@",([ConFunc isPureInt:_phoneTextF.text]== YES)?@"Yes":@"No");
     if (_phoneTextF.text.length > 0) {
         if (_phoneTextF.text.length != 11  || [QZManager isPureInt:_phoneTextF.text] == NO) {
             [JKPromptView showWithImageName:nil message:@"请您填写正确的号吗!"];
@@ -170,12 +169,16 @@
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
     }else{
-        [NetWorkMangerTools getQiNiuToken:NO RequestSuccess:^{
-            [NetWorkMangerTools feedBackWithImage:_imgArrays[0] withPhone:phoneS withContent:_msgText.text RequestSuccess:^{
-                
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+        kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+            
+            [NetWorkMangerTools getQiNiuToken:NO RequestSuccess:^{
+                [NetWorkMangerTools feedBackWithImage:_imgArrays[0] withPhone:phoneS withContent:_msgText.text RequestSuccess:^{
+                    kDISPATCH_MAIN_THREAD((^{
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    }));
+                }];
             }];
-        }];
+        });
     }
 }
 #pragma mark -提交

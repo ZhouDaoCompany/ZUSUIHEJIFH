@@ -532,15 +532,20 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"" withType:RenameType];
     delWindow.renameBlock = ^(NSString *name){
         //[QZManager stringFromDate:[NSDate date]]
-        [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+        kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
             
-            [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"image/jpeg" RequestSuccess:^(NSString *key) {
-                [NetWorkMangerTools arrangeFileAddwithPid:@"" withName:name withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
-                    [weakSelf loadListViewData];
+            [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+                [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"image/jpeg" RequestSuccess:^(NSString *key) {
+                    [NetWorkMangerTools arrangeFileAddwithPid:@"" withName:name withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
+                        
+                        kDISPATCH_MAIN_THREAD((^{
+                            [weakSelf loadListViewData];
+                        }));
+                    }];
+                } fail:^{
                 }];
-            } fail:^{
             }];
-        }];
+        });
     };
     [self.view addSubview:delWindow];
 }

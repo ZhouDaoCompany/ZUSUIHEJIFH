@@ -323,14 +323,20 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
         _headImage = [QZManager compressOriginalImage:photoArr[0] toSize:imgSize];
 //        _headImage = photoArr[0];
         WEAKSELF;
-        [NetWorkMangerTools getQiNiuToken:NO RequestSuccess:^{
+        kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
             
-            [NetWorkMangerTools uploadUserHeadImg:_headImage RequestSuccess:^{
+            [NetWorkMangerTools getQiNiuToken:NO RequestSuccess:^{
                 
-//                weakSelf.headBlock();
-                [weakSelf.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
+                [NetWorkMangerTools uploadUserHeadImg:_headImage RequestSuccess:^{
+                    
+                    //                weakSelf.headBlock();
+                    kDISPATCH_MAIN_THREAD((^{
+                        [weakSelf.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
+                    }));
+                }];
             }];
-        }];
+
+        });
         
     }
 }

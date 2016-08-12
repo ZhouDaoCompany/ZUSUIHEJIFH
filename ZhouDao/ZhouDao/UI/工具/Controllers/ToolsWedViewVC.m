@@ -103,7 +103,6 @@
         }
         
         [_webView loadURL:_url];
-
     }
     
     if (_singleTap) {
@@ -228,9 +227,7 @@
     DLog(@"开始加载");
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [SVProgressHUD dismiss];
-    });
+    [SVProgressHUD dismiss];
     DLog(@"加载完成");
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error{

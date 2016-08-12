@@ -23,4 +23,9 @@
 + (void)makeAnimationFade:(UIViewController *)nextVc :(UINavigationController *)nav;
 + (void)makeAnimationFade:(UINavigationController *)nav;
 
+
+
++ (CGAffineTransform)transformForOrientation;
+
+
 @end

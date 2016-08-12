@@ -10,7 +10,6 @@
 
 @interface ZD_Window : UIView
 
-@property (nonatomic ,strong)UIView *zd_superView;
 
 -(void)zd_Windowclose;
 

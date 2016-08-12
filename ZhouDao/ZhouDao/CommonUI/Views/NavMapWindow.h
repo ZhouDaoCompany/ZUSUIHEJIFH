@@ -12,6 +12,7 @@
 
 @property (nonatomic ,strong) UIView *zd_superView;
 @property (nonatomic, copy) ZDStringBlock navBlock;
+
 -(void)zd_Windowclose;
 
 @end

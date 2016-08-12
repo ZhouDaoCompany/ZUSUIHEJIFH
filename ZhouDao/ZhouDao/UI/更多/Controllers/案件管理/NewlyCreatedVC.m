@@ -143,21 +143,29 @@
     DLog(@"路径打印出来－－－－%@",textFilePath);
     [_contentTextView.text writeToFile:textFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     NSData *data = [FILE_M contentsAtPath:textFilePath];
-    [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
-        [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"txt" RequestSuccess:^(NSString *key) {
-            [NetWorkMangerTools arrangeFileAddwithPid:_pid withName:weakSelf.nameTextField.text withFileType:@"1" withtformat:@"3" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
-                DetaillistModel *model = (DetaillistModel *)obj;
-                //上传成功后 把文件名字修改为id名字
-                [FILE_M removeItemAtPath:namePath error:nil];
-                NSString *textFilePath = [casePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.txt",model.id]];
-                [_contentTextView.text writeToFile:textFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-                weakSelf.creatSuccess();
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+    
+    kDISPATCH_GLOBAL_QUEUE_DEFAULT((^{
+        
+        [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+            [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"txt" RequestSuccess:^(NSString *key) {
+                [NetWorkMangerTools arrangeFileAddwithPid:_pid withName:weakSelf.nameTextField.text withFileType:@"1" withtformat:@"3" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
+                    
+                    kDISPATCH_MAIN_THREAD((^{
+                        
+                        DetaillistModel *model = (DetaillistModel *)obj;
+                        //上传成功后 把文件名字修改为id名字
+                        [FILE_M removeItemAtPath:namePath error:nil];
+                        NSString *textFilePath = [casePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.txt",model.id]];
+                        [weakSelf.contentTextView.text writeToFile:textFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+                        weakSelf.creatSuccess();
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    }));
+                }];
+            } fail:^{
+                [FILE_M removeItemAtPath:textFilePath error:nil];
             }];
-        } fail:^{
-            [FILE_M removeItemAtPath:textFilePath error:nil];
         }];
-    }];
+    }));
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -7,6 +7,7 @@
 //
 
 #import "AnimationTools.h"
+
 /**
  *  主屏的宽
  */
@@ -112,47 +113,34 @@
 }
 
 
++ (CGAffineTransform)transformForOrientation
+{
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (orientation == UIInterfaceOrientationLandscapeLeft) {
+        return CGAffineTransformMakeRotation(M_PI*1.5f);
+    } else if (orientation == UIInterfaceOrientationLandscapeRight) {
+        return CGAffineTransformMakeRotation(M_PI/2.0f);
+    } else if (orientation == UIInterfaceOrientationPortraitUpsideDown) {
+        return CGAffineTransformMakeRotation(-M_PI);
+    } else {
+        return CGAffineTransformIdentity;
+    }
+}
 /*
- 
- #import "SDCycleScrollView.h"
- SDCycleScrollViewDelegate
- @property (strong,nonatomic) SDCycleScrollView *cycleScrollView;
- 
- _dataArrays = [NSMutableArray arrayWithObjects:@"http://a.hiphotos.baidu.com/zhidao/pic/item/18d8bc3eb13533fafae9926cabd3fd1f41345b10.jpg",@"http://g.hiphotos.baidu.com/zhidao/pic/item/86d6277f9e2f0708fe8a5fd1eb24b899a801f250.jpg",@"http://www.mangowed.com/uploads/allimg/141128/1-14112Q245551T.jpg",@"http://c.hiphotos.baidu.com/zhidao/pic/item/d6ca7bcb0a46f21f94b67c2af5246b600d33aecc.jpg",@"http://b.zol-img.com.cn/desk/bizhi/image/4/960x600/1387880566676.jpg", nil];
- 
- NSArray *titleArrays = [NSArray arrayWithObjects:@"上穷碧落下黄泉",@"两处茫茫皆不见",@"在天愿作比翼鸟",@"在地愿为连理枝",@"此恨绵绵无绝期", nil];
- 
- _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, -180, kMainScreenWidth, 180) delegate:self placeholderImage:[UIImage imageNamed:@""]];
- _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
- _cycleScrollView.autoScroll = NO;
- _cycleScrollView.titleLabelHeight = 20.f;
- _cycleScrollView.titleLabelTextFont = Font_14;
- _cycleScrollView.currentPageDotColor = [UIColor colorWithHexString:@"#ffa055"];
- _cycleScrollView.pageControlDotSize = CGSizeMake(4, 4);
- _cycleScrollView.imageURLStringsGroup = _dataArrays;
- _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
- _cycleScrollView.titlesGroup = titleArrays;
- _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
- _cycleScrollView.autoresizingMask = YES;
- 
- self.automaticallyAdjustsScrollViewInsets = NO;
- [self.tableView addSubview:_cycleScrollView];
- //    self.tableView.tableHeaderView = _cycleScrollView;
- 
  - (void)scrollViewDidScroll:(UIScrollView *)scrollView
  {
- //    //y值向下拉的时候是负的值
- //    CGFloat yOffset = scrollView.contentOffset.y;
- //    //    NSLog(@"此时的Y坐标    %lf",y);
- //    if (yOffset < -180)
- //    {
- //        CGRect frame = _cycleScrollView.frame;
- //        frame.origin.y = yOffset;
- //        frame.size.height = - yOffset;
- //        _cycleScrollView.frame = frame;
- //    }
+     //y值向下拉的时候是负的值
+     CGFloat yOffset = scrollView.contentOffset.y;
+     //    NSLog(@"此时的Y坐标    %lf",y);
+     if (yOffset < -180)
+     {
+         CGRect frame = _cycleScrollView.frame;
+         frame.origin.y = yOffset;
+         frame.size.height = - yOffset;
+         _cycleScrollView.frame = frame;
+     }
  }
- 
+
  #pragma mark - SDCycleScrollViewDelegate
  - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
  {
