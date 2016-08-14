@@ -121,7 +121,7 @@
 }
 -(CustomButton *)AllockButtonIndex:(NSInteger)index
 {
-    CustomButton *button = [[CustomButton alloc] init];
+    CustomButton *button = [CustomButton buttonWithType:UIButtonTypeCustom];
     [button setTag:(index + 1) + kMenuButtonBaseTag];
     [button setTitleColor:[UIColor colorWithWhite:0.38 alpha:1] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(selectd:) forControlEvents:UIControlEventTouchUpInside];

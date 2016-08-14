@@ -54,6 +54,7 @@
 
 - (void)displayDoc
 {
+//    [self.documentInteractionController presentOpenInMenuFromRect:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height) inView:self.view animated:YES];
   [self.documentInteractionController presentPreviewAnimated:YES];
 }
 
