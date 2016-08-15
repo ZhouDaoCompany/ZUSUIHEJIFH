@@ -17,8 +17,6 @@
 {
     UIImage *_photoImage;//图片
 }
-@property (nonatomic, strong)  UIButton *meansBtn;//收藏
-@property (nonatomic, strong)  UIButton *loseBtn;//纠错
 /** 下面的内容栏 */
 @property (strong, nonatomic)  UIScrollView *bottomScrollView;
 @property (strong, nonatomic)  UILabel *nameLab;
@@ -54,8 +52,6 @@
     [self setupNaviBarWithTitle:@"资料纠错"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
-    [self.view addSubview:self.loseBtn];
-    [self.view addSubview:self.meansBtn];
     [self.view addSubview:self.bottomScrollView];
 
     [self.bottomScrollView addSubview:self.nameLab];
@@ -78,50 +74,21 @@
 }
 
 #pragma mark - event response
-- (void)errorCorrectionBtnEvent:(UIButton *)button
-{
-    
-    CGPoint offect = _bottomScrollView.contentOffset;
-    offect.y = - _bottomScrollView.contentInset.top;
-    [_bottomScrollView setContentOffset:offect animated:YES];
-    
-    _photoImage = nil;
-    [_photoImgBtn setImage:kGetImage(@"compose_pic_add") forState:0];
-    _addressText.text = @"";
-    _phoneText.text = @"";
-    _buttonClose.hidden = YES;
-    for (NSInteger index = 4021; index < 4023; index ++) {
-        UIButton *btn = (UIButton *)[self.view viewWithTag:index];
-        [btn setTitleColor:hexColor(333333) forState:0];
-        btn.backgroundColor = hexColor(F5F5F5);
-    }
-    [button setTitleColor:hexColor(00c8AA) forState:0];
-    button.backgroundColor = [UIColor whiteColor];
-    
-    if (button.tag == 4022) {
-        _addressText.enabled = NO;
-        _phoneText.enabled = NO;
-        _photoImgBtn.enabled = NO;
-    }else {
-        _addressText.enabled = YES;
-        _phoneText.enabled = YES;
-        _photoImgBtn.enabled = YES;
-
-    }
-
-}
 - (void)deletePhoto:(UIButton *)btn
 {
     DLog(@"删除照片");
     _buttonClose.hidden = YES;
     _photoImage = nil;
-    _photoImgBtn.enabled = YES;
     [_photoImgBtn setImage:kGetImage(@"compose_pic_add") forState:0];
 }
 - (void)selectPhotoEvent:(UIButton *)btn
 {
     DLog(@"选择图片");
     [self dismissKeyBoard];
+    
+    if (_photoImage) {
+        return;
+    }
     LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"拍照", @"从相册选择"] redButtonIndex:-1 clicked:^(NSInteger buttonIndex) {
         DLog(@"> Block way -> Clicked Index: %ld", (long)buttonIndex);
         
@@ -131,8 +98,45 @@
     [sheet show];
 }
 - (void)commitBtnEvent:(UIButton *)btn
-{
-    SHOW_ALERT(@"提交判断");
+{WEAKSELF;
+    if (_introText.text.length == 0 && _addressText.text.length == 0 && _photoImage == nil && _phoneText.text.length == 0) {
+        [JKPromptView showWithImageName:nil message:@"请您至少填写一项资料"];
+        return;
+    }
+    
+    if (_photoImage) {
+
+
+        kDISPATCH_GLOBAL_QUEUE_DEFAULT((^{
+            
+            __block NSData *data = UIImageJPEGRepresentation(_photoImage, .5f);
+            
+            [NetWorkMangerTools getQiNiuToken:NO RequestSuccess:^{
+                
+                [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"image/jpeg" RequestSuccess:^(NSString *key) {
+                    
+                    NSString *urlString = [NSString stringWithFormat:@"%@%@%@&address=%@&tel=%@&pic=%@remark=%@",kProjectBaseUrl,ErrorCorrectionURL,_model.id,GET(_addressText.text),GET(_phoneText.text),GET(key),GET(_introText.text)];
+                    
+                    [NetWorkMangerTools arrangeFinanceDelWithUrl:urlString RequestSuccess:^{
+                        
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                    }];
+                    
+                } fail:^{
+                }];
+            }];
+            
+        }));
+
+    } else {
+        
+        NSString *urlString = [NSString stringWithFormat:@"%@%@%@&address=%@&tel=%@&pic=%@remark=%@",kProjectBaseUrl,ErrorCorrectionURL,_model.id,GET(_addressText.text),GET(_phoneText.text),@"",GET(_introText.text)];
+
+        [NetWorkMangerTools arrangeFinanceDelWithUrl:urlString RequestSuccess:^{
+            
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
+    }
 }
 #pragma mark -选择相机
 - (void)selectCameraOrPhotoList:(NSUInteger)index
@@ -168,7 +172,6 @@
         UIImage *image = photoArr[0];
         _photoImage = image;
         [_photoImgBtn setImage:_photoImage forState:0];
-        _photoImgBtn.enabled = NO;
         _buttonClose.hidden = NO;
     }
 }
@@ -211,39 +214,10 @@
     }
 }
 #pragma mark - setters and getters
-- (UIButton *)loseBtn
-{
-    if (!_loseBtn) {
-        _loseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _loseBtn.frame = CGRectMake(0,64.f, kMainScreenWidth/2.f, 45.f);
-        [_loseBtn setTitle:@"资料纠错" forState:0];
-        [_loseBtn setTitleColor:hexColor(00c8AA) forState:0];
-        _loseBtn.backgroundColor = [UIColor whiteColor];
-        _loseBtn.tag = 4021;
-        _loseBtn.titleLabel.font = Font_14;
-        [_loseBtn addTarget:self action:@selector(errorCorrectionBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _loseBtn;
-}
-
-- (UIButton *)meansBtn
-{
-    if (!_meansBtn) {
-        _meansBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _meansBtn.frame = CGRectMake(kMainScreenWidth/2.f,64.f, kMainScreenWidth/2.f, 45);
-        [_meansBtn setTitle:@"已失效" forState:0];
-        [_meansBtn setTitleColor:hexColor(333333) forState:0];
-        _meansBtn.backgroundColor = hexColor(F5F5F5);
-        _meansBtn.tag = 4022;
-        _meansBtn.titleLabel.font = Font_14;
-        [_meansBtn addTarget:self action:@selector(errorCorrectionBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _meansBtn;
-}
 - (UIScrollView *)bottomScrollView
 {
     if (!_bottomScrollView) {
-        _bottomScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,109.f, kMainScreenWidth, kMainScreenHeight-109.f)];
+        _bottomScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,64.f, kMainScreenWidth, kMainScreenHeight-64.f)];
         _bottomScrollView.delegate = self;
     }
     return _bottomScrollView;

@@ -16,7 +16,6 @@
 //测试地址
 #define kProjectBaseUrl         @"http://testapi.zhoudao.cc/pro/"
 
-
 /*
  1 验证手机号
  */
@@ -386,6 +385,11 @@
  *  87 解绑账号
  */
 #define AuBindingOCURL          @"api_user.php?key=16248ef5&c=auBindingOc&"
+/**
+ *  88 资料纠错
+ */
+#define ErrorCorrectionURL      @"api_judicial.php?key=16248ef5&c=ErrorCorrection&id="
+
 
 
 /**************************分享的链接***************************/

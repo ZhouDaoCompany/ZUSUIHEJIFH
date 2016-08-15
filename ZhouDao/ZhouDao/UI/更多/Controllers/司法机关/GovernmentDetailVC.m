@@ -16,17 +16,16 @@
 
 #import "DeriveMapVC.h"
 #import "MapNavViewController.h"
-#import "NavMapWindow.h"
-#import "ZD_Window.h"
+#import "ZD_AlertWindow.h"
 #import "GovHECViewController.h"
 
 static NSString *const DetailCellIdentifier = @"DetailCellIdentifier";
 static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 
-@interface GovernmentDetailVC ()<UITableViewDelegate,UITableViewDataSource,AMapSearchDelegate,AMapLocationManagerDelegate>
+@interface GovernmentDetailVC ()<UITableViewDelegate,UITableViewDataSource,AMapSearchDelegate,AMapLocationManagerDelegate,ZD_AlertWindowPro>
 {
 }
-@property(nonatomic, strong) AMapSearchAPI *search;
+@property (nonatomic, strong)  AMapSearchAPI *search;
 @property (nonatomic, strong)  UITableView *tableView;
 @property (nonatomic, strong)  UIWebView *callPhoneWebView;
 @property (nonatomic, strong)  AMapNaviPoint *endPoint; //导航时候 目标终点
@@ -38,6 +37,10 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 
 @implementation GovernmentDetailVC
 #pragma mark - life cycle
+- (void)dealloc
+{
+    TTVIEW_RELEASE_SAFELY(_tableView);
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -63,7 +66,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     [self.view addSubview:self.storeBtn];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    UILabel *footLab = [[UILabel alloc] initWithFrame:CGRectMake(45, kMainScreenHeight - 60.f, kMainScreenWidth - 90.f, 30.f)];
+    UILabel *footLab = [[UILabel alloc] initWithFrame:CGRectMake((kMainScreenWidth - 285.f)/2.f, kMainScreenHeight - 60.f, 285.f, 30.f)];
     footLab.backgroundColor = LRRGBColor(233.f, 229.f, 228.f);
     footLab.textColor = LRRGBColor(135.f, 131.f, 130.f);
     footLab.layer.cornerRadius = 5.f;
@@ -158,8 +161,8 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0  && indexPath.section == 0) {
-        ZD_Window * window = [[ZD_Window alloc] initWithFrame:kMainScreenFrameRect];
-        [self.view addSubview:window];
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleReview withTextAlignment:NSTextAlignmentLeft Title:@"审查说明"];
+        [self.view addSubview:alertWindow];
     }
     
     if (indexPath.row == 2) {
@@ -167,9 +170,6 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_model.phone]]];
             [self.callPhoneWebView loadRequest:request];
         }
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:_model.phone delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"呼叫", nil];
-//        alert.tag = 1001;
-//        [alert show];
     }else if(indexPath.row == 1){
         
         if (!_endPoint) {
@@ -182,26 +182,27 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
             return;
         }
         
-        NavMapWindow * window = [[NavMapWindow alloc] initWithFrame:kMainScreenFrameRect];
-        window.navBlock = ^(NSString *str){
-            if ([str isEqualToString:@"驾车导航"])
-            {
-                DeriveMapVC *mapVC = [DeriveMapVC new];
-                mapVC.endPoint   = _endPoint;
-                mapVC.startPoint = _startPoint;
-                [weakSelf.navigationController pushViewController:mapVC animated:YES];
-                
-            }else{
-                
-                MapNavViewController *vc = [MapNavViewController new];
-                vc.endPoint   = _endPoint;
-                vc.startPoint = _startPoint;
-                [weakSelf.navigationController pushViewController:vc animated:YES];
-            }
-            
-        };
-        [self.view addSubview:window];
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleNAV withTextAlignment:NSTextAlignmentLeft Title:@"选择导航方式"];
+        alertWindow.delegate = self;
+        [self.view addSubview:alertWindow];
 
+    }
+}
+#pragma mark - ZD_AlertWindowPro
+- (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        
+        DeriveMapVC *mapVC = [DeriveMapVC new];
+        mapVC.endPoint   = _endPoint;
+        mapVC.startPoint = _startPoint;
+        [self.navigationController pushViewController:mapVC animated:YES];
+
+    }else {
+        MapNavViewController *vc = [MapNavViewController new];
+        vc.endPoint   = _endPoint;
+        vc.startPoint = _startPoint;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 #pragma mark -UIButtonEvent

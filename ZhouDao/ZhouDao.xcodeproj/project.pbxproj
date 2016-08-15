@@ -194,11 +194,8 @@
 		181292CE1C87EBF100EBB5CD /* UIImage+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 181292CD1C87EBF100EBB5CD /* UIImage+Extend.m */; };
 		1813EF791D5C1A7F0019CA33 /* GovHECViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813EF771D5C1A7F0019CA33 /* GovHECViewController.m */; };
 		1813EF7C1D5C46D10019CA33 /* close_icon_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813EF7B1D5C46D10019CA33 /* close_icon_highlight@2x.png */; };
-		1813EF881D5C63300019CA33 /* NavMapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813EF7F1D5C63300019CA33 /* NavMapWindow.m */; };
 		1813EF891D5C63300019CA33 /* PushAlertWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813EF811D5C63300019CA33 /* PushAlertWindow.m */; };
-		1813EF8A1D5C63300019CA33 /* ZD_CaseWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813EF831D5C63300019CA33 /* ZD_CaseWindow.m */; };
 		1813EF8B1D5C63300019CA33 /* ZD_DeleteWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813EF851D5C63300019CA33 /* ZD_DeleteWindow.m */; };
-		1813EF8C1D5C63300019CA33 /* ZD_Window.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813EF871D5C63300019CA33 /* ZD_Window.m */; };
 		18167E971CBBA03C00193EB6 /* case_juanzong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18167E961CBBA03C00193EB6 /* case_juanzong@2x.png */; };
 		1817D2931CC0819500FF6EEE /* LitigationTabVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1817D2921CC0819500FF6EEE /* LitigationTabVC.m */; };
 		1817D2961CC081DA00FF6EEE /* AccusingTheTabVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1817D2951CC081DA00FF6EEE /* AccusingTheTabVC.m */; };
@@ -491,6 +488,7 @@
 		18DE724D1C98F2330068F7E5 /* AnimationTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE724C1C98F2330068F7E5 /* AnimationTools.m */; };
 		18DE72511C992C130068F7E5 /* MineSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE72501C992C130068F7E5 /* MineSettingVC.m */; };
 		18DE72551C99324B0068F7E5 /* SettingTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE72531C99324B0068F7E5 /* SettingTabCell.m */; };
+		18E059B21D6174C3009A2DFD /* ZD_AlertWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E059B11D6174C3009A2DFD /* ZD_AlertWindow.m */; };
 		18E0F6581CE9CDFC00032F4B /* ManagerData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E0F6571CE9CDFC00032F4B /* ManagerData.m */; };
 		18E1F4241D13A2CF003C94CD /* Count_close_normal_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E1F4231D13A2CF003C94CD /* Count_close_normal_@2x.png */; };
 		18E2E7FF1D0FD08E00330AFA /* JKCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2E7FE1D0FD08E00330AFA /* JKCountDownButton.m */; };
@@ -837,16 +835,10 @@
 		1813EF761D5C1A7F0019CA33 /* GovHECViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GovHECViewController.h; sourceTree = "<group>"; };
 		1813EF771D5C1A7F0019CA33 /* GovHECViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GovHECViewController.m; sourceTree = "<group>"; };
 		1813EF7B1D5C46D10019CA33 /* close_icon_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_icon_highlight@2x.png"; sourceTree = "<group>"; };
-		1813EF7E1D5C63300019CA33 /* NavMapWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavMapWindow.h; sourceTree = "<group>"; };
-		1813EF7F1D5C63300019CA33 /* NavMapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavMapWindow.m; sourceTree = "<group>"; };
 		1813EF801D5C63300019CA33 /* PushAlertWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushAlertWindow.h; sourceTree = "<group>"; };
 		1813EF811D5C63300019CA33 /* PushAlertWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushAlertWindow.m; sourceTree = "<group>"; };
-		1813EF821D5C63300019CA33 /* ZD_CaseWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZD_CaseWindow.h; sourceTree = "<group>"; };
-		1813EF831D5C63300019CA33 /* ZD_CaseWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZD_CaseWindow.m; sourceTree = "<group>"; };
 		1813EF841D5C63300019CA33 /* ZD_DeleteWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZD_DeleteWindow.h; sourceTree = "<group>"; };
 		1813EF851D5C63300019CA33 /* ZD_DeleteWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZD_DeleteWindow.m; sourceTree = "<group>"; };
-		1813EF861D5C63300019CA33 /* ZD_Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZD_Window.h; sourceTree = "<group>"; };
-		1813EF871D5C63300019CA33 /* ZD_Window.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZD_Window.m; sourceTree = "<group>"; };
 		18167E961CBBA03C00193EB6 /* case_juanzong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_juanzong@2x.png"; sourceTree = "<group>"; };
 		1817D2911CC0819500FF6EEE /* LitigationTabVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LitigationTabVC.h; sourceTree = "<group>"; };
 		1817D2921CC0819500FF6EEE /* LitigationTabVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LitigationTabVC.m; sourceTree = "<group>"; };
@@ -1283,6 +1275,8 @@
 		18DE72501C992C130068F7E5 /* MineSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineSettingVC.m; sourceTree = "<group>"; };
 		18DE72521C99324B0068F7E5 /* SettingTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTabCell.h; sourceTree = "<group>"; };
 		18DE72531C99324B0068F7E5 /* SettingTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTabCell.m; sourceTree = "<group>"; };
+		18E059B01D6174C3009A2DFD /* ZD_AlertWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZD_AlertWindow.h; sourceTree = "<group>"; };
+		18E059B11D6174C3009A2DFD /* ZD_AlertWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZD_AlertWindow.m; sourceTree = "<group>"; };
 		18E0F6561CE9CDFC00032F4B /* ManagerData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerData.h; sourceTree = "<group>"; };
 		18E0F6571CE9CDFC00032F4B /* ManagerData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagerData.m; sourceTree = "<group>"; };
 		18E1F4231D13A2CF003C94CD /* Count_close_normal_@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Count_close_normal_@2x.png"; sourceTree = "<group>"; };
@@ -2241,16 +2235,12 @@
 		1813EF7D1D5C63300019CA33 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1813EF7E1D5C63300019CA33 /* NavMapWindow.h */,
-				1813EF7F1D5C63300019CA33 /* NavMapWindow.m */,
 				1813EF801D5C63300019CA33 /* PushAlertWindow.h */,
 				1813EF811D5C63300019CA33 /* PushAlertWindow.m */,
-				1813EF821D5C63300019CA33 /* ZD_CaseWindow.h */,
-				1813EF831D5C63300019CA33 /* ZD_CaseWindow.m */,
 				1813EF841D5C63300019CA33 /* ZD_DeleteWindow.h */,
 				1813EF851D5C63300019CA33 /* ZD_DeleteWindow.m */,
-				1813EF861D5C63300019CA33 /* ZD_Window.h */,
-				1813EF871D5C63300019CA33 /* ZD_Window.m */,
+				18E059B01D6174C3009A2DFD /* ZD_AlertWindow.h */,
+				18E059B11D6174C3009A2DFD /* ZD_AlertWindow.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4051,7 +4041,6 @@
 				1065C2C21CA8E13F003F4089 /* LawsViewController.m in Sources */,
 				108DBFFF1C9F9DBF00FD1221 /* MineCerVCr.m in Sources */,
 				18F593E51CB5F40400F5619D /* UIWebView_SearchWebView.m in Sources */,
-				1813EF8A1D5C63300019CA33 /* ZD_CaseWindow.m in Sources */,
 				18FD83041CBB54F500D50E20 /* TheCaseCollectionCell.m in Sources */,
 				18F2F1AB1CBE16710068453D /* ExampleSearView.m in Sources */,
 				18CB0F0B1CBF5E00009C41CE /* SeniorTabViewCell.m in Sources */,
@@ -4083,7 +4072,6 @@
 				108323391CAA5101004B8045 /* ZD_SettingBottomBar.m in Sources */,
 				18F878A51D055D730069E68A /* MapNavViewController.m in Sources */,
 				18D66ACD1CE1BD0300BF2C17 /* LawDetailModel.m in Sources */,
-				1813EF881D5C63300019CA33 /* NavMapWindow.m in Sources */,
 				1817D29D1CC089C400FF6EEE /* LitigationCell.m in Sources */,
 				18FF3F3D1C8529CA0098C60B /* JKPromptView.m in Sources */,
 				18FF3F521C852BDB0098C60B /* UIColor+Helper.m in Sources */,
@@ -4177,7 +4165,6 @@
 				18D9D68F1CBCD2CA008F9CC8 /* FilterView.m in Sources */,
 				108323431CAA70A5004B8045 /* ZD_ListView.m in Sources */,
 				104157691C947A6F00EE5303 /* AboutZDVC.m in Sources */,
-				1813EF8C1D5C63300019CA33 /* ZD_Window.m in Sources */,
 				104157581C945C0200EE5303 /* ProfessionalCell.m in Sources */,
 				18AF33F41CC0DFD30063485E /* ConsultantCell.m in Sources */,
 				108323301CAA19B2004B8045 /* UIWebView+HTML5.m in Sources */,
@@ -4187,6 +4174,7 @@
 				1856F7031C869217003A0C17 /* HomeViewController.m in Sources */,
 				1829B66A1CEAB9E40086CF67 /* BasicModel.m in Sources */,
 				18CB0F021CBF2496009C41CE /* TwoCompensationVC.m in Sources */,
+				18E059B21D6174C3009A2DFD /* ZD_AlertWindow.m in Sources */,
 				18E2E7FF1D0FD08E00330AFA /* JKCountDownButton.m in Sources */,
 				1043049B1CA51648009D7072 /* TaskModel.m in Sources */,
 				1060DA0A1CACB2AA00D779A5 /* QZManager.m in Sources */,

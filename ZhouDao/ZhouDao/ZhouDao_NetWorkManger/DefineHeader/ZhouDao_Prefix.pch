@@ -30,7 +30,6 @@
 #import "ZhouDao_RequestDefine.h"
 #import "PublicFunction.h"
 #import "AnimationTools.h"
-#import "ZD_Window.h"
 #import "QZManager.h"
 #import "FGGDownloader.h"
 #import "FGGDownloadManager.h"

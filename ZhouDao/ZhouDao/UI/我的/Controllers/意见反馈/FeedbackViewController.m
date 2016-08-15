@@ -172,7 +172,9 @@
         kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
             
             [NetWorkMangerTools getQiNiuToken:NO RequestSuccess:^{
+                
                 [NetWorkMangerTools feedBackWithImage:_imgArrays[0] withPhone:phoneS withContent:_msgText.text RequestSuccess:^{
+                    
                     kDISPATCH_MAIN_THREAD((^{
                         [weakSelf.navigationController popViewControllerAnimated:YES];
                     }));

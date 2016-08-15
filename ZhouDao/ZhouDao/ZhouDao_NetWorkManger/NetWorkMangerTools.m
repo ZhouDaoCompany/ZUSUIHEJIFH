@@ -1265,25 +1265,6 @@
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
-#pragma mark - 工具
-+ (void)apiToolsWith:(NSString *)url RequestSuccess:(void (^)(NSString *htmlString))success
-{
-    [SVProgressHUD show];
-    [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
-        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
-        NSString *msg = jsonDic[@"info"];
-        if (errorcode !=1) {
-            [JKPromptView showWithImageName:nil message:msg];
-            return ;
-        }
-        NSString *dataUrl = jsonDic[@"data"];
-        success(dataUrl);
-    } fail:^{
-        [SVProgressHUD dismiss];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
-    }];
-}
 #pragma mark - 推荐页 新法速递
 + (void)recomViewNewLawsRequestSuccess:(void (^)(NSArray *arr))success
 {    [SVProgressHUD show];

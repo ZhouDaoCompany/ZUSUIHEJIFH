@@ -128,7 +128,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 //            
 //        }];
         ToolsWedViewVC *vc = [ToolsWedViewVC new];
-        vc.url = [NSString stringWithFormat:@"ToolsCalculate%ld",indexPath.row];;
+        vc.url = [NSString stringWithFormat:@"ToolsCalculate%ld",(long)indexPath.row];;
         vc.tType = FromToolsType;
         vc.navTitle = model.title;
         vc.imgUrlString = model.app_icon;

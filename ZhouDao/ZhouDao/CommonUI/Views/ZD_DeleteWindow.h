@@ -15,12 +15,12 @@ typedef NS_ENUM(NSInteger, WindowType)
 
 @interface ZD_DeleteWindow : UIView
 
-@property (nonatomic ,strong) UIView *zd_superView;
-@property (nonatomic,strong) UILabel *titleLab;
-@property (nonatomic, copy) ZDBlock DelBlock;
-@property (nonatomic,strong) UITextField *nameTextF;
-@property (nonatomic, copy) ZDStringBlock renameBlock;
-@property (nonatomic, assign) WindowType cusType;
+@property (nonatomic, strong)  UIView *zd_superView;
+@property (nonatomic, strong)  UILabel *titleLab;
+@property (nonatomic, copy)    ZDBlock DelBlock;
+@property (nonatomic, strong)  UITextField *nameTextF;
+@property (nonatomic, copy)    ZDStringBlock renameBlock;
+@property (nonatomic, assign)  WindowType cusType;
 -(void)zd_Windowclose;
 
 - (id)initWithFrame:(CGRect)frame withTitle:(NSString *)title withType:(WindowType)type;

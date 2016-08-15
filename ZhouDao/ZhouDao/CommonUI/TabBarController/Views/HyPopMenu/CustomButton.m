@@ -134,8 +134,11 @@
 #pragma mark 调整内部ImageView的frame
 - (CGRect)imageRectForContentRect:(CGRect)contentRect
 {
-    CGFloat imageWidth = contentRect.size.width/1.7;
-    CGFloat imageX = CGRectGetWidth(contentRect)/2 - imageWidth/2;
+    CGFloat imageWidth =contentRect.size.width/1.5f;
+    if (kMainScreenWidth >=375) {
+        imageWidth = contentRect.size.width/1.6f;
+    }
+    CGFloat imageX = CGRectGetWidth(contentRect)/2.f - imageWidth/2.f;
     CGFloat imageHeight = imageWidth;
     CGFloat imageY = CGRectGetHeight(self.bounds) - (imageHeight + 30);
     return CGRectMake(imageX, imageY, imageWidth, imageHeight);

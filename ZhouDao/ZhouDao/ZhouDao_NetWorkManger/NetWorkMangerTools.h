@@ -260,11 +260,6 @@
 + (void)lawsHotsSearchRequestSuccess:(void (^)(NSArray *arr))success
                                 fail:(void (^)())fail;
 /**
- *  工具
- */
-+ (void)apiToolsWith:(NSString *)url
-      RequestSuccess:(void (^)(NSString *htmlString))success;
-/**
  *  推荐页 新法速递
  */
 + (void)recomViewNewLawsRequestSuccess:(void (^)(NSArray *arr))success;
@@ -419,6 +414,18 @@
 + (void)pureAuBindingURLString:(NSString *)urlString
                 RequestSuccess:(void (^)())success
                           fail:(void (^)())fail;
+
+/**
+ *  89 资料纠错
+ *
+ *  @param urlString <#urlString description#>
+ *  @param success   <#success description#>
+ *  @param fail      <#fail description#>
+ */
++ (void)ErrorCorrectionURLString:(NSString *)urlString
+                RequestSuccess:(void (^)())success
+                          fail:(void (^)())fail;
+
 /*
  * 自动登录
  */
