@@ -16,9 +16,8 @@ typedef NS_ENUM(NSUInteger,ReadTYpe){
 
 @interface ReadViewController : BaseViewController
 @property (nonatomic, strong) TaskModel *model;
-@property (nonatomic, copy) ZDStringBlock readBlock;
+@property (nonatomic, copy)   ZDStringBlock readBlock;
 @property (nonatomic, assign) ReadTYpe rType;
-@property (nonatomic, copy) NSString *idStr;
 
 @property (nonatomic, copy) NSString *imageUrl;//图片链接
 @end

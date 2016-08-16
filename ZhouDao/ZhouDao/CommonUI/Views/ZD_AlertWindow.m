@@ -10,7 +10,7 @@
 #define zd_width [UIScreen mainScreen].bounds.size.width
 #define zd_height [UIScreen mainScreen].bounds.size.height
 static CGFloat kTransitionDuration = 0.3f;
-#define kContentLabelWidth      260.0f
+#define kContentLabelWidth     260.f
 
 @interface ZD_AlertWindow()<UITextFieldDelegate>
 
@@ -21,6 +21,7 @@ static CGFloat kTransitionDuration = 0.3f;
 @property (nonatomic, strong) UIButton *cancelBtn;
 @property (nonatomic, strong) UIButton *sureBtn;
 @property (nonatomic, strong) UIView *verticalLineView;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 @end
 
 @implementation ZD_AlertWindow
@@ -47,7 +48,7 @@ static CGFloat kTransitionDuration = 0.3f;
 - (id)initWithStyle:(ZD_AlertViewStyle)style
           withTitle:(NSString *)title
   withTextAlignment:(NSTextAlignment)contentAlignment
-           delegate:(id <ZD_AlertWindowPro>)delegate
+           delegate:(id <ZD_AlertWindowPro>)delegate withIndexPath:(NSIndexPath *)indexPath
 {
     self = [super initWithFrame:kMainScreenFrameRect];
     
@@ -56,6 +57,8 @@ static CGFloat kTransitionDuration = 0.3f;
         _style = style;
         _contentAlignment = contentAlignment;
         _titleString = title;
+        _indexPath = indexPath;
+        _delegate = delegate;
         [self initUI];
         [self bounce0Animation];
     }
@@ -68,7 +71,8 @@ static CGFloat kTransitionDuration = 0.3f;
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
     [self addSubview:self.zd_superView];
     [self.zd_superView addSubview:self.headlab];
-
+    self.headlab.frame = CGRectMake(15, 20, zd_width-150, 20);
+    
     if (_style == ZD_AlertViewStyleReview) {
         
         _zd_superView.frame = CGRectMake(0, 0, zd_width-100, 179);
@@ -114,7 +118,6 @@ static CGFloat kTransitionDuration = 0.3f;
             
             [weakSelf selectButtonEvent:1];
         }];
-
     }
 
     [self.zd_superView whenCancelTapped:^{
@@ -130,16 +133,43 @@ static CGFloat kTransitionDuration = 0.3f;
 - (void)initUI
 {
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
+    [self addSubview:self.zd_superView];
+    self.zd_superView.frame = CGRectMake(0, 0, kContentLabelWidth, 110);
     
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, kContentLabelWidth, .6f)];
+    lineView.backgroundColor = [UIColor colorWithHexString:@"#d4d4d4"];
+    [self.zd_superView addSubview:lineView];
+
+    [self.zd_superView addSubview:self.cancelBtn];
+    [self.zd_superView addSubview:self.verticalLineView];
+    [self.zd_superView addSubview:self.sureBtn];
     
-    
+    if (_style == ZD_AlertViewStyleDEL) {//删除
+        [self.zd_superView addSubview:self.headlab];
+        self.zd_superView.center =CGPointMake(zd_width/2.0,zd_height/2.0);
+        self.headlab.frame = CGRectMake(0, 0, kContentLabelWidth, 50);
+        _headlab.text = _titleString;
+        _headlab.font = Font_14;
+        _headlab.textColor = LRRGBColor(96, 101, 111);
+    }else {//重命名
+        [self.zd_superView addSubview:self.nameTextF];
+
+        if ((kMainScreenHeight - self.center.y) < 271.f) {
+            _zd_superView.center = CGPointMake(zd_width/2.0, kMainScreenHeight - 326.f);
+        }else {
+            _zd_superView.center = CGPointMake(zd_width/2.0, self.center.y-25.f);
+        }
+    }
 }
 - (void)selectButtonEvent:(NSInteger)index
 {
     if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
         [self.delegate alertView:self clickedButtonAtIndex:index];
     }
-
+    [self implementationBlockwithIndex:index];
+}
+- (void)implementationBlockwithIndex:(NSInteger)index
+{
     if (index == 0) {
         
         if (_cancelBlock) {
@@ -151,7 +181,6 @@ static CGFloat kTransitionDuration = 0.3f;
             _confirmBlock();
         }
     }
-    
     [self zd_Windowclose];
 }
 #pragma mark -UIButtonEvent
@@ -159,24 +188,27 @@ static CGFloat kTransitionDuration = 0.3f;
 {
     [self endEditing:YES];
     NSInteger index = sender.tag - 3001;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者
-
-    if (index == 3002)
+    if (index == 1)
     {
         if (_style == ZD_AlertViewStyleDEL) {
-            _confirmBlock();
+
+            if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:withName:withIndexPath:)]) {
+                [self.delegate alertView:self clickedButtonAtIndex:index withName:_nameTextF.text withIndexPath:_indexPath];
+            }
+
         }else {
             
             if (_nameTextF.text.length == 0) {
                 [JKPromptView showWithImageName:nil message:@"请您填写名字"];
                 return;
             }
-            if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:withName:)]) {
-                [self.delegate alertView:self clickedButtonAtIndex:index withName:_nameTextF.text];
+            [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者
+            if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:withName:withIndexPath:)]) {
+                [self.delegate alertView:self clickedButtonAtIndex:index withName:_nameTextF.text withIndexPath:_indexPath];
             }
         }
     }
-    [self zd_Windowclose];
+    [self implementationBlockwithIndex:index];
 }
 #pragma mark -
 #pragma mark block setter
@@ -195,7 +227,7 @@ static CGFloat kTransitionDuration = 0.3f;
 - (UILabel *)headlab
 {
     if (!_headlab) {
-        _headlab = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, zd_width-150, 20)];
+        _headlab = [[UILabel alloc] init];
         _headlab.text = _titleString;
         _headlab.textAlignment = _contentAlignment;
         _headlab.font = Font_18;
@@ -215,7 +247,7 @@ static CGFloat kTransitionDuration = 0.3f;
 - (UIView *)verticalLineView
 {
     if (!_verticalLineView) {
-        _verticalLineView = [[UIView alloc] initWithFrame:CGRectMake(Orgin_x(_cancelBtn), 50.6, 0.6, 49.4f)];
+        _verticalLineView = [[UIView alloc] initWithFrame:CGRectMake(Orgin_x(_cancelBtn), 60.6, 0.6, 49.4f)];
         _verticalLineView.backgroundColor = lineColor;
     }
     return _verticalLineView;
@@ -228,7 +260,7 @@ static CGFloat kTransitionDuration = 0.3f;
         [_sureBtn setTitleColor:KNavigationBarColor forState:0];
         _sureBtn.titleLabel.font = Font_15;
         _sureBtn.tag = 3002;
-        _sureBtn.frame = CGRectMake(Orgin_x(_verticalLineView),50.6f,kContentLabelWidth/2.f-0.3f , 49.4f);
+        _sureBtn.frame = CGRectMake(Orgin_x(_verticalLineView),60.6f,kContentLabelWidth/2.f-0.3f , 49.4f);
         [_sureBtn setTitle:@"确定" forState:0];
         _sureBtn.showsTouchWhenHighlighted = YES;
         [_sureBtn addTarget:self action:@selector(cancelOrSureEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -242,7 +274,7 @@ static CGFloat kTransitionDuration = 0.3f;
         _cancelBtn.backgroundColor = [UIColor whiteColor];
         _cancelBtn.titleLabel.font = Font_15;
         _cancelBtn.tag = 3001;
-        _cancelBtn.frame = CGRectMake(0, 50.6f,kContentLabelWidth/2.f-0.3f , 49.4f);
+        _cancelBtn.frame = CGRectMake(0, 60.6f,kContentLabelWidth/2.f-0.3f , 49.4f);
         [_cancelBtn setTitleColor:KNavigationBarColor forState:0];
         [_cancelBtn setTitle:@"取消" forState:0];
         _cancelBtn.showsTouchWhenHighlighted = YES;
@@ -275,7 +307,6 @@ static CGFloat kTransitionDuration = 0.3f;
     if (flag){
         textField.text = [NSString disable_emoji:textField.text];
     }
-    
 }
 #pragma mark -关闭
 - (void)zd_Windowclose {

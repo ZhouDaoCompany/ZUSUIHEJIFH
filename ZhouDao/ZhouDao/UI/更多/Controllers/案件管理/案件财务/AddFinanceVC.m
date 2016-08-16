@@ -10,7 +10,7 @@
 #import "FinanceTabCell.h"
 #import "RemarkTabCell.h"
 #import "ZHPickView.h"
-#import "ZD_DeleteWindow.h"
+#import "ZD_AlertWindow.h"
 
 static NSString *const FINANCEIDENTIFER = @"financeIdentifer";
 static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
@@ -209,8 +209,8 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
 {WEAKSELF;
    // arrangeFinanceDelWithUrl
     
-    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"确定删除吗?" withType:DelType];
-    delWindow.DelBlock = ^(){
+    ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleDEL withTitle:@"确定删除吗?"withTextAlignment:NSTextAlignmentCenter delegate:nil withIndexPath:nil];
+    alertWindow.confirmBlock = ^(){
         
         NSString *url = [NSString  stringWithFormat:@"%@%@%@&id=%@",kProjectBaseUrl,arrangeFinanceDel,UID,_cwid];
         [NetWorkMangerTools arrangeFinanceDelWithUrl:url RequestSuccess:^{
@@ -219,8 +219,8 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
     };
-    
-    [self.view addSubview:delWindow];
+    [self.view addSubview:alertWindow];
+
 }
 -(void)moneyBtnClick:(UIButton *)btn
 {
@@ -246,8 +246,8 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
     
     if (isHave == YES) {
         
-        ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"修改后清空已添加信息，确定修改?" withType:DelType];
-        delWindow.DelBlock = ^(){
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleDEL withTitle:@"修改后清空已添加信息，确定修改?" withTextAlignment:NSTextAlignmentCenter delegate:nil withIndexPath:nil];
+        alertWindow.confirmBlock = ^(){
             
             btn.backgroundColor = KNavigationBarColor;
             [btn setTitleColor:[UIColor whiteColor] forState:0];
@@ -256,8 +256,7 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
             [self creatCommitArrWithTitleArr:titArr];
             [_tableView reloadData];
         };
-        [self.view.superview addSubview:delWindow];
-        
+        [self.view addSubview:alertWindow];
     }else{
         btn.backgroundColor = KNavigationBarColor;
         [btn setTitleColor:[UIColor whiteColor] forState:0];

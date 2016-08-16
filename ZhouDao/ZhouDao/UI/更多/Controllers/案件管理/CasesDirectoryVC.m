@@ -8,7 +8,6 @@
 
 #import "CasesDirectoryVC.h"
 #import "CaseDetailTabCell.h"
-#import "ZD_DeleteWindow.h"
 #import "ShareView.h"
 #import "MenuLabel.h"
 #import "ToolsWedViewVC.h"
@@ -18,6 +17,7 @@
 #import "NewlyCreatedVC.h"
 #import "KxMenu.h"
 #import "SDPhotoBrowser.h"
+#import "ZD_AlertWindow.h"
 
 //下载
 #import "TaskModel.h"
@@ -25,7 +25,10 @@
 
 static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 
-@interface CasesDirectoryVC ()<UITableViewDataSource,UITableViewDelegate,CaseDetailTabCellPro,WHC_ChoicePictureVCDelegate,WHC_CameraVCDelegate,DownLoadViewPro,SDPhotoBrowserDelegate>
+@interface CasesDirectoryVC ()<UITableViewDataSource,UITableViewDelegate,CaseDetailTabCellPro,WHC_ChoicePictureVCDelegate,WHC_CameraVCDelegate,DownLoadViewPro,SDPhotoBrowserDelegate,ZD_AlertWindowPro>
+{
+    UIImage *_photoImage;
+}
 @property (strong, nonatomic)   UITableView *tableView;
 @property (nonatomic, strong)  NSIndexPath* openedIndexPath;
 @property (nonatomic, strong)  NSMutableArray* tableData;
@@ -114,7 +117,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     DLog(@"indexPath.row == %ld",(long)indexPath.row);
     [_tableView deselectRowAtIndexPath:indexPath animated:YES];
     [_tableView beginUpdates];
-    if (_openedIndexPath  == indexPath) {
+    if (_openedIndexPath.row  == indexPath.row) {
         _openedIndexPath = [NSIndexPath indexPathForRow:-1 inSection:0];
     }else{
         _openedIndexPath = indexPath;
@@ -127,7 +130,6 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     CaseDetailTabCell *cell = (CaseDetailTabCell *)aCell;
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];//坑比
     DetaillistModel *model = _tableData[indexPath.row];
-    WEAKSELF;
     switch (tag) {
         case 1001:
         {
@@ -146,43 +148,16 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
             break;
         case 1004:
         {
-            ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"" withType:RenameType];
-            delWindow.renameBlock = ^(NSString *name){
-                [NetWorkMangerTools arrangeFileRenameWithid:model.id withCaseId:_caseId withName:name RequestSuccess:^{
-                    model.name = name;
-                    [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:indexPath.row inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
-                }];
-            };
-            [self.view addSubview:delWindow];
+            ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:model.id withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:indexPath];
+            alertWindow.tag = 6009;
+            [self.view addSubview:alertWindow];
         }
             break;
         case 1005:
         {
-            ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"确定删除吗?" withType:DelType];
-            delWindow.DelBlock = ^(){
-                [NetWorkMangerTools arrangeFileDelWithid:model.id withCaseId:_caseId RequestSuccess:^{
-                    NSString *path = DownLoadCachePath;
-                    if (![FILE_M fileExistsAtPath:path]) {
-                        [FILE_M createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
-                    }
-                    NSString *casePath = [NSString stringWithFormat:@"%@/%@",path,_caseId];
-                    if (![FILE_M fileExistsAtPath:casePath]) {
-                        [FILE_M createDirectoryAtPath:casePath withIntermediateDirectories:YES attributes:nil error:nil];
-                    }
-                    NSString *format = [NetWorkMangerTools getFileFormat:model.type_format];
-                    NSString *filePath = [NSString stringWithFormat:@"%@/%@.%@",casePath,model.id,format];
-                    if ([FILE_M fileExistsAtPath:filePath]) {
-                        [FILE_M removeItemAtPath:filePath error:nil];
-                    }
-
-                    [weakSelf.tableView beginUpdates];
-                    [self.tableData removeObjectAtIndex:indexPath.row];
-                    _openedIndexPath = [NSIndexPath indexPathForRow:-1 inSection:0];
-                    [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
-                    [weakSelf.tableView endUpdates];
-                }];
-            };
-            [self.view addSubview:delWindow];
+            ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleDEL withTitle:@"确定删除吗?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:indexPath];
+            alertWindow.tag = 6010;
+            [self.view addSubview:alertWindow];
         }
             break;
             
@@ -233,19 +208,17 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
                  menuItems:menuItems];
 }
 
-- (void) pushMenuItem:(id)sender
+- (void)pushMenuItem:(id)sender
 {WEAKSELF;
     KxMenuItem *kx = (KxMenuItem *)sender;
     DLog(@"%@", kx.title);
     
     if ([kx.title isEqualToString:@"新建文件夹 "]) {
-        ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"" withType:RenameType];
-        delWindow.renameBlock = ^(NSString *name){
-            [NetWorkMangerTools arrangeFileAddwithPid:_pid withName:name withFileType:@"2" withtformat:@"" withqiniuName:@"" withCid:_caseId RequestSuccess:^(id obj) {
-                [weakSelf loadListViewData];
-            }];
-        };
-        [self.view addSubview:delWindow];
+        
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
+        alertWindow.tag = 6012;
+        [self.view addSubview:alertWindow];
+        
     }else if ([kx.title isEqualToString:@"新建文本  "]){
         NewlyCreatedVC *vc = [NewlyCreatedVC new];
         vc.caseId = _caseId;
@@ -323,7 +296,6 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         vc.format = format;
         [self.navigationController  pushViewController:vc animated:YES];
     }
-    
 }
 #pragma mark - photobrowser代理方法
 // 返回临时占位图片（即原来的小图）
@@ -383,15 +355,65 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 }
 #pragma mark -照片上传
 #pragma mark - WHC_ChoicePictureVCDelegate
-- (void)WHCChoicePictureVC:(WHC_ChoicePictureVC *)choicePictureVC didSelectedPhotoArr:(NSArray *)photoArr{         UIImage *image = photoArr[0];
-    WEAKSELF;
-    __block NSData *data = UIImageJPEGRepresentation(image, .5f);
-    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"" withType:RenameType];
-    delWindow.renameBlock = ^(NSString *name){
-        //[QZManager stringFromDate:[NSDate date]]
+- (void)WHCChoicePictureVC:(WHC_ChoicePictureVC *)choicePictureVC didSelectedPhotoArr:(NSArray *)photoArr{
+    
+    UIImage *image = photoArr[0];
+    _photoImage = image;
+    ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"确定删除吗?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
+    alertWindow.tag = 6011;
+    [self.view addSubview:alertWindow];
+}
+#pragma mark - WHC_CameraVCDelegate
+- (void)WHCCameraVC:(WHC_CameraVC *)cameraVC didSelectedPhoto:(UIImage *)photo{
+    [self WHCChoicePictureVC:nil didSelectedPhotoArr:@[photo]];
+}
+#pragma mark  ZD_AlertWindowPro
+- (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex withName:(NSString *)name withIndexPath:(NSIndexPath *)indexPath
+{WEAKSELF;
+    DetaillistModel *model = nil;
+    if (indexPath) {
+        model =  _tableData[indexPath.row];
+    }
+    
+    if (alertView.tag == 6009) {//重命名
+        
+        [NetWorkMangerTools arrangeFileRenameWithid:model.id withCaseId:_caseId withName:name RequestSuccess:^{
+            
+            model.name = name;
+            [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:indexPath.row inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
+        }];
+    } else if (alertView.tag == 6010){//删除
+        
+        [NetWorkMangerTools arrangeFileDelWithid:model.id withCaseId:_caseId RequestSuccess:^{
+            NSString *path = DownLoadCachePath;
+            if (![FILE_M fileExistsAtPath:path]) {
+                [FILE_M createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+            }
+            NSString *casePath = [NSString stringWithFormat:@"%@/%@",path,_caseId];
+            if (![FILE_M fileExistsAtPath:casePath]) {
+                [FILE_M createDirectoryAtPath:casePath withIntermediateDirectories:YES attributes:nil error:nil];
+            }
+            NSString *format = [NetWorkMangerTools getFileFormat:model.type_format];
+            NSString *filePath = [NSString stringWithFormat:@"%@/%@.%@",casePath,model.id,format];
+            if ([FILE_M fileExistsAtPath:filePath]) {
+                [FILE_M removeItemAtPath:filePath error:nil];
+            }
+            
+            [weakSelf.tableView beginUpdates];
+            [self.tableData removeObjectAtIndex:indexPath.row];
+            _openedIndexPath = [NSIndexPath indexPathForRow:-1 inSection:0];
+            [weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            [weakSelf.tableView endUpdates];
+        }];
+
+    } else if (alertView.tag == 6011) {//照片
+        
         kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
             [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+                __block NSData *data = UIImageJPEGRepresentation(_photoImage, .5f);
+
                 [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"image/jpeg" RequestSuccess:^(NSString *key) {
+                    
                     [NetWorkMangerTools arrangeFileAddwithPid:_pid withName:name withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
                         
                         kDISPATCH_MAIN_THREAD((^{
@@ -402,13 +424,14 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
                 }];
             }];
         });
-    };
-    [self.view addSubview:delWindow];
+    } else if (alertView.tag == 6012) {//文件夹重命名
+        [NetWorkMangerTools arrangeFileAddwithPid:_pid withName:name withFileType:@"2" withtformat:@"" withqiniuName:@"" withCid:_caseId RequestSuccess:^(id obj) {
+            
+            [weakSelf loadListViewData];
+        }];
+    }
 }
-#pragma mark - WHC_CameraVCDelegate
-- (void)WHCCameraVC:(WHC_CameraVC *)cameraVC didSelectedPhoto:(UIImage *)photo{
-    [self WHCChoicePictureVC:nil didSelectedPhotoArr:@[photo]];
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

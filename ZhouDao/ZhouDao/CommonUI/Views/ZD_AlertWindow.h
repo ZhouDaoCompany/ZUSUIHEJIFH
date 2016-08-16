@@ -59,15 +59,16 @@ typedef enum {
 - (id)initWithStyle:(ZD_AlertViewStyle)style
           withTitle:(NSString *)title
   withTextAlignment:(NSTextAlignment)contentAlignment
-           delegate:(id <ZD_AlertWindowPro>)delegate;
+           delegate:(id <ZD_AlertWindowPro>)delegate
+      withIndexPath:(NSIndexPath *)indexPath;
 
 /*!
  @abstract      弹出
  */
-- (void)show;
+//- (void)show;
 
 
-- (void)dismiss;
+//- (void)dismiss;
 
 @end
 
@@ -75,6 +76,6 @@ typedef enum {
 
 @optional
 - (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
-- (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex withName:(NSString *)name;
+- (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex withName:(NSString *)name withIndexPath:(NSIndexPath *)indexPath;
 
 @end

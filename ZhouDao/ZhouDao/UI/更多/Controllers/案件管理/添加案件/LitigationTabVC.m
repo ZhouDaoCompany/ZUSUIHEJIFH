@@ -15,7 +15,7 @@
 #import "RemarkTabCell.h"
 #import "DateTimeView.h"
 #import "ZHPickView.h"
-#import "ZD_DeleteWindow.h"
+#import "ZD_AlertWindow.h"
 
 static NSString *const LITIIDENTIFER = @"litigationidentifer";
 static NSString *const NOTEIDENTIFER = @"noteidentifer";
@@ -147,13 +147,15 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     }];
     
     if (isHave == YES) {
-        ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"修改后该审理下的信息清空，确定修改?" withType:DelType];
-        delWindow.DelBlock = ^(){
+        
+        UIWindow *windows = [QZManager getWindow];
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleDEL withTitle:@"修改后该审理下的信息清空，确定修改?" withTextAlignment:NSTextAlignmentCenter delegate:nil withIndexPath:nil];
+        alertWindow.confirmBlock = ^(){
             
             [weakSelf delCheckmsg:selectStr withSection:section];
         };
-        [self.view.superview addSubview:delWindow];
-
+        [windows addSubview:alertWindow];
+        
     }else {
         [self delCheckmsg:selectStr withSection:section];
     }
@@ -426,8 +428,9 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
 #pragma mark -ConsultantHeadViewPro
 - (void)deleteSectionEventRespose:(NSUInteger)section;
 {WEAKSELF;
-    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"确定删除吗?" withType:DelType];
-    delWindow.DelBlock = ^(){
+    UIWindow *windows = [QZManager getWindow];
+    ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleDEL withTitle:@"确定删除吗?"withTextAlignment:NSTextAlignmentCenter delegate:nil withIndexPath:nil];
+    alertWindow.confirmBlock = ^(){
         
         DLog(@"section-----%ld",(unsigned long)section);
         [weakSelf.contentArr removeObjectAtIndex:section-1];
@@ -435,8 +438,7 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
         [weakSelf.tableView deleteSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];
         [weakSelf.tableView reloadData];
     };
-    [self.view.superview addSubview:delWindow];
-
+    [windows addSubview:alertWindow];
 }
 #pragma mark - 拨打电话
 - (void)clickTelPhoneWithSection:(NSInteger)section withRow:(NSInteger)row

@@ -195,7 +195,6 @@
 		1813EF791D5C1A7F0019CA33 /* GovHECViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813EF771D5C1A7F0019CA33 /* GovHECViewController.m */; };
 		1813EF7C1D5C46D10019CA33 /* close_icon_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813EF7B1D5C46D10019CA33 /* close_icon_highlight@2x.png */; };
 		1813EF891D5C63300019CA33 /* PushAlertWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813EF811D5C63300019CA33 /* PushAlertWindow.m */; };
-		1813EF8B1D5C63300019CA33 /* ZD_DeleteWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813EF851D5C63300019CA33 /* ZD_DeleteWindow.m */; };
 		18167E971CBBA03C00193EB6 /* case_juanzong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18167E961CBBA03C00193EB6 /* case_juanzong@2x.png */; };
 		1817D2931CC0819500FF6EEE /* LitigationTabVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1817D2921CC0819500FF6EEE /* LitigationTabVC.m */; };
 		1817D2961CC081DA00FF6EEE /* AccusingTheTabVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1817D2951CC081DA00FF6EEE /* AccusingTheTabVC.m */; };
@@ -837,8 +836,6 @@
 		1813EF7B1D5C46D10019CA33 /* close_icon_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_icon_highlight@2x.png"; sourceTree = "<group>"; };
 		1813EF801D5C63300019CA33 /* PushAlertWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushAlertWindow.h; sourceTree = "<group>"; };
 		1813EF811D5C63300019CA33 /* PushAlertWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushAlertWindow.m; sourceTree = "<group>"; };
-		1813EF841D5C63300019CA33 /* ZD_DeleteWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZD_DeleteWindow.h; sourceTree = "<group>"; };
-		1813EF851D5C63300019CA33 /* ZD_DeleteWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZD_DeleteWindow.m; sourceTree = "<group>"; };
 		18167E961CBBA03C00193EB6 /* case_juanzong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_juanzong@2x.png"; sourceTree = "<group>"; };
 		1817D2911CC0819500FF6EEE /* LitigationTabVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LitigationTabVC.h; sourceTree = "<group>"; };
 		1817D2921CC0819500FF6EEE /* LitigationTabVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LitigationTabVC.m; sourceTree = "<group>"; };
@@ -2237,8 +2234,6 @@
 			children = (
 				1813EF801D5C63300019CA33 /* PushAlertWindow.h */,
 				1813EF811D5C63300019CA33 /* PushAlertWindow.m */,
-				1813EF841D5C63300019CA33 /* ZD_DeleteWindow.h */,
-				1813EF851D5C63300019CA33 /* ZD_DeleteWindow.m */,
 				18E059B01D6174C3009A2DFD /* ZD_AlertWindow.h */,
 				18E059B11D6174C3009A2DFD /* ZD_AlertWindow.m */,
 			);
@@ -4086,7 +4081,6 @@
 				18FF3F7B1C85617A0098C60B /* QHCommonUtil.m in Sources */,
 				1031B1141CB01B43006CE3FB /* LocalLawsVC.m in Sources */,
 				10C86B811CABB78D002A75AC /* HomeHeadView.m in Sources */,
-				1813EF8B1D5C63300019CA33 /* ZD_DeleteWindow.m in Sources */,
 				183FFCB11D3783F6007D0494 /* HyPopMenuView.m in Sources */,
 				1813EF891D5C63300019CA33 /* PushAlertWindow.m in Sources */,
 				187DB94A1CDC803C009CF1D6 /* GovClassData.m in Sources */,

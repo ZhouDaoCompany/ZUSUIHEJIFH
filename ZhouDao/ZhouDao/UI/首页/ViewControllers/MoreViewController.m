@@ -22,13 +22,14 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
 @end
 
 @implementation MoreViewController
-
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [self initUI];
 }
+#pragma mark - private methods
 - (void)initUI{
     
     _page = 0;
@@ -42,24 +43,12 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
     }
 
     [ self.view addSubview:self.tableView];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
+    //MJRefreshAutoNormalFooter MJRefreshBackNormalFooter
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
+
         // 马上进入刷新状态
     [_tableView.mj_header beginRefreshing];
-}
--(UITableView *)tableView{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.showsHorizontalScrollIndicator = NO;
-        _tableView.showsVerticalScrollIndicator = NO;
-        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[HomeTableViewCell class] forCellReuseIdentifier:MoreCellIdentifier];
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-        //MJRefreshAutoNormalFooter MJRefreshBackNormalFooter
-        _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
-    }
-    return _tableView;
 }
 
 #pragma mark ------ 下拉刷新
@@ -148,6 +137,9 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeTableViewCell *cell = (HomeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:MoreCellIdentifier];
+    if (cell == nil) {
+        cell = [[HomeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MoreCellIdentifier];
+    }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -199,6 +191,19 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 95.f;
+}
+#pragma mark - setters and getters
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.showsHorizontalScrollIndicator = NO;
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView registerClass:[HomeTableViewCell class] forCellReuseIdentifier:MoreCellIdentifier];
+    }
+    return _tableView;
 }
 
 - (void)didReceiveMemoryWarning {

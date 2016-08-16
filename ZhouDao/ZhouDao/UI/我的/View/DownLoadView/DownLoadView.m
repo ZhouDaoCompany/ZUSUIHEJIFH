@@ -44,12 +44,8 @@
 }
  - (void)initUI
 {
-    self.backgroundColor = [UIColor clearColor];
-    UIView *maskView = [[UIView alloc] initWithFrame:self.bounds];
-    maskView.backgroundColor = [UIColor blackColor];
-    maskView.alpha  = .4f;
-    [self addSubview:maskView];
-    
+
+    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.4f];
     float width = self.frame.size.width;
     
     UIView *botomView = [[UIView alloc] init];
@@ -57,7 +53,6 @@
     botomView.center = self.center;
     botomView.bounds = CGRectMake(0, 0, 144, 144);
     [self addSubview:botomView];
-    
     
 
     UIImageView *imageview = [[UIImageView alloc] init];
@@ -132,6 +127,7 @@
 //            DLog(@"已有－－－－%@",[NSString stringWithFormat:@"%.2f%%",weakSelf.progressView.progress*100]);
             
         } completion:^{
+            
             if ([weakSelf.delegate respondsToSelector:@selector(getDownloadState:readPath:)])
             {
                 [weakSelf.delegate getDownloadState:@"完成" readPath:_model.destinationPath];

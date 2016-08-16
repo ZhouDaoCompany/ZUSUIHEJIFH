@@ -19,6 +19,6 @@
 
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, strong) TaskModel *model;
-@property (nonatomic, copy) NSString *format;
-@property (nonatomic, weak) id<DownLoadViewPro>delegate;
+@property (nonatomic, copy)   NSString *format;
+@property (nonatomic, weak)   id<DownLoadViewPro>delegate;
 @end

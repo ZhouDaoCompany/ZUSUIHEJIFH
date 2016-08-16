@@ -24,7 +24,6 @@
  *  #import "ImmediatelyVC.h"
  */
 
-#import "ZD_DeleteWindow.h"
 static NSString *const SettingIdentifer = @"SettingIdentifer";
 static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 
@@ -93,7 +92,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 75.f)];
     footView.backgroundColor = [UIColor clearColor];
     UIButton *exitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    exitBtn.frame = CGRectMake(26, 30, kMainScreenWidth - 52, 45);
+    exitBtn.frame = CGRectMake(26, 20, kMainScreenWidth - 52, 45);
     exitBtn.layer.masksToBounds = YES;
     exitBtn.layer.cornerRadius = 5.f;
     exitBtn.backgroundColor  = KNavigationBarColor;
@@ -245,7 +244,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 {
     WEAKSELF;
     
-    LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"退出"] redButtonIndex:0 clicked:^(NSInteger buttonIndex) {
+    LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"退出帐号" buttonTitles:@[@"退出"] redButtonIndex:0 clicked:^(NSInteger buttonIndex) {
         DLog(@"> Block way -> Clicked Index: %ld", (long)buttonIndex);
         if (buttonIndex == 0) {
             [USER_D removeObjectForKey:StoragePhone];

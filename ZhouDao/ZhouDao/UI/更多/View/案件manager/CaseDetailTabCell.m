@@ -67,7 +67,7 @@
         _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(45, 10, 25, 25)];
         _headImgView.userInteractionEnabled = YES;
         _headImgView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.contentView   addSubview:_headImgView];
+        [self.contentView  addSubview:_headImgView];
     }
     return _headImgView;
 }

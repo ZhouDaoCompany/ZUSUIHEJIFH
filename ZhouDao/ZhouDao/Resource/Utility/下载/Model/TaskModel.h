@@ -10,9 +10,9 @@
 
 @interface TaskModel : NSObject
 
-@property(nonatomic,copy)NSString *name;
-@property(nonatomic,copy)NSString *url;
-@property(nonatomic,copy)NSString *destinationPath;
+@property(nonatomic, copy)  NSString *name;
+@property(nonatomic, copy)  NSString *url;
+@property(nonatomic, copy)  NSString *destinationPath;
 
 @property (nonatomic, copy) NSString *idString;
 @property (nonatomic, copy) NSString *content;

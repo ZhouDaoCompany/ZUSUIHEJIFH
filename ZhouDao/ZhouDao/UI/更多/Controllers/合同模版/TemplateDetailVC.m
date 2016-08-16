@@ -12,6 +12,8 @@
 #import "ReadViewController.h"
 #import "TemplateData.h"
 #import "LoginViewController.h"
+#import "ShareView.h"
+#import "MenuLabel.h"
 
 #define kCachePath (NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0])
 
@@ -24,6 +26,8 @@
 @property (nonatomic, strong) TaskModel *model;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) TemplateData *dataModel;
+@property (nonatomic, strong) UIButton *collectionBtn;
+@property (nonatomic, strong) UIButton *shareBtn;
 
 @end
 
@@ -46,9 +50,9 @@
         _dataModel = model;
         [self setupNaviBarWithTitle:_dataModel.title];
         if ([weakSelf.dataModel.is_collection  integerValue] == 0) {
-            [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_shoucang"];
+            [_collectionBtn setImage:kGetImage(@"template_shoucang") forState:0];
         }else{
-            [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_SC"];
+            [_collectionBtn setImage:kGetImage(@"template_SC") forState:0];
         }
         [_webView loadHTMLString:_dataModel.content baseURL:nil];
         [self downLoadTemplate];
@@ -65,20 +69,13 @@
 }
 - (void)initUI
 {
-    _webView.backgroundColor = [UIColor clearColor];
+    
     [self setupNaviBarWithTitle:@"合同模版"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
-    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_shoucang"];
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
     
-    _webView.delegate = self;
-    //_webView.scrollView.bounces = NO;
-    _webView.scrollView.showsVerticalScrollIndicator = NO;
-    //    [_webView loadURL:_url];
-    _webView.dataDetectorTypes = UIDataDetectorTypeNone;
-    _webView.scalesPageToFit = NO;//禁止用户缩放页面
-    [_webView setOpaque:NO]; //不设置这个值 页面背景始终是白色
-    [self.view addSubview:_webView];
+    [self.view addSubview:self.webView];
+    [self.view addSubview:self.shareBtn];
+    [self.view addSubview:self.collectionBtn];
 }
 - (void)downLoadTemplate
 {
@@ -92,7 +89,7 @@
     [self.view addSubview:downLoadBtn];
 
     _model = [TaskModel model];
-    _model.name=[NSString stringWithFormat:@"%@.docx",_dataModel.id];
+    _model.name=[NSString stringWithFormat:@"%@%@.docx",_dataModel.title,_dataModel.id];
     _model.url= _url;
     _model.content = _dataModel.title;
     _model.destinationPath=[kCachePath stringByAppendingPathComponent:_model.name];
@@ -134,7 +131,7 @@
     DLog(@"重新加载");
     [self loadData];
 }
-#pragma mark -UIButtonEvent
+#pragma mark - event response
 - (void)downloadThisTemplate:(id)sender
 {WEAKSELF;
     if(_exist)
@@ -142,8 +139,6 @@
         ReadViewController *readVC = [ReadViewController new];
         readVC.model = _model;
         readVC.rType = FileExist;
-        readVC.imageUrl = _imageUrl;
-        readVC.idStr = _dataModel.id;
         [self.navigationController pushViewController:readVC animated:YES];
     }else{
         NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,contractDownload,_dataModel.id];
@@ -153,8 +148,6 @@
             weakSelf.model.url = [[NSString stringWithFormat:@"%@%@",DownloadThePrefix,htmlString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             readVC.model = _model;
             readVC.rType = FileNOExist;
-            readVC.imageUrl = weakSelf.imageUrl;
-            readVC.idStr = weakSelf.dataModel.id;
             readVC.readBlock  = ^(NSString *str){
                 _label.text = str;
                 _exist = !_exist;
@@ -162,6 +155,17 @@
             [self.navigationController pushViewController:readVC animated:YES];
         }];
     }
+}
+- (void)shareButtonEvent:(UIButton *)btn
+{
+    NSString *title = @"周道慧法";
+    NSString *contentString = GET(_model.content);
+    NSString *shareUrl =  [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TheContractShareUrl,_idString];
+    NSString *imgUrlString = _imageUrl;
+    NSArray *arrays = [NSArray arrayWithObjects:title,contentString,shareUrl,imgUrlString,nil];
+    [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+    }];
+
 }
 - (void)rightBtnAction
 
@@ -174,12 +178,12 @@
             {
                 [NetWorkMangerTools theContractContent:_idString RequestSuccess:^(TemplateData *model) {
                     
-                    _dataModel = model;
+                    weakSelf.dataModel = model;
                     if ([weakSelf.dataModel.is_collection  integerValue] == 0) {
-                        [weakSelf setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_shoucang"];
+                        [weakSelf.collectionBtn setImage:kGetImage(@"template_shoucang") forState:0];
                         [weakSelf collectionMethod];
                     }else{
-                        [weakSelf setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_SC"];
+                        [weakSelf.collectionBtn setImage:kGetImage(@"template_SC") forState:0];
                     }
                 } fail:^{
                     [self addGestureReloadData];
@@ -194,8 +198,9 @@
         [self collectionMethod];
     }else{
         [NetWorkMangerTools collectionDelMine:_dataModel.id withType:templateCollect RequestSuccess:^{
-            _dataModel.is_collection = @0;
-            [weakSelf setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_shoucang"];
+            
+            weakSelf.dataModel.is_collection = @0;
+            [weakSelf.collectionBtn setImage:kGetImage(@"template_shoucang") forState:0];
         }];
     }
 }
@@ -204,10 +209,47 @@
     NSString *timeSJC = [NSString stringWithFormat:@"%ld",(long)[[NSDate date] timeIntervalSince1970]];
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:templateCollect,@"type",_dataModel.id,@"article_id",_dataModel.title,@"article_title",_dataModel.describe,@"article_subtitle",timeSJC,@"article_time",UID,@"uid", nil];
     [NetWorkMangerTools collectionAddMine:dictionary RequestSuccess:^{
-        _dataModel.is_collection = @1;
-        [weakSelf setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_SC"];
+        weakSelf.dataModel.is_collection = @1;
+        [weakSelf.collectionBtn setImage:kGetImage(@"template_SC") forState:0];
     }];
 }
+
+#pragma mark - setters and getters
+- (UIWebView *)webView
+{
+    if (!_webView) {
+        _webView.backgroundColor = [UIColor clearColor];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
+        _webView.delegate = self;
+        //_webView.scrollView.bounces = NO;
+        _webView.scrollView.showsVerticalScrollIndicator = NO;
+        _webView.dataDetectorTypes = UIDataDetectorTypeNone;
+        _webView.scalesPageToFit = NO;//禁止用户缩放页面
+        [_webView setOpaque:NO]; //不设置这个值 页面背景始终是白色
+    }
+    return _webView;
+}
+- (UIButton *)shareBtn
+{
+    if (!_shareBtn) {
+        _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _shareBtn.frame = CGRectMake(kMainScreenWidth -45.f,27.f, 30, 30);
+        [_shareBtn setImage:kGetImage(@"template_Share") forState:0];
+        [_shareBtn addTarget:self action:@selector(shareButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _shareBtn;
+}
+- (UIButton *)collectionBtn
+{
+    if (!_collectionBtn) {
+        _collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _collectionBtn.frame = CGRectMake(kMainScreenWidth - 90.f,27.f, 30, 30);
+        [_collectionBtn setImage:kGetImage(@"template_shoucang") forState:0];
+        [_collectionBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _collectionBtn;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -57,7 +57,7 @@
         MenuLabel *objs = _items[index];
         button.MenuData = objs;
         button.tag = kMenuButtonBaseTag +index;
-        CGRect toRect = CGRectMake((kMainScreenWidth - 280)/2.f + 100*index, 40, 80, 80);
+        CGRect toRect = CGRectMake((kMainScreenWidth - 280)/2.f + 100*index, 45, 80, 80);
         [button setFrame:toRect];
     }
     

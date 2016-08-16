@@ -9,15 +9,14 @@
 #import "ConsultantTabVC.h"
 #import "ConsultantCell.h"
 #import "ZHPickView.h"
-#import "ZD_DeleteWindow.h"
 #import "ConsultantHeadView.h"
 #import "RemarkTabCell.h"
-#import "ZD_DeleteWindow.h"
+#import "ZD_AlertWindow.h"
 
 static NSString *const ConsultantIDENTIFER = @"ConsultantIDENTIFER";
 static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
 
-@interface ConsultantTabVC ()<UITextFieldDelegate,UITextViewDelegate,ConsultantHeadViewPro>
+@interface ConsultantTabVC ()<UITextFieldDelegate,UITextViewDelegate,ConsultantHeadViewPro,ZD_AlertWindowPro>
 {
     UITapGestureRecognizer * _tapGesture;
     NSString *_sign_time;// 合同起始时间
@@ -356,8 +355,9 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
 #pragma mark -ConsultantHeadViewPro
 - (void)deleteSectionEventRespose:(NSUInteger)section;
 {WEAKSELF;
-    ZD_DeleteWindow *delWindow = [[ZD_DeleteWindow alloc] initWithFrame:kMainScreenFrameRect withTitle:@"确定删除吗?" withType:DelType];
-    delWindow.DelBlock = ^(){
+    UIWindow *windows = [QZManager getWindow];
+    ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleDEL withTitle:@"确定删除吗?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
+    alertWindow.confirmBlock = ^(){
         
         DLog(@"section-----%ld",(unsigned long)section);
         [weakSelf.textConArr removeObjectAtIndex:section-1];
@@ -366,9 +366,9 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
         
         weakSelf.cancelBtn.backgroundColor = [UIColor colorWithHexString:@"#00c8aa"];
         weakSelf.cancelBtn.enabled = YES;
-
     };
-    [self.view.superview addSubview:delWindow];
+    [windows addSubview:alertWindow];
+
 }
 #pragma mark - 拨打电话
 - (void)clickTelPhoneWithSection:(NSInteger)section withRow:(NSInteger)row
