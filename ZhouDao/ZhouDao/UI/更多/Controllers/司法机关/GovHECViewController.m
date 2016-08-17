@@ -139,16 +139,17 @@
 #pragma mark -选择相机
 - (void)selectCameraOrPhotoList:(NSUInteger)index
 {
-    SGMAlbumViewController* viewVC = [[SGMAlbumViewController alloc] init];
+    SGMAlbumViewController* viewVC = [SGMAlbumViewController new];
     [viewVC setDelegate:self];
     if (index == 0) {
         viewVC.style =  SGMAlbumStyleCamera;
+        [self presentViewController:viewVC animated:YES completion:nil];
     }else {
         viewVC.style =  SGMAlbumStyleAlbum;
         viewVC.limitNum = 1;//不设置即不限制
+        UINavigationController* nav = [[UINavigationController alloc]initWithRootViewController:viewVC];
+        [self presentViewController:nav animated:YES completion:nil];
     }
-    UINavigationController* nav = [[UINavigationController alloc]initWithRootViewController:viewVC];
-    [self presentViewController:nav animated:YES completion:nil];
 }
 #pragma mark - SGMAlbumViewControllerDelegate
 - (BOOL)sendImageWithAssetsArray:(NSArray *)array

@@ -334,11 +334,10 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         vc.caseId = _caseId;
         [self.navigationController  pushViewController:vc animated:YES];
     }else if ([kx.title isEqualToString:@"拍照上传  "]){
-        SGMAlbumViewController* viewVC = [[SGMAlbumViewController alloc] init];
+        SGMAlbumViewController* viewVC = [SGMAlbumViewController new];
         [viewVC setDelegate:self];
         viewVC.style =  SGMAlbumStyleCamera;
-        UINavigationController* nav = [[UINavigationController alloc]initWithRootViewController:viewVC];
-        [self presentViewController:nav animated:YES completion:nil];
+        [self presentViewController:viewVC animated:YES completion:nil];
     }else if ([kx.title isEqualToString:@"上传照片  "]){
         //从相册选择一张
         SGMAlbumViewController* viewVC = [[SGMAlbumViewController alloc] init];
@@ -346,7 +345,8 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         viewVC.style =  SGMAlbumStyleAlbum;
         viewVC.limitNum = 1;//不设置即不限制
         UINavigationController* nav = [[UINavigationController alloc]initWithRootViewController:viewVC];
-        [self presentViewController:nav animated:YES completion:nil];    }else if ([kx.title isEqualToString:@"查看案件详情"]){
+        [self presentViewController:nav animated:YES completion:nil];
+    }else if ([kx.title isEqualToString:@"查看案件详情"]){
 
         [self loadCaseDetailRequest];
         

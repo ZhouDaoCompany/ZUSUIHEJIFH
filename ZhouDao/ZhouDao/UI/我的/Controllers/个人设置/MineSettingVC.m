@@ -367,12 +367,13 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 //}
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    // bug fixes: UIIMagePickerController使用中偷换StatusBar颜色的问题
-    if ([navigationController isKindOfClass:[UIImagePickerController class]] && ((UIImagePickerController *)navigationController).sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO];
-        navigationController.navigationBar.barStyle = UIBarStyleBlack;
-        navigationController.navigationBar.tintColor = [UIColor whiteColor];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    if ([navigationController isKindOfClass:[UIImagePickerController class]] && ((UIImagePickerController *)navigationController).sourceType == UIImagePickerControllerSourceTypePhotoLibrary && [navigationController.viewControllers count] <=2) {
+        navigationController.navigationBar.translucent = NO;
+        //        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+        navigationController.navigationBarHidden = NO;
+        navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    }else {
+        navigationController.navigationBarHidden = YES;
     }
 }
 - (void)uploadHeaderImageItemClick

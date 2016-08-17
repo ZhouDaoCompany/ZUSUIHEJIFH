@@ -24,7 +24,8 @@
     UITableView* mainTable;
     NSMutableArray* groupArray;
     NSMutableArray* groupImageArray;
-    
+    UIImagePickerController   *  _cameraVC;
+
 //    SelectedBlock block;
 
 }
@@ -83,20 +84,19 @@
 #pragma mark - 相机
 - (void)initCameraStyle
 {
-    self.navigationController.navigationBarHidden = YES;
-    self.view.backgroundColor = [UIColor blackColor];
-    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.view.backgroundColor = [UIColor clearColor];
     if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
     {
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        picker.delegate = self;
-        //设置拍照后的图片可被编辑
-        picker.allowsEditing = YES;
-        picker.sourceType = sourceType;
-        [self presentViewController:picker animated:YES completion:nil];
+        _cameraVC = [[UIImagePickerController alloc]init];
+        _cameraVC.delegate = self;
+        _cameraVC.allowsEditing = YES;
+        _cameraVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+        _cameraVC.view.frame = self.view.bounds;
+        [self.view addSubview:_cameraVC.view];
     }else
     {
         SHOW_ALERT(@"模拟其中无法打开照相机,请在真机中使用");
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 
 }
@@ -204,32 +204,45 @@
 
 
 #pragma mark - cameraPhotoDelegate
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [picker dismissViewControllerAnimated:YES completion:nil];
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {WEAKSELF;
-    [picker dismissViewControllerAnimated:NO completion:nil];
-    //打印出字典中的内容
-    //DMLog( info );
-    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
-    if ([type isEqualToString:@"public.image"])
-    {//UIImagePickerControllerOriginalImage
-        UIImage* GetImage = [info objectForKey:@"UIImagePickerControllerEditedImage"]; // 裁剪后的图片
-        kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        //打印出字典中的内容
+        //DMLog( info );
+        NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
+        if ([type isEqualToString:@"public.image"])
+        {//UIImagePickerControllerOriginalImage
+            UIImage* GetImage = [info objectForKey:@"UIImagePickerControllerEditedImage"]; // 裁剪后的图片
+            kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+                
+                UIImageWriteToSavedPhotosAlbum(GetImage, nil, nil, nil);//保存相册
+            });
             
-            UIImageWriteToSavedPhotosAlbum(GetImage, nil, nil, nil);//保存相册
-        });
-        
-        if ([weakSelf.delegate respondsToSelector:@selector(sendImageWithAssetsArray:)])
-        {
-            [weakSelf.delegate sendImageWithAssetsArray:[[NSArray alloc] initWithObjects:GetImage, nil]];
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            if ([weakSelf.delegate respondsToSelector:@selector(sendImageWithAssetsArray:)])
+            {
+                [weakSelf.delegate sendImageWithAssetsArray:[[NSArray alloc] initWithObjects:GetImage, nil]];
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            }
+            
         }
-
-    }
+    }];
 }
+//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+//{
+//    if ([navigationController isKindOfClass:[UIImagePickerController class]] && ((UIImagePickerController *)navigationController).sourceType == UIImagePickerControllerSourceTypePhotoLibrary && [navigationController.viewControllers count] <=2) {
+//        navigationController.navigationBar.translucent = NO;
+//        //        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+//        navigationController.navigationBarHidden = NO;
+//        navigationController.navigationBar.barStyle = UIBarStyleDefault;
+//    }else {
+//        navigationController.navigationBarHidden = YES;
+//    }
+//}
+
 #pragma mark - SGMPhotosViewControllerDelegate
 
 - (BOOL)sendImageWithALassetArray:(NSArray *)array
@@ -251,5 +264,9 @@
     }
     return NO;
 }
-
+- (void)dealloc
+{
+    _cameraVC = nil;
+    TTVIEW_RELEASE_SAFELY(mainTable);
+}
 @end
