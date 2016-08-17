@@ -19,4 +19,7 @@
 + (UIColor *)colorWithHexString:(NSString *)colorStr;
 + (UIColor *)colorWithHexString:(NSString *)colorStr alpha:(CGFloat)alpha;
 
++ (UIColor *)hexStringToColor:(NSString *)stringToConvert;
++ (UIColor *)colorWithHexNumber:(NSUInteger)hexColor;
+
 @end

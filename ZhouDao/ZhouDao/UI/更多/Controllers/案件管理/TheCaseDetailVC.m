@@ -12,9 +12,7 @@
 #import "ShareView.h"
 #import "MenuLabel.h"
 #import "ToolsWedViewVC.h"
-#import "WHC_PhotoListCell.h"
-#import "WHC_PictureListVC.h"
-#import "WHC_CameraVC.h"
+#import "SGMAlbumViewController.h"
 #import "NewlyCreatedVC.h"
 #import "CasesDirectoryVC.h"
 #import "CollectEmptyView.h"
@@ -34,7 +32,7 @@ static NSString *const headCellIdentifier = @"headCellIdentifier";
 static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 #define kHeaderImageHeight     126.f
 
-@interface TheCaseDetailVC ()<UITableViewDataSource,UITableViewDelegate,CaseDetailTabCellPro,WHC_ChoicePictureVCDelegate,WHC_CameraVCDelegate,DownLoadViewPro,SDPhotoBrowserDelegate,ZD_AlertWindowPro>
+@interface TheCaseDetailVC ()<UITableViewDataSource,UITableViewDelegate,CaseDetailTabCellPro,SGMAlbumViewControllerDelegate,DownLoadViewPro,SDPhotoBrowserDelegate,ZD_AlertWindowPro>
 {
     float _contentOffsetY;
     UIImage *_photoImage;
@@ -336,16 +334,19 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         vc.caseId = _caseId;
         [self.navigationController  pushViewController:vc animated:YES];
     }else if ([kx.title isEqualToString:@"拍照上传  "]){
-        WHC_CameraVC * vc = [WHC_CameraVC new];
-        vc.delegate = self;
-        [self presentViewController:vc animated:YES completion:nil];
+        SGMAlbumViewController* viewVC = [[SGMAlbumViewController alloc] init];
+        [viewVC setDelegate:self];
+        viewVC.style =  SGMAlbumStyleCamera;
+        UINavigationController* nav = [[UINavigationController alloc]initWithRootViewController:viewVC];
+        [self presentViewController:nav animated:YES completion:nil];
     }else if ([kx.title isEqualToString:@"上传照片  "]){
         //从相册选择一张
-        WHC_PictureListVC  * vc = [WHC_PictureListVC new];
-        vc.delegate = self;
-        vc.maxChoiceImageNumberumber = 1;
-        [self presentViewController:[[UINavigationController alloc]initWithRootViewController:vc] animated:YES completion:nil];
-    }else if ([kx.title isEqualToString:@"查看案件详情"]){
+        SGMAlbumViewController* viewVC = [[SGMAlbumViewController alloc] init];
+        [viewVC setDelegate:self];
+        viewVC.style =  SGMAlbumStyleAlbum;
+        viewVC.limitNum = 1;//不设置即不限制
+        UINavigationController* nav = [[UINavigationController alloc]initWithRootViewController:viewVC];
+        [self presentViewController:nav animated:YES completion:nil];    }else if ([kx.title isEqualToString:@"查看案件详情"]){
 
         [self loadCaseDetailRequest];
         
@@ -496,18 +497,19 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 
 }
 #pragma mark -照片上传
-#pragma mark - WHC_ChoicePictureVCDelegate
-- (void)WHCChoicePictureVC:(WHC_ChoicePictureVC *)choicePictureVC didSelectedPhotoArr:(NSArray *)photoArr{         UIImage *image = photoArr[0];
-    _photoImage = image;
-    ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"确定删除吗?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
-    alertWindow.tag = 6005;
-    [self.view addSubview:alertWindow];
+#pragma mark - SGMAlbumViewControllerDelegate
+- (BOOL)sendImageWithAssetsArray:(NSArray *)array
+{
+    if (array.count>0) {
+        _photoImage = array[0];
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"确定删除吗?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
+        alertWindow.tag = 6005;
+        [self.view addSubview:alertWindow];
+        return YES;
+    }
+    return NO;
+}
 
-}
-#pragma mark - WHC_CameraVCDelegate
-- (void)WHCCameraVC:(WHC_CameraVC *)cameraVC didSelectedPhoto:(UIImage *)photo{
-    [self WHCChoicePictureVC:nil didSelectedPhotoArr:@[photo]];
-}
 #pragma mark  ZD_AlertWindowPro
 - (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex withName:(NSString *)name withIndexPath:(NSIndexPath *)indexPath
 {WEAKSELF;

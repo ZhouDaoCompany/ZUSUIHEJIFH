@@ -7,12 +7,10 @@
 //
 
 #import "CertificationVC.h"
-#import "WHC_PhotoListCell.h"
-#import "WHC_PictureListVC.h"
-#import "WHC_CameraVC.h"
+#import "SGMAlbumViewController.h"
 #import "LCActionSheet.h"
 
-@interface CertificationVC ()<WHC_ChoicePictureVCDelegate,WHC_CameraVCDelegate>
+@interface CertificationVC ()<SGMAlbumViewControllerDelegate>
 {
     BOOL _isSelect;//是否选择了图片
 
@@ -67,53 +65,28 @@
 #pragma mark -选择相机
 - (void)selectCameraOrPhotoList:(NSUInteger)index
 {
-    switch (index)
-    {
-        case 0:
-        {//从相机选择
-            if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                SHOW_ALERT(@"亲，您的设备没有摄像头-_-!!");
-            }else{
-                
-                WHC_CameraVC * vc = [WHC_CameraVC new];
-                vc.delegate = self;
-                [self presentViewController:vc animated:YES completion:nil];
-            }
-        }
-            break;
-        case 1:
-        {//从相册选择一张
-            WHC_PictureListVC  * vc = [WHC_PictureListVC new];
-            vc.delegate = self;
-            vc.maxChoiceImageNumberumber = 1;
-            [self presentViewController:[[UINavigationController alloc]initWithRootViewController:vc] animated:YES completion:nil];
-        }
-            break;
-        default:
-            break;
+    SGMAlbumViewController* viewVC = [[SGMAlbumViewController alloc] init];
+    [viewVC setDelegate:self];
+    if (index == 0) {
+        viewVC.style =  SGMAlbumStyleCamera;
+    }else {
+        viewVC.style =  SGMAlbumStyleAlbum;
+        viewVC.limitNum = 1;//不设置即不限制
     }
+    UINavigationController* nav = [[UINavigationController alloc]initWithRootViewController:viewVC];
+    [self presentViewController:nav animated:YES completion:nil];
 }
-#pragma mark - WHC_ChoicePictureVCDelegate
-- (void)WHCChoicePictureVC:(WHC_ChoicePictureVC *)choicePictureVC didSelectedPhotoArr:(NSArray *)photoArr{
-    if (photoArr.count >0) {
+#pragma mark - SGMAlbumViewControllerDelegate
+- (BOOL)sendImageWithAssetsArray:(NSArray *)array
+{
+    if (array.count>0) {
         _isSelect = YES;
-        _bgImgView.image = photoArr[0];
+        _bgImgView.image = array[0];
+        return YES;
     }
-    //    for (NSInteger i = 0; i < photoArr.count; i++) {
-    //        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(i * CGRectGetWidth(_imageSV.frame), 0, CGRectGetWidth(_imageSV.frame), CGRectGetHeight(_imageSV.frame))];
-    //        imageView.image = photoArr[i];
-    //        [_imageSV addSubview:imageView];
-    //    }
-    //    _imageSV.contentSize = CGSizeMake(photoArr.count * CGRectGetWidth(_imageSV.frame), 0);
+    return NO;
 }
 
-#pragma mark - WHC_CameraVCDelegate
-- (void)WHCCameraVC:(WHC_CameraVC *)cameraVC didSelectedPhoto:(UIImage *)photo{
-    
-    _isSelect = YES;
-      _bgImgView.image = photo;
-    //[self WHCChoicePictureVC:nil didSelectedPhotoArr:@[photo]];
-}
 #pragma mark -UIButtonEvent
 - (void)rightBtnAction
 {

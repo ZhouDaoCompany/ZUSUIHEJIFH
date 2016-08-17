@@ -157,8 +157,8 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     return cell.rowHeight;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0  && indexPath.section == 0) {
         ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleReview withTextAlignment:NSTextAlignmentLeft Title:@"审查说明"];

@@ -8,9 +8,6 @@
 
 #import "MineSettingVC.h"
 #import "SettingTabCell.h"
-#import "WHC_PhotoListCell.h"
-#import "WHC_PictureListVC.h"
-#import "WHC_CameraVC.h"
 #import "LCActionSheet.h"
 #import "MyPickView.h"
 #import "QHCommonUtil.h"
@@ -27,7 +24,7 @@
 static NSString *const SettingIdentifer = @"SettingIdentifer";
 static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 
-@interface MineSettingVC ()<UITableViewDataSource,UITableViewDelegate,WHC_ChoicePictureVCDelegate,WHC_CameraVCDelegate>
+@interface MineSettingVC ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     NSArray *_titArrays;
     NSMutableArray *_msgArrays;
@@ -42,6 +39,11 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 @implementation MineSettingVC
 
 #pragma mark - life cycle
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -297,53 +299,106 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
             if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 SHOW_ALERT(@"亲，您的设备没有摄像头-_-!!");
             }else{
-                WHC_CameraVC * vc = [WHC_CameraVC new];
-                vc.delegate = self;
-                [self presentViewController:vc animated:YES completion:nil];
+                kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+                    
+                    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                    imagePickerController.sourceType=UIImagePickerControllerSourceTypeCamera;
+                    imagePickerController.delegate = self;
+                    imagePickerController.showsCameraControls = YES;//是否显示照相机标准的控件库
+                    [imagePickerController setAllowsEditing:YES];//是否加入照相后预览时的编辑功能
+                    kDISPATCH_MAIN_THREAD(^{
+                        
+                        [self presentViewController:imagePickerController animated:YES completion:nil];
+                    });
+                });
             }
         }
             break;
         case 1:
         {//从相册选择一张
-            WHC_PictureListVC  * vc = [WHC_PictureListVC new];
-            vc.delegate = self;
-            vc.maxChoiceImageNumberumber = 1;
-            [self presentViewController:[[UINavigationController alloc]initWithRootViewController:vc] animated:YES completion:nil];
+            kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+                
+                UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+                picker.delegate = self;
+                picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                picker.allowsEditing = YES;
+                kDISPATCH_MAIN_THREAD(^{
+                    
+                    [self presentViewController:picker animated:YES completion:^{
+//                        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+                    }];
+                });
+            });
         }
             break;
         default:
             break;
     }
 }
-#pragma mark - WHC_ChoicePictureVCDelegate
-- (void)WHCChoicePictureVC:(WHC_ChoicePictureVC *)choicePictureVC didSelectedPhotoArr:(NSArray *)photoArr{
-    if (photoArr.count >0) {
-        CGSize imgSize = CGSizeMake(80, 80);
-        _headImage = [QZManager compressOriginalImage:photoArr[0] toSize:imgSize];
-//        _headImage = photoArr[0];
-        WEAKSELF;
+#pragma mark - UIImagePickerControllerDelegate
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
+    // 当选择的类型是图片
+    if ([type isEqualToString:@"public.image"])
+    {//UIImagePickerControllerOriginalImage
+
+        UIImage* image = [info objectForKey:@"UIImagePickerControllerEditedImage"]; // 裁剪后的图片
+        kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+            
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);//保存相册
+        });
+        _headImage = image;
+    }  
+    [self uploadHeaderImageItemClick];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0){
+//    [picker dismissViewControllerAnimated:YES completion:^{
+//    }];
+//    _headImage = image;
+//    [self uploadHeaderImageItemClick];
+//}
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    // bug fixes: UIIMagePickerController使用中偷换StatusBar颜色的问题
+    if ([navigationController isKindOfClass:[UIImagePickerController class]] && ((UIImagePickerController *)navigationController).sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+        navigationController.navigationBar.barStyle = UIBarStyleBlack;
+        navigationController.navigationBar.tintColor = [UIColor whiteColor];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    }
+}
+- (void)uploadHeaderImageItemClick
+{   WEAKSELF;
+    if (_headImage >0) {
+//        CGSize imgSize = CGSizeMake(80, 80);
+//        _headImage = [QZManager compressOriginalImage:photoArr[0] toSize:imgSize];
+     
         kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
             
             [NetWorkMangerTools getQiNiuToken:NO RequestSuccess:^{
                 
                 [NetWorkMangerTools uploadUserHeadImg:_headImage RequestSuccess:^{
                     
-                    //                weakSelf.headBlock();
                     kDISPATCH_MAIN_THREAD((^{
                         [weakSelf.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
                     }));
+
+                } fail:^{
+                    _headImage = nil;
                 }];
             }];
-
+            
         });
         
     }
-}
-
-#pragma mark - WHC_CameraVCDelegate
-- (void)WHCCameraVC:(WHC_CameraVC *)cameraVC didSelectedPhoto:(UIImage *)photo{
-    
-    [self WHCChoicePictureVC:nil didSelectedPhotoArr:@[photo]];
 }
 #pragma mark - 查询文件
 -(float )folderSizeAtPath:(NSString*) folderPath{

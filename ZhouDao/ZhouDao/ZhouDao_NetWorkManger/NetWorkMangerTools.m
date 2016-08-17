@@ -177,6 +177,7 @@
 }
 #pragma mark - 上传用户头像
 + (void)uploadUserHeadImg:(UIImage *)image RequestSuccess:(void(^)())success
+                     fail:(void (^)())fail
 {
     QiniuFile *file = [[QiniuFile alloc] initWithFileData:UIImageJPEGRepresentation(image, .5f)];
     QiniuUploader *uploader = [[QiniuUploader alloc] init];
@@ -201,12 +202,14 @@
                 [SVProgressHUD dismiss];
                 [JKPromptView showWithImageName:nil message:msg];
                 if (errorcode !=1) {
+                    fail();
                     return ;
                 }
                 [PublicFunction ShareInstance].m_user.data.photo = jsonDic[@"data"];
                 success();
                 
             } fail:^{
+                fail();
                 [SVProgressHUD dismiss];
                 [JKPromptView showWithImageName:nil message:AlrertMsg];
             }];

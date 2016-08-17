@@ -39,7 +39,9 @@
  *上传用户头像
  */
 + (void)uploadUserHeadImg:(UIImage *)image
-          RequestSuccess:(void(^)())success;
+          RequestSuccess:(void(^)())success
+                     fail:(void (^)())fail;
+
 /*
  *意见反馈
  */

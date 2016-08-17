@@ -8,12 +8,10 @@
 
 #import "GovHECViewController.h"
 #import "GcNoticeUtil.h"
-#import "WHC_PhotoListCell.h"
-#import "WHC_PictureListVC.h"
-#import "WHC_CameraVC.h"
+#import "SGMAlbumViewController.h"
 #import "LCActionSheet.h"
 
-@interface GovHECViewController ()<UITextFieldDelegate,UITextViewDelegate,WHC_ChoicePictureVCDelegate,WHC_CameraVCDelegate>
+@interface GovHECViewController ()<UITextFieldDelegate,UITextViewDelegate,SGMAlbumViewControllerDelegate>
 {
     UIImage *_photoImage;//图片
 }
@@ -141,45 +139,27 @@
 #pragma mark -选择相机
 - (void)selectCameraOrPhotoList:(NSUInteger)index
 {
-    switch (index)
-    {
-        case 0:
-        {//从相机选择
-            if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                [JKPromptView showWithImageName:nil message:@"亲，您的设备没有摄像头-_-!!"];
-            }else{
-                WHC_CameraVC * vc = [WHC_CameraVC new];
-                vc.delegate = self;
-                [self presentViewController:vc animated:YES completion:nil];
-            }
-        }
-            break;
-        case 1:
-        {//从相册选择一张
-            WHC_PictureListVC  * vc = [WHC_PictureListVC new];
-            vc.delegate = self;
-            vc.maxChoiceImageNumberumber = 1;
-            [self presentViewController:[[UINavigationController alloc]initWithRootViewController:vc] animated:YES completion:nil];
-        }
-            break;
-        default:
-            break;
+    SGMAlbumViewController* viewVC = [[SGMAlbumViewController alloc] init];
+    [viewVC setDelegate:self];
+    if (index == 0) {
+        viewVC.style =  SGMAlbumStyleCamera;
+    }else {
+        viewVC.style =  SGMAlbumStyleAlbum;
+        viewVC.limitNum = 1;//不设置即不限制
     }
+    UINavigationController* nav = [[UINavigationController alloc]initWithRootViewController:viewVC];
+    [self presentViewController:nav animated:YES completion:nil];
 }
-#pragma mark - WHC_ChoicePictureVCDelegate
-- (void)WHCChoicePictureVC:(WHC_ChoicePictureVC *)choicePictureVC didSelectedPhotoArr:(NSArray *)photoArr{
-    if (photoArr.count >0) {
-        UIImage *image = photoArr[0];
-        _photoImage = image;
+#pragma mark - SGMAlbumViewControllerDelegate
+- (BOOL)sendImageWithAssetsArray:(NSArray *)array
+{
+    if (array.count>0) {
+        _photoImage = array[0];
         [_photoImgBtn setImage:_photoImage forState:0];
         _buttonClose.hidden = NO;
+        return YES;
     }
-}
-
-#pragma mark - WHC_CameraVCDelegate
-- (void)WHCCameraVC:(WHC_CameraVC *)cameraVC didSelectedPhoto:(UIImage *)photo{
-    
-    [self WHCChoicePictureVC:nil didSelectedPhotoArr:@[photo]];
+    return NO;
 }
 
 #pragma mark -UITextFieldDelegate
