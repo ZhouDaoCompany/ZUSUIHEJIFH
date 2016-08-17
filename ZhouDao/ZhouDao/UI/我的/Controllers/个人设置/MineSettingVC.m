@@ -368,12 +368,15 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if ([navigationController isKindOfClass:[UIImagePickerController class]] && ((UIImagePickerController *)navigationController).sourceType == UIImagePickerControllerSourceTypePhotoLibrary && [navigationController.viewControllers count] <=2) {
-        navigationController.navigationBar.translucent = NO;
-        //        [[UIApplication sharedApplication] setStatusBarHidden:NO];
+//        navigationController.navigationBar.translucent = NO;
         navigationController.navigationBarHidden = NO;
-        navigationController.navigationBar.barStyle = UIBarStyleDefault;
+        navigationController.navigationBar.barStyle = UIBarStyleBlack;
+        navigationController.navigationBar.tintColor = [UIColor whiteColor];
+        navigationController.navigationBar.backgroundColor = hexColor(353535);
+        //        [[UIApplication sharedApplication] setStatusBarHidden:NO];
     }else {
         navigationController.navigationBarHidden = YES;
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
 }
 - (void)uploadHeaderImageItemClick

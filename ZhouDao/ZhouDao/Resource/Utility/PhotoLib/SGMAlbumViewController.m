@@ -53,9 +53,13 @@
 {
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"照片";
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    
+    self.navigationController.navigationBar.backgroundColor = hexColor(353535);
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+//
+//    self.navigationController.navigationBar.translucent = NO;//关键代码
+
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"取消"
                                                                     style:UIBarButtonItemStyleDone
                                                                    target:self
@@ -72,7 +76,7 @@
     groupArray = [[NSMutableArray alloc]init];
     groupImageArray = [[NSMutableArray alloc] init];
     
-    mainTable = [[UITableView alloc]initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y + 10, self.view.bounds.size.width, self.view.bounds.size.height-10) style:UITableViewStylePlain];
+    mainTable = [[UITableView alloc]initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y + 5, self.view.bounds.size.width, self.view.bounds.size.height-5) style:UITableViewStylePlain];
     mainTable.dataSource = self;
     mainTable.delegate = self;
     mainTable.tableFooterView = [[UIView alloc] init];
@@ -144,7 +148,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 70;
+    return 80;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -152,9 +156,10 @@
     static NSString* identify = @"cell";
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identify];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 60, 60)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, 60, 60)];
         imageView.tag = imageViewTag;
         [cell.contentView addSubview:imageView];
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 10, 200, 30)];
@@ -164,6 +169,12 @@
         detailTextLabel.tag = detailTextLabelTag;
         [detailTextLabel setFont:[UIFont systemFontOfSize:13]];
         [cell.contentView addSubview:detailTextLabel];
+        
+        UIImageView *jiantouimg = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth - 24, 32.5f, 9, 15)];
+        jiantouimg.userInteractionEnabled = YES;
+        jiantouimg.image = [UIImage imageNamed:@"mine_jiantou"];
+        [cell.contentView addSubview:jiantouimg];
+
     }
     ALAssetsGroup *group = [groupArray objectAtIndex:(groupArray.count-1) - indexPath.row];
     UIImage *groupImage = [groupImageArray objectAtIndex:(groupArray.count-1) - indexPath.row];
