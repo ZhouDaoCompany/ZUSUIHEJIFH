@@ -161,7 +161,7 @@
     NSString *title = @"周道慧法";
     NSString *contentString = GET(_model.content);
     NSString *shareUrl =  [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TheContractShareUrl,_idString];
-    NSString *imgUrlString = _imageUrl;
+    NSString *imgUrlString = @"";
     NSArray *arrays = [NSArray arrayWithObjects:title,contentString,shareUrl,imgUrlString,nil];
     [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
     }];

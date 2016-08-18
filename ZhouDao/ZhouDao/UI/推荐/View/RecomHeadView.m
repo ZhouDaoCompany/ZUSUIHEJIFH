@@ -154,7 +154,7 @@
         //    _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
         _cycleScrollView.autoScroll = YES;
         _cycleScrollView.titleLabelHeight = 30.f;
-        _cycleScrollView.titleLabelTextFont = Font_15;
+        _cycleScrollView.titleLabelTextFont = Font_14;
         _cycleScrollView.autoScrollTimeInterval = 3.f;
         _cycleScrollView.pageDotColor = [UIColor whiteColor];
         _cycleScrollView.currentPageDotColor = KNavigationBarColor;

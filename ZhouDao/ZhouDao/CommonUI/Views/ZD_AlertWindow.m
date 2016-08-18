@@ -10,7 +10,7 @@
 #define zd_width [UIScreen mainScreen].bounds.size.width
 #define zd_height [UIScreen mainScreen].bounds.size.height
 static CGFloat kTransitionDuration = 0.3f;
-#define kContentLabelWidth     260.f
+#define kContentLabelWidth     13.f/16.f*([UIScreen mainScreen].bounds.size.width)
 
 @interface ZD_AlertWindow()<UITextFieldDelegate>
 
@@ -71,15 +71,15 @@ static CGFloat kTransitionDuration = 0.3f;
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
     [self addSubview:self.zd_superView];
     [self.zd_superView addSubview:self.headlab];
-    self.headlab.frame = CGRectMake(15, 20, zd_width-150, 20);
+    self.headlab.frame = CGRectMake(15, 20, kContentLabelWidth - 50, 20);
     
     if (_style == ZD_AlertViewStyleReview) {
         
-        _zd_superView.frame = CGRectMake(0, 0, zd_width-100, 179);
+        _zd_superView.frame = CGRectMake(0, 0, kContentLabelWidth, 179);
         _zd_superView.center = CGPointMake(zd_width/2.0,zd_height/2.0);
         UILabel *msgLab = [[UILabel alloc] init];
         msgLab.center = self.zd_superView.center;
-        msgLab.frame = CGRectMake(15, 54, zd_width-130, 100);
+        msgLab.frame = CGRectMake(15, 54, kContentLabelWidth -30, 100);
         msgLab.font = Font_14 ;
         msgLab.numberOfLines = 0;
         msgLab.text = @"已审查：信息已和官方网站信息核对一致。\n \n未审查：信息正在马不停蹄的审核中，请您耐心等待。";
@@ -87,10 +87,10 @@ static CGFloat kTransitionDuration = 0.3f;
 
     } else {
         
-        _zd_superView.frame = CGRectMake(0, 0, zd_width-120, 160);
+        _zd_superView.frame = CGRectMake(0, 0, kContentLabelWidth, 160);
         _zd_superView.center = CGPointMake(zd_width/2.0,zd_height/2.0);
 
-        UILabel *drivingLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 60, zd_width-150, 40)];
+        UILabel *drivingLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 60, kContentLabelWidth - 30, 40)];
         drivingLab.text = @"驾车导航";
         drivingLab.textColor = thirdColor;
         drivingLab.font = Font_16;
@@ -100,7 +100,7 @@ static CGFloat kTransitionDuration = 0.3f;
         indicatorView.image = kGetImage(@"Esearch_jiantou");
         [drivingLab  addSubview:indicatorView];
         
-        UILabel *walkingLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 100, zd_width-150, 40)];
+        UILabel *walkingLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 100, kContentLabelWidth - 30, 40)];
         walkingLab.text = @"步行导航";
         walkingLab.textColor = thirdColor;
         walkingLab.font = Font_16;

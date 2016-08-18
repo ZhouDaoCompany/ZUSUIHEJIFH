@@ -343,7 +343,7 @@ CompletionBlock:(void(^)(BOOL completion))blcok
         urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imgUrlString];
     }else {
         image = [QZManager getAppIcon];
-        urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb url:url];
+        urlResource = nil;
     }
     
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:content image:image location:nil urlResource:urlResource presentedController:_superVC completion:^(UMSocialResponseEntity *response){
@@ -385,7 +385,6 @@ CompletionBlock:(void(^)(BOOL completion))blcok
     UMSocialUrlResource *urlResource = nil;
     if (imgUrlString.length >0) {
         urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:imgUrlString];
-        
     }else {
         [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
     }

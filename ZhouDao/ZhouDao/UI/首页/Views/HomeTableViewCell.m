@@ -64,12 +64,13 @@
     _historyModel = nil;
     _historyModel = historyModel;
     _titlab.text = _historyModel.title;
-    
+    _contentLab.text = [FMUString flattenHTML:_historyModel.content];
+
     [_headImgView sd_setImageWithURL:[NSURL URLWithString:_historyModel.pic] placeholderImage:[UIImage imageNamed:@"home_palcehold"]];
-    kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
-        
-        _contentLab.text = [FMUString filterHtml:_historyModel.content];
-    });
+//    kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+//        _contentLab.text = @"";
+//        _contentLab.text = [FMUString flattenHTML:_historyModel.content];
+//    });
 }
 - (void)setMdoel:(BasicModel *)mdoel
 {
@@ -77,11 +78,12 @@
     _mdoel = mdoel;
     _titlab.text = _mdoel.title;
     [_headImgView sd_setImageWithURL:[NSURL URLWithString:_mdoel.pic] placeholderImage:[UIImage imageNamed:@"home_palcehold"]];
-    
-    kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
-        
-        _contentLab.text = [FMUString filterHtml:_mdoel.content];
-    });
+    _contentLab.text = [FMUString flattenHTML:_mdoel.content];
+
+//    kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+//        _contentLab.text = @"";
+//        _contentLab.text = [FMUString flattenHTML:_mdoel.content];
+//    });
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        
 //        NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[_mdoel.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];

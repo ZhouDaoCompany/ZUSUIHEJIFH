@@ -15,7 +15,6 @@
 #define kMenuButtonBaseTag 7900
 @interface ThirdPartyLoginView()
 
-@property (nonatomic, assign) BOOL isLook;
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, strong) UIViewController *superVC;
 @end
@@ -69,9 +68,13 @@
         
         weakSelf.isLook = !weakSelf.isLook;
         if (weakSelf.isLook == YES) {
-            weakSelf.frameBlock(1);
+            if (weakSelf.frameBlock) {
+                weakSelf.frameBlock(1);
+            }
         }else {
-            weakSelf.frameBlock(0);
+            if (weakSelf.frameBlock) {
+                weakSelf.frameBlock(0);
+            }
         }
     }];
 }

@@ -165,7 +165,6 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         SelectTemplateVC *selectlVC = [SelectTemplateVC new];
         selectlVC.firstArrays = _nameArrays;
         selectlVC.cidArrays = _idArrays;
-        selectlVC.imageUrl =  model.pic;
         selectlVC.model = model;
         [self.navigationController  pushViewController:selectlVC animated:YES];
     }

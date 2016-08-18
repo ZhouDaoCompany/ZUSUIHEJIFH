@@ -95,8 +95,6 @@
     if ([viewController.tabBarItem.title isEqualToString:@"我的"]) {
         if ([PublicFunction ShareInstance].m_bLogin == NO) {
             LoginViewController *loginVC = [LoginViewController new];
-            loginVC.closeBlock = ^{
-            };
             [tabBarController presentViewController:[[UINavigationController alloc]initWithRootViewController:loginVC] animated:YES completion:nil];
             return NO;
         }

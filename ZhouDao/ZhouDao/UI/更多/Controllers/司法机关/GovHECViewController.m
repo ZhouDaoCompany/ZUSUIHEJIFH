@@ -243,6 +243,7 @@
         _addressText.layer.borderWidth = 1.f;
         _addressText.font = Font_14;
         _addressText.placeholder = @" 输入新的地址";
+        [_addressText setValue:hexColor(999999) forKeyPath:@"_placeholderLabel.textColor"];
         [GcNoticeUtil handleNotification:UITextFieldTextDidChangeNotification Selector:@selector(textFieldChanged:) Observer:self Object:self.addressText];
     }
     return _addressText;
@@ -268,6 +269,7 @@
         _phoneText.font = Font_14;
         _phoneText.keyboardType = UIKeyboardTypeNumberPad;
         _phoneText.placeholder = @" 输入新的电话";
+        [_phoneText setValue:hexColor(999999) forKeyPath:@"_placeholderLabel.textColor"];
         [GcNoticeUtil handleNotification:UITextFieldTextDidChangeNotification Selector:@selector(textFieldChanged:) Observer:self Object:self.phoneText];
     }
     return _phoneText;
@@ -331,7 +333,7 @@
         _introPlaceLab.backgroundColor = [UIColor clearColor];
         _introPlaceLab.font = Font_14;
         _introPlaceLab.text = @" 请输入您的意见";
-        _introPlaceLab.textColor = [UIColor lightGrayColor];
+        _introPlaceLab.textColor = hexColor(999999);
     }
     return _introPlaceLab;
 }

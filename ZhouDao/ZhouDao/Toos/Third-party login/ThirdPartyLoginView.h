@@ -13,6 +13,7 @@
 
 
 @property (nonatomic, copy) ZDIndexBlock frameBlock;
+@property (nonatomic, assign) BOOL isLook;
 @property (nonatomic, weak)  id<ThirdPartyLoginPro>delegate;
 
 - (id)initWithFrame:(CGRect)frame

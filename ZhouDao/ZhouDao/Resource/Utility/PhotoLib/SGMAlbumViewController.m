@@ -93,7 +93,7 @@
     {
         _cameraVC = [[UIImagePickerController alloc]init];
         _cameraVC.delegate = self;
-        _cameraVC.allowsEditing = YES;
+        _cameraVC.allowsEditing = NO;
         _cameraVC.sourceType = UIImagePickerControllerSourceTypeCamera;
         _cameraVC.view.frame = self.view.bounds;
         [self.view addSubview:_cameraVC.view];
@@ -226,8 +226,8 @@
         //DMLog( info );
         NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
         if ([type isEqualToString:@"public.image"])
-        {//UIImagePickerControllerOriginalImage
-            UIImage* GetImage = [info objectForKey:@"UIImagePickerControllerEditedImage"]; // 裁剪后的图片
+        {//UIImagePickerControllerOriginalImage UIImagePickerControllerEditedImage
+            UIImage* GetImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"]; // 裁剪后的图片
             kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
                 
                 UIImageWriteToSavedPhotosAlbum(GetImage, nil, nil, nil);//保存相册

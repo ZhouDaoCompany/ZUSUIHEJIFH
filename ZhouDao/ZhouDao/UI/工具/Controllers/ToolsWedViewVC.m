@@ -223,7 +223,9 @@
     return YES;
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView{
-    [SVProgressHUD show];
+    if (_tType != FromToolsType){
+        [SVProgressHUD show];
+    }
     DLog(@"开始加载");
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{

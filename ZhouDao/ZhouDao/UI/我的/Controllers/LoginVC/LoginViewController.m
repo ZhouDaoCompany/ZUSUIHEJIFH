@@ -103,8 +103,6 @@
             }];
         }
     };
-
-    
 }
 #pragma mark -getters and seters
 #pragma mark -第三方登录
@@ -112,6 +110,10 @@
 {
     if (!_loginView) {
         _loginView = [[ThirdPartyLoginView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 40, kMainScreenWidth, 40) withPresentVC:self];
+        if (kMainScreenHeight >= 568) {
+            _loginView.isLook = YES;
+           _loginView.frame = CGRectMake(0, kMainScreenHeight - 130, kMainScreenWidth, 130);
+        }
         _loginView.delegate = self;
     }
     return _loginView;
@@ -159,7 +161,9 @@
 #pragma mark -UIButtonEvent
 - (void)rightBtnAction
 {
-    self.closeBlock();
+    if (self.closeBlock) {
+        self.closeBlock();
+    }
     [self dismissViewControllerAnimated:YES completion:^{
   }];
 }
