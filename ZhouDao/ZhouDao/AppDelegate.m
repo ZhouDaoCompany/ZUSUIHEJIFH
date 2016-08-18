@@ -61,9 +61,12 @@
     application.applicationIconBadgeNumber = 0;
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    //设置缓存
+    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
+    [NSURLCache setSharedURLCache:URLCache];
 
+    kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+        
         //键盘配置
         [[IQKeyboardManager sharedManager] setEnable:YES];
         [IQKeyboardManager sharedManager].shouldShowTextFieldPlaceholder = YES;
@@ -75,7 +78,6 @@
         [NetWorkMangerTools isAutoLogin];
         //监测版本
         [self checkVersionUpdate];
-        
     });
     //友盟分享
     [self uMSocialEvent];
