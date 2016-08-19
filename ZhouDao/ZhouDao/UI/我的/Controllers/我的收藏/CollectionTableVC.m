@@ -285,7 +285,7 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
                 [NetWorkMangerTools collectionTopDelMine:model1.id RequestSuccess:^{
                     
                     [_zdArr removeObject:model1];
-                    [weakSelf.tableView deleteRowsAtIndexPaths:@[cellIndexPath]withRowAnimation:UITableViewRowAnimationNone];
+                    [weakSelf.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationNone];
                     [_normalArr insertObject:model1 atIndex:0];
                     [weakSelf.tableView insertRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
                 }];
@@ -294,7 +294,7 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
                 CollectionData *model = _normalArr[row];
                 [NetWorkMangerTools collectionTopMine:model.id RequestSuccess:^{
                     [_normalArr removeObject:model];
-                    [weakSelf.tableView deleteRowsAtIndexPaths:@[cellIndexPath]withRowAnimation:UITableViewRowAnimationNone];
+                    [weakSelf.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationNone];
                     [_zdArr insertObject:model atIndex:0];
                     [weakSelf.tableView insertRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
                 }];

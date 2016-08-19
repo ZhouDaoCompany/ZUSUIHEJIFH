@@ -190,7 +190,7 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 95.f;
+    return 45.f;
 }
 #pragma mark - setters and getters
 -(UITableView *)tableView{

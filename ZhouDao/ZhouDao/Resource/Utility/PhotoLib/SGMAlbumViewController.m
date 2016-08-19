@@ -233,9 +233,10 @@
                 UIImageWriteToSavedPhotosAlbum(GetImage, nil, nil, nil);//保存相册
             });
             
-            if ([weakSelf.delegate respondsToSelector:@selector(sendImageWithAssetsArray:)])
+            if ([weakSelf.delegate respondsToSelector:@selector(sendImageWithcameraArray:withStyle:withAccessArrays:)])
             {
-                [weakSelf.delegate sendImageWithAssetsArray:[[NSArray alloc] initWithObjects:GetImage, nil]];
+                [weakSelf.delegate sendImageWithcameraArray:@[GetImage] withStyle:SGMAlbumStyleCamera withAccessArrays:nil];
+
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }
             
@@ -258,19 +259,23 @@
 
 - (BOOL)sendImageWithALassetArray:(NSArray *)array
 {
-   __block NSMutableArray *arr = [NSMutableArray array];
+    __block NSMutableArray *arr = [NSMutableArray array];
+    __block NSMutableArray *thumbnailArr = [NSMutableArray array];
     if (array) {
         
         [array enumerateObjectsUsingBlock:^(NSDictionary *objDict, NSUInteger idx, BOOL * _Nonnull stop) {
             
             ALAsset *asset = objDict[@"asset"];
             UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+            UIImage *thumbImage = [UIImage imageWithCGImage:asset.thumbnail];
             [arr addObject:image];
+            [thumbnailArr addObject:thumbImage];
         }];
 
     }
-    if ([self.delegate respondsToSelector:@selector(sendImageWithAssetsArray:)]) {
-        [self.delegate sendImageWithAssetsArray:arr];
+    if ([self.delegate respondsToSelector:@selector(sendImageWithcameraArray:withStyle:withAccessArrays:)])
+    {
+        [self.delegate sendImageWithAssetsArray:arr withStyle:SGMAlbumStyleAlbum withThumbnailArrays:thumbnailArr withFileNameArrays:<#(NSArray *)#>];
         return YES;
     }
     return NO;

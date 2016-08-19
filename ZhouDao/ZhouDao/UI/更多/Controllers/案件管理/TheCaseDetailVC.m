@@ -18,6 +18,7 @@
 #import "CollectEmptyView.h"
 #import "SDPhotoBrowser.h"
 #import "ZD_AlertWindow.h"
+#import "UploadMorephontosVC.h"
 
 //下载
 #import "TaskModel.h"
@@ -343,7 +344,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         SGMAlbumViewController* viewVC = [[SGMAlbumViewController alloc] init];
         [viewVC setDelegate:self];
         viewVC.style =  SGMAlbumStyleAlbum;
-        viewVC.limitNum = 1;//不设置即不限制
+        viewVC.limitNum = 6;//不设置即不限制
         UINavigationController* nav = [[UINavigationController alloc]initWithRootViewController:viewVC];
         [self presentViewController:nav animated:YES completion:nil];
     }else if ([kx.title isEqualToString:@"查看案件详情"]){
@@ -498,15 +499,23 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 }
 #pragma mark -照片上传
 #pragma mark - SGMAlbumViewControllerDelegate
-- (BOOL)sendImageWithAssetsArray:(NSArray *)array
+- (BOOL)sendImageWithAssetsArray:(NSArray *)array withStyle:(SGMAlbumStyle)style withThumbnailArrays:(NSArray *)thumbnailArrays
 {
-    if (array.count>0) {
-        _photoImage = array[0];
-        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"确定删除吗?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
-        alertWindow.tag = 6005;
-        [self.view addSubview:alertWindow];
-        return YES;
+    if (style == SGMAlbumStyleCamera) {
+        if (array.count>0) {
+            _photoImage = array[0];
+            ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"确定删除吗?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
+            alertWindow.tag = 6005;
+            [self.view addSubview:alertWindow];
+            return YES;
+        }
+    } else {
+        UploadMorephontosVC *uploadVC = [UploadMorephontosVC new];
+        uploadVC.thumbnailArrays = thumbnailArrays;
+        uploadVC.fullScreenArrays = array;
+        [self.navigationController pushViewController:uploadVC animated:NO];
     }
+
     return NO;
 }
 

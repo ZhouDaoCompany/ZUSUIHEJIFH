@@ -235,7 +235,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         SGMAlbumViewController* viewVC = [[SGMAlbumViewController alloc] init];
         [viewVC setDelegate:self];
         viewVC.style =  SGMAlbumStyleAlbum;
-        viewVC.limitNum = 1;//不设置即不限制
+        viewVC.limitNum = 6;//不设置即不限制
         UINavigationController* nav = [[UINavigationController alloc]initWithRootViewController:viewVC];
         [self presentViewController:nav animated:YES completion:nil];
     }else{
@@ -356,7 +356,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 }
 #pragma mark -照片上传
 #pragma mark - SGMAlbumViewControllerDelegate
-- (BOOL)sendImageWithAssetsArray:(NSArray *)array
+- (BOOL)sendImageWithAssetsArray:(NSArray *)array withStyle:(SGMAlbumStyle)style withThumbnailArrays:(NSArray *)thumbnailArrays
 {
     if (array.count>0) {
         _photoImage = array[0];

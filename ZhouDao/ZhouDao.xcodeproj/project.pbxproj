@@ -342,6 +342,9 @@
 		186AA14D1CE46E7C0009C0D5 /* CollectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 186AA14C1CE46E7C0009C0D5 /* CollectionData.m */; };
 		186DF0CE1CB5094900D66994 /* template_Share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186DF0CC1CB5094900D66994 /* template_Share@2x.png */; };
 		186DF0CF1CB5094900D66994 /* template_shoucang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186DF0CD1CB5094900D66994 /* template_shoucang@2x.png */; };
+		186ED3931D66D3BC006BC693 /* UploadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 186ED3921D66D3BC006BC693 /* UploadTableViewCell.m */; };
+		186ED3961D66D3CF006BC693 /* UploadMorephontosVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 186ED3951D66D3CF006BC693 /* UploadMorephontosVC.m */; };
+		186ED39A1D66EDEF006BC693 /* ProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186ED3991D66EDEF006BC693 /* ProgressBarView.m */; };
 		187349DB1D2F4F96001A3E91 /* scan_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187349D61D2F4F96001A3E91 /* scan_1@2x.png */; };
 		187349DC1D2F4F96001A3E91 /* scan_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187349D71D2F4F96001A3E91 /* scan_2@2x.png */; };
 		187349DD1D2F4F96001A3E91 /* scan_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187349D81D2F4F96001A3E91 /* scan_3@2x.png */; };
@@ -1033,6 +1036,12 @@
 		186D08E51D0E65CB00328A1A /* WZLSerializeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLSerializeKit.h; sourceTree = "<group>"; };
 		186DF0CC1CB5094900D66994 /* template_Share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "template_Share@2x.png"; sourceTree = "<group>"; };
 		186DF0CD1CB5094900D66994 /* template_shoucang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "template_shoucang@2x.png"; sourceTree = "<group>"; };
+		186ED3911D66D3BC006BC693 /* UploadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadTableViewCell.h; sourceTree = "<group>"; };
+		186ED3921D66D3BC006BC693 /* UploadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadTableViewCell.m; sourceTree = "<group>"; };
+		186ED3941D66D3CF006BC693 /* UploadMorephontosVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadMorephontosVC.h; sourceTree = "<group>"; };
+		186ED3951D66D3CF006BC693 /* UploadMorephontosVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadMorephontosVC.m; sourceTree = "<group>"; };
+		186ED3981D66EDEF006BC693 /* ProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBarView.h; sourceTree = "<group>"; };
+		186ED3991D66EDEF006BC693 /* ProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBarView.m; sourceTree = "<group>"; };
 		187349D61D2F4F96001A3E91 /* scan_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_1@2x.png"; sourceTree = "<group>"; };
 		187349D71D2F4F96001A3E91 /* scan_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_2@2x.png"; sourceTree = "<group>"; };
 		187349D81D2F4F96001A3E91 /* scan_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_3@2x.png"; sourceTree = "<group>"; };
@@ -1476,6 +1485,8 @@
 				10241A281CBA4CE0000CBEAE /* TheCaseDetailVC.m */,
 				10BA91B11CEE0D39000889A4 /* CasesDirectoryVC.h */,
 				10BA91B21CEE0D39000889A4 /* CasesDirectoryVC.m */,
+				186ED3941D66D3CF006BC693 /* UploadMorephontosVC.h */,
+				186ED3951D66D3CF006BC693 /* UploadMorephontosVC.m */,
 				10BA91AC1CEDEBFE000889A4 /* NewlyCreatedVC.h */,
 				10BA91AD1CEDEBFE000889A4 /* NewlyCreatedVC.m */,
 				188651A91D2602E700E030F7 /* 案件提醒 */,
@@ -2632,6 +2643,15 @@
 			path = WZLSerializeKit;
 			sourceTree = "<group>";
 		};
+		186ED3971D66EDEF006BC693 /* ProgressBarView */ = {
+			isa = PBXGroup;
+			children = (
+				186ED3981D66EDEF006BC693 /* ProgressBarView.h */,
+				186ED3991D66EDEF006BC693 /* ProgressBarView.m */,
+			);
+			path = ProgressBarView;
+			sourceTree = "<group>";
+		};
 		187349D51D2F4F96001A3E91 /* Scan */ = {
 			isa = PBXGroup;
 			children = (
@@ -3034,6 +3054,7 @@
 			isa = PBXGroup;
 			children = (
 				18F8789F1D053CCA0069E68A /* APIKey.h */,
+				186ED3971D66EDEF006BC693 /* ProgressBarView */,
 				187A54931D642CBD0076A8E6 /* PhotoLib */,
 				109EA9191D4C3CD1005C09BB /* HtmlFiles */,
 				1830E0671D4863B9005D287E /* SDPhotoBrowser */,
@@ -3272,6 +3293,8 @@
 				18FD83161CBB6F9C00D50E20 /* CaseDetailTabCell.m */,
 				18230CF01CC7455400F4ACCF /* CustomMenuBtn.h */,
 				18230CF11CC7455400F4ACCF /* CustomMenuBtn.m */,
+				186ED3911D66D3BC006BC693 /* UploadTableViewCell.h */,
+				186ED3921D66D3BC006BC693 /* UploadTableViewCell.m */,
 			);
 			path = "案件manager";
 			sourceTree = "<group>";
@@ -4021,6 +4044,7 @@
 				188F9E491CF82077000F9B2D /* SCIntroView.m in Sources */,
 				181292CE1C87EBF100EBB5CD /* UIImage+Extend.m in Sources */,
 				1060DA0D1CACD5EC00D779A5 /* RecomHeadView.m in Sources */,
+				186ED3931D66D3BC006BC693 /* UploadTableViewCell.m in Sources */,
 				10C01AF41CA7D13C0000EF7A /* DPHorizontalScrollView.m in Sources */,
 				1863DFE31C8D2B5B00F7A84E /* GcNoticeUtil.m in Sources */,
 				10C01AFB1CA7F01A0000EF7A /* LawsTableViewCell.m in Sources */,
@@ -4046,6 +4070,7 @@
 				18A6228E1CD352260073B886 /* NSDate+Category.m in Sources */,
 				1060DA1B1CACFEA800D779A5 /* FlipPageView.m in Sources */,
 				187E6D631C841A11009169C2 /* AppDelegate.m in Sources */,
+				186ED39A1D66EDEF006BC693 /* ProgressBarView.m in Sources */,
 				104B44251C9BCC9A00FC19B3 /* MyAdvantagesVC.m in Sources */,
 				1041575D1C9470A500EE5303 /* MyCollectionVC.m in Sources */,
 				1829BA761CE2F58700F0143F /* ExampleData.m in Sources */,
@@ -4163,6 +4188,7 @@
 				10E3D5681C9587210004DC2C /* FeedbackViewController.m in Sources */,
 				1843C5B71D38CD2800414C2E /* ThirdPartyLoginView.m in Sources */,
 				18D9D68F1CBCD2CA008F9CC8 /* FilterView.m in Sources */,
+				186ED3961D66D3CF006BC693 /* UploadMorephontosVC.m in Sources */,
 				108323431CAA70A5004B8045 /* ZD_ListView.m in Sources */,
 				104157691C947A6F00EE5303 /* AboutZDVC.m in Sources */,
 				104157581C945C0200EE5303 /* ProfessionalCell.m in Sources */,

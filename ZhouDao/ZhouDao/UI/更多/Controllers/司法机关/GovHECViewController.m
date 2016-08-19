@@ -152,7 +152,7 @@
     }
 }
 #pragma mark - SGMAlbumViewControllerDelegate
-- (BOOL)sendImageWithAssetsArray:(NSArray *)array
+- (BOOL)sendImageWithAssetsArray:(NSArray *)array withStyle:(SGMAlbumStyle)style withThumbnailArrays:(NSArray *)thumbnailArrays
 {
     if (array.count>0) {
         _photoImage = array[0];
