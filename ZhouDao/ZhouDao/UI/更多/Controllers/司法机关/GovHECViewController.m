@@ -152,15 +152,17 @@
     }
 }
 #pragma mark - SGMAlbumViewControllerDelegate
-- (BOOL)sendImageWithAssetsArray:(NSArray *)array withStyle:(SGMAlbumStyle)style withThumbnailArrays:(NSArray *)thumbnailArrays
+- (void)sendImageWithcameraImage:(UIImage *)cameraImage withStyle:(SGMAlbumStyle)style withAssetArrays:(NSArray *)assetArrays
 {
-    if (array.count>0) {
-        _photoImage = array[0];
-        [_photoImgBtn setImage:_photoImage forState:0];
-        _buttonClose.hidden = NO;
-        return YES;
+    if (style == SGMAlbumStyleCamera) {
+        _photoImage =cameraImage;
+    }else {
+        ALAsset *asset = [assetArrays[0] objectForKey:@"asset"];
+        UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        _photoImage =image;
     }
-    return NO;
+    [_photoImgBtn setImage:_photoImage forState:0];
+    _buttonClose.hidden = NO;
 }
 
 #pragma mark -UITextFieldDelegate

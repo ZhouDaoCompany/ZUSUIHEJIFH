@@ -7,14 +7,20 @@
 //
 
 #import "UploadTableViewCell.h"
-#import "JX_GCDTimerManager.h"
 #import "ProgressBarView.h"
+//上传
+#import "QiniuUploader.h"
 
 @interface UploadTableViewCell()
-
+{
+    
+}
 @property (nonatomic, strong) ProgressBarView *progressBarView;
 @property (nonatomic, strong) UILabel *processLabel;
-
+@property (nonatomic, strong) UIImage *fullScreenImage;
+@property (nonatomic, strong) QiniuUploader *uploader;
+@property (nonatomic, assign) NSInteger row;
+@property (nonatomic, copy)   NSString *fileName;//文件名
 @end
 
 @implementation UploadTableViewCell
@@ -38,37 +44,133 @@
     [self.contentView addSubview:self.subTitleLabel];
     [self.contentView addSubview:self.progressBarView];
     [self.progressBarView addSubview:self.processLabel];
-
     _processLabel.hidden = YES;
     _progressBarView.hidden = YES;
+
 }
 - (void)setUploadImage
-{WEAKSELF;
+{
     _processLabel.hidden = NO;
     _progressBarView.hidden = NO;
 
     // 处理 请求上传私有token 上传逻辑 和上传完成后的回调方法
-    _subTitleLabel.text = @"文件大小";
-//    if ([weakSelf.delegate respondsToSelector:@selector(uploadCompletedRefreshesTheList)]) {
-//        [weakSelf.delegate uploadCompletedRefreshesTheList];
-//    }
+
+    if ([PublicFunction ShareInstance].picToken.length == 0) {
+        [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+            
+            [SVProgressHUD dismiss];
+            kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+                
+                [self uploadFileMethods];
+            });
+
+        }];
+    }else {
+        kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+            
+            [self uploadFileMethods];
+        });
+    }
 
 }
-- (void)settingUIWithFull:(UIImage *)fullScreenImage withSection:(NSInteger)section
-{
-    
-    //    _titleLabel.text = @"2016-06-04 133131.jpg";
-    _subTitleLabel.text = @"正在等待...";
-    ALAsset *asset = dict[@"asset"];
-    
-    _titleLabel.text = asset.defaultRepresentation.filename;//[NSString stringWithFormat:@"%@",[asset valueForProperty: ALAssetPropertyDate]];
+- (void)uploadFileMethods
+{WEAKSELF;
+    QiniuFile *file = [[QiniuFile alloc] initWithFileData:UIImageJPEGRepresentation(_fullScreenImage, 1.f)];
+    QiniuUploader *uploader = [[QiniuUploader alloc] init];
 
-    if (section == 0) {
-        _subTitleLabel.text = @"正在等待...";
-    }else {
-        _subTitleLabel.text = @"";
-    }
+    [uploader addFile:file];
+    [uploader startUploadWithAccessToken:[PublicFunction ShareInstance].picToken];
+    [uploader setUploadOneFileFailed:^(AFHTTPRequestOperation *operation, NSInteger index, NSDictionary *error){
+        
+        DLog(@"失败原因－－－－%@",error);
+        //上传失败重新获取token
+        [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+            
+            [SVProgressHUD dismiss];
+            [weakSelf.uploader startUpload];
+        }];
+    }];
     
+    __block NSString *successString = @"";
+    [uploader setUploadOneFileProgress:^(AFHTTPRequestOperation *operation, NSInteger index, double percent){
+        DLog(@"进度是----%f",percent);
+        if (![successString isEqualToString:@"上传成功"]) {
+            [weakSelf.progressBarView run: percent];
+            int processShow = percent*100;
+            if (processShow >=98) {
+                weakSelf.processLabel.text = [NSString stringWithFormat:@"%d％",98];
+            }else {
+                weakSelf.processLabel.text = [NSString stringWithFormat:@"%d％",processShow];
+            }
+        }
+    }];
+    
+    [uploader setUploadAllFilesComplete:^(void){
+        
+        DLog(@"上传完成");
+    }];
+    __block int indexCount = 0;
+    [uploader setUploadOneFileSucceeded:^(AFHTTPRequestOperation *operation, NSInteger index, NSString *key){
+        DLog(@"index:%ld key:%@",(long)index,key);
+        if (indexCount == 0) {
+            
+            successString = @"上传成功";
+            [NetWorkMangerTools arrangeFileAddwithPid:@"" withName:weakSelf.fileName withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
+                
+                weakSelf.processLabel.text = [NSString stringWithFormat:@"%d％",100];
+                
+                if ([weakSelf.uploadDelegate respondsToSelector:@selector(uploadCompletedRefreshesTheListwithRow:)]) {
+                    [weakSelf.uploadDelegate uploadCompletedRefreshesTheListwithRow:weakSelf.row];
+                }
+                
+            }];
+
+        }
+        indexCount ++;
+        
+    }];
+
+    [uploader startUpload];
+    
+}
+- (void)setIsStart:(BOOL)isStart
+{
+    _isStart = isStart;
+    
+    if (_isStart == NO) {
+        _processLabel.hidden = YES;
+        _progressBarView.hidden = YES;
+
+        [self.uploader.operationQueue cancelAllOperations];
+    }
+}
+- (void)settingUIWithDictionary:(NSDictionary *)assetDictionary withSection:(NSInteger)section withRow:(NSInteger)row
+{
+    _row = row;
+    _titleLabel.text = assetDictionary[@"filename"];
+    _iconImageView.image = assetDictionary[@"thumbnail"];
+    _fullScreenImage = assetDictionary[@"fullScreenImage"];
+    _fileName = assetDictionary[@"filename"];
+    
+    if (section == 1) {
+        _processLabel.hidden = YES;
+        _progressBarView.hidden = YES;
+    }
+    kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+        NSData * imageData = UIImageJPEGRepresentation(_fullScreenImage,1);
+        float length = [imageData length]/(1024.0*1024.0);
+        
+        kDISPATCH_MAIN_THREAD((^{
+            
+            _subTitleLabel.text = [NSString stringWithFormat:@"%.2fM",length];
+
+            if (section == 0 && row != 0 && _isStart == YES)
+            {
+                _subTitleLabel.text = @"正在等待...";
+            }
+        }));
+    });
+
 }
 #pragma mark - setters and getters
 - (UILabel *)titleLabel
@@ -129,6 +231,13 @@
        _processLabel.textColor = hexColor(666666);
     }
     return _processLabel;
+}
+- (QiniuUploader *)uploader
+{
+    if (!_uploader) {
+        _uploader = [[QiniuUploader alloc] init];
+    }
+    return _uploader;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

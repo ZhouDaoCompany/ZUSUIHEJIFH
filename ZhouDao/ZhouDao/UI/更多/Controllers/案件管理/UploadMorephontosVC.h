@@ -11,7 +11,7 @@
 
 @interface UploadMorephontosVC : BaseViewController
 
-@property (nonatomic, strong) NSArray *fullScreenArrays;//照片数组
-@property (nonatomic, strong) NSArray *thumbnailArrays;//照片数组
+@property (nonatomic, strong) NSArray *assetArrays;//照片数组
+@property (nonatomic, copy) NSString *caseId;//案件唯一id  cid
 
 @end

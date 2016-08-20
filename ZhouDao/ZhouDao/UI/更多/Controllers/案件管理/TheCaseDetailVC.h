@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, DetailType)
 
 @interface TheCaseDetailVC : BaseViewController
 
-@property (nonatomic, strong) NSString *caseId;//案件唯一id  cid
+@property (nonatomic, copy) NSString *caseId;//案件唯一id  cid
 @property (nonatomic ,assign) DetailType type ;//全部
 @property (nonatomic, copy) NSString *caseName;//案件名称
 

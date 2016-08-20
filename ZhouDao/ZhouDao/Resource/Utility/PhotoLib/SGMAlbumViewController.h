@@ -17,7 +17,7 @@ typedef enum {
 
 @protocol SGMAlbumViewControllerDelegate <NSObject>
 
-- (BOOL)sendImageWithcameraArray:(NSArray *)cameraArray withStyle:(SGMAlbumStyle)style withAccessArrays:(NSArray *)accessArrays;
+- (void)sendImageWithcameraImage:(UIImage *)cameraImage withStyle:(SGMAlbumStyle)style withAssetArrays:(NSArray *)assetArrays;
 
 @end
 

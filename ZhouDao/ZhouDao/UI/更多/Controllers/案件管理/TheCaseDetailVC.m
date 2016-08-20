@@ -388,7 +388,6 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     }];
 }
 
-
 #pragma mark -查看文件
 - (void)checkTheFile:(DetaillistModel *)model withCell:(CaseDetailTabCell *)cCell
 {
@@ -499,24 +498,20 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 }
 #pragma mark -照片上传
 #pragma mark - SGMAlbumViewControllerDelegate
-- (BOOL)sendImageWithAssetsArray:(NSArray *)array withStyle:(SGMAlbumStyle)style withThumbnailArrays:(NSArray *)thumbnailArrays
+- (void)sendImageWithcameraImage:(UIImage *)cameraImage withStyle:(SGMAlbumStyle)style withAssetArrays:(NSArray *)assetArrays
 {
     if (style == SGMAlbumStyleCamera) {
-        if (array.count>0) {
-            _photoImage = array[0];
-            ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"确定删除吗?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
-            alertWindow.tag = 6005;
-            [self.view addSubview:alertWindow];
-            return YES;
-        }
+        _photoImage = cameraImage;
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
+        alertWindow.tag = 6005;
+        [self.view addSubview:alertWindow];
+
     } else {
         UploadMorephontosVC *uploadVC = [UploadMorephontosVC new];
-        uploadVC.thumbnailArrays = thumbnailArrays;
-        uploadVC.fullScreenArrays = array;
+        uploadVC.assetArrays = assetArrays;
+        uploadVC.caseId = _caseId;
         [self.navigationController pushViewController:uploadVC animated:NO];
     }
-
-    return NO;
 }
 
 #pragma mark  ZD_AlertWindowPro

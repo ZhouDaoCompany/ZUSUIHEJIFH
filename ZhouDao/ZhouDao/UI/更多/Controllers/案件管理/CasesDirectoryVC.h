@@ -10,8 +10,8 @@
 #import "BaseViewController.h"
 
 @interface CasesDirectoryVC : BaseViewController
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *caseId;
-@property (nonatomic, strong) NSString *pid;//父级ID
-@property (nonatomic, copy)   NSString *filePath;//文件路径
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *caseId;
+@property (nonatomic, copy) NSString *pid;//父级ID
+@property (nonatomic, copy) NSString *filePath;//文件路径
 @end

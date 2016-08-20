@@ -234,18 +234,21 @@
     }
 }
 #pragma mark - SGMAlbumViewControllerDelegate
-- (BOOL)sendImageWithAssetsArray:(NSArray *)array withStyle:(SGMAlbumStyle)style withThumbnailArrays:(NSArray *)thumbnailArrays
+- (void)sendImageWithcameraImage:(UIImage *)cameraImage withStyle:(SGMAlbumStyle)style withAssetArrays:(NSArray *)assetArrays
 {
-    if (array.count>0) {
-        [self.imgArrays addObjectsFromArray:array];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self selectPhotoMethod];
-        });
-
-        return YES;
+    
+    if (style == SGMAlbumStyleCamera) {
+        [self.imgArrays addObjectsFromArray:@[cameraImage]];
+    }else {
+        ALAsset *asset = [assetArrays[0] objectForKey:@"asset"];
+        UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        [self.imgArrays addObjectsFromArray:@[image]];
     }
-    return NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self selectPhotoMethod];
+    });
+
 }
 
 #pragma mark -手势

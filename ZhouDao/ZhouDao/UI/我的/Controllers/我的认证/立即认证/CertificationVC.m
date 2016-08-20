@@ -78,13 +78,18 @@
     }
 }
 #pragma mark - SGMAlbumViewControllerDelegate
-- (BOOL)sendImageWithAssetsArray:(NSArray *)array withStyle:(SGMAlbumStyle)style withThumbnailArrays:(NSArray *)thumbnailArrays{
-    if (array.count>0) {
+- (void)sendImageWithcameraImage:(UIImage *)cameraImage withStyle:(SGMAlbumStyle)style withAssetArrays:(NSArray *)assetArrays
+{
+    
+    if (style == SGMAlbumStyleCamera) {
         _isSelect = YES;
-        _bgImgView.image = array[0];
-        return YES;
+        _bgImgView.image =cameraImage;
+    }else {
+        _isSelect = YES;
+        ALAsset *asset = [assetArrays[0] objectForKey:@"asset"];
+        UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        _bgImgView.image =image;
     }
-    return NO;
 }
 
 #pragma mark -UIButtonEvent

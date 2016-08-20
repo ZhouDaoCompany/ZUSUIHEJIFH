@@ -417,16 +417,6 @@
                 RequestSuccess:(void (^)())success
                           fail:(void (^)())fail;
 
-/**
- *  89 资料纠错
- *
- *  @param urlString <#urlString description#>
- *  @param success   <#success description#>
- *  @param fail      <#fail description#>
- */
-+ (void)ErrorCorrectionURLString:(NSString *)urlString
-                RequestSuccess:(void (^)())success
-                          fail:(void (^)())fail;
 
 /*
  * 自动登录

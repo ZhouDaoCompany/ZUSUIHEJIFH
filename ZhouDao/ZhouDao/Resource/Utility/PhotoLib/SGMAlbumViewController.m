@@ -132,7 +132,7 @@
             [mainTable reloadData];
         }
     } failureBlock:^(NSError *error) {
-        NSLog(@"相册获取失败");
+        DLog(@"相册获取失败");
     }];
 }
 
@@ -233,9 +233,9 @@
                 UIImageWriteToSavedPhotosAlbum(GetImage, nil, nil, nil);//保存相册
             });
             
-            if ([weakSelf.delegate respondsToSelector:@selector(sendImageWithcameraArray:withStyle:withAccessArrays:)])
+            if ([weakSelf.delegate respondsToSelector:@selector(sendImageWithcameraImage:withStyle:withAssetArrays:)])
             {
-                [weakSelf.delegate sendImageWithcameraArray:@[GetImage] withStyle:SGMAlbumStyleCamera withAccessArrays:nil];
+                [weakSelf.delegate sendImageWithcameraImage:GetImage withStyle:SGMAlbumStyleCamera withAssetArrays:nil];
 
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }
@@ -259,23 +259,9 @@
 
 - (BOOL)sendImageWithALassetArray:(NSArray *)array
 {
-    __block NSMutableArray *arr = [NSMutableArray array];
-    __block NSMutableArray *thumbnailArr = [NSMutableArray array];
-    if (array) {
-        
-        [array enumerateObjectsUsingBlock:^(NSDictionary *objDict, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            ALAsset *asset = objDict[@"asset"];
-            UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-            UIImage *thumbImage = [UIImage imageWithCGImage:asset.thumbnail];
-            [arr addObject:image];
-            [thumbnailArr addObject:thumbImage];
-        }];
-
-    }
-    if ([self.delegate respondsToSelector:@selector(sendImageWithcameraArray:withStyle:withAccessArrays:)])
+    if ([self.delegate respondsToSelector:@selector(sendImageWithcameraImage:withStyle:withAssetArrays:)])
     {
-        [self.delegate sendImageWithAssetsArray:arr withStyle:SGMAlbumStyleAlbum withThumbnailArrays:thumbnailArr withFileNameArrays:<#(NSArray *)#>];
+        [self.delegate sendImageWithcameraImage:nil withStyle:SGMAlbumStyleAlbum withAssetArrays:array];
         return YES;
     }
     return NO;
