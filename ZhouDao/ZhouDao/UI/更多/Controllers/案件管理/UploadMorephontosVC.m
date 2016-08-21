@@ -55,7 +55,7 @@ static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
 }
 - (void)leftBtnAction
 {
-    if (_isStart == NO && _uploadArrays.count == 0 ) {
+    if (_isStart == NO) {
         [self.navigationController popViewControllerAnimated:YES];
     }else {
         ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleDEL withTitle:@"关闭页面后任务终止,是否关闭?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
