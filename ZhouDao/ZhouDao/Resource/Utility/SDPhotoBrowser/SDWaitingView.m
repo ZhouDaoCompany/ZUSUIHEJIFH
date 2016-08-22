@@ -77,10 +77,10 @@
             
         default:
             {
-                CGContextSetLineWidth(ctx, 5);
+                CGContextSetLineWidth(ctx, 2.5f);
                 CGContextSetLineCap(ctx, kCGLineCapRound);
                 CGFloat to = - M_PI * 0.5 + self.progress * M_PI * 2 + 0.05; // 初始值0.05
-                CGFloat radius = MIN(rect.size.width, rect.size.height) * 0.5 - SDWaitingViewItemMargin;
+                CGFloat radius = MIN(rect.size.width, rect.size.height) * 0.5 - SDWaitingViewItemMargin - 6;
                 CGContextAddArc(ctx, xCenter, yCenter, radius, - M_PI * 0.5, to, 0);
                 CGContextStrokePath(ctx);
             }

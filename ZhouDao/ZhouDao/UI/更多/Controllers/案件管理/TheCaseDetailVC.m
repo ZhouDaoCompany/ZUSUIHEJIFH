@@ -509,6 +509,10 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     } else {
         UploadMorephontosVC *uploadVC = [UploadMorephontosVC new];
         uploadVC.assetArrays = assetArrays;
+        uploadVC.reloadBlock = ^(){
+            
+              [self loadListViewData];
+        };
         uploadVC.caseId = _caseId;
         [self.navigationController pushViewController:uploadVC animated:NO];
     }
@@ -555,7 +559,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
             
             [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
-                __block NSData *data = UIImageJPEGRepresentation(_photoImage, .5f);
+                __block NSData *data = UIImageJPEGRepresentation(_photoImage, 1.f);
 
                 [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"image/jpeg" RequestSuccess:^(NSString *key) {
                     [NetWorkMangerTools arrangeFileAddwithPid:@"" withName:name withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {

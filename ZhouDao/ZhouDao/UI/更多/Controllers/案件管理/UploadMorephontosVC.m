@@ -56,6 +56,9 @@ static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
 - (void)leftBtnAction
 {
     if (_isStart == NO) {
+        if (_reloadBlock) {
+            _reloadBlock();
+        }
         [self.navigationController popViewControllerAnimated:YES];
     }else {
         ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleDEL withTitle:@"关闭页面后任务终止,是否关闭?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
@@ -78,6 +81,14 @@ static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
 - (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex withName:(NSString *)name withIndexPath:(NSIndexPath *)indexPath
 {
     if (alertView.tag == 7003) {
+        
+        if (_isStart == YES) {
+            _isStart = NO;
+            [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        }
+        if (_reloadBlock) {
+            _reloadBlock();
+        }
         [self.navigationController popViewControllerAnimated:YES];
     }else if (alertView.tag == 7004){
         // 重命名
@@ -214,11 +225,13 @@ static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
         [_uploadArrays removeObjectAtIndex:0];
 //        [_tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationNone];
 //        [_tableView insertRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
+        
+        if (_uploadArrays.count == 0) {
+            _isStart = NO;
+            [self.rightBtn setTitle:@"" forState:0];
+            self.rightBtn.enabled = NO;
+        }
         [_tableView reloadData];
-    }else {
-        _isStart = NO;
-        [self.rightBtn setTitle:@"" forState:0];
-        self.rightBtn.enabled = NO;
     }
 }
 #pragma mark - setters and getters

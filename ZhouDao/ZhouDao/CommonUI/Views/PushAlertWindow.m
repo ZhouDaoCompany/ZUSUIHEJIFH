@@ -165,6 +165,9 @@
             break;
         case 4002:
         {//确定
+            if (_pushBlock) {
+                
+            }
             _pushBlock();
         }
             break;

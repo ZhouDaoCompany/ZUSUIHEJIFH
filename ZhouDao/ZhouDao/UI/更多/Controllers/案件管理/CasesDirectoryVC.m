@@ -16,7 +16,7 @@
 #import "KxMenu.h"
 #import "SDPhotoBrowser.h"
 #import "ZD_AlertWindow.h"
-
+#import "UploadMorephontosVC.h"
 //下载
 #import "TaskModel.h"
 #import "DownLoadView.h"
@@ -356,16 +356,23 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 }
 #pragma mark -照片上传
 #pragma mark - SGMAlbumViewControllerDelegate
-- (BOOL)sendImageWithAssetsArray:(NSArray *)array withStyle:(SGMAlbumStyle)style withThumbnailArrays:(NSArray *)thumbnailArrays
+- (void)sendImageWithcameraImage:(UIImage *)cameraImage withStyle:(SGMAlbumStyle)style withAssetArrays:(NSArray *)assetArrays
 {
-    if (array.count>0) {
-        _photoImage = array[0];
-        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"确定删除吗?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
+    if (style == SGMAlbumStyleCamera) {
+        _photoImage = cameraImage;
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
         alertWindow.tag = 6011;
         [self.view addSubview:alertWindow];
-        return YES;
+    }else {
+        UploadMorephontosVC *uploadVC = [UploadMorephontosVC new];
+        uploadVC.assetArrays = assetArrays;
+        uploadVC.reloadBlock = ^(){
+            
+            [self loadListViewData];
+        };
+        uploadVC.caseId = _caseId;
+        [self.navigationController pushViewController:uploadVC animated:NO];
     }
-    return NO;
 }
 #pragma mark  ZD_AlertWindowPro
 - (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex withName:(NSString *)name withIndexPath:(NSIndexPath *)indexPath
@@ -410,7 +417,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         
         kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
             [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
-                __block NSData *data = UIImageJPEGRepresentation(_photoImage, .5f);
+                __block NSData *data = UIImageJPEGRepresentation(_photoImage, 1.f);
 
                 [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"image/jpeg" RequestSuccess:^(NSString *key) {
                     

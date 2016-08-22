@@ -13,5 +13,5 @@
 
 @property (nonatomic, strong) NSArray *assetArrays;//照片数组
 @property (nonatomic, copy) NSString *caseId;//案件唯一id  cid
-
+@property (nonatomic, copy) ZDBlock reloadBlock;
 @end

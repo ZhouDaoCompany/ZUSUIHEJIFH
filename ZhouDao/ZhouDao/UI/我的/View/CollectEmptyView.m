@@ -17,7 +17,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - 71 ) / 2.f, 140, 71, 71)];
+        UIImageView* img = [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width - 71 ) / 2.f, 120, 71, 71)];
         img.contentMode = UIViewContentModeScaleAspectFit;
         img.image = [UIImage imageNamed:@"CollectEmpty"];
         [self addSubview:img];
@@ -27,7 +27,7 @@
         lab.textColor = [UIColor colorWithHexString:@"#cccccc"];
         lab.font = [UIFont systemFontOfSize:15];
         CGSize s = [lab.text textSizeWithFont:lab.font constrainedToSize:CGSizeMake(MAXFLOAT, 999) lineBreakMode:NSLineBreakByCharWrapping];
-        lab.frame = CGRectMake((self.frame.size.width - s.width) / 2, 231, s.width, s.height);
+        lab.frame = CGRectMake((self.frame.size.width - s.width) / 2, 211, s.width, s.height);
         [self addSubview:lab];
     }
     return self;

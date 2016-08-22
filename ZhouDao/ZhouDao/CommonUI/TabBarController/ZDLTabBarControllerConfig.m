@@ -133,6 +133,7 @@
     // set the text Attributes
     // 设置文字属性
     UITabBarItem *tabBar = [UITabBarItem appearance];
+    tabBar.titlePositionAdjustment = UIOffsetMake(0, -2);
     [tabBar setTitleTextAttributes:normalAttrs forState:UIControlStateNormal];
     [tabBar setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
     

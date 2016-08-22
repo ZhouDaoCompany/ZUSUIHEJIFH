@@ -24,7 +24,17 @@
 @end
 
 @implementation UploadTableViewCell
-
+- (void)dealloc
+{
+    [_uploader.operationQueue cancelAllOperations];
+    TT_RELEASE_SAFELY(_fullScreenImage);
+    TT_RELEASE_SAFELY(_uploader);
+    TTVIEW_RELEASE_SAFELY(_processLabel);
+    TTVIEW_RELEASE_SAFELY(_progressBarView);
+    TTVIEW_RELEASE_SAFELY(_iconImageView);
+    TTVIEW_RELEASE_SAFELY(_titleLabel);
+    TTVIEW_RELEASE_SAFELY(_subTitleLabel);
+}
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -55,6 +65,19 @@
 
     // 处理 请求上传私有token 上传逻辑 和上传完成后的回调方法
 
+//    [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+//        
+//        [SVProgressHUD dismiss];
+//        kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+//            if ([PublicFunction ShareInstance].picToken.length > 0) {
+//                
+//                [self uploadFileMethods];
+//            }
+//        });
+//        
+//    }];
+
+    
     if ([PublicFunction ShareInstance].picToken.length == 0) {
         [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
             
@@ -76,24 +99,27 @@
 - (void)uploadFileMethods
 {WEAKSELF;
     QiniuFile *file = [[QiniuFile alloc] initWithFileData:UIImageJPEGRepresentation(_fullScreenImage, 1.f)];
-    QiniuUploader *uploader = [[QiniuUploader alloc] init];
+    _uploader = [[QiniuUploader alloc] init];
 
-    [uploader addFile:file];
-    [uploader startUploadWithAccessToken:[PublicFunction ShareInstance].picToken];
-    [uploader setUploadOneFileFailed:^(AFHTTPRequestOperation *operation, NSInteger index, NSDictionary *error){
+    [_uploader addFile:file];
+    [_uploader startUploadWithAccessToken:[PublicFunction ShareInstance].picToken];
+    [_uploader setUploadOneFileFailed:^(AFHTTPRequestOperation *operation, NSInteger index, NSDictionary *error){
         
         DLog(@"失败原因－－－－%@",error);
         //上传失败重新获取token
-        [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+        if (weakSelf.isStart == YES) {
             
-            [SVProgressHUD dismiss];
-            [weakSelf.uploader startUpload];
-        }];
+            [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+                
+                [SVProgressHUD dismiss];
+                [weakSelf.uploader startUpload];
+            }];
+        }
     }];
     
     __block NSString *successString = @"";
-    [uploader setUploadOneFileProgress:^(AFHTTPRequestOperation *operation, NSInteger index, double percent){
-        DLog(@"进度是----%f",percent);
+    [_uploader setUploadOneFileProgress:^(AFHTTPRequestOperation *operation, NSInteger index, double percent){
+//        DLog(@"进度是----%f",percent);
         if (![successString isEqualToString:@"上传成功"]) {
             [weakSelf.progressBarView run: percent];
             int processShow = percent*100;
@@ -105,17 +131,17 @@
         }
     }];
     
-    [uploader setUploadAllFilesComplete:^(void){
+    [_uploader setUploadAllFilesComplete:^(void){
         
         DLog(@"上传完成");
     }];
     __block int indexCount = 0;
-    [uploader setUploadOneFileSucceeded:^(AFHTTPRequestOperation *operation, NSInteger index, NSString *key){
+    [_uploader setUploadOneFileSucceeded:^(AFHTTPRequestOperation *operation, NSInteger index, NSString *key){
         DLog(@"index:%ld key:%@",(long)index,key);
         if (indexCount == 0) {
             
             successString = @"上传成功";
-            [NetWorkMangerTools arrangeFileAddwithPid:@"" withName:weakSelf.fileName withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
+            [NetWorkMangerTools arrangeFileAddwithPid:@"" withName:weakSelf.fileName withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:weakSelf.caseId RequestSuccess:^(id obj) {
                 
                 weakSelf.processLabel.text = [NSString stringWithFormat:@"%d％",100];
                 
@@ -130,13 +156,12 @@
         
     }];
 
-    [uploader startUpload];
+    [_uploader startUpload];
     
 }
 - (void)setIsStart:(BOOL)isStart
 {
     _isStart = isStart;
-    
     if (_isStart == NO) {
         _processLabel.hidden = YES;
         _progressBarView.hidden = YES;

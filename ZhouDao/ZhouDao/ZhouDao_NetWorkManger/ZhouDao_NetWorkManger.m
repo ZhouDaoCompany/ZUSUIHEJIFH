@@ -71,6 +71,8 @@
             fail(error);
         }
     }];
+    
+//    [manager.operationQueue cancelAllOperations];
 }
 
 #pragma mark POST请求
