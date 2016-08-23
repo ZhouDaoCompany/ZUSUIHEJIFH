@@ -31,6 +31,7 @@
 
 #pragma mark - life cycle
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     [self initUI];
@@ -59,7 +60,9 @@
     if ([downStr isEqualToString:@"完成"])
     {
         [_downView removeFromSuperview];
-        _readBlock(@"阅读此模版");
+        if (_readBlock) {
+            _readBlock(@"阅读此模版");
+        }
         _fileURLPath = path;
         
         [self.view addSubview:self.titLabel];

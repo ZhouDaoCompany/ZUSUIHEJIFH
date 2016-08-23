@@ -10,6 +10,7 @@
 #import "UIColor+Helper.h"
 #define zd_width [UIScreen mainScreen].bounds.size.width
 #define zd_height [UIScreen mainScreen].bounds.size.height
+#define kContentLabelWidth     13.f/16.f*([UIScreen mainScreen].bounds.size.width)
 
 @interface PushAlertWindow()<UIScrollViewDelegate>
 
@@ -31,21 +32,19 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-//        self.windowLevel = UIWindowLevelAlert;
+        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
         //内容 标题
         self.contentString = contentStr;
         self.titleString = title;
         self.type = type;
         
         [self initUI];
-//        [self makeKeyAndVisible];
     }
     return self;
 }
 - (void)initUI
 {
-    self.zd_superView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-120, 224)];
+    self.zd_superView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kContentLabelWidth, 224)];
     self.zd_superView.backgroundColor = [UIColor whiteColor];
     self.zd_superView.center = CGPointMake(zd_width/2.0,0);
     [UIView animateWithDuration:1 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -63,20 +62,20 @@
      */
      float height = 224;
     
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, zd_width-120, 54)];
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kContentLabelWidth, 54)];
     headView.backgroundColor  = [UIColor clearColor];
     [self.zd_superView addSubview:headView];
     
     UILabel *titLab = [[UILabel alloc] init];
     titLab.center = headView.center;
-    titLab.bounds = CGRectMake(0, 0, zd_width-150, 20);
+    titLab.bounds = CGRectMake(0, 0, kContentLabelWidth- 30, 20);
     titLab.backgroundColor = [UIColor clearColor];
     titLab.text = self.titleString;
 //    titLab.textColor = [UIColor whiteColor];
     titLab.textAlignment = NSTextAlignmentLeft;
     [headView addSubview:titLab];
     
-    self.contentjScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, Orgin_y(headView) +10, zd_width-140, height-114.f)];
+    self.contentjScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, Orgin_y(headView) +10, kContentLabelWidth -20, height-114.f)];
     self.contentjScrollView.showsVerticalScrollIndicator = NO;
     self.contentjScrollView.showsHorizontalScrollIndicator = NO;
     self.contentjScrollView.backgroundColor = [UIColor clearColor];
@@ -113,7 +112,7 @@
         botomBtn.backgroundColor = KNavigationBarColor;
         botomBtn.titleLabel.font = Font_15;
         botomBtn.tag = 4003;
-        botomBtn.frame = CGRectMake(15.f, Orgin_y(_contentjScrollView) +5, zd_width-150 , 40);
+        botomBtn.frame = CGRectMake(15.f, Orgin_y(_contentjScrollView) +5, kContentLabelWidth - 30 , 40);
         [botomBtn setTitle:@"确定" forState:0];
         botomBtn.layer.masksToBounds = YES;
         botomBtn.layer.cornerRadius = 5.f;
@@ -127,7 +126,7 @@
         cancelBtn.titleLabel.font = Font_15;
         cancelBtn.tag = 4001;
         cancelBtn.backgroundColor = KNavigationBarColor;
-        cancelBtn.frame = CGRectMake(15, Orgin_y(_contentjScrollView) +5, (zd_width-165)/2.f , 40);
+        cancelBtn.frame = CGRectMake(15, Orgin_y(_contentjScrollView) +5, (kContentLabelWidth - 45.f)/2.f , 40);
         [cancelBtn setTitle:@"取消" forState:0];
         cancelBtn.layer.masksToBounds = YES;
         cancelBtn.layer.cornerRadius = 5.f;
@@ -139,7 +138,7 @@
         sureBtn.backgroundColor = KNavigationBarColor;
         sureBtn.titleLabel.font = Font_15;
         sureBtn.tag = 4002;
-        sureBtn.frame = CGRectMake(Orgin_x(cancelBtn) +15.f, Orgin_y(_contentjScrollView) +5, (zd_width-165)/2.f , 40);
+        sureBtn.frame = CGRectMake(Orgin_x(cancelBtn) +15.f, Orgin_y(_contentjScrollView) +5, (kContentLabelWidth - 45.f)/2.f , 40);
         [sureBtn setTitle:@"确定" forState:0];
         sureBtn.layer.masksToBounds = YES;
         sureBtn.layer.cornerRadius = 5.f;

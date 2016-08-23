@@ -10,8 +10,10 @@
 #import "TheContractData.h"
 #import "BasicModel.h"
 @interface ToolCollectionViewCell : UICollectionViewCell
-@property (nonatomic,strong) UILabel *titleLab;
-@property (nonatomic,strong) UIImageView *iconImgView;
+
+
+@property (nonatomic, strong) UILabel *titleLab;
+@property (nonatomic, strong) UIImageView *iconImgView;
 @property (nonatomic, strong) TheContractData *model;
 @property (nonatomic, strong) BasicModel *basicModel;
 @end

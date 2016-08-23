@@ -2,7 +2,7 @@
 //  ToolsViewController.h
 //  ZhouDao
 //
-//  Created by apple on 16/3/3.
+//  Created by apple on 16/8/23.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
@@ -11,5 +11,4 @@
 
 @interface ToolsViewController : BaseViewController
 
-@property (nonatomic, copy) NSString *shareImgURLString;
 @end

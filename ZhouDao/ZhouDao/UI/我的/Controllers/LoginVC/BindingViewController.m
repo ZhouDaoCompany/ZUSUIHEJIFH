@@ -376,6 +376,7 @@
         _loginKeyText.delegate = self;
         _loginKeyText.tag = 3025;
         _loginKeyText.font = Font_14;
+        _loginKeyText.secureTextEntry = YES;
         _loginKeyText.placeholder = @"密码";
     }
     return _loginKeyText;

@@ -182,7 +182,8 @@
     }else if ([type isEqualToString:@"4"]){
         tit  = @"周道慧法-消息提醒";
     }
-    
+    UIWindow *windows = [QZManager getWindow];
+
     if ([PublicFunction ShareInstance].openApp ==  YES) {
         
         [PublicFunction ShareInstance].openApp =  NO;
@@ -193,7 +194,7 @@
                 
                 [[SoundManager sharedSoundManager] musicStop];
             };
-            [self.view addSubview:alertWindow];
+            [windows addSubview:alertWindow];
         }
         
     }else {
@@ -207,7 +208,7 @@
                 [[SoundManager sharedSoundManager] musicStop];
                 [weakSelf pushWithUserInfo:notiDic];
             };
-            [self.view addSubview:alertWindow];
+            [windows addSubview:alertWindow];
         }else {
             [self pushWithUserInfo:notiDic];
             
@@ -218,7 +219,7 @@
                     
                     [[SoundManager sharedSoundManager] musicStop];
                 };
-                [self.view addSubview:alertWindow];
+                [windows addSubview:alertWindow];
             }
         }
     }
@@ -248,6 +249,7 @@
         [self TheDailyRoundOfPlay:idstr withTit:alertString];
         
     }else {
+        
         
     }
 }

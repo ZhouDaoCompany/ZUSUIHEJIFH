@@ -2,7 +2,7 @@
 //  ToolsViewController.m
 //  ZhouDao
 //
-//  Created by apple on 16/3/3.
+//  Created by apple on 16/8/23.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
@@ -10,6 +10,8 @@
 #import "ToolCollectionViewCell.h"
 #import "ToolsWedViewVC.h"
 #import "TheContractData.h"
+#import "LewReorderableLayout.h"
+
 #define toolWidth     [UIScreen mainScreen].bounds.size.width/2.f -0.5f
 #define toolHeight    68
 static NSString *const toolIdentifier = @"toolIdentifier";
@@ -20,64 +22,49 @@ static float const kCollectionViewToBottomtMargin             = 0.f;
 static float const kCollectionViewCellsHorizonMargin          = 1.f;//每个item之间的距离;
 static float const kCollectionViewCellsSection                = 1.f;//每行之间的距离;
 
-@interface ToolsViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
+@interface ToolsViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,LewReorderableLayoutDelegate, LewReorderableLayoutDataSource>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic,strong) NSMutableArray *dataSourceArr;
+@property (nonatomic, strong) NSMutableArray *dataSourceArrays;
 
 @end
 
 @implementation ToolsViewController
+
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    [self initView];
+    
+    [self initUI];
 }
-- (void)initView
+#pragma mark - private methods
+- (void)initUI
 {
     [self setupNaviBarWithTitle:@"工具"];
-    
-    _dataSourceArr = [NSMutableArray array];
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , kMainScreenWidth ,kMainScreenHeight-64.f) collectionViewLayout:layout];
-    //layout.headerReferenceSize = CGSizeMake(SCREENWIDTH, 40);
-    
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    //self.collectionView.bounces = NO;
-    self.collectionView.allowsMultipleSelection = YES;
-    self.collectionView.showsHorizontalScrollIndicator = NO;
-    self.collectionView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.collectionView];
-    [self.collectionView registerClass:[ToolCollectionViewCell class] forCellWithReuseIdentifier:toolIdentifier];
-    WEAKSELF;
-    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf.collectionView.mj_header endRefreshing];
-        [weakSelf loadData];
-    }];
+    [self loadData];
+}
+#pragma mark - 请求
+- (void)loadData
+{WEAKSELF;
     
     NSArray *arrays = [USER_D objectForKey:ToolsStorage];
     if (arrays.count >0) {
-        [weakSelf.dataSourceArr removeAllObjects];
+        [weakSelf.dataSourceArrays removeAllObjects];
         [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             BasicModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-            [weakSelf.dataSourceArr addObject:model];
+            [weakSelf.dataSourceArrays addObject:model];
         }];
         [weakSelf.collectionView reloadData];
     }else{
         [SVProgressHUD show];
     }
-    [self loadData];
-}
-- (void)loadData
-{WEAKSELF;
+    
     [NetWorkMangerTools toolsClassRequestSuccess:^(NSArray *arr) {
         
-        [weakSelf.dataSourceArr removeAllObjects];
-        [weakSelf.dataSourceArr addObjectsFromArray:arr];
+        [weakSelf.dataSourceArrays removeAllObjects];
+        [weakSelf.dataSourceArrays addObjectsFromArray:arr];
         [weakSelf.collectionView reloadData];
         NSMutableArray *arrays = [NSMutableArray array];
         [arr enumerateObjectsUsingBlock:^(BasicModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -90,10 +77,10 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     } fail:^{
         NSArray *arrays = [USER_D objectForKey:ToolsStorage];
         if (arrays.count >0) {
-            [weakSelf.dataSourceArr removeAllObjects];
+            [weakSelf.dataSourceArrays removeAllObjects];
             [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 BasicModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-                [weakSelf.dataSourceArr addObject:model];
+                [weakSelf.dataSourceArrays addObject:model];
             }];
             [weakSelf.collectionView reloadData];
         }
@@ -101,16 +88,16 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 }
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [_dataSourceArr count];
+    return [self.dataSourceArrays count];
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ToolCollectionViewCell * cell = (ToolCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:toolIdentifier forIndexPath:indexPath];
     
-    if (_dataSourceArr.count >0) {
-        if ([_dataSourceArr[indexPath.row] isKindOfClass:[BasicModel class]]) {
-            [cell setBasicModel:_dataSourceArr[indexPath.row]];
+    if (self.dataSourceArrays.count >0) {
+        if ([self.dataSourceArrays[indexPath.row] isKindOfClass:[BasicModel class]]) {
+            [cell setBasicModel:self.dataSourceArrays[indexPath.row]];
         }else{
             cell.iconImgView.hidden = YES;
             cell.titleLab.hidden = YES;
@@ -121,12 +108,9 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     WEAKSELF;
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,(long)indexPath.row);
-    if ([_dataSourceArr[indexPath.row] isKindOfClass:[BasicModel class]]) {
-        BasicModel *model = _dataSourceArr[indexPath.row];
-//        NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,api_tools,model.py];
-//        [NetWorkMangerTools apiToolsWith:url RequestSuccess:^(NSString *htmlString) {
-//            
-//        }];
+    if ([_dataSourceArrays[indexPath.row] isKindOfClass:[BasicModel class]]) {
+        [_collectionView deselectItemAtIndexPath:indexPath animated:YES];
+        BasicModel *model = _dataSourceArrays[indexPath.row];
         ToolsWedViewVC *vc = [ToolsWedViewVC new];
         vc.url = [NSString stringWithFormat:@"ToolsCalculate%ld",(long)indexPath.row];;
         vc.tType = FromToolsType;
@@ -134,9 +118,6 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         vc.imgUrlString = model.app_icon;
         vc.introContent = model.content;
         [weakSelf.navigationController  pushViewController:vc animated:YES];
-
-        [_collectionView deselectItemAtIndexPath:indexPath animated:YES];
-//        [_collectionView reloadItemsAtIndexPaths:@[indexPath]];
     }
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -170,7 +151,45 @@ referenceSizeForHeaderInSection:(NSInteger)section
 {
     return kCollectionViewCellsSection;
 }
-
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath didMoveToIndexPath:(NSIndexPath *)toIndexPath
+{
+    BasicModel *model = _dataSourceArrays[fromIndexPath.row];
+    [_dataSourceArrays removeObjectAtIndex:fromIndexPath.item];
+    [_dataSourceArrays insertObject:model atIndex:toIndexPath.item];
+}
+#pragma mark - setter and getter
+- (NSMutableArray *)dataSourceArrays
+{
+    if (!_dataSourceArrays) {
+        _dataSourceArrays = [NSMutableArray array];
+    }
+    return _dataSourceArrays;
+}
+- (UICollectionView *)collectionView
+{
+    if (!_collectionView) {
+        LewReorderableLayout *layout = [[LewReorderableLayout alloc] init];
+        layout.delegate = self;
+        layout.dataSource = self;
+        [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , kMainScreenWidth ,kMainScreenHeight-64.f) collectionViewLayout:layout];
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        _collectionView.backgroundColor = [UIColor clearColor];
+        _collectionView.allowsMultipleSelection = YES;
+        [_collectionView registerClass:[ToolCollectionViewCell class] forCellWithReuseIdentifier:toolIdentifier];
+        WEAKSELF;
+       _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+           
+            [weakSelf.collectionView.mj_header endRefreshing];
+            [weakSelf loadData];
+        }];
+    }
+    return _collectionView;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

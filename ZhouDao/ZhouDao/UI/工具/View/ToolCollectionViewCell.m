@@ -13,26 +13,11 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
-        //        self.layer.masksToBounds = YES;
-        //        self.layer.cornerRadius = 10.f;
-        
-        self.backgroundColor = [UIColor whiteColor];
-        CGFloat width = self.frame.size.width;
-//        CGFloat height = self.frame.size.height;
-        
-        _iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 21.5, 25, 24)];
-        _iconImgView.userInteractionEnabled = YES;
-        _iconImgView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.contentView addSubview:_iconImgView];
 
-        _titleLab = [[UILabel alloc] initWithFrame:CGRectMake(Orgin_x(_iconImgView) +10.f, 24, width- Orgin_x(_iconImgView) - 10.f, 20)];
-        _titleLab.textColor = thirdColor;
-//        _titleLab.textAlignment = NSTextAlignmentCenter;
-        _titleLab.backgroundColor = [UIColor clearColor];
-        _titleLab.numberOfLines = 0;
-        _titleLab.font = [UIFont systemFontOfSize:15.f];
-        [self.contentView addSubview:_titleLab];
+        self.backgroundColor = [UIColor whiteColor];
+        
+        [self.contentView addSubview:self.iconImgView];
+        [self.contentView addSubview:self.titleLab];
         
     }
     return self;
@@ -66,6 +51,31 @@
     float width = self.bounds.size.width;
     CGSize size = [_titleLab.text boundingRectWithSize:CGSizeMake(width-60,MAXFLOAT)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
     _titleLab.frame =CGRectMake(50.f, 24, size.width, size.height);
+}
+#pragma mark - setters and getters
+- (UIImageView *)iconImgView
+{
+    if (!_iconImgView) {
+        
+        _iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 21.5, 25, 24)];
+        _iconImgView.userInteractionEnabled = YES;
+        _iconImgView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _iconImgView;
+}
+
+- (UILabel *)titleLab
+{
+    if (!_titleLab) {
+        CGFloat width = self.frame.size.width;
+        _titleLab = [[UILabel alloc] initWithFrame:CGRectMake(Orgin_x(_iconImgView) +10.f, 24, width- Orgin_x(_iconImgView) - 10.f, 20)];
+        _titleLab.textColor = thirdColor;
+        //        _titleLab.textAlignment = NSTextAlignmentCenter;
+        _titleLab.backgroundColor = [UIColor clearColor];
+        _titleLab.numberOfLines = 0;
+        _titleLab.font = [UIFont systemFontOfSize:15.f];
+    }
+    return _titleLab;
 }
 
 @end

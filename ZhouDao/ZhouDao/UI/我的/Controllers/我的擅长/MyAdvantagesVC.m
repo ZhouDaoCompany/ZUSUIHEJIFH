@@ -414,17 +414,16 @@ referenceSizeForHeaderInSection:(NSInteger)section
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
-        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , SCREENWIDTH ,SCREENHEIGHT-64) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , SCREENWIDTH ,SCREENHEIGHT-64) collectionViewLayout:layout];
         //layout.headerReferenceSize = CGSizeMake(SCREENWIDTH, 40);
-        
-        self.collectionView.dataSource = self;
-        self.collectionView.delegate = self;
-        self.collectionView.backgroundColor = LRRGBColor(242, 242, 242);
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        _collectionView.backgroundColor = LRRGBColor(242, 242, 242);
         //self.collectionView.bounces = NO;
-        self.collectionView.allowsMultipleSelection = YES;
-        self.collectionView.showsHorizontalScrollIndicator = NO;
-        self.collectionView.showsVerticalScrollIndicator = NO;
-        [self.collectionView registerClass:[ChannelCollectionCell class] forCellWithReuseIdentifier:KCellIdentifier];
+        _collectionView.allowsMultipleSelection = YES;
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.showsVerticalScrollIndicator = NO;
+        [_collectionView registerClass:[ChannelCollectionCell class] forCellWithReuseIdentifier:KCellIdentifier];
     }
     return _collectionView;
 }
