@@ -9,6 +9,12 @@
 #import "SelectProvinceCell.h"
 @interface SelectProvinceCell()
 
+@property (strong, nonatomic) UILabel *nameLab;
+@property (strong, nonatomic) UIButton *oneButton;
+@property (strong, nonatomic) UIButton *twoButton;
+@property (strong, nonatomic) UIButton *thirdButton;
+@property (strong, nonatomic) UIButton *fourButton;
+
 @end
 @implementation SelectProvinceCell
 
@@ -19,55 +25,42 @@
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self.contentView addSubview:self.nameLab];
+        [self.contentView addSubview:self.oneButton];
+        [self.contentView addSubview:self.twoButton];
+        [self.contentView addSubview:self.thirdButton];
+        [self.contentView addSubview:self.fourButton];
 
     }
     
     return self;
 }
 #pragma mark - methods
-- (void)setHotCityUI
-{
-    self.backgroundColor = [UIColor clearColor];
-    NSArray *hotCity = @[@"北京",@"上海",@"重庆",@"天津"];
-    for (NSInteger i = 0; i<hotCity.count; i++) {
-        
-        NSString *titString = hotCity[i];
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.backgroundColor = [UIColor whiteColor];
-        btn.tag = 3000+i;
-        [btn setTitle:titString forState:0];
-        btn.layer.borderColor = [UIColor colorWithHexString:@"#d7d7d7"].CGColor;
-        btn.layer.borderWidth = 1.f;
-        btn.layer.masksToBounds = YES;
-        btn.layer.cornerRadius = 3.f;
-        float hotWidth = (kMainScreenWidth- 70)/4.f;
-        btn.frame = CGRectMake( 10 + (hotWidth +10)* i, 7 , hotWidth, 34);
-        btn.titleLabel.font = Font_14;
-        [btn setTitleColor:hexColor(333333) forState:0];
-        [btn addTarget:self action:@selector(hotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:btn];
-    }
-}
 - (void)setOtherCitySelect:(NSString *)name wihSection:(NSInteger)section
 {
+    
+    if (section == 0) {
+        self.backgroundColor = [UIColor clearColor];
+        _oneButton.hidden = NO;
+        _twoButton.hidden = NO;
+        _thirdButton.hidden = NO;
+        _fourButton.hidden = NO;
+        _nameLab.hidden = YES;
 
-    for (NSInteger i = 0; i<3004; i++) {
-        UIButton *btn = (UIButton *)[self.contentView viewWithTag:i];
-        if (section == 0) {
-            btn.hidden = NO;
-        }else {
-            btn.hidden = YES;
-        }
+    }else {
+        self.backgroundColor = [UIColor whiteColor];
+        _oneButton.hidden = YES;
+        _twoButton.hidden = YES;
+        _thirdButton.hidden = YES;
+        _fourButton.hidden = YES;
+        _nameLab.hidden = NO;
+        _nameLab.text = name;
     }
-    DLog(@"name----%@",name);
-
-    self.nameLab.text = name;
 }
 #pragma mark - event response
 - (void)hotBtnClick:(UIButton *)btn
 {
     NSInteger index = btn.tag;
-    NSArray *hotCity = @[@"北京",@"上海",@"重庆",@"天津"];
+    NSArray *hotCity = @[@"北京",@"上海",@"天津",@"重庆"];
     if ([self.delegate respondsToSelector:@selector(getSeletyCityName:)]) {
         [self.delegate getSeletyCityName:hotCity[index - 3000]];
     }
@@ -79,11 +72,91 @@
     if (!_nameLab) {
         _nameLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 12, 160, 20)];
         _nameLab.font = Font_15;
-        _nameLab.backgroundColor = [UIColor redColor];
+        _nameLab.backgroundColor = [UIColor clearColor];
         _nameLab.textColor = hexColor(333333);
     }
     return _nameLab;
 }
+- (UIButton *)oneButton
+{
+    if (!_oneButton) {
+        _oneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _oneButton.backgroundColor = [UIColor whiteColor];
+        _oneButton.tag = 3000;
+        [_oneButton setTitle:@"北京" forState:0];
+        _oneButton.layer.borderColor = [UIColor colorWithHexString:@"#d7d7d7"].CGColor;
+        _oneButton.layer.borderWidth = 1.f;
+        _oneButton.layer.masksToBounds = YES;
+        _oneButton.layer.cornerRadius = 3.f;
+        float hotWidth = (kMainScreenWidth- 70)/4.f;
+        _oneButton.frame = CGRectMake( 10, 7 , hotWidth, 34);
+        _oneButton.titleLabel.font = Font_14;
+        [_oneButton setTitleColor:hexColor(333333) forState:0];
+        [_oneButton addTarget:self action:@selector(hotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+
+    }
+    return _oneButton;
+}
+- (UIButton *)twoButton
+{
+    if (!_twoButton) {
+        _twoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _twoButton.backgroundColor = [UIColor whiteColor];
+        _twoButton.tag = 3001;
+        [_twoButton setTitle:@"上海" forState:0];
+        _twoButton.layer.borderColor = [UIColor colorWithHexString:@"#d7d7d7"].CGColor;
+        _twoButton.layer.borderWidth = 1.f;
+        _twoButton.layer.masksToBounds = YES;
+        _twoButton.layer.cornerRadius = 3.f;
+        float hotWidth = (kMainScreenWidth- 70)/4.f;
+        _twoButton.frame = CGRectMake( 20 + hotWidth, 7 , hotWidth, 34);
+        _twoButton.titleLabel.font = Font_14;
+        [_twoButton setTitleColor:hexColor(333333) forState:0];
+        [_twoButton addTarget:self action:@selector(hotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+
+    }
+    return _twoButton;
+}
+- (UIButton *)thirdButton
+{
+    if (!_thirdButton) {
+        _thirdButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _thirdButton.backgroundColor = [UIColor whiteColor];
+        _thirdButton.tag = 3002;
+        [_thirdButton setTitle:@"天津" forState:0];
+        _thirdButton.layer.borderColor = [UIColor colorWithHexString:@"#d7d7d7"].CGColor;
+        _thirdButton.layer.borderWidth = 1.f;
+        _thirdButton.layer.masksToBounds = YES;
+        _thirdButton.layer.cornerRadius = 3.f;
+        float hotWidth = (kMainScreenWidth- 70)/4.f;
+        _thirdButton.frame = CGRectMake( 30 + hotWidth*2, 7 , hotWidth, 34);
+        _thirdButton.titleLabel.font = Font_14;
+        [_thirdButton setTitleColor:hexColor(333333) forState:0];
+        [_thirdButton addTarget:self action:@selector(hotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _thirdButton;
+}
+- (UIButton *)fourButton
+{
+    if (!_fourButton) {
+        _fourButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _fourButton.backgroundColor = [UIColor whiteColor];
+        _fourButton.tag = 3003;
+        [_fourButton setTitle:@"重庆" forState:0];
+        _fourButton.layer.borderColor = [UIColor colorWithHexString:@"#d7d7d7"].CGColor;
+        _fourButton.layer.borderWidth = 1.f;
+        _fourButton.layer.masksToBounds = YES;
+        _fourButton.layer.cornerRadius = 3.f;
+        float hotWidth = (kMainScreenWidth- 70)/4.f;
+        _fourButton.frame = CGRectMake( 40 + hotWidth*3, 7 , hotWidth, 34);
+        _fourButton.titleLabel.font = Font_14;
+        [_fourButton setTitleColor:hexColor(333333) forState:0];
+        [_fourButton addTarget:self action:@selector(hotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+
+    }
+    return _fourButton;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

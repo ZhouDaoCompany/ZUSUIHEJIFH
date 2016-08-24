@@ -12,10 +12,8 @@
 
 
 @property (weak, nonatomic) id<SelectProvinceCellPro>delegate;
-@property (strong, nonatomic) UILabel *nameLab;
 
 
-- (void)setHotCityUI;
 - (void)setOtherCitySelect:(NSString *)name wihSection:(NSInteger)section;
 @end
 

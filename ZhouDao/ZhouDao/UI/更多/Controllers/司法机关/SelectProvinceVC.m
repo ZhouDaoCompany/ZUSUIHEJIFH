@@ -71,8 +71,8 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
             [[weakSelf.cityDictionary objectForKey:fristChar] addObject:cityName];
         }
     }];
-    
      NSArray *titleArrays = [[self.cityDictionary allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    [self.cityDictionary setObject:[NSArray array] forKey:@"热门"];
     [self.sectionHeadTitleArrays addObject:@"热门"];
     [self.sectionHeadTitleArrays addObjectsFromArray:titleArrays];
     [self.tableView reloadData];
@@ -95,12 +95,10 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SelectProvinceCell *cell = (SelectProvinceCell *)[tableView dequeueReusableCellWithIdentifier:CELLIDENTIFER];
-    if (cell == nil) {
-        cell = [[SelectProvinceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELLIDENTIFER];
-    }
+    cell.delegate = self;
+
     if (indexPath.section == 0) {
-        [cell setHotCityUI];
-        cell.delegate = self;
+        [cell setOtherCitySelect:@"" wihSection:indexPath.section];
     }else {
         NSString *key = [self.sectionHeadTitleArrays objectAtIndex:indexPath.section];
         NSArray *arr = [self.cityDictionary objectForKey:key];
