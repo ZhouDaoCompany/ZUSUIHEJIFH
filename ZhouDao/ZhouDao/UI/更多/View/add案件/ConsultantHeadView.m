@@ -24,26 +24,8 @@
         self.backgroundColor = [UIColor colorWithHexString:@"#F2F2F2"];
         
         _section = section;
-        UILabel *titLab = [[UILabel alloc] init];
-        titLab.frame = CGRectMake(15, 0, 120, self.frame.size.height);
-        titLab.font = [UIFont systemFontOfSize:15.f];
-        [titLab setTextColor:[UIColor colorWithHexString:@"#333333"]];
-        titLab.text = @"添加更多信息";
-        self.label = titLab;
         [self addSubview:self.label];
-        
-        UIButton *delBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        delBtn.titleLabel.font = Font_12;
-//        delBtn.backgroundColor = [UIColor colorWithHexString:@"#00c8aa"];
-        delBtn.frame = CGRectMake(kMainScreenWidth - 55.f, 10.f, 40 , 25);
-//        [delBtn setTitle:@"删除" forState:0];
-        [delBtn setImage:[UIImage imageNamed:@"mine_guanbi"] forState:0];
-//        [delBtn setBackgroundImage:[UIImage imageNamed:@"mine_guanbi"] forState:0];
-//        delBtn.layer.masksToBounds = YES;
-//        delBtn.layer.cornerRadius = 5.f;
-        [delBtn addTarget:self action:@selector(deleteEventRespose:) forControlEvents:UIControlEventTouchUpInside];
-        _delBtn = delBtn;
-        [self addSubview:_delBtn];
+        [self addSubview:self.delBtn];
         
     }
     return self;
@@ -58,7 +40,28 @@
 - (void) setLabelText:(NSString *)text
 {
     self.label.text = text;
-    //    [self.label sizeToFit];
+}
+#pragma mark - setters and getters
+- (UIButton *)delBtn
+{
+    if (!_delBtn) {
+        _delBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _delBtn.frame = CGRectMake(kMainScreenWidth - 55.f, 10.f, 40 , 25);
+        [_delBtn setImage:[UIImage imageNamed:@"mine_guanbi"] forState:0];
+        [_delBtn addTarget:self action:@selector(deleteEventRespose:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _delBtn;
+}
+- (UILabel *)label
+{
+    if (!_label) {
+        _label = [[UILabel alloc] init];
+        _label.frame = CGRectMake(15, 0, 120, self.frame.size.height);
+        _label.font = [UIFont systemFontOfSize:15.f];
+        [_label setTextColor:hexColor(333333)];
+        _label.text = @"添加更多信息";
+    }
+    return _label;
 }
 
 /*

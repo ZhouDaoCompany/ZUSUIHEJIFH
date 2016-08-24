@@ -373,6 +373,7 @@
 		187E6D6E1C841A12009169C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 187E6D6C1C841A12009169C2 /* LaunchScreen.storyboard */; };
 		187E6D791C841A15009169C2 /* ZhouDaoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E6D781C841A15009169C2 /* ZhouDaoTests.m */; };
 		187E6D841C841A15009169C2 /* ZhouDaoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E6D831C841A15009169C2 /* ZhouDaoUITests.m */; };
+		1884452D1D6D98C400D1013D /* SelectProvinceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1884452C1D6D98C400D1013D /* SelectProvinceCell.m */; };
 		188638F81C9AA5D200E91F78 /* AddAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188638F71C9AA5D200E91F78 /* AddAlertVC.m */; };
 		188651A71D25FBE900E030F7 /* FinanceDesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651A51D25FBE900E030F7 /* FinanceDesCell.m */; };
 		188651AC1D26031800E030F7 /* CasesRemindVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188651AB1D26031800E030F7 /* CasesRemindVC.m */; };
@@ -1092,6 +1093,8 @@
 		187E6D7F1C841A15009169C2 /* ZhouDaoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZhouDaoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		187E6D831C841A15009169C2 /* ZhouDaoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZhouDaoUITests.m; sourceTree = "<group>"; };
 		187E6D851C841A15009169C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1884452B1D6D98C400D1013D /* SelectProvinceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectProvinceCell.h; sourceTree = "<group>"; };
+		1884452C1D6D98C400D1013D /* SelectProvinceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectProvinceCell.m; sourceTree = "<group>"; };
 		188638F61C9AA5D200E91F78 /* AddAlertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAlertVC.h; sourceTree = "<group>"; };
 		188638F71C9AA5D200E91F78 /* AddAlertVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAlertVC.m; sourceTree = "<group>"; };
 		188651A41D25FBE900E030F7 /* FinanceDesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceDesCell.h; sourceTree = "<group>"; };
@@ -2090,6 +2093,8 @@
 				10D31D7A1CDEE92C008D6F42 /* GovDetailCell.xib */,
 				187DB9411CDC706F009CF1D6 /* GovListCell.h */,
 				187DB9421CDC706F009CF1D6 /* GovListCell.m */,
+				1884452B1D6D98C400D1013D /* SelectProvinceCell.h */,
+				1884452C1D6D98C400D1013D /* SelectProvinceCell.m */,
 				10C01AF81CA7F01A0000EF7A /* LawsTableViewCell.h */,
 				10C01AF91CA7F01A0000EF7A /* LawsTableViewCell.m */,
 				10C01AFA1CA7F01A0000EF7A /* LawsTableViewCell.xib */,
@@ -4121,6 +4126,7 @@
 				18539B391D3CA3A400ADE566 /* BindingViewController.m in Sources */,
 				18C4B05C1CB4BFB500D3CB8B /* TemplateDetailVC.m in Sources */,
 				18230CF51CC7580700F4ACCF /* NewsLawsVC.m in Sources */,
+				1884452D1D6D98C400D1013D /* SelectProvinceCell.m in Sources */,
 				18FF3F7B1C85617A0098C60B /* QHCommonUtil.m in Sources */,
 				1031B1141CB01B43006CE3FB /* LocalLawsVC.m in Sources */,
 				10C86B811CABB78D002A75AC /* HomeHeadView.m in Sources */,
