@@ -51,7 +51,7 @@
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-         [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     });
     [manager GET:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
@@ -101,7 +101,7 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     });
 
     [manager POST:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]

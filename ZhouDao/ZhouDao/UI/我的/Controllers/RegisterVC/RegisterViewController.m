@@ -404,7 +404,7 @@
         return;
     }
     
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     UIDevice *device = [UIDevice currentDevice];
     NSString *deviceUDID = [NSString stringWithFormat:@"%@",device.identifierForVendor];
     DLog(@"输出设备的id---%@",deviceUDID);
@@ -414,10 +414,10 @@
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
-            [SVProgressHUD showErrorWithStatus:msg];
+            [MBProgressHUD showError:msg];
             return ;
         }
-        [SVProgressHUD showSuccessWithStatus:msg];
+        [MBProgressHUD showSuccess:msg];
 //        self.successRegisterBlock(_phoneText.text,_keyText.text);
         [weakSelf loginMethod];
         
@@ -430,7 +430,7 @@
             [weakSelf dismissViewControllerAnimated:YES completion:nil];
 //        }
     } fail:^{
-        [SVProgressHUD showErrorWithStatus:AlrertMsg];
+        [MBProgressHUD showError:AlrertMsg];
     }];
     
 }

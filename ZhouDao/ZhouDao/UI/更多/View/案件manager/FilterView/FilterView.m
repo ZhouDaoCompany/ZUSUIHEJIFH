@@ -232,10 +232,10 @@ static float const kCollectionViewCellsSection                = 10.f;//每行之
         _sureBtn.enabled = NO;
     }else{
         _sureBtn.enabled = YES;
-        [_resetBtn setTitleColor:thirdColor forState:0];
+        [_resetBtn setTitleColor:THIRDCOLOR forState:0];
         _resetBtn.backgroundColor = [UIColor clearColor];
         _resetBtn.layer.borderWidth = .6f;
-        _resetBtn.layer.borderColor = sixColor.CGColor;
+        _resetBtn.layer.borderColor = SIXCOLOR.CGColor;
     }
     
 

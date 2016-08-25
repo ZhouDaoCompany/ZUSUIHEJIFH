@@ -51,7 +51,7 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
 //    [_tableView.mj_header beginRefreshing];
     UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     moreBtn.backgroundColor = ViewBackColor;
-    [moreBtn setTitleColor:sixColor forState:0];
+    [moreBtn setTitleColor:SIXCOLOR forState:0];
     moreBtn.titleLabel.font = Font_14;
     moreBtn.frame = CGRectMake(0, 0, kMainScreenWidth , 40);
     [moreBtn setTitle:@"点击查看更多" forState:0];

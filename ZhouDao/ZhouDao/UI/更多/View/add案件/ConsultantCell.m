@@ -23,7 +23,7 @@
         [self textField];
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 49.4f, kMainScreenWidth-15.f, .6f)];
-        lineView.backgroundColor = lineColor;
+        lineView.backgroundColor = LINECOLOR;
         [self.contentView addSubview:lineView];
         
         [self arrowImg];
@@ -37,7 +37,7 @@
         _titleLab = [[UILabel alloc] init];
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.font = Font_15;
-        _titleLab.textColor = thirdColor;
+        _titleLab.textColor = THIRDCOLOR;
         [self.contentView addSubview:_titleLab];
     }
     return _titleLab;
@@ -49,7 +49,7 @@
         _deviceLabel = [[UILabel alloc] init];
         _deviceLabel.textAlignment = NSTextAlignmentRight;
         _deviceLabel.font = Font_14;
-        _deviceLabel.textColor = thirdColor;
+        _deviceLabel.textColor = THIRDCOLOR;
         [self.contentView addSubview:_deviceLabel];
     }
     return _deviceLabel;
@@ -88,7 +88,7 @@
         if (_deviceLabel.text.length == 0) {
             NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请选择"];
             NSRange range1=[[hintString string]rangeOfString:@"请选择"];
-            [hintString addAttribute:NSForegroundColorAttributeName value:sixColor range:range1];
+            [hintString addAttribute:NSForegroundColorAttributeName value:SIXCOLOR range:range1];
             _deviceLabel.attributedText=hintString;
         }
     }

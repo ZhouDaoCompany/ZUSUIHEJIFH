@@ -100,7 +100,7 @@
     [hotView addSubview:hotLab];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 44.5, width-15, .5f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [hotView addSubview:lineView];
     
 }

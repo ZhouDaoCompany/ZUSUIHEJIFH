@@ -50,7 +50,7 @@
     UIView *oneView = [[UIView alloc] initWithFrame:CGRectMake(15, 10,kMainScreenWidth-30 , 45)];
     oneView.backgroundColor = ViewBackColor;
     oneView.layer.borderWidth = .6f;
-    oneView.layer.borderColor = lineColor.CGColor;
+    oneView.layer.borderColor = LINECOLOR.CGColor;
     oneView.layer.masksToBounds = YES;
     oneView.layer.cornerRadius = 2.f;
     [headView addSubview:oneView];
@@ -81,7 +81,7 @@
     UIView *twoView = [[UIView alloc] initWithFrame:CGRectMake(15, 65, kMainScreenWidth-30 , 45)];
     twoView.backgroundColor = ViewBackColor;
     twoView.layer.borderWidth = .6f;
-    twoView.layer.borderColor = lineColor.CGColor;
+    twoView.layer.borderColor = LINECOLOR.CGColor;
     twoView.layer.masksToBounds = YES;
     twoView.layer.cornerRadius = 2.f;
     [headView addSubview:twoView];

@@ -101,7 +101,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         [cell.contentView   addSubview:imgView];
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 99.4f, kMainScreenWidth, .6f)];
-        lineView.backgroundColor = lineColor;
+        lineView.backgroundColor = LINECOLOR;
         [cell.contentView addSubview:lineView];
         return cell;
     }
@@ -111,7 +111,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         [cell setDetailIntroductionText:_model.introduce];
     }else{
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43.4f, kMainScreenWidth, .6f)];
-        lineView.backgroundColor = lineColor;
+        lineView.backgroundColor = LINECOLOR;
         [cell.contentView addSubview:lineView];
 
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -128,7 +128,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 50.f)];
         headView.backgroundColor = [UIColor whiteColor];
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 10.f)];
-        lineView.backgroundColor = lineColor;
+        lineView.backgroundColor = LINECOLOR;
         [headView addSubview:lineView];
 
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, kMainScreenWidth - 15,40.f)];
@@ -138,7 +138,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         lab.text = @"简介";
         [headView addSubview:lab];
         UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 49.4f, kMainScreenWidth, .6f)];
-        lineView1.backgroundColor = lineColor;
+        lineView1.backgroundColor = LINECOLOR;
         [headView addSubview:lineView1];
         return headView;
     }

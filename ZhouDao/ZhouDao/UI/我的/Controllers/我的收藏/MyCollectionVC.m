@@ -43,7 +43,7 @@
     [self addLable];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(_smallScrollView), kMainScreenWidth, .6f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [self.view addSubview:lineView];
     
     
@@ -103,7 +103,7 @@
         [self.smallScrollView addSubview:lbl1];
         lbl1.tag = i+2000;
         lbl1.userInteractionEnabled = YES;
-        lbl1.textColor = thirdColor;
+        lbl1.textColor = THIRDCOLOR;
         if (i==0) {
             _redView.center = CGPointMake(lbl1.center.x, self.smallScrollView.frame.size.height -1.f);
             lbl1.textColor = KNavigationBarColor;
@@ -139,7 +139,7 @@
     NSUInteger index = scrollView.contentOffset.x / self.bigScrollView.frame.size.width;
     for (OrderTitleLab *viewLab in _smallScrollView.subviews){
         if ([viewLab isKindOfClass:[OrderTitleLab class]]){
-            viewLab.textColor = thirdColor;
+            viewLab.textColor = THIRDCOLOR;
             viewLab.scale = 0;
         }
     }

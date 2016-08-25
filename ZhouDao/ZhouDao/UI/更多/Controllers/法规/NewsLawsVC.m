@@ -71,7 +71,7 @@ static NSString *const NewsCellIdentifier = @"NewsCellIdentifier";
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
     _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
     
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     // 马上进入刷新状态
     [_tableView.mj_header beginRefreshing];
 }
@@ -86,7 +86,7 @@ static NSString *const NewsCellIdentifier = @"NewsCellIdentifier";
     _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
     _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
     _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
-    _jsMenu.textColor = thirdColor;
+    _jsMenu.textColor = THIRDCOLOR;
     _jsMenu.dataSource = self;
     _jsMenu.delegate = self;
     [self.view addSubview:_jsMenu];

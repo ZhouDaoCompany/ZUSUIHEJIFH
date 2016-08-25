@@ -109,7 +109,7 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
         [weakSelf.collectionView.mj_header endRefreshing];
         _page = 0;
         _searchField.text = @"";
-        [SVProgressHUD show];
+        [MBProgressHUD showMBLoadingWithText:nil];
         [NetWorkMangerTools arrangeListWithPage:_page RequestSuccess:^(NSArray *arr) {
             
             [weakSelf.dataSourceArr removeAllObjects];
@@ -127,7 +127,7 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
     
     self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
-        [SVProgressHUD show];
+        [MBProgressHUD showMBLoadingWithText:nil];
         [NetWorkMangerTools arrangeListWithPage:_page RequestSuccess:^(NSArray *arr) {
             
             [weakSelf.dataSourceArr addObjectsFromArray:arr];
@@ -331,7 +331,7 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
     }];
     
     [menuItems enumerateObjectsUsingBlock:^(KxMenuItem *first, NSUInteger idx, BOOL * _Nonnull stop) {
-        first.foreColor = thirdColor;
+        first.foreColor = THIRDCOLOR;
     }];
     
     [KxMenu setTitleFont:Font_13];

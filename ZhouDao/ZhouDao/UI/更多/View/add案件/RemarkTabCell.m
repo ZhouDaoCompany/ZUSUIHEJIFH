@@ -59,7 +59,7 @@
         _placeHoldlab.font = Font_14;
         _placeHoldlab.backgroundColor = [UIColor clearColor];
         _placeHoldlab.text = @" 写备注...";
-        _placeHoldlab.textColor = sixColor;
+        _placeHoldlab.textColor = SIXCOLOR;
         [self.textView addSubview:_placeHoldlab];
     }
     return _placeHoldlab;

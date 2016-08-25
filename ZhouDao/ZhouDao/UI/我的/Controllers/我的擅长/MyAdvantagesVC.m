@@ -50,10 +50,10 @@ static float const kCollectionViewCellsHorizonMargin          = 5.f;//每个item
 }
 - (void)getData
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *dmainUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,DomainList];
     [ZhouDao_NetWorkManger GetJSONWithUrl:dmainUrl success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+       [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -63,7 +63,7 @@ static float const kCollectionViewCellsHorizonMargin          = 5.f;//每个item
         [self analyticalData:jsonDic];
         
     } fail:^{
-        [SVProgressHUD showErrorWithStatus:AlrertMsg];
+        [MBProgressHUD showError:AlrertMsg];
     }];
     
 //    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"mygood" ofType:@"txt"];
@@ -364,10 +364,10 @@ referenceSizeForHeaderInSection:(NSInteger)section
              */
             NSString *addUrl = [NSString stringWithFormat:@"%@%@uid=%@&special=%@",kProjectBaseUrl,DomainAdd,UID,GET(dominString)];
             
-            [SVProgressHUD show];
+            [MBProgressHUD showMBLoadingWithText:nil];
             [ZhouDao_NetWorkManger GetJSONWithUrl:addUrl success:^(NSDictionary *jsonDic) {
                 
-                [SVProgressHUD dismiss];
+                [MBProgressHUD hideHUD];
                 NSUInteger errorcode = [jsonDic[@"state"] integerValue];
                 NSString *msg = jsonDic[@"info"];
                 [JKPromptView showWithImageName:nil message:msg];
@@ -386,7 +386,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
                     
                     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
                 }];
-                [SVProgressHUD showErrorWithStatus:AlrertMsg];
+                [MBProgressHUD showError:AlrertMsg];
             }];
 
         }else{

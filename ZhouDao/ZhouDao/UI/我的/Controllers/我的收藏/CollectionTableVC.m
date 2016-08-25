@@ -72,7 +72,7 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
 }
 - (void)loadData{
     WEAKSELF;
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     _page =0;
     [NetWorkMangerTools collectionListMine:_typeString withPage:_page RequestSuccess:^(NSArray *zdArr, NSArray *comArr) {
         
@@ -97,7 +97,7 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
 #pragma mark ------ 上拉加载
 - (void)downRefresh:(id)sender
 {WEAKSELF;
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     [NetWorkMangerTools collectionListMine:_typeString withPage:_page RequestSuccess:^(NSArray *zdArr, NSArray *comArr) {
         [_zdArr addObjectsFromArray:zdArr];
         [_normalArr addObjectsFromArray:comArr];

@@ -26,7 +26,7 @@
         self.titLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 40, 100, 20)];
         self.titLab.font = [UIFont systemFontOfSize:13.f];
         self.titLab.text = @"擅长领域领域分类列表";
-        [self.titLab setTextColor:sixColor];
+        [self.titLab setTextColor:SIXCOLOR];
         [self addSubview:self.titLab];
 
     }

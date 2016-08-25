@@ -26,9 +26,9 @@
     _lineView = lineView;
     [_timeLab addSubview:_lineView];
     
-    _titLab.textColor = thirdColor;
+    _titLab.textColor = THIRDCOLOR;
     _remindImg.contentMode = UIViewContentModeScaleAspectFit;
-    _timeLab.textColor = thirdColor;
+    _timeLab.textColor = THIRDCOLOR;
 
 }
 - (void)setDataModel:(RemindData *)dataModel

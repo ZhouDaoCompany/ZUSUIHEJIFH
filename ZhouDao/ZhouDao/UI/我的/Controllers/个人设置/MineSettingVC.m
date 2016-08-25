@@ -344,6 +344,8 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+
     NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
     // 当选择的类型是图片
     if ([type isEqualToString:@"public.image"])
@@ -355,9 +357,9 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);//保存相册
         });
         _headImage = image;
-    }  
+    }
+
     [self uploadHeaderImageItemClick];
-    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 //- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0){
 //    [picker dismissViewControllerAnimated:YES completion:^{
@@ -439,7 +441,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     return 0;
 }
 - (void)clearApplicationCaChe{WEAKSELF;
-    [SVProgressHUD showWithStatus:@"清理中..."];
+    [MBProgressHUD showMBLoadingWithText:@"清理中..."];
     [[SDImageCache sharedImageCache] cleanDisk];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask, YES) objectAtIndex:0];
@@ -463,7 +465,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 }
 - (void)clearCacheSuccess
 {
-    [SVProgressHUD dismiss];
+    [MBProgressHUD hideHUD];
     [JKPromptView showWithImageName:nil message:@"清除成功"];
     [_msgArrays replaceObjectAtIndex:5 withObject:@"0M"];
     [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:5 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];

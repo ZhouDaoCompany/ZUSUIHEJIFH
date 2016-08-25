@@ -58,7 +58,7 @@
      */
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 124, kMainScreenWidth, 0.6f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [self.view addSubview:lineView];
     
     UILabel *contentLab = [[UILabel alloc] initWithFrame:CGRectMake(10, Orgin_y(lineView) + 10.f, 60, 20)];
@@ -77,7 +77,7 @@
     _placeholdLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 20.f)];
     _placeholdLab.text =  @"请输入内容";
     _placeholdLab.font = Font_14;
-    _placeholdLab.textColor = sixColor;
+    _placeholdLab.textColor = SIXCOLOR;
     [_contentTextView addSubview:_placeholdLab];
 }
 #pragma mark -UITextFieldDelegate

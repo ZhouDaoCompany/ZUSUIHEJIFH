@@ -63,7 +63,7 @@
     [header addSubview:titleLbl];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(header), kMainScreenWidth, .5f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [_botomView addSubview:lineView];
     
     

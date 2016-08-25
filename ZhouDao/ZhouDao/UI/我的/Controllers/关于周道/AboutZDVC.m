@@ -33,7 +33,7 @@
     [self.view addSubview:_logoImgView];
 
     _versionLab = [[UILabel alloc] initWithFrame:CGRectMake(60, 233, kMainScreenWidth - 120, 20)];
-    _versionLab.textColor = thirdColor;
+    _versionLab.textColor = THIRDCOLOR;
     _versionLab.font = Font_18;
     _versionLab.textAlignment = NSTextAlignmentCenter;
     _versionLab.numberOfLines = 1;
@@ -75,7 +75,7 @@
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 43.5f, kMainScreenWidth-15.f, .5f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [cell.contentView addSubview:lineView];
     
     if (indexPath.row == 0) {

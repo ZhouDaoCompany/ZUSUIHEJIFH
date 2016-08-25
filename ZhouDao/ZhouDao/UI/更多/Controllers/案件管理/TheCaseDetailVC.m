@@ -249,7 +249,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     UILabel *titLab = [[UILabel alloc] initWithFrame:CGRectMake((kMainScreenWidth -100)/2.f, 0, 100, 45.f)];
     titLab.text = @"案件目录";
     titLab.textAlignment = NSTextAlignmentCenter;
-    titLab.textColor = thirdColor;
+    titLab.textColor = THIRDCOLOR;
     titLab.font = Font_17;
     [views addSubview:titLab];
     
@@ -261,7 +261,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     [views addSubview:moreBtn];
     
     UIView *laselineView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(titLab), kMainScreenWidth , .5f)];
-    laselineView.backgroundColor = lineColor;
+    laselineView.backgroundColor = LINECOLOR;
     [views addSubview:laselineView];
 
     return views;
@@ -301,7 +301,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     }];
     
     [menuItems enumerateObjectsUsingBlock:^(KxMenuItem *first, NSUInteger idx, BOOL * _Nonnull stop) {
-        first.foreColor = thirdColor;
+        first.foreColor = THIRDCOLOR;
     }];
 
     [KxMenu setTitleFont:Font_13];

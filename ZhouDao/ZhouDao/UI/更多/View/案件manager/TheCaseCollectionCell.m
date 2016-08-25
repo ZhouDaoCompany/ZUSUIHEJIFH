@@ -25,7 +25,7 @@
         [self.contentView addSubview:_picView];
         
         _titleLab = [[UILabel alloc] init];
-        _titleLab.textColor = thirdColor;
+        _titleLab.textColor = THIRDCOLOR;
         _titleLab.textAlignment = NSTextAlignmentCenter;
         _titleLab.backgroundColor = [UIColor clearColor];
         _titleLab.numberOfLines = 0;

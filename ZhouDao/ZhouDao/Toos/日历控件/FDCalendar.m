@@ -164,7 +164,7 @@ static NSDateFormatter *dateFormattor;
         offsetX += weekdayLabel.frame.size.width;
     }
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 60, DeviceWidth - 30, .6)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [self addSubview:lineView];
 }
 

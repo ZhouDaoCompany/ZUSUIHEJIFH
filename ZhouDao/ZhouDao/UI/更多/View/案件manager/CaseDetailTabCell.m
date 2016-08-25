@@ -56,7 +56,7 @@
     if (_indexLabel == nil) {
         _indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 13, 30, 20)];
         [_indexLabel setFont:Font_14];
-        _indexLabel.textColor = sixColor;
+        _indexLabel.textColor = SIXCOLOR;
         [self.contentView addSubview:_indexLabel];
     }
     return _indexLabel;
@@ -77,7 +77,7 @@
         _titLab = [[UILabel alloc] initWithFrame:CGRectMake(85, 13, 200, 20)];
         _titLab.backgroundColor = [UIColor clearColor];
         [_titLab setFont:Font_15];
-        _titLab.textColor = thirdColor;
+        _titLab.textColor = THIRDCOLOR;
         [self.contentView addSubview:_titLab];
     }
     return _titLab;

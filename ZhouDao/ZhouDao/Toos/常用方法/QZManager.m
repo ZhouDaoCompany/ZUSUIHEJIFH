@@ -1022,7 +1022,7 @@ singleton_for_class(QZManager)
 +(UIView *)createLineframe:(CGRect)frame
 {
     UIView *lineView = [[UIView alloc] initWithFrame:frame];
-    lineView.backgroundColor =lineColor;
+    lineView.backgroundColor =LINECOLOR;
     return lineView;
 }
 #pragma mark - 获得版本号

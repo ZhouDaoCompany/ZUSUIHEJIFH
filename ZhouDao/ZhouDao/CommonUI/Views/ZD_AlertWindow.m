@@ -92,7 +92,7 @@ static CGFloat kTransitionDuration = 0.3f;
 
         UILabel *drivingLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 60, kContentLabelWidth - 30, 40)];
         drivingLab.text = @"驾车导航";
-        drivingLab.textColor = thirdColor;
+        drivingLab.textColor = THIRDCOLOR;
         drivingLab.font = Font_16;
         [self.zd_superView addSubview:drivingLab];
         
@@ -102,7 +102,7 @@ static CGFloat kTransitionDuration = 0.3f;
         
         UILabel *walkingLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 100, kContentLabelWidth - 30, 40)];
         walkingLab.text = @"步行导航";
-        walkingLab.textColor = thirdColor;
+        walkingLab.textColor = THIRDCOLOR;
         walkingLab.font = Font_16;
         [self.zd_superView addSubview:walkingLab];
         
@@ -248,7 +248,7 @@ static CGFloat kTransitionDuration = 0.3f;
 {
     if (!_verticalLineView) {
         _verticalLineView = [[UIView alloc] initWithFrame:CGRectMake(Orgin_x(_cancelBtn), 60.6, 0.6, 49.4f)];
-        _verticalLineView.backgroundColor = lineColor;
+        _verticalLineView.backgroundColor = LINECOLOR;
     }
     return _verticalLineView;
 }

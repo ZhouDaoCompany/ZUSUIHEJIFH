@@ -29,7 +29,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(96, 21, 210, 15)];
         _nameLabel.font = Font_16;
-        _nameLabel.textColor = thirdColor;
+        _nameLabel.textColor = THIRDCOLOR;
     }
     return _nameLabel;
 }
@@ -38,7 +38,7 @@
     if (!_telLabel) {
         _telLabel = [[UILabel alloc] initWithFrame:CGRectMake(96, 41, 210, 15)];
         _telLabel.font  = Font_13;
-        _telLabel.textColor = sixColor;
+        _telLabel.textColor = SIXCOLOR;
     }
     return _telLabel;
 }
@@ -47,7 +47,7 @@
     if (!_addressLabel) {
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(96, 58, kMainScreenWidth - 100, 15)];
         _addressLabel.font  = Font_13;
-        _addressLabel.textColor = sixColor;
+        _addressLabel.textColor = SIXCOLOR;
         _addressLabel.numberOfLines = 1;
     }
     return _addressLabel;

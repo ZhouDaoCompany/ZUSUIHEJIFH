@@ -25,7 +25,7 @@
         
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 49.4f, kMainScreenWidth-15.f, .6f)];
-        lineView.backgroundColor = lineColor;
+        lineView.backgroundColor = LINECOLOR;
         [self.contentView addSubview:lineView];
         
         [self imgview1];
@@ -87,7 +87,7 @@
         if (_deviceLabel.text.length == 0) {
             NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请选择"];
             NSRange range1=[[hintString string]rangeOfString:@"请选择"];
-            [hintString addAttribute:NSForegroundColorAttributeName value:sixColor range:range1];
+            [hintString addAttribute:NSForegroundColorAttributeName value:SIXCOLOR range:range1];
             _deviceLabel.attributedText=hintString;
         }
     }

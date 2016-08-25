@@ -117,7 +117,10 @@
                     
                     [NetWorkMangerTools arrangeFinanceDelWithUrl:urlString RequestSuccess:^{
                         
-                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                        kDISPATCH_MAIN_THREAD((^{
+                            
+                            [weakSelf.navigationController popViewControllerAnimated:YES];
+                        }));
                     }];
                     
                 } fail:^{

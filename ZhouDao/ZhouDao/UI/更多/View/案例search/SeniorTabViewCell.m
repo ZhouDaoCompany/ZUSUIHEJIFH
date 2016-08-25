@@ -37,7 +37,7 @@
         [self.contentView addSubview:self.textField];
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 49.4f, kMainScreenWidth-15.f, .6f)];
-        lineView.backgroundColor = lineColor;
+        lineView.backgroundColor = LINECOLOR;
         [self.contentView addSubview:lineView];
         
         _imgview1 = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth-21, 20, 6, 10)];

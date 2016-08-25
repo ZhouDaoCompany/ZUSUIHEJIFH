@@ -59,7 +59,7 @@
     
     UILabel *titLab = [[UILabel alloc] initWithFrame:CGRectMake(Orgin_x(newImg) +7.5f, 15, 60, 20)];
     titLab.font = Font_15;
-    titLab.textColor = thirdColor;
+    titLab.textColor = THIRDCOLOR;
     titLab.text = @"新法速递";
     [_newslLawView addSubview:titLab];
     
@@ -126,7 +126,7 @@
     [hotView addSubview:hotLab];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 44.5, width-15, .5f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [hotView addSubview:lineView];
     
 }

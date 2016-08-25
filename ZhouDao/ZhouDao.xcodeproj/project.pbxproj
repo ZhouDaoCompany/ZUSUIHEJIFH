@@ -436,7 +436,11 @@
 		18B7177D1C916C5200F2AAED /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B7177B1C916C5200F2AAED /* RegisterViewController.m */; };
 		18BDD4121D6E9EED001541E1 /* Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDD40E1D6E9EED001541E1 /* Checkmark@2x.png */; };
 		18BDD4131D6E9EED001541E1 /* Checkmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDD40F1D6E9EED001541E1 /* Checkmark@3x.png */; };
-		18BDD4141D6E9EED001541E1 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDD4111D6E9EED001541E1 /* MBProgressHUD.m */; };
+		18BDD41F1D6EC2F3001541E1 /* error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDD41B1D6EC2F3001541E1 /* error@2x.png */; };
+		18BDD4201D6EC2F3001541E1 /* error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDD41C1D6EC2F3001541E1 /* error@3x.png */; };
+		18BDD4211D6EC2F3001541E1 /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDD41D1D6EC2F3001541E1 /* info@2x.png */; };
+		18BDD4221D6EC2F3001541E1 /* info@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDD41E1D6EC2F3001541E1 /* info@3x.png */; };
+		18BDD4251D6EC313001541E1 /* MBProgressHUD+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDD4241D6EC313001541E1 /* MBProgressHUD+Tools.m */; };
 		18C4B03C1CB4A4E200D3CB8B /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C4B03B1CB4A4E200D3CB8B /* TemplateViewController.m */; };
 		18C4B05C1CB4BFB500D3CB8B /* TemplateDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C4B05B1CB4BFB500D3CB8B /* TemplateDetailVC.m */; };
 		18C4B05E1CB4DD9500D3CB8B /* template_Word@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C4B05D1CB4DD9500D3CB8B /* template_Word@2x.png */; };
@@ -1215,8 +1219,12 @@
 		18B7177B1C916C5200F2AAED /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		18BDD40E1D6E9EED001541E1 /* Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark@2x.png"; sourceTree = "<group>"; };
 		18BDD40F1D6E9EED001541E1 /* Checkmark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark@3x.png"; sourceTree = "<group>"; };
-		18BDD4101D6E9EED001541E1 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		18BDD4111D6E9EED001541E1 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		18BDD41B1D6EC2F3001541E1 /* error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@2x.png"; sourceTree = "<group>"; };
+		18BDD41C1D6EC2F3001541E1 /* error@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@3x.png"; sourceTree = "<group>"; };
+		18BDD41D1D6EC2F3001541E1 /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
+		18BDD41E1D6EC2F3001541E1 /* info@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@3x.png"; sourceTree = "<group>"; };
+		18BDD4231D6EC313001541E1 /* MBProgressHUD+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Tools.h"; sourceTree = "<group>"; };
+		18BDD4241D6EC313001541E1 /* MBProgressHUD+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Tools.m"; sourceTree = "<group>"; };
 		18C4B03A1CB4A4E200D3CB8B /* TemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateViewController.h; sourceTree = "<group>"; };
 		18C4B03B1CB4A4E200D3CB8B /* TemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateViewController.m; sourceTree = "<group>"; };
 		18C4B05A1CB4BFB500D3CB8B /* TemplateDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDetailVC.h; sourceTree = "<group>"; };
@@ -3025,8 +3033,12 @@
 			children = (
 				18BDD40E1D6E9EED001541E1 /* Checkmark@2x.png */,
 				18BDD40F1D6E9EED001541E1 /* Checkmark@3x.png */,
-				18BDD4101D6E9EED001541E1 /* MBProgressHUD.h */,
-				18BDD4111D6E9EED001541E1 /* MBProgressHUD.m */,
+				18BDD41B1D6EC2F3001541E1 /* error@2x.png */,
+				18BDD41C1D6EC2F3001541E1 /* error@3x.png */,
+				18BDD41D1D6EC2F3001541E1 /* info@2x.png */,
+				18BDD41E1D6EC2F3001541E1 /* info@3x.png */,
+				18BDD4231D6EC313001541E1 /* MBProgressHUD+Tools.h */,
+				18BDD4241D6EC313001541E1 /* MBProgressHUD+Tools.m */,
 			);
 			path = MBProgressHUD;
 			sourceTree = "<group>";
@@ -3759,9 +3771,11 @@
 				18B16ACB1CFD5CE300561CD5 /* UMSCommentInputController.xib in Resources */,
 				1856A1261D4F35150070B93E /* lixi.js in Resources */,
 				108DC01F1C9FA38E00FD1221 /* backVC@2x.png in Resources */,
+				18BDD4221D6EC2F3001541E1 /* info@3x.png in Resources */,
 				18CB0F0E1CBF77E6009C41CE /* Esearch_jiantou@2x.png in Resources */,
 				18FD83341CBB858F00D50E20 /* case_look@2x.png in Resources */,
 				181BA40F1CE598B600A29E2E /* share_platform_qqfriends@2x.png in Resources */,
+				18BDD41F1D6EC2F3001541E1 /* error@2x.png in Resources */,
 				187DB8BF1CDC6310009CF1D6 /* gov_tupian@2x.png in Resources */,
 				187349DC1D2F4F96001A3E91 /* scan_2@2x.png in Resources */,
 				18CC2E1F1D2243CC004B37DA /* Case_WhiteSD@2x.png in Resources */,
@@ -3781,6 +3795,7 @@
 				10D31D7F1CDEEA09008D6F42 /* Gov_location@2x.png in Resources */,
 				108DC0321C9FA38E00FD1221 /* mine_good@2x.png in Resources */,
 				1856A1301D4F35150070B93E /* mobiscroll.js in Resources */,
+				18BDD4201D6EC2F3001541E1 /* error@3x.png in Resources */,
 				1856A1311D4F35150070B93E /* mobiscroll_date.js in Resources */,
 				1065C34E1CA91BA4003F4089 /* laws_CaseSearch.jpg in Resources */,
 				18FBD84B1CED90CD00674D1E /* case_wenjainjia@2x.png in Resources */,
@@ -3793,6 +3808,7 @@
 				18D957061CF59F4F00F0E4DB /* home_Shuff@2x.png in Resources */,
 				1856A0FE1D4F35150070B93E /* bootstrap-datetimepicker.fi.js in Resources */,
 				10172BE91CBBF1F300B7553E /* case_xjwb@2x.png in Resources */,
+				18BDD4211D6EC2F3001541E1 /* info@2x.png in Resources */,
 				1060DA131CACF8D400D779A5 /* commonRegulations@2x.png in Resources */,
 				1065C34B1CA91BA4003F4089 /* law_xiangguan@2x.png in Resources */,
 				187E6D6B1C841A12009169C2 /* Assets.xcassets in Resources */,
@@ -4179,6 +4195,7 @@
 				1817D2931CC0819500FF6EEE /* LitigationTabVC.m in Sources */,
 				18230CF21CC7455400F4ACCF /* CustomMenuBtn.m in Sources */,
 				10241A171CB9F5A0000CBEAE /* CompensationTabCell.m in Sources */,
+				18BDD4251D6EC313001541E1 /* MBProgressHUD+Tools.m in Sources */,
 				1083233C1CAA5339004B8045 /* SetCollectionViewCell.m in Sources */,
 				10ECB1AF1CCD127600EE7341 /* NSString+MHCommon.m in Sources */,
 				1065C2CC1CA902D8003F4089 /* DWBubbleMenuButton.m in Sources */,
@@ -4209,7 +4226,6 @@
 				10C019461CE4CE260058586A /* CustomButton.m in Sources */,
 				104B443E1C9BE14800FC19B3 /* AdvantagesModel.m in Sources */,
 				103D25901CAE712800F2B93A /* GovermentVC.m in Sources */,
-				18BDD4141D6E9EED001541E1 /* MBProgressHUD.m in Sources */,
 				187D68AC1CCF362100C3946A /* NetWorkMangerTools.m in Sources */,
 				1866404A1D24E9B700E1F455 /* FinanceModel.m in Sources */,
 				1813EF791D5C1A7F0019CA33 /* GovHECViewController.m in Sources */,

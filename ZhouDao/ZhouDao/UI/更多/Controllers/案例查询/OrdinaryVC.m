@@ -64,7 +64,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     search.image = [UIImage imageNamed:@"law_sousuo"];
     
     UIView * lineview = [[UIView alloc] initWithFrame:CGRectMake(searchView.frame.size.width-32, 5, .5f, 20)];
-    lineview.backgroundColor = lineColor;
+    lineview.backgroundColor = LINECOLOR;
     [searchView addSubview:lineview];
     
     UIImageView *soundimg =[[UIImageView alloc] initWithFrame:CGRectMake(searchView.frame.size.width-25, 5, 13, 19)];
@@ -96,12 +96,12 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     historyView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:historyView];
     UILabel *historyLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, kMainScreenWidth-15.f, 45)];
-    historyLab.textColor = thirdColor;
+    historyLab.textColor = THIRDCOLOR;
     historyLab.font = Font_15;
     historyLab.text =@"历史搜索";
     [historyView addSubview:historyLab];
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 44.5, kMainScreenWidth, 0.5f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [historyView addSubview:lineView];
     
     
@@ -149,13 +149,13 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSUInteger row = indexPath.row;
-    cell.textLabel.textColor = sixColor;
+    cell.textLabel.textColor = SIXCOLOR;
     cell.textLabel.font = Font_15;
     if (_historyArrays.count >0) {
         cell.textLabel.text = _historyArrays[row];
     }
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 44.5, kMainScreenWidth, 0.5f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [cell.contentView addSubview:lineView];
     return cell;
 }
@@ -261,7 +261,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 }
 - (void)searchKeyText:(NSString *)text
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSInteger page = 1;
     [NetWorkMangerTools LegalIssuesSelfCheckResult:text withPage:page RequestSuccess:^(NSArray *arr) {
         ExampleListVC *vc = [ExampleListVC new];

@@ -89,7 +89,7 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
     _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
     _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
     _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
-    _jsMenu.textColor = thirdColor;
+    _jsMenu.textColor = THIRDCOLOR;
     _jsMenu.backgroundColor = [UIColor whiteColor];
     _jsMenu.dataSource = self;
     _jsMenu.delegate = self;
@@ -120,7 +120,7 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
 #pragma mark ------ 上拉加载
 - (void)downRefresh:(id)sender
 {    WEAKSELF;
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     [NetWorkMangerTools theContractListView:_cidString withscid:_scid withPage:_page withOrid:_orid RequestSuccess:^(NSArray *arrays) {
         _page ++;
         [_dataSourceArr addObjectsFromArray:arrays];

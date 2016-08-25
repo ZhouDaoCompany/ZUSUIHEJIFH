@@ -104,7 +104,7 @@
     [header addSubview:titleLbl];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(header), kMainScreenWidth, .5f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [self addSubview:lineView];
     
     UIButton *submit = [[UIButton alloc] initWithFrame:CGRectMake(SCREENSIZE.width - 50, 0, 50 ,39)];
@@ -171,7 +171,7 @@
     [header addSubview:titleLbl];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 39.5f, kMainScreenWidth, .5f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [header addSubview:lineView];
 
     

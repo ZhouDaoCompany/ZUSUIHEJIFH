@@ -71,7 +71,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     search.image = [UIImage imageNamed:@"law_sousuo"];
     
     UIView * lineview = [[UIView alloc] initWithFrame:CGRectMake(searchView.frame.size.width-32, 5, .5f, 20)];
-    lineview.backgroundColor = lineColor;
+    lineview.backgroundColor = LINECOLOR;
     [searchView addSubview:lineview];
     
     UIImageView *soundimg =[[UIImageView alloc] initWithFrame:CGRectMake(searchView.frame.size.width-25, 5, 13, 19)];
@@ -112,7 +112,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     UILabel *hotSearchLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 100, 20)];
     hotSearchLab.font = Font_15;
     hotSearchLab.text = @"热词搜索";
-    hotSearchLab.textColor = thirdColor;
+    hotSearchLab.textColor = THIRDCOLOR;
     [hotView addSubview:hotSearchLab];
     
     float hotWidth = (kMainScreenWidth -72.f)/3.f;
@@ -132,7 +132,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
         btn.layer.cornerRadius = 5.f;
         btn.frame = CGRectMake( 15 +21.5f*(i%3) + hotWidth * (i%3), 40 +14*(i/3 + 1) + 30 *(i/3) , hotWidth, 30);
         btn.titleLabel.font = Font_14;
-        [btn setTitleColor:sixColor forState:0];
+        [btn setTitleColor:SIXCOLOR forState:0];
         [btn addTarget:self action:@selector(hotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [hotView addSubview:btn];
         if (i == _hotArrays.count -1) {
@@ -143,11 +143,11 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     
     
     UILabel *historyLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 74 + hotHeight, kMainScreenWidth, 45)];
-    historyLab.textColor = thirdColor;
+    historyLab.textColor = THIRDCOLOR;
     historyLab.text =@"历史搜索";
     [self.view addSubview:historyLab];
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 44.5, kMainScreenWidth, 0.5f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [historyLab addSubview:lineView];
 
     
@@ -190,13 +190,13 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSUInteger row = indexPath.row;
-    cell.textLabel.textColor = sixColor;
+    cell.textLabel.textColor = SIXCOLOR;
     cell.textLabel.font = Font_15;
     if (_historyArrays.count >0) {
         cell.textLabel.text = _historyArrays[row];
     }
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 44.5, kMainScreenWidth, 0.5f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [cell.contentView addSubview:lineView];
     return cell;
 }
@@ -302,7 +302,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 }
 - (void)searchKeyText:(NSString *)text
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSUInteger page = 0;
     [NetWorkMangerTools LawsSearchResultKeyWords:text withPage:page RequestSuccess:^(NSArray *arr) {
         [self.view endEditing:YES];

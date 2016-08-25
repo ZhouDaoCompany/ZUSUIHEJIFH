@@ -106,7 +106,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         }];
         [weakSelf.collectionView reloadData];
     }else{
-        [SVProgressHUD show];
+        [MBProgressHUD showMBLoadingWithText:nil];
     }
     [self loadData];
 

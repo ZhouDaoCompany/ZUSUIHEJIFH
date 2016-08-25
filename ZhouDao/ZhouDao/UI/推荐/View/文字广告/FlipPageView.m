@@ -82,7 +82,7 @@
         float width = self.frame.size.width;
 
         _labelPrev = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, height)];
-        _labelPrev.textColor = thirdColor;
+        _labelPrev.textColor = THIRDCOLOR;
         _labelPrev.font = Font_15;
         _labelPrev.numberOfLines = 0;
         _labelPrev.textAlignment = NSTextAlignmentLeft;
@@ -96,7 +96,7 @@
         float width = self.frame.size.width;
 
         _labelCurrent = [[UILabel alloc] initWithFrame:CGRectMake(0, height, width, height)];
-        _labelCurrent.textColor = thirdColor;
+        _labelCurrent.textColor = THIRDCOLOR;
         _labelCurrent.font = Font_15;
         _labelCurrent.numberOfLines = 0;
         _labelCurrent.textAlignment = NSTextAlignmentLeft;
@@ -110,7 +110,7 @@
         float width = self.frame.size.width;
 
         _labelNext = [[UILabel alloc] initWithFrame:CGRectMake(0, 2*height, width, height)];
-        _labelNext.textColor = thirdColor;
+        _labelNext.textColor = THIRDCOLOR;
         _labelNext.font = Font_15;
         _labelNext.numberOfLines = 0;
         _labelNext.textAlignment = NSTextAlignmentLeft;

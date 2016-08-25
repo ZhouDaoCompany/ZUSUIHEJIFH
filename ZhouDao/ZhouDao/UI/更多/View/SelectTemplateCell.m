@@ -15,7 +15,7 @@
     // Initialization code
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    _titLab.textColor = thirdColor;
+    _titLab.textColor = THIRDCOLOR;
     _countLab.textColor = [UIColor colorWithHexString:@"#999999"];
 }
 

@@ -16,7 +16,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
     _headImgView.contentMode = UIViewContentModeScaleAspectFit;
-    _contentLab.textColor = sixColor;
+    _contentLab.textColor = SIXCOLOR;
     _rowHeight = 44.f;
     // Initialization code
 }
@@ -30,7 +30,7 @@
 
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, kMainScreenWidth - 30, size.height)];
     lab.font = Font_13;
-    lab.textColor = sixColor;
+    lab.textColor = SIXCOLOR;
     lab.numberOfLines = 0;
     lab.text = text;
     [self.contentView addSubview:lab];

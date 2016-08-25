@@ -61,10 +61,6 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         [SCIntroView showIntrolViewFromView:[QZManager getWindow] dataSource:self introViewContentImageMode:SCIntroViewContentImageModeDefault introViewDoneMode:SCIntroViewDoneModeDefault];
     }
     
-    //设置加载图
-    [SVProgressHUD setDefaultAnimationType:SVProgressHUDAnimationTypeNative];
-    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
 
     [self initUI];
     
@@ -126,7 +122,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     
     UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     moreBtn.backgroundColor = [UIColor colorWithHexString:@"#F2F2F2"];
-    [moreBtn setTitleColor:sixColor forState:0];
+    [moreBtn setTitleColor:SIXCOLOR forState:0];
     moreBtn.titleLabel.font = Font_14;
     moreBtn.frame = CGRectMake(0, 0, kMainScreenWidth , 40);
     [moreBtn setTitle:@"点击查看更多" forState:0];
@@ -163,7 +159,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
 - (void)upRefresh:(id)sender
 {
     [self.tableView.mj_header endRefreshing];
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     [self loadNewData];
 }
 - (void)loadNewData{

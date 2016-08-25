@@ -191,7 +191,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     }];
     
     [menuItems enumerateObjectsUsingBlock:^(KxMenuItem *first, NSUInteger idx, BOOL * _Nonnull stop) {
-        first.foreColor = thirdColor;
+        first.foreColor = THIRDCOLOR;
     }];
     
     [KxMenu setTitleFont:Font_13];

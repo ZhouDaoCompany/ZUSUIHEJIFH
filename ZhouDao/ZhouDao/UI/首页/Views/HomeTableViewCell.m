@@ -33,7 +33,7 @@
         _titlab = [[UILabel alloc] initWithFrame:CGRectMake(105, 18, kMainScreenWidth - 115.f, 20)];
         _titlab.font  = Font_15;
 //        _titlab.lineBreakMode = NSLineBreakByTruncatingTail;
-        _titlab.textColor = thirdColor;
+        _titlab.textColor = THIRDCOLOR;
     }
     return _titlab;
 }

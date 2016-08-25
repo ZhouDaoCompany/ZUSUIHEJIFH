@@ -123,7 +123,7 @@
     // set the text color for unselected state
     // 普通状态下的文字属性
     NSMutableDictionary *normalAttrs = [NSMutableDictionary dictionary];
-    normalAttrs[NSForegroundColorAttributeName] = sixColor;
+    normalAttrs[NSForegroundColorAttributeName] = SIXCOLOR;
     
     // set the text color for selected state
     // 选中状态下的文字属性

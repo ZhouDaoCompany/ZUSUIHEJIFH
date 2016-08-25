@@ -66,7 +66,7 @@
     {
         _titlab = [[UILabel alloc] initWithFrame:CGRectMake(15, 15.f, 140, 20)];
         _titlab.textAlignment = NSTextAlignmentLeft;
-        _titlab.textColor = thirdColor;
+        _titlab.textColor = THIRDCOLOR;
         _titlab.font = Font_15;
         [self.contentView addSubview:_titlab];
     }

@@ -58,10 +58,10 @@ static NSString *const PlanCellIdentifier = @"planCellIdentifier";
 - (void)getNowDatePlan:(NSString *)dateString
 {
     WEAKSELF;
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@time=%@&uid=%@",kProjectBaseUrl,RemindList,dateString,UID];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         weakSelf.tableView.tableFooterView = nil;
         [weakSelf.lookView removeFromSuperview];
@@ -91,7 +91,7 @@ static NSString *const PlanCellIdentifier = @"planCellIdentifier";
         }
         [weakSelf.tableView reloadData];
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark -UITableViewDataSource
@@ -217,7 +217,7 @@ static NSString *const PlanCellIdentifier = @"planCellIdentifier";
     lab1.textAlignment = NSTextAlignmentCenter;
     NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"当天无日程,点击查看全部"];
     NSRange range1=[[hintString string]rangeOfString:@"当天无日程，"];
-    [hintString addAttribute:NSForegroundColorAttributeName value:sixColor range:range1];
+    [hintString addAttribute:NSForegroundColorAttributeName value:SIXCOLOR range:range1];
     NSRange range2=[[hintString string]rangeOfString:@"点击查看全部"];
     [hintString addAttribute:NSForegroundColorAttributeName value:KNavigationBarColor range:range2];
     lab1.attributedText=hintString;
@@ -229,7 +229,7 @@ static NSString *const PlanCellIdentifier = @"planCellIdentifier";
     
     UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     moreBtn.backgroundColor = [UIColor colorWithHexString:@"#F2F2F2"];
-    [moreBtn setTitleColor:sixColor forState:0];
+    [moreBtn setTitleColor:SIXCOLOR forState:0];
     moreBtn.titleLabel.font = Font_14;
     moreBtn.frame = CGRectMake(0, 0, kMainScreenWidth , 40);
     [moreBtn setTitle:@"点击查看更多" forState:0];

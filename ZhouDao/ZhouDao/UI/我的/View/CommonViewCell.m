@@ -50,7 +50,7 @@
     [self.contentView addSubview:_alertLab];
     
     _lineView = [[UIView alloc] init];
-    _lineView.backgroundColor = lineColor;
+    _lineView.backgroundColor = LINECOLOR;
     [self.contentView addSubview:_lineView];
     
 }

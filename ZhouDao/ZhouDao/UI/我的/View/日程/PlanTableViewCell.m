@@ -34,8 +34,8 @@
 {
     _nameLab.text = _model.title;
     NSDate *date = [QZManager timeStampChangeNSDate:[_model.time doubleValue]];
-    _nameLab.textColor = thirdColor;
-    _contentLab.textColor = thirdColor;
+    _nameLab.textColor = THIRDCOLOR;
+    _contentLab.textColor = THIRDCOLOR;
 
     if (_isToday == YES) {
         _contentLab.text = [QZManager changeTime:[_model.time doubleValue]];

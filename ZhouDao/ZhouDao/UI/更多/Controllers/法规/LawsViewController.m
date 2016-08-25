@@ -117,7 +117,7 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
         }];
         [_tableView reloadData];
     }else{
-        [SVProgressHUD showWithStatus:@"加载中..."];
+        [MBProgressHUD showMBLoadingWithText:@"正在加载..."];
     }
     [self loadNewData];
 
@@ -179,7 +179,7 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
 - (void)upRefresh:(id)sender
 {
     [self.tableView.mj_header endRefreshing];
-    [SVProgressHUD showWithStatus:@"加载中..."];
+    [MBProgressHUD showMBLoadingWithText:@"正在加载..."];
 
     [self loadNewData];
 }

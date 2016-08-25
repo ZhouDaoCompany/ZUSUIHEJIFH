@@ -107,12 +107,12 @@
 #pragma mark -修改用户职业
 + (void)resetUserJobInfo:(NSString *)type RequestSuccess:(void(^)())success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     NSString *Url = [NSString  stringWithFormat:@"%@%@uid=%@&type=%@",kProjectBaseUrl,UploadJob,UID,type];
     
     [ZhouDao_NetWorkManger GetJSONWithUrl:Url success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         [JKPromptView showWithImageName:nil message:msg];
@@ -123,19 +123,19 @@
         success();
 
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -更改通讯地址
 + (void)resetUserAddress:(NSString *)address RequestSuccess:(void(^)())success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     NSString *Url = [NSString  stringWithFormat:@"%@%@uid=%@&address=%@",kProjectBaseUrl,UploadUserAddress,UID,address];
 
     [ZhouDao_NetWorkManger GetJSONWithUrl:Url success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         [JKPromptView showWithImageName:nil message:msg];
@@ -145,14 +145,14 @@
        [PublicFunction ShareInstance].m_user.data.address = address;
         success();
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -获取上传图片的token
 + (void)getQiNiuToken:(BOOL)isPrivate RequestSuccess:(void(^)())success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = nil;
     if (isPrivate == YES) {
         url = [NSString stringWithFormat:@"%@%@&t=2",kProjectBaseUrl,UploadPicToken];
@@ -165,14 +165,14 @@
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
             [JKPromptView showWithImageName:nil message:msg];
-            [SVProgressHUD dismiss];
+            [MBProgressHUD hideHUD];
             return ;
         }
         [PublicFunction ShareInstance].picToken = jsonDic[@"data"];
         success();
         
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -187,7 +187,7 @@
 
     [uploader setUploadOneFileFailed:^(AFHTTPRequestOperation *operation, NSInteger index, NSDictionary *error){
         [JKPromptView showWithImageName:nil message:@"上传失败"];
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 
     [uploader setUploadAllFilesComplete:^(void){
@@ -200,7 +200,7 @@
             [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
                 NSUInteger errorcode = [jsonDic[@"state"] integerValue];
                 NSString *msg = jsonDic[@"info"];
-                [SVProgressHUD dismiss];
+                [MBProgressHUD hideHUD];
                 [JKPromptView showWithImageName:nil message:msg];
                 if (errorcode !=1) {
                     fail();
@@ -211,7 +211,7 @@
                 
             } fail:^{
                 fail();
-                [SVProgressHUD dismiss];
+                [MBProgressHUD hideHUD];
                 [JKPromptView showWithImageName:nil message:AlrertMsg];
             }];
         }
@@ -223,7 +223,7 @@
  #pragma mark -意见反馈
 + (void)feedBackWithImage:(UIImage *)image withPhone:(NSString *)phone withContent:(NSString *)contentStr RequestSuccess:(void(^)())success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
 
     if (!image){
         
@@ -237,14 +237,14 @@
         [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
             NSUInteger errorcode = [jsonDic[@"state"] integerValue];
             NSString *msg = jsonDic[@"info"];
-            [SVProgressHUD dismiss];
+            [MBProgressHUD hideHUD];
             [JKPromptView showWithImageName:nil message:msg];
             if (errorcode !=1) {
                 return ;
             }
             success();
         } fail:^{
-            [SVProgressHUD dismiss];
+            [MBProgressHUD hideHUD];
             [JKPromptView showWithImageName:nil message:AlrertMsg];
         }];
 
@@ -261,7 +261,7 @@
         
         [uploader setUploadOneFileFailed:^(AFHTTPRequestOperation *operation, NSInteger index, NSDictionary *error){
             [JKPromptView showWithImageName:nil message:@"图片上传失败"];
-            [SVProgressHUD dismiss];
+            [MBProgressHUD hideHUD];
         }];
         __block int index = 0;
         [uploader setUploadAllFilesComplete:^(void){
@@ -271,14 +271,14 @@
                 [ZhouDao_NetWorkManger GetJSONWithUrl:urls success:^(NSDictionary *jsonDic) {
                     NSUInteger errorcode = [jsonDic[@"state"] integerValue];
                     NSString *msg = jsonDic[@"info"];
-                    [SVProgressHUD dismiss];
+                    [MBProgressHUD hideHUD];
                     [JKPromptView showWithImageName:nil message:msg];
                     if (errorcode !=1) {
                         return ;
                     }
                     success();
                 } fail:^{
-                    [SVProgressHUD dismiss];
+                    [MBProgressHUD hideHUD];
                     [JKPromptView showWithImageName:nil message:AlrertMsg];
                 }];
             }
@@ -303,7 +303,7 @@
     
     [uploader setUploadOneFileFailed:^(AFHTTPRequestOperation *operation, NSInteger index, NSDictionary *error){
         [JKPromptView showWithImageName:nil message:@"上传失败"];
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
     
     [uploader setUploadOneFileSucceeded:^(AFHTTPRequestOperation *operation, NSInteger index, NSString *key){
@@ -311,7 +311,7 @@
         
         NSString *addUrl = [NSString stringWithFormat:@"%@%@uid=%@&mobile=%@&pic=%@",kProjectBaseUrl,ADDCertification,UID,[PublicFunction ShareInstance].m_user.data.mobile,key];
         [ZhouDao_NetWorkManger GetJSONWithUrl:addUrl success:^(NSDictionary *jsonDic) {
-            [SVProgressHUD dismiss];
+            [MBProgressHUD hideHUD];
             NSUInteger errorcode = [jsonDic[@"state"] integerValue];
             NSString *msg = jsonDic[@"info"];
             [JKPromptView showWithImageName:nil message:msg];
@@ -320,7 +320,7 @@
             }
             success();
         } fail:^{
-            [SVProgressHUD dismiss];
+            [MBProgressHUD hideHUD];
             [JKPromptView showWithImageName:nil message:AlrertMsg];
         }];
     }];
@@ -348,11 +348,11 @@
 #pragma mark -更改手机号
 + (void)resetPhoneNumber:(NSString *)phone RequestSuccess:(void (^)())success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&oldMobile=%@&NewMobile=%@",kProjectBaseUrl,ResetMobile,UID,[PublicFunction ShareInstance].m_user.data.mobile,phone];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         [JKPromptView showWithImageName:nil message:msg];
@@ -363,17 +363,17 @@
         [PublicFunction ShareInstance].m_user.data.mobile = phone;
         success();
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark -添加日程
 + (void)addRemindMySchedule:(NSDictionary *)dictionary RequestSuccess:(void (^)(NSString *idStr))success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,RemindAdd];
     [ZhouDao_NetWorkManger PostJSONWithUrl:url parameters:dictionary success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         [JKPromptView showWithImageName:nil message:msg];
@@ -384,18 +384,18 @@
         NSString *idStr = dataDic[@"id"];
         success(idStr);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -编辑更改日程
 + (void)editRemindMySchedule:(NSDictionary *)dictionary RequestSuccess:(void (^)())success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,RemindEditInfo];
     [ZhouDao_NetWorkManger PostJSONWithUrl:url parameters:dictionary success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         [JKPromptView showWithImageName:nil message:msg];
@@ -404,18 +404,18 @@
         }
         success();
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark - 删除日程
 + (void)deleteSelectRemind:(NSString *)idString RequestSuccess:(void (^)())success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@",kProjectBaseUrl,RemindDelete,idString,UID];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -424,17 +424,17 @@
         }
         success();
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark - 赔偿标准首页列表
 + (void)getcompensationList:(NSString *)comId withCity:(NSString *)city withYear:(NSString *)year RequestSuccess:(void (^)(NSArray *arrays))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@type=%@&city=%@&year=%@",kProjectBaseUrl,compensationStandard,comId,city,year];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -452,7 +452,7 @@
         success(contentArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 
     
@@ -460,11 +460,11 @@
 #pragma mark - 赔偿标准详情
 + (void)getcompensationDetailswith:(NSString *)idstring RequestSuccess:(void (^)(id obj))success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,compensationDetails,idstring,UID,standardCollect];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -474,7 +474,7 @@
         IndemnityData *tModel = [[IndemnityData alloc] initWithDictionary:jsonDic[@"data"]];
         success(tModel);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark - 合同一级分类列表
@@ -482,7 +482,7 @@
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,TheContractFirstList];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -511,16 +511,16 @@
         success(dataArr,nameArr,idArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark - 合同分类
 + (void)theContractClassList:(TheContractData *)model withCount:(NSMutableArray *)cidArrays WithName:(NSMutableArray *)nameArr RequestSuccess:(void (^)(NSMutableArray *classArr,NSUInteger classCount,NSString *scid))success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,TheContractAllClassList];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -564,7 +564,7 @@
         
         success(classArrays,classCurrent,scid);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 /*
@@ -572,11 +572,11 @@
  */
 + (void)theContractListView:(NSString *)cid withscid:(NSString *)scid withPage:(NSUInteger)page withOrid:(NSString *)orid RequestSuccess:(void (^)(NSArray *arrays))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@cid=%@&scid=%@&page=%ld&orid=%@",kProjectBaseUrl,TheContractList,cid,scid,(unsigned long)page,orid];
     
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -593,7 +593,7 @@
         success(dataArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -601,10 +601,10 @@
 + (void)theContractContent:(NSString *)temolateId
             RequestSuccess:(void (^)(TemplateData *model))success
                       fail:(void (^)())fail{
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,TheContractContent,temolateId,UID,templateCollect];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -617,7 +617,7 @@
         success(model);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -625,10 +625,10 @@
 #pragma mark - 添加收藏
 + (void)collectionAddMine:(NSDictionary *)dict RequestSuccess:(void (^)())success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,collectionAdd];
     [ZhouDao_NetWorkManger PostJSONWithUrl:url parameters:dict success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         [JKPromptView showWithImageName:nil message:msg];
@@ -637,17 +637,17 @@
         }
         success();
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 
 #pragma mark -  删除收藏
 + (void)collectionDelMine:(NSString *)idString withType:(NSString *)type RequestSuccess:(void (^)())success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,collectionDel,idString,UID,type];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         [JKPromptView showWithImageName:nil message:msg];
@@ -656,16 +656,16 @@
         }
         success();
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark - 收藏置顶
 + (void)collectionTopMine:(NSString *)idString RequestSuccess:(void (^)())success{
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,collectionTop,idString,UID,templateCollect];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -674,15 +674,15 @@
         }
         success();
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark -收藏取消置顶
 + (void)collectionTopDelMine:(NSString *)idString RequestSuccess:(void (^)())success{
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,collectionTopDel,idString,UID,templateCollect];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -691,16 +691,16 @@
         }
         success();
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark - 收藏列表
 + (void)collectionListMine:(NSString *)type withPage:(NSUInteger)page RequestSuccess:(void (^)(NSArray *zdArr,NSArray *comArr))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&type=%@&page=%lu",kProjectBaseUrl,CollectionList,UID,type,(unsigned long)page];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -725,7 +725,7 @@
         success(ZDArrays,ComArrays);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark -  司法机关一级分类
@@ -733,7 +733,7 @@
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,goverMentFirst];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -751,10 +751,10 @@
 #pragma mark - 司法机关全部分类
 + (void)goverAllClasslistwithName:(NSString *)name RequestSuccess:(void (^)(NSArray *arr,NSInteger index))success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,goverAllClasslist];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -776,7 +776,7 @@
         }];
         success(allArr,index);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -790,7 +790,7 @@
               RequestSuccess:(void (^)(NSArray *arr))success
                         fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = nil;
     if (prov.length == 0) {
         url = [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld",kProjectBaseUrl,judicialList,pid,cid,(unsigned long)page];
@@ -798,7 +798,7 @@
         url = [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld&prov=%@&city=%@&area=%@",kProjectBaseUrl,judicialList,pid,cid,(unsigned long)page,prov,city,areas];
     }
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -815,17 +815,17 @@
         success(allArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -  司法机关详情
 + (void)goverDetailWithId:(NSString *)idStr RequestSuccess:(void (^)(id obj))success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@&id=%@&uid=%@&type=%@",kProjectBaseUrl,judicialContent,idStr,UID,govCollect];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -836,7 +836,7 @@
         GovListmodel *listModel = [[GovListmodel alloc] initWithDictionary:dict];
         success(listModel);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -845,7 +845,7 @@
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,NewLawsList];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -862,14 +862,14 @@
         success(allArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -新法速递
 + (void)lawsNewsListWithUrl:(NSString *)url withPage:(NSUInteger)page witheff:(NSString *)eff withTime:(NSString *)time  RequestSuccess:(void (^)(NSArray *arr))success  fail:(void (^)())fail;
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *loadUrl = nil;
     if (eff.length == 0 && time.length == 0) {
          loadUrl = [NSString stringWithFormat:@"%@%@page=%ld",kProjectBaseUrl,url,(unsigned long)page];
@@ -889,7 +889,7 @@
         }
     }
     [ZhouDao_NetWorkManger GetJSONWithUrl:loadUrl success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -906,17 +906,17 @@
         success(allArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -法规详情
 + (void)lawsDetailData:(NSString *)idString RequestSuccess:(void (^)(id obj))success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,LawsDetailContent,idString,UID,lawCollect];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -927,17 +927,17 @@
         LawDetailModel *model = [[LawDetailModel alloc] initWithDictionary:dataDic];
         success(model);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -相关法规
 + (void)aboutLawsReading:(NSString *)idStr RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@",kProjectBaseUrl,AboutReading,idStr];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -953,17 +953,17 @@
         }];
         success(allArr);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -法律法规搜索
 + (void)LawsSearchResultKeyWords:(NSString *)keyStr withPage:(NSUInteger)page RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@%@&page=%ld",kProjectBaseUrl,LawsSearchResult,keyStr,(unsigned long)page];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -980,7 +980,7 @@
         success(allArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
  #pragma mark -案例分类
@@ -988,7 +988,7 @@
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,CutInspection];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1005,16 +1005,16 @@
         success(allArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark - 案例搜索结果
 + (void)LegalIssuesSelfCheckResult:(NSString *)text withPage:(NSUInteger)page RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@caseDetail=%@&page=%ld",kProjectBaseUrl,ResultInspeList,text,(unsigned long)page];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1037,15 +1037,16 @@
         success(allArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark - 按类型查询案例
 + (void)inspeTypeList:(NSString *)idString withPage:(NSUInteger)page RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
-{    [SVProgressHUD show];
+{
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&page=%ld",kProjectBaseUrl,InspeTypeList,idString,(unsigned long)page];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1066,7 +1067,7 @@
         success(allArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 
@@ -1107,7 +1108,7 @@
             UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
             [[self class] parsingUserModel:model];
         } fail:^{
-            [SVProgressHUD dismiss];
+            [MBProgressHUD hideHUD];
             [JKPromptView showWithImageName:nil message:AlrertMsg];
         }];
     }
@@ -1129,11 +1130,11 @@
 #pragma mark - 案例详情
 + (void)loadExampleDetailData:(NSString* )idString RequestSuccess:(void (^)(id obj))success;
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@id=%@&uid=%@&type=%@",kProjectBaseUrl,CaseInspeInfo,idString,UID,aboutCollect];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1145,16 +1146,16 @@
         ExampleDetailData *model = [[ExampleDetailData alloc] initWithDictionary:dataDic];
         success(model);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
 }
 #pragma mark -添加案件
 + (void)arrangeAddManagement:(NSDictionary *)dict withUrl:(NSString *)url RequestSuccess:(void (^)())success;
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger PostJSONWithUrl:url parameters:dict success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         [JKPromptView showWithImageName:nil message:msg];
@@ -1163,17 +1164,17 @@
         }
         success();
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -案件列表
 + (void)arrangeListWithPage:(NSUInteger)page RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&page=%ld",kProjectBaseUrl,arrangeList,UID,(long)page];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1190,16 +1191,16 @@
         success(allArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -案件搜索  案件筛选
 + (void)arrangeSearchUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1216,7 +1217,7 @@
         success(allArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -1224,10 +1225,10 @@
 + (void)arrangeInfoWithIdString:(NSString* )idString
                  RequestSuccess:(void (^)(NSDictionary *dict))success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&id=%@",kProjectBaseUrl,arrangeInfo,UID,idString];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1238,17 +1239,17 @@
         success(dataDict);
 
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark - 热词搜索
 + (void)lawsHotsSearchRequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,lawsHotsSearch];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1265,16 +1266,16 @@
         success(nameArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark - 推荐页 新法速递
 + (void)recomViewNewLawsRequestSuccess:(void (^)(NSArray *arr))success
-{    [SVProgressHUD show];
+{      [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,recomNewLaws];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1289,17 +1290,17 @@
         }];
         success(arrays);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -推荐页全部
 + (void)recomViewAllRequestSuccess:(void (^)(NSArray *hdArr,NSArray *xfArr,NSArray *jdArr,NSArray *hotArr))success fail:(void (^)())fail
-{    //[SVProgressHUD show];
+{    //  [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,RecomViewfocusAll];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
 
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSArray *dataArr = jsonDic[@"data"];
         __block NSMutableArray *arr1 = [NSMutableArray array];
         __block NSMutableArray *arr2 = [NSMutableArray array];
@@ -1360,7 +1361,7 @@
         }
         success(arr1,arr2,arr3,arr4);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -1429,7 +1430,7 @@
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,HomeViewIndexAll];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSArray *dataArr = jsonDic[@"data"];
         __block NSMutableArray *arr1 = [NSMutableArray array];
         __block NSMutableArray *arr2 = [NSMutableArray array];
@@ -1464,7 +1465,7 @@
         }
         success(arr1,arr2);
         } fail:^{
-            [SVProgressHUD dismiss];
+            [MBProgressHUD hideHUD];
             [JKPromptView showWithImageName:nil message:AlrertMsg];
         }];
 }
@@ -1473,7 +1474,7 @@
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,toolsClass];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1498,17 +1499,17 @@
         success(dataArr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -
 #pragma mark - 案件管理 创建文件夹 及文件
 + (void)arrangeFileAddwithPid:(NSString *)pid withName:(NSString *)name withFileType:(NSString *)fileType withtformat:(NSString *)format withqiniuName:(NSString *)qnName withCid:(NSString *)cid RequestSuccess:(void (^)(id obj))success
-{    [SVProgressHUD show];
+{      [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&pid=%@&name=%@&type_file=%@&type_format=%@&qiniu_name=%@&cid=%@",kProjectBaseUrl,arrangeFileAdd,UID,pid,name,fileType,format,qnName,cid];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1519,7 +1520,7 @@
         DetaillistModel *model = [[DetaillistModel alloc] initWithDictionary:dataDic];
         success(model);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -1527,10 +1528,10 @@
 #pragma mark - 查询案件目录
 + (void)arrangeFileListWithType:(NSString *)caseId withCid:(NSString *)cid RequestSuccess:(void (^)(NSArray *arr))success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&id=%@&cid=%@",kProjectBaseUrl,arrangeFileList,UID,caseId,cid];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         if (errorcode !=1) {
             return ;
@@ -1543,17 +1544,17 @@
         }];
         success(dataArr);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark - 案件目录 文件删除
 + (void)arrangeFileDelWithid:(NSString *)idStr withCaseId:(NSString *)caseId RequestSuccess:(void (^)())success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&id=%@&cid=%@",kProjectBaseUrl,arrangeFileDel,UID,idStr,caseId];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1562,17 +1563,17 @@
         }
         success();
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark -目录文件重命名
 + (void)arrangeFileRenameWithid:(NSString *)idStr withCaseId:(NSString *)caseId withName:(NSString *)name RequestSuccess:(void (^)())success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&id=%@&cid=%@&name=%@",kProjectBaseUrl,arrangeFileRename,UID,idStr,caseId,name];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1581,17 +1582,17 @@
         }
         success();
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark - 案件查看详情
 + (void)arrangeFileInfoWithid:(NSString *)idStr withCaseId:(NSString *)caseId RequestSuccess:(void (^)(NSString *htmlString))success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@uid=%@&id=%@&cid=%@",kProjectBaseUrl,arrangeFileInfo,UID,idStr,caseId];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1601,7 +1602,7 @@
         NSString *htmlStr = jsonDic[@"data"];
         success(htmlStr);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -1616,7 +1617,7 @@
     [uploader setUploadOneFileFailed:^(AFHTTPRequestOperation *operation, NSInteger index, NSDictionary *error){
         fail();
         [JKPromptView showWithImageName:nil message:@"上传失败"];
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
     }];
     [uploader setUploadAllFilesComplete:^(void){
         DLog(@"complete");
@@ -1669,9 +1670,9 @@
 #pragma mark -首页更多
 + (void)loadMoreDataHomePage:(NSString *)url RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1688,7 +1689,7 @@
         success(arr);
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -1696,9 +1697,9 @@
 #pragma mark - 合同下载
 + (void)downLoadTheContract:(NSString *)url RequestSuccess:(void (^)(NSString *htmlString))success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -1708,7 +1709,7 @@
         NSString *htmlStr = jsonDic[@"data"];
         success(htmlStr);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -1764,11 +1765,11 @@
  #pragma mark -  查看全部日程
 + (void)lookAllScheduleRequestSuccess:(void (^)(NSArray *arr))success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     
     NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,remindAllList,[PublicFunction ShareInstance].m_user.data.uid];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         if (errorcode !=1) {
             return ;
@@ -1781,7 +1782,7 @@
         }];
         success(modelArr);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -1789,11 +1790,11 @@
 #pragma mark - 案件整理 财务管理列表
 + (void)financialListToCheckTheCaseWithCaseID:(NSString *)caseId RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     
     NSString *url = [NSString stringWithFormat:@"%@%@%@&aid=%@",kProjectBaseUrl,arrangeFinanceList,UID,caseId];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         if (errorcode !=1) {
             [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
@@ -1810,16 +1811,17 @@
         success(modelArr);
         
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark - 案件整理 财务管理删除
 + (void)arrangeFinanceDelWithUrl:(NSString *)url RequestSuccess:(void (^)())success
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
         if (errorcode !=1) {
@@ -1828,7 +1830,7 @@
         success();
         
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
     
@@ -1838,9 +1840,9 @@
 
 + (void)arrangeRemindListWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
         if (errorcode !=1) {
@@ -1859,17 +1861,17 @@
         success(arr);
         
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
 #pragma mark - 焦点历史记录
 + (void)FocusOnTheHistoryWithUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arrays))success fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
         if (errorcode !=1) {
@@ -1892,7 +1894,7 @@
         success(arr);
         
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -1902,10 +1904,10 @@
                              withURLString:(NSString *)urlString
                             RequestSuccess:(void (^)(NSString *state, id obj))success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *stateCode = [NSString stringWithFormat:@"%@",jsonDic[@"state"]];
         if (errorcode !=1) {
@@ -1935,7 +1937,7 @@
 
         success(stateCode,model);
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 
@@ -1944,10 +1946,10 @@
 + (void)whetherAccountBindingOnImmediatelyWithURLString:(NSString *)urlString
                                          RequestSuccess:(void (^)())success
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         if (errorcode !=1) {
             success();
@@ -1956,7 +1958,7 @@
         [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
 
     } fail:^{
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
     
@@ -1966,11 +1968,11 @@
                      RequestSuccess:(void (^)())success
                                fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     
     [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
         if (errorcode !=1) {
@@ -1983,7 +1985,7 @@
         success();
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 
@@ -1996,10 +1998,10 @@
                RequestSuccess:(void (^)())success
                          fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
         if (errorcode !=1) {
@@ -2030,7 +2032,7 @@
         success();
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
@@ -2039,10 +2041,10 @@
                 RequestSuccess:(void (^)())success
                           fail:(void (^)())fail
 {
-    [SVProgressHUD show];
+      [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger GetJSONWithUrl:urlString success:^(NSDictionary *jsonDic) {
         
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         if (errorcode !=1) {
             [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
@@ -2052,7 +2054,7 @@
         success();
     } fail:^{
         fail();
-        [SVProgressHUD dismiss];
+        [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }

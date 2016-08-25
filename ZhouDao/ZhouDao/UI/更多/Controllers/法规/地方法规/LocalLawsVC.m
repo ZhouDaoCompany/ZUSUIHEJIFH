@@ -54,7 +54,7 @@ static NSString *const LocalCellIdentifier = @"LocalCellIdentifier";
     _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
     _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
     _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
-    _jsMenu.textColor = thirdColor;
+    _jsMenu.textColor = THIRDCOLOR;
     _jsMenu.dataSource = self;
     _jsMenu.delegate = self;
     [self.view addSubview:_jsMenu];
@@ -98,7 +98,7 @@ static NSString *const LocalCellIdentifier = @"LocalCellIdentifier";
 #pragma mark ------ 上拉加载
 - (void)downRefresh:(id)sender
 {WEAKSELF;
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     [NetWorkMangerTools lawsNewsListWithUrl:AreaLawsList withPage:_page witheff:_city withTime:_time RequestSuccess:^(NSArray *arr) {
         
         [weakSelf.dataArrays addObjectsFromArray:arr];

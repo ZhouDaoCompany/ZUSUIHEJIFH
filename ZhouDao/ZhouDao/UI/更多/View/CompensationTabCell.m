@@ -14,11 +14,11 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    _titleLab.textColor = thirdColor;
+    _titleLab.textColor = THIRDCOLOR;
     _DetailImgView.contentMode = UIViewContentModeScaleAspectFit;
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 67.4f, kMainScreenWidth, .6f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [self.contentView addSubview:lineView];
 
 }

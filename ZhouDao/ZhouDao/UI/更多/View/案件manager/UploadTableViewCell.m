@@ -81,7 +81,7 @@
     if ([PublicFunction ShareInstance].picToken.length == 0) {
         [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
             
-            [SVProgressHUD dismiss];
+            [MBProgressHUD hideHUD];
             kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
                 
                 [self uploadFileMethods];
@@ -111,7 +111,7 @@
             
             [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
                 
-                [SVProgressHUD dismiss];
+                [MBProgressHUD hideHUD];
                 [weakSelf.uploader startUpload];
             }];
         }

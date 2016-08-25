@@ -67,7 +67,7 @@ static NSString *const aboutIdentifier = @"aboutIdentifier";
     UILabel *listLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 23, 100, 20.f)];
     listLab.text = @"相关阅读";
     listLab.font = [UIFont boldSystemFontOfSize:17.f];
-    listLab.textColor = thirdColor;
+    listLab.textColor = THIRDCOLOR;
     [headView  addSubview:listLab];
     [_botomView addSubview:headView];
     
@@ -103,7 +103,7 @@ static NSString *const aboutIdentifier = @"aboutIdentifier";
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:aboutIdentifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.font = Font_15;
-    cell.textLabel.textColor = sixColor;
+    cell.textLabel.textColor = SIXCOLOR;
     if (_aboutArrays.count >0) {
          LawsDataModel *model = _aboutArrays[indexPath.row];
         cell.textLabel.text = model.name;

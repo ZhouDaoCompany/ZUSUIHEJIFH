@@ -98,7 +98,7 @@
     [searchBtn addSubview:searchLab];
     
     UIView * lineview = [[UIView alloc] initWithFrame:CGRectMake(searchBtn.frame.size.width-32, 5, .5f, 20)];
-    lineview.backgroundColor = lineColor;
+    lineview.backgroundColor = LINECOLOR;
     [searchBtn addSubview:lineview];
     
     UIImageView *soundimg =[[UIImageView alloc] initWithFrame:CGRectMake(searchBtn.frame.size.width-25, 5, 13, 19)];

@@ -20,7 +20,7 @@
         self.titleLab = [[UILabel alloc] init];
         self.titleLab.textAlignment = NSTextAlignmentLeft;
         self.titleLab.font = Font_14;
-        self.titleLab.textColor = thirdColor;
+        self.titleLab.textColor = THIRDCOLOR;
         [self.contentView addSubview:self.titleLab];
 
         self.contentLab = [[UILabel alloc] init];
@@ -66,7 +66,7 @@
         if (_contentLab.text.length == 0) {
             NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请选择"];
             NSRange range1=[[hintString string]rangeOfString:@"请选择"];
-            [hintString addAttribute:NSForegroundColorAttributeName value:sixColor range:range1];
+            [hintString addAttribute:NSForegroundColorAttributeName value:SIXCOLOR range:range1];
             _contentLab.attributedText=hintString;
         }
 

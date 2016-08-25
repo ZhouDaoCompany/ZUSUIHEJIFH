@@ -50,7 +50,7 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
     [self.view addSubview:self.jsMenu];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(_jsMenu), kMainScreenWidth, .6f)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [self.view addSubview:lineView];
     
     _dataArrays = [NSMutableArray array];
@@ -79,7 +79,7 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
         _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
         _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
         _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
-        _jsMenu.textColor = thirdColor;
+        _jsMenu.textColor = THIRDCOLOR;
         _jsMenu.dataSource = self;
         _jsMenu.delegate = self;
     }

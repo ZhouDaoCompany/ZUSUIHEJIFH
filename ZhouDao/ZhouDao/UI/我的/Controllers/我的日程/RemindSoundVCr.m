@@ -63,7 +63,7 @@ static NSString *const ReindCellIdentifier = @"ReindCellIdentifier";
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReindCellIdentifier];
     cell.textLabel.text = _titArrays[indexPath.row];
     cell.textLabel.font = Font_15;
-    cell.textLabel.textColor = thirdColor;
+    cell.textLabel.textColor = THIRDCOLOR;
     if (_currentRow == indexPath.row)
     {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;

@@ -86,7 +86,7 @@
         if (_deviceLabel.text.length == 0) {
             NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请选择"];
             NSRange range1=[[hintString string]rangeOfString:@"请选择"];
-            [hintString addAttribute:NSForegroundColorAttributeName value:sixColor range:range1];
+            [hintString addAttribute:NSForegroundColorAttributeName value:THIRDCOLOR range:range1];
             _deviceLabel.attributedText=hintString;
         }
     }

@@ -115,17 +115,17 @@
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     DLog(@"开始加载");
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [SVProgressHUD dismiss];
+    [MBProgressHUD hideHUD];
     DLog(@"加载完成");
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error
 {    DLog(@"加载失败");
-    [SVProgressHUD dismiss];
+    [MBProgressHUD hideHUD];
 }
 - (void)againLoad{
     DLog(@"重新加载");

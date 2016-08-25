@@ -187,21 +187,21 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
             rCell.placeHoldlab.hidden = YES;
 
             UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 200, 15)];
-            lab.textColor = sixColor;
+            lab.textColor = SIXCOLOR;
             [lab setText:@"注:提醒方式,默认两种方式:"];
             lab.font = Font_14;
             lab.numberOfLines = 1;
             [cell.contentView addSubview:lab];
             
             UILabel *lab1 = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -120, 10, 90, 15)];
-            lab1.textColor = sixColor;
+            lab1.textColor = SIXCOLOR;
             [lab1 setText:@"1、消息推送提醒"];
             lab1.font = Font_12;
             lab1.numberOfLines = 1;
             [cell.contentView addSubview:lab1];
             
             UILabel *lab2 = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -120, 25, 68, 15)];
-            lab2.textColor = sixColor;
+            lab2.textColor = SIXCOLOR;
             [lab2 setText:@"2、短信提醒"];
             lab2.font = Font_12;
             lab2.numberOfLines = 1;

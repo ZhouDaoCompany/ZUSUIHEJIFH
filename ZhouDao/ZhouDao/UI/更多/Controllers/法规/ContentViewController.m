@@ -147,11 +147,11 @@
 #pragma mark -UIWebViewDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [SVProgressHUD showWithStatus:@"正在加载..."];
+    [MBProgressHUD showMBLoadingWithText:nil];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [SVProgressHUD dismiss];
+    [MBProgressHUD hideHUD];
     
     NSString *readColor = [USER_D objectForKey:ReadColor];
     NSString *readFontColor = [USER_D objectForKey:ReadFontColor];
@@ -169,7 +169,7 @@
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error
 {
-    [SVProgressHUD showErrorWithStatus:@"加载失败"];
+    [MBProgressHUD showError:@"加载失败"];
 }
 
 #pragma mark - UIButtonEvent

@@ -25,7 +25,7 @@
 #import "JKPromptView.h"
 #import "UIView+WhenTappedBlocks.h"
 //#import "DKNightVersion.h"
-#import "SVProgressHUD.h"
+#import "MBProgressHUD+Tools.h"
 #import "ZhouDao_NetWorkManger.h"
 #import "ZhouDao_RequestDefine.h"
 #import "PublicFunction.h"

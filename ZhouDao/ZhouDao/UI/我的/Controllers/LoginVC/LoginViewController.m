@@ -208,11 +208,11 @@
                 [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合，请您仔细检查"];
                 return;
             }
-            [SVProgressHUD showWithStatus:@"登录中..."];
+            [MBProgressHUD showMBLoadingWithText:@"登录中..."];
 
             NSString *loginurl = [NSString stringWithFormat:@"%@%@mobile=%@&pw=%@",kProjectBaseUrl,LoginUrlString,_nameText.text,[_keyText.text md5]];
             [ZhouDao_NetWorkManger GetJSONWithUrl:loginurl success:^(NSDictionary *jsonDic) {
-                [SVProgressHUD dismiss];
+                [MBProgressHUD hideHUD];
                 NSUInteger errorcode = [jsonDic[@"state"] integerValue];
                 NSString *msg = jsonDic[@"info"];
                 if (errorcode !=1) {
@@ -251,7 +251,7 @@
 
                 [self rightBtnAction];
             } fail:^{
-                [SVProgressHUD showErrorWithStatus:AlrertMsg];
+                [MBProgressHUD showError:AlrertMsg];
             }];
         }
             break;

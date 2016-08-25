@@ -133,7 +133,7 @@ static NSString *const cellIdentifer = @"cellIdentifer";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.font = Font_15;
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = thirdColor;
+    cell.textLabel.textColor = THIRDCOLOR;
     cell.textLabel.text = _titleArrays[indexPath.row];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 44.5, kMainScreenWidth, .5f)];
@@ -152,7 +152,7 @@ static NSString *const cellIdentifer = @"cellIdentifer";
         textF.placeholder = @"自定义";
         //[textF setValue:[UIColor blackColor] forKeyPath:@"_placeholderLabel.textColor"];
         [textF setValue:Font_14 forKeyPath:@"_placeholderLabel.font"];
-        [textF setTextColor:sixColor];
+        [textF setTextColor:SIXCOLOR];
         
         if (_alertType == FromEditBtn ) {
             textF.text = _labStr;
@@ -171,21 +171,21 @@ static NSString *const cellIdentifer = @"cellIdentifer";
 //        DLog(@"大小－－－－－－%f",size.width);
         
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -196, 7, 76, 15)];
-        lab.textColor = sixColor;
+        lab.textColor = SIXCOLOR;
         [lab setText:@"默认两种方式:"];
         lab.font = Font_12;
         lab.numberOfLines = 1;
         [cell.contentView addSubview:lab];
         
         UILabel *lab1 = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -120, 7, 90, 15)];
-        lab1.textColor = sixColor;
+        lab1.textColor = SIXCOLOR;
         [lab1 setText:@"1、消息推送提醒"];
         lab1.font = Font_12;
         lab1.numberOfLines = 1;
         [cell.contentView addSubview:lab1];
 
         UILabel *lab2 = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -120, 22, 68, 15)];
-        lab2.textColor = sixColor;
+        lab2.textColor = SIXCOLOR;
         [lab2 setText:@"2、短信提醒"];
         lab2.font = Font_12;
         lab2.numberOfLines = 1;
@@ -196,7 +196,7 @@ static NSString *const cellIdentifer = @"cellIdentifer";
         [removeLab removeFromSuperview];
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -230, 12, 200, 20)];
         lab.tag = indexPath.row + 8000;
-        lab.textColor = thirdColor;
+        lab.textColor = THIRDCOLOR;
         [lab setText:_msgArrays[row - 1]];
         lab.textAlignment = NSTextAlignmentRight;
         lab.font = Font_12;

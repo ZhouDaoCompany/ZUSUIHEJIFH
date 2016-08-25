@@ -163,15 +163,15 @@
                 return;
             }
 
-            [SVProgressHUD showWithStatus:@"提交中..."];
+            [MBProgressHUD showMBLoadingWithText:@"提交中..."];
 
             NSString *forgetUrl = [NSString stringWithFormat:@"%@%@mobile=%@&pw=%@",kProjectBaseUrl,ForgetKey,_phoneText.text,[_keyText.text md5]];
             [ZhouDao_NetWorkManger GetJSONWithUrl:forgetUrl success:^(NSDictionary *jsonDic) {
-                [SVProgressHUD dismiss];
+                [MBProgressHUD hideHUD];
                 NSUInteger errorcode = [jsonDic[@"state"] integerValue];
                 NSString *msg = jsonDic[@"info"];
                 if (errorcode !=1) {
-                    [SVProgressHUD showErrorWithStatus:msg];
+                    [MBProgressHUD showError:msg];
                     return ;
                 }
                 [JKPromptView showWithImageName:nil message:msg];
@@ -186,7 +186,7 @@
                 self.findBlock(_phoneText.text);
                 [self.navigationController popViewControllerAnimated:YES];
             } fail:^{
-                [SVProgressHUD showErrorWithStatus:AlrertMsg];
+                [MBProgressHUD showError:AlrertMsg];
             }];
             
         }

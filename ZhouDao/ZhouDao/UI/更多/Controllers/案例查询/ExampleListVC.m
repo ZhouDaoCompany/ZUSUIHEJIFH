@@ -101,7 +101,8 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 }
 #pragma mark ------ 上拉加载
 - (void)downRefresh:(id)sender
-{WEAKSELF;[SVProgressHUD show];
+{WEAKSELF;
+    [MBProgressHUD showMBLoadingWithText:nil];
     if (_exampleType == FromComType) {
         [NetWorkMangerTools inspeTypeList:_idString withPage:_page RequestSuccess:^(NSArray *arr) {
             
@@ -132,7 +133,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell*cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ExampleIdentifier];
-    cell.textLabel.textColor = thirdColor;
+    cell.textLabel.textColor = THIRDCOLOR;
     cell.textLabel.font = Font_15;
     cell.textLabel.numberOfLines = 1;
     return cell;
@@ -148,7 +149,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [SVProgressHUD show];
+    [MBProgressHUD showMBLoadingWithText:nil];
     CaseModel *model = _dataArrays[indexPath.row];
     TaskModel *tmodel = [TaskModel new];
     [NetWorkMangerTools loadExampleDetailData:model.id RequestSuccess:^(id obj) {

@@ -144,7 +144,7 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
         [btn setTitle:titString forState:0];
         btn.frame = CGRectMake( 15 +15.f*(i%3) + hotWidth * (i%3), 15*(i/3 + 1) + 30 *(i/3) , hotWidth, 30);
         btn.titleLabel.font = Font_12;
-        [btn setTitleColor:thirdColor forState:0];
+        [btn setTitleColor:THIRDCOLOR forState:0];
         [btn addTarget:self action:@selector(moneyBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_botomView addSubview:btn];
         if (i == 0) {
@@ -231,7 +231,7 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
         if ([obj isKindOfClass:[UIButton class]]) {
             UIButton *btnObj = (UIButton *)obj;
             btnObj.backgroundColor = [UIColor whiteColor];
-            [btnObj setTitleColor:thirdColor forState:0];
+            [btnObj setTitleColor:THIRDCOLOR forState:0];
         }
     }];
    __block BOOL isHave = NO;

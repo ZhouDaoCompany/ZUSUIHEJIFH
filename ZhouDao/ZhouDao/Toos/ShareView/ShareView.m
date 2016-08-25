@@ -103,7 +103,7 @@
         _headlab = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, 100, 20)];
         _headlab.text = @"分享到:";
         _headlab.font = Font_18;
-        _headlab.textColor = thirdColor;
+        _headlab.textColor = THIRDCOLOR;
     }
     return _headlab;
 }

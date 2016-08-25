@@ -39,7 +39,7 @@
         _titleLab = [[UILabel alloc] init];
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.font = Font_15;
-        _titleLab.textColor = thirdColor;
+        _titleLab.textColor = THIRDCOLOR;
     }
     return _titleLab;
 }
@@ -50,7 +50,7 @@
         _deviceLabel = [[UILabel alloc] init];
         _deviceLabel.textAlignment = NSTextAlignmentRight;
         _deviceLabel.font = Font_14;
-       _deviceLabel.textColor = thirdColor;
+       _deviceLabel.textColor = THIRDCOLOR;
     }
     return _deviceLabel;
 }
@@ -86,7 +86,7 @@
         if (_deviceLabel.text.length == 0) {
             NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:@"请选择"];
             NSRange range1=[[hintString string]rangeOfString:@"请选择"];
-            [hintString addAttribute:NSForegroundColorAttributeName value:sixColor range:range1];
+            [hintString addAttribute:NSForegroundColorAttributeName value:SIXCOLOR range:range1];
             _deviceLabel.attributedText=hintString;
         }
     }

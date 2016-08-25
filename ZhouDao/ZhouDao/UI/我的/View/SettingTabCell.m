@@ -74,7 +74,7 @@
     if (!_nameLab) {
         _nameLab = [[UILabel alloc] init];
         _nameLab.font = Font_15;
-        _nameLab.textColor = thirdColor;
+        _nameLab.textColor = THIRDCOLOR;
     }
     return _nameLab;
 }
@@ -90,7 +90,7 @@
 - (UIView *)lineView{
     if (!_lineView) {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = lineColor;
+        _lineView.backgroundColor = LINECOLOR;
     }
     return _lineView;
 }

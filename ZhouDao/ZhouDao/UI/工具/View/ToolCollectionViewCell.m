@@ -76,7 +76,7 @@
     if (!_titleLab) {
         CGFloat width = self.frame.size.width;
         _titleLab = [[UILabel alloc] initWithFrame:CGRectMake(Orgin_x(_iconImgView) +10.f, 24, width- Orgin_x(_iconImgView) - 10.f, 20)];
-        _titleLab.textColor = thirdColor;
+        _titleLab.textColor = THIRDCOLOR;
         //        _titleLab.textAlignment = NSTextAlignmentCenter;
         _titleLab.backgroundColor = [UIColor clearColor];
         _titleLab.numberOfLines = 0;

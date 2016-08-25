@@ -46,7 +46,7 @@
     headlab.text = @"案件类型";
     headlab.textAlignment = NSTextAlignmentCenter;
     headlab.font = Font_15;
-    headlab.textColor = thirdColor;
+    headlab.textColor = THIRDCOLOR;
     [self addSubview:headlab];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(headlab), width, 2.f)];

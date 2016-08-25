@@ -34,7 +34,7 @@
 {
     self.backgroundColor = [UIColor clearColor];
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 12.f, (kMainScreenWidth - 135)/2.f, line_w)];
-    lineView.backgroundColor = lineColor;
+    lineView.backgroundColor = LINECOLOR;
     [self addSubview:lineView];
     
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(Orgin_x(lineView), 0, 105, 25)];
@@ -45,7 +45,7 @@
     [self addSubview:lab];
     
     UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(Orgin_x(lab), 12.f, (kMainScreenWidth - 135)/2.f, line_w)];
-    lineView1.backgroundColor = lineColor;
+    lineView1.backgroundColor = LINECOLOR;
     [self addSubview:lineView1];
     
     _items= @[[MenuLabel CreatelabelIconName:@"share_platform_wechat" Title:@"微信"],[MenuLabel CreatelabelIconName:@"share_platform_qqfriends" Title:@"QQ"],[MenuLabel CreatelabelIconName:@"share_platform_sina" Title:@"新浪"]];

@@ -91,7 +91,7 @@
     float width = self.frame.size.width;
     UILabel *titLab = [[UILabel alloc] initWithFrame:CGRectMake(30, Orgin_y(_fileImgView) - _fileImgView.frame.size.height -30, width- 60, 20.f)];
     titLab.backgroundColor = [UIColor clearColor];
-    titLab.textColor = thirdColor;
+    titLab.textColor = THIRDCOLOR;
     titLab.font = Font_18;
     titLab.textAlignment = NSTextAlignmentCenter;
     titLab.text = _model.name;
