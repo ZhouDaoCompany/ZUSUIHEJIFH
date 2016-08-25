@@ -111,7 +111,6 @@
 
 
     // Do any additional setup after loading the view.
-    [self.view setBackgroundColor:[UIColor colorWithHexString:@"#F4F4F4"]];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
     {
         self.automaticallyAdjustsScrollViewInsets = NO;

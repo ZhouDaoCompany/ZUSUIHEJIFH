@@ -441,6 +441,7 @@
 		18BDD4331D6EDFE8001541E1 /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDD42B1D6EDFE8001541E1 /* info@2x.png */; };
 		18BDD4341D6EDFE8001541E1 /* info@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDD42C1D6EDFE8001541E1 /* info@3x.png */; };
 		18BDD4351D6EDFE8001541E1 /* MBProgressHUD+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDD42E1D6EDFE8001541E1 /* MBProgressHUD+Tools.m */; };
+		18BDD44F1D6EEB2C001541E1 /* LawyerFeesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDD44E1D6EEB2C001541E1 /* LawyerFeesVC.m */; };
 		18C4B03C1CB4A4E200D3CB8B /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C4B03B1CB4A4E200D3CB8B /* TemplateViewController.m */; };
 		18C4B05C1CB4BFB500D3CB8B /* TemplateDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C4B05B1CB4BFB500D3CB8B /* TemplateDetailVC.m */; };
 		18C4B05E1CB4DD9500D3CB8B /* template_Word@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C4B05D1CB4DD9500D3CB8B /* template_Word@2x.png */; };
@@ -1225,6 +1226,8 @@
 		18BDD42C1D6EDFE8001541E1 /* info@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@3x.png"; sourceTree = "<group>"; };
 		18BDD42D1D6EDFE8001541E1 /* MBProgressHUD+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Tools.h"; sourceTree = "<group>"; };
 		18BDD42E1D6EDFE8001541E1 /* MBProgressHUD+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Tools.m"; sourceTree = "<group>"; };
+		18BDD44D1D6EEB2C001541E1 /* LawyerFeesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LawyerFeesVC.h; sourceTree = "<group>"; };
+		18BDD44E1D6EEB2C001541E1 /* LawyerFeesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LawyerFeesVC.m; sourceTree = "<group>"; };
 		18C4B03A1CB4A4E200D3CB8B /* TemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateViewController.h; sourceTree = "<group>"; };
 		18C4B03B1CB4A4E200D3CB8B /* TemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateViewController.m; sourceTree = "<group>"; };
 		18C4B05A1CB4BFB500D3CB8B /* TemplateDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDetailVC.h; sourceTree = "<group>"; };
@@ -2130,6 +2133,7 @@
 		181292A31C87E7B100EBB5CD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				18BDD4461D6EE6FA001541E1 /* LawyerFeesVC */,
 				18B2E15F1D6C1E490076B597 /* ToolsViewController.h */,
 				18B2E1601D6C1E490076B597 /* ToolsViewController.m */,
 				18496D5F1D4757A00071E689 /* ToolsWedViewVC.h */,
@@ -3041,6 +3045,15 @@
 				18BDD42E1D6EDFE8001541E1 /* MBProgressHUD+Tools.m */,
 			);
 			path = MBProgressHUDTools;
+			sourceTree = "<group>";
+		};
+		18BDD4461D6EE6FA001541E1 /* LawyerFeesVC */ = {
+			isa = PBXGroup;
+			children = (
+				18BDD44D1D6EEB2C001541E1 /* LawyerFeesVC.h */,
+				18BDD44E1D6EEB2C001541E1 /* LawyerFeesVC.m */,
+			);
+			path = LawyerFeesVC;
 			sourceTree = "<group>";
 		};
 		18C4B0391CB4A41100D3CB8B /* 合同模版 */ = {
@@ -4217,6 +4230,7 @@
 				108DBFFC1C9F9D7300FD1221 /* CertificationVC.m in Sources */,
 				187A54AE1D642CBD0076A8E6 /* SGMPhotosViewController.m in Sources */,
 				10ECB1B01CCD127600EE7341 /* NSString+YXFAddtions.m in Sources */,
+				18BDD44F1D6EEB2C001541E1 /* LawyerFeesVC.m in Sources */,
 				10580FF81D0845FB00973E03 /* DeriveMapVC.m in Sources */,
 				18474DB01CCDED3400515CD6 /* EditCaseVC.m in Sources */,
 				10FF87E61CA6D233005EBC8A /* DownLoadView.m in Sources */,

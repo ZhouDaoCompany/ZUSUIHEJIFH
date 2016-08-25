@@ -11,6 +11,7 @@
 #import "ToolsWedViewVC.h"
 #import "TheContractData.h"
 #import "LewReorderableLayout.h"
+#import "LawyerFeesVC.h"
 
 #define toolWidth     [UIScreen mainScreen].bounds.size.width/2.f -0.5f
 #define toolHeight    68
@@ -122,6 +123,10 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
             vc.introContent = model.content;
             [weakSelf.navigationController  pushViewController:vc animated:YES];
         }
+    }else {
+        
+        LawyerFeesVC *vc = [LawyerFeesVC new];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView
