@@ -1485,14 +1485,16 @@
         NSMutableArray *dataArr = [NSMutableArray array];
 
         [arrays enumerateObjectsUsingBlock:^(NSDictionary  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
             BasicModel *model = [[BasicModel alloc] initWithDictionary:obj];
             [dataArr addObject:model];
         }];
-        if (dataArr.count >0) {
-            if (dataArr.count%2 ==1) {
-                [dataArr addObject:@""];
-            }
-        }
+        [dataArr addObject:@"律师费计算器"];
+//        if (dataArr.count >0) {
+//            if (dataArr.count%2 ==1) {
+//                [dataArr addObject:@""];
+//            }
+//        }
         success(dataArr);
     } fail:^{
         fail();

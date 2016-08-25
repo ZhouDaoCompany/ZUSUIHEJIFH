@@ -88,6 +88,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 }
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
     return [self.dataSourceArrays count];
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -99,8 +100,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         if ([self.dataSourceArrays[indexPath.row] isKindOfClass:[BasicModel class]]) {
             [cell setBasicModel:self.dataSourceArrays[indexPath.row]];
         }else{
-            cell.iconImgView.hidden = YES;
-            cell.titleLab.hidden = YES;
+            [cell theNewCalculatorWithName:@"律师费计算"];
         }
     }
     return cell;
@@ -108,16 +108,20 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     WEAKSELF;
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,(long)indexPath.row);
-    if ([_dataSourceArrays[indexPath.row] isKindOfClass:[BasicModel class]]) {
-        [_collectionView deselectItemAtIndexPath:indexPath animated:YES];
-        BasicModel *model = _dataSourceArrays[indexPath.row];
-        ToolsWedViewVC *vc = [ToolsWedViewVC new];
-        vc.url = [NSString stringWithFormat:@"ToolsCalculate%ld",(long)indexPath.row];;
-        vc.tType = FromToolsType;
-        vc.navTitle = model.title;
-        vc.imgUrlString = model.app_icon;
-        vc.introContent = model.content;
-        [weakSelf.navigationController  pushViewController:vc animated:YES];
+    
+    if (indexPath.row <7) {
+        if ([_dataSourceArrays[indexPath.row] isKindOfClass:[BasicModel class]]) {
+            
+            [_collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            BasicModel *model = _dataSourceArrays[indexPath.row];
+            ToolsWedViewVC *vc = [ToolsWedViewVC new];
+            vc.url = [NSString stringWithFormat:@"ToolsCalculate_%@",model.py];;
+            vc.tType = FromToolsType;
+            vc.navTitle = model.title;
+            vc.imgUrlString = model.app_icon;
+            vc.introContent = model.content;
+            [weakSelf.navigationController  pushViewController:vc animated:YES];
+        }
     }
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -156,9 +160,16 @@ referenceSizeForHeaderInSection:(NSInteger)section
 }
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath didMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    BasicModel *model = _dataSourceArrays[fromIndexPath.row];
-    [_dataSourceArrays removeObjectAtIndex:fromIndexPath.item];
-    [_dataSourceArrays insertObject:model atIndex:toIndexPath.item];
+    if ([_dataSourceArrays[fromIndexPath.row] isKindOfClass:[BasicModel class]]) {
+        
+        BasicModel *model = _dataSourceArrays[fromIndexPath.row];
+        [_dataSourceArrays removeObjectAtIndex:fromIndexPath.item];
+        [_dataSourceArrays insertObject:model atIndex:toIndexPath.item];
+    }else {
+        NSString *name = _dataSourceArrays[fromIndexPath.row];
+        [_dataSourceArrays removeObjectAtIndex:fromIndexPath.row];
+        [_dataSourceArrays insertObject:name atIndex:toIndexPath.row];
+    }
 }
 #pragma mark - setter and getter
 - (NSMutableArray *)dataSourceArrays

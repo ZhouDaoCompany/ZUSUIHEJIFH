@@ -16,4 +16,6 @@
 @property (nonatomic, strong) UIImageView *iconImgView;
 @property (nonatomic, strong) TheContractData *model;
 @property (nonatomic, strong) BasicModel *basicModel;
+
+- (void)theNewCalculatorWithName:(NSString *)name;
 @end

@@ -22,6 +22,13 @@
     }
     return self;
 }
+- (void)theNewCalculatorWithName:(NSString *)name
+{
+    _titleLab.hidden = NO;
+    _iconImgView.hidden = YES;
+    _titleLab.text = name;
+    
+}
 - (void)setModel:(TheContractData *)model
 {
     _model = nil;

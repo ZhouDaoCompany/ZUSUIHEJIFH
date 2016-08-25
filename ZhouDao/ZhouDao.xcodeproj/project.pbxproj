@@ -135,13 +135,13 @@
 		108DC0911C9FF93E00FD1221 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC0901C9FF93E00FD1221 /* MediaPlayer.framework */; };
 		108DC0931C9FF94A00FD1221 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC0921C9FF94A00FD1221 /* AVFoundation.framework */; };
 		108DC0951C9FF96100FD1221 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC0941C9FF96100FD1221 /* libstdc++.6.0.9.tbd */; };
-		109EA9E91D4C3CD1005C09BB /* ToolsCalculate0.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9841D4C3CD1005C09BB /* ToolsCalculate0.html */; };
-		109EA9EA1D4C3CD1005C09BB /* ToolsCalculate1.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9851D4C3CD1005C09BB /* ToolsCalculate1.html */; };
-		109EA9EB1D4C3CD1005C09BB /* ToolsCalculate2.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9861D4C3CD1005C09BB /* ToolsCalculate2.html */; };
-		109EA9EC1D4C3CD1005C09BB /* ToolsCalculate3.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9871D4C3CD1005C09BB /* ToolsCalculate3.html */; };
-		109EA9ED1D4C3CD1005C09BB /* ToolsCalculate4.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9881D4C3CD1005C09BB /* ToolsCalculate4.html */; };
-		109EA9EE1D4C3CD1005C09BB /* ToolsCalculate5.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9891D4C3CD1005C09BB /* ToolsCalculate5.html */; };
-		109EA9EF1D4C3CD1005C09BB /* ToolsCalculate6.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA98A1D4C3CD1005C09BB /* ToolsCalculate6.html */; };
+		109EA9E91D4C3CD1005C09BB /* ToolsCalculate_shoulifei.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9841D4C3CD1005C09BB /* ToolsCalculate_shoulifei.html */; };
+		109EA9EA1D4C3CD1005C09BB /* ToolsCalculate_zhixing.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9851D4C3CD1005C09BB /* ToolsCalculate_zhixing.html */; };
+		109EA9EB1D4C3CD1005C09BB /* ToolsCalculate_lixi.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9861D4C3CD1005C09BB /* ToolsCalculate_lixi.html */; };
+		109EA9EC1D4C3CD1005C09BB /* ToolsCalculate_weiyuejin.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9871D4C3CD1005C09BB /* ToolsCalculate_weiyuejin.html */; };
+		109EA9ED1D4C3CD1005C09BB /* ToolsCalculate_riqi.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9881D4C3CD1005C09BB /* ToolsCalculate_riqi.html */; };
+		109EA9EE1D4C3CD1005C09BB /* ToolsCalculate_canji.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9891D4C3CD1005C09BB /* ToolsCalculate_canji.html */; };
+		109EA9EF1D4C3CD1005C09BB /* ToolsCalculate_caichan.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA98A1D4C3CD1005C09BB /* ToolsCalculate_caichan.html */; };
 		109EAB1F1D4C5395005C09BB /* error.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EAB1D1D4C5395005C09BB /* error.html */; };
 		109EAB201D4C5395005C09BB /* wifi_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 109EAB1E1D4C5395005C09BB /* wifi_pic.png */; };
 		109EAB241D4C79F9005C09BB /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109EAB231D4C79F9005C09BB /* ScanViewController.m */; };
@@ -434,6 +434,9 @@
 		18B7175F1C9149A800F2AAED /* FindKeyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B7175D1C9149A800F2AAED /* FindKeyViewController.m */; };
 		18B717601C9149A800F2AAED /* FindKeyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B7175E1C9149A800F2AAED /* FindKeyViewController.xib */; };
 		18B7177D1C916C5200F2AAED /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B7177B1C916C5200F2AAED /* RegisterViewController.m */; };
+		18BDD4121D6E9EED001541E1 /* Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDD40E1D6E9EED001541E1 /* Checkmark@2x.png */; };
+		18BDD4131D6E9EED001541E1 /* Checkmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDD40F1D6E9EED001541E1 /* Checkmark@3x.png */; };
+		18BDD4141D6E9EED001541E1 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BDD4111D6E9EED001541E1 /* MBProgressHUD.m */; };
 		18C4B03C1CB4A4E200D3CB8B /* TemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C4B03B1CB4A4E200D3CB8B /* TemplateViewController.m */; };
 		18C4B05C1CB4BFB500D3CB8B /* TemplateDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C4B05B1CB4BFB500D3CB8B /* TemplateDetailVC.m */; };
 		18C4B05E1CB4DD9500D3CB8B /* template_Word@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C4B05D1CB4DD9500D3CB8B /* template_Word@2x.png */; };
@@ -753,13 +756,13 @@
 		108DC0901C9FF93E00FD1221 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		108DC0921C9FF94A00FD1221 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		108DC0941C9FF96100FD1221 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
-		109EA9841D4C3CD1005C09BB /* ToolsCalculate0.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate0.html; sourceTree = "<group>"; };
-		109EA9851D4C3CD1005C09BB /* ToolsCalculate1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate1.html; sourceTree = "<group>"; };
-		109EA9861D4C3CD1005C09BB /* ToolsCalculate2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate2.html; sourceTree = "<group>"; };
-		109EA9871D4C3CD1005C09BB /* ToolsCalculate3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate3.html; sourceTree = "<group>"; };
-		109EA9881D4C3CD1005C09BB /* ToolsCalculate4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate4.html; sourceTree = "<group>"; };
-		109EA9891D4C3CD1005C09BB /* ToolsCalculate5.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate5.html; sourceTree = "<group>"; };
-		109EA98A1D4C3CD1005C09BB /* ToolsCalculate6.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate6.html; sourceTree = "<group>"; };
+		109EA9841D4C3CD1005C09BB /* ToolsCalculate_shoulifei.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_shoulifei.html; sourceTree = "<group>"; };
+		109EA9851D4C3CD1005C09BB /* ToolsCalculate_zhixing.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_zhixing.html; sourceTree = "<group>"; };
+		109EA9861D4C3CD1005C09BB /* ToolsCalculate_lixi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_lixi.html; sourceTree = "<group>"; };
+		109EA9871D4C3CD1005C09BB /* ToolsCalculate_weiyuejin.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_weiyuejin.html; sourceTree = "<group>"; };
+		109EA9881D4C3CD1005C09BB /* ToolsCalculate_riqi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_riqi.html; sourceTree = "<group>"; };
+		109EA9891D4C3CD1005C09BB /* ToolsCalculate_canji.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_canji.html; sourceTree = "<group>"; };
+		109EA98A1D4C3CD1005C09BB /* ToolsCalculate_caichan.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_caichan.html; sourceTree = "<group>"; };
 		109EAB1D1D4C5395005C09BB /* error.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = error.html; sourceTree = "<group>"; };
 		109EAB1E1D4C5395005C09BB /* wifi_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifi_pic.png; sourceTree = "<group>"; };
 		109EAB221D4C79F9005C09BB /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
@@ -1210,6 +1213,10 @@
 		18B7175E1C9149A800F2AAED /* FindKeyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindKeyViewController.xib; sourceTree = "<group>"; };
 		18B7177A1C916C5200F2AAED /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		18B7177B1C916C5200F2AAED /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		18BDD40E1D6E9EED001541E1 /* Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark@2x.png"; sourceTree = "<group>"; };
+		18BDD40F1D6E9EED001541E1 /* Checkmark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark@3x.png"; sourceTree = "<group>"; };
+		18BDD4101D6E9EED001541E1 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		18BDD4111D6E9EED001541E1 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		18C4B03A1CB4A4E200D3CB8B /* TemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateViewController.h; sourceTree = "<group>"; };
 		18C4B03B1CB4A4E200D3CB8B /* TemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateViewController.m; sourceTree = "<group>"; };
 		18C4B05A1CB4BFB500D3CB8B /* TemplateDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDetailVC.h; sourceTree = "<group>"; };
@@ -1908,13 +1915,13 @@
 				1856A0C81D4F35150070B93E /* riqi */,
 				1856A0D21D4F35150070B93E /* share */,
 				109EAB1C1D4C5395005C09BB /* Error */,
-				109EA9841D4C3CD1005C09BB /* ToolsCalculate0.html */,
-				109EA9851D4C3CD1005C09BB /* ToolsCalculate1.html */,
-				109EA9861D4C3CD1005C09BB /* ToolsCalculate2.html */,
-				109EA9871D4C3CD1005C09BB /* ToolsCalculate3.html */,
-				109EA9881D4C3CD1005C09BB /* ToolsCalculate4.html */,
-				109EA9891D4C3CD1005C09BB /* ToolsCalculate5.html */,
-				109EA98A1D4C3CD1005C09BB /* ToolsCalculate6.html */,
+				109EA9841D4C3CD1005C09BB /* ToolsCalculate_shoulifei.html */,
+				109EA9851D4C3CD1005C09BB /* ToolsCalculate_zhixing.html */,
+				109EA9861D4C3CD1005C09BB /* ToolsCalculate_lixi.html */,
+				109EA9871D4C3CD1005C09BB /* ToolsCalculate_weiyuejin.html */,
+				109EA9881D4C3CD1005C09BB /* ToolsCalculate_riqi.html */,
+				109EA9891D4C3CD1005C09BB /* ToolsCalculate_canji.html */,
+				109EA98A1D4C3CD1005C09BB /* ToolsCalculate_caichan.html */,
 			);
 			path = HtmlFiles;
 			sourceTree = "<group>";
@@ -3013,6 +3020,17 @@
 			path = RegisterVC;
 			sourceTree = "<group>";
 		};
+		18BDD40D1D6E9EED001541E1 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				18BDD40E1D6E9EED001541E1 /* Checkmark@2x.png */,
+				18BDD40F1D6E9EED001541E1 /* Checkmark@3x.png */,
+				18BDD4101D6E9EED001541E1 /* MBProgressHUD.h */,
+				18BDD4111D6E9EED001541E1 /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		18C4B0391CB4A41100D3CB8B /* 合同模版 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3072,6 +3090,7 @@
 			isa = PBXGroup;
 			children = (
 				18F8789F1D053CCA0069E68A /* APIKey.h */,
+				18BDD40D1D6E9EED001541E1 /* MBProgressHUD */,
 				186ED3971D66EDEF006BC693 /* ProgressBarView */,
 				187A54931D642CBD0076A8E6 /* PhotoLib */,
 				109EA9191D4C3CD1005C09BB /* HtmlFiles */,
@@ -3684,11 +3703,11 @@
 				1856A0E51D4F35150070B93E /* bootstrap-datetimepicker.css in Resources */,
 				1856A12F1D4F35150070B93E /* jquery.min.js in Resources */,
 				1856A1131D4F35150070B93E /* bootstrap-datetimepicker.ro.js in Resources */,
-				109EA9EF1D4C3CD1005C09BB /* ToolsCalculate6.html in Resources */,
+				109EA9EF1D4C3CD1005C09BB /* ToolsCalculate_caichan.html in Resources */,
 				180B31631C8ECFFF00360A23 /* homeUnselect@2x.png in Resources */,
 				18CD01D71C901367009DE385 /* tabbar_judicial@2x.png in Resources */,
 				1856A1151D4F35150070B93E /* bootstrap-datetimepicker.rs.js in Resources */,
-				109EA9EC1D4C3CD1005C09BB /* ToolsCalculate3.html in Resources */,
+				109EA9EC1D4C3CD1005C09BB /* ToolsCalculate_weiyuejin.html in Resources */,
 				1065C3471CA91BA4003F4089 /* law_shezhi@2x.png in Resources */,
 				1060DA151CACF8D400D779A5 /* recommedArticle.jpg in Resources */,
 				1856A1171D4F35150070B93E /* bootstrap-datetimepicker.sk.js in Resources */,
@@ -3701,7 +3720,7 @@
 				18CB0F131CBF8F3F009C41CE /* Esearch_dateSelect@2x.png in Resources */,
 				108DC0371C9FA38E00FD1221 /* mine_moveTop@2x.png in Resources */,
 				18B16ACF1CFD5CE300561CD5 /* UMSLoginViewController.xib in Resources */,
-				109EA9EB1D4C3CD1005C09BB /* ToolsCalculate2.html in Resources */,
+				109EA9EB1D4C3CD1005C09BB /* ToolsCalculate_lixi.html in Resources */,
 				18FBD84C1CED90CD00674D1E /* case_word@2x.png in Resources */,
 				1856A0EC1D4F35150070B93E /* glyphicons-halflings-regular.svg in Resources */,
 				108DC0211C9FA38E00FD1221 /* compose_pic_add@2x.png in Resources */,
@@ -3710,7 +3729,7 @@
 				187E6D6E1C841A12009169C2 /* LaunchScreen.storyboard in Resources */,
 				18FBD84A1CED90CD00674D1E /* case_txt@2x.png in Resources */,
 				10241A1D1CB9FCDE000CBEAE /* pc_gongshang@2x.png in Resources */,
-				109EA9EA1D4C3CD1005C09BB /* ToolsCalculate1.html in Resources */,
+				109EA9EA1D4C3CD1005C09BB /* ToolsCalculate_zhixing.html in Resources */,
 				187349DE1D2F4F96001A3E91 /* scan_4@2x.png in Resources */,
 				18B5834B1C9A98C700CB3009 /* PlanTableViewCell.xib in Resources */,
 				180B31671C8ECFFF00360A23 /* recommentUnSelect@2x.png in Resources */,
@@ -3735,7 +3754,7 @@
 				18CD01D91C901367009DE385 /* tabbar_management@2x.png in Resources */,
 				1813EF7C1D5C46D10019CA33 /* close_icon_highlight@2x.png in Resources */,
 				108DC0301C9FA38E00FD1221 /* mine_collection@2x.png in Resources */,
-				109EA9ED1D4C3CD1005C09BB /* ToolsCalculate4.html in Resources */,
+				109EA9ED1D4C3CD1005C09BB /* ToolsCalculate_riqi.html in Resources */,
 				108DC0221C9FA38E00FD1221 /* compose_pic_add@3x.png in Resources */,
 				18B16ACB1CFD5CE300561CD5 /* UMSCommentInputController.xib in Resources */,
 				1856A1261D4F35150070B93E /* lixi.js in Resources */,
@@ -3842,7 +3861,7 @@
 				108DC0261C9FA38E00FD1221 /* login_key@2x.png in Resources */,
 				18B16AD71CFD5CE300561CD5 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				1856A1071D4F35150070B93E /* bootstrap-datetimepicker.ja.js in Resources */,
-				109EA9EE1D4C3CD1005C09BB /* ToolsCalculate5.html in Resources */,
+				109EA9EE1D4C3CD1005C09BB /* ToolsCalculate_canji.html in Resources */,
 				187349DF1D2F4F96001A3E91 /* scan_net@2x.png in Resources */,
 				10D31D7C1CDEE92C008D6F42 /* GovDetailCell.xib in Resources */,
 				10172BE81CBBF1F300B7553E /* case_wifi@2x.png in Resources */,
@@ -3883,13 +3902,14 @@
 				18FBD8491CED90CD00674D1E /* case_photo@2x.png in Resources */,
 				18DB8E471D001F1E000C9D8B /* woman_contract.caf in Resources */,
 				1065C3461CA91BA4003F4089 /* law_share@2x.png in Resources */,
-				109EA9E91D4C3CD1005C09BB /* ToolsCalculate0.html in Resources */,
+				109EA9E91D4C3CD1005C09BB /* ToolsCalculate_shoulifei.html in Resources */,
 				1856A1121D4F35150070B93E /* bootstrap-datetimepicker.pt.js in Resources */,
 				1856A1081D4F35150070B93E /* bootstrap-datetimepicker.ka.js in Resources */,
 				108323321CAA2B14004B8045 /* law_contentSearch@2x.png in Resources */,
 				1856A0E81D4F35150070B93E /* bootstrap-theme.min.css in Resources */,
 				185838881D49B9FC00C6A0EE /* gov_Review@2x.png in Resources */,
 				180B31661C8ECFFF00360A23 /* recommentSelect@2x.png in Resources */,
+				18BDD4131D6E9EED001541E1 /* Checkmark@3x.png in Resources */,
 				1856A11A1D4F35150070B93E /* bootstrap-datetimepicker.sw.js in Resources */,
 				18DB8E441D001F1E000C9D8B /* man_contract.caf in Resources */,
 				18F593E71CB636A500F5619D /* SearchWebView.js in Resources */,
@@ -3904,6 +3924,7 @@
 				1856A0F41D4F35150070B93E /* bootstrap-datetimepicker.az.js in Resources */,
 				1856A1351D4F35150070B93E /* riqi.html in Resources */,
 				1065C3431CA91BA4003F4089 /* law_difangfagui@2x.png in Resources */,
+				18BDD4121D6E9EED001541E1 /* Checkmark@2x.png in Resources */,
 				108DC0351C9FA38E00FD1221 /* mine_jiantou@2x.png in Resources */,
 				18B16ADA1CFD5CE300561CD5 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				1856A0FB1D4F35150070B93E /* bootstrap-datetimepicker.ee.js in Resources */,
@@ -4188,6 +4209,7 @@
 				10C019461CE4CE260058586A /* CustomButton.m in Sources */,
 				104B443E1C9BE14800FC19B3 /* AdvantagesModel.m in Sources */,
 				103D25901CAE712800F2B93A /* GovermentVC.m in Sources */,
+				18BDD4141D6E9EED001541E1 /* MBProgressHUD.m in Sources */,
 				187D68AC1CCF362100C3946A /* NetWorkMangerTools.m in Sources */,
 				1866404A1D24E9B700E1F455 /* FinanceModel.m in Sources */,
 				1813EF791D5C1A7F0019CA33 /* GovHECViewController.m in Sources */,

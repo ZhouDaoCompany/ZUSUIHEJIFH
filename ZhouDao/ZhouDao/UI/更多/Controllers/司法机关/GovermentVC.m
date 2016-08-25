@@ -125,6 +125,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 - (void)loadData
 {WEAKSELF;
     [NetWorkMangerTools goverMentFirstClassListRequestSuccess:^(NSArray *arr) {
+        
         if (arr.count>0) {
             [weakSelf.datasourceArr removeAllObjects];
             [arr enumerateObjectsUsingBlock:^(NSDictionary  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
