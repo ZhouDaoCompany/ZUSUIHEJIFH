@@ -12,6 +12,7 @@
 #import "TheContractData.h"
 #import "LewReorderableLayout.h"
 #import "LawyerFeesVC.h"
+#import "OverdueViewController.h"
 
 #define toolWidth     [UIScreen mainScreen].bounds.size.width/2.f -0.5f
 #define toolHeight    68
@@ -101,7 +102,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         if ([self.dataSourceArrays[indexPath.row] isKindOfClass:[BasicModel class]]) {
             [cell setBasicModel:self.dataSourceArrays[indexPath.row]];
         }else{
-            [cell theNewCalculatorWithName:@"律师费计算"];
+            [cell theNewCalculatorWithName:self.dataSourceArrays[indexPath.row]];
         }
     }
     return cell;
@@ -110,23 +111,31 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     WEAKSELF;
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,(long)indexPath.row);
     
-    if (indexPath.row <7) {
-        if ([_dataSourceArrays[indexPath.row] isKindOfClass:[BasicModel class]]) {
-            
-            [_collectionView deselectItemAtIndexPath:indexPath animated:YES];
-            BasicModel *model = _dataSourceArrays[indexPath.row];
-            ToolsWedViewVC *vc = [ToolsWedViewVC new];
-            vc.url = [NSString stringWithFormat:@"ToolsCalculate_%@",model.py];;
-            vc.tType = FromToolsType;
-            vc.navTitle = model.title;
-            vc.imgUrlString = model.app_icon;
-            vc.introContent = model.content;
-            [weakSelf.navigationController  pushViewController:vc animated:YES];
-        }
+    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+    if ([_dataSourceArrays[indexPath.row] isKindOfClass:[BasicModel class]]) {
+        
+        [_collectionView deselectItemAtIndexPath:indexPath animated:YES];
+        BasicModel *model = _dataSourceArrays[indexPath.row];
+        ToolsWedViewVC *vc = [ToolsWedViewVC new];
+        vc.url = [NSString stringWithFormat:@"ToolsCalculate_%@",model.py];;
+        vc.tType = FromToolsType;
+        vc.navTitle = model.title;
+        vc.imgUrlString = model.app_icon;
+        vc.introContent = model.content;
+        [weakSelf.navigationController  pushViewController:vc animated:YES];
     }else {
         
-        LawyerFeesVC *vc = [LawyerFeesVC new];
-        [self.navigationController pushViewController:vc animated:YES];
+        NSString *titleString = _dataSourceArrays[indexPath.row];
+        if ([titleString isEqualToString:@"裁决书逾期利息计算器"]) {
+            
+            OverdueViewController *overdueVC = [OverdueViewController new];
+            [self.navigationController pushViewController:overdueVC animated:YES];
+        }else if ([titleString isEqualToString:@"律师费计算器"]){
+            
+            LawyerFeesVC *vc = [LawyerFeesVC new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
     }
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -191,7 +200,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
         layout.delegate = self;
         layout.dataSource = self;
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , kMainScreenWidth ,kMainScreenHeight-64.f) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , kMainScreenWidth ,kMainScreenHeight-113.f) collectionViewLayout:layout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor clearColor];

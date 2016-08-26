@@ -364,7 +364,9 @@
 - (void)rightBtnAction
 {
     LoginViewController *loginVC = self.navigationController.viewControllers[0];
-    loginVC.closeBlock();
+    if (loginVC.closeBlock) {
+        loginVC.closeBlock();
+    }
     [self dismissViewControllerAnimated:YES completion:^{
     }];
 }

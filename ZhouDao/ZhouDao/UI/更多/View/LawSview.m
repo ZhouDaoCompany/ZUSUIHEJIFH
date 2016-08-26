@@ -46,6 +46,7 @@
         _horizontalScrollView = [[DPHorizontalScrollView alloc] initWithFrame:CGRectMake(0, Orgin_y(_imgView), width, 110)];
         _horizontalScrollView.scrollViewDelegate = self;
         _horizontalScrollView.showsHorizontalScrollIndicator = NO;
+        _horizontalScrollView.scrollsToTop = NO;
         [self addSubview:_horizontalScrollView];
         
         _sectionView = [[UIView alloc] initWithFrame: CGRectMake(0, height-10, width, 10)];
@@ -54,6 +55,8 @@
     }
     return self;
 }
+#pragma mark - setter and getters
+
 #pragma mark - ---------------------- DPHorizontalScrollViewDelegate
 - (NSInteger)numberOfColumnsInTableView:(DPHorizontalScrollView *)tableView{
     
@@ -74,7 +77,9 @@
         [view setImgViewImageName:_imageArrays[index] WithLabelText:_titleArrays[index]];
     }
     view.indexBlock = ^(NSInteger count){
-        _indexBlock(count);
+        if (_indexBlock) {
+            _indexBlock(count);
+        }
     };
     return view;
 }
@@ -109,7 +114,9 @@
 #pragma mark -UIButtonEvent
 - (void)gotoSearchVC:(id)sender
 {
-    _searchBlock();
+    if (_searchBlock) {
+        _searchBlock();
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

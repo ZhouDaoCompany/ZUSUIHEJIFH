@@ -38,9 +38,9 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     float _contentOffsetY;
     UIImage *_photoImage;
 }
-@property (nonatomic,strong) CollectEmptyView *emptyView;   //无案件时候
+@property (nonatomic, strong) CollectEmptyView *emptyView;   //无案件时候
 
-@property (strong,nonatomic)  UITableView *tableView;
+@property (nonatomic, strong)  UITableView *tableView;
 @property (nonatomic, strong)  NSIndexPath* openedIndexPath;
 @property (nonatomic, strong)  NSMutableArray* tableData;
 @property (nonatomic, assign)  BOOL isMove;//是否可以移动

@@ -512,6 +512,9 @@
 		18EE95901D237C040030AE2B /* FinanceTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE958F1D237C040030AE2B /* FinanceTabCell.m */; };
 		18EE95951D23E5B70030AE2B /* case_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EE95941D23E5B70030AE2B /* case_up@2x.png */; };
 		18EE9F051D586A4400F217BD /* Gov_Edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EE9F041D586A4400F217BD /* Gov_Edit@2x.png */; };
+		18F08DBF1D6FEFB700B29AF9 /* LawyerFeesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F08DBE1D6FEFB700B29AF9 /* LawyerFeesCell.m */; };
+		18F08DC41D703B0D00B29AF9 /* OverdueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F08DC31D703B0D00B29AF9 /* OverdueViewController.m */; };
+		18F08DC71D703BB100B29AF9 /* OverdueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F08DC61D703BB100B29AF9 /* OverdueCell.m */; };
 		18F2F19F1CBDDAD70068453D /* case_juanzong4s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F19E1CBDDAD70068453D /* case_juanzong4s@2x.png */; };
 		18F2F1A11CBDE0930068453D /* case_juanzong6p@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F1A01CBDE0930068453D /* case_juanzong6p@3x.png */; };
 		18F2F1A71CBE157B0068453D /* ExampleSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F1A61CBE157B0068453D /* ExampleSearchVC.m */; };
@@ -1327,6 +1330,12 @@
 		18EE958F1D237C040030AE2B /* FinanceTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceTabCell.m; sourceTree = "<group>"; };
 		18EE95941D23E5B70030AE2B /* case_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_up@2x.png"; sourceTree = "<group>"; };
 		18EE9F041D586A4400F217BD /* Gov_Edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gov_Edit@2x.png"; sourceTree = "<group>"; };
+		18F08DBD1D6FEFB700B29AF9 /* LawyerFeesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LawyerFeesCell.h; sourceTree = "<group>"; };
+		18F08DBE1D6FEFB700B29AF9 /* LawyerFeesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LawyerFeesCell.m; sourceTree = "<group>"; };
+		18F08DC21D703B0D00B29AF9 /* OverdueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverdueViewController.h; sourceTree = "<group>"; };
+		18F08DC31D703B0D00B29AF9 /* OverdueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverdueViewController.m; sourceTree = "<group>"; };
+		18F08DC51D703BB100B29AF9 /* OverdueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverdueCell.h; sourceTree = "<group>"; };
+		18F08DC61D703BB100B29AF9 /* OverdueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverdueCell.m; sourceTree = "<group>"; };
 		18F2F19E1CBDDAD70068453D /* case_juanzong4s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_juanzong4s@2x.png"; sourceTree = "<group>"; };
 		18F2F1A01CBDE0930068453D /* case_juanzong6p@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_juanzong6p@3x.png"; sourceTree = "<group>"; };
 		18F2F1A51CBE157B0068453D /* ExampleSearchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleSearchVC.h; sourceTree = "<group>"; };
@@ -2133,6 +2142,7 @@
 		181292A31C87E7B100EBB5CD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				18F08DC11D703AEB00B29AF9 /* OverdueVC */,
 				18BDD4461D6EE6FA001541E1 /* LawyerFeesVC */,
 				18B2E15F1D6C1E490076B597 /* ToolsViewController.h */,
 				18B2E1601D6C1E490076B597 /* ToolsViewController.m */,
@@ -2154,6 +2164,8 @@
 		181292A51C87E7B100EBB5CD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18F08DC01D703AE400B29AF9 /* Overdue */,
+				18F08DBC1D6FEF9B00B29AF9 /* LawyerFees */,
 				18B2E1621D6C20E50076B597 /* LewReorderableLayout */,
 				1060DA1C1CAD197B00D779A5 /* ToolCollectionViewCell.h */,
 				1060DA1D1CAD197B00D779A5 /* ToolCollectionViewCell.m */,
@@ -3280,6 +3292,33 @@
 			path = CaseFinance;
 			sourceTree = "<group>";
 		};
+		18F08DBC1D6FEF9B00B29AF9 /* LawyerFees */ = {
+			isa = PBXGroup;
+			children = (
+				18F08DBD1D6FEFB700B29AF9 /* LawyerFeesCell.h */,
+				18F08DBE1D6FEFB700B29AF9 /* LawyerFeesCell.m */,
+			);
+			path = LawyerFees;
+			sourceTree = "<group>";
+		};
+		18F08DC01D703AE400B29AF9 /* Overdue */ = {
+			isa = PBXGroup;
+			children = (
+				18F08DC51D703BB100B29AF9 /* OverdueCell.h */,
+				18F08DC61D703BB100B29AF9 /* OverdueCell.m */,
+			);
+			path = Overdue;
+			sourceTree = "<group>";
+		};
+		18F08DC11D703AEB00B29AF9 /* OverdueVC */ = {
+			isa = PBXGroup;
+			children = (
+				18F08DC21D703B0D00B29AF9 /* OverdueViewController.h */,
+				18F08DC31D703B0D00B29AF9 /* OverdueViewController.m */,
+			);
+			path = OverdueVC;
+			sourceTree = "<group>";
+		};
 		18F2F1A41CBE15150068453D /* 案例查询 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4125,6 +4164,7 @@
 				188651C01D266FA500E030F7 /* HistoryModel.m in Sources */,
 				103D25931CAE729A00F2B93A /* GovCollectionViewCell.m in Sources */,
 				1068EAF61CB3907B00AAADD4 /* VoiceManager.m in Sources */,
+				18F08DC71D703BB100B29AF9 /* OverdueCell.m in Sources */,
 				104157641C94718000EE5303 /* OrderTitleLab.m in Sources */,
 				18DD1E8A1C8810AE004630C1 /* ZDLTabBarControllerConfig.m in Sources */,
 				18A4284F1CC0C8F100CEB30E /* DateTimeView.m in Sources */,
@@ -4167,6 +4207,7 @@
 				18D66ACD1CE1BD0300BF2C17 /* LawDetailModel.m in Sources */,
 				1817D29D1CC089C400FF6EEE /* LitigationCell.m in Sources */,
 				18FF3F3D1C8529CA0098C60B /* JKPromptView.m in Sources */,
+				18F08DBF1D6FEFB700B29AF9 /* LawyerFeesCell.m in Sources */,
 				18FF3F521C852BDB0098C60B /* UIColor+Helper.m in Sources */,
 				109EAB241D4C79F9005C09BB /* ScanViewController.m in Sources */,
 				104B44301C9BCCE400FC19B3 /* AllReusableView.m in Sources */,
@@ -4248,6 +4289,7 @@
 				1825B0A61C969287003B2096 /* CollectEmptyView.m in Sources */,
 				186AA14D1CE46E7C0009C0D5 /* CollectionData.m in Sources */,
 				18B5834A1C9A98C700CB3009 /* PlanTableViewCell.m in Sources */,
+				18F08DC41D703B0D00B29AF9 /* OverdueViewController.m in Sources */,
 				180B31591C8EB5F600360A23 /* Provice.m in Sources */,
 				18B7177D1C916C5200F2AAED /* RegisterViewController.m in Sources */,
 				18B583421C9A4E3200CB3009 /* FDCalendar.m in Sources */,

@@ -248,9 +248,13 @@
             type = @"9";
         }
         DLog(@"选中----%@",selectedStr);
-        block(selectedStr,type);
+        if (block) {
+            block(selectedStr,type);
+        }
     }else{
-        self.alertBlock(selectedStr);
+        if (_alertBlock) {
+           _alertBlock(selectedStr);
+        }
     }
     
     [self hide];

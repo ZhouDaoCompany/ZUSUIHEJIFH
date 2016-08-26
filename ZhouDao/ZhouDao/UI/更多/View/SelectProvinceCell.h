@@ -12,6 +12,7 @@
 
 
 @property (weak, nonatomic) id<SelectProvinceCellPro>delegate;
+@property (strong, nonatomic) UIView *lineView;
 
 
 - (void)setOtherCitySelect:(NSString *)name wihSection:(NSInteger)section;

@@ -94,16 +94,23 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     SelectProvinceCell *cell = (SelectProvinceCell *)[tableView dequeueReusableCellWithIdentifier:CELLIDENTIFER];
     cell.delegate = self;
 
     if (indexPath.section == 0) {
+        cell.lineView.hidden = YES;
         [cell setOtherCitySelect:@"" wihSection:indexPath.section];
     }else {
         NSString *key = [self.sectionHeadTitleArrays objectAtIndex:indexPath.section];
         NSArray *arr = [self.cityDictionary objectForKey:key];
         NSString *cityName = arr[indexPath.row];
         [cell setOtherCitySelect:cityName wihSection:indexPath.section];
+        if (indexPath.row == arr.count -1) {
+            cell.lineView.hidden = YES;
+        }else {
+            cell.lineView.hidden = NO;
+        }
     }
 
     return cell;
@@ -126,17 +133,25 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
     }
     return headView;
 }
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *views = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, .1f)];
+    views.backgroundColor = [UIColor clearColor];
+    return views;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return 48.f;
-    }
-    return 44.f;
+    return (indexPath.section == 0)?48.f:44.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 45.f;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1f;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    DLog(@"indexRow----%ld",indexPath.row);
@@ -191,7 +206,7 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
 {
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64.6f, kMainScreenWidth, kMainScreenHeight-64.6f) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64.6f, kMainScreenWidth, kMainScreenHeight-64.6f) style:UITableViewStyleGrouped];
         _tableView.showsHorizontalScrollIndicator= NO;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.dataSource = self;

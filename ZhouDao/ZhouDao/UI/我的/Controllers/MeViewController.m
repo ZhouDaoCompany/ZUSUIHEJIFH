@@ -191,23 +191,10 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
 {
     return 15.f;
 }
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if(scrollView == self.tableView)
-    {
-        CGFloat sectionHeaderHeight = 15;
-        
-        if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y> 0) {
-            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-        }else{
-            if(scrollView.contentOffset.y >= sectionHeaderHeight){
-                
-                scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-            }
-        }
-    }
+    return 0.1f;
 }
-
 #pragma mark - 擅长领域cell
 - (void)layoutdomainCell{WEAKSELF;
     MyAdvantagesVC *advantageVC = [MyAdvantagesVC new];
@@ -255,7 +242,7 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-113.f) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-113.f) style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

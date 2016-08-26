@@ -24,11 +24,11 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
 //#define kHeaderImageHeight     self.view.bounds.size.width*(150/375.0f)
 
 @interface LawsViewController ()<UITableViewDataSource,UITableViewDelegate>
-@property (nonatomic,strong) NSMutableArray *dataArrays;
-@property (strong,nonatomic) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *dataArrays;
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) LawSview* headView;
 @property (nonatomic, strong) UIImageView *falseImgView;
-@property (nonatomic,strong) UIButton *moreBtn;
+@property (nonatomic, strong) UIButton *moreBtn;
   
 @end
 

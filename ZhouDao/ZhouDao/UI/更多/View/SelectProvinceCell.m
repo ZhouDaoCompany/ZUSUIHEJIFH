@@ -29,7 +29,7 @@
         [self.contentView addSubview:self.twoButton];
         [self.contentView addSubview:self.thirdButton];
         [self.contentView addSubview:self.fourButton];
-
+        [self.contentView addSubview:self.lineView];
     }
     
     return self;
@@ -39,13 +39,12 @@
 {
     
     if (section == 0) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = hexColor(F0F0F0);
         _oneButton.hidden = NO;
         _twoButton.hidden = NO;
         _thirdButton.hidden = NO;
         _fourButton.hidden = NO;
         _nameLab.hidden = YES;
-
     }else {
         self.backgroundColor = [UIColor whiteColor];
         _oneButton.hidden = YES;
@@ -76,6 +75,14 @@
         _nameLab.textColor = hexColor(333333);
     }
     return _nameLab;
+}
+- (UIView *)lineView
+{
+    if (!_lineView) {
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 43.4f, kMainScreenWidth - 15, .6f)];
+        _lineView.backgroundColor = LINECOLOR;
+    }
+    return _lineView;
 }
 - (UIButton *)oneButton
 {

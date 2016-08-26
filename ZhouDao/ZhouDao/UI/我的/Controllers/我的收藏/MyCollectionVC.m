@@ -33,12 +33,7 @@
     [self setupNaviBarWithBtn:NaviLeftBtn title:@"" img:@"backVC"];
     
     _titleArrays = [[NSMutableArray alloc] initWithObjects:@"法律法规",@"司法机关",@"相关案例",@"合同模版",@"赔偿标准",nil];
-    self.smallScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, 50)];
-    self.smallScrollView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.smallScrollView];
-    self.smallScrollView.showsHorizontalScrollIndicator = NO;
-    self.smallScrollView.showsVerticalScrollIndicator = NO;
-    self.smallScrollView.scrollsToTop = NO;
     [self addChildController];
     [self addLable];
     
@@ -46,16 +41,7 @@
     lineView.backgroundColor = LINECOLOR;
     [self.view addSubview:lineView];
     
-    
-    self.bigScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,Orgin_y(lineView), kMainScreenWidth, kMainScreenHeight-Orgin_y(lineView))];
     [self.view addSubview:self.bigScrollView];
-    CGFloat contentX = (self.childViewControllers.count) * [UIScreen mainScreen].bounds.size.width;
-    self.bigScrollView.showsVerticalScrollIndicator = NO;
-    self.bigScrollView.contentSize = CGSizeMake(contentX, 0);
-    self.bigScrollView.pagingEnabled = YES;
-    self.bigScrollView.scrollEnabled = NO;
-    self.bigScrollView.delegate = self;
-    self.bigScrollView.scrollsToTop = NO;
     // 添加默认控制器
     CollectionTableVC *vc = [self.childViewControllers firstObject];
     vc.typeString = @"1";
@@ -184,7 +170,6 @@
         default:
             break;
     }
-//    orderVC.typeString = [NSString stringWithFormat:@"%ld",index+1];
     orderVC.view.frame = scrollView.bounds;
     [self.bigScrollView addSubview:orderVC.view];
     
@@ -194,7 +179,32 @@
 {
     [self scrollViewDidEndScrollingAnimation:scrollView];
 }
-
+#pragma mark - setter and getter
+- (UIScrollView *)bigScrollView
+{
+    if (!_bigScrollView) {
+        self.bigScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,114.6f, kMainScreenWidth, kMainScreenHeight - 114.6f)];
+        CGFloat contentX = (self.childViewControllers.count) * [UIScreen mainScreen].bounds.size.width;
+        self.bigScrollView.showsVerticalScrollIndicator = NO;
+        self.bigScrollView.contentSize = CGSizeMake(contentX, 0);
+        self.bigScrollView.pagingEnabled = YES;
+        self.bigScrollView.scrollEnabled = NO;
+        self.bigScrollView.delegate = self;
+        self.bigScrollView.scrollsToTop = NO;
+    }
+    return _bigScrollView;
+}
+- (UIScrollView *)smallScrollView
+{
+    if (!_smallScrollView) {
+        _smallScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, 50)];
+        _smallScrollView.backgroundColor = [UIColor whiteColor];
+        _smallScrollView.showsHorizontalScrollIndicator = NO;
+        _smallScrollView.showsVerticalScrollIndicator = NO;
+        _smallScrollView.scrollsToTop = NO;
+    }
+    return _smallScrollView;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -201,16 +201,21 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    ConsultantHeadView *headView = [[ConsultantHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 45.f) withSection:section];
-    if (section == 1) {
-        headView.delBtn.hidden = YES;
-        [headView setLabelText:@"账号绑定"];
+    if (section == 0) {
+        return nil;
     }
+    ConsultantHeadView *headView = [[ConsultantHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 45.f) withSection:section];
+    headView.delBtn.hidden = YES;
+    [headView setLabelText:@"账号绑定"];
     return headView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return (section == 0)?0.f:45.f;
+    return (section == 0)?15.f:45.f;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1f;
 }
 #pragma mark -
 #pragma mark - 解除 绑定 和绑定
@@ -475,7 +480,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 #pragma mark - setters and getters
 - (UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,74, kMainScreenWidth, kMainScreenHeight - 74.f) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight - 64.f) style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.backgroundColor = [UIColor clearColor];

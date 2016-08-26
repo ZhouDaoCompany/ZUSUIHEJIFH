@@ -146,8 +146,13 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return section == 0?0:50.f;
+    return section == 0?0.1f:50.f;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1f;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 && indexPath.row == 0) {
@@ -291,7 +296,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 }
 - (UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-139.f) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-139.f) style:UITableViewStyleGrouped];
         _tableView.showsHorizontalScrollIndicator= NO;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.dataSource = self;

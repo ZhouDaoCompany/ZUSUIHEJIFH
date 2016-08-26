@@ -26,7 +26,13 @@
 {
     _titleLab.hidden = NO;
     _iconImgView.hidden = YES;
+    
     _titleLab.text = name;
+    NSDictionary *attribute = @{NSFontAttributeName:Font_15};
+    float width = self.bounds.size.width;
+    CGSize size = [name boundingRectWithSize:CGSizeMake(width-60,MAXFLOAT)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+    _titleLab.frame =CGRectMake(50.f, 24, size.width, size.height);
+
     
 }
 - (void)setModel:(TheContractData *)model

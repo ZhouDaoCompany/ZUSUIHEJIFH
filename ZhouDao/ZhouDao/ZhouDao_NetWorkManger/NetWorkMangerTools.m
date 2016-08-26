@@ -1491,11 +1491,21 @@
             [dataArr addObject:model];
         }];
         [dataArr addObject:@"律师费计算器"];
-//        if (dataArr.count >0) {
-//            if (dataArr.count%2 ==1) {
-//                [dataArr addObject:@""];
-//            }
-//        }
+        [dataArr addObject:@"工伤赔偿计算"];
+        [dataArr addObject:@"离婚房产分割计算器"];
+        [dataArr addObject:@"房屋还贷计算器"];
+        [dataArr addObject:@"裁决书逾期利息计算器"];
+        [dataArr addObject:@"法院受理费计算器"];
+        [dataArr addObject:@"利息计算器"];
+        [dataArr addObject:@"人身损害赔偿计算器_原残疾赔偿金计算器"];
+        [dataArr addObject:@"日期计算器"];
+        [dataArr addObject:@"违约金计算器"];
+
+        if (dataArr.count >0) {
+            if (dataArr.count%2 ==1) {
+                [dataArr addObject:@""];
+            }
+        }
         success(dataArr);
     } fail:^{
         fail();

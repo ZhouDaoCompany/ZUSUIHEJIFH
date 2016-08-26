@@ -1,22 +1,19 @@
 //
-//  LawyerFeesVC.m
+//  OverdueViewController.m
 //  ZhouDao
 //
-//  Created by apple on 16/8/25.
+//  Created by apple on 16/8/26.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-#import "LawyerFeesVC.h"
-#import "LawyerFeesCell.h"
-#import "SelectProvinceVC.h"
-#import "ZHPickView.h"
+#import "OverdueViewController.h"
+#import "OverdueCell.h"
 
-static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
+static NSString *const OverdueCellID = @"OverdueCellID";
 
-@interface LawyerFeesVC ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
-{
-    
-}
+@interface OverdueViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+
+
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
@@ -24,37 +21,41 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 
 @end
 
-@implementation LawyerFeesVC
+@implementation OverdueViewController
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者
 }
 
 #pragma mark - life cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [self initUI];
 }
+
 #pragma mark - private methods
 - (void)initUI
 {
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", @"",nil];
     [self.dataSourceArrays addObject:arr1];
     [self.dataSourceArrays addObject:arr2];
-    
-    [self setupNaviBarWithTitle:@"律师费计算"];
+
+    [self setupNaviBarWithTitle:@"裁决书逾期利息计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
-
+    
 }
+#pragma mark - 
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
+    DLog(@"计算或者重置");
 }
 
 #pragma mark - UITableViewDataSource
@@ -64,48 +65,20 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?4:3;
+    return (section == 0)?5:4;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    LawyerFeesCell *cell = (LawyerFeesCell *)[tableView dequeueReusableCellWithIdentifier:LawyerFeesCellID];
+    OverdueCell *cell = (OverdueCell *)[tableView dequeueReusableCellWithIdentifier:OverdueCellID];
+    [cell settingOverdueCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
     cell.textField.delegate = self;
-    [cell settingUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification
                                                object:cell.textField];
-    return cell;
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
-    NSInteger row = indexPath.row;
-    NSInteger section = indexPath.section;
-    
-    if (section == 0) {
-        if (row == 0) {
-            SelectProvinceVC *selectVC = [SelectProvinceVC new];
-            selectVC.selectBlock = ^(NSString *province, NSString *local){
 
-                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
-                [arr1 replaceObjectAtIndex:row withObject:province];
-                [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
-            };
-            [self presentViewController:selectVC animated:YES completion:nil];
-        }else if(row == 1){
-            
-            ZHPickView *pickView = [[ZHPickView alloc] init];
-            [pickView setDataViewWithItem:@[@"1",@"2",@"3",@"4",@"5",@"6"] title:@"案件类型"];
-            [pickView showPickView:self];
-            pickView.block = ^(NSString *selectedStr,NSString *type)
-            {
-                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
-                [arr1 replaceObjectAtIndex:row withObject:selectedStr];
-                [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
-            };
-        }
-    }
+    return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -150,6 +123,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     NSMutableArray *arr = _dataSourceArrays[section];
     [arr replaceObjectAtIndex:row withObject:textField.text];
 }
+
 #pragma mark -手势
 - (void)dismissKeyBoard{
     [self.view endEditing:YES];
@@ -168,7 +142,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[LawyerFeesCell class] forCellReuseIdentifier:LawyerFeesCellID];
+        [_tableView registerClass:[OverdueCell class] forCellReuseIdentifier:OverdueCellID];
         [_tableView whenCancelTapped:^{
             
             [self dismissKeyBoard];
@@ -215,10 +189,10 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     }
     return _resetButton;
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    [self initUI];
 }
 
 /*
