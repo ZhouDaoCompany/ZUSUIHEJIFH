@@ -33,13 +33,11 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 @end
 
 @implementation ExampleSearchVC
-- (void)viewWillDisappear:(BOOL)animated
+- (void)dealloc
 {
-    [super viewWillDisappear: animated];
-    [_falseImgView removeFromSuperview];
-    _falseImgView = nil;
+    TTVIEW_RELEASE_SAFELY(_falseImgView);
 }
-
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -54,19 +52,15 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         
         [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
         //假的截屏
-        _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];
-        _falseImgView.image = [QZManager capture];
         UIWindow *windows = [QZManager getWindow];
-        [windows addSubview:_falseImgView];
-        [windows sendSubviewToBack:_falseImgView];
+        [windows addSubview:self.falseImgView];
+        [windows sendSubviewToBack:self.falseImgView];
         [AnimationTools makeAnimationBottom:self.view];
     }
     self.navigationController.navigationBarHidden = YES;
     
-    _dataSourceArr = [NSMutableArray array];
-    _collectionHeadView = [[ExampleSearView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 197.f)];
     WEAKSELF;
-    _collectionHeadView.searchBlock = ^(NSString *typeString){
+    self.collectionHeadView.searchBlock = ^(NSString *typeString){
         
         if ([typeString isEqualToString:@"高级"]) {
 //            SeniorViewController *searchVC = [SeniorViewController new];
@@ -77,28 +71,17 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         }
     };
 
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64.f , kMainScreenWidth ,kMainScreenHeight-64.f) collectionViewLayout:layout];
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    self.collectionView.allowsMultipleSelection = YES;
-    self.collectionView.showsHorizontalScrollIndicator = NO;
-    self.collectionView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.collectionView];
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    [self.collectionView registerClass:[GovCollectionViewCell class] forCellWithReuseIdentifier:ExampleSearchIdentifer];
-    [self.collectionView registerClass:[ExampleSearView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HeaderIdentifier];
 
-    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
         [weakSelf.collectionView.mj_header endRefreshing];
         [weakSelf loadData];
     }];
-//    [self.collectionView.mj_header beginRefreshing];
     
     NSArray *arrays = [USER_D objectForKey:ExampleSearchStorage];
     if (arrays.count >0) {
-        [_dataSourceArr removeAllObjects];
+        [self.dataSourceArr removeAllObjects];
         [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             ExampleData *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
@@ -140,15 +123,15 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 }
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [_dataSourceArr count];
+    return [self.dataSourceArr count];
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GovCollectionViewCell * cell = (GovCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:ExampleSearchIdentifer forIndexPath:indexPath];
     
-    if (_dataSourceArr.count >0) {
-        [cell setExampleModel:_dataSourceArr[indexPath.row]];
+    if (self.dataSourceArr.count >0) {
+        [cell setExampleModel:self.dataSourceArr[indexPath.row]];
     }
     return cell;
 }
@@ -169,7 +152,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     if (kind == UICollectionElementKindSectionHeader) {
         UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                                 UICollectionElementKindSectionHeader withReuseIdentifier:HeaderIdentifier forIndexPath:indexPath];
-        [headerView addSubview:_collectionHeadView];//头部广告栏
+        [headerView addSubview:self.collectionHeadView];//头部广告栏
         return headerView;
     }
     return nil;
@@ -214,7 +197,47 @@ referenceSizeForHeaderInSection:(NSInteger)section
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
+#pragma mark - setter and getter
+- (UIImageView *)falseImgView
+{
+    if (!_falseImgView) {
+        //假的截屏
+        _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];
+        _falseImgView.image = [QZManager capture];
+    }
+    return _falseImgView;
+}
+- (UICollectionView *)collectionView
+{
+    if (!_collectionView) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64.f , kMainScreenWidth ,kMainScreenHeight-64.f) collectionViewLayout:layout];
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        _collectionView.allowsMultipleSelection = YES;
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView.backgroundColor = [UIColor clearColor];
+        [_collectionView registerClass:[GovCollectionViewCell class] forCellWithReuseIdentifier:ExampleSearchIdentifer];
+        [_collectionView registerClass:[ExampleSearView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HeaderIdentifier];
+    }
+    return _collectionView;
+}
+- (NSMutableArray *)dataSourceArr
+{
+    if (!_dataSourceArr) {
+        _dataSourceArr = [NSMutableArray array];
+    }
+    return _dataSourceArr;
+}
+- (ExampleSearView *)collectionHeadView
+{
+    if (!_collectionHeadView) {
+        _collectionHeadView = [[ExampleSearView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 197.f)];
+    }
+    return _collectionHeadView;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

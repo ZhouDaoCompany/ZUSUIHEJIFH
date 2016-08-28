@@ -31,8 +31,8 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
     NSUInteger _page;//分页
 
 }
-@property (nonatomic,strong) UITextField *searchField;
-@property (nonatomic,strong) UIImageView *jtImgView;
+@property (nonatomic, strong) UITextField *searchField;
+@property (nonatomic, strong) UIImageView *jtImgView;
 @property (nonatomic, strong) UICollectionView *collectionView;//案件
 @property (nonatomic, strong) UIImageView *falseImgView;
 @property (nonatomic, strong) NSMutableArray *dataSourceArr;//数据源
@@ -41,22 +41,20 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
 @property (nonatomic, strong) UIImageView *addImgView;
 @property (nonatomic, strong) UIImageView *searchImgView;
 @property (nonatomic, strong) UIView *searchView;
-@property (nonatomic,strong) CollectEmptyView *emptyView;   //案件为空时候
+@property (nonatomic, strong) CollectEmptyView *emptyView;   //案件为空时候
 
 @end
 
 @implementation TheCaseManageVC
 
-- (void)viewWillDisappear:(BOOL)animated
+#pragma mark - life cycle
+- (void)dealloc
 {
-    [super viewWillDisappear: animated];
-    [_falseImgView removeFromSuperview];
-    _falseImgView = nil;
+    TTVIEW_RELEASE_SAFELY(_falseImgView);
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
     [self initUI];
 }
 - (void)initUI{
@@ -68,47 +66,32 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
         
         [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
         //假的截屏
-        _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];
-        _falseImgView.image = [QZManager capture];
         UIWindow *windows = [QZManager getWindow];
-        [windows addSubview:_falseImgView];
-        [windows sendSubviewToBack:_falseImgView];
+        [windows addSubview:self.falseImgView];
+        [windows sendSubviewToBack:self.falseImgView];
         [AnimationTools makeAnimationBottom:self.view];
         self.navigationController.navigationBarHidden = YES;
     }
 
-    _dataSourceArr = [NSMutableArray array];
-    _searchDataArr = [NSMutableArray array];
     _page = 0;
-    self.emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 64.f, kMainScreenWidth, kMainScreenHeight-64.f) WithText:@"暂无案件"];
 
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64.f , kMainScreenWidth ,kMainScreenHeight-64.f) collectionViewLayout:layout];
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    self.collectionView.allowsMultipleSelection = YES;
-    self.collectionView.showsHorizontalScrollIndicator = NO;
-    self.collectionView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.collectionView];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-    [self.collectionView registerClass:[TheCaseCollectionCell class] forCellWithReuseIdentifier:TheCaseIdentifer];
-    
-    [self initSearchView];
-
+//    [self initSearchView];
     [self.collectionView.mj_header beginRefreshing];
+    WEAKSELF;
     [self.collectionView whenCancelTapped:^{
-        [self dismissKeyBoard];
+        
+        [weakSelf dismissKeyBoard];
     }];
 }
 #pragma mark - 增加刷新操作
 - (void)addTabRefresh{
     WEAKSELF;
-    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
         [weakSelf.collectionView.mj_header endRefreshing];
         _page = 0;
-        _searchField.text = @"";
+        weakSelf.searchField.text = @"";
         [MBProgressHUD showMBLoadingWithText:nil];
         [NetWorkMangerTools arrangeListWithPage:_page RequestSuccess:^(NSArray *arr) {
             
@@ -125,7 +108,7 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
         }];
     }];
     
-    self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
         [MBProgressHUD showMBLoadingWithText:nil];
         [NetWorkMangerTools arrangeListWithPage:_page RequestSuccess:^(NSArray *arr) {
@@ -146,21 +129,14 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
 {WEAKSELF;
     
     if (_isSearch == YES) {
-        self.collectionView.mj_header = nil;
-        self.collectionView.mj_footer = nil;
+        _collectionView.mj_header = nil;
+        _collectionView.mj_footer = nil;
         [self setupNaviBarWithBtn:NaviRightBtn title:@"取消" img:nil];
         self.rightBtn.titleLabel.font = Font_15;
-        [_addImgView removeFromSuperview];
-        _addImgView = nil;
-        [_searchImgView removeFromSuperview];
-        _searchView = nil;
+        TTVIEW_RELEASE_SAFELY(_addImgView);
+        TTVIEW_RELEASE_SAFELY(_searchImgView);
 
-        UIView *searchView = [[UIView alloc] initWithFrame:CGRectMake(40, 30, kMainScreenWidth-90, 30)];
-        searchView.layer.cornerRadius = 2.5f;
-        searchView.backgroundColor=[UIColor whiteColor];
-        searchView.layer.masksToBounds = YES;
-        _searchView = searchView;
-        [self.view addSubview:_searchView];
+        [self.view addSubview:self.searchView];
         
         UIImageView *search =[[UIImageView alloc] initWithFrame:CGRectMake(15, 5, 20, 20)];
         [_searchView addSubview:search];
@@ -172,42 +148,22 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
         }];
         search.image = [UIImage imageNamed:@"law_sousuo"];
         
-        _searchField =[[UITextField alloc] initWithFrame:CGRectMake(42.5f, 0, searchView.frame.size.width-42.5f, 30)];
-        _searchField.placeholder = @"请输入关键字";
-        _searchField.delegate = self;
-        _searchField.borderStyle = UITextBorderStyleNone;
-        [_searchField setValue:[UIColor colorWithHexString:@"#cccccc"] forKeyPath:@"_placeholderLabel.textColor"];
-        [_searchField setValue:Font_15 forKeyPath:@"_placeholderLabel.font"];
-        _searchField.returnKeyType = UIReturnKeySearch; //设置按键类型
-        [searchView addSubview:_searchField];
-        [_searchField becomeFirstResponder];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(textFieldChanged:)
-                                                     name:UITextFieldTextDidChangeNotification
-                                                   object:_searchField];
-
+        [_searchView addSubview:self.searchField];
+        
     }else {
-        [_searchView removeFromSuperview];
-        _searchView = nil;
+        TTVIEW_RELEASE_SAFELY(_searchView);
+        
         [self addTabRefresh];
         [self.rightBtn setTitle:@"" forState:0];
         [self setupNaviBarWithBtn:NaviRightBtn title:nil img:nil];
         [self setupNaviBarWithTitle:@"案件管理"];
-        UIImageView *addImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -40.f,32.f, 20, 20)];
-        addImgView.image = [UIImage imageNamed:@"mine_addNZ"];
-        addImgView.userInteractionEnabled = YES;
-        _addImgView = addImgView;
-        [self.view addSubview:_addImgView];
+        [self.view addSubview:self.addImgView];
         [_addImgView whenTapped:^{
             
             [weakSelf rightBtnAction];
         }];
         
-        UIImageView *searchImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -85.f,32.f, 20, 20)];
-        searchImgView.image = [UIImage imageNamed:@"law_contentSearch"];
-        searchImgView.userInteractionEnabled = YES;
-        _searchImgView = searchImgView;
-        [self.view addSubview:_searchImgView];
+        [self.view addSubview:self.searchImgView];
         [_searchImgView whenTapped:^{
             
             weakSelf.isSearch = !weakSelf.isSearch;
@@ -219,24 +175,23 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (_isSearch == YES) {
-        (_searchDataArr.count == 0)?[self.view addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
-
-        return [_searchDataArr count];
+        (self.searchDataArr.count == 0)?[self.view addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
+        return [self.searchDataArr count];
     }
-    (_dataSourceArr.count == 0)?[self.view addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
-    return [_dataSourceArr count];
+    (self.dataSourceArr.count == 0)?[self.view addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
+    return [self.dataSourceArr count];
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     TheCaseCollectionCell * cell = (TheCaseCollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:TheCaseIdentifer forIndexPath:indexPath];
     if (_isSearch == YES) {
-        if (_searchDataArr.count >0) {
-            [cell setDataModel:_searchDataArr[indexPath.row]];
+        if (self.searchDataArr.count >0) {
+            [cell setDataModel:self.searchDataArr[indexPath.row]];
         }
     }else{
-        if (_dataSourceArr.count >0) {
-            [cell setDataModel:_dataSourceArr[indexPath.row]];
+        if (self.dataSourceArr.count >0) {
+            [cell setDataModel:self.dataSourceArr[indexPath.row]];
         }
     }
     return cell;
@@ -430,6 +385,100 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+#pragma mark - setter and getter
+- (UIImageView *)falseImgView
+{
+    if (!_falseImgView) {
+        //假的截屏
+        _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];
+        _falseImgView.image = [QZManager capture];
+    }
+    return _falseImgView;
+}
+- (UICollectionView *)collectionView
+{
+    if (!_collectionView) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64.f , kMainScreenWidth ,kMainScreenHeight-64.f) collectionViewLayout:layout];
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        _collectionView.allowsMultipleSelection = YES;
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        [_collectionView registerClass:[TheCaseCollectionCell class] forCellWithReuseIdentifier:TheCaseIdentifer];
+    }
+    return _collectionView;
+}
+- (CollectEmptyView *)emptyView
+{
+    if (!_emptyView) {
+       _emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 64.f, kMainScreenWidth, kMainScreenHeight-64.f) WithText:@"暂无案件"];
+    }
+    return _emptyView;
+}
+- (UIView *)searchView
+{
+    if (!_searchView) {
+        _searchView = [[UIView alloc] initWithFrame:CGRectMake(40, 30, kMainScreenWidth-90, 30)];
+        _searchView.layer.cornerRadius = 2.5f;
+        _searchView.backgroundColor=[UIColor whiteColor];
+        _searchView.layer.masksToBounds = YES;
+    }
+    return _searchView;
+}
+- (UIImageView *)addImgView
+{
+    if (!_addImgView) {
+       _addImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -40.f,32.f, 20, 20)];
+        _addImgView.image = [UIImage imageNamed:@"mine_addNZ"];
+        _addImgView.userInteractionEnabled = YES;
+    }
+    return _addImgView;
+}
+- (UIImageView *)searchImgView
+{
+    if (!_searchImgView) {
+        _searchImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -85.f,32.f, 20, 20)];
+        _searchImgView.image = [UIImage imageNamed:@"law_contentSearch"];
+        _searchImgView.userInteractionEnabled = YES;
+    }
+    return _searchImgView;
+}
+- (UITextField *)searchField
+{
+    if (!_searchField) {
+        _searchField =[[UITextField alloc] initWithFrame:CGRectMake(42.5f, 0, self.searchView.frame.size.width-42.5f, 30)];
+        _searchField.placeholder = @"请输入关键字";
+        _searchField.delegate = self;
+        _searchField.borderStyle = UITextBorderStyleNone;
+        [_searchField setValue:[UIColor colorWithHexString:@"#cccccc"] forKeyPath:@"_placeholderLabel.textColor"];
+        [_searchField setValue:Font_15 forKeyPath:@"_placeholderLabel.font"];
+        _searchField.returnKeyType = UIReturnKeySearch; //设置按键类型
+        [_searchField becomeFirstResponder];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textFieldChanged:)
+                                                     name:UITextFieldTextDidChangeNotification
+                                                   object:_searchField];
+    }
+    return _searchField;
+}
+- (NSMutableArray *)dataSourceArr
+{
+    if (!_dataSourceArr) {
+        _dataSourceArr = [NSMutableArray array];
+    }
+    return _dataSourceArr;
+}
+-(NSMutableArray *)searchDataArr
+{
+    if (!_searchDataArr) {
+        _searchDataArr = [NSMutableArray array];
+    }
+    return _searchDataArr;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -21,12 +21,12 @@ static NSString *const CompensationIdentifier = @"CompensationIdentifier";
 @end
 
 @implementation CompensationVC
-- (void)viewWillDisappear:(BOOL)animated
+- (void)dealloc
 {
-    [super viewWillDisappear: animated];
-    [_falseImgView removeFromSuperview];
-    _falseImgView = nil;
+    TTVIEW_RELEASE_SAFELY(_falseImgView);
 }
+#pragma mark - life cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -41,31 +41,20 @@ static NSString *const CompensationIdentifier = @"CompensationIdentifier";
     }else{
         [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
         //假的截屏
-        _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];
-        _falseImgView.image = [QZManager capture];
         UIWindow *windows = [QZManager getWindow];
-        [windows addSubview:_falseImgView];
-        [windows sendSubviewToBack:_falseImgView];
+        [windows addSubview:self.falseImgView];
+        [windows sendSubviewToBack:self.falseImgView];
         [AnimationTools makeAnimationBottom:self.view];
     }
     
     self.navigationController.navigationBarHidden = YES;
+    [self.view addSubview:self.tableView];
     
-    _dataArrays = [NSMutableArray arrayWithObjects:@"交通事故赔偿标准",@"工伤事故赔偿标准",@"医疗事故赔偿标准", nil];
-    _imgArrays = [NSMutableArray arrayWithObjects:@"pc_jiaotong",@"pc_gongshang",@"pc_yiliao", nil];
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [self.view addSubview:_tableView];
-    [self.tableView registerNib:[UINib nibWithNibName:@"CompensationTabCell" bundle:nil] forCellReuseIdentifier:CompensationIdentifier];
 }
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_dataArrays count];
+    return [self.dataArrays count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -81,9 +70,9 @@ static NSString *const CompensationIdentifier = @"CompensationIdentifier";
     if ([cell isKindOfClass:[CompensationTabCell class]])
     {
         CompensationTabCell *compensationCell = (CompensationTabCell *)cell;
-        UIImage *image = [UIImage imageNamed:_imgArrays[indexPath.row]];
+        UIImage *image = [UIImage imageNamed:self.imgArrays[indexPath.row]];
         compensationCell.DetailImgView.image = image;
-        compensationCell.titleLab.text = _dataArrays[indexPath.row];
+        compensationCell.titleLab.text =self.dataArrays[indexPath.row];
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -102,7 +91,44 @@ static NSString *const CompensationIdentifier = @"CompensationIdentifier";
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
+#pragma mark - setter and getter
+- (UIImageView *)falseImgView
+{
+    if (!_falseImgView) {
+        [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
+        //假的截屏
+        _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];
+        _falseImgView.image = [QZManager capture];
+    }
+    return _falseImgView;
+}
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView registerNib:[UINib nibWithNibName:@"CompensationTabCell" bundle:nil] forCellReuseIdentifier:CompensationIdentifier];
+    }
+    return _tableView;
+}
+- (NSMutableArray *)dataArrays
+{
+    if (!_dataArrays) {
+        _dataArrays = [NSMutableArray arrayWithObjects:@"交通事故赔偿标准",@"工伤事故赔偿标准",@"医疗事故赔偿标准", nil];
+    }
+    return _dataArrays;
+}
+- (NSMutableArray *)imgArrays
+{
+    if (!_imgArrays) {
+        _imgArrays = [NSMutableArray arrayWithObjects:@"pc_jiaotong",@"pc_gongshang",@"pc_yiliao", nil];
+    }
+    return _imgArrays;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

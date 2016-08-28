@@ -34,13 +34,11 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 @end
 
 @implementation TemplateViewController
-- (void)viewWillDisappear:(BOOL)animated
+- (void)dealloc
 {
-    [super viewWillDisappear: animated];
-    [_falseImgView removeFromSuperview];
-    _falseImgView = nil;
+    TTVIEW_RELEASE_SAFELY(_falseImgView);
 }
-
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -51,14 +49,11 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 {
     [self setupNaviBarWithTitle:@"合同模版"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
-//    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"law_contentSearch"];
 
     //假的截屏
-    _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];
-    _falseImgView.image = [QZManager capture];
     UIWindow *windows = [QZManager getWindow];
-    [windows addSubview:_falseImgView];
-    [windows sendSubviewToBack:_falseImgView];
+    [windows addSubview:self.falseImgView];
+    [windows sendSubviewToBack:self.falseImgView];
     [AnimationTools makeAnimationBottom:self.view];
     self.navigationController.navigationBarHidden = YES;
     
@@ -66,19 +61,8 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     _nameArrays = [NSMutableArray array];
     _idArrays = [NSMutableArray array];
     /***************************分割线*****************************/
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , kMainScreenWidth ,kMainScreenHeight-64.f) collectionViewLayout:layout];
-    //layout.headerReferenceSize = CGSizeMake(SCREENWIDTH, 40);
-    
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    self.collectionView.allowsMultipleSelection = YES;
-    self.collectionView.showsHorizontalScrollIndicator = NO;
-    self.collectionView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.collectionView];
-    [self.collectionView registerClass:[ToolCollectionViewCell class] forCellWithReuseIdentifier:templateIdentifier];
+    
     WEAKSELF;
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf.collectionView.mj_header endRefreshing];
@@ -92,6 +76,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         [_nameArrays addObjectsFromArray:nameArr];
         [_idArrays addObjectsFromArray:idArrays];
         [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
             TheContractData *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
             [weakSelf.dataSourceArr addObject:model];
         }];
@@ -205,7 +190,34 @@ referenceSizeForHeaderInSection:(NSInteger)section
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
+#pragma mark - setter and getter
+- (UICollectionView *)collectionView
+{
+    if (!_collectionView) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , kMainScreenWidth ,kMainScreenHeight-64.f) collectionViewLayout:layout];
+        //layout.headerReferenceSize = CGSizeMake(SCREENWIDTH, 40);
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        _collectionView.backgroundColor = [UIColor clearColor];
+        _collectionView.allowsMultipleSelection = YES;
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.showsVerticalScrollIndicator = NO;
+        [_collectionView registerClass:[ToolCollectionViewCell class] forCellWithReuseIdentifier:templateIdentifier];
+    }
+    return _collectionView;
+}
+- (UIImageView *)falseImgView
+{
+    if (!_falseImgView) {
+        [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
+        //假的截屏
+        _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];
+        _falseImgView.image = [QZManager capture];
+    }
+    return _falseImgView;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

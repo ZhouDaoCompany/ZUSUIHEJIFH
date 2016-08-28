@@ -33,18 +33,16 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
 @end
 
 @implementation LawsViewController
-
+- (void)dealloc
+{
+    TTVIEW_RELEASE_SAFELY(_falseImgView);
+}
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [self initView];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear: animated];
-    [_falseImgView removeFromSuperview];
-    _falseImgView = nil;
 }
 - (void)initView
 {
@@ -55,11 +53,9 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
     }else{
         [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
         //假的截屏
-        _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];
-        _falseImgView.image = [QZManager capture];
         UIWindow *windows = [QZManager getWindow];
-        [windows addSubview:_falseImgView];
-        [windows sendSubviewToBack:_falseImgView];
+        [windows addSubview:self.falseImgView];
+        [windows sendSubviewToBack:self.falseImgView];
         [AnimationTools makeAnimationBottom:self.view];
     }
     self.navigationController.navigationBarHidden = YES;
@@ -67,6 +63,7 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
     _dataArrays = [NSMutableArray array];
     _headView = [[LawSview alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, 270)];
     _headView.searchBlock = ^(){
+        
         SecrchLawsVC *searchVC = [SecrchLawsVC new];
         [AnimationTools makeAnimationFade:searchVC :weakSelf.navigationController];
     };
@@ -112,6 +109,7 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
     if (arrays.count >0) {
         [_dataArrays removeAllObjects];
         [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
             LawsDataModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
             [_dataArrays addObject:model];
         }];
@@ -130,23 +128,6 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
     [moreBtn addTarget:self action:@selector(loadMoreData) forControlEvents:UIControlEventTouchUpInside];
     _moreBtn = moreBtn;
     _tableView.tableFooterView = _moreBtn;*/
-}
-- (UITableView *)tableView
-{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
-        //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.showsHorizontalScrollIndicator= NO;
-        _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.backgroundColor = [UIColor clearColor];
-        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        _tableView.tableHeaderView = _headView;
-        [_tableView registerNib:[UINib nibWithNibName:@"LawsTableViewCell" bundle:nil] forCellReuseIdentifier:twoCellIdentifier];
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-    }
-    return _tableView;
 }
 #pragma mark - 请求
 - (void)loadNewData{
@@ -212,6 +193,7 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
     LawsDataModel *model = _dataArrays[indexPath.row];
     TaskModel *tmodel = [TaskModel new];
     [NetWorkMangerTools lawsDetailData:model.id RequestSuccess:^(id obj) {
+        
         LawDetailModel *tempModel = (LawDetailModel *)obj;
         tmodel.idString =tempModel.id;
         tmodel.name = model.name;
@@ -236,6 +218,35 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
 {
     
 }
+#pragma mark - setter and getter
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
+        //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.showsHorizontalScrollIndicator= NO;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        _tableView.tableHeaderView = _headView;
+        [_tableView registerNib:[UINib nibWithNibName:@"LawsTableViewCell" bundle:nil] forCellReuseIdentifier:twoCellIdentifier];
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
+    }
+    return _tableView;
+}
+- (UIImageView *)falseImgView
+{
+    if (!_falseImgView) {
+        [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
+        //假的截屏
+        _falseImgView = [[UIImageView alloc] initWithFrame:kMainScreenFrameRect];
+        _falseImgView.image = [QZManager capture];
+    }
+    return _falseImgView;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
