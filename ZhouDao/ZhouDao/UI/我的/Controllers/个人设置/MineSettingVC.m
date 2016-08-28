@@ -64,30 +64,18 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     _imageArrays = [NSArray arrayWithObjects:@"",@"",@"",@"",@"",@"",nil];
     _titArrays = [NSArray arrayWithObjects:@"我的头像",@"我的账号",@"密码",@"通讯地址",@"我的职业",@"清理缓存", nil];
     
-    NSString *type = @"";
     NSString *pString = [PublicFunction ShareInstance].m_user.data.type;
     
-    if ([pString isEqualToString:@"1"])
-    {
-        type = @"执业律师";
-    }else if ([pString isEqualToString:@"2"]){
-        type = @"实习律师";
-    }else if ([pString isEqualToString:@"3"]){
-        type = @"公司法务";
-    }else if ([pString isEqualToString:@"4"]){
-        type = @"法律专业学生";
-    }else if ([pString isEqualToString:@"5"]){
-        type = @"公务员";
-    }else if ([pString isEqualToString:@"9"]){
-        type = @"其他";
-    }
+    NSDictionary *typeDict = [NSDictionary dictionaryWithObjectsAndKeys:@"执业律师",@"1",@"实习律师",@"2",@"公司法务",@"3",@"法律专业学生",@"4",@"公务员",@"5",@"其他",@"9", nil];
+    NSString *typeString = typeDict[pString];
+    
     NSString *address = @"请您选择地址";
     if (![[PublicFunction ShareInstance].m_user.data.address isEqualToString:@"--"])
     {
         address = [PublicFunction ShareInstance].m_user.data.address;
     }
 
-    _msgArrays = [NSMutableArray arrayWithObjects:@"",[PublicFunction ShareInstance].m_user.data.mobile,@"修改",address, type,cacheString,nil];
+    _msgArrays = [NSMutableArray arrayWithObjects:@"",[PublicFunction ShareInstance].m_user.data.mobile,@"修改",address, typeString,cacheString,nil];
     [ self.view addSubview:self.tableView];
    
 
@@ -120,7 +108,6 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     SettingTabCell *cell = (SettingTabCell *)[tableView dequeueReusableCellWithIdentifier:TwoSettingIdentifer];
     cell.row = row;
     cell.section = indexPath.section;
-    [cell settingUI];
     
     if (indexPath.section == 0) {
         cell.nameLab.text = _titArrays[row];
@@ -134,6 +121,8 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     }else {
         cell.ParentView = self;
     }
+    [cell settingUI];
+
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -183,6 +172,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
             
         }else if (indexPath.row == 4){
             [NetWorkMangerTools getApplyInfoRequestSuccess:^{
+                
                 [weakSelf requestMyCertification];
             }];
         }else if (indexPath.row == 5){

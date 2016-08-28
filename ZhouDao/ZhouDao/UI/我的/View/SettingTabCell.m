@@ -135,6 +135,10 @@
             _lineView.frame = CGRectMake(15, 43.5, kMainScreenWidth-15, .5f);
             _headImg.hidden = YES;
             _addresslab.hidden = NO;
+            if (_row == 1) {
+                _addresslab.text = [QZManager getTheHiddenMobile:_addresslab.text];
+
+            }
             _row ==5?[_lineView setHidden:YES]:[_lineView setHidden:NO];
         }
     }else {

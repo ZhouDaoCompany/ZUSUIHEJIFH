@@ -231,25 +231,14 @@
     }
     
     if (isDate == NO) {
-        NSString *type = @"";
+        NSString *typeString = @"";
+        NSDictionary *typeDict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"执业律师",@"2",@"实习律师",@"3",@"公司法务",@"4",@"法律专业学生",@"5",@"公务员",@"9",@"其他", nil];
 
-        if ([selectedStr isEqualToString:@"执业律师"])
-        {
-            type = @"1";
-        }else if ([selectedStr isEqualToString:@"实习律师"]){
-            type = @"2";
-        }else if ([selectedStr isEqualToString:@"公司法务"]){
-            type = @"3";
-        }else if ([selectedStr isEqualToString:@"法律专业学生"]){
-            type = @"4";
-        }else if ([selectedStr isEqualToString:@"公务员"]){
-            type = @"5";
-        }else if ([selectedStr isEqualToString:@"其他"]){
-            type = @"9";
-        }
+        typeString = typeDict[selectedStr];
         DLog(@"选中----%@",selectedStr);
+        
         if (block) {
-            block(selectedStr,type);
+            block(selectedStr,typeString);
         }
     }else{
         if (_alertBlock) {
@@ -305,9 +294,7 @@
 //}
 - (UIColor *)getColor:(NSString*)hexColor
 
-{
-    
-    unsigned int red,green,blue;
+{    unsigned int red,green,blue;
     NSRange range;
     range.length = 2;
     range.location = 0;
@@ -317,7 +304,6 @@
     range.location = 4;
     [[NSScanner scannerWithString:[hexColor substringWithRange:range]]scanHexInt:&blue];
     return [UIColor colorWithRed:(float)(red/255.0f)green:(float)(green / 255.0f) blue:(float)(blue / 255.0f)alpha:1.0f];
-    
 }
 
 - (CGSize)workOutSizeWithStr:(NSString *)str andFont:(NSInteger)fontSize value:(NSValue *)value{
