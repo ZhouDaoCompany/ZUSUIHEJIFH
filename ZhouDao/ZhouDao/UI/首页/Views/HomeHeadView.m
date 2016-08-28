@@ -128,7 +128,11 @@
     }
     view.type = HomeFrom;
     view.indexBlock = ^(NSInteger index){
-        _indexBlock(index);
+        
+        if (_indexBlock) {
+            
+            _indexBlock(index);
+        }
     };
     if (_imageArrays.count !=0) {
         [view setImgViewImageName:_imageArrays[index] WithLabelText:_titleArrays[index]];

@@ -268,6 +268,7 @@
 {
     if (alertView.tag == 2201) {
         if (buttonIndex == 1) {
+            
             [self openAppStoreEvent];
         }
     }
