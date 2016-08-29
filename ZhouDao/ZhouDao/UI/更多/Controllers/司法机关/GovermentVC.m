@@ -11,6 +11,7 @@
 #import "GovData.h"
 #import "GovernmentListVC.h"
 #import "SelectProvinceVC.h"
+#import "BaseRightBtn.h"
 
 #define govWidth     [UIScreen mainScreen].bounds.size.width/4.f -1.f
 #define govHeight    93.5f
@@ -31,6 +32,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 @property (nonatomic, strong) UIImageView *collectionHeadView;
 @property (nonatomic, copy) NSString *showLocal;
 @property (nonatomic, copy) NSString *provString;
+@property (nonatomic, strong) BaseRightBtn *baseRightButton;
 
 @end
 
@@ -60,8 +62,8 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         _provString = @"上海";
         _showLocal =  @"上海";
     }
+    [self.view addSubview:self.baseRightButton];
     
-    [self setupNaviBarWithBtn:NaviRightBtn title:_showLocal img:@"gov_SelectLoc"];
     self.rightBtn.titleLabel.font = Font_15;
 
     if (_Govtype == GovFromHome) {
@@ -150,7 +152,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         
         weakSelf.provString = prov;
         weakSelf.showLocal  = local;
-        [weakSelf.rightBtn setTitle:local forState:0];
+        [weakSelf.baseRightButton setTitle:local forState:0];
     };
     [self.navigationController pushViewController:vc animated:YES];
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,indexPath.row);
@@ -204,18 +206,34 @@ referenceSizeForHeaderInSection:(NSInteger)section
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
-- (void)rightBtnAction
+- (void)baseRightBtnAction
 {WEAKSELF;
     SelectProvinceVC *selectVC = [SelectProvinceVC new];
     selectVC.selectBlock = ^(NSString *province, NSString *local){
         
         weakSelf.showLocal = local;
         weakSelf.provString = province;
-        [weakSelf.rightBtn setTitle:local forState:0];
+        [weakSelf.baseRightButton setTitle:local forState:0];
     };
     [self presentViewController:selectVC animated:YES completion:nil];
 }
 #pragma amrk - setter and getter
+- (BaseRightBtn *)baseRightButton
+{
+    if (!_baseRightButton) {
+        CGRect frame = CGRectMake(kMainScreenWidth - 70, 20, 70, 44);
+        _baseRightButton = [BaseRightBtn buttonWithType:UIButtonTypeCustom];
+        _baseRightButton.frame = frame;
+        _baseRightButton.backgroundColor = [UIColor clearColor];
+        [_baseRightButton addTarget:self
+                          action:@selector(baseRightBtnAction)
+                forControlEvents:UIControlEventTouchUpInside];
+        [_baseRightButton setTitle:_showLocal forState:0];
+        [_baseRightButton setImage:kGetImage(@"gov_SelectLoc") forState:0];
+    }
+    return _baseRightButton;
+}
+
 - (NSMutableArray *)datasourceArr
 {
     if (!_datasourceArr) {

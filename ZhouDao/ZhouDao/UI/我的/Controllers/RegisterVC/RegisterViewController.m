@@ -44,7 +44,8 @@
     _phoneString = @"";
     [self setupNaviBarWithTitle:@"注册"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Count_close_normal_"];
-    
+    [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
+
     [self.view addSubview:self.logoImgView];
     [self.view addSubview:self.bottomView ];
     

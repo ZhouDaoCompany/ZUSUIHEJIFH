@@ -134,7 +134,7 @@ static NSString *const OverdueCellID = @"OverdueCellID";
 }
 
 #pragma mark - setters and getters
--(UITableView *)tableView{
+-(UITableView *)tableView{WEAKSELF;
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
@@ -145,7 +145,7 @@ static NSString *const OverdueCellID = @"OverdueCellID";
         [_tableView registerClass:[OverdueCell class] forCellReuseIdentifier:OverdueCellID];
         [_tableView whenCancelTapped:^{
             
-            [self dismissKeyBoard];
+            [weakSelf dismissKeyBoard];
         }];
     }
     return _tableView;

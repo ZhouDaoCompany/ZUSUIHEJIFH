@@ -284,11 +284,6 @@
 + (void)homeViewAllDataRequestSuccess:(void (^)(NSArray *hdArr,NSArray *hotArr))success
                                  fail:(void (^)())fail;
 /**
- *  工具分类
- */
-+ (void)toolsClassRequestSuccess:(void (^)(NSArray *arr))success
-                            fail:(void (^)())fail;
-/**
  *  案件管理 创建文件夹 及文件
  */
 + (void)arrangeFileAddwithPid:(NSString *)pid

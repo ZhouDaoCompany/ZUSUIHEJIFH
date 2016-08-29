@@ -76,7 +76,7 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
     _page = 0;
 
     [self.view addSubview:self.collectionView];
-//    [self initSearchView];
+    [self initSearchView];
     [self.collectionView.mj_header beginRefreshing];
     WEAKSELF;
     [self.collectionView whenCancelTapped:^{
@@ -86,41 +86,43 @@ static NSString *const TheCaseIdentifer = @"TheCaseIdentifer";
 }
 #pragma mark - 增加刷新操作
 - (void)addTabRefresh{
-    WEAKSELF;
-    _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
+    _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
+}
+#pragma mark ------ 下拉刷新
+- (void)upRefresh:(id)sender
+{WEAKSELF;
+    [weakSelf.collectionView.mj_header endRefreshing];
+    _page = 0;
+    weakSelf.searchField.text = @"";
+    [MBProgressHUD showMBLoadingWithText:nil];
+    [NetWorkMangerTools arrangeListWithPage:_page RequestSuccess:^(NSArray *arr) {
         
-        [weakSelf.collectionView.mj_header endRefreshing];
-        _page = 0;
-        weakSelf.searchField.text = @"";
-        [MBProgressHUD showMBLoadingWithText:nil];
-        [NetWorkMangerTools arrangeListWithPage:_page RequestSuccess:^(NSArray *arr) {
-            
-            [weakSelf.dataSourceArr removeAllObjects];
-            [weakSelf.dataSourceArr addObjectsFromArray:arr];
-            [weakSelf.collectionView reloadData];
-            [weakSelf.collectionView.mj_footer endRefreshing];
-            _page ++;
-        } fail:^{
-            _page ++;
-            [weakSelf.dataSourceArr removeAllObjects];
-            [weakSelf.collectionView reloadData];
-            [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
-        }];
+        [weakSelf.dataSourceArr removeAllObjects];
+        [weakSelf.dataSourceArr addObjectsFromArray:arr];
+        [weakSelf.collectionView reloadData];
+        [weakSelf.collectionView.mj_footer endRefreshing];
+        _page ++;
+    } fail:^{
+        _page ++;
+        [weakSelf.dataSourceArr removeAllObjects];
+        [weakSelf.collectionView reloadData];
+        [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
     }];
-    
-    _collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+}
+#pragma mark ------ 上拉加载
+- (void)downRefresh:(id)sender
+{WEAKSELF;
+    [MBProgressHUD showMBLoadingWithText:nil];
+    [NetWorkMangerTools arrangeListWithPage:_page RequestSuccess:^(NSArray *arr) {
         
-        [MBProgressHUD showMBLoadingWithText:nil];
-        [NetWorkMangerTools arrangeListWithPage:_page RequestSuccess:^(NSArray *arr) {
-            
-            [weakSelf.dataSourceArr addObjectsFromArray:arr];
-            [weakSelf.collectionView reloadData];
-            [weakSelf.collectionView.mj_footer endRefreshing];
-            _page ++;
-        } fail:^{
-            _page ++;
-            [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
-        }];
+        [weakSelf.dataSourceArr addObjectsFromArray:arr];
+        [weakSelf.collectionView reloadData];
+        [weakSelf.collectionView.mj_footer endRefreshing];
+        _page ++;
+    } fail:^{
+        _page ++;
+        [weakSelf.collectionView.mj_footer endRefreshingWithNoMoreData];
     }];
 
 }

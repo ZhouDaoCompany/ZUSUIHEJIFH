@@ -13,6 +13,7 @@
 #import "GovClassModel.h"
 #import "GovernmentDetailVC.h"
 #import "SelectProvinceVC.h"
+#import "BaseRightBtn.h"
 
 static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 @interface GovernmentListVC ()<JSDropDownMenuDataSource,JSDropDownMenuDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -34,6 +35,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 
 @property (nonatomic, copy) NSString *city;
 @property (nonatomic, copy) NSString *areas;
+@property (nonatomic, strong) BaseRightBtn *baseRightButton;
 
 @end
 
@@ -50,8 +52,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     [self setupNaviBarWithTitle:@"司法机关"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
-    [self setupNaviBarWithBtn:NaviRightBtn title:_showLocal img:@"gov_SelectLoc"];
-    self.rightBtn.titleLabel.font = Font_15;
+    [self.view addSubview:self.baseRightButton];
 
     _dataSourceArr = [NSMutableArray array];
     _oneArrays = [NSMutableArray array];
@@ -134,7 +135,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 }
 #pragma mark - event response
 
-- (void)rightBtnAction
+- (void)baseRightBtnAction
 {WEAKSELF;
     SelectProvinceVC *selectVC = [SelectProvinceVC new];
     selectVC.selectBlock = ^(NSString *province, NSString *local){
@@ -152,7 +153,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         weakSelf.jsMenu = nil;
         weakSelf.prov = province;
         weakSelf.showLocal = local;
-        [weakSelf.rightBtn setTitle:weakSelf.showLocal forState:0];
+        [weakSelf.baseRightButton setTitle:weakSelf.showLocal forState:0];
         [weakSelf loadAreasPlistfile];
         [weakSelf.view addSubview:weakSelf.jsMenu];
 
@@ -165,6 +166,21 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 }
 
 #pragma mark - getters and setters
+- (BaseRightBtn *)baseRightButton
+{
+    if (!_baseRightButton) {
+        CGRect frame = CGRectMake(kMainScreenWidth - 70, 20, 70, 44);
+        _baseRightButton = [BaseRightBtn buttonWithType:UIButtonTypeCustom];
+        _baseRightButton.frame = frame;
+        _baseRightButton.backgroundColor = [UIColor clearColor];
+        [_baseRightButton addTarget:self
+                             action:@selector(baseRightBtnAction)
+                   forControlEvents:UIControlEventTouchUpInside];
+        [_baseRightButton setTitle:_showLocal forState:0];
+        [_baseRightButton setImage:kGetImage(@"gov_SelectLoc") forState:0];
+    }
+    return _baseRightButton;
+}
 
 - (UITableView *)tableView
 {

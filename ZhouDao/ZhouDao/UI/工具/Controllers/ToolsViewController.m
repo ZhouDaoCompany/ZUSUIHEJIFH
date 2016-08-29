@@ -11,8 +11,12 @@
 #import "ToolsWedViewVC.h"
 #import "TheContractData.h"
 #import "LewReorderableLayout.h"
+
 #import "LawyerFeesVC.h"
 #import "OverdueViewController.h"
+#import "CourtViewController.h"
+#import "DivorceViewController.h"
+#import "LiXiViewController.h"
 
 #define toolWidth     [UIScreen mainScreen].bounds.size.width/2.f -0.5f
 #define toolHeight    68
@@ -44,49 +48,17 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 {
     [self setupNaviBarWithTitle:@"工具"];
     [self.view addSubview:self.collectionView];
-    [self loadData];
+    [self loadDataFromTheLocal];
 }
 #pragma mark - 请求
-- (void)loadData
-{WEAKSELF;
-    
-    NSArray *arrays = [USER_D objectForKey:ToolsStorage];
+- (void)loadDataFromTheLocal
+{
+    NSArray *arrays = [USER_D objectForKey:TOOLSTHESORT];
     if (arrays.count >0) {
-        [weakSelf.dataSourceArrays removeAllObjects];
-        [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            BasicModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-            [weakSelf.dataSourceArrays addObject:model];
-        }];
-        [weakSelf.collectionView reloadData];
-    }else{
-        [MBProgressHUD showMBLoadingWithText:nil];
+        [self.dataSourceArrays removeAllObjects];
+        [self.dataSourceArrays addObjectsFromArray:arrays];
     }
-    
-    [NetWorkMangerTools toolsClassRequestSuccess:^(NSArray *arr) {
-        
-        [weakSelf.dataSourceArrays removeAllObjects];
-        [weakSelf.dataSourceArrays addObjectsFromArray:arr];
-        [weakSelf.collectionView reloadData];
-        NSMutableArray *arrays = [NSMutableArray array];
-        [arr enumerateObjectsUsingBlock:^(BasicModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
-            [arrays addObject:data];
-        }];
-        [USER_D setObject:arrays forKey:ToolsStorage];
-        [USER_D synchronize];
-    } fail:^{
-        NSArray *arrays = [USER_D objectForKey:ToolsStorage];
-        if (arrays.count >0) {
-            [weakSelf.dataSourceArrays removeAllObjects];
-            [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                BasicModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-                [weakSelf.dataSourceArrays addObject:model];
-            }];
-            [weakSelf.collectionView reloadData];
-        }
-    }];
+    [self.collectionView reloadData];
 }
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -99,43 +71,33 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     ToolCollectionViewCell * cell = (ToolCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:toolIdentifier forIndexPath:indexPath];
     
     if (self.dataSourceArrays.count >0) {
-        if ([self.dataSourceArrays[indexPath.row] isKindOfClass:[BasicModel class]]) {
-            [cell setBasicModel:self.dataSourceArrays[indexPath.row]];
-        }else{
-            [cell theNewCalculatorWithName:self.dataSourceArrays[indexPath.row]];
-        }
+        [cell settingToolsUIWithName:self.dataSourceArrays[indexPath.row]];
     }
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    WEAKSELF;
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,(long)indexPath.row);
-    
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
-    if ([_dataSourceArrays[indexPath.row] isKindOfClass:[BasicModel class]]) {
+
+    NSString *titleString = _dataSourceArrays[indexPath.row];
+    if ([titleString isEqualToString:@"裁决书逾期利息计算器"]) {
         
-        [_collectionView deselectItemAtIndexPath:indexPath animated:YES];
-        BasicModel *model = _dataSourceArrays[indexPath.row];
-        ToolsWedViewVC *vc = [ToolsWedViewVC new];
-        vc.url = [NSString stringWithFormat:@"ToolsCalculate_%@",model.py];;
-        vc.tType = FromToolsType;
-        vc.navTitle = model.title;
-        vc.imgUrlString = model.app_icon;
-        vc.introContent = model.content;
-        [weakSelf.navigationController  pushViewController:vc animated:YES];
-    }else {
+        OverdueViewController *overdueVC = [OverdueViewController new];
+        [self.navigationController pushViewController:overdueVC animated:YES];
+    }else if ([titleString isEqualToString:@"律师费计算器"]){
         
-        NSString *titleString = _dataSourceArrays[indexPath.row];
-        if ([titleString isEqualToString:@"裁决书逾期利息计算器"]) {
-            
-            OverdueViewController *overdueVC = [OverdueViewController new];
-            [self.navigationController pushViewController:overdueVC animated:YES];
-        }else if ([titleString isEqualToString:@"律师费计算器"]){
-            
-            LawyerFeesVC *vc = [LawyerFeesVC new];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
+        LawyerFeesVC *vc = [LawyerFeesVC new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if ([titleString isEqualToString:@"法院受理费计算器"]){
         
+        CourtViewController *vc = [CourtViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if ([titleString isEqualToString:@"离婚房产分割计算器"]){
+        DivorceViewController *vc = [DivorceViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if ([titleString isEqualToString:@"利息计算器"]){
+        LiXiViewController *vc = [LiXiViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -170,26 +132,26 @@ referenceSizeForHeaderInSection:(NSInteger)section
     return kCollectionViewCellsSection;
 }
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{
-    return YES;
+    return (indexPath.row == 11)?NO:YES;
+}
+- (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath
+{
+    return (toIndexPath.row == 11)?NO:YES;
 }
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath didMoveToIndexPath:(NSIndexPath *)toIndexPath
 {
-    if ([_dataSourceArrays[fromIndexPath.row] isKindOfClass:[BasicModel class]]) {
-        
-        BasicModel *model = _dataSourceArrays[fromIndexPath.row];
-        [_dataSourceArrays removeObjectAtIndex:fromIndexPath.item];
-        [_dataSourceArrays insertObject:model atIndex:toIndexPath.item];
-    }else {
-        NSString *name = _dataSourceArrays[fromIndexPath.row];
-        [_dataSourceArrays removeObjectAtIndex:fromIndexPath.row];
-        [_dataSourceArrays insertObject:name atIndex:toIndexPath.row];
-    }
+    NSString *name = _dataSourceArrays[fromIndexPath.row];
+    [_dataSourceArrays removeObjectAtIndex:fromIndexPath.row];
+    [_dataSourceArrays insertObject:name atIndex:toIndexPath.row];
+    
+    [USER_D setObject:_dataSourceArrays forKey:TOOLSTHESORT];
+    [USER_D synchronize];
 }
 #pragma mark - setter and getter
 - (NSMutableArray *)dataSourceArrays
 {
     if (!_dataSourceArrays) {
-        _dataSourceArrays = [NSMutableArray array];
+        _dataSourceArrays =  [NSMutableArray arrayWithObjects:@"日期计算器",@"人身损害赔偿计算器",@"违约金计算器",@"利息计算器",@"律师费计算器",@"离婚房产分割计算器",@"经济赔偿金计算器",@"工伤赔偿计算器",@"房屋还贷计算器",@"法院受理费计算器",@"裁决书逾期利息计算器",@"", nil];
     }
     return _dataSourceArrays;
 }
@@ -205,13 +167,8 @@ referenceSizeForHeaderInSection:(NSInteger)section
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.allowsMultipleSelection = YES;
+        _collectionView.bounces = NO;
         [_collectionView registerClass:[ToolCollectionViewCell class] forCellWithReuseIdentifier:toolIdentifier];
-        WEAKSELF;
-       _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-           
-            [weakSelf.collectionView.mj_header endRefreshing];
-            [weakSelf loadData];
-        }];
     }
     return _collectionView;
 }

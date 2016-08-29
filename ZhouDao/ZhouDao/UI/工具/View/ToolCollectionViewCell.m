@@ -8,7 +8,13 @@
 
 #import "ToolCollectionViewCell.h"
 
+@interface ToolCollectionViewCell()
+
+@property (nonatomic, strong) NSMutableDictionary *dataSourceDictionary;
+@end
+
 @implementation ToolCollectionViewCell
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -22,37 +28,28 @@
     }
     return self;
 }
-- (void)theNewCalculatorWithName:(NSString *)name
-{
-    _titleLab.hidden = NO;
-    _iconImgView.hidden = YES;
-    
-    _titleLab.text = name;
-    NSDictionary *attribute = @{NSFontAttributeName:Font_15};
-    float width = self.bounds.size.width;
-    CGSize size = [name boundingRectWithSize:CGSizeMake(width-60,MAXFLOAT)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-    _titleLab.frame =CGRectMake(50.f, 24, size.width, size.height);
-
-    
-}
 - (void)setModel:(TheContractData *)model
 {
     _model = nil;
     _model = model;
     [self loadData];
 }
-- (void)setBasicModel:(BasicModel *)basicModel
+- (void)settingToolsUIWithName:(NSString *)name
 {
-    _basicModel = nil;
-    _basicModel = basicModel;
-    _iconImgView.hidden = NO;
-    _titleLab.hidden = NO;
-    [_iconImgView sd_setImageWithURL:[NSURL URLWithString:_basicModel.app_icon] placeholderImage:[UIImage imageNamed:@"law_placeHold"]];
-    _titleLab.text = _basicModel.title;
-    NSDictionary *attribute = @{NSFontAttributeName:Font_15};
-    float width = self.bounds.size.width;
-    CGSize size = [_titleLab.text boundingRectWithSize:CGSizeMake(width-60,MAXFLOAT)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-    _titleLab.frame =CGRectMake(50.f, 24, size.width, size.height);
+    if (name.length >0) {
+        _iconImgView.hidden = NO;
+        _titleLab.hidden = NO;
+        _titleLab.text = name;
+        _iconImgView.image = kGetImage(self.dataSourceDictionary[name]);
+        NSDictionary *attribute = @{NSFontAttributeName:Font_15};
+        float width = self.bounds.size.width;
+        CGSize size = [_titleLab.text boundingRectWithSize:CGSizeMake(width-60,MAXFLOAT)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+        _titleLab.frame =CGRectMake(50.f, 24, size.width, size.height);
+    }else {
+        _iconImgView.hidden = YES;
+        _titleLab.hidden = YES;
+    }
+
 }
 - (void)loadData
 {
@@ -89,6 +86,13 @@
         _titleLab.font = [UIFont systemFontOfSize:15.f];
     }
     return _titleLab;
+}
+- (NSMutableDictionary *)dataSourceDictionary
+{
+    if (!_dataSourceDictionary) {
+        _dataSourceDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Tools_riqi",@"日期计算器",@"Tools_sunhai",@"人身损害赔偿计算器",@"Tools_weiyue",@"违约金计算器",@"Tools_lixi",@"利息计算器",@"Tools_lawerFees",@"律师费计算器",@"Tools_lihun",@"离婚房产分割计算器",@"Tools_peichang",@"经济赔偿金计算器",@"Tools_gongshang",@"工伤赔偿计算器",@"Tools_fangwu",@"房屋还贷计算器",@"Tools_fayuan",@"法院受理费计算器",@"Tools_caijueshu",@"裁决书逾期利息计算器", nil];
+    }
+    return _dataSourceDictionary;
 }
 
 @end

@@ -305,6 +305,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     [MBProgressHUD showMBLoadingWithText:nil];
     NSUInteger page = 0;
     [NetWorkMangerTools LawsSearchResultKeyWords:text withPage:page RequestSuccess:^(NSArray *arr) {
+        
         [self.view endEditing:YES];
         SearchResultsVC *vc = [SearchResultsVC new];
         vc.arrays = arr;

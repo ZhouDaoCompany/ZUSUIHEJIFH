@@ -76,6 +76,8 @@
  *   数据缓存
  */
 #define ToolsStorage            @"ToolsStorage"                //工具页面
+#define TOOLSTHESORT            @"Toolsthesort"                //工具paixu
+
 #define TemplateStorage         @"TemplateStorage"             //模版缓存
 #define GovermentStorage        @"GovermentStorage"            //司法机关
 #define LawsStorage             @"LawsStorage"                 //司法机关

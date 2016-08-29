@@ -71,11 +71,11 @@
     }
     return _leftBtn;
 }
-- (BaseRightBtn *)rightBtn
+- (UIButton *)rightBtn
 {
     if (!_rightBtn) {
         CGRect frame = CGRectMake(CGRectGetWidth(_naviBarView.bounds) - kDefaultWidth, 0.0, kDefaultWidth, kDefaultWidth);
-        self.rightBtn = [BaseRightBtn buttonWithType:UIButtonTypeCustom];
+        self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.rightBtn.frame = frame;
         [self.rightBtn addTarget:self
                           action:@selector(handleBtnAction:)
@@ -360,7 +360,6 @@
     if ([imgName length] > 0) {
         image = [UIImage imageNamed:imgName];
         [btn setImage:image forState:UIControlStateNormal];
-        
         frame.size.width = MAX(image.size.width, 44.0);
     }
     
