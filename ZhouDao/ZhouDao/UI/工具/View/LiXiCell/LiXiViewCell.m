@@ -45,7 +45,7 @@
     if (section == 0) {
         
         NSMutableArray *arr1 = arrays[0];
-        NSArray *titleArr = @[@"本金总额（元）",@"贷款期限",@"贷款期限",@"还款方式",@"年利率（%）",@""];
+        NSArray *titleArr = @[@"本金总额（元）",@"贷款期限",@"贷款期限",@"贷款期限",@"还款方式",@"年利率（%）",@""];
         _titleLab.frame = CGRectMake(15, 12, 160, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
@@ -88,6 +88,16 @@
             case 3:
             {
                 _textField.enabled = NO;
+                _textField.placeholder = @"请选择截止日";
+                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                
+            }
+                break;
+
+            case 4:
+            {
+                _textField.enabled = NO;
                 _textField.placeholder = @"请选择还款方式";
                 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
@@ -95,7 +105,7 @@
                 
             }
                 break;
-            case 4:
+            case 5:
             {
                 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
@@ -103,12 +113,12 @@
 
             }
                 break;
-            case 5:
+            case 6:
             {
                 _manualLabel.hidden = NO;
                 _symbolLabel.hidden = NO;
                 _lineView.hidden = YES;
-                _textField.frame = CGRectMake(Orgin_x(_manualLabel) + 2 , 7, 64, 30);
+                _textField.frame = CGRectMake(Orgin_x(_manualLabel) + 2 , 10, 64, 25);
                 _textField.borderStyle = UITextBorderStyleRoundedRect;
                 _textField.keyboardType = UIKeyboardTypeDecimalPad;
 
@@ -119,9 +129,9 @@
                 break;
         }
     }else {
-        NSMutableArray *arr2 = arrays[0];
+        NSMutableArray *arr2 = arrays[1];
         
-        NSArray *titleArr = @[@"计算结果",@"利息（元）",@"本金（元）"];
+        NSArray *titleArr = @[@"计算结果",@"还款总额（元）",@"利息（元）",@"本金（元）"];
         _titleLab.frame = CGRectMake(15, 12, 160, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
@@ -129,6 +139,8 @@
         _textField.enabled = NO;
         _textField.hidden = NO;
         _segButton.hidden = YES;
+        _symbolLabel.hidden = YES;
+        _manualLabel.hidden = YES;
         self.accessoryType = UITableViewCellAccessoryNone;
         _textField.text = arr2[row];
         _lineView.hidden = NO;
@@ -152,9 +164,15 @@
                 break;
             case 2:
             {
-                
             }
                 break;
+            case 3:
+            {
+                _lineView.hidden = YES;
+
+            }
+                break;
+
             default:
                 break;
         }
@@ -181,7 +199,7 @@
 - (UILabel *)manualLabel
 {
     if (!_manualLabel) {
-        _manualLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth - 205, 12, 111, 20)];
+        _manualLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth - 210, 12, 115, 20)];
         _manualLabel.text = @"您也可以手动输入";
         _manualLabel.font = Font_14;
         _manualLabel.backgroundColor = [UIColor clearColor];
@@ -192,7 +210,7 @@
 - (UILabel *)symbolLabel
 {
     if (!_symbolLabel) {
-        _symbolLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth - 26, 12, 12, 20)];
+        _symbolLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth - 26, 12, 13, 20)];
         _symbolLabel.text = @"%";
         _symbolLabel.font = Font_14;
         _symbolLabel.backgroundColor = [UIColor clearColor];
@@ -201,7 +219,7 @@
     return _symbolLabel;
 }
 
-- (UITextField *)textField
+- (CaseTextField *)textField
 {
     if (!_textField) {
         _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 135, 7, 120, 30)];

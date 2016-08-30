@@ -1,17 +1,17 @@
 //
-//  LiXiViewController.m
+//  PersonalInjuryViewController.m
 //  ZhouDao
 //
-//  Created by apple on 16/8/29.
+//  Created by apple on 16/8/30.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-#import "LiXiViewController.h"
-#import "LiXiViewCell.h"
+#import "PersonalInjuryViewController.h"
+#import "PersonalInjuryCell.h"
 
-static NSString *const LIXICELL = @"lixicellid";
+static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 
-@interface LiXiViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface PersonalInjuryViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -20,12 +20,8 @@ static NSString *const LIXICELL = @"lixicellid";
 
 @end
 
-@implementation LiXiViewController
+@implementation PersonalInjuryViewController
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,41 +31,30 @@ static NSString *const LIXICELL = @"lixicellid";
 #pragma mark - private methods
 - (void)initUI
 {
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"", nil];
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
-    [self.dataSourceArrays addObject:arr1];
-    [self.dataSourceArrays addObject:arr2];
-    
-    [self setupNaviBarWithTitle:@"法院受理费计算"];
+    [self setupNaviBarWithTitle:@"工伤赔偿计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
-    
 }
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
-    [self dismissKeyBoard];
+
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?7:4;
+    return [self.dataSourceArrays count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    LiXiViewCell *cell = (LiXiViewCell *)[tableView dequeueReusableCellWithIdentifier:LIXICELL];
-    cell.textField.delegate = self;
-    [cell settingOverdueCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(textFieldChanged:)
-                                                 name:UITextFieldTextDidChangeNotification
-                                               object:cell.textField];
+    PersonalInjuryCell *cell = (PersonalInjuryCell *)[tableView dequeueReusableCellWithIdentifier:PERSONALCELL];
+    [cell settingPersonalCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:self.dataSourceArrays];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -77,16 +62,14 @@ static NSString *const LIXICELL = @"lixicellid";
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return nil;
-    }
     UIView *secitionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 80)];
     secitionView.backgroundColor = hexColor(F2F2F2);
     [secitionView addSubview:self.calculateButton];
     [secitionView addSubview:self.resetButton];
     return secitionView;
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -94,41 +77,11 @@ static NSString *const LIXICELL = @"lixicellid";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return (section == 0)?0.1f:80.f;
+    return 0.1f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.1f;
-}
-
-#pragma mark -UITextFieldDelegate
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
-    [self dismissKeyBoard];
-    return YES;
-}
-
-- (void)textFieldChanged:(NSNotification*)noti{
-    
-    CaseTextField *textField = (CaseTextField *)noti.object;
-    BOOL flag=[NSString isContainsTwoEmoji:textField.text];
-    if (flag){
-        textField.text = [NSString disable_emoji:textField.text];
-    }
-    NSInteger row = textField.row;
-    NSInteger section = textField.section;
-    
-    NSMutableArray *arr = _dataSourceArrays[section];
-    [arr replaceObjectAtIndex:row withObject:textField.text];
-}
-
-#pragma mark -手势
-- (void)dismissKeyBoard{
-    [self.view endEditing:YES];
-}
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self dismissKeyBoard];
+    return 80.f;
 }
 
 #pragma mark - setters and getters
@@ -140,18 +93,14 @@ static NSString *const LIXICELL = @"lixicellid";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[LiXiViewCell class] forCellReuseIdentifier:LIXICELL];
-        [_tableView whenCancelTapped:^{
-            
-            [weakSelf dismissKeyBoard];
-        }];
+        [_tableView registerClass:[PersonalInjuryCell class] forCellReuseIdentifier:PERSONALCELL];
     }
     return _tableView;
 }
 - (NSMutableArray *)dataSourceArrays
 {
     if (!_dataSourceArrays) {
-        _dataSourceArrays = [NSMutableArray array];
+        _dataSourceArrays = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
     }
     return _dataSourceArrays;
 }
@@ -187,6 +136,8 @@ static NSString *const LIXICELL = @"lixicellid";
     }
     return _resetButton;
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

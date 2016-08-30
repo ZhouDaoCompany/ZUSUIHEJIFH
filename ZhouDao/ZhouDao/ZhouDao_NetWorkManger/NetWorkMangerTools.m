@@ -1685,12 +1685,9 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,historyVersion];
     [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
-        NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
-            [JKPromptView showWithImageName:nil message:msg];
             return ;
         }
-        
         NSDictionary *dataDic = jsonDic[@"data"];
         NSString *version = dataDic[@"version"];
         NSString *desc = dataDic[@"desc"];

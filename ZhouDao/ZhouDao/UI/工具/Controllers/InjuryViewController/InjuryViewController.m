@@ -1,26 +1,27 @@
 //
-//  LiXiViewController.m
+//  InjuryViewController.m
 //  ZhouDao
 //
-//  Created by apple on 16/8/29.
+//  Created by apple on 16/8/30.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-#import "LiXiViewController.h"
-#import "LiXiViewCell.h"
+#import "InjuryViewController.h"
+#import "InjuryViewCell.h"
 
-static NSString *const LIXICELL = @"lixicellid";
+static NSString *const INJURYCELL = @"injurycellid";
 
-@interface LiXiViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface InjuryViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
 
+
 @end
 
-@implementation LiXiViewController
+@implementation InjuryViewController
 
 - (void)dealloc
 {
@@ -35,12 +36,8 @@ static NSString *const LIXICELL = @"lixicellid";
 #pragma mark - private methods
 - (void)initUI
 {
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"", nil];
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
-    [self.dataSourceArrays addObject:arr1];
-    [self.dataSourceArrays addObject:arr2];
     
-    [self setupNaviBarWithTitle:@"法院受理费计算"];
+    [self setupNaviBarWithTitle:@"工伤赔偿计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
@@ -54,18 +51,18 @@ static NSString *const LIXICELL = @"lixicellid";
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?7:4;
+    return [self.dataSourceArrays count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    LiXiViewCell *cell = (LiXiViewCell *)[tableView dequeueReusableCellWithIdentifier:LIXICELL];
+    InjuryViewCell *cell = (InjuryViewCell *)[tableView dequeueReusableCellWithIdentifier:INJURYCELL];
     cell.textField.delegate = self;
-    [cell settingOverdueCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
+    [cell settingInjuryViewCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:self.dataSourceArrays];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification
@@ -77,16 +74,14 @@ static NSString *const LIXICELL = @"lixicellid";
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return nil;
-    }
     UIView *secitionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 80)];
     secitionView.backgroundColor = hexColor(F2F2F2);
     [secitionView addSubview:self.calculateButton];
     [secitionView addSubview:self.resetButton];
     return secitionView;
+
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -94,11 +89,11 @@ static NSString *const LIXICELL = @"lixicellid";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return (section == 0)?0.1f:80.f;
+    return 0.1f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.1f;
+    return 80.f;
 }
 
 #pragma mark -UITextFieldDelegate
@@ -140,7 +135,7 @@ static NSString *const LIXICELL = @"lixicellid";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[LiXiViewCell class] forCellReuseIdentifier:LIXICELL];
+        [_tableView registerClass:[InjuryViewCell class] forCellReuseIdentifier:INJURYCELL];
         [_tableView whenCancelTapped:^{
             
             [weakSelf dismissKeyBoard];
@@ -151,7 +146,7 @@ static NSString *const LIXICELL = @"lixicellid";
 - (NSMutableArray *)dataSourceArrays
 {
     if (!_dataSourceArrays) {
-        _dataSourceArrays = [NSMutableArray array];
+        _dataSourceArrays = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
     }
     return _dataSourceArrays;
 }
@@ -187,6 +182,8 @@ static NSString *const LIXICELL = @"lixicellid";
     }
     return _resetButton;
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

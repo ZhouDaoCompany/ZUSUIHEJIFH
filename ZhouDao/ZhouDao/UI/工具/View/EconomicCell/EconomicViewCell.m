@@ -1,20 +1,20 @@
 //
-//  OverdueCell.m
+//  EconomicViewCell.m
 //  ZhouDao
 //
-//  Created by apple on 16/8/26.
+//  Created by apple on 16/8/30.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-#import "OverdueCell.h"
+#import "EconomicViewCell.h"
 
-@interface OverdueCell()
+@interface EconomicViewCell()
 
 @property (strong, nonatomic) UILabel *titleLab;
 @property (strong, nonatomic) UIView *lineView;
-
 @end
-@implementation OverdueCell
+
+@implementation EconomicViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -25,102 +25,82 @@
         [self.contentView addSubview:self.titleLab];
         [self.contentView addSubview:self.lineView];
         [self.contentView addSubview:self.textField];
-        
     }
     
     return self;
 }
-#pragma mark -
-#pragma mark - methods
-- (void)settingOverdueCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays
+
+- (void)settingEconomicCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays
 {
     _textField.section = section;
     _textField.row = row;
     if (section == 0) {
         
         NSMutableArray *arr1 = arrays[0];
-        NSArray *titleArr = @[@"标的金额（元）",@"还款方式",@"违约金利率（%/日）",@"起算日",@"截止日"];
-        _titleLab.frame = CGRectMake(15, 12, 160, 20);
+        NSArray *titleArr = @[@"工作开始日期",@"工作结束日期",@"平均工资（元/月）",@"工作城市"];
+        _titleLab.frame = CGRectMake(15, 12, 180, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
         _textField.placeholder = @"";
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
         _lineView.hidden = NO;
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
+        _textField.keyboardType = UIKeyboardTypeDecimalPad;
+        _textField.placeholder = @"请输入金额";
+        _textField.text = arr1[row];
+        _textField.enabled = NO;
+        
         switch (row) {
             case 0:
             {
-                _textField.hidden = NO;
-                _textField.enabled = YES;
-                _textField.placeholder = @"请输入金额";
+                _textField.placeholder = @"请选择起算日期";
                 _textField.frame = CGRectMake(kMainScreenWidth - 135, 7, 120, 30);
-                _textField.keyboardType = UIKeyboardTypeDecimalPad;
                 self.accessoryType = UITableViewCellAccessoryNone;
-                _textField.text = arr1[0];
 
-                
             }
                 break;
             case 1:
             {
-                _textField.enabled = NO;
-                _textField.hidden = NO;
-                _textField.text = arr1[1];
-                _textField.placeholder = @"请选择还款方式";
+                _textField.placeholder = @"请选择结束日期";
+                _textField.frame = CGRectMake(kMainScreenWidth - 135, 7, 120, 30);
+                self.accessoryType = UITableViewCellAccessoryNone;
 
-                
             }
                 break;
             case 2:
             {
-                _textField.enabled = NO;
-                _textField.hidden = NO;
-                _textField.text = arr1[2];
-                _textField.placeholder = @"请选择利率";
+                _textField.enabled = YES;
+                _textField.placeholder = @"请输入离职前12个月平均薪资";
+                _textField.frame = CGRectMake(kMainScreenWidth - 200, 7, 185, 30);
+                self.accessoryType = UITableViewCellAccessoryNone;
 
             }
                 break;
             case 3:
             {
-                _textField.enabled = NO;
-                _textField.hidden = NO;
-                _textField.text = arr1[3];
-                _textField.placeholder = @"请选择起算日";
-
-                
-            }
-                break;
-            case 4:
-            {
-                _textField.enabled = NO;
-                _textField.hidden = NO;
-                _textField.text = arr1[4];
+                _textField.frame =  CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
                 _lineView.hidden = YES;
-                _textField.placeholder = @"请选择截止日";
+                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-                
             }
                 break;
-
             default:
                 break;
         }
     }else {
-        NSMutableArray *arr2 = arrays[1];
         
-        NSArray *titleArr = @[@"计算结果",@"还款总额（元）",@"利息（元）",@"本金（元）"];
-        _titleLab.frame = CGRectMake(15, 12, 160, 20);
+        NSMutableArray *arr2 = arrays[1];
+        NSArray *titleArr = @[@"计算结果",@"经济补偿金（元）",@"补偿月数（月）"];
+        _titleLab.frame = CGRectMake(15, 12, 180, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
         _textField.placeholder = @"";
         _textField.enabled = NO;
         _textField.hidden = NO;
         self.accessoryType = UITableViewCellAccessoryNone;
-        _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
         _textField.text = arr2[row];
         _lineView.hidden = NO;
-
+        _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
+        
         switch (row) {
             case 0:
             {
@@ -128,7 +108,6 @@
                 _titleLab.textAlignment = NSTextAlignmentCenter;
                 _textField.hidden = YES;
                 _lineView.frame = CGRectMake(0, 44.4f, kMainScreenWidth, .6f);
-                _lineView.hidden = NO;
                 
             }
                 break;
@@ -143,23 +122,13 @@
                 
             }
                 break;
-            case 3:
-            {
-                _lineView.hidden = YES;
-                
-            }
-                break;
-
             default:
                 break;
         }
         
-        
     }
 
-    
 }
-
 #pragma mark - setter and getter
 - (UILabel *)titleLab
 {
@@ -191,6 +160,7 @@
     }
     return _lineView;
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -1059,7 +1059,7 @@ singleton_for_class(QZManager)
 }
 
 #pragma mark - 使用Core Graphics框架 和 UIBezierPath 画出一个圆角
-- (void)setGraphicsCutCirculayWithView:(UIImageView *) view
++ (void)setGraphicsCutCirculayWithView:(UIImageView *) view
 {
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 1.0);
     [[UIBezierPath bezierPathWithRoundedRect:view.bounds cornerRadius:5] addClip];

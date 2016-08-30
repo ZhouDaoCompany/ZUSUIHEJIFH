@@ -1,17 +1,17 @@
 //
-//  LiXiViewController.m
+//  HouseViewController.m
 //  ZhouDao
 //
-//  Created by apple on 16/8/29.
+//  Created by apple on 16/8/30.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-#import "LiXiViewController.h"
-#import "LiXiViewCell.h"
+#import "HouseViewController.h"
+#import "HouseViewCell.h"
 
-static NSString *const LIXICELL = @"lixicellid";
+static NSString *const HOUSECELL = @"housecellid";
 
-@interface LiXiViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface HouseViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -20,7 +20,7 @@ static NSString *const LIXICELL = @"lixicellid";
 
 @end
 
-@implementation LiXiViewController
+@implementation HouseViewController
 
 - (void)dealloc
 {
@@ -35,12 +35,12 @@ static NSString *const LIXICELL = @"lixicellid";
 #pragma mark - private methods
 - (void)initUI
 {
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"", nil];
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
     [self.dataSourceArrays addObject:arr2];
     
-    [self setupNaviBarWithTitle:@"法院受理费计算"];
+    [self setupNaviBarWithTitle:@"房屋还贷计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
@@ -58,14 +58,14 @@ static NSString *const LIXICELL = @"lixicellid";
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?7:4;
+    return (section == 0)?6:5;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    LiXiViewCell *cell = (LiXiViewCell *)[tableView dequeueReusableCellWithIdentifier:LIXICELL];
+    HouseViewCell *cell = (HouseViewCell *)[tableView dequeueReusableCellWithIdentifier:HOUSECELL];
     cell.textField.delegate = self;
-    [cell settingOverdueCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
+    [cell settingHouseCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification
@@ -90,7 +90,7 @@ static NSString *const LIXICELL = @"lixicellid";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 45.f;
+    return (indexPath.section == 1 && indexPath.row == 0)?80.f:45.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -140,7 +140,7 @@ static NSString *const LIXICELL = @"lixicellid";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[LiXiViewCell class] forCellReuseIdentifier:LIXICELL];
+        [_tableView registerClass:[HouseViewCell class] forCellReuseIdentifier:HOUSECELL];
         [_tableView whenCancelTapped:^{
             
             [weakSelf dismissKeyBoard];
@@ -187,6 +187,7 @@ static NSString *const LIXICELL = @"lixicellid";
     }
     return _resetButton;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

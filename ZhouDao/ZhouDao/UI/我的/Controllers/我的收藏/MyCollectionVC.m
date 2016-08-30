@@ -183,14 +183,14 @@
 - (UIScrollView *)bigScrollView
 {
     if (!_bigScrollView) {
-        self.bigScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,114.6f, kMainScreenWidth, kMainScreenHeight - 114.6f)];
+        _bigScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,114.6f, kMainScreenWidth, kMainScreenHeight - 114.6f)];
         CGFloat contentX = (self.childViewControllers.count) * [UIScreen mainScreen].bounds.size.width;
-        self.bigScrollView.showsVerticalScrollIndicator = NO;
-        self.bigScrollView.contentSize = CGSizeMake(contentX, 0);
-        self.bigScrollView.pagingEnabled = YES;
-        self.bigScrollView.scrollEnabled = NO;
-        self.bigScrollView.delegate = self;
-        self.bigScrollView.scrollsToTop = NO;
+        _bigScrollView.showsVerticalScrollIndicator = NO;
+        _bigScrollView.contentSize = CGSizeMake(contentX, 0);
+        _bigScrollView.pagingEnabled = YES;
+        _bigScrollView.scrollEnabled = NO;
+        _bigScrollView.delegate = self;
+        _bigScrollView.scrollsToTop = NO;
     }
     return _bigScrollView;
 }

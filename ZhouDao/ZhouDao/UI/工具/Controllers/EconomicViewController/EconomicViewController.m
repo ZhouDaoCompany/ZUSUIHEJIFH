@@ -1,17 +1,16 @@
 //
-//  LiXiViewController.m
+//  EconomicViewController.m
 //  ZhouDao
 //
-//  Created by apple on 16/8/29.
+//  Created by apple on 16/8/30.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-#import "LiXiViewController.h"
-#import "LiXiViewCell.h"
+#import "EconomicViewController.h"
+#import "EconomicViewCell.h"
+static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 
-static NSString *const LIXICELL = @"lixicellid";
-
-@interface LiXiViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface EconomicViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -20,37 +19,44 @@ static NSString *const LIXICELL = @"lixicellid";
 
 @end
 
-@implementation LiXiViewController
+@implementation EconomicViewController
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者
 }
+
 #pragma mark - life cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
     [self initUI];
 }
+
 #pragma mark - private methods
 - (void)initUI
 {
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"", nil];
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",nil];
     [self.dataSourceArrays addObject:arr1];
     [self.dataSourceArrays addObject:arr2];
     
-    [self setupNaviBarWithTitle:@"法院受理费计算"];
+    [self setupNaviBarWithTitle:@"裁决书逾期利息计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
     
 }
+#pragma mark -
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
+    DLog(@"计算或者重置");
 }
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -58,24 +64,24 @@ static NSString *const LIXICELL = @"lixicellid";
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?7:4;
+    return (section == 0)?4:3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    LiXiViewCell *cell = (LiXiViewCell *)[tableView dequeueReusableCellWithIdentifier:LIXICELL];
+    EconomicViewCell *cell = (EconomicViewCell *)[tableView dequeueReusableCellWithIdentifier:ECONOMICCellID];
+    [cell settingEconomicCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
     cell.textField.delegate = self;
-    [cell settingOverdueCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification
                                                object:cell.textField];
+    
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
-    NSInteger row = indexPath.row;
-    NSInteger section = indexPath.section;
+{
+    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -100,7 +106,6 @@ static NSString *const LIXICELL = @"lixicellid";
 {
     return 0.1f;
 }
-
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
@@ -140,7 +145,7 @@ static NSString *const LIXICELL = @"lixicellid";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[LiXiViewCell class] forCellReuseIdentifier:LIXICELL];
+        [_tableView registerClass:[EconomicViewCell class] forCellReuseIdentifier:ECONOMICCellID];
         [_tableView whenCancelTapped:^{
             
             [weakSelf dismissKeyBoard];

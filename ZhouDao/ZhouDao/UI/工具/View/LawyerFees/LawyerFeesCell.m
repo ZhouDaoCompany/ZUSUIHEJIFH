@@ -96,7 +96,7 @@
                 break;
         }
     }else {
-        NSMutableArray *arr2 = arrays[0];
+        NSMutableArray *arr2 = arrays[1];
 
         NSArray *titleArr = @[@"计算结果",@"律师费",@"侦查阶段"];
         _titleLab.frame = CGRectMake(15, 12, 160, 20);
@@ -129,7 +129,7 @@
                 break;
             case 2:
             {
-
+                _lineView.hidden = YES;
             }
                 break;
             default:
@@ -155,7 +155,7 @@
     }
     return _titleLab;
 }
-- (UITextField *)textField
+- (CaseTextField *)textField
 {
     if (!_textField) {
         _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 135, 7, 120, 30)];

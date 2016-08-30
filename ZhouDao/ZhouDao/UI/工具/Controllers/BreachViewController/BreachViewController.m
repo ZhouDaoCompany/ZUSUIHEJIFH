@@ -1,18 +1,19 @@
 //
-//  LiXiViewController.m
+//  BreachViewController.m
 //  ZhouDao
 //
-//  Created by apple on 16/8/29.
+//  Created by apple on 16/8/30.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-#import "LiXiViewController.h"
-#import "LiXiViewCell.h"
+#import "BreachViewController.h"
+#import "BreachViewCell.h"
+static NSString *const BREACHCELLID = @"breachcellid";
 
-static NSString *const LIXICELL = @"lixicellid";
-
-@interface LiXiViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
-
+@interface BreachViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+{
+    
+}
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
@@ -20,27 +21,29 @@ static NSString *const LIXICELL = @"lixicellid";
 
 @end
 
-@implementation LiXiViewController
+@implementation BreachViewController
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者
 }
+
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
     [self initUI];
 }
 #pragma mark - private methods
 - (void)initUI
 {
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"", nil];
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
     [self.dataSourceArrays addObject:arr2];
     
-    [self setupNaviBarWithTitle:@"法院受理费计算"];
+    [self setupNaviBarWithTitle:@"违约金计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
@@ -51,6 +54,7 @@ static NSString *const LIXICELL = @"lixicellid";
 {
     [self dismissKeyBoard];
 }
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -58,14 +62,14 @@ static NSString *const LIXICELL = @"lixicellid";
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?7:4;
+    return (section == 0)?5:3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    LiXiViewCell *cell = (LiXiViewCell *)[tableView dequeueReusableCellWithIdentifier:LIXICELL];
+    BreachViewCell *cell = (BreachViewCell *)[tableView dequeueReusableCellWithIdentifier:BREACHCELLID];
     cell.textField.delegate = self;
-    [cell settingOverdueCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
+    [cell settingBreachCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification
@@ -76,6 +80,7 @@ static NSString *const LIXICELL = @"lixicellid";
 {WEAKSELF;
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
+    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -100,7 +105,6 @@ static NSString *const LIXICELL = @"lixicellid";
 {
     return 0.1f;
 }
-
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
@@ -121,7 +125,6 @@ static NSString *const LIXICELL = @"lixicellid";
     NSMutableArray *arr = _dataSourceArrays[section];
     [arr replaceObjectAtIndex:row withObject:textField.text];
 }
-
 #pragma mark -手势
 - (void)dismissKeyBoard{
     [self.view endEditing:YES];
@@ -132,7 +135,7 @@ static NSString *const LIXICELL = @"lixicellid";
 }
 
 #pragma mark - setters and getters
--(UITableView *)tableView{WEAKSELF;
+-(UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
@@ -140,10 +143,10 @@ static NSString *const LIXICELL = @"lixicellid";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[LiXiViewCell class] forCellReuseIdentifier:LIXICELL];
+        [_tableView registerClass:[BreachViewCell class] forCellReuseIdentifier:BREACHCELLID];
         [_tableView whenCancelTapped:^{
             
-            [weakSelf dismissKeyBoard];
+            [self dismissKeyBoard];
         }];
     }
     return _tableView;
@@ -187,6 +190,7 @@ static NSString *const LIXICELL = @"lixicellid";
     }
     return _resetButton;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -131,7 +131,6 @@
 - (UIButton *)openBtn
 {
     if (!_openBtn) {
-        
         _openBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_openBtn setTitleColor:[UIColor whiteColor] forState:0];
         [_openBtn setTitle:@"其他应用打开" forState:0];

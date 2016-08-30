@@ -65,6 +65,7 @@
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
 
+    
     kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
         
         //键盘配置

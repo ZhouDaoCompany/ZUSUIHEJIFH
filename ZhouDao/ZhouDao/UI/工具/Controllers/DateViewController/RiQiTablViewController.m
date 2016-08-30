@@ -1,81 +1,80 @@
 //
-//  LiXiViewController.m
+//  RiQiTablViewController.m
 //  ZhouDao
 //
-//  Created by apple on 16/8/29.
+//  Created by apple on 16/8/30.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-#import "LiXiViewController.h"
-#import "LiXiViewCell.h"
+#import "RiQiTablViewController.h"
+#import "RiQiViewCell.h"
 
-static NSString *const LIXICELL = @"lixicellid";
+static NSString *const RIQICellID = @"RIQICellID";
 
-@interface LiXiViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface RiQiTablViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
 
-@property (strong, nonatomic) UITableView *tableView;
+
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
 
 @end
 
-@implementation LiXiViewController
+@implementation RiQiTablViewController
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者
 }
-#pragma mark - life cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self initUI];
 }
 #pragma mark - private methods
-- (void)initUI
-{
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"", nil];
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
+- (void)initUI{
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",nil];
     [self.dataSourceArrays addObject:arr1];
     [self.dataSourceArrays addObject:arr2];
     
-    [self setupNaviBarWithTitle:@"法院受理费计算"];
-    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
-    [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
-    [self.view addSubview:self.tableView];
-    
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.tableView registerClass:[RiQiViewCell class] forCellReuseIdentifier:RIQICellID];
+    WEAKSELF;
+    [self.tableView whenCancelTapped:^{
+        
+        [weakSelf dismissKeyBoard];
+    }];
 }
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
+    DLog(@"计算或者重置");
 }
-#pragma mark - UITableViewDataSource
+
+
+#pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?7:4;
+    return (section == 0)?4:2;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    LiXiViewCell *cell = (LiXiViewCell *)[tableView dequeueReusableCellWithIdentifier:LIXICELL];
+    RiQiViewCell *cell = (RiQiViewCell *)[tableView dequeueReusableCellWithIdentifier:RIQICellID];
+    [cell settingRiQiCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
     cell.textField.delegate = self;
-    [cell settingOverdueCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification
                                                object:cell.textField];
     return cell;
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
-    NSInteger row = indexPath.row;
-    NSInteger section = indexPath.section;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -100,7 +99,6 @@ static NSString *const LIXICELL = @"lixicellid";
 {
     return 0.1f;
 }
-
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
@@ -121,33 +119,7 @@ static NSString *const LIXICELL = @"lixicellid";
     NSMutableArray *arr = _dataSourceArrays[section];
     [arr replaceObjectAtIndex:row withObject:textField.text];
 }
-
-#pragma mark -手势
-- (void)dismissKeyBoard{
-    [self.view endEditing:YES];
-}
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self dismissKeyBoard];
-}
-
 #pragma mark - setters and getters
--(UITableView *)tableView{WEAKSELF;
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStyleGrouped];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.showsHorizontalScrollIndicator = NO;
-        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[LiXiViewCell class] forCellReuseIdentifier:LIXICELL];
-        [_tableView whenCancelTapped:^{
-            
-            [weakSelf dismissKeyBoard];
-        }];
-    }
-    return _tableView;
-}
 - (NSMutableArray *)dataSourceArrays
 {
     if (!_dataSourceArrays) {
@@ -188,11 +160,14 @@ static NSString *const LIXICELL = @"lixicellid";
     return _resetButton;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark -手势
+- (void)dismissKeyBoard{
+    [self.view endEditing:YES];
 }
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self dismissKeyBoard];
+}
 /*
 #pragma mark - Navigation
 

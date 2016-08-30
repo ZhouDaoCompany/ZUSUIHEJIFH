@@ -150,7 +150,7 @@
     }
     return _titleLab;
 }
-- (UITextField *)textField
+- (CaseTextField *)textField
 {
     if (!_textField) {
         _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 155, 7, 120, 30)];
