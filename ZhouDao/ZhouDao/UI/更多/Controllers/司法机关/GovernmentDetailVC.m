@@ -65,6 +65,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     [self.view addSubview:self.errorBtn];
     [self.view addSubview:self.storeBtn];
     
+    
     self.view.backgroundColor = [UIColor whiteColor];
     UILabel *footLab = [[UILabel alloc] initWithFrame:CGRectMake((kMainScreenWidth - 285.f)/2.f, kMainScreenHeight - 60.f, 285.f, 30.f)];
     footLab.backgroundColor = LRRGBColor(233.f, 229.f, 228.f);
@@ -166,14 +167,26 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0  && indexPath.section == 0) {
-        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleReview withTextAlignment:NSTextAlignmentLeft Title:@"审查说明"];
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleReview withTextAlignment:NSTextAlignmentLeft Title:@"审查说明" WithOptionOne:@"" WithOptionTwo:@""];
+        
         [self.view addSubview:alertWindow];
     }
     
     if (indexPath.row == 2) {
         if (_model.phone.length > 0) {
-            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_model.phone]]];
-            [self.callPhoneWebView loadRequest:request];
+            
+            if ([QZManager isString:_model.phone withContainsStr:@"/"] == YES) {
+                
+                NSArray *array = [_model.phone componentsSeparatedByString:@"/"];
+
+                ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStylePhone withTextAlignment:NSTextAlignmentLeft Title:@"选择号码" WithOptionOne:array[0] WithOptionTwo:array[1]];
+                alertWindow.delegate = self;
+                [self.view addSubview:alertWindow];
+
+            }else {
+                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_model.phone]]];
+                [self.callPhoneWebView loadRequest:request];
+            }
         }
     }else if(indexPath.row == 1){
         
@@ -187,27 +200,36 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
             return;
         }
         
-        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleNAV withTextAlignment:NSTextAlignmentLeft Title:@"选择导航方式"];
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleNAV withTextAlignment:NSTextAlignmentLeft Title:@"选择导航方式" WithOptionOne:@"驾车导航" WithOptionTwo:@"步行导航"];
         alertWindow.delegate = self;
         [self.view addSubview:alertWindow];
-
     }
 }
 #pragma mark - ZD_AlertWindowPro
 - (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        
-        DeriveMapVC *mapVC = [DeriveMapVC new];
-        mapVC.endPoint   = _endPoint;
-        mapVC.startPoint = _startPoint;
-        [self.navigationController pushViewController:mapVC animated:YES];
+    if (alertView.style == ZD_AlertViewStyleNAV) {
+        if (buttonIndex == 0) {
+            
+            DeriveMapVC *mapVC = [DeriveMapVC new];
+            mapVC.endPoint   = _endPoint;
+            mapVC.startPoint = _startPoint;
+            [self.navigationController pushViewController:mapVC animated:YES];
+            
+        }else {
+            MapNavViewController *vc = [MapNavViewController new];
+            vc.endPoint   = _endPoint;
+            vc.startPoint = _startPoint;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
 
-    }else {
-        MapNavViewController *vc = [MapNavViewController new];
-        vc.endPoint   = _endPoint;
-        vc.startPoint = _startPoint;
-        [self.navigationController pushViewController:vc animated:YES];
+    } else if (alertView.style == ZD_AlertViewStylePhone){
+
+        NSArray *array = [_model.phone componentsSeparatedByString:@"/"];
+        NSString *phoneString = (buttonIndex == 0)?array[0]:array[1];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneString]]];
+        [self.callPhoneWebView loadRequest:request];
+
     }
 }
 #pragma mark -UIButtonEvent
@@ -330,7 +352,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     _search.delegate = self;
     //构造AMapGeocodeSearchRequest对象，address为必选项，city为可选项
     AMapGeocodeSearchRequest *geo = [[AMapGeocodeSearchRequest alloc] init];
-    geo.address = _model.address;
+    geo.address = _detailAddress;
     //发起正向地理编码
     [_search AMapGeocodeSearch: geo];
 }

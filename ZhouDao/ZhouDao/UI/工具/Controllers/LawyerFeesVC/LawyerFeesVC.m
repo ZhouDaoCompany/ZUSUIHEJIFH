@@ -13,7 +13,7 @@
 
 static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 
-@interface LawyerFeesVC ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface LawyerFeesVC ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,LawyerFeesCellPro>
 {
     
 }
@@ -40,10 +40,10 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 #pragma mark - private methods
 - (void)initUI
 {
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"是",@"", nil];
+//    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
-    [self.dataSourceArrays addObject:arr2];
+//    [self.dataSourceArrays addObject:arr2];
     
     [self setupNaviBarWithTitle:@"律师费计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
@@ -56,20 +56,38 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 {
     [self dismissKeyBoard];
 }
+#pragma mark - LawyerFeesCellPro
+- (void)aboutProperty:(NSInteger)index
+{
+    NSMutableArray *arr1 = _dataSourceArrays[0];
+    if (index == 1) {
+        [arr1 replaceObjectAtIndex:2 withObject:@"否"];
+        [arr1 removeObjectAtIndex:3];
+        [_tableView reloadData];
 
+    }else {
+        if (arr1.count == 3) {
+            [arr1 addObject:@""];
+            [_tableView reloadData];
+        }
+        [arr1 replaceObjectAtIndex:2 withObject:@"是"];
+    }
+}
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return self.dataSourceArrays.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?4:3;
+    NSMutableArray *arr = self.dataSourceArrays[section];
+    return [arr count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     LawyerFeesCell *cell = (LawyerFeesCell *)[tableView dequeueReusableCellWithIdentifier:LawyerFeesCellID];
+    cell.delegate = self;
     cell.textField.delegate = self;
     [cell settingUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -96,20 +114,31 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         }else if(row == 1){
             
             ZHPickView *pickView = [[ZHPickView alloc] init];
-            [pickView setDataViewWithItem:@[@"1",@"2",@"3",@"4",@"5",@"6"] title:@"案件类型"];
+            [pickView setDataViewWithItem:@[@"民事案件",@"刑事案件",@"行政案件"] title:@"案件类型"];
             [pickView showPickView:self];
             pickView.block = ^(NSString *selectedStr,NSString *type)
             {
                 NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                 [arr1 replaceObjectAtIndex:row withObject:selectedStr];
-                [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
+                if ([selectedStr isEqualToString:@"刑事案件"]) {
+                    if (arr1.count == 4) {
+                        [arr1 removeObjectAtIndex:3];
+                    }
+                    [arr1 removeObjectAtIndex:2];
+                }else {
+                    if (arr1.count == 2) {
+                        [arr1 addObject:@"是"];
+                        [arr1 addObject:@""];
+                    }
+                }
+                [weakSelf.tableView reloadData];
             };
         }
     }
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == 1) {
         return nil;
     }
     UIView *secitionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 80)];
@@ -122,11 +151,11 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 {
     return 45.f;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return (section == 0)?0.1f:80.f;
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return (section == 0)?80.f:0.1f;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.1f;
 }

@@ -30,7 +30,7 @@ static CGFloat kTransitionDuration = 0.3f;
  */
 - (id)initWithStyle:(ZD_AlertViewStyle)style
   withTextAlignment:(NSTextAlignment)contentAlignment
-              Title:(NSString *)title
+              Title:(NSString *)title WithOptionOne:(NSString *)optionOne WithOptionTwo:(NSString *)optionTwo
 {
     self = [super initWithFrame:kMainScreenFrameRect];
 
@@ -39,7 +39,7 @@ static CGFloat kTransitionDuration = 0.3f;
         _style = style;
         _contentAlignment = contentAlignment;
         _titleString = title;
-        [self initData];
+        [self initDataWithOptionOne:optionOne WithOptionTwo:optionTwo];
         [self bounce0Animation];
 
     }
@@ -66,7 +66,7 @@ static CGFloat kTransitionDuration = 0.3f;
 
 }
 #pragma mark - private methods
-- (void)initData
+- (void)initDataWithOptionOne:(NSString *)optionOne WithOptionTwo:(NSString *)optionTwo
 {WEAKSELF;
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
     [self addSubview:self.zd_superView];
@@ -91,7 +91,7 @@ static CGFloat kTransitionDuration = 0.3f;
         _zd_superView.center = CGPointMake(zd_width/2.0,zd_height/2.0);
 
         UILabel *drivingLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 60, kContentLabelWidth - 30, 40)];
-        drivingLab.text = @"驾车导航";
+        drivingLab.text = optionOne;
         drivingLab.textColor = THIRDCOLOR;
         drivingLab.font = Font_16;
         [self.zd_superView addSubview:drivingLab];
@@ -101,7 +101,7 @@ static CGFloat kTransitionDuration = 0.3f;
         [drivingLab  addSubview:indicatorView];
         
         UILabel *walkingLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 100, kContentLabelWidth - 30, 40)];
-        walkingLab.text = @"步行导航";
+        walkingLab.text = optionTwo;
         walkingLab.textColor = THIRDCOLOR;
         walkingLab.font = Font_16;
         [self.zd_superView addSubview:walkingLab];

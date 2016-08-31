@@ -13,6 +13,8 @@ typedef enum {
     ZD_AlertViewStyleDEL    = 1,//删除
     ZD_AlertViewStyleRename = 3,//重命名
     ZD_AlertViewStyleReview = 2,//审查
+    ZD_AlertViewStylePhone  = 4,//电话
+
     
 }ZD_AlertViewStyle;
 
@@ -53,7 +55,7 @@ typedef enum {
  */
 - (id)initWithStyle:(ZD_AlertViewStyle)style
   withTextAlignment:(NSTextAlignment)contentAlignment
-              Title:(NSString *)title;
+              Title:(NSString *)title WithOptionOne:(NSString *)optionOne WithOptionTwo:(NSString *)optionTwo;
 
 
 - (id)initWithStyle:(ZD_AlertViewStyle)style

@@ -26,7 +26,6 @@
         [self.contentView addSubview:self.lineView];
         [self.contentView addSubview:self.segButton];
         [self.contentView addSubview:self.textField];
-
     }
     
     return self;
@@ -75,6 +74,7 @@
                 _textField.hidden = YES;
                 _segButton.hidden = NO;
                 self.accessoryType = UITableViewCellAccessoryNone;
+                ([arr1[2] isEqualToString:@"是"])?[_segButton setSelectedSegmentIndex:0]:[_segButton setSelectedSegmentIndex:1];
                 
             }
                 break;
@@ -83,6 +83,7 @@
                 _textField.hidden = NO;
                 _textField.enabled = YES;
                 _segButton.hidden = YES;
+                _textField.text = arr1[row];
                 _textField.placeholder = @"请输入金额";
                 _textField.keyboardType = UIKeyboardTypeDecimalPad;
                 self.accessoryType = UITableViewCellAccessoryNone;
@@ -142,6 +143,9 @@
 #pragma mark - seg
 - (void)didClicksegmentedControlAction:(UISegmentedControl *)Seg
 {
+    if ([self.delegate respondsToSelector:@selector(aboutProperty:)]) {
+        [self.delegate aboutProperty:Seg.selectedSegmentIndex];
+    }
     
 }
 #pragma mark - setter and getter

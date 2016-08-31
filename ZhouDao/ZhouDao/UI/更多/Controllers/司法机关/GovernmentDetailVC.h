@@ -14,4 +14,5 @@
 
 @property (nonatomic, copy) NSString *idString;
 @property (nonatomic, strong) GovListmodel *model;
+@property (nonatomic, strong) NSString *detailAddress;//详细地址用于编码
 @end

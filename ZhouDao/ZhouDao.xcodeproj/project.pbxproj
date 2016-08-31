@@ -335,6 +335,7 @@
 		185838881D49B9FC00C6A0EE /* gov_Review@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185838861D49B9FC00C6A0EE /* gov_Review@2x.png */; };
 		1858388B1D49D15800C6A0EE /* SelectProvinceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1858388A1D49D15800C6A0EE /* SelectProvinceVC.m */; };
 		1863DFE31C8D2B5B00F7A84E /* GcNoticeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863DFE21C8D2B5B00F7A84E /* GcNoticeUtil.m */; };
+		186553A71D76BB6B00DBA8D8 /* LayerFeesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186553A61D76BB6B00DBA8D8 /* LayerFeesModel.m */; };
 		186640471D24AEC800E1F455 /* GBTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186640461D24AEC800E1F455 /* GBTagListView.m */; };
 		1866404A1D24E9B700E1F455 /* FinanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186640491D24E9B700E1F455 /* FinanceModel.m */; };
 		186AA1491CE430F90009C0D5 /* ExampleDetailData.m in Sources */ = {isa = PBXBuildFile; fileRef = 186AA1481CE430F90009C0D5 /* ExampleDetailData.m */; };
@@ -1070,6 +1071,8 @@
 		1863DFE51C8D316200F7A84E /* DefineHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefineHeader.h; sourceTree = "<group>"; };
 		1863DFE61C8D316200F7A84E /* ZhouDao_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhouDao_Prefix.pch; sourceTree = "<group>"; };
 		1863DFE71C8D316200F7A84E /* ZhouDao_RequestDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhouDao_RequestDefine.h; sourceTree = "<group>"; };
+		186553A51D76BB6B00DBA8D8 /* LayerFeesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerFeesModel.h; sourceTree = "<group>"; };
+		186553A61D76BB6B00DBA8D8 /* LayerFeesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerFeesModel.m; sourceTree = "<group>"; };
 		186640451D24AEC800E1F455 /* GBTagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTagListView.h; sourceTree = "<group>"; };
 		186640461D24AEC800E1F455 /* GBTagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTagListView.m; sourceTree = "<group>"; };
 		186640481D24E9B700E1F455 /* FinanceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceModel.h; sourceTree = "<group>"; };
@@ -2233,8 +2236,8 @@
 		181292A21C87E7B100EBB5CD /* 工具 */ = {
 			isa = PBXGroup;
 			children = (
+				186553A41D76BB6B00DBA8D8 /* Model */,
 				181292A31C87E7B100EBB5CD /* Controllers */,
-				181292A41C87E7B100EBB5CD /* Model */,
 				181292A51C87E7B100EBB5CD /* View */,
 			);
 			path = "工具";
@@ -2262,13 +2265,6 @@
 				18D9570A1CF5ADED00F0E4DB /* ToolsIntroduceVC.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		181292A41C87E7B100EBB5CD /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		181292A51C87E7B100EBB5CD /* View */ = {
@@ -2775,6 +2771,15 @@
 				1829B6601CEAA4130086CF67 /* ThemeColor.h */,
 			);
 			path = DefineHeader;
+			sourceTree = "<group>";
+		};
+		186553A41D76BB6B00DBA8D8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				186553A51D76BB6B00DBA8D8 /* LayerFeesModel.h */,
+				186553A61D76BB6B00DBA8D8 /* LayerFeesModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		186640441D24AEC800E1F455 /* GBTagListView2.0 */ = {
@@ -4572,6 +4577,7 @@
 				10FA014B1CA0EAFE00E691FB /* ImmediatelyVC.m in Sources */,
 				18A428521CC0D19100CEB30E /* AccusingTheCell.m in Sources */,
 				186AA1491CE430F90009C0D5 /* ExampleDetailData.m in Sources */,
+				186553A71D76BB6B00DBA8D8 /* LayerFeesModel.m in Sources */,
 				100982EC1D33C7CE00768D9A /* ParallaxHeaderView.m in Sources */,
 				187A54A81D642CBD0076A8E6 /* DNPhotoBrowser.m in Sources */,
 				104304961CA515CA009D7072 /* FGGDownloader.m in Sources */,

@@ -166,11 +166,11 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
             cityName = [cityName substringToIndex:2];
         }
         
-        [PublicFunction ShareInstance].locProv = _dataSourceArrays[indexPath.row];
+        [PublicFunction ShareInstance].locProv = arr[indexPath.row];
         
         if (_selectBlock) {
             
-            _selectBlock(_dataSourceArrays[indexPath.row],cityName);
+            _selectBlock(arr[indexPath.row],cityName);
         }
         [self dismissViewControllerAnimated:YES completion:^{
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

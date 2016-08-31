@@ -100,7 +100,6 @@
         _oneButton.titleLabel.font = Font_14;
         [_oneButton setTitleColor:hexColor(333333) forState:0];
         [_oneButton addTarget:self action:@selector(hotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-
     }
     return _oneButton;
 }

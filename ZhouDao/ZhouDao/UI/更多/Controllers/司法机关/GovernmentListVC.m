@@ -92,7 +92,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         
         NSArray *tempArr = dict[_prov];
         NSArray *cityArr = [[tempArr objectAtIndex:0] allKeys];
-        _city = @"";
+        _city = cityArr[0];
         [cityArr enumerateObjectsUsingBlock:^(NSString *cityObj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             if ([PublicFunction ShareInstance].locProv.length >0  && [weakSelf.prov isEqualToString:[PublicFunction ShareInstance].locProv ]) {
@@ -140,7 +140,9 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     SelectProvinceVC *selectVC = [SelectProvinceVC new];
     selectVC.selectBlock = ^(NSString *province, NSString *local){
         
-        weakSelf.localBlock(province,local);
+        if (weakSelf.localBlock) {
+            weakSelf.localBlock(province,local);
+        }
         [weakSelf.twoArrays removeAllObjects];
         [weakSelf.jsMenu.leftTableView removeFromSuperview];
         weakSelf.jsMenu.leftTableView = nil;
@@ -277,11 +279,28 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         [NetWorkMangerTools goverDetailWithId:model.id RequestSuccess:^(id obj) {
             
             GovListmodel *tempModel = (GovListmodel *)obj;
+            
+            NSString *detailAddress = tempModel.address;
+            detailAddress = [weakSelf completeAddress:detailAddress withTogether:weakSelf.areas];
+            detailAddress = [weakSelf completeAddress:detailAddress withTogether:weakSelf.city];
+            detailAddress = [weakSelf completeAddress:detailAddress withTogether:weakSelf.prov];
+
             GovernmentDetailVC *vc = [GovernmentDetailVC new];
             vc.model = tempModel;
+            vc.detailAddress = detailAddress;
             [weakSelf.navigationController pushViewController:vc animated:YES];
         }];
     }
+}
+- (NSString *)completeAddress:(NSString *)tempAddress withTogether:(NSString *)templeString
+{
+    NSString *addressString = tempAddress;
+    if (templeString.length >0) {
+        if ([QZManager isString:tempAddress withContainsStr:templeString] == NO) {
+           addressString = [NSString stringWithFormat:@"%@%@",templeString,tempAddress];
+        }
+    }
+    return addressString;
 }
 #pragma mark -
 #pragma mark -JSDropDownMenuDataSource
