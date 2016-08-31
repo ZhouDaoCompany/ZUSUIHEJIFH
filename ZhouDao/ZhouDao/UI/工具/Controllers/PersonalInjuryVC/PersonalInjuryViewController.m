@@ -85,7 +85,7 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 }
 
 #pragma mark - setters and getters
--(UITableView *)tableView{WEAKSELF;
+-(UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
