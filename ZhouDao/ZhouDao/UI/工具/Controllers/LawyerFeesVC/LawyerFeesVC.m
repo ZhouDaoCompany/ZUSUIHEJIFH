@@ -120,7 +120,12 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         if ([isMoney isEqualToString:@"是"]) {
             
             LayerFeesModel *model = [[LayerFeesModel alloc] initWithDictionary:_areasDictionary[@"xz1"]];
-            [self calaulateWithMSAndXZCaseWith:model];
+            
+            if ([_isInterval isEqualToString:@"1"]) {
+                [self calaulateWithMSAndXZCaseWith:model];
+            }else {
+                [self percentageRangeCalculationWith:model];
+            }
 
         }else {
             
@@ -135,7 +140,11 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         if ([isMoney isEqualToString:@"是"]) {
             
             LayerFeesModel *model = [[LayerFeesModel alloc] initWithDictionary:_areasDictionary[@"ms1"]];
-            [self calaulateWithMSAndXZCaseWith:model];
+            if ([_isInterval isEqualToString:@"1"]) {
+                [self calaulateWithMSAndXZCaseWith:model];
+            }else {
+                [self percentageRangeCalculationWith:model];
+            }
             
         }else {
             NSDictionary *ms2Dixt = _areasDictionary[@"ms2"];
@@ -145,6 +154,25 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         }
     }
 }
+#pragma mark - 百分比区间
+- (void)percentageRangeCalculationWith:(LayerFeesModel *)model
+{
+    NSMutableArray *arr = _dataSourceArrays[0];
+    NSString *moneyString  =arr[3];
+    if (moneyString.length == 0) {
+        [JKPromptView showWithImageName:nil message:@"请您输入金额"];
+        return;
+    }
+    __block NSUInteger index = model.allMoney.count;
+    [model.allMoney enumerateObjectsUsingBlock:^(NSString *objMoney, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (([moneyString floatValue] - [objMoney floatValue]) <= 0) {
+            index = idx;
+            *stop = YES;
+        }
+    }];
+}
+#pragma mark - 非百分比区间
 - (void)calaulateWithMSAndXZCaseWith:(LayerFeesModel *)model
 {
     NSMutableArray *arr = _dataSourceArrays[0];
@@ -172,6 +200,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         //最后一位是百分比还是说明 1是说明  2是
         AllProportionModel *perModel = model.allPer[model.allPer.count -1];
         if ([perModel.type isEqualToString:@"1"]) {
+            
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",perModel.con, nil];
             [_dataSourceArrays addObject:arr2];
             [_tableView reloadData];
@@ -182,7 +211,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             }
             lastMoney = lastMoney + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.con floatValue];
             
-            NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f",lastMoney];
+            NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f元",lastMoney];
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
             [_dataSourceArrays addObject:arr2];
             [_tableView reloadData];
@@ -200,7 +229,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             
             lastMoney  = lastMoney + ([moneyString floatValue] - [model.allMoney[index-1] floatValue])*[perModel.con floatValue];
         }
-        NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f",lastMoney];
+        NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f元",lastMoney];
         NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
         [_dataSourceArrays addObject:arr2];
         [_tableView reloadData];

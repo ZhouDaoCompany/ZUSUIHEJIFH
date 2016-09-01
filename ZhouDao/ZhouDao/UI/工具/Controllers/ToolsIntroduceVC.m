@@ -46,8 +46,10 @@
     if (!_textView) {
         _textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 74, kMainScreenWidth-20, kMainScreenHeight-74)];
         _textView.text = _introContent;
-        LRViewBorderRadius(_textView, 3.f, 1.f, LINECOLOR);
+        _textView.backgroundColor =ViewBackColor;
+//        LRViewBorderRadius(_textView, 3.f, 1.f, LINECOLOR);
         _textView.editable = NO;
+        _textView.showsVerticalScrollIndicator = NO;
     }
     return _textView;
 }
