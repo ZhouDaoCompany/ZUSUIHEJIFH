@@ -19,6 +19,11 @@
 
 #pragma mark - Life Cycle
 
+- (void)dealloc
+{
+    TTVIEW_RELEASE_SAFELY(_driveView);
+    TTVIEW_RELEASE_SAFELY(_moreMenu);
+}
 - (instancetype)init
 {
     if (self = [super init])

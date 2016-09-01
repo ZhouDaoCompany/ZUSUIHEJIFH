@@ -20,6 +20,11 @@
 
 @implementation MapNavViewController
 
+- (void)dealloc
+{
+    TTVIEW_RELEASE_SAFELY(_walkView);
+    TTVIEW_RELEASE_SAFELY(_moreMenu);
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

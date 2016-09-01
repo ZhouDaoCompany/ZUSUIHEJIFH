@@ -13,28 +13,24 @@
 
 #import "LayerFeesModel.h"
 #import "DTApiBaseBean.h"
+#import "AllProportionModel.h"
 
 
 @implementation LayerFeesModel
-
-@synthesize content = _content;
-@synthesize id = _id;
-@synthesize pic = _pic;
-@synthesize source = _source;
-@synthesize title = _title;
-@synthesize viewtime = _viewtime;
 
 
 -(id)initWithDictionary:(NSDictionary*)dict
 {
     if (self = [super init])
     {
-		DTAPI_DICT_ASSIGN_STRING(content, @"");
-		DTAPI_DICT_ASSIGN_STRING(id, @"");
-		DTAPI_DICT_ASSIGN_STRING(pic, @"");
-		DTAPI_DICT_ASSIGN_STRING(source, @"");
-		DTAPI_DICT_ASSIGN_STRING(title, @"");
-		DTAPI_DICT_ASSIGN_STRING(viewtime, @"");
+		DTAPI_DICT_ASSIGN_STRING(type, @"");
+        DTAPI_DICT_ASSIGN_STRING(stage, @"");
+
+        DTAPI_DICT_ASSIGN_ARRAY_BASICTYPE(allMoney);
+        DTAPI_DICT_ASSIGN_ARRAY_BASICTYPE(allPerMoney);
+//        DTAPI_DICT_ASSIGN_ARRAY_BASICTYPE(allPer);
+
+        self.allPer = [DTApiBaseBean arrayForKey:@"allPer" inDictionary:dict withClass:[AllProportionModel class]];
     }
     
     return self;
@@ -44,12 +40,13 @@
 {
     NSMutableDictionary *md = [NSMutableDictionary dictionary];
     
-	DTAPI_DICT_EXPORT_BASICTYPE(content);
-	DTAPI_DICT_EXPORT_BASICTYPE(id);
-	DTAPI_DICT_EXPORT_BASICTYPE(pic);
-	DTAPI_DICT_EXPORT_BASICTYPE(source);
-	DTAPI_DICT_EXPORT_BASICTYPE(title);
-	DTAPI_DICT_EXPORT_BASICTYPE(viewtime);
+	DTAPI_DICT_EXPORT_BASICTYPE(type);
+    DTAPI_DICT_EXPORT_BASICTYPE(stage);
+
+    DTAPI_DICT_EXPORT_ARRAY_BEAN(allMoney);
+    DTAPI_DICT_EXPORT_ARRAY_BEAN(allPerMoney);
+    DTAPI_DICT_EXPORT_BASICTYPE(allPer);
+
     return md;
 }
 @end

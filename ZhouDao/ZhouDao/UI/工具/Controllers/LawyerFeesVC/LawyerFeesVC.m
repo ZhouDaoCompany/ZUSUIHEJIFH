@@ -10,6 +10,9 @@
 #import "LawyerFeesCell.h"
 #import "SelectProvinceVC.h"
 #import "ZHPickView.h"
+#import "ToolsIntroduceVC.h"
+#import "LayerFeesModel.h"
+#import "AllProportionModel.h"
 
 static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 
@@ -21,7 +24,9 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
-
+@property (strong, nonatomic) UILabel *bottomLabel;
+@property (strong, nonatomic) NSDictionary *areasDictionary;
+@property (copy, nonatomic)   NSString *isInterval;//是否是百分比区间
 @end
 
 @implementation LawyerFeesVC
@@ -39,7 +44,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 }
 #pragma mark - private methods
 - (void)initUI
-{
+{WEAKSELF;
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"是",@"", nil];
 //    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
@@ -49,12 +54,157 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
-
+    [_tableView setTableFooterView:self.bottomLabel];
+    
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"lawerFees" ofType:@"txt"];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSDictionary *dict= [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+    _areasDictionary = dict[@"area"];
+    _isInterval = _areasDictionary[@"isInterval"];
+    [_bottomLabel whenCancelTapped:^{
+        
+        DLog(@"点击跳转");
+        if (weakSelf.bottomLabel.text.length >0) {
+            ToolsIntroduceVC *vc = [ToolsIntroduceVC new];
+            vc.introContent = weakSelf.areasDictionary[@"text"];
+            [self presentViewController:vc animated:YES completion:^{
+            }];
+        }
+        
+    }];
 }
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
+    
+    if (btn.tag == 3033) {
+        [self showLaywerFees];
+    }else {
+        NSMutableArray *arr = [NSMutableArray arrayWithObjects:@"",@"",@"是",@"", nil];
+        _bottomLabel.text = @"";
+        [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr];
+        if (_dataSourceArrays.count == 2) {
+            [_dataSourceArrays removeObjectAtIndex:1];
+        }
+        [_tableView reloadData];
+    }
+}
+- (void)showLaywerFees
+{
+    NSMutableArray *arr = _dataSourceArrays[0];
+    NSString *proString = arr[0];
+    NSString *caseString = arr[1];
+    
+    if (proString.length == 0) {
+        [JKPromptView showWithImageName:nil message:@"请您选择地区"];
+        return;
+    }
+    if (_dataSourceArrays.count == 2) {
+        [_dataSourceArrays removeObjectAtIndex:1];
+    }
+    if ([caseString isEqualToString:@"刑事案件"]) {
+        
+        NSDictionary *xs1Dixt = _areasDictionary[@"xs1"];
+        NSString *stage = xs1Dixt[@"stage"];
+        NSArray *stageArrays = [stage componentsSeparatedByString:@","];
+        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"", nil];
+        [arr2 addObjectsFromArray:stageArrays];
+        [_dataSourceArrays addObject:arr2];
+        
+        [_tableView reloadData];
+    }
+    if ([caseString isEqualToString:@"行政案件"]) {
+        NSString *isMoney = arr[2];
+        if ([isMoney isEqualToString:@"是"]) {
+            
+            LayerFeesModel *model = [[LayerFeesModel alloc] initWithDictionary:_areasDictionary[@"xz1"]];
+            [self calaulateWithMSAndXZCaseWith:model];
+
+        }else {
+            
+            NSDictionary *xz2Dixt = _areasDictionary[@"xz2"];
+            NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",xz2Dixt[@"fees"], nil];
+            [_dataSourceArrays addObject:arr2];
+            [_tableView reloadData];
+        }
+    }
+    if ([caseString isEqualToString:@"民事案件"]) {
+        NSString *isMoney = arr[2];
+        if ([isMoney isEqualToString:@"是"]) {
+            
+            LayerFeesModel *model = [[LayerFeesModel alloc] initWithDictionary:_areasDictionary[@"ms1"]];
+            [self calaulateWithMSAndXZCaseWith:model];
+            
+        }else {
+            NSDictionary *ms2Dixt = _areasDictionary[@"ms2"];
+            NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",ms2Dixt[@"fees"], nil];
+            [_dataSourceArrays addObject:arr2];
+            [_tableView reloadData];
+        }
+    }
+}
+- (void)calaulateWithMSAndXZCaseWith:(LayerFeesModel *)model
+{
+    NSMutableArray *arr = _dataSourceArrays[0];
+    NSString *moneyString  =arr[3];
+    if (moneyString.length == 0) {
+        [JKPromptView showWithImageName:nil message:@"请您输入金额"];
+        return;
+    }
+    
+    __block NSUInteger index = model.allMoney.count;
+    [model.allMoney enumerateObjectsUsingBlock:^(NSString *objMoney, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (([moneyString floatValue] - [objMoney floatValue]) <= 0) {
+            index = idx;
+            *stop = YES;
+        }
+    }];
+    
+    if (index == 0) {
+        AllProportionModel *perModel = model.allPer[0];
+        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",perModel.con, nil];
+        [_dataSourceArrays addObject:arr2];
+        [_tableView reloadData];
+    }else if (index > model.allMoney.count - 1){
+        //最后一位是百分比还是说明 1是说明  2是
+        AllProportionModel *perModel = model.allPer[model.allPer.count -1];
+        if ([perModel.type isEqualToString:@"1"]) {
+            NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",perModel.con, nil];
+            [_dataSourceArrays addObject:arr2];
+            [_tableView reloadData];
+        }else {
+            float lastMoney = 0.0f;
+            for (NSInteger i =0; i< index; i++) {
+                lastMoney = lastMoney + [model.allPerMoney[i] floatValue];
+            }
+            lastMoney = lastMoney + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.con floatValue];
+            
+            NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f",lastMoney];
+            NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
+            [_dataSourceArrays addObject:arr2];
+            [_tableView reloadData];
+        }
+        
+    }else {
+        
+        float lastMoney = 0.0f;
+        for (NSInteger i =0; i< index; i++) {
+            lastMoney = lastMoney + [model.allPerMoney[i] floatValue];
+        }
+        AllProportionModel *perModel = model.allPer[index];
+        
+        if ([moneyString floatValue] > [model.allMoney[index-1] floatValue]) {
+            
+            lastMoney  = lastMoney + ([moneyString floatValue] - [model.allMoney[index-1] floatValue])*[perModel.con floatValue];
+        }
+        NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f",lastMoney];
+        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
+        [_dataSourceArrays addObject:arr2];
+        [_tableView reloadData];
+    }
 }
 #pragma mark - LawyerFeesCellPro
 - (void)aboutProperty:(NSInteger)index
@@ -64,7 +214,6 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         [arr1 replaceObjectAtIndex:2 withObject:@"否"];
         [arr1 removeObjectAtIndex:3];
         [_tableView reloadData];
-
     }else {
         if (arr1.count == 3) {
             [arr1 addObject:@""];
@@ -106,6 +255,8 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             SelectProvinceVC *selectVC = [SelectProvinceVC new];
             selectVC.selectBlock = ^(NSString *province, NSString *local){
 
+//                上海
+                weakSelf.bottomLabel.text = [NSString stringWithFormat:@"根据《%@诉讼费用交纳办法》计算，供您参考",province];
                 NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                 [arr1 replaceObjectAtIndex:row withObject:province];
                 [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
@@ -215,7 +366,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 - (UIButton *)calculateButton
 {
     if (!_calculateButton) {
-        _calculateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _calculateButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _calculateButton.frame = CGRectMake(15 , 20, (kMainScreenWidth - 45)/2.f, 40);
         _calculateButton.layer.masksToBounds = YES;
         _calculateButton.layer.cornerRadius = 3.f;
@@ -231,7 +382,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 - (UIButton *)resetButton
 {
     if (!_resetButton) {
-        _resetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _resetButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _resetButton.frame = CGRectMake(30 + (kMainScreenWidth - 45)/2.f , 20, (kMainScreenWidth - 45)/2.f, 40);
         _resetButton.layer.masksToBounds = YES;
         _resetButton.layer.cornerRadius = 3.f;
@@ -244,7 +395,18 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     }
     return _resetButton;
 }
-
+- (UILabel *)bottomLabel
+{
+    if (!_bottomLabel) {
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-10, 30)];
+        _bottomLabel.textAlignment = NSTextAlignmentLeft;
+        _bottomLabel.numberOfLines = 0;
+        _bottomLabel.backgroundColor = [UIColor clearColor];
+        _bottomLabel.textColor = hexColor(00c8aa);
+        _bottomLabel.font = Font_12;
+    }
+    return _bottomLabel;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

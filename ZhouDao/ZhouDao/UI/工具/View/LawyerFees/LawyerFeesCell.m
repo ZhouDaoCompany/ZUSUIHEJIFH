@@ -98,8 +98,12 @@
         }
     }else {
         NSMutableArray *arr2 = arrays[1];
-
-        NSArray *titleArr = @[@"计算结果",@"律师费",@"侦查阶段"];
+        NSArray *titleArr;
+        if (arr2.count > 2) {
+            titleArr = @[@"计算结果",@"侦查阶段",@"审查起诉阶段",@"审判阶段"];
+        }else {
+            titleArr = @[@"计算结果",@"律师费"];
+        }
         _titleLab.frame = CGRectMake(15, 12, 160, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
@@ -111,30 +115,15 @@
         _textField.text = arr2[row];
         _lineView.hidden = NO;
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
-
-        switch (row) {
-            case 0:
-            {
-                _titleLab.frame = CGRectMake(15, 12, kMainScreenWidth - 30, 20);
-                _titleLab.textAlignment = NSTextAlignmentCenter;
-                _textField.hidden = YES;
-                _lineView.frame = CGRectMake(0, 44.4f, kMainScreenWidth, .6f);
-
-            }
-                break;
-            case 1:
-            {
-
-                
-            }
-                break;
-            case 2:
-            {
-                _lineView.hidden = YES;
-            }
-                break;
-            default:
-                break;
+        _textField.frame = CGRectMake(kMainScreenWidth - 135, 7, 120, 30);
+        
+        if (row == 0) {
+            _titleLab.frame = CGRectMake(15, 12, kMainScreenWidth - 30, 20);
+            _titleLab.textAlignment = NSTextAlignmentCenter;
+            _textField.hidden = YES;
+            _lineView.frame = CGRectMake(0, 44.4f, kMainScreenWidth, .6f);
+        }else if (row == arr2.count -1){
+            _lineView.hidden = YES;
         }
 
         

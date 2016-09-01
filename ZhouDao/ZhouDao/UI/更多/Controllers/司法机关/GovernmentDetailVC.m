@@ -352,7 +352,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     _search.delegate = self;
     //构造AMapGeocodeSearchRequest对象，address为必选项，city为可选项
     AMapGeocodeSearchRequest *geo = [[AMapGeocodeSearchRequest alloc] init];
-    geo.address = _detailAddress;
+    geo.address = [NSString stringWithFormat:@"%@%@",_detailAddress,_model.name];
     //发起正向地理编码
     [_search AMapGeocodeSearch: geo];
 }

@@ -541,6 +541,9 @@
 		18E0F6581CE9CDFC00032F4B /* ManagerData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E0F6571CE9CDFC00032F4B /* ManagerData.m */; };
 		18E1F4241D13A2CF003C94CD /* Count_close_normal_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E1F4231D13A2CF003C94CD /* Count_close_normal_@2x.png */; };
 		18E2E7FF1D0FD08E00330AFA /* JKCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2E7FE1D0FD08E00330AFA /* JKCountDownButton.m */; };
+		18E4C8D61D77BF3300D83DEF /* AllProportionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4C8D51D77BF3300D83DEF /* AllProportionModel.m */; };
+		18E4C8D81D77DB3600D83DEF /* lawerFees.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18E4C8D71D77DB3600D83DEF /* lawerFees.txt */; };
+		18E4C8DA1D782AB500D83DEF /* Detail.css in Resources */ = {isa = PBXBuildFile; fileRef = 18E4C8D91D782AB500D83DEF /* Detail.css */; };
 		18E6ECEC1CEEF1E300ED74E3 /* law_selectedSC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6ECEB1CEEF1E300ED74E3 /* law_selectedSC@2x.png */; };
 		18E7C47F1CFC312E00E01A11 /* law_placeHold@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E7C47E1CFC312E00E01A11 /* law_placeHold@2x.png */; };
 		18EE958C1D2373150030AE2B /* AddFinanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE958B1D2373150030AE2B /* AddFinanceVC.m */; };
@@ -1414,6 +1417,10 @@
 		18E1F4231D13A2CF003C94CD /* Count_close_normal_@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Count_close_normal_@2x.png"; sourceTree = "<group>"; };
 		18E2E7FD1D0FD08E00330AFA /* JKCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCountDownButton.h; sourceTree = "<group>"; };
 		18E2E7FE1D0FD08E00330AFA /* JKCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCountDownButton.m; sourceTree = "<group>"; };
+		18E4C8D41D77BF3300D83DEF /* AllProportionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllProportionModel.h; sourceTree = "<group>"; };
+		18E4C8D51D77BF3300D83DEF /* AllProportionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllProportionModel.m; sourceTree = "<group>"; };
+		18E4C8D71D77DB3600D83DEF /* lawerFees.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lawerFees.txt; sourceTree = "<group>"; };
+		18E4C8D91D782AB500D83DEF /* Detail.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = Detail.css; sourceTree = "<group>"; };
 		18E6ECEB1CEEF1E300ED74E3 /* law_selectedSC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "law_selectedSC@2x.png"; sourceTree = "<group>"; };
 		18E7C47E1CFC312E00E01A11 /* law_placeHold@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "law_placeHold@2x.png"; sourceTree = "<group>"; };
 		18EE958A1D2373150030AE2B /* AddFinanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFinanceVC.h; sourceTree = "<group>"; };
@@ -2778,6 +2785,10 @@
 			children = (
 				186553A51D76BB6B00DBA8D8 /* LayerFeesModel.h */,
 				186553A61D76BB6B00DBA8D8 /* LayerFeesModel.m */,
+				18E4C8D41D77BF3300D83DEF /* AllProportionModel.h */,
+				18E4C8D51D77BF3300D83DEF /* AllProportionModel.m */,
+				18E4C8D91D782AB500D83DEF /* Detail.css */,
+				18E4C8D71D77DB3600D83DEF /* lawerFees.txt */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4197,6 +4208,7 @@
 				1065C3451CA91BA4003F4089 /* law_jiegou@2x.png in Resources */,
 				1856A1221D4F35150070B93E /* ccbq.js in Resources */,
 				108DC03E1C9FBC3100FD1221 /* blackBack@2x.png in Resources */,
+				18E4C8D81D77DB3600D83DEF /* lawerFees.txt in Resources */,
 				188F9E361CF7FAF2000F9B2D /* Intro_1@2x.png in Resources */,
 				1856A1241D4F35150070B93E /* jquery.min.js in Resources */,
 				108DC0341C9FA38E00FD1221 /* mine_head@2x.png in Resources */,
@@ -4222,6 +4234,7 @@
 				108DC0361C9FA38E00FD1221 /* mine_manager@2x.png in Resources */,
 				108DC02C1C9FA38E00FD1221 /* mine_box@2x.png in Resources */,
 				1856A11F1D4F35150070B93E /* bootstrap-datetimepicker.zh-CN.js in Resources */,
+				18E4C8DA1D782AB500D83DEF /* Detail.css in Resources */,
 				1856A1281D4F35150070B93E /* shoulifei.js in Resources */,
 				1856A0F61D4F35150070B93E /* bootstrap-datetimepicker.bn.js in Resources */,
 				18B16AD01CFD5CE300561CD5 /* UMSnsAccountViewController.xib in Resources */,
@@ -4503,6 +4516,7 @@
 				10172BE01CBBF16C00B7553E /* KxMenu.m in Sources */,
 				183FFCB41D378546007D0494 /* ShareView.m in Sources */,
 				18AD6AAE1CD99D500053F46B /* TheContractData.m in Sources */,
+				18E4C8D61D77BF3300D83DEF /* AllProportionModel.m in Sources */,
 				18D9570B1CF5ADED00F0E4DB /* ToolsIntroduceVC.m in Sources */,
 				1830E0701D4863B9005D287E /* SDPhotoBrowser.m in Sources */,
 				18FF42D91C97AF6F00C6B29A /* MoveTopTabViewCell.m in Sources */,

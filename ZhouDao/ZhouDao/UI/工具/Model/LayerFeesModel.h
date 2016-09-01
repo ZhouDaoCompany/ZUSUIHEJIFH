@@ -16,22 +16,15 @@
 
 
 @interface LayerFeesModel : NSObject
-{
-	NSString *_content;
-	NSString *_id;
-	NSString *_pic;
-	NSString *_source;
-	NSString *_title;
-	NSString *_viewtime;
-}
 
+@property (nonatomic, copy)   NSString *type;
+@property (nonatomic, copy)   NSString *stage;
 
-@property (nonatomic, copy) NSString *content;
-@property (nonatomic, copy) NSString *id;
-@property (nonatomic, copy) NSString *pic;
-@property (nonatomic, copy) NSString *source;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *viewtime;
+@property (nonatomic, strong) NSMutableArray *allMoney;//价格
+@property (nonatomic, strong) NSMutableArray *allPer;//比例
+@property (nonatomic, strong) NSMutableArray *allPerMoney;//比例价格(按照价格乘以比例运算)
+//@property (nonatomic, copy)   NSString *text;//地区说明
+//@property (nonatomic, copy)   NSString *isInterval;//是否是区间百分比 1不是 2是
 
 -(id)initWithDictionary:(NSDictionary*)dict;
 -(NSDictionary*)dictionaryValue;

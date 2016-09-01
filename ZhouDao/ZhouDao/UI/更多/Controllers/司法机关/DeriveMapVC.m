@@ -20,10 +20,14 @@
 @end
 
 @implementation DeriveMapVC
-- (void)viewDidDisappear:(BOOL)animated
+//- (void)viewDidDisappear:(BOOL)animated
+//{
+//    [super viewDidDisappear:animated];
+//    self.mapView = nil;
+//}
+- (void)dealloc
 {
-    [super viewDidDisappear:animated];
-    self.mapView = nil;
+    TTVIEW_RELEASE_SAFELY(_mapView);
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,9 +73,14 @@
     [self.driveManager stopNavi];
     //停止语音
     [[SpeechSynthesizer sharedSpeechSynthesizer] stopSpeak];
-    GovernmentDetailVC *vc = self.navigationController.viewControllers[2];
-    [self.navigationController  popToViewController:vc
-                                           animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO
+                                            withAnimation:UIStatusBarAnimationFade];
+    for (UIViewController *vc in self.navigationController.viewControllers) {
+        if ([vc isKindOfClass:[GovernmentDetailVC class]]) {
+            [self.navigationController  popToViewController:vc
+                                                   animated:YES];
+        }
+    }
 }
 
 
@@ -102,9 +111,14 @@
     [self.driveManager stopNavi];
     //停止语音
     [[SpeechSynthesizer sharedSpeechSynthesizer] stopSpeak];
-    GovernmentDetailVC *vc = self.navigationController.viewControllers[2];
-    [self.navigationController  popToViewController:vc
-                                           animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO
+                                            withAnimation:UIStatusBarAnimationFade];
+    for (UIViewController *vc in self.navigationController.viewControllers) {
+        if ([vc isKindOfClass:[GovernmentDetailVC class]]) {
+            [self.navigationController  popToViewController:vc
+                                                   animated:YES];
+        }
+    }
 }
 
 - (void)driveManager:(AMapNaviDriveManager *)driveManager didStartNavi:(AMapNaviMode)naviMode

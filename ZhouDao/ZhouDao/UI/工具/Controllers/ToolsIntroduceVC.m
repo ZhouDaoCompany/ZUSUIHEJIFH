@@ -10,7 +10,7 @@
 #import "UIWebView+HTML5.h"
 
 @interface ToolsIntroduceVC ()
-@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) UITextView *textView;
 
 @end
 
@@ -33,18 +33,23 @@
     self.statusBarView.backgroundColor = ViewBackColor;//[UIColor colorWithHexString:@"#"];
     self.naviBarView.backgroundColor = ViewBackColor;
 
-    UIWebView * webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
-    webView.backgroundColor = ViewBackColor;
-    [webView setOpaque:NO];
-    _webView = webView;
-    _webView.dataDetectorTypes = UIDataDetectorTypeNone;
-    [self.view addSubview:_webView];
-    [_webView loadHTMLString:_introContent baseURL:nil];
+    [self.view addSubview:self.textView];
 }
 - (void)rightBtnAction{
     [self dismissViewControllerAnimated:YES completion:^{
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
+}
+#pragma mark - setter and getter
+- (UITextView *)textView
+{
+    if (!_textView) {
+        _textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 74, kMainScreenWidth-20, kMainScreenHeight-74)];
+        _textView.text = _introContent;
+        LRViewBorderRadius(_textView, 3.f, 1.f, LINECOLOR);
+        _textView.editable = NO;
+    }
+    return _textView;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
