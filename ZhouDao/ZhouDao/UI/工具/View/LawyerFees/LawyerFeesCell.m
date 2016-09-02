@@ -115,7 +115,7 @@
         _textField.text = arr2[row];
         _lineView.hidden = NO;
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
-        _textField.frame = CGRectMake(kMainScreenWidth - 135, 7, 120, 30);
+        _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
         
         if (row == 0) {
             _titleLab.frame = CGRectMake(15, 12, kMainScreenWidth - 30, 20);

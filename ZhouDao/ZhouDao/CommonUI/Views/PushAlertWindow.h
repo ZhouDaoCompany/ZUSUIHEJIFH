@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger,PushAlertType) {
 @interface PushAlertWindow : UIView
 
 @property (nonatomic ,strong) UIView *zd_superView;
-@property (nonatomic, copy) ZDBlock pushBlock;
+@property (nonatomic, copy)   ZDBlock pushBlock;
 @property (nonatomic, assign) PushAlertType type;
 
 -(void)zd_Windowclose;

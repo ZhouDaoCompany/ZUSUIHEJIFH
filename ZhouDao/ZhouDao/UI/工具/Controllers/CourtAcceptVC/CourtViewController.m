@@ -8,6 +8,7 @@
 
 #import "CourtViewController.h"
 #import "CourtViewCell.h"
+#import "ZHPickView.h"
 
 static NSString *const COURTCELL = @"courtacceptcell";
 @interface CourtViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
@@ -34,9 +35,9 @@ static NSString *const COURTCELL = @"courtacceptcell";
 - (void)initUI
 {
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
+//    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
-    [self.dataSourceArrays addObject:arr2];
+//    [self.dataSourceArrays addObject:arr2];
 
     [self setupNaviBarWithTitle:@"法院受理费计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
@@ -52,11 +53,12 @@ static NSString *const COURTCELL = @"courtacceptcell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return self.dataSourceArrays.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?4:3;
+    NSMutableArray *arr = self.dataSourceArrays[section];
+    return [arr count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -74,10 +76,36 @@ static NSString *const COURTCELL = @"courtacceptcell";
 {WEAKSELF;
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
+    
     if (section == 0) {
+        if (row == 0) {
+            ZHPickView *pickView = [[ZHPickView alloc] init];
+            [pickView setDataViewWithItem:@[@"离婚案件",@"人格权案件",@"知识产权案件",@"劳动争议案件",@"行政案件",@"商标、专利、海事行政案件",@"管辖权异议不成立案件",@"财产保全",@"支付令",@"执行费"] title:@"案件类型"];
+            [pickView showPickView:self];
+            pickView.block = ^(NSString *selectedStr,NSString *type)
+            {
+                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
+                [arr1 replaceObjectAtIndex:row withObject:selectedStr];
+                if ([selectedStr isEqualToString:@"刑事案件"]) {
+                    if (arr1.count == 4) {
+                        [arr1 removeObjectAtIndex:3];
+                    }
+                    [arr1 removeObjectAtIndex:2];
+                }else {
+                    if (arr1.count == 2) {
+                        [arr1 addObject:@"是"];
+                        [arr1 addObject:@""];
+                    }
+                }
+                [weakSelf.tableView reloadData];
+            };
+
+        }
+    }
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section == 1) {
         return nil;
     }
     UIView *secitionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 80)];
@@ -90,11 +118,11 @@ static NSString *const COURTCELL = @"courtacceptcell";
 {
     return 45.f;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return (section == 0)?0.1f:80.f;
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return (section == 0)?80.f:0.1f;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.1f;
 }
@@ -156,7 +184,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
 - (UIButton *)calculateButton
 {
     if (!_calculateButton) {
-        _calculateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _calculateButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _calculateButton.frame = CGRectMake(15 , 20, (kMainScreenWidth - 45)/2.f, 40);
         _calculateButton.layer.masksToBounds = YES;
         _calculateButton.layer.cornerRadius = 3.f;
@@ -172,7 +200,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
 - (UIButton *)resetButton
 {
     if (!_resetButton) {
-        _resetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _resetButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _resetButton.frame = CGRectMake(30 + (kMainScreenWidth - 45)/2.f , 20, (kMainScreenWidth - 45)/2.f, 40);
         _resetButton.layer.masksToBounds = YES;
         _resetButton.layer.cornerRadius = 3.f;

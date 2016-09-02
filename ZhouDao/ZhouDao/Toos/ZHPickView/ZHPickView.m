@@ -8,14 +8,20 @@
 
 #import "ZHPickView.h"
 #define SCREENSIZE UIScreen.mainScreen.bounds.size
-@implementation ZHPickView
+@interface ZHPickView()
 {
-    UIView *bgView;
-    NSArray *proTitleList;
-    NSString *selectedStr;
     BOOL isDate;
+
 }
-@synthesize block;
+@property (nonatomic, strong) UIView *bgView;
+@property (nonatomic, strong) NSArray *proTitleList;
+@property (nonatomic, copy) NSString *selectedString;
+@end
+@implementation ZHPickView
+- (void)dealloc
+{
+    TTVIEW_RELEASE_SAFELY(_bgView);
+}
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     isDate = NO;
@@ -23,12 +29,11 @@
 }
 - (void)showWindowPickView:(UIWindow *)window
 {WEAKSELF;
-    bgView = [[UIView alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    bgView.backgroundColor = [UIColor blackColor];
-    bgView.alpha = 0.3f;
-    [window addSubview:bgView];
+    _bgView = [[UIView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    _bgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
+    [window addSubview:_bgView];
     
-    [bgView whenTapped:^{
+    [_bgView whenTapped:^{
         
         [weakSelf hide];
 
@@ -40,7 +45,7 @@
     [UIView animateWithDuration:0.5f
                      animations:^{
                          
-                         self.frame = frame;
+                         weakSelf.frame = frame;
                      }
                      completion:nil];
 
@@ -48,9 +53,8 @@
 
 - (void)showPickView:(UIViewController *)vc
 {WEAKSELF
-    bgView = [[UIView alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    bgView.backgroundColor = [UIColor blackColor];
-    bgView.alpha = 0.3f;
+    _bgView = [[UIView alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    _bgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
     
     CGRect frame = self.frame ;
     self.frame = CGRectMake(0,SCREENSIZE.height + frame.size.height, SCREENSIZE.width, frame.size.height);
@@ -58,15 +62,15 @@
     if ([vc isKindOfClass:[UITableViewController class]]) {
         
         UIWindow *window = [QZManager getWindow];
-        [window addSubview:bgView];
+        [window addSubview:_bgView];
         [window addSubview:self];
 
     }else{
-        [vc.view addSubview:bgView];
+        [vc.view addSubview:_bgView];
         [vc.view addSubview:self];
     }
     
-    [bgView whenCancelTapped:^{
+    [_bgView whenCancelTapped:^{
             [weakSelf hide];
     }];
     
@@ -78,21 +82,21 @@
                      completion:nil];
 }
 - (void)hide
-{
+{WEAKSELF;
     [UIView animateWithDuration:.35f animations:^{
         
         float height = 256;
-        self.frame = CGRectMake(0, SCREENSIZE.height, SCREENSIZE.width, height);
+        weakSelf.frame = CGRectMake(0, SCREENSIZE.height, SCREENSIZE.width, height);
     } completion:^(BOOL finished) {
-        [bgView removeFromSuperview];
-        [self removeFromSuperview];
+        [weakSelf.bgView removeFromSuperview];
+        [weakSelf removeFromSuperview];
     }];
 
 }
 - (void)setDateViewWithTitle:(NSString *)title
 {
     isDate = YES;
-    proTitleList = @[];
+    _proTitleList = @[];
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENSIZE.width, 39)];
     header.backgroundColor = [UIColor whiteColor];
     
@@ -130,26 +134,30 @@
     datePickr.backgroundColor = [UIColor whiteColor];
     // 1.1选择datePickr的显示风格
     [datePickr setDatePickerMode:UIDatePickerModeDate];
-//    //定义最小日期
-//    NSDateFormatter *formatter_minDate = [[NSDateFormatter alloc] init];
-//    [formatter_minDate setDateFormat:@"yyyy-MM-dd"];
-//    //最大日期是今天
-//    NSDate *minDate = [NSDate date];
-//    [datePickr setMinimumDate:minDate];
+    //定义最小日期
+    /*
+     NSDateFormatter *formatter_minDate = [[NSDateFormatter alloc] init];
+     [formatter_minDate setDateFormat:@"yyyy-MM-dd"];
+     //最大日期是今天
+     NSDate *minDate = [NSDate date];
+     [datePickr setMinimumDate:minDate];
+     //1.2查询所有可用的地区
+     NSLog(@"%@", [NSLocale availableLocaleIdentifiers]);
+
+     */
     
-    // 1.2查询所有可用的地区
-    //NSLog(@"%@", [NSLocale availableLocaleIdentifiers]);
     
     // 1.3设置datePickr的地区语言, zh_Han后面是s的就为简体中文,zh_Han后面是t的就为繁体中文
     [datePickr setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"zh_Hans_CN"]];
     
     // 1.4监听datePickr的数值变化
     [datePickr addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
-//    
-//    NSDate *date = [NSDate date];
-//    
-//    // 2.3 将转换后的日期设置给日期选择控件
-//    [datePickr setDate:date];
+    /*
+     NSDate *date = [NSDate date];
+     
+     // 2.3 将转换后的日期设置给日期选择控件
+     [datePickr setDate:date];
+     */
     
     [self addSubview:datePickr];
     
@@ -159,7 +167,7 @@
 - (void)setDataViewWithItem:(NSArray *)items title:(NSString *)title
 {
     isDate = NO;
-    proTitleList = items;
+    _proTitleList = items;
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENSIZE.width, 40)];
     header.backgroundColor = [UIColor whiteColor];
     
@@ -206,7 +214,7 @@
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
-    selectedStr = [formatter stringFromDate:datePicker.date];
+    _selectedString = [formatter stringFromDate:datePicker.date];
 }
 - (void)cancel:(UIButton *)btn
 {
@@ -216,15 +224,15 @@
 
 - (void)submit:(UIButton *)btn
 {
-    NSString *pickStr = selectedStr;
+    NSString *pickStr = _selectedString;
     if (!pickStr || pickStr.length == 0) {
         if(isDate) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"yyyy-MM-dd"];
-            selectedStr = [formatter stringFromDate:[NSDate date]];
+            _selectedString = [formatter stringFromDate:[NSDate date]];
         } else {
-            if([proTitleList count] > 0) {
-                selectedStr = proTitleList[0];
+            if([_proTitleList count] > 0) {
+                _selectedString = _proTitleList[0];
             }
         }
        
@@ -234,15 +242,15 @@
         NSString *typeString = @"";
         NSDictionary *typeDict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"执业律师",@"2",@"实习律师",@"3",@"公司法务",@"4",@"法律专业学生",@"5",@"公务员",@"9",@"其他", nil];
 
-        typeString = typeDict[selectedStr];
-        DLog(@"选中----%@",selectedStr);
+        typeString = typeDict[_selectedString];
+        DLog(@"选中----%@",_selectedString);
         
-        if (block) {
-            block(selectedStr,typeString);
+        if (_block) {
+            _block(_selectedString,typeString);
         }
     }else{
         if (_alertBlock) {
-           _alertBlock(selectedStr);
+           _alertBlock(_selectedString);
         }
     }
     
@@ -258,7 +266,7 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
 
     
-    return [proTitleList count];
+    return [_proTitleList count];
 }
 
 // 每列宽度
@@ -270,7 +278,7 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
 
-    selectedStr = [proTitleList objectAtIndex:row];
+    _selectedString = [_proTitleList objectAtIndex:row];
     
 }
 /************************重头戏来了************************/
@@ -280,7 +288,7 @@
     UILabel *myView = nil;
     myView = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, SCREENSIZE.width, 30)];
     myView.textAlignment = NSTextAlignmentCenter;
-    myView.text =[proTitleList objectAtIndex:row];
+    myView.text =[_proTitleList objectAtIndex:row];
     [myView setFont:Font_15];
     myView.backgroundColor = [UIColor clearColor];
     return myView;

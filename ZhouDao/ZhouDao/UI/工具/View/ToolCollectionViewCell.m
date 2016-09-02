@@ -49,7 +49,6 @@
         _iconImgView.hidden = YES;
         _titleLab.hidden = YES;
     }
-
 }
 - (void)loadData
 {

@@ -57,7 +57,8 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     [_tableView setTableFooterView:self.bottomLabel];
     
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"lawerFees" ofType:@"txt"];
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"lawerFees" ofType:@"txt"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"xizang" ofType:@"txt"];
     NSData *data = [NSData dataWithContentsOfFile:path];
     NSDictionary *dict= [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
     _areasDictionary = dict[@"area"];
@@ -68,8 +69,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         if (weakSelf.bottomLabel.text.length >0) {
             ToolsIntroduceVC *vc = [ToolsIntroduceVC new];
             vc.introContent = weakSelf.areasDictionary[@"text"];
-            [self presentViewController:vc animated:YES completion:^{
-            }];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         
     }];
@@ -122,6 +122,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             LayerFeesModel *model = [[LayerFeesModel alloc] initWithDictionary:_areasDictionary[@"xz1"]];
             
             if ([_isInterval isEqualToString:@"1"]) {
+                //1 是百分比  2百分比区间计算
                 [self calaulateWithMSAndXZCaseWith:model];
             }else {
                 [self percentageRangeCalculationWith:model];
@@ -171,6 +172,64 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             *stop = YES;
         }
     }];
+    
+    if (index == 0) {
+        
+        AllProportionModel *perModel = model.allPer[0];
+        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",perModel.con, nil];
+        [_dataSourceArrays addObject:arr2];
+        [_tableView reloadData];
+    }else if (index > model.allMoney.count - 1){
+        //最后一位是百分比还是说明 1是说明  2是
+        
+        AllProportionModel *perModel = model.allPer[model.allPer.count -1];
+        if ([perModel.type isEqualToString:@"1"]) {
+            //eg:大于多少自行协商
+            NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",perModel.con, nil];
+            [_dataSourceArrays addObject:arr2];
+            [_tableView reloadData];
+        }else {
+            float lastMoneyMax = 0.0f;
+            float lastMoneyMin = 0.0f;
+
+            for (NSInteger i =0; i< index; i++) {
+                NSArray *array = [model.allPerMoney[i] componentsSeparatedByString:@","];
+
+                lastMoneyMin = lastMoneyMin + [array[0] floatValue];
+                lastMoneyMax = lastMoneyMax + [array[1] floatValue];
+            }
+            lastMoneyMin = lastMoneyMin + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMin floatValue];
+            lastMoneyMax = lastMoneyMax + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMax floatValue];
+            
+            NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f ~ %.2f元",lastMoneyMin,lastMoneyMax];
+            NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
+            [_dataSourceArrays addObject:arr2];
+            [_tableView reloadData];
+        }
+        
+    }else {
+        float lastMoneyMax = 0.0f;
+        float lastMoneyMin = 0.0f;
+        
+        for (NSInteger i =0; i< index; i++) {
+            NSArray *array = [model.allPerMoney[i] componentsSeparatedByString:@","];
+            
+            lastMoneyMin = lastMoneyMin + [array[0] floatValue];
+            lastMoneyMax = lastMoneyMax + [array[1] floatValue];
+        }
+        AllProportionModel *perModel = model.allPer[index];
+
+        if ([moneyString floatValue] > [model.allMoney[index-1] floatValue]) {
+            
+            lastMoneyMin = lastMoneyMin + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMin floatValue];
+            lastMoneyMax = lastMoneyMax + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMax floatValue];
+        }
+        NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f ~ %.2f元",lastMoneyMin,lastMoneyMax];
+        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
+        [_dataSourceArrays addObject:arr2];
+        [_tableView reloadData];
+
+    }
 }
 #pragma mark - 非百分比区间
 - (void)calaulateWithMSAndXZCaseWith:(LayerFeesModel *)model

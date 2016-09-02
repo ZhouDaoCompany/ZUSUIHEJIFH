@@ -313,7 +313,6 @@ CompletionBlock:(void(^)(BOOL completion))blcok
             DLog(@"分享成功！");
         }
     }];
-    
 }
 //实现回调方法（可选）：
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response

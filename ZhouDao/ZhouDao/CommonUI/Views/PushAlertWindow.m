@@ -165,14 +165,15 @@
         case 4002:
         {//确定
             if (_pushBlock) {
-                
+                _pushBlock();
             }
-            _pushBlock();
         }
             break;
         case 4003:
         {//确定  消息自定义
-            _pushBlock();
+            if (_pushBlock) {
+                _pushBlock();
+            }
         }
             break;
 

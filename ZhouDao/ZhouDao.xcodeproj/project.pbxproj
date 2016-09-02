@@ -573,6 +573,8 @@
 		18FBD84A1CED90CD00674D1E /* case_txt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBD8451CED90CD00674D1E /* case_txt@2x.png */; };
 		18FBD84B1CED90CD00674D1E /* case_wenjainjia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBD8461CED90CD00674D1E /* case_wenjainjia@2x.png */; };
 		18FBD84C1CED90CD00674D1E /* case_word@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBD8471CED90CD00674D1E /* case_word@2x.png */; };
+		18FD1AE61D791876005DD06C /* xizang.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18FD1AE51D791876005DD06C /* xizang.txt */; };
+		18FD1AE91D797162005DD06C /* Disability_AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD1AE81D797162005DD06C /* Disability_AlertView.m */; };
 		18FD82FD1CBB4E8C00D50E20 /* case_detailHead.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18FD82FC1CBB4E8C00D50E20 /* case_detailHead.jpg */; };
 		18FD83041CBB54F500D50E20 /* TheCaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD83021CBB54F500D50E20 /* TheCaseCollectionCell.m */; };
 		18FD83181CBB6F9C00D50E20 /* CaseDetailTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD83161CBB6F9C00D50E20 /* CaseDetailTabCell.m */; };
@@ -1464,6 +1466,9 @@
 		18FBD8451CED90CD00674D1E /* case_txt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_txt@2x.png"; sourceTree = "<group>"; };
 		18FBD8461CED90CD00674D1E /* case_wenjainjia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_wenjainjia@2x.png"; sourceTree = "<group>"; };
 		18FBD8471CED90CD00674D1E /* case_word@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_word@2x.png"; sourceTree = "<group>"; };
+		18FD1AE51D791876005DD06C /* xizang.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xizang.txt; sourceTree = "<group>"; };
+		18FD1AE71D797162005DD06C /* Disability_AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Disability_AlertView.h; sourceTree = "<group>"; };
+		18FD1AE81D797162005DD06C /* Disability_AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Disability_AlertView.m; sourceTree = "<group>"; };
 		18FD82FC1CBB4E8C00D50E20 /* case_detailHead.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = case_detailHead.jpg; sourceTree = "<group>"; };
 		18FD83011CBB54F500D50E20 /* TheCaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheCaseCollectionCell.h; sourceTree = "<group>"; };
 		18FD83021CBB54F500D50E20 /* TheCaseCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheCaseCollectionCell.m; sourceTree = "<group>"; };
@@ -2413,6 +2418,8 @@
 			children = (
 				1813EF801D5C63300019CA33 /* PushAlertWindow.h */,
 				1813EF811D5C63300019CA33 /* PushAlertWindow.m */,
+				18FD1AE71D797162005DD06C /* Disability_AlertView.h */,
+				18FD1AE81D797162005DD06C /* Disability_AlertView.m */,
 				18E059B01D6174C3009A2DFD /* ZD_AlertWindow.h */,
 				18E059B11D6174C3009A2DFD /* ZD_AlertWindow.m */,
 			);
@@ -2786,6 +2793,7 @@
 				18E4C8D41D77BF3300D83DEF /* AllProportionModel.h */,
 				18E4C8D51D77BF3300D83DEF /* AllProportionModel.m */,
 				18E4C8D71D77DB3600D83DEF /* lawerFees.txt */,
+				18FD1AE51D791876005DD06C /* xizang.txt */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4106,6 +4114,7 @@
 				1856A1231D4F35150070B93E /* jquery-1.7.1.min.js in Resources */,
 				1065C34A1CA91BA4003F4089 /* law_wodeshoucang@2x.png in Resources */,
 				1856A1361D4F35150070B93E /* shoulifei.html in Resources */,
+				18FD1AE61D791876005DD06C /* xizang.txt in Resources */,
 				188651BB1D264DDC00E030F7 /* CaseRemindListCell.xib in Resources */,
 				108DC03A1C9FA38E00FD1221 /* mine_recommend@2x.png in Resources */,
 				184983121D2A0CA7009AF29F /* case_mangerGW@2x.png in Resources */,
@@ -4679,6 +4688,7 @@
 				187DB92E1CDC6B33009CF1D6 /* GovernmentListVC.m in Sources */,
 				18FF3F561C852D550098C60B /* NSString+SPStr.m in Sources */,
 				1065C2C31CA8E13F003F4089 /* SecrchLawsVC.m in Sources */,
+				18FD1AE91D797162005DD06C /* Disability_AlertView.m in Sources */,
 				1873672C1D752769000C1169 /* HouseViewController.m in Sources */,
 				181E51311CD1F34700BBA10D /* NewPhoneVC.m in Sources */,
 				187367401D753574000C1169 /* PersonalInjuryCell.m in Sources */,
