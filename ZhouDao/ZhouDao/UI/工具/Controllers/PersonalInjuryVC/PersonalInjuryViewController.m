@@ -8,10 +8,11 @@
 
 #import "PersonalInjuryViewController.h"
 #import "PersonalInjuryCell.h"
+#import "Disability_AlertView.h"
 
 static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 
-@interface PersonalInjuryViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface PersonalInjuryViewController ()<UITableViewDelegate, UITableViewDataSource,Disability_AlertViewPro>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -61,6 +62,14 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 {WEAKSELF;
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
+    if (section == 0) {
+        if (row == 0) {
+            Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:DisabilityGradeType withDelegate:self];
+            [alertView show];
+            
+        }
+    }
+
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {

@@ -8,7 +8,6 @@
 
 #import "InjuryViewController.h"
 #import "InjuryViewCell.h"
-
 static NSString *const INJURYCELL = @"injurycellid";
 
 @interface InjuryViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
@@ -73,6 +72,7 @@ static NSString *const INJURYCELL = @"injurycellid";
 {WEAKSELF;
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
+    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {

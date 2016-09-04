@@ -41,6 +41,9 @@
 		1043049B1CA51648009D7072 /* TaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1043049A1CA51648009D7072 /* TaskModel.m */; };
 		10457F511C9EEEFA00E1D3B2 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 10457F4C1C9EEEFA00E1D3B2 /* SoundManager.m */; };
 		10457F521C9EEEFA00E1D3B2 /* StoreKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 10457F4F1C9EEEFA00E1D3B2 /* StoreKitManager.m */; };
+		104622631D7C531700D5640C /* Disability_AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 104622601D7C531700D5640C /* Disability_AlertView.m */; };
+		104622641D7C531700D5640C /* DisabilityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 104622621D7C531700D5640C /* DisabilityViewCell.m */; };
+		104622681D7C535500D5640C /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 104622671D7C535500D5640C /* PPNumberButton.m */; };
 		104B44251C9BCC9A00FC19B3 /* MyAdvantagesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 104B44231C9BCC9A00FC19B3 /* MyAdvantagesVC.m */; };
 		104B44301C9BCCE400FC19B3 /* AllReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 104B44291C9BCCE400FC19B3 /* AllReusableView.m */; };
 		104B44311C9BCCE400FC19B3 /* ChannelCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 104B442B1C9BCCE400FC19B3 /* ChannelCollectionCell.m */; };
@@ -574,7 +577,6 @@
 		18FBD84B1CED90CD00674D1E /* case_wenjainjia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBD8461CED90CD00674D1E /* case_wenjainjia@2x.png */; };
 		18FBD84C1CED90CD00674D1E /* case_word@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBD8471CED90CD00674D1E /* case_word@2x.png */; };
 		18FD1AE61D791876005DD06C /* xizang.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18FD1AE51D791876005DD06C /* xizang.txt */; };
-		18FD1AE91D797162005DD06C /* Disability_AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD1AE81D797162005DD06C /* Disability_AlertView.m */; };
 		18FD82FD1CBB4E8C00D50E20 /* case_detailHead.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18FD82FC1CBB4E8C00D50E20 /* case_detailHead.jpg */; };
 		18FD83041CBB54F500D50E20 /* TheCaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD83021CBB54F500D50E20 /* TheCaseCollectionCell.m */; };
 		18FD83181CBB6F9C00D50E20 /* CaseDetailTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD83161CBB6F9C00D50E20 /* CaseDetailTabCell.m */; };
@@ -677,6 +679,12 @@
 		10457F4C1C9EEEFA00E1D3B2 /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		10457F4E1C9EEEFA00E1D3B2 /* StoreKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreKitManager.h; sourceTree = "<group>"; };
 		10457F4F1C9EEEFA00E1D3B2 /* StoreKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreKitManager.m; sourceTree = "<group>"; };
+		1046225F1D7C531700D5640C /* Disability_AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Disability_AlertView.h; sourceTree = "<group>"; };
+		104622601D7C531700D5640C /* Disability_AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Disability_AlertView.m; sourceTree = "<group>"; };
+		104622611D7C531700D5640C /* DisabilityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisabilityViewCell.h; sourceTree = "<group>"; };
+		104622621D7C531700D5640C /* DisabilityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisabilityViewCell.m; sourceTree = "<group>"; };
+		104622661D7C535500D5640C /* PPNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNumberButton.h; sourceTree = "<group>"; };
+		104622671D7C535500D5640C /* PPNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNumberButton.m; sourceTree = "<group>"; };
 		104B44221C9BCC9A00FC19B3 /* MyAdvantagesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAdvantagesVC.h; sourceTree = "<group>"; };
 		104B44231C9BCC9A00FC19B3 /* MyAdvantagesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAdvantagesVC.m; sourceTree = "<group>"; };
 		104B44281C9BCCE400FC19B3 /* AllReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllReusableView.h; sourceTree = "<group>"; };
@@ -1467,8 +1475,6 @@
 		18FBD8461CED90CD00674D1E /* case_wenjainjia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_wenjainjia@2x.png"; sourceTree = "<group>"; };
 		18FBD8471CED90CD00674D1E /* case_word@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_word@2x.png"; sourceTree = "<group>"; };
 		18FD1AE51D791876005DD06C /* xizang.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xizang.txt; sourceTree = "<group>"; };
-		18FD1AE71D797162005DD06C /* Disability_AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Disability_AlertView.h; sourceTree = "<group>"; };
-		18FD1AE81D797162005DD06C /* Disability_AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Disability_AlertView.m; sourceTree = "<group>"; };
 		18FD82FC1CBB4E8C00D50E20 /* case_detailHead.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = case_detailHead.jpg; sourceTree = "<group>"; };
 		18FD83011CBB54F500D50E20 /* TheCaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheCaseCollectionCell.h; sourceTree = "<group>"; };
 		18FD83021CBB54F500D50E20 /* TheCaseCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheCaseCollectionCell.m; sourceTree = "<group>"; };
@@ -1802,6 +1808,15 @@
 				10457F4F1C9EEEFA00E1D3B2 /* StoreKitManager.m */,
 			);
 			path = StoreKit;
+			sourceTree = "<group>";
+		};
+		104622651D7C535500D5640C /* PPNumberButton */ = {
+			isa = PBXGroup;
+			children = (
+				104622661D7C535500D5640C /* PPNumberButton.h */,
+				104622671D7C535500D5640C /* PPNumberButton.m */,
+			);
+			path = PPNumberButton;
 			sourceTree = "<group>";
 		};
 		104B44211C9BCC5700FC19B3 /* 我的擅长 */ = {
@@ -2418,8 +2433,10 @@
 			children = (
 				1813EF801D5C63300019CA33 /* PushAlertWindow.h */,
 				1813EF811D5C63300019CA33 /* PushAlertWindow.m */,
-				18FD1AE71D797162005DD06C /* Disability_AlertView.h */,
-				18FD1AE81D797162005DD06C /* Disability_AlertView.m */,
+				1046225F1D7C531700D5640C /* Disability_AlertView.h */,
+				104622601D7C531700D5640C /* Disability_AlertView.m */,
+				104622611D7C531700D5640C /* DisabilityViewCell.h */,
+				104622621D7C531700D5640C /* DisabilityViewCell.m */,
 				18E059B01D6174C3009A2DFD /* ZD_AlertWindow.h */,
 				18E059B11D6174C3009A2DFD /* ZD_AlertWindow.m */,
 			);
@@ -3438,6 +3455,7 @@
 			isa = PBXGroup;
 			children = (
 				18F8789F1D053CCA0069E68A /* APIKey.h */,
+				104622651D7C535500D5640C /* PPNumberButton */,
 				18BDD4261D6EDFE8001541E1 /* MBProgressHUDTools */,
 				186ED3971D66EDEF006BC693 /* ProgressBarView */,
 				187A54931D642CBD0076A8E6 /* PhotoLib */,
@@ -4511,6 +4529,7 @@
 				187E6D631C841A11009169C2 /* AppDelegate.m in Sources */,
 				186ED39A1D66EDEF006BC693 /* ProgressBarView.m in Sources */,
 				104B44251C9BCC9A00FC19B3 /* MyAdvantagesVC.m in Sources */,
+				104622681D7C535500D5640C /* PPNumberButton.m in Sources */,
 				1041575D1C9470A500EE5303 /* MyCollectionVC.m in Sources */,
 				1829BA761CE2F58700F0143F /* ExampleData.m in Sources */,
 				18FF3F5A1C852E820098C60B /* UIView+WhenTappedBlocks.m in Sources */,
@@ -4590,6 +4609,7 @@
 				10ECB1AF1CCD127600EE7341 /* NSString+MHCommon.m in Sources */,
 				1065C2CC1CA902D8003F4089 /* DWBubbleMenuButton.m in Sources */,
 				1060DA1E1CAD197B00D779A5 /* ToolCollectionViewCell.m in Sources */,
+				104622641D7C531700D5640C /* DisabilityViewCell.m in Sources */,
 				18DE724D1C98F2330068F7E5 /* AnimationTools.m in Sources */,
 				18D66AD01CE1D52500BF2C17 /* SearchResultsVC.m in Sources */,
 				187E6D601C841A11009169C2 /* main.m in Sources */,
@@ -4688,7 +4708,7 @@
 				187DB92E1CDC6B33009CF1D6 /* GovernmentListVC.m in Sources */,
 				18FF3F561C852D550098C60B /* NSString+SPStr.m in Sources */,
 				1065C2C31CA8E13F003F4089 /* SecrchLawsVC.m in Sources */,
-				18FD1AE91D797162005DD06C /* Disability_AlertView.m in Sources */,
+				104622631D7C531700D5640C /* Disability_AlertView.m in Sources */,
 				1873672C1D752769000C1169 /* HouseViewController.m in Sources */,
 				181E51311CD1F34700BBA10D /* NewPhoneVC.m in Sources */,
 				187367401D753574000C1169 /* PersonalInjuryCell.m in Sources */,

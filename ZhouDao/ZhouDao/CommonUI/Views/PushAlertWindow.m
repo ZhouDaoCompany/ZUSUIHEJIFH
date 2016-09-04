@@ -7,7 +7,6 @@
 //
 
 #import "PushAlertWindow.h"
-#import "UIColor+Helper.h"
 #define zd_width [UIScreen mainScreen].bounds.size.width
 #define zd_height [UIScreen mainScreen].bounds.size.height
 #define kContentLabelWidth     13.f/16.f*([UIScreen mainScreen].bounds.size.width)

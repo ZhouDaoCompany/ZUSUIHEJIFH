@@ -9,9 +9,10 @@
 #import "CourtViewController.h"
 #import "CourtViewCell.h"
 #import "ZHPickView.h"
+#import "Disability_AlertView.h"
 
 static NSString *const COURTCELL = @"courtacceptcell";
-@interface CourtViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface CourtViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,Disability_AlertViewPro>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -73,35 +74,28 @@ static NSString *const COURTCELL = @"courtacceptcell";
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
+{
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
     
     if (section == 0) {
         if (row == 0) {
-            ZHPickView *pickView = [[ZHPickView alloc] init];
-            [pickView setDataViewWithItem:@[@"离婚案件",@"人格权案件",@"知识产权案件",@"劳动争议案件",@"行政案件",@"商标、专利、海事行政案件",@"管辖权异议不成立案件",@"财产保全",@"支付令",@"执行费"] title:@"案件类型"];
-            [pickView showPickView:self];
-            pickView.block = ^(NSString *selectedStr,NSString *type)
-            {
-                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
-                [arr1 replaceObjectAtIndex:row withObject:selectedStr];
-                if ([selectedStr isEqualToString:@"刑事案件"]) {
-                    if (arr1.count == 4) {
-                        [arr1 removeObjectAtIndex:3];
-                    }
-                    [arr1 removeObjectAtIndex:2];
-                }else {
-                    if (arr1.count == 2) {
-                        [arr1 addObject:@"是"];
-                        [arr1 addObject:@""];
-                    }
-                }
-                [weakSelf.tableView reloadData];
-            };
+            Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:CaseType withDelegate:self];
+            [alertView show];
 
         }
     }
+}
+#pragma mark - Disability_AlertViewPro
+- (void)selectCaseType:(NSString *)caseString
+{WEAKSELF;
+    
+    NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
+    [arr1 replaceObjectAtIndex:0 withObject:caseString];
+    
+    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [weakSelf.tableView reloadData];
+    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {

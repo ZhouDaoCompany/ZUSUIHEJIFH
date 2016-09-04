@@ -9,6 +9,8 @@
 #import "Disability_AlertView.h"
 #import "DisabilityViewCell.h"
 #import "ConsultantHeadView.h"
+#import "DefineHeader.h"
+#import "UIColor+Helper.h"
 
 #define zd_width [UIScreen mainScreen].bounds.size.width
 #define zd_height [UIScreen mainScreen].bounds.size.height
@@ -34,8 +36,9 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     if (self) {
         
         self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
-        _delegate = delegate;
+
         if (type == DisabilityGradeType) {
+            
             _type = DisabilityGradeType;
             [self disabilityGradeSelectUI];
         }else {
@@ -93,7 +96,8 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     [self.zd_superView addSubview:self.headlab];
     [self.zd_superView addSubview:self.tableView];
     
-    _tableView.frame = CGRectMake(0,45, kContentLabelWidth, self.zd_superView.frame.size.height - 45);
+    _tableView.frame = CGRectMake(0,45, kContentLabelWidth, self.zd_superView.frame.size.height - 109.f);
+    [self.zd_superView addSubview:self.sureBtn];
     _headlab.text = @"选择案件类型";
     
     _dataSourceArrays = [NSMutableArray arrayWithObjects:@[@"财产案件"],@[@"离婚案件",@"人格权案件",@"知识产权案件",@"劳动争议案件",@"财产保全案件",@"管辖权异议不成立的案件"],@[@"商标、专利、海事行政案件",@"其他行政案件"],@[@"支付令",@"公示催告"],nil];
@@ -144,24 +148,6 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     DisabilityViewCell *cell = (DisabilityViewCell *)[tableView dequeueReusableCellWithIdentifier:DISABLITYCellID];
     (_type == DisabilityGradeType)?[cell settingUIWithLevel:indexPath.row withDelegate:self]:[cell setCaseTypeUIwithArrays:_dataSourceArrays withSection:indexPath.section withRow:indexPath.row];
     return cell;
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (_type == DisabilityGradeType) {
-        
-        
-        
-    }else {
-        
-        if ([self.delegate respondsToSelector:@selector(selectCaseType:)])
-        {
-            NSArray *arr = _dataSourceArrays[indexPath.section];
-
-            [self.delegate selectCaseType:arr[indexPath.row]];
-        }
-    }
-    
-    [self zd_Windowclose];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

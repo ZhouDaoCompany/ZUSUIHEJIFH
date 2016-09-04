@@ -39,7 +39,7 @@
     _textField.row = row;
     if (section == 0) {
         
-//        NSMutableArray *arr1 = arrays[0];
+        NSMutableArray *arr1 = arrays[0];
         NSArray *titleArr = @[@"案件类型",@"是否涉及财产关系",@"诉讼标的（元）",@"计算方式"];
         _titleLab.frame = CGRectMake(15, 12, 160, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
@@ -47,7 +47,7 @@
         _textField.placeholder = @"";
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
         _lineView.hidden = NO;
-//        _textField.text = arr1[row];
+        _textField.text = arr1[row];
         self.accessoryType = UITableViewCellAccessoryNone;
 
         switch (row) {
