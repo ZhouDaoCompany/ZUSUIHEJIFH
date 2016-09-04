@@ -77,6 +77,11 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     [self.zd_superView addSubview:self.tableView];
     [self.zd_superView addSubview:self.sureBtn];
     
+    [self.zd_superView whenCancelTapped:^{
+    }];
+    [self whenCancelTapped:^{
+        [weakSelf zd_Windowclose];
+    }];
     _headlab.text = @"设置伤残等级";
     
 }
@@ -95,7 +100,12 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     
     _tableView.frame = CGRectMake(0,45, kContentLabelWidth, self.zd_superView.frame.size.height - 45);
     _headlab.text = @"选择案件类型";
-    
+    [self.zd_superView whenCancelTapped:^{
+    }];
+    [self whenCancelTapped:^{
+        [weakSelf zd_Windowclose];
+    }];
+
     _dataSourceArrays = [NSMutableArray arrayWithObjects:@[@"财产案件"],@[@"离婚案件",@"人格权案件",@"知识产权案件",@"劳动争议案件",@"财产保全案件",@"管辖权异议不成立的案件"],@[@"商标、专利、海事行政案件",@"其他行政案件"],@[@"支付令",@"公示催告"],nil];
     
 }
