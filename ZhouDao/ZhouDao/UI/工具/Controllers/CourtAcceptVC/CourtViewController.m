@@ -42,9 +42,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
     _isMoney = YES;
     _isHalf = NO;
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"是",@"",@"减半", nil];
-//    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
-//    [self.dataSourceArrays addObject:arr2];
 
     [self setupNaviBarWithTitle:@"法院受理费计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
@@ -54,15 +52,19 @@ static NSString *const COURTCELL = @"courtacceptcell";
 }
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
-{
+{WEAKSELF;
     [self dismissKeyBoard];
     if (btn.tag == 3034) {
         [self.dataSourceArrays removeAllObjects];
-        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"是",@"",@"减半", nil];
+        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"是",@"",@"全额", nil];
         [self.dataSourceArrays addObject:arr1];
-        
-        [_tableView reloadData];
+        [UIView animateWithDuration:.25f animations:^{
+            [weakSelf.tableView reloadData];
+        }];
         return;
+    }
+    if (_dataSourceArrays.count >1) {
+        [_dataSourceArrays removeObjectAtIndex:1];
     }
     NSMutableArray *arr1 = _dataSourceArrays[0];
     CGFloat lastmoney = 0.0f;
@@ -85,7 +87,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
             lastmoney = [self involvingPropertyCalculationWithmoney:[moneyString floatValue]];
         }
         lastmoney = (_isHalf == YES)?(lastmoney/2.f):lastmoney;
-        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",lastmoney], nil];
+        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f元",lastmoney], nil];
         [self.dataSourceArrays addObject:arr2];
         [_tableView reloadData];
         
@@ -110,8 +112,15 @@ static NSString *const COURTCELL = @"courtacceptcell";
                 [self doNotInvolvePropertyCalculation:str];
             }else if ([arr1[0] isEqualToString:@"知识产权案件"]){
                 lastmoney = (_isHalf == YES)?[self involvingPropertyCalculationWithmoney:[[self propertyPreservationWithMoney:[moneyString floatValue]] floatValue]/2.f]:[self involvingPropertyCalculationWithmoney:[[self propertyPreservationWithMoney:[moneyString floatValue]] floatValue]];
+                NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",lastmoney], nil];
+                [self.dataSourceArrays addObject:arr2];
+                [_tableView reloadData];
+
             }else{
                 lastmoney = (_isHalf == YES)? [self involvingPropertyCalculationWithmoney:[moneyString floatValue]/2.f]:[self involvingPropertyCalculationWithmoney:[moneyString floatValue]];
+                NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f元",lastmoney], nil];
+                [self.dataSourceArrays addObject:arr2];
+                [_tableView reloadData];
             }
             
         }else {
@@ -205,8 +214,6 @@ static NSString *const COURTCELL = @"courtacceptcell";
         }
         lastmoney += (frontalMoney - [moneyArrays[index -1] floatValue])*[percentageArrays[index -1] floatValue];
     }
-    
-    DLog(@"输出money －－－--- %.2f",lastmoney);
     return lastmoney;
 }
 #pragma mark - UITableViewDataSource
@@ -248,21 +255,21 @@ static NSString *const COURTCELL = @"courtacceptcell";
 #pragma mark - CourtViewDelegate
 - (void)fullORHalf:(NSInteger)index withRow:(NSInteger)row
 {
-    (index == 1)?(_isHalf = YES):(_isHalf = NO);
+    _isHalf = (index == 1)?YES:NO;
     NSString *str2 = (_isHalf == YES)?@"减半":@"全额";
     NSMutableArray *arr1 = _dataSourceArrays[0];
     [arr1 replaceObjectAtIndex:row withObject:str2];
 }
 - (void)isInvolvedInTheAmount:(NSInteger)index withRow:(NSInteger)row
 {
-    
-    (index == 0)?(_isMoney = YES):(_isMoney = NO);
+    _isMoney = (index == 0)?YES:NO;
     NSString *str1 = (_isMoney == YES)?@"是":@"否";
     NSMutableArray *arr1 = _dataSourceArrays[0];
     if (arr1.count == 4) {
         [arr1 replaceObjectAtIndex:row withObject:str1];
         [arr1 removeObjectAtIndex:row+1];
     }else{
+        [arr1 replaceObjectAtIndex:row withObject:str1];
         [arr1 insertObject:@"" atIndex:row+1];
     }
     [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];

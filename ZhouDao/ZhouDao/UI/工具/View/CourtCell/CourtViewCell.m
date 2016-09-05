@@ -240,12 +240,9 @@
             case 1:
             {
                 
-                
-            }
-                break;
-            case 2:
-            {
                 _lineView.hidden = NO;
+                _textField.textAlignment = NSTextAlignmentRight;
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
 
             }
                 break;
@@ -285,7 +282,7 @@
 - (CaseTextField *)textField
 {
     if (!_textField) {
-        _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 135, 7, 120, 30)];
+        _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 165, 7, 150, 30)];
         _textField.borderStyle = UITextBorderStyleNone;
         _textField.textColor = hexColor(666666);
         [_textField setValue:hexColor(ADADAD) forKeyPath:@"_placeholderLabel.textColor"];
