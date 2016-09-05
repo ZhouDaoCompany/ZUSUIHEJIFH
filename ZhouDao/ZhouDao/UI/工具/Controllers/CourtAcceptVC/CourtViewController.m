@@ -268,11 +268,14 @@ static NSString *const COURTCELL = @"courtacceptcell";
     if (arr1.count == 4) {
         [arr1 replaceObjectAtIndex:row withObject:str1];
         [arr1 removeObjectAtIndex:row+1];
+        [_tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row+1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        [_tableView endUpdates];
+
     }else{
         [arr1 replaceObjectAtIndex:row withObject:str1];
         [arr1 insertObject:@"" atIndex:row+1];
+        [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row+1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }
-    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark - Disability_AlertViewPro
 - (void)selectCaseType:(NSString *)caseString
