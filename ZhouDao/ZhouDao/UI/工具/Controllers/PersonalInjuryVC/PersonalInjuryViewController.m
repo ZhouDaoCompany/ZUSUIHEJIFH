@@ -9,6 +9,7 @@
 #import "PersonalInjuryViewController.h"
 #import "PersonalInjuryCell.h"
 #import "Disability_AlertView.h"
+#import "PersonalComputingResultsVC.h"
 
 static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 
@@ -32,7 +33,7 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 #pragma mark - private methods
 - (void)initUI
 {
-    [self setupNaviBarWithTitle:@"工伤赔偿计算"];
+    [self setupNaviBarWithTitle:@"人身损害赔偿计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
@@ -40,7 +41,8 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
-
+    PersonalComputingResultsVC *vc = [PersonalComputingResultsVC new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

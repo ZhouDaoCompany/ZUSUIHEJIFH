@@ -169,9 +169,9 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
 
             [self.delegate selectCaseType:arr[indexPath.row]];
         }
+        [self zd_Windowclose];
     }
     
-    [self zd_Windowclose];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -224,7 +224,7 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
         _headlab.textAlignment = NSTextAlignmentCenter;
         _headlab.textColor = [UIColor whiteColor];
         _headlab.backgroundColor = hexColor(00c8aa);
-        _headlab.font = Font_18;
+        _headlab.font = Font_15;
     }
     return _headlab;
 }

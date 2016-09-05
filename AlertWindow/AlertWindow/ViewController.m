@@ -25,9 +25,9 @@
 - (void)bindingBtnEvent:(UIButton *)btn
 {
     DLog(@"点击");
-//    Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:DisabilityGradeType withDelegate:self];
+    Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:DisabilityGradeType withDelegate:self];
 
-    Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:CaseType withDelegate:self];
+//    Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:CaseType withDelegate:self];
     [alertView show];
 }
 - (UIButton *)sureBtn

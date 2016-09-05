@@ -565,6 +565,7 @@
 		18F593E51CB5F40400F5619D /* UIWebView_SearchWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F593E41CB5F40400F5619D /* UIWebView_SearchWebView.m */; };
 		18F593E71CB636A500F5619D /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 18F593E61CB636A500F5619D /* SearchWebView.js */; };
 		18F666AA1D07C37B0004FF55 /* tapbar_top_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F666A91D07C37B0004FF55 /* tapbar_top_line@2x.png */; };
+		18F7D63E1D7D0DC5001A35CD /* PersonalComputingResultsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F7D63D1D7D0DC5001A35CD /* PersonalComputingResultsVC.m */; };
 		18F8126C1D45C2110099A353 /* JX_GCDTimerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F8126B1D45C2110099A353 /* JX_GCDTimerManager.m */; };
 		18F878A51D055D730069E68A /* MapNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F878A41D055D730069E68A /* MapNavViewController.m */; };
 		18F878A91D0568150069E68A /* SpeechSynthesizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F878A81D0568150069E68A /* SpeechSynthesizer.m */; };
@@ -1457,6 +1458,8 @@
 		18F593E41CB5F40400F5619D /* UIWebView_SearchWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebView_SearchWebView.m; sourceTree = "<group>"; };
 		18F593E61CB636A500F5619D /* SearchWebView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchWebView.js; sourceTree = "<group>"; };
 		18F666A91D07C37B0004FF55 /* tapbar_top_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tapbar_top_line@2x.png"; sourceTree = "<group>"; };
+		18F7D63C1D7D0DC5001A35CD /* PersonalComputingResultsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalComputingResultsVC.h; sourceTree = "<group>"; };
+		18F7D63D1D7D0DC5001A35CD /* PersonalComputingResultsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalComputingResultsVC.m; sourceTree = "<group>"; };
 		18F8126A1D45C2110099A353 /* JX_GCDTimerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JX_GCDTimerManager.h; sourceTree = "<group>"; };
 		18F8126B1D45C2110099A353 /* JX_GCDTimerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JX_GCDTimerManager.m; sourceTree = "<group>"; };
 		18F8789F1D053CCA0069E68A /* APIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIKey.h; sourceTree = "<group>"; };
@@ -2930,6 +2933,8 @@
 			children = (
 				187367421D754B6F000C1169 /* PersonalInjuryViewController.h */,
 				187367431D754B6F000C1169 /* PersonalInjuryViewController.m */,
+				18F7D63C1D7D0DC5001A35CD /* PersonalComputingResultsVC.h */,
+				18F7D63D1D7D0DC5001A35CD /* PersonalComputingResultsVC.m */,
 			);
 			path = PersonalInjuryVC;
 			sourceTree = "<group>";
@@ -3865,8 +3870,8 @@
 		18FF3F621C85348B0098C60B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				103D48C41CE8705500ED0864 /* Areas.plist */,
 				10FA3E241CAD6B14005C4C0C /* 铃声 */,
+				103D48C41CE8705500ED0864 /* Areas.plist */,
 				18CD4D951C928111001838D2 /* Utility */,
 				18FF3F631C85348B0098C60B /* Image */,
 			);
@@ -4718,6 +4723,7 @@
 				184983161D2A0D63009AF29F /* OnlyAddCaseVC.m in Sources */,
 				18FF3F361C85234A0098C60B /* ZhouDao_NetWorkManger.m in Sources */,
 				18CB0F061CBF42EA009C41CE /* TwoCompensationCell.m in Sources */,
+				18F7D63E1D7D0DC5001A35CD /* PersonalComputingResultsVC.m in Sources */,
 				18EE958C1D2373150030AE2B /* AddFinanceVC.m in Sources */,
 				187DB94B1CDC803C009CF1D6 /* GovClassModel.m in Sources */,
 				18E0F6581CE9CDFC00032F4B /* ManagerData.m in Sources */,

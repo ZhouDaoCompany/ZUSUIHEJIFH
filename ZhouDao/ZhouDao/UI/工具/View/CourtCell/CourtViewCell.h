@@ -8,10 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "CaseTextField.h"
+@protocol  CourtViewDelegate;
 
 @interface CourtViewCell : UITableViewCell
 
 @property (strong, nonatomic) CaseTextField *textField;
+@property (weak, nonatomic)   id<CourtViewDelegate>delegate;
 
 - (void)settingUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays;
+@end
+
+@protocol  CourtViewDelegate <NSObject>
+
+- (void)fullORHalf:(NSInteger)index withRow:(NSInteger)row;
+- (void)isInvolvedInTheAmount:(NSInteger)index withRow:(NSInteger)row;
 @end

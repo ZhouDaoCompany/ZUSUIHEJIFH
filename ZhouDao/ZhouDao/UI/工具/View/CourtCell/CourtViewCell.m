@@ -13,7 +13,8 @@
 @property (strong, nonatomic) UILabel *titleLab;
 @property (strong, nonatomic) UIView *lineView;
 @property (strong, nonatomic) UISegmentedControl *segButton;
-
+@property (strong, nonatomic) UISegmentedControl *segButtonTwo;
+@property (assign, nonatomic) NSInteger row;
 @end
 
 @implementation CourtViewCell
@@ -29,6 +30,7 @@
         [self.contentView addSubview:self.lineView];
         [self.contentView addSubview:self.segButton];
         [self.contentView addSubview:self.textField];
+        [self.contentView addSubview:self.segButtonTwo];
     }
     return self;
 }
@@ -37,6 +39,7 @@
 {
     _textField.section = section;
     _textField.row = row;
+    _row = row;
     if (section == 0) {
         
         NSMutableArray *arr1 = arrays[0];
@@ -49,58 +52,167 @@
         _lineView.hidden = NO;
         _textField.text = arr1[row];
         self.accessoryType = UITableViewCellAccessoryNone;
+        _segButtonTwo.hidden = YES;
+        _segButton.hidden = YES;
 
-        switch (row) {
-            case 0:
-            {
-                _textField.enabled = NO;
-                _textField.hidden = NO;
-                _segButton.hidden = YES;
-                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
-                
+        if ([arr1[0] isEqualToString:@"财产案件"] || [arr1[0] isEqualToString:@"支付令"]) {
+            
+            switch (row) {
+                case 0:
+                {
+                    _textField.enabled = NO;
+                    _textField.hidden = NO;
+                    _textField.placeholder = @"选择案件类型";
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                    
+                }
+                    break;
+                case 1:
+                {
+                    _textField.hidden = NO;
+                    _textField.enabled = YES;
+                    _titleLab.text = @"诉讼标的（元）";
+                    _textField.placeholder = @"请输入金额";
+                    _textField.keyboardType = UIKeyboardTypeDecimalPad;
+                }
+                    break;
+                case 2:
+                {
+                    _textField.hidden = YES;
+                    _segButtonTwo.hidden = NO;
+                    _lineView.hidden = YES;
+                    _segButtonTwo.selectedSegmentIndex = [arr1[2] isEqualToString:@"全额"]?0:1;
+                    _titleLab.text = [titleArr lastObject];
+
+                }
+                    break;
+                default:
+                    break;
             }
-                break;
-            case 1:
-            {
-                _textField.enabled = NO;
-                _textField.hidden = YES;
-                _segButton.hidden = NO;
-                _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+
+        }else if ([arr1[0] isEqualToString:@"离婚案件"] || [arr1[0] isEqualToString:@"人格权案件"] || [arr1[0] isEqualToString:@"知识产权案件"] || [arr1[0] isEqualToString:@"财产保全案件"] || [arr1[0] isEqualToString:@""]){
+            
+            if (arr1.count == 3) {
                 
-                
-            }
-                break;
-            case 2:
-            {
-                _textField.hidden = NO;
-                _textField.enabled = YES;
-                _textField.placeholder = @"请输入金额";
-                _textField.keyboardType = UIKeyboardTypeDecimalPad;
-                _segButton.hidden = YES;
+                switch (row) {
+                    case 0:
+                    {
+                        _textField.enabled = NO;
+                        _textField.hidden = NO;
+                        _textField.placeholder = @"选择案件类型";
+                        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                        _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                        
+                    }
+                        break;
+                    case 1:
+                    {
+                        _textField.enabled = NO;
+                        _textField.hidden = YES;
+                        _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                        _segButton.hidden = NO;
+                        _segButton.selectedSegmentIndex = [arr1[1] isEqualToString:@"是"]?0:1;
+
+                        
+                    }
+                        break;
+                    case 2:
+                    {
+                        _textField.hidden = YES;
+                        _segButtonTwo.hidden = NO;
+                        _lineView.hidden = YES;
+                        _segButtonTwo.selectedSegmentIndex = [arr1[2] isEqualToString:@"全额"]?0:1;
+                        _titleLab.text = [titleArr lastObject];
+
+                    }
+                        break;
+                    default:
+                        break;
+                }
 
                 
-            }
-                break;
-            case 3:
-            {
-                _textField.hidden = YES;
-                _segButton.hidden = NO;
-                _lineView.hidden = YES;
-                [_segButton removeAllSegments];
-                [_segButton insertSegmentWithTitle:@"全额" atIndex:0 animated:NO];
-                [_segButton insertSegmentWithTitle:@"减半" atIndex:1 animated:NO];
-                _segButton.selectedSegmentIndex = 0;
+            }else {
                 
+                switch (row) {
+                    case 0:
+                    {
+                        _textField.enabled = NO;
+                        _textField.hidden = NO;
+                        _textField.placeholder = @"选择案件类型";
+                        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                        _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                        
+                    }
+                        break;
+                    case 1:
+                    {
+                        _textField.enabled = NO;
+                        _textField.hidden = YES;
+                        _segButton.hidden = NO;
+                        _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                        _segButton.selectedSegmentIndex = [arr1[1] isEqualToString:@"是"]?0:1;
+
+                        
+                    }
+                        break;
+                    case 2:
+                    {
+                        _textField.hidden = NO;
+                        _textField.enabled = YES;
+                        _textField.placeholder = @"请输入金额";
+                        _textField.keyboardType = UIKeyboardTypeDecimalPad;
+                        _titleLab.text = @"诉讼标的（元）";
+                        
+                    }
+                        break;
+                    case 3:
+                    {
+                        _textField.hidden = YES;
+                        _segButtonTwo.hidden = NO;
+                        _lineView.hidden = YES;
+                        _segButtonTwo.selectedSegmentIndex = [arr1[3] isEqualToString:@"全额"]?0:1;
+                        _titleLab.text = [titleArr lastObject];
+
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+
             }
-                break;
-                
-            default:
-                break;
+        }else {
+            
+            switch (row) {
+                case 0:
+                {
+                    _textField.enabled = NO;
+                    _textField.hidden = NO;
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                    
+                }
+                    break;
+                case 1:
+                {
+                    _textField.hidden = YES;
+                    _segButtonTwo.hidden = NO;
+                    _lineView.hidden = YES;
+                    _segButtonTwo.selectedSegmentIndex = [arr1[1] isEqualToString:@"全额"]?0:1;
+                    _titleLab.text = [titleArr lastObject];
+
+                    
+                }
+                    break;
+                default:
+                    break;
+            }
+
         }
+
     }else {
-//        NSMutableArray *arr2 = arrays[1];
-        
+        NSMutableArray *arr2 = arrays[1];
         NSArray *titleArr = @[@"计算结果",@"受理费",@"执行费"];
         _titleLab.frame = CGRectMake(15, 12, 160, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
@@ -109,8 +221,9 @@
         _textField.enabled = NO;
         _textField.hidden = NO;
         _segButton.hidden = YES;
+        _segButtonTwo.hidden = YES;
         self.accessoryType = UITableViewCellAccessoryNone;
-//        _textField.text = arr2[row];
+        _textField.text = arr2[row];
         _lineView.hidden = NO;
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
         
@@ -147,7 +260,15 @@
 #pragma mark - seg
 - (void)didClicksegmentedControlAction:(UISegmentedControl *)Seg
 {
-    
+    if (Seg.tag == 4004) {
+        if ([self.delegate respondsToSelector:@selector(fullORHalf:withRow:)]) {
+            [self.delegate fullORHalf:Seg.selectedSegmentIndex withRow:_row];
+        }
+    }else{
+        if ([self.delegate respondsToSelector:@selector(isInvolvedInTheAmount:withRow:)]) {
+            [self.delegate isInvolvedInTheAmount:Seg.selectedSegmentIndex withRow:_row];
+        }
+    }
     
 }
 #pragma mark - setter and getter
@@ -186,10 +307,31 @@
         NSDictionary* unselectedTextAttributes = @{NSFontAttributeName:Font_13,
                                                    NSForegroundColorAttributeName: hexColor(666666)};
         [_segButton setTitleTextAttributes:unselectedTextAttributes forState:UIControlStateNormal];
+        _segButton.tag = 4005;
+
         [_segButton addTarget:self action:@selector(didClicksegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
     }
     return _segButton;
 }
+- (UISegmentedControl *)segButtonTwo
+{
+    if (!_segButtonTwo) {
+        _segButtonTwo = [[UISegmentedControl alloc]initWithItems:@[@"全额",@"减半"]];
+        _segButtonTwo.frame = CGRectMake(kMainScreenWidth - 102, 9, 87, 27);
+        _segButtonTwo.selectedSegmentIndex = 0;
+        _segButtonTwo.tintColor = hexColor(00c8aa);
+        NSDictionary* selectedTextAttributes = @{NSFontAttributeName:Font_13,
+                                                 NSForegroundColorAttributeName: [UIColor whiteColor]};
+        [_segButtonTwo setTitleTextAttributes:selectedTextAttributes forState:UIControlStateSelected];//设置文字属性
+        NSDictionary* unselectedTextAttributes = @{NSFontAttributeName:Font_13,
+                                                   NSForegroundColorAttributeName: hexColor(666666)};
+        [_segButtonTwo setTitleTextAttributes:unselectedTextAttributes forState:UIControlStateNormal];
+        _segButtonTwo.tag = 4004;
+        [_segButtonTwo addTarget:self action:@selector(didClicksegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
+    }
+    return _segButtonTwo;
+}
+
 - (UIView *)lineView
 {
     if (!_lineView) {

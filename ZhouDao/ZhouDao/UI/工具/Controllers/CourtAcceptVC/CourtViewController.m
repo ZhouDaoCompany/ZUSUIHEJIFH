@@ -12,13 +12,17 @@
 #import "Disability_AlertView.h"
 
 static NSString *const COURTCELL = @"courtacceptcell";
-@interface CourtViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,Disability_AlertViewPro>
-
+@interface CourtViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,Disability_AlertViewPro,CourtViewDelegate>
+{
+    BOOL _isHalf;
+    BOOL _isMoney;
+}
+@property (assign, nonatomic) CGFloat theFrontalMoney;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
-
+@property (strong, nonatomic) NSMutableDictionary *noMoneyDictionary;//不涉及财产计算
 @end
 
 @implementation CourtViewController
@@ -35,7 +39,9 @@ static NSString *const COURTCELL = @"courtacceptcell";
 #pragma mark - private methods
 - (void)initUI
 {
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
+    _isMoney = YES;
+    _isHalf = NO;
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"是",@"",@"减半", nil];
 //    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
 //    [self.dataSourceArrays addObject:arr2];
@@ -44,12 +50,164 @@ static NSString *const COURTCELL = @"courtacceptcell";
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
-
+    
 }
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
+    if (btn.tag == 3034) {
+        [self.dataSourceArrays removeAllObjects];
+        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"是",@"",@"减半", nil];
+        [self.dataSourceArrays addObject:arr1];
+        
+        [_tableView reloadData];
+        return;
+    }
+    NSMutableArray *arr1 = _dataSourceArrays[0];
+    CGFloat lastmoney = 0.0f;
+    
+    NSString *caseType = arr1[0];
+    if (caseType.length == 0) {
+        [JKPromptView showWithImageName:nil message:@"请选择案件类型"];
+        return;
+    }
+    if ([arr1[0] isEqualToString:@"财产案件"] || [arr1[0] isEqualToString:@"支付令"]) {
+        
+        NSString *moneyString = arr1[1];
+        if (moneyString.length == 0) {
+            [JKPromptView showWithImageName:nil message:@"请输入金额"];
+            return;
+        }
+        if ([arr1[0] isEqualToString:@"支付令"]) {
+            lastmoney = [self involvingPropertyCalculationWithmoney:[moneyString floatValue]]/3.f;
+        }else{
+            lastmoney = [self involvingPropertyCalculationWithmoney:[moneyString floatValue]];
+        }
+        lastmoney = (_isHalf == YES)?(lastmoney/2.f):lastmoney;
+        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",lastmoney], nil];
+        [self.dataSourceArrays addObject:arr2];
+        [_tableView reloadData];
+        
+    }else if ([arr1[0] isEqualToString:@"离婚案件"] || [arr1[0] isEqualToString:@"人格权案件"] || [arr1[0] isEqualToString:@"知识产权案件"] || [arr1[0] isEqualToString:@"财产保全案件"]){
+        
+        if (_isMoney == YES) {
+            
+            NSString *moneyString = arr1[2];
+            if (moneyString.length == 0) {
+                [JKPromptView showWithImageName:nil message:@"请输入金额"];
+                return;
+            }
+
+            if ([arr1[0] isEqualToString:@"离婚案件"]) {
+                
+                NSString *str = [self divorceWithMoney:[moneyString floatValue]];
+                [self doNotInvolvePropertyCalculation:str];
+                
+            }else if ([arr1[0] isEqualToString:@"人格权案件"]){
+                
+                NSString *str = [self personalityRight:[moneyString floatValue]];
+                [self doNotInvolvePropertyCalculation:str];
+            }else if ([arr1[0] isEqualToString:@"知识产权案件"]){
+                lastmoney = (_isHalf == YES)?[self involvingPropertyCalculationWithmoney:[[self propertyPreservationWithMoney:[moneyString floatValue]] floatValue]/2.f]:[self involvingPropertyCalculationWithmoney:[[self propertyPreservationWithMoney:[moneyString floatValue]] floatValue]];
+            }else{
+                lastmoney = (_isHalf == YES)? [self involvingPropertyCalculationWithmoney:[moneyString floatValue]/2.f]:[self involvingPropertyCalculationWithmoney:[moneyString floatValue]];
+            }
+            
+        }else {
+            NSString *str = self.noMoneyDictionary[caseType];
+            [self doNotInvolvePropertyCalculation:str];
+        }
+        
+    }else {
+        NSString *str = self.noMoneyDictionary[caseType];
+        [self doNotInvolvePropertyCalculation:str];
+    }
+}
+- (void)doNotInvolvePropertyCalculation:(NSString *)string
+{
+    NSString *lastStr = @"";
+    NSArray *array = [string componentsSeparatedByString:@","];
+    if (array.count > 1) {
+        lastStr  = (_isHalf == YES)?[NSString stringWithFormat:@"%.2f~%.2f元",[array[0] floatValue]/2.f,[array[1] floatValue]/2.f]:[NSString stringWithFormat:@"%.2f~%.2f元",[array[0] floatValue],[array[1] floatValue]];
+    }else{
+        lastStr  = (_isHalf == YES)?[NSString stringWithFormat:@"%.2f元",[array[0] floatValue]/2.f]:[NSString stringWithFormat:@"%.2f元",[array[0] floatValue]];
+    }
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastStr, nil];
+    [self.dataSourceArrays addObject:arr2];
+    [_tableView reloadData];
+}
+#pragma mark -
+#pragma mark - 离婚
+- (NSString *)divorceWithMoney:(float)frontalMoney
+{
+    CGFloat lastmoney = 0.0f;
+    if (frontalMoney > 200000.f) {
+        lastmoney = (frontalMoney - 200000.f)*0.005f;
+    }
+    return [NSString stringWithFormat:@"%.2f,%.2f",50 + lastmoney,300 + lastmoney];
+}
+#pragma mark - 人格权
+- (NSString *)personalityRight:(float)frontalMoney
+{
+    CGFloat lastmoney = 0.0f;
+    if (frontalMoney > 50000.f && frontalMoney < 100000.f) {
+        lastmoney = (frontalMoney - 50000.f)*0.01f;
+    }else if (frontalMoney > 100000.f){
+        lastmoney = (frontalMoney - 100000.f)*0.005f + 500.f;
+    }
+    return [NSString stringWithFormat:@"%.2f,%.2f元",100 + lastmoney,500 + lastmoney];
+}
+#pragma mark - 财产保全
+- (NSString *)propertyPreservationWithMoney:(float)frontalMoney
+{
+    CGFloat lastmoney = 0.0f;
+    if (frontalMoney > 1000.f && frontalMoney < 100000.f) {
+        lastmoney = (frontalMoney - 50000.f)*0.01f;
+    }else if (frontalMoney > 100000.f){
+        lastmoney = (frontalMoney - 100000.f)*0.005f + 990.f;
+    }
+    if (lastmoney > 5000.f) {
+        lastmoney = 5000.f;
+    }
+    return [NSString stringWithFormat:@"%.2f元",30 + lastmoney];
+}
+#pragma mark -  财产案件根据诉讼请求的金额或者价额，按照下列比例分段累计交纳
+- (float)involvingPropertyCalculationWithmoney:(float)frontalMoney
+{
+    __block CGFloat lastmoney = 0.0f;
+    NSArray *moneyArrays = @[@"10000",@"100000",@"200000",@"500000",@"1000000",@"2000000",@"5000000",@"10000000",@"20000000"];
+    NSArray *percentageArrays = @[@"0.025",@"0.02",@"0.015",@"0.01",@"0.009",@"0.008",@"0.007",@"0.006",@"0.005"];
+    NSArray *pieceArrays = @[@"50",@"2250",@"2000",@"4500",@"5000",@"9000",@"24000",@"35000",@"60000"];
+    
+    __block NSUInteger index = moneyArrays.count;
+    [moneyArrays enumerateObjectsUsingBlock:^(NSString *objMoney, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (frontalMoney - [objMoney floatValue]<= 0) {
+            index = idx;
+            *stop = YES;
+        }
+    }];
+    
+    if (index == 0) {
+        lastmoney = [pieceArrays[0] floatValue];
+    }else if (index > moneyArrays.count - 1){
+        
+        [pieceArrays enumerateObjectsUsingBlock:^( NSString *objmoney, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            lastmoney  += [objmoney floatValue];
+        }];
+        lastmoney += (frontalMoney - [[moneyArrays lastObject] floatValue])*[[percentageArrays lastObject] floatValue];
+    }else {
+        
+        for (NSInteger i = 0; i <index; i++) {
+            lastmoney +=  [pieceArrays[i] floatValue];
+        }
+        lastmoney += (frontalMoney - [moneyArrays[index -1] floatValue])*[percentageArrays[index -1] floatValue];
+    }
+    
+    DLog(@"输出money －－－--- %.2f",lastmoney);
+    return lastmoney;
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -66,6 +224,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     CourtViewCell *cell = (CourtViewCell *)[tableView dequeueReusableCellWithIdentifier:COURTCELL];
     cell.textField.delegate = self;
+    cell.delegate = self;
     [cell settingUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
@@ -86,15 +245,49 @@ static NSString *const COURTCELL = @"courtacceptcell";
         }
     }
 }
+#pragma mark - CourtViewDelegate
+- (void)fullORHalf:(NSInteger)index withRow:(NSInteger)row
+{
+    (index == 1)?(_isHalf = YES):(_isHalf = NO);
+    NSString *str2 = (_isHalf == YES)?@"减半":@"全额";
+    NSMutableArray *arr1 = _dataSourceArrays[0];
+    [arr1 replaceObjectAtIndex:row withObject:str2];
+}
+- (void)isInvolvedInTheAmount:(NSInteger)index withRow:(NSInteger)row
+{
+    
+    (index == 0)?(_isMoney = YES):(_isMoney = NO);
+    NSString *str1 = (_isMoney == YES)?@"是":@"否";
+    NSMutableArray *arr1 = _dataSourceArrays[0];
+    if (arr1.count == 4) {
+        [arr1 replaceObjectAtIndex:row withObject:str1];
+        [arr1 removeObjectAtIndex:row+1];
+    }else{
+        [arr1 insertObject:@"" atIndex:row+1];
+    }
+    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+}
 #pragma mark - Disability_AlertViewPro
 - (void)selectCaseType:(NSString *)caseString
-{WEAKSELF;
-    
-    NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
-    [arr1 replaceObjectAtIndex:0 withObject:caseString];
-    
-    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    [weakSelf.tableView reloadData];
+{
+    NSString *str1 = (_isMoney == YES)?@"是":@"否";
+    NSString *str2 = (_isHalf == YES)?@"减半":@"全额";
+
+    if ([caseString isEqualToString:@"财产案件"] || [caseString isEqualToString:@"支付令"]) {
+        
+        _isMoney = YES;
+        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:caseString,@"",str2, nil];
+        [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+    }else if ([caseString isEqualToString:@"离婚案件"] || [caseString isEqualToString:@"人格权案件"] || [caseString isEqualToString:@"知识产权案件"] || [caseString isEqualToString:@"财产保全案件"]){
+        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:caseString,str1,@"",str2, nil];
+        [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+
+    }else{
+        _isMoney = NO;
+        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:caseString,str2, nil];
+        [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+    }
+    [_tableView reloadData];
     
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -137,7 +330,6 @@ static NSString *const COURTCELL = @"courtacceptcell";
     }
     NSInteger row = textField.row;
     NSInteger section = textField.section;
-    
     NSMutableArray *arr = _dataSourceArrays[section];
     [arr replaceObjectAtIndex:row withObject:textField.text];
 }
@@ -174,6 +366,13 @@ static NSString *const COURTCELL = @"courtacceptcell";
         _dataSourceArrays = [NSMutableArray array];
     }
     return _dataSourceArrays;
+}
+- (NSMutableDictionary *)noMoneyDictionary
+{
+    if (!_noMoneyDictionary) {
+        _noMoneyDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"30",@"财产保全案件",@"50,300",@"离婚案件",@"100,500",@"人格权案件",@"500,1000元",@"知识产权案件",@"10",@"劳动争议案件",@"50,100",@"管辖权异议不成立的案件",@"100",@"商标、专利、海事行政案件",@"50",@"其他行政案件",@"100",@"公示催告", nil];
+    }
+    return _noMoneyDictionary;
 }
 - (UIButton *)calculateButton
 {
