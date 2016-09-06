@@ -309,8 +309,9 @@
 - (void)setupNaviBarWithTitle:(NSString *)title {
     if (_titleLabel && [title length] > 0) {
         [self.titleLabel setText:title];
-        [self.titleLabel setFont:[UIFont boldSystemFontOfSize:TitleFont]];
-        
+//        [self.titleLabel setFont:[UIFont boldSystemFontOfSize:TitleFont]];
+        self.titleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:18.f];
+
         CGRect frame = _titleLabel.frame;
         frame.size.width = [QZManager getLabelWidth:_titleLabel];
         self.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;

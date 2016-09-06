@@ -46,9 +46,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 - (void)initUI
 {WEAKSELF;
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"是",@"", nil];
-//    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
-//    [self.dataSourceArrays addObject:arr2];
     
     [self setupNaviBarWithTitle:@"律师费计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
@@ -88,8 +86,15 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         if (_dataSourceArrays.count == 2) {
             [_dataSourceArrays removeObjectAtIndex:1];
         }
-        [_tableView reloadData];
+        [self reloadTableViewWithAnimation];
     }
+}
+- (void)reloadTableViewWithAnimation
+{WEAKSELF;
+    
+    [UIView animateWithDuration:.25 animations:^{
+        [weakSelf.tableView reloadData];
+    }];
 }
 - (void)showLaywerFees
 {
@@ -113,7 +118,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         [arr2 addObjectsFromArray:stageArrays];
         [_dataSourceArrays addObject:arr2];
         
-        [_tableView reloadData];
+        [self reloadTableViewWithAnimation];
     }
     if ([caseString isEqualToString:@"行政案件"]) {
         NSString *isMoney = arr[2];
@@ -133,7 +138,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             NSDictionary *xz2Dixt = _areasDictionary[@"xz2"];
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",xz2Dixt[@"fees"], nil];
             [_dataSourceArrays addObject:arr2];
-            [_tableView reloadData];
+            [self reloadTableViewWithAnimation];
         }
     }
     if ([caseString isEqualToString:@"民事案件"]) {
@@ -151,7 +156,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             NSDictionary *ms2Dixt = _areasDictionary[@"ms2"];
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",ms2Dixt[@"fees"], nil];
             [_dataSourceArrays addObject:arr2];
-            [_tableView reloadData];
+            [self reloadTableViewWithAnimation];
         }
     }
 }
@@ -178,7 +183,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         AllProportionModel *perModel = model.allPer[0];
         NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",perModel.con, nil];
         [_dataSourceArrays addObject:arr2];
-        [_tableView reloadData];
+        [self reloadTableViewWithAnimation];
     }else if (index > model.allMoney.count - 1){
         //最后一位是百分比还是说明 1是说明  2是
         
@@ -187,7 +192,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             //eg:大于多少自行协商
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",perModel.con, nil];
             [_dataSourceArrays addObject:arr2];
-            [_tableView reloadData];
+            [self reloadTableViewWithAnimation];
         }else {
             float lastMoneyMax = 0.0f;
             float lastMoneyMin = 0.0f;
@@ -204,7 +209,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f ~ %.2f元",lastMoneyMin,lastMoneyMax];
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
             [_dataSourceArrays addObject:arr2];
-            [_tableView reloadData];
+            [self reloadTableViewWithAnimation];
         }
         
     }else {
@@ -227,7 +232,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f ~ %.2f元",lastMoneyMin,lastMoneyMax];
         NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
         [_dataSourceArrays addObject:arr2];
-        [_tableView reloadData];
+        [self reloadTableViewWithAnimation];
 
     }
 }
@@ -254,7 +259,8 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         AllProportionModel *perModel = model.allPer[0];
         NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",perModel.con, nil];
         [_dataSourceArrays addObject:arr2];
-        [_tableView reloadData];
+        [self reloadTableViewWithAnimation];
+        
     }else if (index > model.allMoney.count - 1){
         //最后一位是百分比还是说明 1是说明  2是
         AllProportionModel *perModel = model.allPer[model.allPer.count -1];
@@ -262,7 +268,8 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",perModel.con, nil];
             [_dataSourceArrays addObject:arr2];
-            [_tableView reloadData];
+            [self reloadTableViewWithAnimation];
+            
         }else {
             float lastMoney = 0.0f;
             for (NSInteger i =0; i< index; i++) {
@@ -273,7 +280,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f元",lastMoney];
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
             [_dataSourceArrays addObject:arr2];
-            [_tableView reloadData];
+            [self reloadTableViewWithAnimation];
         }
         
     }else {
@@ -291,9 +298,10 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f元",lastMoney];
         NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
         [_dataSourceArrays addObject:arr2];
-        [_tableView reloadData];
+        [self reloadTableViewWithAnimation];
     }
 }
+
 #pragma mark - LawyerFeesCellPro
 - (void)aboutProperty:(NSInteger)index
 {
@@ -301,11 +309,11 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     if (index == 1) {
         [arr1 replaceObjectAtIndex:2 withObject:@"否"];
         [arr1 removeObjectAtIndex:3];
-        [_tableView reloadData];
+        [self reloadTableViewWithAnimation];
     }else {
         if (arr1.count == 3) {
             [arr1 addObject:@""];
-            [_tableView reloadData];
+            [self reloadTableViewWithAnimation];
         }
         [arr1 replaceObjectAtIndex:2 withObject:@"是"];
     }

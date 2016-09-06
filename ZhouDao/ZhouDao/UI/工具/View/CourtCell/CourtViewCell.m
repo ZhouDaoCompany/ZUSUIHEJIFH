@@ -64,7 +64,7 @@
                     _textField.hidden = NO;
                     _textField.placeholder = @"选择案件类型";
                     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                    _textField.frame = CGRectMake(kMainScreenWidth - 235, 7, 200, 30);
                     
                 }
                     break;
@@ -102,7 +102,7 @@
                         _textField.hidden = NO;
                         _textField.placeholder = @"选择案件类型";
                         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                        _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                        _textField.frame = CGRectMake(kMainScreenWidth - 235, 7, 200, 30);
                         
                     }
                         break;
@@ -141,7 +141,7 @@
                         _textField.hidden = NO;
                         _textField.placeholder = @"选择案件类型";
                         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                        _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                        _textField.frame = CGRectMake(kMainScreenWidth - 235, 7, 200, 30);
                         
                     }
                         break;
@@ -150,7 +150,6 @@
                         _textField.enabled = NO;
                         _textField.hidden = YES;
                         _segButton.hidden = NO;
-                        _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
                         _segButton.selectedSegmentIndex = [arr1[1] isEqualToString:@"是"]?0:1;
 
                         
@@ -190,7 +189,7 @@
                     _textField.enabled = NO;
                     _textField.hidden = NO;
                     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                    _textField.frame = CGRectMake(kMainScreenWidth - 235, 7, 200, 30);
                     
                 }
                     break;
@@ -258,12 +257,12 @@
 - (void)didClicksegmentedControlAction:(UISegmentedControl *)Seg
 {
     if (Seg.tag == 4004) {
-        if ([self.delegate respondsToSelector:@selector(fullORHalf:withRow:)]) {
-            [self.delegate fullORHalf:Seg.selectedSegmentIndex withRow:_row];
+        if ([self.delegate respondsToSelector:@selector(fullORHalf:withCell:)]) {
+            [self.delegate fullORHalf:Seg.selectedSegmentIndex withCell:self];
         }
     }else{
-        if ([self.delegate respondsToSelector:@selector(isInvolvedInTheAmount:withRow:)]) {
-            [self.delegate isInvolvedInTheAmount:Seg.selectedSegmentIndex withRow:_row];
+        if ([self.delegate respondsToSelector:@selector(isInvolvedInTheAmount:withCell:)]) {
+            [self.delegate isInvolvedInTheAmount:Seg.selectedSegmentIndex withCell:self];
         }
     }
     

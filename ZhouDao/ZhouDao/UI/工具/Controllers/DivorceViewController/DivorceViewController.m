@@ -12,9 +12,7 @@
 static NSString *const DivorceCellID = @"DivorceCellID";
 
 @interface DivorceViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
-{
-    
-}
+
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
@@ -32,20 +30,16 @@ static NSString *const DivorceCellID = @"DivorceCellID";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [self initUI];
 }
-
 #pragma mark - private methods
 - (void)initUI
 {
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",nil];
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
-    [self.dataSourceArrays addObject:arr2];
     
-    [self setupNaviBarWithTitle:@"裁决书逾期利息计算"];
+    [self setupNaviBarWithTitle:@"离婚房产分割计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
@@ -56,17 +50,71 @@ static NSString *const DivorceCellID = @"DivorceCellID";
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
-    DLog(@"计算或者重置");
-}
+    
+    if (btn.tag == 3034) {
+        if (_dataSourceArrays.count == 2) {
+            [_dataSourceArrays removeObjectAtIndex:1];
+            [_tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+        }
+        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
+        [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        [_tableView endUpdates];
+    }else {
+        //计算
+        NSMutableArray *arr = _dataSourceArrays[0];
 
+        NSArray *arrays = [NSArray arrayWithObjects:@"请输入结婚时诉争房产价格",@"请输入离婚时诉争房产价格",@"请输入共同已还利息",@"请输入契税等其他费用",@"请输入共同还贷部分", nil];
+        for (NSUInteger i = 0; i<arr.count ; i++) {
+            NSString *str = arr[i];
+            if (str.length == 0) {
+                [JKPromptView showWithImageName:nil message:arrays[i]];
+                return;
+            }
+        }
+        float rate = [self getAppreciationRateWithArrays:arr];
+        NSString *str1 = [NSString stringWithFormat:@"%.0f",rate*100];
+        NSString *str2 = [NSString stringWithFormat:@"%f",[self valueAddedAmountAfterMarriage:rate withArrays:arr]];
+        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",str1,str2, nil];
+        [_dataSourceArrays addObject:arr2];
+        [self reloadTableViewWithAnimation];
+    }
+}
+- (void)reloadTableViewWithAnimation
+{WEAKSELF;
+    
+    [UIView animateWithDuration:.25 animations:^{
+        [weakSelf.tableView reloadData];
+    }];
+}
+#pragma mark - 诉争房产的升值率（%）
+- (float)getAppreciationRateWithArrays:(NSMutableArray *)arr
+{
+    float getMarriedMoney = [arr[0] floatValue];//结婚时诉争房产价格（元）
+    float divorceMoney = [arr[1] floatValue];//离婚时诉争房产价格（元）
+    float interestMoney = [arr[2] floatValue];//共同已还利息（元）
+    float deedTaxMoney = [arr[3] floatValue];//契税等其他费用（元）
+    float rate = 0.0f;
+    rate = divorceMoney/(getMarriedMoney + interestMoney + deedTaxMoney);
+    return rate;
+}
+#pragma mark - 婚后增值金额（元）
+- (float)valueAddedAmountAfterMarriage:(float)rate withArrays:(NSMutableArray *)arr
+{
+    float loanMoney = [arr[4] floatValue];//共同还贷部分（元）
+    float addMoney = 0.0f;
+    addMoney = loanMoney*rate;
+    return addMoney;
+}
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return [_dataSourceArrays count];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?6:3;
+    NSMutableArray *arr = self.dataSourceArrays[section];
+    return [arr count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -81,9 +129,9 @@ static NSString *const DivorceCellID = @"DivorceCellID";
     
     return cell;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == 1) {
         return nil;
     }
     UIView *secitionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 80)];
@@ -96,11 +144,11 @@ static NSString *const DivorceCellID = @"DivorceCellID";
 {
     return 45.f;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return (section == 0)?0.1f:80.f;
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return (section == 0)?80.f:0.1f;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.1f;
 }
@@ -110,7 +158,6 @@ static NSString *const DivorceCellID = @"DivorceCellID";
     [self dismissKeyBoard];
     return YES;
 }
-
 - (void)textFieldChanged:(NSNotification*)noti{
     
     CaseTextField *textField = (CaseTextField *)noti.object;

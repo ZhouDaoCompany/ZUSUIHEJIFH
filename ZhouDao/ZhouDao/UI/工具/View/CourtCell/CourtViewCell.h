@@ -20,6 +20,6 @@
 
 @protocol  CourtViewDelegate <NSObject>
 
-- (void)fullORHalf:(NSInteger)index withRow:(NSInteger)row;
-- (void)isInvolvedInTheAmount:(NSInteger)index withRow:(NSInteger)row;
+- (void)fullORHalf:(NSInteger)index withCell:(CourtViewCell *)cell;
+- (void)isInvolvedInTheAmount:(NSInteger)index  withCell:(CourtViewCell *)cell;
 @end

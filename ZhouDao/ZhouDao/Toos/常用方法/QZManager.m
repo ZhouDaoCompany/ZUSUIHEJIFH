@@ -464,6 +464,16 @@ singleton_for_class(QZManager)
 
     return destDate;
 }
+#pragma mark -输入的日期字符串形如：@"19920521"
++ (NSUInteger)timeToTimeStamp:(NSString *)dateString{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+    [dateFormatter setDateFormat: @"yyyyMMdd"];
+    NSDate *destDate= [dateFormatter dateFromString:dateString];
+    NSUInteger seconds = [destDate timeIntervalSince1970];
+    return seconds;
+}
+
 #pragma mark ------  时间戳转换NSDate
 + (NSString *)changeTime:(NSTimeInterval)time
 {

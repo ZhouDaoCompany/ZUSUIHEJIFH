@@ -229,6 +229,8 @@
 		183FFCB11D3783F6007D0494 /* HyPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183FFCB01D3783F6007D0494 /* HyPopMenuView.m */; };
 		183FFCB41D378546007D0494 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183FFCB31D378546007D0494 /* ShareView.m */; };
 		1843C5B71D38CD2800414C2E /* ThirdPartyLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843C5B61D38CD2800414C2E /* ThirdPartyLoginView.m */; };
+		1844A8551D7E6AE50049C862 /* BreachDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1844A8541D7E6AE50049C862 /* BreachDetailVC.m */; };
+		1844A8581D7E6FC70049C862 /* BreachHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1844A8571D7E6FC70049C862 /* BreachHeadView.m */; };
 		18474DB01CCDED3400515CD6 /* EditCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DAF1CCDED3400515CD6 /* EditCaseVC.m */; };
 		18474DB31CCE098300515CD6 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DB21CCE098300515CD6 /* UserData.m */; };
 		18496D621D4757A10071E689 /* ToolsWedViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18496D601D4757A00071E689 /* ToolsWedViewVC.m */; };
@@ -962,6 +964,10 @@
 		183FFCB31D378546007D0494 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		1843C5B51D38CD2800414C2E /* ThirdPartyLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdPartyLoginView.h; sourceTree = "<group>"; };
 		1843C5B61D38CD2800414C2E /* ThirdPartyLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdPartyLoginView.m; sourceTree = "<group>"; };
+		1844A8531D7E6AE50049C862 /* BreachDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BreachDetailVC.h; sourceTree = "<group>"; };
+		1844A8541D7E6AE50049C862 /* BreachDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BreachDetailVC.m; sourceTree = "<group>"; };
+		1844A8561D7E6FC70049C862 /* BreachHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BreachHeadView.h; sourceTree = "<group>"; };
+		1844A8571D7E6FC70049C862 /* BreachHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BreachHeadView.m; sourceTree = "<group>"; };
 		18474DAE1CCDED3400515CD6 /* EditCaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCaseVC.h; sourceTree = "<group>"; };
 		18474DAF1CCDED3400515CD6 /* EditCaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCaseVC.m; sourceTree = "<group>"; };
 		18474DB11CCE098300515CD6 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
@@ -2915,6 +2921,10 @@
 			children = (
 				1873673A1D753318000C1169 /* BreachViewController.h */,
 				1873673B1D753318000C1169 /* BreachViewController.m */,
+				1844A8531D7E6AE50049C862 /* BreachDetailVC.h */,
+				1844A8541D7E6AE50049C862 /* BreachDetailVC.m */,
+				1844A8561D7E6FC70049C862 /* BreachHeadView.h */,
+				1844A8571D7E6FC70049C862 /* BreachHeadView.m */,
 			);
 			path = BreachViewController;
 			sourceTree = "<group>";
@@ -4544,6 +4554,7 @@
 				1830E0711D4863B9005D287E /* SDWaitingView.m in Sources */,
 				10172BE01CBBF16C00B7553E /* KxMenu.m in Sources */,
 				183FFCB41D378546007D0494 /* ShareView.m in Sources */,
+				1844A8581D7E6FC70049C862 /* BreachHeadView.m in Sources */,
 				18AD6AAE1CD99D500053F46B /* TheContractData.m in Sources */,
 				18E4C8D61D77BF3300D83DEF /* AllProportionModel.m in Sources */,
 				18D9570B1CF5ADED00F0E4DB /* ToolsIntroduceVC.m in Sources */,
@@ -4582,6 +4593,7 @@
 				10C86B811CABB78D002A75AC /* HomeHeadView.m in Sources */,
 				183FFCB11D3783F6007D0494 /* HyPopMenuView.m in Sources */,
 				1813EF891D5C63300019CA33 /* PushAlertWindow.m in Sources */,
+				1844A8551D7E6AE50049C862 /* BreachDetailVC.m in Sources */,
 				187DB94A1CDC803C009CF1D6 /* GovClassData.m in Sources */,
 				10C86B841CABBE34002A75AC /* LawsKindView.m in Sources */,
 				18AD6AB11CD9EC930053F46B /* TemplateData.m in Sources */,

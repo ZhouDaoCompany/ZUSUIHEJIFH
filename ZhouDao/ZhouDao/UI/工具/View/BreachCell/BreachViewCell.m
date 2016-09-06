@@ -37,10 +37,10 @@
     if (section == 0) {
         
         NSMutableArray *arr1 = arrays[0];
-        NSArray *titleArr = @[@"标的金额（元）",@"起算日期",@"截止日期",@"利率方式",@"年利率（%）"];
+        NSArray *titleArr = @[@"标的金额（元）",@"起算日期",@"截止日期",@"利率方式",@"利率选项",@"利率(%)"];
+        _titleLab.text = titleArr[row];
         _titleLab.frame = CGRectMake(15, 12, 160, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
-        _titleLab.text = titleArr[row];
         _textField.placeholder = @"";
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
         _lineView.hidden = NO;
@@ -48,53 +48,113 @@
         _textField.hidden = NO;
         _textField.enabled = NO;
 
-        switch (row) {
-            case 0:
-            {
-                _textField.enabled = YES;
-                _textField.placeholder = @"请输入金额";
-                _textField.keyboardType = UIKeyboardTypeDecimalPad;
-                self.accessoryType = UITableViewCellAccessoryNone;
+        
+        if ([arr1[3] isEqualToString:@"按约定利率"]) {
+            switch (row) {
+                case 0:
+                {
+                    _textField.enabled = YES;
+                    _textField.placeholder = @"请输入金额";
+                    _textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    self.accessoryType = UITableViewCellAccessoryNone;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 140, 30);
+                }
+                    break;
+                case 1:
+                {
+                    _textField.placeholder = @"请选择起算日期";
+                    self.accessoryType = UITableViewCellAccessoryNone;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 140, 30);
 
-            }
-                break;
-            case 1:
-            {
-                _textField.placeholder = @"请选择起算日期";
-                self.accessoryType = UITableViewCellAccessoryNone;
+                    
+                }
+                    break;
+                case 2:
+                {
+                    _textField.placeholder = @"请选择截止日期";
+                    self.accessoryType = UITableViewCellAccessoryNone;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 140, 30);
 
-                
-            }
-                break;
-            case 2:
-            {
-                _textField.placeholder = @"请选择截止日期";
-                self.accessoryType = UITableViewCellAccessoryNone;
+                }
+                    break;
+                case 3:
+                {
+                    _textField.placeholder = @"请选择利率方式";
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                    
+                    
+                }
+                    break;
+                case 4:
+                {
+                    _textField.placeholder = @"请选择利率选项";
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+                    
+                    
+                }
+                    break;
+                case 5:
+                {
+                    _textField.enabled = YES;
+                    _textField.placeholder = @"请输入利率(%)";
+                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 140, 30);
+                    _lineView.hidden = YES;
+                    
+                    
+                }
+                    break;
 
+                default:
+                    break;
             }
-                break;
-            case 3:
-            {
-                _textField.placeholder = @"请选择利率方式";
-                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
-                
-                
-            }
-                break;
-            case 4:
-            {
-                _textField.placeholder = @"请选择年利率";
-                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
-                _lineView.hidden = YES;
-                
-                
-            }
-                break;
 
-            default:
-                break;
+        }else {
+            
+            switch (row) {
+                case 0:
+                {
+                    _textField.enabled = YES;
+                    _textField.placeholder = @"请输入金额";
+                    _textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    self.accessoryType = UITableViewCellAccessoryNone;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 140, 30);
+
+                }
+                    break;
+                case 1:
+                {
+                    _textField.placeholder = @"请选择起算日期";
+                    self.accessoryType = UITableViewCellAccessoryNone;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 140, 30);
+
+                    
+                }
+                    break;
+                case 2:
+                {
+                    _textField.placeholder = @"请选择截止日期";
+                    self.accessoryType = UITableViewCellAccessoryNone;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 140, 30);
+
+                }
+                    break;
+                case 3:
+                {
+                    _textField.placeholder = @"请选择利率方式";
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+                    _lineView.hidden = YES;
+
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+
         }
     }else {
         NSMutableArray *arr2 = arrays[1];

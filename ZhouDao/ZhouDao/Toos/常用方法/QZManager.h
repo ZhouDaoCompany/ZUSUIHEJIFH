@@ -239,7 +239,7 @@ singleton_for_header(QZManager)
  *  输入的日期字符串形如：@"1992-05-21"
  */
 + (NSDate *)caseDateFromString:(NSString *)dateString;
-
++ (NSUInteger)timeToTimeStamp:(NSString *)dateString;
 #pragma mark - 时间戳转换NSDate
 /*
  *时间戳转换NSDate

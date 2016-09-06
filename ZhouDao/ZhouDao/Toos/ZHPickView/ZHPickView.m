@@ -235,7 +235,6 @@
                 _selectedString = _proTitleList[0];
             }
         }
-       
     }
     
     if (isDate == NO) {

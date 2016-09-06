@@ -39,7 +39,7 @@
     if (section == 0) {
         
         NSMutableArray *arr1 = arrays[0];
-        NSArray *titleArr = @[@"购买时诉争房产价格（元）",@"结婚时诉争房产价格（元）",@"离婚时诉争房产价格（元）",@"共同已还利息（元）",@"契税等其他费用（元）",@"共同还贷部分（元）"];
+        NSArray *titleArr = @[@"结婚时诉争房产价格（元）",@"离婚时诉争房产价格（元）",@"共同已还利息（元）",@"契税等其他费用（元）",@"共同还贷部分（元）"];
         _titleLab.frame = CGRectMake(15, 12, 180, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
@@ -49,7 +49,6 @@
         self.accessoryType = UITableViewCellAccessoryNone;
         _textField.keyboardType = UIKeyboardTypeDecimalPad;
         _textField.placeholder = @"请输入金额";
-        _textField.frame = CGRectMake(kMainScreenWidth - 135, 7, 120, 30);
         _textField.text = arr1[row];
         
         switch (row) {
@@ -97,7 +96,7 @@
     }else {
 
         NSMutableArray *arr2 = arrays[1];
-        NSArray *titleArr = @[@"计算结果",@"诉争房产的升值率（%）",@"婚后增值金额"];
+        NSArray *titleArr = @[@"计算结果",@"诉争房产的升值率（%）",@"婚后增值金额（元）"];
         _titleLab.frame = CGRectMake(15, 12, 180, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
@@ -153,7 +152,7 @@
 - (CaseTextField *)textField
 {
     if (!_textField) {
-        _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 155, 7, 120, 30)];
+        _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 175, 7, 160, 30)];
         _textField.borderStyle = UITextBorderStyleNone;
         _textField.textColor = hexColor(666666);
         [_textField setValue:hexColor(ADADAD) forKeyPath:@"_placeholderLabel.textColor"];
