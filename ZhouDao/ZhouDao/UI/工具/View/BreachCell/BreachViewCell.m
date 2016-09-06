@@ -170,7 +170,8 @@
         _textField.text = arr2[row];
         _lineView.hidden = NO;
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
-        
+        _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
+
         switch (row) {
             case 0:
             {
@@ -178,12 +179,12 @@
                 _titleLab.textAlignment = NSTextAlignmentCenter;
                 _textField.hidden = YES;
                 _lineView.frame = CGRectMake(0, 44.4f, kMainScreenWidth, .6f);
-                
+
             }
                 break;
             case 1:
             {
-                
+
                 
             }
                 break;
