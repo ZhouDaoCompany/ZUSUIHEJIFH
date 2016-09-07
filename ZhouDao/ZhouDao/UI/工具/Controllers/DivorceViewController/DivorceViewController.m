@@ -208,7 +208,7 @@ static NSString *const DivorceCellID = @"DivorceCellID";
 - (UIButton *)calculateButton
 {
     if (!_calculateButton) {
-        _calculateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _calculateButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _calculateButton.frame = CGRectMake(15 , 20, (kMainScreenWidth - 45)/2.f, 40);
         _calculateButton.layer.masksToBounds = YES;
         _calculateButton.layer.cornerRadius = 3.f;
@@ -224,7 +224,7 @@ static NSString *const DivorceCellID = @"DivorceCellID";
 - (UIButton *)resetButton
 {
     if (!_resetButton) {
-        _resetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _resetButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _resetButton.frame = CGRectMake(30 + (kMainScreenWidth - 45)/2.f , 20, (kMainScreenWidth - 45)/2.f, 40);
         _resetButton.layer.masksToBounds = YES;
         _resetButton.layer.cornerRadius = 3.f;

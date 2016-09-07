@@ -101,7 +101,7 @@
                     _textField.placeholder = @"请输入利率(%)";
                     _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 140, 30);
                     _lineView.hidden = YES;
-                    
+                    _textField.keyboardType = UIKeyboardTypeDecimalPad;
                     
                 }
                     break;

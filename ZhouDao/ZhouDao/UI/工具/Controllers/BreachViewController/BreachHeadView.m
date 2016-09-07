@@ -60,7 +60,7 @@
     lab3.font = [UIFont systemFontOfSize:11.f];
     lab3.textColor = hexColor(FFFFFF);
     lab3.numberOfLines = 0;
-    lab3.text = [NSString stringWithFormat:@"利率\n%@",@"同期利率"];
+    lab3.text = [NSString stringWithFormat:@"利率\n%@",rateString];
     [view1 addSubview:lab3];
     
     UILabel * lab4 = [[UILabel alloc] initWithFrame:CGRectMake(5, 50, 105, 20)];
@@ -76,7 +76,7 @@
     lab5.textAlignment = NSTextAlignmentCenter;
     lab5.font = [UIFont systemFontOfSize:12.f];
     lab5.textColor = hexColor(000000);
-    lab5.text = @"年/月/日";
+    lab5.text = @"天数";
     [self addSubview:lab5];
 
     UILabel * lab6 = [[UILabel alloc] initWithFrame:CGRectMake(Orgin_x(lab5) + 5, 50, width+10, 20)];

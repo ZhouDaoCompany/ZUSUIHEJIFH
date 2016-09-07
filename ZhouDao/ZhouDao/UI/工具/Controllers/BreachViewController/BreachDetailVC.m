@@ -9,6 +9,7 @@
 #import "BreachDetailVC.h"
 #import "ParallaxHeaderView.h"
 #import "BreachHeadView.h"
+#import "BreachDetailCell.h"
 
 static NSString *const BREACHDETAILCELL = @"BreachDetailCellid";
 
@@ -16,6 +17,9 @@ static NSString *const BREACHDETAILCELL = @"BreachDetailCellid";
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic, strong)  ParallaxHeaderView *headerView;
+@property (nonatomic, strong)  NSMutableArray *dataSourceArrays;
+@property (strong, nonatomic) UILabel *bottomLabel;
+
 @end
 
 @implementation BreachDetailVC
@@ -29,11 +33,33 @@ static NSString *const BREACHDETAILCELL = @"BreachDetailCellid";
 #pragma mark - private methods
 - (void)initUI
 {
+
+    self.dataSourceArrays = _detailDictionary[@"MutableArrays"];
+    
     [self setupNaviBarWithTitle:@"违约金分段详情"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
-    
-    
+    [_tableView setTableFooterView:self.bottomLabel];
+
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 18, kMainScreenWidth - 60, 20)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:15.f];
+    titleLabel.textColor = hexColor(FFFFFF);
+    titleLabel.text = @"违约金累加/总计金额（元）";
+    [_headerView addSubview:titleLabel];
+    UILabel *moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, Orgin_y(titleLabel), kMainScreenWidth - 60, 20)];
+    moneyLabel.textAlignment = NSTextAlignmentCenter;
+    moneyLabel.font = [UIFont systemFontOfSize:20.f];
+    moneyLabel.textColor = hexColor(FFFFFF);
+    moneyLabel.text = _detailDictionary[@"BreachMoney"];
+    [_headerView addSubview:moneyLabel];
+
+    [_bottomLabel whenCancelTapped:^{
+        
+        DLog(@"点击跳转");
+        
+    }];
+
 }
 #pragma mark - UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -47,23 +73,21 @@ static NSString *const BREACHDETAILCELL = @"BreachDetailCellid";
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return [_dataSourceArrays count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:BREACHDETAILCELL];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    BreachDetailCell *cell = (BreachDetailCell *)[tableView dequeueReusableCellWithIdentifier:BREACHDETAILCELL];
+    if (_dataSourceArrays.count >0) {
+        
+        [cell settUIWithArrays:_dataSourceArrays[indexPath.row]];
+    }
     return cell;
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
-    NSInteger row = indexPath.row;
-    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    BreachHeadView *secitionView = [[BreachHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 75.f) WithMoney:@"20,0000" withDate:@"2006/08/23-2016/08/23" withRate:@"同期利率"];
+    BreachHeadView *secitionView = [[BreachHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 75.f) WithMoney:_detailDictionary[@"AllMoney"] withDate:_detailDictionary[@"AllDays"] withRate:_detailDictionary[@"ReatType"]];
     return secitionView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -88,12 +112,34 @@ static NSString *const BREACHDETAILCELL = @"BreachDetailCellid";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:BREACHDETAILCELL];
+        [_tableView registerClass:[BreachDetailCell class] forCellReuseIdentifier:BREACHDETAILCELL];
+        _tableView.showsVerticalScrollIndicator = NO;
         _headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:[QZManager createImageWithColor:hexColor(00c8aa) size:CGSizeMake(kMainScreenWidth, 100)] forSize:CGSizeMake(kMainScreenWidth, 100)];
         _tableView.tableHeaderView = _headerView;
     }
     return _tableView;
 }
+- (NSMutableArray *)dataSourceArrays
+{
+    if (!_dataSourceArrays) {
+        _dataSourceArrays = [NSMutableArray array];
+    }
+    return _dataSourceArrays;
+}
+- (UILabel *)bottomLabel
+{
+    if (!_bottomLabel) {
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-10, 30)];
+        _bottomLabel.textAlignment = NSTextAlignmentLeft;
+        _bottomLabel.numberOfLines = 0;
+        _bottomLabel.backgroundColor = [UIColor clearColor];
+        _bottomLabel.textColor = hexColor(00c8aa);
+        _bottomLabel.font = Font_12;
+        _bottomLabel.text = @"按《人民银行利率表》进行计算，结果仅供参考。";
+    }
+    return _bottomLabel;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

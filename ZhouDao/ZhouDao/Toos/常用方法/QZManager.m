@@ -464,6 +464,7 @@ singleton_for_class(QZManager)
 
     return destDate;
 }
+
 #pragma mark -输入的日期字符串形如：@"19920521"
 + (NSUInteger)timeToTimeStamp:(NSString *)dateString{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

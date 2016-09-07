@@ -19,9 +19,14 @@ static NSString *const BREACHCELLID = @"breachcellid";
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
 @property (strong, nonatomic) NSMutableDictionary *rateDictionary;
+@property (strong, nonatomic) NSMutableDictionary *detailDictionary;//详情字典
+@property (strong, nonatomic) NSMutableArray *detailArrays;//详情字典
+
 @property (strong, nonatomic) NSMutableArray *timeArrays;
 @property (copy, nonatomic) NSString *startTime;//开始时间戳
 @property (copy, nonatomic) NSString *endTime;//结束时间戳
+@property (copy, nonatomic) NSString *reatString;//使用的哪个利率
+@property (copy, nonatomic) UIView *bottomView;
 @end
 
 @implementation BreachViewController
@@ -47,13 +52,14 @@ static NSString *const BREACHCELLID = @"breachcellid";
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
-    
 }
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
     if (btn.tag == 3034) {
+        
+        _tableView.tableFooterView = nil;
         if (_dataSourceArrays.count == 2) {
             [_dataSourceArrays removeObjectAtIndex:1];
             [_tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
@@ -62,6 +68,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
         [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
         [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         [_tableView endUpdates];
+        
     }else {
         //计算
 
@@ -89,12 +96,13 @@ static NSString *const BREACHCELLID = @"breachcellid";
             //循环历年利率
             [self cycleCalendarYearInterestRates:arr1];
         }
-        
+        _tableView.tableFooterView = self.bottomView;
     }
 }
 #pragma mark - 循环历年利率
 - (void)cycleCalendarYearInterestRates:(NSMutableArray *)arrays
 {
+    [self.detailArrays removeAllObjects];
     float lastMoney = 0.0f;
     float money = [arrays[0] floatValue];
     float days = ([_endTime integerValue] - [_startTime integerValue])/86400.f;//总的相差天数
@@ -106,10 +114,14 @@ static NSString *const BREACHCELLID = @"breachcellid";
         
         NSArray *rateArrays = self.rateDictionary[[self.timeArrays lastObject]];
         lastMoney = [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:days withMoney:money];
+        NSArray *array1 = [NSArray arrayWithObjects:_startTime,_endTime,_reatString,[NSString stringWithFormat:@"%.2f",lastMoney], nil];
+        [self.detailArrays addObject:array1];
     }else if (endTimeInt < [QZManager timeToTimeStamp:[self.timeArrays firstObject]]){
         
         NSArray *rateArrays = self.rateDictionary[[self.timeArrays firstObject]];
         lastMoney = [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:days withMoney:money];
+        NSArray *array1 = [NSArray arrayWithObjects:_startTime,_endTime,_reatString,[NSString stringWithFormat:@"%.2f",lastMoney], nil];
+        [self.detailArrays addObject:array1];
     }else {
         
         __block NSUInteger startIndex = 0;
@@ -118,51 +130,86 @@ static NSString *const BREACHCELLID = @"breachcellid";
            
             NSUInteger timeObj = [QZManager timeToTimeStamp:obj];
             if (startTimeInt - timeObj <=0) {
-                startIndex = idx;
+                startIndex = (idx == 0)?idx:(idx-1);
                 *stop = YES;
             }
         }];
         [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             NSUInteger timeObj = [QZManager timeToTimeStamp:obj];
-            if (timeObj - endTimeInt >0) {
+            if (endTimeInt - timeObj <=0) {
                 endIndex = idx;
                 *stop = YES;
             }
         }];
         
-        for (NSUInteger i = startIndex; i< endIndex; i++)
+        DLog(@"ks----%ld    js----%ld",(unsigned long)startIndex,(unsigned long)endIndex);
+        
+        for (NSUInteger i = startIndex; i < endIndex; i++)
         {
-            float dateTimeInt =  [QZManager timeToTimeStamp:self.timeArrays[i]];//数组里的时间
-            float differTimeDay = 0.0f;//相差天数
-            differTimeDay = (i==0)?(dateTimeInt - startTimeInt)/86400.f:(dateTimeInt - [QZManager timeToTimeStamp:self.timeArrays[i-1]])/86400.f;
+            NSMutableArray *tempArrays = [NSMutableArray array];
+            static float onATimeInt = 0.0f;
+            if (i == startIndex) {
+                onATimeInt = startTimeInt;
+            }
+            float dateTimeInt = (i == endIndex -1)?[QZManager timeToTimeStamp:self.timeArrays[i]]:[QZManager timeToTimeStamp:self.timeArrays[i + 1]];//数组里的时间
             NSArray *rateArrays = self.rateDictionary[self.timeArrays[i]];
-            lastMoney += [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:differTimeDay withMoney:money];
+            float differTimeDay = (i == endIndex -1)?((endTimeInt - dateTimeInt)/86400.f):((dateTimeInt - onATimeInt)/86400.f);//相差天数
+            float calculateMoney = [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:differTimeDay withMoney:money];
+            lastMoney += calculateMoney;
+
+            [tempArrays addObject:[NSString stringWithFormat:@"%.0f",onATimeInt]];//开始时间
+            (i == endIndex -1)?[tempArrays addObject:[NSString stringWithFormat:@"%.0f",endTimeInt]]:[tempArrays addObject:[NSString stringWithFormat:@"%.0f",dateTimeInt]];//结束时间
+            [tempArrays addObject:GET(_reatString)];
+            [tempArrays addObject:[NSString stringWithFormat:@"%.2f",calculateMoney]];
+            [self.detailArrays addObject:tempArrays];
+            onATimeInt = dateTimeInt;
+            DLog(@"相差天数－－%.0f------利率:  %@",differTimeDay,_reatString);
         }
     }
     
+    NSString *allDays = [NSString stringWithFormat:@"%@-%@",[QZManager changeTimeMethods:[_startTime integerValue] withType:@"yy/MM/dd"],[QZManager changeTimeMethods:[_endTime integerValue] withType:@"yy/MM/dd"]];
+    [self collectInformationToAnotherInterfaceWithMoney:money WithBreachMoney:lastMoney WithAllDays:allDays WithArrays:self.detailArrays WithReatType:@"同期利率"];
+    //添加刷新
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",lastMoney],[NSString stringWithFormat:@"%.0f",days], nil];
     (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
     [self reloadTableViewWithAnimation];
+    
+}
+#pragma mark - 收集信息到另一界面
+- (void)collectInformationToAnotherInterfaceWithMoney:(float)money WithBreachMoney:(float)lastMoney WithAllDays:(NSString *)allDays WithArrays:(NSMutableArray *)arrays WithReatType:(NSString *)reatTypes
+{
+    [self.detailDictionary setObjectWithNullValidate:[NSString stringWithFormat:@"%.2f",money] forKey:@"AllMoney"];
+    [self.detailDictionary setObjectWithNullValidate:[NSString stringWithFormat:@"%.2f",lastMoney] forKey:@"BreachMoney"];
+    [self.detailDictionary setObjectWithNullValidate:allDays forKey:@"AllDays"];
+    [self.detailDictionary setObjectWithNullValidate:arrays forKey:@"MutableArrays"];
+    [self.detailDictionary setObjectWithNullValidate:reatTypes forKey:@"ReatType"];
+
 }
 #pragma mark - 根据天数找到取第几个利率
 - (float)accordingOfDaysLookingForRatesWithRateArrays:(NSArray *)rateArrays withDays:(float)differTimeDay withMoney:(float)money
 {
     float lastMoney = 0.0f;
-    if(differTimeDay < 180){
+    if(differTimeDay <= 180){
+        
         lastMoney = money*differTimeDay*([rateArrays[0] floatValue]/360);
-    }
-    else if(differTimeDay > 180 && differTimeDay < 365){
+        _reatString = rateArrays[0];
+    }else if(differTimeDay > 180 && differTimeDay <= 365){
+        
         lastMoney = money*differTimeDay*([rateArrays[1] floatValue]/360);
-    }
-    else if(differTimeDay > 365 && differTimeDay < 1095){
+        _reatString = rateArrays[1];
+    }else if(differTimeDay > 365 && differTimeDay <= 1095){
+        
         lastMoney = money*differTimeDay*([rateArrays[2] floatValue]/360);
-    }
-    else if(differTimeDay > 1095 && differTimeDay < 1825){
+        _reatString = rateArrays[2];
+    }else if(differTimeDay > 1095 && differTimeDay <= 1825){
+        
         lastMoney = money*differTimeDay*([rateArrays[3] floatValue]/360);
-    }
-    else if(differTimeDay > 1825){
+        _reatString = rateArrays[3];
+    }else if(differTimeDay > 1825){
+        
         lastMoney = money*differTimeDay*([rateArrays[4] floatValue]/360);
+        _reatString = rateArrays[4];
     }
     return lastMoney;
 }
@@ -182,8 +229,19 @@ static NSString *const BREACHCELLID = @"breachcellid";
     }else{
         lastMoney = money*rate*days/360;
     }
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",lastMoney],[NSString stringWithFormat:@"%.0f",days], nil];
+    NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f",lastMoney];
+    NSString *lastDaysString = [NSString stringWithFormat:@"%.0f",days];
+
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString,lastDaysString, nil];
     (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
+    
+    
+    NSString *allDays = [NSString stringWithFormat:@"%@-%@",[QZManager changeTimeMethods:[_startTime integerValue] withType:@"yy/MM/dd"],[QZManager changeTimeMethods:[_endTime integerValue] withType:@"yy/MM/dd"]];
+    NSArray *array1 = [NSArray arrayWithObjects:_startTime,_endTime,arrays[5],lastMoneyString, nil];
+    NSMutableArray *lastArrays = [NSMutableArray arrayWithObjects:array1, nil];
+    
+    [self collectInformationToAnotherInterfaceWithMoney:money WithBreachMoney:lastMoney WithAllDays:allDays WithArrays:lastArrays WithReatType:@"约定利率"];
+
     [self reloadTableViewWithAnimation];
 }
 - (void)reloadTableViewWithAnimation
@@ -196,8 +254,6 @@ static NSString *const BREACHCELLID = @"breachcellid";
 
 - (void)rightBtnAction
 {
-    BreachDetailVC *vc = [BreachDetailVC new];
-    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -306,7 +362,6 @@ static NSString *const BREACHCELLID = @"breachcellid";
                 break;
         }
     }
-    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -387,7 +442,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
 - (UIButton *)calculateButton
 {
     if (!_calculateButton) {
-        _calculateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _calculateButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _calculateButton.frame = CGRectMake(15 , 20, (kMainScreenWidth - 45)/2.f, 40);
         _calculateButton.layer.masksToBounds = YES;
         _calculateButton.layer.cornerRadius = 3.f;
@@ -403,7 +458,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
 - (UIButton *)resetButton
 {
     if (!_resetButton) {
-        _resetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _resetButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _resetButton.frame = CGRectMake(30 + (kMainScreenWidth - 45)/2.f , 20, (kMainScreenWidth - 45)/2.f, 40);
         _resetButton.layer.masksToBounds = YES;
         _resetButton.layer.cornerRadius = 3.f;
@@ -415,6 +470,53 @@ static NSString *const BREACHCELLID = @"breachcellid";
         [_resetButton addTarget:self action:@selector(calculateAndResetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _resetButton;
+}
+- (NSMutableArray *)detailArrays
+{
+    if (!_detailArrays) {
+        _detailArrays = [NSMutableArray array];
+    }
+    return _detailArrays;
+}
+- (NSMutableDictionary *)detailDictionary
+{
+    if (!_detailDictionary) {
+        _detailDictionary = [NSMutableDictionary dictionary];
+    }
+    return _detailDictionary;
+}
+- (UIView *)bottomView
+{
+    if (!_bottomView) {WEAKSELF;
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 75.f)];
+        _bottomView.backgroundColor = [UIColor clearColor];
+        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 35, kMainScreenWidth-10, 25)];
+        label2.textAlignment = NSTextAlignmentLeft;
+        label2.numberOfLines = 0;
+        label2.backgroundColor = [UIColor clearColor];
+        label2.textColor = hexColor(00c8aa);
+        label2.font = Font_12;
+        label2.text = @"按《人民银行利率表》进行计算，结果仅供参考。";
+        [_bottomView addSubview:label2];
+        
+        UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 35)];
+        label1.textAlignment = NSTextAlignmentCenter;
+        label1.numberOfLines = 0;
+        label1.backgroundColor = [UIColor clearColor];
+        label1.textColor = hexColor(00c8aa);
+        label1.font = Font_12;
+        label1.text = @"查看分段计算详情 >";
+        [_bottomView addSubview:label1];
+
+        [label1 whenCancelTapped:^{
+            
+            BreachDetailVC *vc = [BreachDetailVC new];
+            vc.detailDictionary = weakSelf.detailDictionary;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }];
+
+    }
+    return _bottomView;
 }
 - (NSMutableArray *)timeArrays
 {

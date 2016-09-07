@@ -564,6 +564,7 @@
 		18F2F1C41CBE1DA20068453D /* Esearch_graySousuo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F1B81CBE1DA20068453D /* Esearch_graySousuo@2x.png */; };
 		18F2F1CE1CBE2EC40068453D /* Esearch_SouSuo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F2F1CD1CBE2EC40068453D /* Esearch_SouSuo@2x.png */; };
 		18F2F1D71CBE47000068453D /* OrdinaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F2F1D61CBE47000068453D /* OrdinaryVC.m */; };
+		18F437111D7FAA5E00AEDAEF /* BreachDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F437101D7FAA5E00AEDAEF /* BreachDetailCell.m */; };
 		18F593E51CB5F40400F5619D /* UIWebView_SearchWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F593E41CB5F40400F5619D /* UIWebView_SearchWebView.m */; };
 		18F593E71CB636A500F5619D /* SearchWebView.js in Resources */ = {isa = PBXBuildFile; fileRef = 18F593E61CB636A500F5619D /* SearchWebView.js */; };
 		18F666AA1D07C37B0004FF55 /* tapbar_top_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F666A91D07C37B0004FF55 /* tapbar_top_line@2x.png */; };
@@ -1460,6 +1461,8 @@
 		18F2F1CD1CBE2EC40068453D /* Esearch_SouSuo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Esearch_SouSuo@2x.png"; sourceTree = "<group>"; };
 		18F2F1D51CBE47000068453D /* OrdinaryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrdinaryVC.h; sourceTree = "<group>"; };
 		18F2F1D61CBE47000068453D /* OrdinaryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrdinaryVC.m; sourceTree = "<group>"; };
+		18F4370F1D7FAA5E00AEDAEF /* BreachDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BreachDetailCell.h; sourceTree = "<group>"; };
+		18F437101D7FAA5E00AEDAEF /* BreachDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BreachDetailCell.m; sourceTree = "<group>"; };
 		18F593E31CB5F40400F5619D /* UIWebView_SearchWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWebView_SearchWebView.h; sourceTree = "<group>"; };
 		18F593E41CB5F40400F5619D /* UIWebView_SearchWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebView_SearchWebView.m; sourceTree = "<group>"; };
 		18F593E61CB636A500F5619D /* SearchWebView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = SearchWebView.js; sourceTree = "<group>"; };
@@ -2912,6 +2915,8 @@
 			children = (
 				187367361D753115000C1169 /* BreachViewCell.h */,
 				187367371D753115000C1169 /* BreachViewCell.m */,
+				18F4370F1D7FAA5E00AEDAEF /* BreachDetailCell.h */,
+				18F437101D7FAA5E00AEDAEF /* BreachDetailCell.m */,
 			);
 			path = BreachCell;
 			sourceTree = "<group>";
@@ -4685,6 +4690,7 @@
 				186ED3961D66D3CF006BC693 /* UploadMorephontosVC.m in Sources */,
 				108323431CAA70A5004B8045 /* ZD_ListView.m in Sources */,
 				104157691C947A6F00EE5303 /* AboutZDVC.m in Sources */,
+				18F437111D7FAA5E00AEDAEF /* BreachDetailCell.m in Sources */,
 				104157581C945C0200EE5303 /* ProfessionalCell.m in Sources */,
 				18AF33F41CC0DFD30063485E /* ConsultantCell.m in Sources */,
 				108323301CAA19B2004B8045 /* UIWebView+HTML5.m in Sources */,

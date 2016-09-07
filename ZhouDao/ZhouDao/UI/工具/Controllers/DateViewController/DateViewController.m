@@ -123,7 +123,7 @@
 - (UIButton *)dateButton
 {
     if (!_dateButton) {
-        _dateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _dateButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _dateButton.frame = CGRectMake(kMainScreenWidth/2.f , 64, kMainScreenWidth/2.f, 44);
         _dateButton.backgroundColor  = [UIColor clearColor];
         [_dateButton setTitleColor:hexColor(00c8aa) forState:0];
@@ -137,7 +137,7 @@
 - (UIButton *)dayButton
 {
     if (!_dayButton) {
-        _dayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _dayButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _dayButton.frame = CGRectMake(0 , 64, kMainScreenWidth/2.f, 44);
         _dayButton.backgroundColor  =[UIColor clearColor];
         [_dayButton setTitleColor:hexColor(00c8aa) forState:0];

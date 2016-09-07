@@ -11,4 +11,6 @@
 
 @interface BreachDetailVC : BaseViewController
 
+@property (strong, nonatomic) NSMutableDictionary *detailDictionary;//详情字典
+
 @end
