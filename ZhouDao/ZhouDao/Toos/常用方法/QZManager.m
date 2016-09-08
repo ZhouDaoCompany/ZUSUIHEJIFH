@@ -499,17 +499,7 @@ singleton_for_class(QZManager)
     return dateString;
 }
 
-+ (NSDate *)changeTimeForDate:(NSTimeInterval)time
-{
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSDate* date = [NSDate dateWithTimeIntervalSince1970:time];
-    return date;
-}
-#pragma mark ------  NSDate转换时间戳
+#pragma mark ------ 时间戳转换为NSDate
 + (NSDate *)timeStampChangeNSDate:(NSTimeInterval)time
 {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -520,6 +510,33 @@ singleton_for_class(QZManager)
     NSDate* date = [NSDate dateWithTimeIntervalSince1970:time];
     return date;
 }
+#pragma mark - NSDate转换为时间戳
++ (NSString *)dateChangeTimeStampMethods:(NSDate *)date
+{
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:date];
+    NSDate *localeDate = [date dateByAddingTimeInterval:interval];
+    // 时间转换成时间戳
+    NSString *timeSp = [NSString stringWithFormat:@"%ld",(long)[localeDate timeIntervalSince1970]];
+    return timeSp;
+}
+#pragma mark - 得到该时间戳加一个月后的时间戳
++ (NSString *)getNextMonthTheTimeStamp:(NSString *)timeStamp
+{
+    //创建日历
+    NSCalendar *calendar=[NSCalendar currentCalendar];
+    //定义成分
+    NSCalendarUnit unitFlags=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    NSDate *tempDate = [self timeStampChangeNSDate:[timeStamp doubleValue]];
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
+    [dateComponent  setYear:0];
+    [dateComponent setMonth:1];
+    [dateComponent setDay:0];
+    NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
+    NSString *sjcString = [self dateChangeTimeStampMethods:newdate];
+    return sjcString;
+}
+
 #pragma mark -判断日期是今天，昨天还是明天
 +(NSString *)compareDate:(NSDate *)date{
     

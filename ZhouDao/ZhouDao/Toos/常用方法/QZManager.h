@@ -248,18 +248,29 @@ singleton_for_header(QZManager)
 + (NSString *)changeTimeMethods:(NSTimeInterval)time
                        withType:(NSString *)type;
 
-+ (NSDate *)changeTimeForDate:(NSTimeInterval)time;
 #pragma mark - 时间描述
 /*
  *时间描述
  */
 + (NSString *)timeToShow:(NSDate *)date02;
 
-#pragma mark - NSDate转换时间戳
 /*
- * NSDate转换时间戳
+ * 时间戳转换NSDate
  */
 + (NSDate *)timeStampChangeNSDate:(NSTimeInterval)time;
+/**
+ *  NSDate转换为时间戳
+ */
++ (NSString *)dateChangeTimeStampMethods:(NSDate *)date;
+
+/**
+ *  得到该时间戳加一个月后的时间戳
+ *
+ *  @param timeStamp 传入的时间戳
+ *
+ *  @return 染回得到的时间戳
+ */
++ (NSString *)getNextMonthTheTimeStamp:(NSString *)timeStamp;
 
 #pragma mark -判断日期是今天，昨天还是明天
 +(NSString *)compareDate:(NSDate *)date;

@@ -13,6 +13,6 @@
 
 @property (strong, nonatomic) CaseTextField *textField;
 
-- (void)settingOverdueCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays;
+- (void)settingLiXiCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays;
 
 @end

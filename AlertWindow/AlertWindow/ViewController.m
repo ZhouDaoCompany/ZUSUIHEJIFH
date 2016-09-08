@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "DefineHeader.h"
 #import "Disability_AlertView.h"
+#import "NSDate+fish_Extension.h"
 
 @interface ViewController ()<Disability_AlertViewPro>
 
@@ -21,7 +22,83 @@
     [super viewDidLoad];
     
     [self.view addSubview:self.sureBtn];
+    
+    
+    //创建日历
+    NSCalendar *calendar=[NSCalendar currentCalendar];
+    //定义成分
+    NSCalendarUnit unitFlags=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    NSDate *tempDate = [NSDate dateFromString:@"2016-01-31" format:@"yyyy-MM-dd"];
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
+    [dateComponent  setYear:0];
+    [dateComponent setMonth:1];
+    [dateComponent setDay:0];
+    NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
+    
+    
+    NSString *str = [NSDate datestrFromDate:newdate withDateFormat:@"yyyy-MM-dd"];//[NSDate datestrFromDate:newdate format:@"yyyy-MM-dd"];
+    DLog(@"输出时间是－－－%@",str);
+
+//    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    
+//    NSDateComponents *comps = nil;
+//    
+//    comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:mydate];
+//    
+//    NSDateComponents *adcomps = [[NSDateComponents alloc] init];
+//    
+//    [adcomps setYear:0];
+//    
+//    [adcomps setMonth:-1];
+//    
+//    [adcomps setDay:0];
+//    NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:mydate options:0];
+    
+    
+
+
+    
+    
+
 }
+//得到时间戳
+- (NSString *)getTheTimeStamp:(NSString *)timeStamp
+{
+    //创建日历
+    NSCalendar *calendar=[NSCalendar currentCalendar];
+    //定义成分
+    NSCalendarUnit unitFlags=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    NSDate *tempDate = [self timeStampChangeNSDate:[timeStamp doubleValue]];
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
+    [dateComponent  setYear:0];
+    [dateComponent setMonth:1];
+    [dateComponent setDay:0];
+    NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
+    NSString *sjcString = [self dateChangeTimeStampMethods:newdate];
+    return sjcString;
+}
+#pragma mark - NSDate转换为时间戳
+- (NSString *)dateChangeTimeStampMethods:(NSDate *)date
+{
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:date];
+    NSDate *localeDate = [date dateByAddingTimeInterval:interval];
+    // 时间转换成时间戳
+    NSString *timeSp = [NSString stringWithFormat:@"%ld",(long)[localeDate timeIntervalSince1970]];
+    return timeSp;
+}
+
+- (NSDate *)timeStampChangeNSDate:(NSTimeInterval)time
+{
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:time];
+    return date;
+}
+
 - (void)bindingBtnEvent:(UIButton *)btn
 {
     DLog(@"点击");

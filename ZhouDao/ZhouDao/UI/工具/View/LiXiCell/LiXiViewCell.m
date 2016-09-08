@@ -12,7 +12,6 @@
 
 @property (strong, nonatomic) UILabel *titleLab;
 @property (strong, nonatomic) UIView *lineView;
-@property (strong, nonatomic) UISegmentedControl *segButton;
 @property (strong, nonatomic) UILabel *manualLabel;
 @property (strong, nonatomic) UILabel *symbolLabel;
 
@@ -28,106 +27,187 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self.contentView addSubview:self.titleLab];
         [self.contentView addSubview:self.lineView];
-        [self.contentView addSubview:self.segButton];
         [self.contentView addSubview:self.textField];
         [self.contentView addSubview:self.manualLabel];
         [self.contentView addSubview:self.symbolLabel];
-
     }
     
     return self;
 }
 #pragma mark - method
-- (void)settingOverdueCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays;
+- (void)settingLiXiCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays
 {
     _textField.section = section;
     _textField.row = row;
     if (section == 0) {
         
         NSMutableArray *arr1 = arrays[0];
-        NSArray *titleArr = @[@"本金总额（元）",@"贷款期限",@"贷款期限",@"贷款期限",@"还款方式",@"年利率（%）",@""];
+
         _titleLab.frame = CGRectMake(15, 12, 160, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
-        _titleLab.text = titleArr[row];
         _textField.placeholder = @"";
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
         _lineView.hidden = NO;
         _textField.text = arr1[row];
         _symbolLabel.hidden = YES;
         _manualLabel.hidden = YES;
-        self.accessoryType = UITableViewCellAccessoryNone;
-        _segButton.hidden = YES;
         _textField.hidden = NO;
-        
-        switch (row) {
-            case 0:
-            {
-                _textField.enabled = YES;
-                _textField.keyboardType = UIKeyboardTypeDecimalPad;
-                _textField.placeholder = @"请输入金额";
+        _textField.borderStyle = UITextBorderStyleNone;
 
-            }
-                break;
-            case 1:
-            {
-                _textField.hidden = YES;
-                _segButton.hidden = NO;
-                
-                
-            }
-                break;
-            case 2:
-            {
-                _textField.enabled = NO;
-                _textField.placeholder = @"请选择起算日";
-                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+        if ([arr1[4] isEqualToString:@"按约定利率"]) {
+            
+            NSArray *titleArr = @[@"本金总额（元）",@"贷款期限",@"贷款期限",@"还款方式",@"利率方式",@"利率选项",@""];
+            _titleLab.text = titleArr[row];
 
-            }
-                break;
-            case 3:
-            {
-                _textField.enabled = NO;
-                _textField.placeholder = @"请选择截止日";
-                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
-                
-            }
-                break;
+            switch (row) {
+                case 0:
+                {
+                    _textField.enabled = YES;
+                    _textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    _textField.placeholder = @"请输入金额";
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
 
-            case 4:
-            {
-                _textField.enabled = NO;
-                _textField.placeholder = @"请选择还款方式";
-                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
+                }
+                    break;
+                case 1:
+                {
+                    _textField.enabled = NO;
+                    _textField.placeholder = @"请选择起算日";
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
 
-                
+                    
+                }
+                    break;
+                case 2:
+                {
+                    _textField.enabled = NO;
+                    _textField.placeholder = @"请选择截止日";
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+
+                }
+                    break;
+                case 3:
+                {
+                    _textField.enabled = NO;
+                    _textField.placeholder = @"请选择还款方式";
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+
+                }
+                    break;
+                    
+                case 4:
+                {
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+                    _textField.enabled = NO;
+                    _textField.placeholder = @"请选择利率方式";
+                    
+                }
+                    break;
+                case 5:
+                {
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+                    _textField.enabled = NO;
+                    _textField.placeholder = @"请选择利率选项";
+
+                }
+                    break;
+                case 6:
+                {
+                    _manualLabel.hidden = NO;
+                    _symbolLabel.hidden = NO;
+                    _lineView.hidden = YES;
+                    _textField.frame = CGRectMake(Orgin_x(_manualLabel) + 2 , 10, 64, 25);
+                    _textField.borderStyle = UITextBorderStyleRoundedRect;
+                    _textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    
+                    
+                }
+                    break;
+                default:
+                    break;
             }
-                break;
-            case 5:
-            {
-                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
-                _textField.enabled = NO;
 
+            
+        }else{
+            
+            NSArray *titleArr = @[@"本金总额（元）",@"贷款期限",@"贷款期限",@"还款方式",@"利率方式",@""];
+            _titleLab.text = titleArr[row];
+
+            switch (row) {
+                case 0:
+                {
+                    _textField.enabled = YES;
+                    _textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    _textField.placeholder = @"请输入金额";
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
+
+                }
+                    break;
+                case 1:
+                {
+                    _textField.enabled = NO;
+                    _textField.placeholder = @"请选择起算日";
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+                    
+                    
+                }
+                    break;
+                case 2:
+                {
+                    _textField.enabled = NO;
+                    _textField.placeholder = @"请选择截止日";
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+                    
+                }
+                    break;
+                case 3:
+                {
+                    _textField.enabled = NO;
+                    _textField.placeholder = @"请选择还款方式";
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+                    
+                }
+                    break;
+                case 4:
+                {
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+                    _textField.enabled = NO;
+                    _textField.placeholder = @"请选择利率方式";
+                    
+                }
+                    break;
+  
+                case 5:
+                {
+                    _manualLabel.hidden = NO;
+                    _symbolLabel.hidden = NO;
+                    _lineView.hidden = YES;
+                    _manualLabel.text = @"银行折扣";
+                    _textField.frame = CGRectMake(Orgin_x(_manualLabel) + 2 , 10, 64, 25);
+                    _textField.borderStyle = UITextBorderStyleRoundedRect;
+                    _textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    _textField.placeholder = @"100";
+                }
+                    break;
+                default:
+                    break;
             }
-                break;
-            case 6:
-            {
-                _manualLabel.hidden = NO;
-                _symbolLabel.hidden = NO;
-                _lineView.hidden = YES;
-                _textField.frame = CGRectMake(Orgin_x(_manualLabel) + 2 , 10, 64, 25);
-                _textField.borderStyle = UITextBorderStyleRoundedRect;
-                _textField.keyboardType = UIKeyboardTypeDecimalPad;
-
-
-            }
-                break;
-            default:
-                break;
+ 
+            
+            
         }
+        
+
+    
     }else {
         NSMutableArray *arr2 = arrays[1];
         
@@ -138,7 +218,6 @@
         _textField.placeholder = @"";
         _textField.enabled = NO;
         _textField.hidden = NO;
-        _segButton.hidden = YES;
         _symbolLabel.hidden = YES;
         _manualLabel.hidden = YES;
         self.accessoryType = UITableViewCellAccessoryNone;
@@ -158,16 +237,20 @@
                 break;
             case 1:
             {
-                
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
+
                 
             }
                 break;
             case 2:
             {
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
+
             }
                 break;
             case 3:
             {
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
                 _lineView.hidden = YES;
 
             }
@@ -179,11 +262,6 @@
         
         
     }
-}
-#pragma mark - seg
-- (void)didClicksegmentedControlAction:(UISegmentedControl *)Seg
-{
-    
 }
 #pragma mark - setter and getter
 - (UILabel *)titleLab
@@ -200,8 +278,9 @@
 {
     if (!_manualLabel) {
         _manualLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth - 210, 12, 115, 20)];
-        _manualLabel.text = @"您也可以手动输入";
+        _manualLabel.text = @"手动输入";
         _manualLabel.font = Font_14;
+        _manualLabel.textAlignment = NSTextAlignmentRight;
         _manualLabel.backgroundColor = [UIColor clearColor];
         _manualLabel.textColor = hexColor(ADADAD);
     }
@@ -230,23 +309,6 @@
         _textField.textAlignment = NSTextAlignmentRight;
     }
     return _textField;
-}
-- (UISegmentedControl *)segButton
-{
-    if (!_segButton) {
-        _segButton = [[UISegmentedControl alloc]initWithItems:@[@"年",@"月",@"日"]];
-        _segButton.frame = CGRectMake(kMainScreenWidth - 102, 9, 87, 27);
-        _segButton.selectedSegmentIndex = 0;
-        _segButton.tintColor = hexColor(00c8aa);
-        NSDictionary* selectedTextAttributes = @{NSFontAttributeName:Font_13,
-                                                 NSForegroundColorAttributeName: [UIColor whiteColor]};
-        [_segButton setTitleTextAttributes:selectedTextAttributes forState:UIControlStateSelected];//设置文字属性
-        NSDictionary* unselectedTextAttributes = @{NSFontAttributeName:Font_13,
-                                                   NSForegroundColorAttributeName: hexColor(666666)};
-        [_segButton setTitleTextAttributes:unselectedTextAttributes forState:UIControlStateNormal];
-        [_segButton addTarget:self action:@selector(didClicksegmentedControlAction:) forControlEvents:UIControlEventValueChanged];
-    }
-    return _segButton;
 }
 - (UIView *)lineView
 {
