@@ -23,7 +23,6 @@
     
     [self.view addSubview:self.sureBtn];
     
-    
     //创建日历
     NSCalendar *calendar=[NSCalendar currentCalendar];
     //定义成分
@@ -35,9 +34,8 @@
     [dateComponent setDay:0];
     NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
     
-    
-    NSString *str = [NSDate datestrFromDate:newdate withDateFormat:@"yyyy-MM-dd"];//[NSDate datestrFromDate:newdate format:@"yyyy-MM-dd"];
-    DLog(@"输出时间是－－－%@",str);
+    NSString *str1 = [NSDate datestrFromDate:newdate withDateFormat:@"yyyy-MM-dd"];//[NSDate datestrFromDate:newdate format:@"yyyy-MM-dd"];
+    DLog(@"输出时间是－－－%@",str1);
 
 //    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 //    
