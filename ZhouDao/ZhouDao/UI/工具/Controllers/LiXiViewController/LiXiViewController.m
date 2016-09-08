@@ -25,6 +25,8 @@ static NSString *const LIXICELL = @"lixicellid";
 @property (strong, nonatomic) NSMutableDictionary *rateDictionary;
 @property (strong, nonatomic) NSMutableArray *timeArrays;
 @property (assign, nonatomic) BOOL isConvention;//是否约定利率
+@property (strong, nonatomic) NSMutableDictionary *detailDictionary;//详情字典
+
 @end
 
 @implementation LiXiViewController
@@ -99,6 +101,8 @@ static NSString *const LIXICELL = @"lixicellid";
     if ([reimbursementType isEqualToString:@"等额本息"]) {
         
         [self accordingToTheInterestRateCalculationWithRateType:rateType withArrays:arr1];
+        
+        
     }else if ([reimbursementType isEqualToString:@"一次性还本付息"]) {
         
         [self accordingToTheInterestRateCalculationWithRateType:rateType withArrays:arr1];
@@ -175,6 +179,7 @@ static NSString *const LIXICELL = @"lixicellid";
     float money = [arrays[0] floatValue];
     NSString *discountString = [arrays lastObject];
     float rate = [discountString floatValue]/100.f;
+    _reatString = [NSString stringWithFormat:@"%.4f",rate];
     float days = ([_endTime integerValue] - [_startTime integerValue])/86400.f;
     NSString *typeString = arrays[5];
 
@@ -523,6 +528,13 @@ static NSString *const LIXICELL = @"lixicellid";
         _rateDictionary = RATEDICTIONARY;
     }
     return _rateDictionary;
+}
+- (NSMutableDictionary *)detailDictionary
+{
+    if (!_detailDictionary) {
+        _detailDictionary = [NSMutableDictionary dictionary];
+    }
+    return _detailDictionary;
 }
 
 - (void)didReceiveMemoryWarning {
