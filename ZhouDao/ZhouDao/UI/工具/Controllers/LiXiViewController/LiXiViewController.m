@@ -105,13 +105,13 @@ static NSString *const LIXICELL = @"lixicellid";
     }else if ([reimbursementType isEqualToString:@"月付息到期一次性还本"]) {
         
         [self accordingToTheInterestRateCalculationWithRateType:rateType withArrays:arr1];
-    }else if ([reimbursementType isEqualToString:@"等额本息"]) {
+    }else if ([reimbursementType isEqualToString:@"等额本金"]) {
         
         if ([rateType isEqualToString:@"人民银行同期利率"]) {
             
         }else{
             
-            
+            [self standardOfCustomReatWithArrays:arr1];
         }
     }
 
@@ -193,44 +193,55 @@ static NSString *const LIXICELL = @"lixicellid";
 }
 #pragma mark - 等额本金 按约定利率 自定义利率
 - (void)standardOfCustomReatWithArrays:(NSMutableArray *)arrays
-{
+{WEAKSELF;
+    
+    __block   NSUInteger startIndex = 0;
 
-    __block NSUInteger startIndex = 0;
-    double startTimeInt = [_startTime doubleValue];
-    
-    NSString *nextMonth = [QZManager getNextMonthTheTimeStamp:_startTime];
-    if ([_endTime doubleValue] > [nextMonth doubleValue]) {
+    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger days) {
         
-        NSString *next = [QZManager getNextMonthTheTimeStamp:nextMonth];
+        months = (days >0)?(months +1):months;
         
-    }
-    
+        for (NSUInteger i=0; i< months; i++) {
+            
+            startIndex ++;
+        }
+        
+    }];
+//    NSString *nextMonth = [QZManager getNextMonthTheTimeStamp:_startTime];
+//    while ([nextMonth doubleValue] <[_endTime doubleValue]) {
+//        
+//        startIndex ++;
+//        nextMonth = [QZManager getNextMonthTheTimeStamp:nextMonth];
+//    }
+    DLog(@"第几个－－－－%ld",startIndex);
 }
 #pragma mark - 根据天数找到取第几个利率
 - (float)accordingOfDaysLookingForRatesWithRateArrays:(NSArray *)rateArrays withDays:(float)differTimeDay withMoney:(float)money
-{
-    float lastMoney = 0.0f;
+{WEAKSELF;
+    __block float lastMoney = 0.0f;
     if(differTimeDay <= 180){
         
-        lastMoney = money*differTimeDay*([rateArrays[0] floatValue]/360);
         _reatString = rateArrays[0];
     }else if(differTimeDay > 180 && differTimeDay <= 365){
         
-        lastMoney = money*differTimeDay*([rateArrays[1] floatValue]/360);
         _reatString = rateArrays[1];
     }else if(differTimeDay > 365 && differTimeDay <= 1095){
         
-        lastMoney = money*differTimeDay*([rateArrays[2] floatValue]/360);
         _reatString = rateArrays[2];
     }else if(differTimeDay > 1095 && differTimeDay <= 1825){
         
-        lastMoney = money*differTimeDay*([rateArrays[3] floatValue]/360);
         _reatString = rateArrays[3];
     }else if(differTimeDay > 1825){
         
-        lastMoney = money*differTimeDay*([rateArrays[4] floatValue]/360);
         _reatString = rateArrays[4];
     }
+    
+    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger days) {
+        
+        lastMoney +=  money * [weakSelf.reatString doubleValue]*months/12.f;
+        lastMoney += money *[weakSelf.reatString doubleValue]*days/360.f;
+    }];
+    
     return lastMoney;
 }
 - (void)reloadTableViewWithAnimation
@@ -418,7 +429,22 @@ static NSString *const LIXICELL = @"lixicellid";
     NSMutableArray *arr = _dataSourceArrays[section];
     [arr replaceObjectAtIndex:row withObject:textField.text];
 }
+#pragma mark - 获取两个时间戳之间间隔 年月日
+- (void)calculateAgeFromDate:(NSString *)startTimeStamp withEndStamp:(NSString *)endTimeStamp RequestSuccess:(void(^)(NSInteger months, NSInteger days))success
+{
+    NSDate *date1 = [QZManager timeStampChangeNSDate:[startTimeStamp doubleValue]];
+    NSDate *date2 = [QZManager timeStampChangeNSDate:[endTimeStamp doubleValue]];
+    
+    NSCalendar *userCalendar = [NSCalendar currentCalendar];
+    //NSCalendarUnitYear
+    unsigned int unitFlags = NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    NSDateComponents *components = [userCalendar components:unitFlags fromDate:date1 toDate:date2 options:0];
+//    NSInteger year1 = [components year];
+    NSInteger months1 = [components month];
+    NSInteger days1 = [components day];
 
+    success(months1,days1);
+}
 #pragma mark -手势
 - (void)dismissKeyBoard{
     [self.view endEditing:YES];

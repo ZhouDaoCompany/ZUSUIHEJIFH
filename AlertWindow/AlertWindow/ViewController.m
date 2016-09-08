@@ -35,7 +35,10 @@
     NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
     
     NSString *str1 = [NSDate datestrFromDate:newdate withDateFormat:@"yyyy-MM-dd"];//[NSDate datestrFromDate:newdate format:@"yyyy-MM-dd"];
-    DLog(@"输出时间是－－－%@",str1);
+//    DLog(@"输出时间是－－－%@",str1);
+    
+    [self calculateAgeFromDate:[NSDate dateFromString:@"2016-01-31" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-04-27" format:@"yyyy-MM-dd"]];
+    
 
 //    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 //    
@@ -51,13 +54,6 @@
 //    
 //    [adcomps setDay:0];
 //    NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:mydate options:0];
-    
-    
-
-
-    
-    
-
 }
 //得到时间戳
 - (NSString *)getTheTimeStamp:(NSString *)timeStamp
@@ -105,6 +101,22 @@
 //    Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:CaseType withDelegate:self];
     [alertView show];
 }
+- (void )calculateAgeFromDate:(NSDate *)date1 toDate:(NSDate *)date2{
+    
+    NSCalendar *userCalendar = [NSCalendar currentCalendar];
+    
+    unsigned int unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    
+    NSDateComponents *components = [userCalendar components:unitFlags fromDate:date1 toDate:date2 options:0];
+    
+    int years = [components year];
+    int month = [components month];
+    int days = [components day];
+    
+    DLog(@"时间间隔－－－－%d       %d         %d",years,month,days);
+}
+
+
 - (UIButton *)sureBtn
 {
     if (!_sureBtn) {
