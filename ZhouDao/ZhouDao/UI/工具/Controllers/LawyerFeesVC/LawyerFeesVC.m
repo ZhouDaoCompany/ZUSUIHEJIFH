@@ -55,8 +55,8 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     [_tableView setTableFooterView:self.bottomLabel];
     
     
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"lawerFees" ofType:@"txt"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"xizang" ofType:@"txt"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"lawerFees" ofType:@"txt"];
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"xizang" ofType:@"txt"];
     NSData *data = [NSData dataWithContentsOfFile:path];
     NSDictionary *dict= [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
     _areasDictionary = dict[@"area"];
