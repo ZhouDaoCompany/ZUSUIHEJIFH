@@ -27,7 +27,7 @@
     NSCalendar *calendar=[NSCalendar currentCalendar];
     //定义成分
     NSCalendarUnit unitFlags=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    NSDate *tempDate = [NSDate dateFromString:@"2016-01-31" format:@"yyyy-MM-dd"];
+    NSDate *tempDate = [NSDate dateFromString:@"2015-05-23" format:@"yyyy-MM-dd"];
     NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
     [dateComponent  setYear:0];
     [dateComponent setMonth:1];
@@ -37,7 +37,7 @@
     NSString *str1 = [NSDate datestrFromDate:newdate withDateFormat:@"yyyy-MM-dd"];//[NSDate datestrFromDate:newdate format:@"yyyy-MM-dd"];
 //    DLog(@"输出时间是－－－%@",str1);
     
-    [self calculateAgeFromDate:[NSDate dateFromString:@"2016-01-31" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-04-27" format:@"yyyy-MM-dd"]];
+    [self calculateAgeFromDate:[NSDate dateFromString:@"2010-05-28" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2014-02-28" format:@"yyyy-MM-dd"]];
     
 
 //    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -61,7 +61,7 @@
     //创建日历
     NSCalendar *calendar=[NSCalendar currentCalendar];
     //定义成分
-    NSCalendarUnit unitFlags=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    NSCalendarUnit unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
     NSDate *tempDate = [self timeStampChangeNSDate:[timeStamp doubleValue]];
     NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
     [dateComponent  setYear:0];
@@ -105,15 +105,15 @@
     
     NSCalendar *userCalendar = [NSCalendar currentCalendar];
     
-    unsigned int unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    unsigned int unitFlags =  NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
     
     NSDateComponents *components = [userCalendar components:unitFlags fromDate:date1 toDate:date2 options:0];
     
-    int years = [components year];
-    int month = [components month];
-    int days = [components day];
+//    NSUInteger years = [components year];
+    NSUInteger month = [components month];
+    NSUInteger days = [components day];
     
-    DLog(@"时间间隔－－－－%d       %d         %d",years,month,days);
+    DLog(@"时间间隔－－－－       %lu         %lu",(unsigned long)month,(unsigned long)days);
 }
 
 

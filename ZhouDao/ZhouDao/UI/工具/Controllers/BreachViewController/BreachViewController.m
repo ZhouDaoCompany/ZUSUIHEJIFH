@@ -20,7 +20,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
 @property (strong, nonatomic) NSMutableDictionary *rateDictionary;
 @property (strong, nonatomic) NSMutableDictionary *detailDictionary;//详情字典
-@property (strong, nonatomic) NSMutableArray *detailArrays;//详情字典
+@property (strong, nonatomic) NSMutableArray *detailArrays;//详情字典里数组
 
 @property (strong, nonatomic) NSMutableArray *timeArrays;
 @property (copy, nonatomic) NSString *startTime;//开始时间戳
@@ -509,6 +509,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
         [label1 whenCancelTapped:^{
             
             BreachDetailVC *vc = [BreachDetailVC new];
+            vc.detailType = BreachType;
             vc.detailDictionary = weakSelf.detailDictionary;
             [weakSelf.navigationController pushViewController:vc animated:YES];
         }];

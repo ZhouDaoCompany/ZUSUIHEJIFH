@@ -9,6 +9,7 @@
 #import "LiXiViewController.h"
 #import "LiXiViewCell.h"
 #import "ZHPickView.h"
+#import "BreachDetailVC.h"
 
 static NSString *const LIXICELL = @"lixicellid";
 
@@ -26,6 +27,10 @@ static NSString *const LIXICELL = @"lixicellid";
 @property (strong, nonatomic) NSMutableArray *timeArrays;
 @property (assign, nonatomic) BOOL isConvention;//是否约定利率
 @property (strong, nonatomic) NSMutableDictionary *detailDictionary;//详情字典
+@property (strong, nonatomic) NSMutableArray *detailArrays;//详情字典里数组
+@property (assign, nonatomic) float principalMoney;//本金
+@property (assign, nonatomic) float allLiXiMoney;//总利息
+@property (copy, nonatomic) UIView *bottomView;
 
 @end
 
@@ -54,9 +59,14 @@ static NSString *const LIXICELL = @"lixicellid";
     
 }
 #pragma mark - event response
+- (void)rightBtnAction
+{
+}
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
+    
+    _tableView.tableFooterView = nil;
     if (btn.tag == 3035) {
         
         if (_dataSourceArrays.count == 2) {
@@ -89,6 +99,9 @@ static NSString *const LIXICELL = @"lixicellid";
             [JKPromptView showWithImageName:nil message:@"请您检查设置时间"];
             return;
         }
+        
+        [self.detailArrays removeAllObjects];
+
 
         [self reimbursementTypeMethods:arr1];
     }
@@ -101,18 +114,33 @@ static NSString *const LIXICELL = @"lixicellid";
     if ([reimbursementType isEqualToString:@"等额本息"]) {
         
         [self accordingToTheInterestRateCalculationWithRateType:rateType withArrays:arr1];
-        
+        NSMutableArray *bigArrays = self.detailDictionary[@"MutableArrays"];
+        float amountMoney = (_allLiXiMoney + _principalMoney)/[bigArrays count];
+        for (NSMutableArray *smallArr in bigArrays) {
+            [smallArr addObject:[NSString stringWithFormat:@"%.2f",amountMoney]];
+        }
         
     }else if ([reimbursementType isEqualToString:@"一次性还本付息"]) {
         
         [self accordingToTheInterestRateCalculationWithRateType:rateType withArrays:arr1];
+        self.tableView.tableFooterView = nil;
     }else if ([reimbursementType isEqualToString:@"月付息到期一次性还本"]) {
         
         [self accordingToTheInterestRateCalculationWithRateType:rateType withArrays:arr1];
+        
+        NSMutableArray *bigArrays = self.detailDictionary[@"MutableArrays"];
+        float amountMoney = _allLiXiMoney/[bigArrays count];
+        for (NSUInteger i = 0; i < bigArrays.count; i++) {
+            NSMutableArray *smallArr = bigArrays[i];
+            (i == [bigArrays count] -1)?[smallArr addObject:[NSString stringWithFormat:@"%.2f",amountMoney + _principalMoney]]:[smallArr addObject:[NSString stringWithFormat:@"%.2f",amountMoney]];
+        }
+
     }else if ([reimbursementType isEqualToString:@"等额本金"]) {
         
         if ([rateType isEqualToString:@"人民银行同期利率"]) {
             
+            [self standOfTheBankInterestRatesOverTheSame:arr1];
+            self.tableView.tableFooterView = self.bottomView;
         }else{
             
             [self standardOfCustomReatWithArrays:arr1];
@@ -125,6 +153,8 @@ static NSString *const LIXICELL = @"lixicellid";
     if ([rateType isEqualToString:@"人民银行同期利率"]) {
         
         [self cycleCalendarYearInterestRates:arr1];
+        _tableView.tableFooterView = self.bottomView;
+
     }else{
         
         [self customRateWithArrays:arr1];
@@ -137,18 +167,12 @@ static NSString *const LIXICELL = @"lixicellid";
     float money = [arrays[0] floatValue];
     float days = ([_endTime integerValue] - [_startTime integerValue])/86400.f;//总的相差天数
     float startTimeInt = [_startTime floatValue];
-    float endTimeInt = [_endTime floatValue];
     NSString *discountString = [arrays lastObject];
     float discount = (discountString.length == 0)?1.f:([discountString floatValue]/100.f);
     
-    if (startTimeInt > [QZManager timeToTimeStamp:[self.timeArrays lastObject]]) {
-        
-        NSArray *rateArrays = self.rateDictionary[[self.timeArrays lastObject]];
-        lastMoney = [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:days withMoney:money];
-
-    }else if (endTimeInt < [QZManager timeToTimeStamp:[self.timeArrays firstObject]]){
+    if (startTimeInt > [QZManager timeToTimeStamp:[self.timeArrays lastObject]]){
        
-        NSArray *rateArrays = self.rateDictionary[[self.timeArrays firstObject]];
+        NSArray *rateArrays = self.rateDictionary[[self.timeArrays lastObject]];
         lastMoney = [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:days withMoney:money];
 
     }else {
@@ -171,10 +195,18 @@ static NSString *const LIXICELL = @"lixicellid";
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",allMoney],[NSString stringWithFormat:@"%.2f",lastMoney],[NSString stringWithFormat:@"%.2f",money], nil];
     (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
     [self reloadTableViewWithAnimation];
+    
+    //收集信息
+    _principalMoney = money;
+    _allLiXiMoney = lastMoney;
+    [self calculateDeatilViewControllerMonth];
+    NSString *allDays = [NSString stringWithFormat:@"%@-%@",[QZManager changeTimeMethods:[_startTime integerValue] withType:@"yy/MM/dd"],[QZManager changeTimeMethods:[_endTime integerValue] withType:@"yy/MM/dd"]];
+    [self collectInformationToAnotherInterfaceWithMoney:money WithBreachMoney:lastMoney WithAllDays:allDays WithArrays:self.detailArrays WithReatType:_reatString];
 }
 #pragma mark - 按约定利率 自定义利率
 - (void)customRateWithArrays:(NSMutableArray *)arrays
 {
+
     float lastMoney = 0.0f;
     float money = [arrays[0] floatValue];
     NSString *discountString = [arrays lastObject];
@@ -194,31 +226,157 @@ static NSString *const LIXICELL = @"lixicellid";
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",allMoney],[NSString stringWithFormat:@"%.2f",lastMoney],[NSString stringWithFormat:@"%.2f",money], nil];
     (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
     [self reloadTableViewWithAnimation];
+    
+}
 
+#pragma mark - 等额本金 按银行同期利率
+- (void)standOfTheBankInterestRatesOverTheSame:(NSMutableArray *)arrays
+{
+    float lastMoney = 0.0f;
+    float money = [arrays[0] floatValue];
+    float days = ([_endTime integerValue] - [_startTime integerValue])/86400.f;//总的相差天数
+    float startTimeInt = [_startTime floatValue];
+    NSString *discountString = [arrays lastObject];
+    float discount = (discountString.length == 0)?1.f:([discountString floatValue]/100.f);
+
+    float rate;
+    if (startTimeInt > [QZManager timeToTimeStamp:[self.timeArrays lastObject]]){
+        
+        NSArray *rateArrays = self.rateDictionary[[self.timeArrays lastObject]];
+        rate = [self getRateCalculateWithRateArrays:rateArrays withDays:days];
+    }else {
+        
+        __block NSUInteger startIndex = 0;
+        [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            NSUInteger timeObj = [QZManager timeToTimeStamp:obj];
+            if (startTimeInt - timeObj <=0) {
+                startIndex = (idx == 0)?idx:(idx-1);
+                *stop = YES;
+            }
+        }];
+        NSArray *rateArrays = self.rateDictionary[self.timeArrays[startIndex]];
+        rate = [self getRateCalculateWithRateArrays:rateArrays withDays:days];
+    }
+
+    [self calculateDeatilViewControllerMonth];//得到月份 利率
+
+    //得到利率 进行运算
+    __block   NSUInteger monthsCount = 0;
+    __block   NSUInteger remainingDays = 0;
+    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger daysT) {
+        
+        monthsCount = (daysT >0)?(months +1):months;
+        remainingDays = daysT;
+    }];
+    float monthPrincipal = money/monthsCount;//月还本金额
+
+    for (NSUInteger i = 0; i< monthsCount; i++) {
+        
+        NSMutableArray *smallArrays = self.detailArrays[i];
+        float lixi = 0.0f;
+        if (remainingDays >0 && i == monthsCount -1) {
+            lixi = monthPrincipal *(monthsCount-i)*rate*remainingDays/360.f;
+            lastMoney += lixi;
+        }else{
+            
+            lixi = monthPrincipal *(monthsCount-i)*rate/12.f;
+            lastMoney += lixi;
+        }
+        [smallArrays addObject:[NSString stringWithFormat:@"%.2f",lixi*discount + monthPrincipal]];
+    }
+    
+    lastMoney = lastMoney*discount;
+    float allMoney = lastMoney + money;
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",allMoney],[NSString stringWithFormat:@"%.2f",lastMoney],[NSString stringWithFormat:@"%.2f",money], nil];
+    (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
+    [self reloadTableViewWithAnimation];
+    
+    //收集信息
+    NSString *allDays = [NSString stringWithFormat:@"%@-%@",[QZManager changeTimeMethods:[_startTime integerValue] withType:@"yy/MM/dd"],[QZManager changeTimeMethods:[_endTime integerValue] withType:@"yy/MM/dd"]];
+    [self collectInformationToAnotherInterfaceWithMoney:money WithBreachMoney:lastMoney WithAllDays:allDays WithArrays:self.detailArrays WithReatType:_reatString];
 }
 #pragma mark - 等额本金 按约定利率 自定义利率
-- (void)standardOfCustomReatWithArrays:(NSMutableArray *)arrays
-{WEAKSELF;
-    
-    __block   NSUInteger startIndex = 0;
 
-    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger days) {
+- (void)standardOfCustomReatWithArrays:(NSMutableArray *)arrays
+{
+    float lastMoney = 0.0f;
+    float money = [arrays[0] floatValue];
+    NSString *discountString = [arrays lastObject];
+    float rate = [discountString floatValue]/100.f;
+    _reatString = [NSString stringWithFormat:@"%.4f",rate];
+    NSString *typeString = arrays[5];
+    
+    if ([typeString isEqualToString:@"日利率"]) {
+       
+        rate = rate *360.f;
+    }else if ([typeString isEqualToString:@"月利率"]){
+        rate = rate *12.f;
+    }
+
+    //得到利率 进行运算
+    __block   NSUInteger monthsCount = 0;
+    __block   NSUInteger remainingDays = 0;
+    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger daysT) {
         
-        months = (days >0)?(months +1):months;
-        
-        for (NSUInteger i=0; i< months; i++) {
-            
-            startIndex ++;
-        }
-        
+        monthsCount = (daysT >0)?(months +1):months;
+        remainingDays = daysT;
     }];
-//    NSString *nextMonth = [QZManager getNextMonthTheTimeStamp:_startTime];
-//    while ([nextMonth doubleValue] <[_endTime doubleValue]) {
-//        
-//        startIndex ++;
-//        nextMonth = [QZManager getNextMonthTheTimeStamp:nextMonth];
-//    }
-    DLog(@"第几个－－－－%ld",startIndex);
+    float monthPrincipal = money/monthsCount;//月还本金额
+    
+    for (NSUInteger i = 0; i< monthsCount; i++) {
+        
+        float lixi = 0.0f;
+        if (remainingDays >0 && i == monthsCount -1) {
+            lixi = monthPrincipal *(monthsCount-i)*rate*remainingDays/360.f;
+            lastMoney += lixi;
+        }else{
+            
+            lixi = monthPrincipal *(monthsCount-i)*rate/12.f;
+            lastMoney += lixi;
+        }
+    }
+
+    float allMoney = lastMoney + money;
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",allMoney],[NSString stringWithFormat:@"%.2f",lastMoney],[NSString stringWithFormat:@"%.2f",money], nil];
+    (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
+    [self reloadTableViewWithAnimation];
+
+}
+- (void)calculateDeatilViewControllerMonth
+{
+    __block   NSUInteger monthsCount = 0;
+    
+    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger daysT) {
+        
+        DLog(@"month------%ld-------days--%ld",(long)months,(long)daysT);
+        monthsCount = (daysT >0)?(months +1):months;
+    }];
+    
+    for (NSUInteger i = 0; i < monthsCount; i++)
+    {
+        NSMutableArray *tempArrays = [NSMutableArray array];
+        
+        static NSString *onATimeStamp = @"";
+        if (i == 0) {
+            onATimeStamp = _startTime;
+        }
+        NSString *nextMonthTimeStamp = [QZManager getNextMonthTheTimeStamp:onATimeStamp];
+        [tempArrays addObject:onATimeStamp];//开始时间
+        (i == monthsCount -1)?[tempArrays addObject:_endTime]:[tempArrays addObject:nextMonthTimeStamp];//结束时间
+        [tempArrays addObject:_reatString];
+        [self.detailArrays addObject:tempArrays];
+        onATimeStamp = nextMonthTimeStamp;
+    }
+}
+#pragma mark - 收集信息到另一界面
+- (void)collectInformationToAnotherInterfaceWithMoney:(float)money WithBreachMoney:(float)lastMoney WithAllDays:(NSString *)allDays WithArrays:(NSMutableArray *)arrays WithReatType:(NSString *)reatTypes
+{
+    [self.detailDictionary setObjectWithNullValidate:[NSString stringWithFormat:@"%.2f",money] forKey:@"AllMoney"];
+    [self.detailDictionary setObjectWithNullValidate:[NSString stringWithFormat:@"%.2f",lastMoney] forKey:@"BreachMoney"];
+    [self.detailDictionary setObjectWithNullValidate:allDays forKey:@"AllDays"];
+    [self.detailDictionary setObjectWithNullValidate:arrays forKey:@"MutableArrays"];
+    [self.detailDictionary setObjectWithNullValidate:reatTypes forKey:@"ReatType"];
 }
 #pragma mark - 根据天数找到取第几个利率
 - (float)accordingOfDaysLookingForRatesWithRateArrays:(NSArray *)rateArrays withDays:(float)differTimeDay withMoney:(float)money
@@ -240,14 +398,32 @@ static NSString *const LIXICELL = @"lixicellid";
         
         _reatString = rateArrays[4];
     }
-    
-    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger days) {
+    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger daysT) {
         
         lastMoney +=  money * [weakSelf.reatString doubleValue]*months/12.f;
-        lastMoney += money *[weakSelf.reatString doubleValue]*days/360.f;
+        lastMoney += money *[weakSelf.reatString doubleValue]*daysT/360.f;
     }];
-    
     return lastMoney;
+}
+- (float)getRateCalculateWithRateArrays:(NSArray *)rateArrays withDays:(float)differTimeDay
+{
+    if(differTimeDay <= 180){
+        
+        _reatString = rateArrays[0];
+    }else if(differTimeDay > 180 && differTimeDay <= 365){
+        
+        _reatString = rateArrays[1];
+    }else if(differTimeDay > 365 && differTimeDay <= 1095){
+        
+        _reatString = rateArrays[2];
+    }else if(differTimeDay > 1095 && differTimeDay <= 1825){
+        
+        _reatString = rateArrays[3];
+    }else if(differTimeDay > 1825){
+        
+        _reatString = rateArrays[4];
+    }
+    return [_reatString floatValue];
 }
 - (void)reloadTableViewWithAnimation
 {WEAKSELF;
@@ -434,8 +610,8 @@ static NSString *const LIXICELL = @"lixicellid";
     NSMutableArray *arr = _dataSourceArrays[section];
     [arr replaceObjectAtIndex:row withObject:textField.text];
 }
-#pragma mark - 获取两个时间戳之间间隔 年月日
-- (void)calculateAgeFromDate:(NSString *)startTimeStamp withEndStamp:(NSString *)endTimeStamp RequestSuccess:(void(^)(NSInteger months, NSInteger days))success
+#pragma mark - 获取两个时间戳之间间隔 月日
+- (void)calculateAgeFromDate:(NSString *)startTimeStamp withEndStamp:(NSString *)endTimeStamp RequestSuccess:(void(^)(NSInteger months, NSInteger daysT))success
 {
     NSDate *date1 = [QZManager timeStampChangeNSDate:[startTimeStamp doubleValue]];
     NSDate *date2 = [QZManager timeStampChangeNSDate:[endTimeStamp doubleValue]];
@@ -447,7 +623,6 @@ static NSString *const LIXICELL = @"lixicellid";
 //    NSInteger year1 = [components year];
     NSInteger months1 = [components month];
     NSInteger days1 = [components day];
-
     success(months1,days1);
 }
 #pragma mark -手势
@@ -535,6 +710,47 @@ static NSString *const LIXICELL = @"lixicellid";
         _detailDictionary = [NSMutableDictionary dictionary];
     }
     return _detailDictionary;
+}
+- (NSMutableArray *)detailArrays
+{
+    if (!_detailArrays) {
+        _detailArrays = [NSMutableArray array];
+    }
+    return _detailArrays;
+}
+- (UIView *)bottomView
+{
+    if (!_bottomView) {WEAKSELF;
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 75.f)];
+        _bottomView.backgroundColor = [UIColor clearColor];
+        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 35, kMainScreenWidth-10, 25)];
+        label2.textAlignment = NSTextAlignmentLeft;
+        label2.numberOfLines = 0;
+        label2.backgroundColor = [UIColor clearColor];
+        label2.textColor = hexColor(00c8aa);
+        label2.font = Font_12;
+        label2.text = @"按《人民银行利率表》进行计算，结果仅供参考。";
+        [_bottomView addSubview:label2];
+        
+        UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 35)];
+        label1.textAlignment = NSTextAlignmentCenter;
+        label1.numberOfLines = 0;
+        label1.backgroundColor = [UIColor clearColor];
+        label1.textColor = hexColor(00c8aa);
+        label1.font = Font_12;
+        label1.text = @"查看分段计算详情 >";
+        [_bottomView addSubview:label1];
+        
+        [label1 whenCancelTapped:^{
+            
+            BreachDetailVC *vc = [BreachDetailVC new];
+            vc.detailType = LiXiType;
+            vc.detailDictionary = weakSelf.detailDictionary;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }];
+        
+    }
+    return _bottomView;
 }
 
 - (void)didReceiveMemoryWarning {

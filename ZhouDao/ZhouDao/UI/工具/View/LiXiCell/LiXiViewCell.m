@@ -66,6 +66,7 @@
                     _textField.keyboardType = UIKeyboardTypeDecimalPad;
                     _textField.placeholder = @"请输入金额";
                     _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
+                    self.selectionStyle = UITableViewCellSelectionStyleNone;
 
                 }
                     break;
@@ -145,6 +146,7 @@
                     _textField.keyboardType = UIKeyboardTypeDecimalPad;
                     _textField.placeholder = @"请输入金额";
                     _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
+                    self.selectionStyle = UITableViewCellSelectionStyleNone;
 
                 }
                     break;
@@ -224,7 +226,8 @@
         _textField.text = arr2[row];
         _lineView.hidden = NO;
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
-        
+        _textField.borderStyle = UITextBorderStyleNone;
+
         switch (row) {
             case 0:
             {

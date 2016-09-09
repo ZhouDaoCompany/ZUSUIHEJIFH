@@ -33,10 +33,9 @@ static NSString *const BREACHDETAILCELL = @"BreachDetailCellid";
 #pragma mark - private methods
 - (void)initUI
 {
-
     self.dataSourceArrays = _detailDictionary[@"MutableArrays"];
-    
-    [self setupNaviBarWithTitle:@"违约金分段详情"];
+    NSString *tit = (_detailType == BreachType)?@"违约金分段详情":@"利息分段详情";
+    [self setupNaviBarWithTitle:tit];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
     [_tableView setTableFooterView:self.bottomLabel];
@@ -45,7 +44,8 @@ static NSString *const BREACHDETAILCELL = @"BreachDetailCellid";
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:15.f];
     titleLabel.textColor = hexColor(FFFFFF);
-    titleLabel.text = @"违约金累加/总计金额（元）";
+    NSString *headTit = (_detailType == BreachType)?@"违约金累加/总计金额（元）":@"利息累加/总计金额（元）";
+    titleLabel.text = headTit;
     [_headerView addSubview:titleLabel];
     UILabel *moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, Orgin_y(titleLabel), kMainScreenWidth - 60, 20)];
     moneyLabel.textAlignment = NSTextAlignmentCenter;

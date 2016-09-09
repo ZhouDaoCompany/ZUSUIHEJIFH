@@ -506,9 +506,14 @@ singleton_for_class(QZManager)
     formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSDate* date = [NSDate dateWithTimeIntervalSince1970:time];
-    return date;
+    //解决相差8小时
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate: date];
+    NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
+    return localeDate;
 }
 #pragma mark - NSDate转换为时间戳
 + (NSString *)dateChangeTimeStampMethods:(NSDate *)date
@@ -526,14 +531,18 @@ singleton_for_class(QZManager)
     //创建日历
     NSCalendar *calendar=[NSCalendar currentCalendar];
     //定义成分
-    NSCalendarUnit unitFlags=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    NSCalendarUnit unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute;
     NSDate *tempDate = [self timeStampChangeNSDate:[timeStamp doubleValue]];
     NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
     [dateComponent  setYear:0];
     [dateComponent setMonth:1];
     [dateComponent setDay:0];
+    [dateComponent setHour:0];
+    [dateComponent setMinute:0];
+    
     NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
     NSString *sjcString = [self dateChangeTimeStampMethods:newdate];
+    DLog(@"%@",sjcString);
     return sjcString;
 }
 
