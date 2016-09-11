@@ -345,29 +345,52 @@ static NSString *const LIXICELL = @"lixicellid";
 }
 - (void)calculateDeatilViewControllerMonth
 {
-    __block   NSUInteger monthsCount = 0;
+////    __block   NSUInteger monthsCount = 0;
+////
+////    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger daysT) {
+////        
+////        DLog(@"month------%ld-------days--%ld",(long)months,(long)daysT);
+////        monthsCount = (daysT >0)?(months +1):months;
+////    }];
+////    
+//    for (NSUInteger i = 0; i < monthsCount; i++)
+//    {
+//        NSMutableArray *tempArrays = [NSMutableArray array];
+//        
+//        static NSString *onATimeStamp = @"";
+//        if (i == 0) {
+//            onATimeStamp = _startTime;
+//        }
+//        NSString *nextMonthTimeStamp = [QZManager getNextMonthTheTimeStamp:onATimeStamp];
+//        [tempArrays addObject:onATimeStamp];//开始时间
+//        (i == monthsCount -1)?[tempArrays addObject:_endTime]:[tempArrays addObject:nextMonthTimeStamp];//结束时间
+//        [tempArrays addObject:_reatString];
+//        [self.detailArrays addObject:tempArrays];
+//        onATimeStamp = nextMonthTimeStamp;
+//    }
     
-    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger daysT) {
+    NSUInteger monthsCount = 0;
+    NSString *nextMonthTimeStamp = @"0";
+    do {
         
-        DLog(@"month------%ld-------days--%ld",(long)months,(long)daysT);
-        monthsCount = (daysT >0)?(months +1):months;
-    }];
-    
-    for (NSUInteger i = 0; i < monthsCount; i++)
-    {
         NSMutableArray *tempArrays = [NSMutableArray array];
-        
-        static NSString *onATimeStamp = @"";
-        if (i == 0) {
-            onATimeStamp = _startTime;
+        if (monthsCount == 0) {
+            [tempArrays addObject:_startTime];//开始时间
+            nextMonthTimeStamp = [QZManager getNextMonthTheTimeStamp:_startTime];
+        }else{
+            [tempArrays  addObject:nextMonthTimeStamp];
+            nextMonthTimeStamp = [QZManager getNextMonthTheTimeStamp:nextMonthTimeStamp];
         }
-        NSString *nextMonthTimeStamp = [QZManager getNextMonthTheTimeStamp:onATimeStamp];
-        [tempArrays addObject:onATimeStamp];//开始时间
-        (i == monthsCount -1)?[tempArrays addObject:_endTime]:[tempArrays addObject:nextMonthTimeStamp];//结束时间
+        [tempArrays  addObject:nextMonthTimeStamp];
+
         [tempArrays addObject:_reatString];
         [self.detailArrays addObject:tempArrays];
-        onATimeStamp = nextMonthTimeStamp;
-    }
+        monthsCount ++;
+
+    } while ([_endTime floatValue] > [nextMonthTimeStamp floatValue]);
+    NSMutableArray *smallArrays = [self.detailArrays lastObject];
+    [smallArrays replaceObjectAtIndex:1 withObject:_endTime];
+    DLog(@"输出－－－－－%ld",monthsCount);
 }
 #pragma mark - 收集信息到另一界面
 - (void)collectInformationToAnotherInterfaceWithMoney:(float)money WithBreachMoney:(float)lastMoney WithAllDays:(NSString *)allDays WithArrays:(NSMutableArray *)arrays WithReatType:(NSString *)reatTypes

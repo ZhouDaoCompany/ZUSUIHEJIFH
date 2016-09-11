@@ -491,11 +491,13 @@ singleton_for_class(QZManager)
 {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
     [formatter setDateFormat:type];
     NSDate* date = [NSDate dateWithTimeIntervalSince1970:time];
-    NSString* dateString = [formatter stringFromDate:date];
+    //解决相差8小时
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate: date];
+    NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
+    NSString* dateString = [formatter stringFromDate:localeDate];
     return dateString;
 }
 
@@ -537,7 +539,7 @@ singleton_for_class(QZManager)
     [dateComponent  setYear:0];
     [dateComponent setMonth:1];
     [dateComponent setDay:0];
-    [dateComponent setHour:0];
+    [dateComponent setHour:-16];
     [dateComponent setMinute:0];
     
     NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
