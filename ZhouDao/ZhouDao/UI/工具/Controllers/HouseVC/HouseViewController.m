@@ -8,10 +8,11 @@
 
 #import "HouseViewController.h"
 #import "HouseViewCell.h"
+#import "ZHPickView.h"
 
 static NSString *const HOUSECELL = @"housecellid";
 
-@interface HouseViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface HouseViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,HouseViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -39,7 +40,7 @@ static NSString *const HOUSECELL = @"housecellid";
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
     [self.dataSourceArrays addObject:arr2];
-    
+
     [self setupNaviBarWithTitle:@"房屋还贷计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
@@ -50,15 +51,34 @@ static NSString *const HOUSECELL = @"housecellid";
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
+    if (btn.tag == 3034) {
+        if (_dataSourceArrays.count == 2) {
+            [_dataSourceArrays removeObjectAtIndex:1];
+            [_tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+        }
+        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
+        [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        [_tableView endUpdates];
+
+    }
+}
+- (void)reloadTableViewWithAnimation
+{WEAKSELF;
+    
+    [UIView animateWithDuration:.25 animations:^{
+        [weakSelf.tableView reloadData];
+    }];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return [self.dataSourceArrays count];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?6:5;
+    NSMutableArray *arr = self.dataSourceArrays[section];
+    return [arr count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -76,10 +96,48 @@ static NSString *const HOUSECELL = @"housecellid";
 {WEAKSELF;
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
     if (section == 0) {
+        switch (row) {
+            case 0:
+            {
+                ZHPickView *pickView = [[ZHPickView alloc] init];
+                [pickView setDataViewWithItem:@[@"公积金贷款",@"商业贷款",@"组合贷款"] title:@"贷款类型"];
+                [pickView showPickView:self];
+                pickView.block = ^(NSString *selectedStr,NSString *type)
+                {
+                    NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
+                    [arr1 replaceObjectAtIndex:row withObject:selectedStr];
+                    if ([selectedStr isEqualToString:@"人民银行同期利率"]) {
+                        if (arr1.count > 4) {
+                            [arr1 removeObjectAtIndex:4];
+                            [arr1 removeObjectAtIndex:4];
+                        }
+                    }else {
+                        if (arr1.count == 4) {
+                            [arr1 addObject:@""];
+                            [arr1 addObject:@""];
+                        }
+                    }
+                    [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+                };
+
+            }
+                break;
+            case 1:
+            {
+                
+            }
+                break;
+
+            default:
+                break;
+        }
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section == 1) {
         return nil;
     }
     UIView *secitionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 80)];
@@ -90,17 +148,25 @@ static NSString *const HOUSECELL = @"housecellid";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (indexPath.section == 1 && indexPath.row == 0)?80.f:45.f;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return (section == 0)?0.1f:80.f;
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        return 64.f;
+    }
+    return 45.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
+    return (section == 0)?80.f:0.1f;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return 0.1f;
 }
-
+#pragma mark - HouseViewDelegate
+- (void)optionEvent:(NSInteger)section withCell:(HouseViewCell *)cell
+{
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    
+}
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {

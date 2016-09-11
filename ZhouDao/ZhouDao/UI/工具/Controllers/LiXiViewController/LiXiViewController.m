@@ -156,7 +156,6 @@ static NSString *const LIXICELL = @"lixicellid";
         _tableView.tableFooterView = self.bottomView;
 
     }else{
-        
         [self customRateWithArrays:arr1];
     }
 }
@@ -345,30 +344,6 @@ static NSString *const LIXICELL = @"lixicellid";
 }
 - (void)calculateDeatilViewControllerMonth
 {
-////    __block   NSUInteger monthsCount = 0;
-////
-////    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger daysT) {
-////        
-////        DLog(@"month------%ld-------days--%ld",(long)months,(long)daysT);
-////        monthsCount = (daysT >0)?(months +1):months;
-////    }];
-////    
-//    for (NSUInteger i = 0; i < monthsCount; i++)
-//    {
-//        NSMutableArray *tempArrays = [NSMutableArray array];
-//        
-//        static NSString *onATimeStamp = @"";
-//        if (i == 0) {
-//            onATimeStamp = _startTime;
-//        }
-//        NSString *nextMonthTimeStamp = [QZManager getNextMonthTheTimeStamp:onATimeStamp];
-//        [tempArrays addObject:onATimeStamp];//开始时间
-//        (i == monthsCount -1)?[tempArrays addObject:_endTime]:[tempArrays addObject:nextMonthTimeStamp];//结束时间
-//        [tempArrays addObject:_reatString];
-//        [self.detailArrays addObject:tempArrays];
-//        onATimeStamp = nextMonthTimeStamp;
-//    }
-    
     NSUInteger monthsCount = 0;
     NSString *nextMonthTimeStamp = @"0";
     do {
