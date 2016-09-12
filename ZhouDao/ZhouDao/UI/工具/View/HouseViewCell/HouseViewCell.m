@@ -60,7 +60,8 @@
         _textField.text = arr1[row];
         _textField.placeholder = @"";
         _textField.enabled = NO;
-
+        _textField.borderStyle = UITextBorderStyleNone;
+        
        if ([arr1[0] isEqualToString:@"组合贷款"]){
            NSArray *titleArr = @[@"贷款类型",@"公积金贷款金额(万元)",@"年利率",@"",@"商业贷款金额(万元)",@"年利率",@""];
            _titleLab.text = titleArr[row];
@@ -69,7 +70,6 @@
                {
                    _textField.placeholder = @"请选择贷款类型";
                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
-                   
                    
                }
                    break;
@@ -93,7 +93,6 @@
                {
                    _manualLabel.hidden = NO;
                    _symbolLabel.hidden = NO;
-                   _lineView.hidden = YES;
                    _textField.frame = CGRectMake(Orgin_x(_manualLabel) + 2 , 10, 64, 25);
                    _textField.borderStyle = UITextBorderStyleRoundedRect;
                    _textField.keyboardType = UIKeyboardTypeDecimalPad;
@@ -125,11 +124,11 @@
                    _manualLabel.hidden = NO;
                    _symbolLabel.hidden = NO;
                    _lineView.hidden = YES;
+                   _textField.enabled = YES;
                    _textField.frame = CGRectMake(Orgin_x(_manualLabel) + 2 , 10, 64, 25);
                    _textField.borderStyle = UITextBorderStyleRoundedRect;
                    _textField.keyboardType = UIKeyboardTypeDecimalPad;
                    self.accessoryType = UITableViewCellAccessoryNone;
-                   
                    
                }
                    break;
@@ -148,14 +147,11 @@
                         _textField.placeholder = @"请选择贷款类型";
                         _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
                         
-                        
                     }
                         break;
                     case 1:
                     {
                         _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
-                        
-                        
                     }
                         break;
                     case 2:
@@ -164,7 +160,6 @@
                         _textField.placeholder = @"请您输入平方单价";
                         self.accessoryType = UITableViewCellAccessoryNone;
                         _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
-
                     }
                         break;
                     case 3:
@@ -173,7 +168,6 @@
                         _textField.placeholder = @"请您输入平方单价";
                         self.accessoryType = UITableViewCellAccessoryNone;
                         _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
-                        
                     }
                         break;
                     case 4:
@@ -211,11 +205,11 @@
                         _manualLabel.hidden = NO;
                         _symbolLabel.hidden = NO;
                         _lineView.hidden = YES;
+                        _textField.enabled = YES;
                         _textField.frame = CGRectMake(Orgin_x(_manualLabel) + 2 , 10, 64, 25);
                         _textField.borderStyle = UITextBorderStyleRoundedRect;
                         _textField.keyboardType = UIKeyboardTypeDecimalPad;
                         self.accessoryType = UITableViewCellAccessoryNone;
-                        
                         
                     }
                         break;
@@ -232,13 +226,11 @@
                         _textField.placeholder = @"请选择贷款类型";
                         _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
                         
-                        
                     }
                         break;
                     case 1:
                     {
                         _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
-                        
                         
                     }
                         break;
@@ -273,11 +265,11 @@
                         _manualLabel.hidden = NO;
                         _symbolLabel.hidden = NO;
                         _lineView.hidden = YES;
+                        _textField.enabled = YES;
                         _textField.frame = CGRectMake(Orgin_x(_manualLabel) + 2 , 10, 64, 25);
                         _textField.borderStyle = UITextBorderStyleRoundedRect;
                         _textField.keyboardType = UIKeyboardTypeDecimalPad;
                         self.accessoryType = UITableViewCellAccessoryNone;
-                        
                         
                     }
                         break;
@@ -343,8 +335,6 @@
             default:
                 break;
         }
-        
-        
     }
 
 }

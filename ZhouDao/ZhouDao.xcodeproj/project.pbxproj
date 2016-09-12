@@ -434,6 +434,9 @@
 		189B78561C8572D30022BCEA /* picker_alert_sigh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189B78551C8572D30022BCEA /* picker_alert_sigh@2x.png */; };
 		18A4284F1CC0C8F100CEB30E /* DateTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A4284E1CC0C8F100CEB30E /* DateTimeView.m */; };
 		18A428521CC0D19100CEB30E /* AccusingTheCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A428511CC0D19100CEB30E /* AccusingTheCell.m */; };
+		18A56C461D86437100C133B2 /* HouseDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A56C441D86437100C133B2 /* HouseDetailVC.m */; };
+		18A56C4A1D86572100C133B2 /* HouseDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A56C491D86572100C133B2 /* HouseDetailHeadView.m */; };
+		18A56C4C1D86582200C133B2 /* HouseDetailHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A56C4B1D86582200C133B2 /* HouseDetailHeadView.xib */; };
 		18A622871CD3441C0073B886 /* RemindData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A622841CD3441C0073B886 /* RemindData.m */; };
 		18A622881CD3441C0073B886 /* RemindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A622861CD3441C0073B886 /* RemindModel.m */; };
 		18A6228E1CD352260073B886 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A6228B1CD352260073B886 /* NSDate+Category.m */; };
@@ -1250,6 +1253,11 @@
 		18A4284E1CC0C8F100CEB30E /* DateTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimeView.m; sourceTree = "<group>"; };
 		18A428501CC0D19100CEB30E /* AccusingTheCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccusingTheCell.h; sourceTree = "<group>"; };
 		18A428511CC0D19100CEB30E /* AccusingTheCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccusingTheCell.m; sourceTree = "<group>"; };
+		18A56C431D86437100C133B2 /* HouseDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseDetailVC.h; sourceTree = "<group>"; };
+		18A56C441D86437100C133B2 /* HouseDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HouseDetailVC.m; sourceTree = "<group>"; };
+		18A56C481D86572100C133B2 /* HouseDetailHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseDetailHeadView.h; sourceTree = "<group>"; };
+		18A56C491D86572100C133B2 /* HouseDetailHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HouseDetailHeadView.m; sourceTree = "<group>"; };
+		18A56C4B1D86582200C133B2 /* HouseDetailHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HouseDetailHeadView.xib; sourceTree = "<group>"; };
 		18A622831CD3441C0073B886 /* RemindData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindData.h; sourceTree = "<group>"; };
 		18A622841CD3441C0073B886 /* RemindData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindData.m; sourceTree = "<group>"; };
 		18A622851CD3441C0073B886 /* RemindModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindModel.h; sourceTree = "<group>"; };
@@ -2888,6 +2896,11 @@
 			children = (
 				1873672A1D752769000C1169 /* HouseViewController.h */,
 				1873672B1D752769000C1169 /* HouseViewController.m */,
+				18A56C431D86437100C133B2 /* HouseDetailVC.h */,
+				18A56C441D86437100C133B2 /* HouseDetailVC.m */,
+				18A56C481D86572100C133B2 /* HouseDetailHeadView.h */,
+				18A56C491D86572100C133B2 /* HouseDetailHeadView.m */,
+				18A56C4B1D86582200C133B2 /* HouseDetailHeadView.xib */,
 			);
 			path = HouseVC;
 			sourceTree = "<group>";
@@ -4139,6 +4152,7 @@
 				18FBD84C1CED90CD00674D1E /* case_word@2x.png in Resources */,
 				1856A0EC1D4F35150070B93E /* glyphicons-halflings-regular.svg in Resources */,
 				108DC0211C9FA38E00FD1221 /* compose_pic_add@2x.png in Resources */,
+				18A56C4C1D86582200C133B2 /* HouseDetailHeadView.xib in Resources */,
 				18E6ECEC1CEEF1E300ED74E3 /* law_selectedSC@2x.png in Resources */,
 				1856A1021D4F35150070B93E /* bootstrap-datetimepicker.hu.js in Resources */,
 				187E6D6E1C841A12009169C2 /* LaunchScreen.storyboard in Resources */,
@@ -4513,6 +4527,7 @@
 				187A54A91D642CBD0076A8E6 /* DNSendButton.m in Sources */,
 				18FF3F511C852BDB0098C60B /* NSString+Emoji.m in Sources */,
 				104157551C94587300EE5303 /* CommonViewCell.m in Sources */,
+				18A56C4A1D86572100C133B2 /* HouseDetailHeadView.m in Sources */,
 				10457F521C9EEEFA00E1D3B2 /* StoreKitManager.m in Sources */,
 				188F9E491CF82077000F9B2D /* SCIntroView.m in Sources */,
 				187367281D75235B000C1169 /* HouseViewCell.m in Sources */,
@@ -4577,6 +4592,7 @@
 				108323391CAA5101004B8045 /* ZD_SettingBottomBar.m in Sources */,
 				18F878A51D055D730069E68A /* MapNavViewController.m in Sources */,
 				18D66ACD1CE1BD0300BF2C17 /* LawDetailModel.m in Sources */,
+				18A56C461D86437100C133B2 /* HouseDetailVC.m in Sources */,
 				1817D29D1CC089C400FF6EEE /* LitigationCell.m in Sources */,
 				18FF3F3D1C8529CA0098C60B /* JKPromptView.m in Sources */,
 				18F08DBF1D6FEFB700B29AF9 /* LawyerFeesCell.m in Sources */,

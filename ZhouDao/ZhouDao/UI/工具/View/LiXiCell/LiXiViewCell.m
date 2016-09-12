@@ -53,6 +53,7 @@
         _manualLabel.hidden = YES;
         _textField.hidden = NO;
         _textField.borderStyle = UITextBorderStyleNone;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
 
         if ([arr1[4] isEqualToString:@"按约定利率"]) {
             
@@ -66,7 +67,6 @@
                     _textField.keyboardType = UIKeyboardTypeDecimalPad;
                     _textField.placeholder = @"请输入金额";
                     _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
-                    self.selectionStyle = UITableViewCellSelectionStyleNone;
 
                 }
                     break;

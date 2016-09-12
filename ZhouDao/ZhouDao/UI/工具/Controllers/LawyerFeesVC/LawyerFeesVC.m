@@ -90,11 +90,8 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     }
 }
 - (void)reloadTableViewWithAnimation
-{WEAKSELF;
-    
-    [UIView animateWithDuration:.25 animations:^{
-        [weakSelf.tableView reloadData];
-    }];
+{
+    [_tableView reloadData];
 }
 - (void)showLaywerFees
 {
@@ -309,11 +306,11 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     if (index == 1) {
         [arr1 replaceObjectAtIndex:2 withObject:@"否"];
         [arr1 removeObjectAtIndex:3];
-        [self reloadTableViewWithAnimation];
+        [_tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }else {
         if (arr1.count == 3) {
             [arr1 addObject:@""];
-            [self reloadTableViewWithAnimation];
+            [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         }
         [arr1 replaceObjectAtIndex:2 withObject:@"是"];
     }

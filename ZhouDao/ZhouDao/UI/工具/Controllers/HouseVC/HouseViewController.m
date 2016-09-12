@@ -9,6 +9,7 @@
 #import "HouseViewController.h"
 #import "HouseViewCell.h"
 #import "ZHPickView.h"
+#import "HouseDetailVC.h"
 
 static NSString *const HOUSECELL = @"housecellid";
 
@@ -45,23 +46,26 @@ static NSString *const HOUSECELL = @"housecellid";
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
-    
 }
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
     if (btn.tag == 3034) {
+        
         if (_dataSourceArrays.count == 2) {
             [_dataSourceArrays removeObjectAtIndex:1];
-            [_tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+
         }
         NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
         [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
-        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
-        [_tableView endUpdates];
-
+        [_tableView reloadData];
     }
+}
+- (void)rightBtnAction
+{
+    HouseDetailVC *vc = [HouseDetailVC new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)reloadTableViewWithAnimation
 {WEAKSELF;
@@ -96,45 +100,116 @@ static NSString *const HOUSECELL = @"housecellid";
 {WEAKSELF;
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
-    if (section == 0) {
-        switch (row) {
-            case 0:
+    
+    if (row == 0) {
+        ZHPickView *pickView = [[ZHPickView alloc] init];
+        [pickView setDataViewWithItem:@[@"公积金贷款",@"商业贷款",@"组合贷款"] title:@"贷款类型"];
+        [pickView showPickView:self];
+        pickView.block = ^(NSString *selectedStr,NSString *type)
+        {
+            NSMutableArray *temArr = weakSelf.dataSourceArrays[section];
+            [temArr replaceObjectAtIndex:row withObject:selectedStr];
+
+            if ([selectedStr isEqualToString:@"组合贷款"]) {
+                
+                if (temArr.count !=7) {
+                    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:selectedStr,@"",@"",@"",@"",temArr[temArr.count -2],[temArr lastObject], nil];
+                    [weakSelf.dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+                }
+            }else{
+                if (temArr.count == 7) {
+                    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:selectedStr,@"",@"",@"",temArr[temArr.count -2],[temArr lastObject], nil];
+                    [weakSelf.dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+                }
+            }
+            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        };
+ 
+    }else if (row == 1){
+        
+        if (![ _dataSourceArrays[section][0] isEqualToString:@"组合贷款"]) {
+            
+            ZHPickView *pickView = [[ZHPickView alloc] init];
+            [pickView setDataViewWithItem:@[@"按贷款额度计算",@"按面积计算"] title:@"计算方式"];
+            [pickView showPickView:self];
+            pickView.block = ^(NSString *selectedStr,NSString *type)
             {
+                NSMutableArray *temArr = weakSelf.dataSourceArrays[section];
+                [temArr replaceObjectAtIndex:row withObject:selectedStr];
+                
+                if ([selectedStr isEqualToString:@"按贷款额度计算"]) {
+                    if (temArr.count == 9) {
+                        
+                        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:temArr[0],selectedStr,@"",temArr[temArr.count -3],temArr[temArr.count -2],[temArr lastObject], nil];
+                        [weakSelf.dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+                    }
+                }else{
+                    if (temArr.count == 6) {
+                        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:temArr[0],selectedStr,@"",@"",@"",@"",temArr[temArr.count -3],temArr[temArr.count -2],[temArr lastObject], nil];
+                        [weakSelf.dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+                    }
+                }
+                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+            };
+        }
+        
+    }else if (row == [_dataSourceArrays[section] count] - 2){
+       
+        ZHPickView *pickView = [[ZHPickView alloc] init];
+        [pickView setDataViewWithItem:@[@"1.1倍",@"1.2倍",@"5倍"] title:@"年利率 (%)"];
+        [pickView showPickView:self];
+        pickView.block = ^(NSString *selectedStr,NSString *type)
+        {
+            NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
+            [arr1 replaceObjectAtIndex:row withObject:selectedStr];
+            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        };
+
+    }else if ([_dataSourceArrays[section][0] isEqualToString:@"组合贷款"]){
+        if (row == 2) {
+            ZHPickView *pickView = [[ZHPickView alloc] init];
+            [pickView setDataViewWithItem:@[@"1.1倍",@"1.2倍",@"5倍"] title:@"年利率 (%)"];
+            [pickView showPickView:self];
+            pickView.block = ^(NSString *selectedStr,NSString *type)
+            {
+                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
+                [arr1 replaceObjectAtIndex:row withObject:selectedStr];
+                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+            };
+        }
+    }else{
+        
+        if (row == [_dataSourceArrays[section] count] - 3) {
+            
+            ZHPickView *pickView = [[ZHPickView alloc] init];
+            NSMutableArray *yearArr = [NSMutableArray array];
+            for (NSUInteger i = 1; i<31; i++) {
+                [yearArr addObject:[NSString stringWithFormat:@"%ld年",i]];
+            }
+            [pickView setDataViewWithItem:yearArr title:@"期限"];
+            [pickView showPickView:self];
+            pickView.block = ^(NSString *selectedStr,NSString *type)
+            {
+                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
+                [arr1 replaceObjectAtIndex:row withObject:selectedStr];
+                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+            };
+        }else if ([_dataSourceArrays[section][0] isEqualToString:@"按面积计算"]) {
+            
+            if (row == 5) {
                 ZHPickView *pickView = [[ZHPickView alloc] init];
-                [pickView setDataViewWithItem:@[@"公积金贷款",@"商业贷款",@"组合贷款"] title:@"贷款类型"];
+                [pickView setDataViewWithItem:@[@"1成",@"2成",@"3成"] title:@"首付"];
                 [pickView showPickView:self];
                 pickView.block = ^(NSString *selectedStr,NSString *type)
                 {
                     NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                     [arr1 replaceObjectAtIndex:row withObject:selectedStr];
-                    if ([selectedStr isEqualToString:@"人民银行同期利率"]) {
-                        if (arr1.count > 4) {
-                            [arr1 removeObjectAtIndex:4];
-                            [arr1 removeObjectAtIndex:4];
-                        }
-                    }else {
-                        if (arr1.count == 4) {
-                            [arr1 addObject:@""];
-                            [arr1 addObject:@""];
-                        }
-                    }
                     [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
                 };
-
             }
-                break;
-            case 1:
-            {
-                
-            }
-                break;
-
-            default:
-                break;
         }
     }
 }
-
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (section == 1) {
