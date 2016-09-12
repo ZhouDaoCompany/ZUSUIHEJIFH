@@ -10,7 +10,10 @@
 
 @interface HouseDetailHeadView()
 
-@property (weak, nonatomic) IBOutlet UILabel *totalPaymentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalPaymentLabel;//总还款
+@property (weak, nonatomic) IBOutlet UILabel *interestLabel;//总利息
+@property (weak, nonatomic) IBOutlet UILabel *loanLabel;//总贷款
+@property (weak, nonatomic) IBOutlet UILabel *monthCount;//总月数
 
 @end
 
