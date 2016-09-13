@@ -7,15 +7,12 @@
 //
 
 #import "DisabilityViewCell.h"
-#import "PPNumberButton.h"
 
 #define kContentLabelWidth     4.f/5.f*([UIScreen mainScreen].bounds.size.width)
 #define LabelX                 13.f/80.f*([UIScreen mainScreen].bounds.size.width)
 
 @interface DisabilityViewCell()
 
-@property (nonatomic, strong) PPNumberButton *numberButtons;
-@property (nonatomic, strong) UILabel *titlelabel;
 @property (nonatomic, strong) UIView *lineView;
 @end
 @implementation DisabilityViewCell
@@ -51,7 +48,7 @@
 #pragma mark -  methods
 - (void)setCaseTypeUIwithArrays:(NSMutableArray *)sourceArrays withSection:(NSInteger)section withRow:(NSInteger)row
 {
-    self.numberButtons.hidden = YES;
+    _numberButtons.hidden = YES;
     _titlelabel.frame = CGRectMake(44, 12, kContentLabelWidth - 44, 20);
     _titlelabel.font = Font_13;
     NSArray *arr = sourceArrays[section];
@@ -62,8 +59,18 @@
 {
     _delegate = delegate;
     _row = row;
-    NSArray *arr = @[@"一",@"二",@"三",@"四",@"五",@"六",@"七",@"八",@"九",@"十"];
-    _titlelabel.text = [NSString stringWithFormat:@"%@级",arr[row]];
+    NSArray *arr = @[@"一级",@"二级",@"三级",@"四级",@"五级",@"六级",@"七级",@"八级",@"九级",@"十级"];
+    _titlelabel.text = arr[row];
+
+}
+- (void)selectOnlyUI:(NSInteger)row
+{
+    _row = row;
+    _numberButtons.hidden = YES;
+    _titlelabel.frame = CGRectMake(0, 12, kContentLabelWidth, 20);
+    _titlelabel.textAlignment = NSTextAlignmentCenter;
+    NSArray *arr = @[@"一级",@"二级",@"三级",@"四级",@"五级",@"六级",@"七级",@"八级",@"九级",@"十级"];
+    _titlelabel.text = arr[row];
 
 }
 #pragma mark - setter and getter

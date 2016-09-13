@@ -14,8 +14,6 @@
 @property (nonatomic, strong) UIButton *decreaseBtn;
 /** 加按钮*/
 @property (nonatomic, strong) UIButton *increaseBtn;
-/** 数量展示/输入框*/
-@property (nonatomic, strong) UITextField *textField;
 /** 快速加减定时器*/
 @property (nonatomic, strong) NSTimer *timer;
 

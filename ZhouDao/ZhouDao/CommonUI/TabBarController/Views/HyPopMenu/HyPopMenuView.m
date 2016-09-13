@@ -142,10 +142,10 @@
 #pragma mark -消失动画
     [button SelectdAnimation];
     [self HidDelay:0.25f CompletionBlock:^(BOOL completion) {
-        if (!weakSelf.block) {
-            return ;
+        if (weakSelf.block) {
+            
+            weakSelf.block(button.MenuData,tag);
         }
-        weakSelf.block(button.MenuData,tag);
     }];
 }
 #pragma mark - 消失

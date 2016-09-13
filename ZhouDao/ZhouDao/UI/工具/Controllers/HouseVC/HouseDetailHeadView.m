@@ -15,31 +15,57 @@
 @property (weak, nonatomic) IBOutlet UILabel *loanLabel;//总贷款
 @property (weak, nonatomic) IBOutlet UILabel *monthCount;//总月数
 
+@property (strong, nonatomic) UILabel *titleLabel;
 @end
 
 @implementation HouseDetailHeadView
 
-+(HouseDetailHeadView *)instanceHouseDetailHeadView
++ (HouseDetailHeadView *)instanceHouseDetailHeadViewPaymentMoney:(NSString *)PaymentMoney withInterest:(NSString *)interestMoney withLoan:(NSString *)loanMoney withMonths:(NSString *)monthCount
 {
-    NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"HouseDetailHeadView" owner:nil options:nil];
-    return [nibView objectAtIndex:0];
+    NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"HouseDetailHeadView" owner:self options:nil];
+    HouseDetailHeadView *detailView = [nibView objectAtIndex:0];
+    [detailView initUIPaymentMoney:PaymentMoney withInterest:interestMoney withLoan:loanMoney withMonths:monthCount];
+    return detailView;
 }
-//- (id)initWithFrame:(CGRect)frame
-//{
-//    self = [super initWithFrame:frame];
-//    if (self){
-//        
-//        self.backgroundColor = hexColor(FFFFFF);
-//        [self initUI];
-//    }
-//    return self;
-//}
-//#pragma mark -  methods
-//- (void)initUI
-//{
-//    
-//    
-//}
+#pragma mark -  methods
+- (void)initUIPaymentMoney:(NSString *)PaymentMoney withInterest:(NSString *)interestMoney withLoan:(NSString *)loanMoney withMonths:(NSString *)monthCount
+
+{
+    _totalPaymentLabel.text = PaymentMoney;
+    _interestLabel.text = interestMoney;
+    _loanLabel.text =loanMoney;
+    _monthCount.text = monthCount;
+}
++ (HouseDetailHeadView *)setOtherSetionTitle:(NSString *)title
+{
+    return [[HouseDetailHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 30) withTitle:title];
+}
+- (instancetype)initWithFrame:(CGRect)frame withTitle:(NSString *)title
+{
+    self = [super initWithFrame:frame];
+
+    if (self) {
+        
+        self.backgroundColor = [UIColor clearColor];
+        [self addSubview:self.titleLabel];
+        _titleLabel.text = title;
+    }
+    return self;
+}
+#pragma mark - setter and getter
+- (UILabel *)titleLabel
+{
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 160, 20)];
+        _titleLabel.font = Font_12;
+        _titleLabel.textAlignment = NSTextAlignmentLeft;
+        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.textColor = hexColor(00C8AA);
+    }
+    return _titleLabel;
+}
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol  PersonalInjuryDelegate;
+
 @interface PersonalInjuryCell : UITableViewCell
 
+@property (weak, nonatomic)   id<PersonalInjuryDelegate>delegate;
 
-- (void)settingPersonalCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays;
+- (void)settingPersonalCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays withDelegate:(id<PersonalInjuryDelegate>)delegate;
 
+@end
+@protocol  PersonalInjuryDelegate <NSObject>
+
+- (void)optionEventWithCell:(PersonalInjuryCell *)cell withSelecIndex:(NSInteger)index;
 @end

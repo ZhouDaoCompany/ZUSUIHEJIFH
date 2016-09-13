@@ -10,6 +10,7 @@
 #import "ParallaxHeaderView.h"
 #import "HouseDetailHeadView.h"
 #import "HouseDetailHeadView.h"
+#import "PaymentTabViewCell.h"
 
 static NSString *const HOUSEDETAILCELL = @"HouseDetailCell";
 
@@ -52,13 +53,18 @@ static NSString *const HOUSEDETAILCELL = @"HouseDetailCell";
     }
 }
 #pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 7;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;//[_dataSourceArrays count];
+    return 12;//[_dataSourceArrays count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:HOUSEDETAILCELL];
+    PaymentTabViewCell *cell = (PaymentTabViewCell *)[tableView dequeueReusableCellWithIdentifier:HOUSEDETAILCELL];
+    [cell settingUI];
     if (_dataSourceArrays.count >0) {
         
     }
@@ -66,7 +72,7 @@ static NSString *const HOUSEDETAILCELL = @"HouseDetailCell";
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return (section == 0)?[HouseDetailHeadView instanceHouseDetailHeadView]:nil;
+    return (section == 0)?[HouseDetailHeadView instanceHouseDetailHeadViewPaymentMoney:@"2000" withInterest:@"100" withLoan:@"2100" withMonths:@"12"]:[HouseDetailHeadView setOtherSetionTitle:[NSString stringWithFormat:@"第%ld年",section + 1]];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -89,7 +95,7 @@ static NSString *const HOUSEDETAILCELL = @"HouseDetailCell";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:HOUSEDETAILCELL];
+        [_tableView registerClass:[PaymentTabViewCell class] forCellReuseIdentifier:HOUSEDETAILCELL];
         _tableView.showsVerticalScrollIndicator = NO;
         
         _headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:[QZManager createImageWithColor:hexColor(00c8aa) size:CGSizeMake(kMainScreenWidth, 160)] forSize:CGSizeMake(kMainScreenWidth, 60)];

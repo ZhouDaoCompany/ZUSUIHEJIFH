@@ -13,6 +13,7 @@ typedef NS_ENUM(NSUInteger,DisabilityType) {
     
     DisabilityGradeType = 0,        //伤残等级 选择
     CaseType = 1,                   //案件选择
+    SelectOnly = 3,                 //伤残选择单处
 };
 
 @interface Disability_AlertView : UIView
@@ -34,4 +35,5 @@ typedef NS_ENUM(NSUInteger,DisabilityType) {
 @optional
 - (void)selectDisableGrade:(NSArray *)gradeArrays;
 - (void)selectCaseType:(NSString *)caseString;
+
 @end

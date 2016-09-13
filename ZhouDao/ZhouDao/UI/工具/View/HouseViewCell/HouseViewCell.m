@@ -151,6 +151,7 @@
                         break;
                     case 1:
                     {
+                        _textField.placeholder = @"请选择计算方式";
                         _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
                     }
                         break;
@@ -230,8 +231,8 @@
                         break;
                     case 1:
                     {
+                        _textField.placeholder = @"请选择计算方式";
                         _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
-                        
                     }
                         break;
                     case 2:

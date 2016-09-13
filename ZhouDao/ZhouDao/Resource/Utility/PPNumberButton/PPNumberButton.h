@@ -22,6 +22,8 @@
 @property (nonatomic, copy) void(^numberBlock)(NSString *number);
 /** 代理*/
 @property (nonatomic, weak) id<PPNumberButtonDelegate> delegate;
+/** 数量展示/输入框*/
+@property (nonatomic, strong) UITextField *textField;
 
 /**
  *  通过类方法创建一个按钮实例对象

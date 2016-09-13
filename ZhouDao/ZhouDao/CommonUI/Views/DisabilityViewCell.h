@@ -7,15 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPNumberButton.h"
+
 @protocol DisabilityViewDelegate;
 
 @interface DisabilityViewCell : UITableViewCell
 
 @property (nonatomic, assign) NSInteger row;
 @property (nonatomic, weak) id<DisabilityViewDelegate>delegate;
+@property (nonatomic, strong) PPNumberButton *numberButtons;
+@property (nonatomic, strong) UILabel *titlelabel;
 
 - (void)setCaseTypeUIwithArrays:(NSMutableArray *)sourceArrays withSection:(NSInteger)section withRow:(NSInteger)row;
 - (void)settingUIWithLevel:(NSInteger)row withDelegate:(id<DisabilityViewDelegate>)delegate;
+- (void)selectOnlyUI:(NSInteger)row;
 @end
 
 @protocol DisabilityViewDelegate <NSObject>

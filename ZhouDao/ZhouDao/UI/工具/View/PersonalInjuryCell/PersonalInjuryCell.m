@@ -36,65 +36,125 @@
 }
 
 #pragma mark - method
-- (void)settingPersonalCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays
+- (void)settingPersonalCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays withDelegate:(id<PersonalInjuryDelegate>)delegate
 {
-    NSArray *titleArr = @[@"选择地区",@"选择户口",@"伤残项",@"伤残等级"];
-    _titleLab.frame = CGRectMake(15, 12, 160, 20);
-    _titleLab.textAlignment = NSTextAlignmentLeft;
-    _titleLab.text = titleArr[row];
-    _textField.placeholder = @"";
-    _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
-    _lineView.hidden = NO;
-    _textField.text = arrays[row];
-    _textField.enabled = NO;
-    _textField.hidden = NO;
-    _segButton.hidden = YES;
-    self.accessoryType = UITableViewCellAccessoryNone;
+    self.delegate = delegate;
+    
+    if (section == 0) {
+        NSMutableArray *arr1 = arrays[0];
+        NSArray *titleArr = @[@"选择地区",@"选择户口",@"是否伤亡",@"伤残项",@"伤残等级"];
+        _titleLab.frame = CGRectMake(15, 12, 160, 20);
+        _titleLab.textAlignment = NSTextAlignmentLeft;
+        _titleLab.text = titleArr[row];
+        _textField.placeholder = @"";
+        _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
+        _lineView.hidden = NO;
+        _textField.enabled = NO;
+        _textField.hidden = NO;
+        _segButton.hidden = YES;
+        self.accessoryType = UITableViewCellAccessoryNone;
+        
+        switch (row) {
+            case 0:
+            {
+                _textField.placeholder = @"请选择地区";
+                _textField.text = arr1[row];
+                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+                break;
+            case 1:
+            {
+                _textField.hidden = YES;
+                _segButton.hidden = NO;
+                _segButton.selectedSegmentIndex = [arr1[row] integerValue];
 
-    switch (row) {
-        case 0:
-        {
-            _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
-            self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-            break;
-        case 1:
-        {
-            _textField.hidden = YES;
-            _segButton.hidden = NO;
-            
-            
-        }
-            break;
-        case 2:
-        {
-            _textField.hidden = YES;
-            _segButton.hidden = NO;
-            [_segButton removeAllSegments];
-            [_segButton insertSegmentWithTitle:@"一级" atIndex:0 animated:NO];
-            [_segButton insertSegmentWithTitle:@"多级" atIndex:1 animated:NO];
-            _segButton.selectedSegmentIndex = 0;
+            }
+                break;
+            case 2:
+            {
+                _textField.hidden = YES;
+                _segButton.hidden = NO;
+                [_segButton removeAllSegments];
+                [_segButton insertSegmentWithTitle:@"否" atIndex:0 animated:NO];
+                [_segButton insertSegmentWithTitle:@"是" atIndex:1 animated:NO];
+                _segButton.selectedSegmentIndex = [arr1[row] integerValue];
+                
+            }
+                break;
+            case 3:
+            {
+                _textField.hidden = YES;
+                _segButton.hidden = NO;
+                [_segButton removeAllSegments];
+                [_segButton insertSegmentWithTitle:@"单级" atIndex:0 animated:NO];
+                [_segButton insertSegmentWithTitle:@"多级" atIndex:1 animated:NO];
+                _segButton.selectedSegmentIndex = [arr1[row] integerValue];
+                
+                
+            }
+                break;
+            case 4:
+            {
+                _lineView.hidden = YES;
+                if ([arr1[3] integerValue] == 0) {
+                    
+                    _textField.hidden = NO;
+                    _textField.placeholder = @"选择伤残等级";
+                    _textField.text = arr1[row];
+                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
+                }else{
+                    NSArray *levelArr = arr1[4];
+                    if (levelArr.count == 0) {
+                        
+                        _textField.hidden = NO;
+                        _textField.text = @"";
+                        _textField.placeholder = @"选择伤残等级";
+                        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+                    }else {
+                        
+                        _textField.hidden = YES;
+                        self.accessoryType = UITableViewCellAccessoryNone;
+
+                        for (NSUInteger i = 0; i<levelArr.count; i++)
+                        {
+                            NSDictionary *dict = levelArr[i];
+                            
+                            UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth - 185, 5 + 25*i, 150, 20)];
+                            lab.font = Font_14;
+                            lab.backgroundColor = [UIColor clearColor];
+                            lab.textColor = hexColor(333333);
+                            lab.textAlignment = NSTextAlignmentRight;
+                            lab.text = [NSString stringWithFormat:@"%@  %@处",dict[@"several"],dict[@"level"]];
+                            [self.contentView addSubview:lab];
+                        }
+                        
+                    }
+                    
+                    
+                }
+                
+            }
+                break;
+ 
+            default:
+                break;
         }
-            break;
-        case 3:
-        {
-            _textField.placeholder = @"请输入金额";
-            _lineView.hidden = YES;
-            _textField.enabled = YES;
-            
-            
-        }
-            break;
-            
-        default:
-            break;
+    }else{
+        
+        
+        
+        
     }
 }
 #pragma mark - seg
 - (void)didClicksegmentedControlAction:(UISegmentedControl *)Seg
 {
-    
+    if ([self.delegate respondsToSelector:@selector(optionEventWithCell:withSelecIndex:)])
+    {
+        [self.delegate optionEventWithCell:self withSelecIndex:Seg.selectedSegmentIndex];
+    }
 }
 #pragma mark - setter and getter
 - (UILabel *)titleLab
@@ -110,7 +170,7 @@
 - (UITextField *)textField
 {
     if (!_textField) {
-        _textField = [[UITextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 135, 7, 120, 30)];
+        _textField = [[UITextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 215, 7, 180, 30)];
         _textField.borderStyle = UITextBorderStyleNone;
         _textField.textColor = hexColor(666666);
         [_textField setValue:hexColor(ADADAD) forKeyPath:@"_placeholderLabel.textColor"];
@@ -123,7 +183,7 @@
 {
     if (!_segButton) {
         _segButton = [[UISegmentedControl alloc]initWithItems:@[@"城镇",@"农村"]];
-        _segButton.frame = CGRectMake(kMainScreenWidth - 102, 9, 87, 27);
+        _segButton.frame = CGRectMake(kMainScreenWidth - 122, 9, 107, 27);
         _segButton.selectedSegmentIndex = 0;
         _segButton.tintColor = hexColor(00c8aa);
         NSDictionary* selectedTextAttributes = @{NSFontAttributeName:Font_13,

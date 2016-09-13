@@ -13,7 +13,7 @@
 
 static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 
-@interface PersonalInjuryViewController ()<UITableViewDelegate, UITableViewDataSource,Disability_AlertViewPro>
+@interface PersonalInjuryViewController ()<UITableViewDelegate, UITableViewDataSource,Disability_AlertViewPro,PersonalInjuryDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -33,31 +33,97 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 #pragma mark - private methods
 - (void)initUI
 {
+    
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"0",@"0",@"0",@"", nil];
+    [self.dataSourceArrays addObject:arr1];
+
     [self setupNaviBarWithTitle:@"人身损害赔偿计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
 }
 #pragma mark - event response
+
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     PersonalComputingResultsVC *vc = [PersonalComputingResultsVC new];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+#pragma mark - PersonalInjuryDelegate
+
+- (void)optionEventWithCell:(PersonalInjuryCell *)cell withSelecIndex:(NSInteger)index
+{
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+    NSInteger row = indexPath.row;
+    NSMutableArray *arr1 = _dataSourceArrays[0];
+
+    if (row == 2) {
+        if (index == 0) {
+            if (arr1.count == 3) {
+                [arr1 addObject:@"0"];
+                [arr1 addObject:@""];
+                [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:0],[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            }
+            
+        }else {
+            
+            if (arr1.count == 5) {
+                [arr1 removeObjectAtIndex:3];
+                [arr1 removeObjectAtIndex:3];
+                [_tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:0],[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }
+
+    }else{
+        [arr1 replaceObjectAtIndex:row withObject:[NSString stringWithFormat:@"%ld",index]];
+        
+        if (row == 3) {
+            
+            if (index == 0) {
+                
+                if ([arr1[4] isKindOfClass:[NSArray class]]) {
+                    [arr1 replaceObjectAtIndex:4 withObject:@""];
+                    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                }
+            }else{
+                
+                if ([arr1[4] isKindOfClass:[NSString class]]) {
+                    [arr1 replaceObjectAtIndex:4 withObject:[NSArray array]];
+                    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                }
+            }
+        }
+    }
+}
+#pragma mark - Disability_AlertViewPro
+- (void)selectCaseType:(NSString *)caseString
+{
+    NSMutableArray *arr1 = _dataSourceArrays[0];
+    [arr1 replaceObjectAtIndex:4 withObject:caseString];
+    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+}
+- (void)selectDisableGrade:(NSArray *)gradeArrays
+{
+    NSMutableArray *arr1 = _dataSourceArrays[0];
+    [arr1 replaceObjectAtIndex:4 withObject:gradeArrays];
+    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+}
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [self.dataSourceArrays count];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.dataSourceArrays count];
+    NSMutableArray *arr = self.dataSourceArrays[section];
+    return [arr count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     PersonalInjuryCell *cell = (PersonalInjuryCell *)[tableView dequeueReusableCellWithIdentifier:PERSONALCELL];
-    [cell settingPersonalCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:self.dataSourceArrays];
+    [cell settingPersonalCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays withDelegate:self];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -65,8 +131,13 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
     if (section == 0) {
-        if (row == 0) {
-            Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:DisabilityGradeType withDelegate:self];
+        
+        NSMutableArray *arr1 = _dataSourceArrays[0];
+
+        if (row == 4) {
+            DisabilityType type = ([arr1[3] integerValue] == 0)?SelectOnly:DisabilityGradeType;
+            
+            Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:type withDelegate:self];
             [alertView show];
             
         }
@@ -75,26 +146,27 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
+    if (section == 1) {
+        return nil;
+    }
     UIView *secitionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 80)];
     secitionView.backgroundColor = hexColor(F2F2F2);
     [secitionView addSubview:self.calculateButton];
     [secitionView addSubview:self.resetButton];
     return secitionView;
-    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 45.f;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return (section == 0)?80.f:0.1f;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.1f;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 80.f;
-}
-
 #pragma mark - setters and getters
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -111,7 +183,7 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 - (NSMutableArray *)dataSourceArrays
 {
     if (!_dataSourceArrays) {
-        _dataSourceArrays = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
+        _dataSourceArrays = [NSMutableArray array];
     }
     return _dataSourceArrays;
 }
@@ -147,8 +219,6 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
     }
     return _resetButton;
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

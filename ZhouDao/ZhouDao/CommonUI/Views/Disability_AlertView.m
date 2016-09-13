@@ -35,12 +35,17 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
         
         self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
         _delegate = delegate;
+        _type = type;
+
         if (type == DisabilityGradeType) {
-            _type = DisabilityGradeType;
+
             [self disabilityGradeSelectUI];
-        }else {
-            _type = CaseType;
+        }else if(type == CaseType) {
+
             [self caseTypeSelectUI];
+        }else{
+            
+            [self settingSelectOnlyUI];
         }
     }
     return self;
@@ -109,9 +114,52 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     _dataSourceArrays = [NSMutableArray arrayWithObjects:@[@"财产案件"],@[@"离婚案件",@"人格权案件",@"知识产权案件",@"劳动争议案件",@"财产保全案件",@"管辖权异议不成立的案件"],@[@"商标、专利、海事行政案件",@"其他行政案件"],@[@"支付令",@"公示催告"],nil];
     
 }
+#pragma mark - 单处伤残等级
+
+- (void)settingSelectOnlyUI
+{WEAKSELF;
+    [self addSubview:self.zd_superView];
+    [UIView animateWithDuration:1.f delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        
+        weakSelf.zd_superView.center = CGPointMake(zd_width/2.0,zd_height/2.0);
+    } completion:^(BOOL finished) {
+    }];
+    [self.zd_superView addSubview:self.headlab];
+    [self.zd_superView addSubview:self.tableView];
+    
+    _tableView.frame = CGRectMake(0,45, kContentLabelWidth, self.zd_superView.frame.size.height - 45);
+    _headlab.text = @"伤残等级";
+    [self.zd_superView whenCancelTapped:^{
+    }];
+    [self whenCancelTapped:^{
+        [weakSelf zd_Windowclose];
+    }];
+    
+}
+
 #pragma mark - event response
 - (void)sureButtonEvent:(UIButton *)btn
 {
+    
+    NSArray *arr = @[@"一级",@"二级",@"三级",@"四级",@"五级",@"六级",@"七级",@"八级",@"九级",@"十级"];
+    NSMutableArray *disabilityArrays = [NSMutableArray array];
+    for (NSUInteger i = 0; i<10; i++) {
+        
+        DisabilityViewCell *cell = (DisabilityViewCell *)[_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        
+        NSString *obj = cell.numberButtons.textField.text;
+        if (![obj isEqualToString:@"0"]) {
+            
+            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:obj,@"several",arr[i],@"level",nil];
+            [disabilityArrays addObject:dict];
+            DLog(@"-----%@",cell.numberButtons.textField.text);
+        }
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(selectDisableGrade:)]) {
+        
+        [self.delegate selectDisableGrade:disabilityArrays];
+    }
     [self zd_Windowclose];
 
 }
@@ -137,35 +185,50 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return (_type == DisabilityGradeType)?1:[_dataSourceArrays count];
+    return (_type == CaseType)?[_dataSourceArrays count]:1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_type == DisabilityGradeType) {
-        return 10;
+    if (_type == CaseType) {
+        NSArray *arr = _dataSourceArrays[section];
+        return [arr count];
     }
-    NSArray *arr = _dataSourceArrays[section];
-    return [arr count];
+    return 10;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [_tableView registerClass:[DisabilityViewCell class] forCellReuseIdentifier:DISABLITYCellID];
     
     DisabilityViewCell *cell = (DisabilityViewCell *)[tableView dequeueReusableCellWithIdentifier:DISABLITYCellID];
-    (_type == DisabilityGradeType)?[cell settingUIWithLevel:indexPath.row withDelegate:self]:[cell setCaseTypeUIwithArrays:_dataSourceArrays withSection:indexPath.section withRow:indexPath.row];
+    if (_type == DisabilityGradeType) {
+        
+        [cell settingUIWithLevel:indexPath.row withDelegate:self];
+    }else if (_type == CaseType){
+        
+        [cell setCaseTypeUIwithArrays:_dataSourceArrays withSection:indexPath.section withRow:indexPath.row];
+    }else {
+        
+        [cell selectOnlyUI:indexPath.row];
+    }
+
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_type == DisabilityGradeType) {
-        
-        
-        
-    }else {
+  if (_type == CaseType){
         
         if ([self.delegate respondsToSelector:@selector(selectCaseType:)])
         {
             NSArray *arr = _dataSourceArrays[indexPath.section];
+
+            [self.delegate selectCaseType:arr[indexPath.row]];
+        }
+        [self zd_Windowclose];
+    }else{
+        
+        if ([self.delegate respondsToSelector:@selector(selectCaseType:)])
+        {
+            NSArray *arr = @[@"一级",@"二级",@"三级",@"四级",@"五级",@"六级",@"七级",@"八级",@"九级",@"十级"];
 
             [self.delegate selectCaseType:arr[indexPath.row]];
         }
@@ -183,20 +246,21 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return  (_type == DisabilityGradeType)?0.1f:36.f;
+    return  (_type == CaseType)?36.f:0.1f;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (_type == DisabilityGradeType) {
-        return nil;
+    if (_type == CaseType) {
+        
+        ConsultantHeadView *headView = [[ConsultantHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 36.f) withSection:section];
+        headView.delBtn.hidden = YES;
+        headView.label.textColor = hexColor(ADADAD);
+        headView.label.font = Font_14;
+        NSArray *arr = @[@"财产案件",@"非财产案件",@"行政案件",@"申请费"];
+        [headView setLabelText:arr[section]];
+        return headView;
     }
-    ConsultantHeadView *headView = [[ConsultantHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 36.f) withSection:section];
-    headView.delBtn.hidden = YES;
-    headView.label.textColor = hexColor(ADADAD);
-    headView.label.font = Font_14;
-    NSArray *arr = @[@"财产案件",@"非财产案件",@"行政案件",@"申请费"];
-    [headView setLabelText:arr[section]];
-    return headView;
+    return nil;
 }
 
 #pragma mark - DisabilityViewDelegate
@@ -209,7 +273,15 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
 - (UIView *)zd_superView
 {
     if (!_zd_superView) {
-        CGFloat height = (kMainScreenHeight >667)?(kMainScreenHeight - 142.f):(kMainScreenHeight - 60.f);
+        
+        CGFloat height = 0.f;
+        if (_type == SelectOnly) {
+            
+             height = (kMainScreenHeight >568)?495.f:(kMainScreenHeight - 60.f);
+        }else{
+             height = (kMainScreenHeight >667)?(kMainScreenHeight - 142.f):(kMainScreenHeight - 60.f);
+        }
+        
         _zd_superView = [[UIView alloc] initWithFrame:CGRectMake((kMainScreenWidth - kContentLabelWidth)/2.f,kMainScreenHeight, kContentLabelWidth, height)];
         _zd_superView.backgroundColor = hexColor(F2F2F2);
         _zd_superView.layer.cornerRadius = 3.f;

@@ -28,6 +28,7 @@
 		103D25901CAE712800F2B93A /* GovermentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 103D258F1CAE712800F2B93A /* GovermentVC.m */; };
 		103D25931CAE729A00F2B93A /* GovCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 103D25921CAE729A00F2B93A /* GovCollectionViewCell.m */; };
 		103D48C51CE8705500ED0864 /* Areas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 103D48C41CE8705500ED0864 /* Areas.plist */; };
+		103E7E541D883DF700504765 /* PaymentTabViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 103E7E531D883DF700504765 /* PaymentTabViewCell.m */; };
 		10405B5B1CB276D000B61919 /* AboutReadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10405B5A1CB276D000B61919 /* AboutReadView.m */; };
 		104157521C94530F00EE5303 /* HeadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 104157511C94530F00EE5303 /* HeadTableViewCell.m */; };
 		104157551C94587300EE5303 /* CommonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 104157541C94587300EE5303 /* CommonViewCell.m */; };
@@ -659,6 +660,8 @@
 		103D25911CAE729A00F2B93A /* GovCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GovCollectionViewCell.h; sourceTree = "<group>"; };
 		103D25921CAE729A00F2B93A /* GovCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GovCollectionViewCell.m; sourceTree = "<group>"; };
 		103D48C41CE8705500ED0864 /* Areas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Areas.plist; sourceTree = "<group>"; };
+		103E7E521D883DF700504765 /* PaymentTabViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentTabViewCell.h; sourceTree = "<group>"; };
+		103E7E531D883DF700504765 /* PaymentTabViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentTabViewCell.m; sourceTree = "<group>"; };
 		10405B591CB276D000B61919 /* AboutReadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutReadView.h; sourceTree = "<group>"; };
 		10405B5A1CB276D000B61919 /* AboutReadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutReadView.m; sourceTree = "<group>"; };
 		104157501C94530F00EE5303 /* HeadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadTableViewCell.h; sourceTree = "<group>"; };
@@ -2887,6 +2890,8 @@
 			children = (
 				187367261D75235B000C1169 /* HouseViewCell.h */,
 				187367271D75235B000C1169 /* HouseViewCell.m */,
+				103E7E521D883DF700504765 /* PaymentTabViewCell.h */,
+				103E7E531D883DF700504765 /* PaymentTabViewCell.m */,
 			);
 			path = HouseViewCell;
 			sourceTree = "<group>";
@@ -4519,6 +4524,7 @@
 				1817D2961CC081DA00FF6EEE /* AccusingTheTabVC.m in Sources */,
 				187367301D7529F8000C1169 /* InjuryViewCell.m in Sources */,
 				187DB9501CDC9BA5009CF1D6 /* JSDropDownMenu.m in Sources */,
+				103E7E541D883DF700504765 /* PaymentTabViewCell.m in Sources */,
 				1830E06F1D4863B9005D287E /* SDBrowserImageView.m in Sources */,
 				181292C01C87E85F00EBB5CD /* MeViewController.m in Sources */,
 				18FF3F611C8530290098C60B /* FMUSystem.m in Sources */,
