@@ -12,6 +12,6 @@
 
 + (HouseDetailHeadView *)instanceHouseDetailHeadViewPaymentMoney:(NSString *)PaymentMoney withInterest:(NSString *)interestMoney withLoan:(NSString *)loanMoney withMonths:(NSString *)monthCount;
 + (HouseDetailHeadView *)setOtherSetionTitle:(NSString *)title;
-- (instancetype)initWithFrame:(CGRect)frame withTitle:(NSString *)title;
+- (id)initWithFrame:(CGRect)frame withTitle:(NSString *)title;
 
 @end

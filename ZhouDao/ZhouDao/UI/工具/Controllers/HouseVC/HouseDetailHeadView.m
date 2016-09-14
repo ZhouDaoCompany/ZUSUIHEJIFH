@@ -40,7 +40,7 @@
 {
     return [[HouseDetailHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 30) withTitle:title];
 }
-- (instancetype)initWithFrame:(CGRect)frame withTitle:(NSString *)title
+- (id)initWithFrame:(CGRect)frame withTitle:(NSString *)title
 {
     self = [super initWithFrame:frame];
 
