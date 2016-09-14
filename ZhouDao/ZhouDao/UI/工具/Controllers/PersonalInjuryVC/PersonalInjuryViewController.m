@@ -137,7 +137,8 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
         if (row == 4) {
             DisabilityType type = ([arr1[3] integerValue] == 0)?SelectOnly:DisabilityGradeType;
             
-            Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:type withDelegate:self];
+            NSArray *array = ([arr1[3] integerValue] == 0)?nil:arr1[4];
+            Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:type withSource:array withDelegate:self];
             [alertView show];
             
         }
@@ -157,6 +158,14 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    if (indexPath.section == 0 && indexPath.row == 4) {
+//        NSMutableArray *arr1 = _dataSourceArrays[0];
+//        if ([arr1[4] isKindOfClass:[NSArray class]]) {
+//            NSArray *array = arr1[4];
+//            float height = [array count]*25 + 5.f;
+//            return (height > 45.f)?height:45.f;
+//        }
+//    }
     return 45.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

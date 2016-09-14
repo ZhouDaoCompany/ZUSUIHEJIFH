@@ -253,7 +253,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
     
     if (section == 0) {
         if (row == 0) {
-            Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:CaseType withDelegate:self];
+            Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:CaseType withSource:nil withDelegate:self];
             [alertView show];
 
         }

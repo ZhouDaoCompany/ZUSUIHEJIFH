@@ -11,9 +11,6 @@
 
 @implementation ProfessionalCell
 
-//- (void)awakeFromNib {
-//    // Initialization code
-//}
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -44,24 +41,7 @@
     UIImageView *jiantouimg = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth - 24, 10, 9, 15)];
     jiantouimg.userInteractionEnabled = YES;
     jiantouimg.image = [UIImage imageNamed:@"mine_jiantou"];
-    [self addSubview:jiantouimg];
-    
-    //float width = (kMainScreenWidth -75.f)/4.f;
-
-//    //擅长  40
-//    
-//    for (NSUInteger i = 0 ; i < 12;  i ++)
-//    {
-//        UILabel *goodLab = [[UILabel alloc] init];
-//        goodLab.frame = CGRectMake( 15*(i%4 + 1) + width * (i%4), 25 +15*(i/4 + 1) + 30 *(i/4) , width, 30);
-//        goodLab.backgroundColor = [UIColor whiteColor];
-//        goodLab.layer.borderColor = [UIColor colorWithHexString:@"#d7d7d7"].CGColor;
-//        goodLab.layer.borderWidth = .5f;
-//        goodLab.font = Font_13;
-//        goodLab.textAlignment = NSTextAlignmentCenter;
-//        goodLab.text = @"婚姻家庭";
-//        [self.contentView addSubview:goodLab];
-//    }
+    [self.contentView addSubview:jiantouimg];
     
 }
 

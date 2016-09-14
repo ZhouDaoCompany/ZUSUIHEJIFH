@@ -17,18 +17,20 @@
 #define kContentLabelWidth     4.f/5.f*([UIScreen mainScreen].bounds.size.width)
 static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
 
-@interface Disability_AlertView()<UITableViewDataSource,UITableViewDelegate,DisabilityViewDelegate>
+@interface Disability_AlertView()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic ,strong) UIView *zd_superView;
 @property (nonatomic, strong) UILabel *headlab ;
 @property (nonatomic, strong) UIButton *sureBtn;
 @property (nonatomic, strong) NSMutableArray *dataSourceArrays;
+@property (nonatomic, strong) NSMutableArray *sourceArrays;
+
 @end
 
 @implementation Disability_AlertView
 
-- (id)initWithType:(DisabilityType)type withDelegate:(id<Disability_AlertViewPro>)delegate
+- (id)initWithType:(DisabilityType)type withSource:(NSArray *)sourceArrays withDelegate:(id<Disability_AlertViewPro>)delegate
 {
     self = [super initWithFrame:kMainScreenFrameRect];
     if (self) {
@@ -39,12 +41,12 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
 
         if (type == DisabilityGradeType) {
 
+            [self.sourceArrays addObjectsFromArray:sourceArrays];
             [self disabilityGradeSelectUI];
         }else if(type == CaseType) {
 
             [self caseTypeSelectUI];
         }else{
-            
             [self settingSelectOnlyUI];
         }
     }
@@ -146,11 +148,11 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     for (NSUInteger i = 0; i<10; i++) {
         
         DisabilityViewCell *cell = (DisabilityViewCell *)[_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        
+        NSString *indexRow = [NSString stringWithFormat:@"%ld",i];
         NSString *obj = cell.numberButtons.textField.text;
         if (![obj isEqualToString:@"0"]) {
             
-            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:obj,@"several",arr[i],@"level",nil];
+            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:obj,@"several",arr[i],@"level",indexRow,@"row",nil];
             [disabilityArrays addObject:dict];
             DLog(@"-----%@",cell.numberButtons.textField.text);
         }
@@ -202,7 +204,7 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     DisabilityViewCell *cell = (DisabilityViewCell *)[tableView dequeueReusableCellWithIdentifier:DISABLITYCellID];
     if (_type == DisabilityGradeType) {
         
-        [cell settingUIWithLevel:indexPath.row withDelegate:self];
+        [cell settingUIWithLevel:indexPath.row withSourceArrays:_sourceArrays];
     }else if (_type == CaseType){
         
         [cell setCaseTypeUIwithArrays:_dataSourceArrays withSection:indexPath.section withRow:indexPath.row];
@@ -224,7 +226,7 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
             [self.delegate selectCaseType:arr[indexPath.row]];
         }
         [self zd_Windowclose];
-    }else{
+    }else if (_type == SelectOnly){
         
         if ([self.delegate respondsToSelector:@selector(selectCaseType:)])
         {
@@ -261,12 +263,6 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
         return headView;
     }
     return nil;
-}
-
-#pragma mark - DisabilityViewDelegate
-- (void)toObtainSeveralDisabilityLevel:(NSString *)text withRow:(NSInteger)row
-{
-    DLog(@"响应代理方法");
 }
 
 #pragma mark - setter and getter
@@ -313,6 +309,13 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     }
     return _tableView;
+}
+- (NSMutableArray *)sourceArrays
+{
+    if (!_sourceArrays) {
+        _sourceArrays = [NSMutableArray array];
+    }
+    return _sourceArrays;
 }
 - (UIButton *)sureBtn
 {

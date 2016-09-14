@@ -8,6 +8,7 @@
 
 #import "PersonalComputingResultsVC.h"
 #import "ParallaxHeaderView.h"
+#import "PersonalHeadView.h"
 
 static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 
@@ -34,6 +35,7 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
 
+//    [_headerView addSubview:[PersonalHeadView instancePersonalHeadViewWithTotalMoney:@"1763514.00" withArea:@"上海" withHK:@"城镇" withItem:@"六级" withGrade:@"六级"]];
     
 }
 #pragma mark - UIScrollViewDelegate
@@ -68,9 +70,7 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *secitionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 80)];
-    secitionView.backgroundColor = hexColor(F2F2F2);
-    return secitionView;
+    return (section == 0)?[PersonalHeadView instancePersonalHeadViewWithTotalMoney:@"1763514.00" withArea:@"上海" withHK:@"城镇" withItem:@"" withGrade:@""]:nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -78,7 +78,7 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return (section == 0)?45.f:10.f;
+    return (section == 0)?145.f:10.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -95,7 +95,7 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:PERSONALRESULTCELL];
-        _headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:[QZManager createImageWithColor:hexColor(00c8aa) size:CGSizeMake(kMainScreenWidth, 100)] forSize:CGSizeMake(kMainScreenWidth, 100)];
+        _headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:[QZManager createImageWithColor:hexColor(00c8aa) size:CGSizeMake(kMainScreenWidth, 145)] forSize:CGSizeMake(kMainScreenWidth, 1)];
         _tableView.tableHeaderView = _headerView;
 
     }

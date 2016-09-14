@@ -29,7 +29,7 @@
         [self.contentView addSubview:self.lineView];
         [self.contentView addSubview:self.segButton];
         [self.contentView addSubview:self.textField];
-        
+
     }
     
     return self;
@@ -39,7 +39,6 @@
 - (void)settingPersonalCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays withDelegate:(id<PersonalInjuryDelegate>)delegate
 {
     self.delegate = delegate;
-    
     if (section == 0) {
         NSMutableArray *arr1 = arrays[0];
         NSArray *titleArr = @[@"选择地区",@"选择户口",@"是否伤亡",@"伤残项",@"伤残等级"];
@@ -96,12 +95,16 @@
             case 4:
             {
                 _lineView.hidden = YES;
+                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+                UILabel *lab = (UILabel *)[self.contentView viewWithTag:9000];
+                [lab removeFromSuperview];
+
                 if ([arr1[3] integerValue] == 0) {
                     
                     _textField.hidden = NO;
                     _textField.placeholder = @"选择伤残等级";
                     _textField.text = arr1[row];
-                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
                 }else{
                     NSArray *levelArr = arr1[4];
@@ -110,26 +113,27 @@
                         _textField.hidden = NO;
                         _textField.text = @"";
                         _textField.placeholder = @"选择伤残等级";
-                        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
                     }else {
                         
                         _textField.hidden = YES;
-                        self.accessoryType = UITableViewCellAccessoryNone;
-
-                        for (NSUInteger i = 0; i<levelArr.count; i++)
-                        {
-                            NSDictionary *dict = levelArr[i];
-                            
-                            UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth - 185, 5 + 25*i, 150, 20)];
-                            lab.font = Font_14;
-                            lab.backgroundColor = [UIColor clearColor];
-                            lab.textColor = hexColor(333333);
-                            lab.textAlignment = NSTextAlignmentRight;
-                            lab.text = [NSString stringWithFormat:@"%@  %@处",dict[@"several"],dict[@"level"]];
-                            [self.contentView addSubview:lab];
-                        }
                         
+                        NSDictionary *dict = levelArr[0];
+                        UILabel *lab = [[UILabel alloc] init];
+                        lab.frame = CGRectMake(kMainScreenWidth - 175, 7, 130, 30);
+                        lab.font = Font_14;
+                        lab.backgroundColor = [UIColor clearColor];
+                        lab.textColor = hexColor(333333);
+                        lab.textAlignment = NSTextAlignmentRight;
+                        if (levelArr.count >1) {
+                            
+                            lab.text = [NSString stringWithFormat:@"%@:%@处···",dict[@"level"],dict[@"several"]];
+                        }else {
+                            
+                            lab.text = [NSString stringWithFormat:@"%@  %@处",dict[@"level"],dict[@"several"]];
+                        }
+                        lab.tag = 9000;
+                        [self.contentView addSubview:lab];
                     }
                     
                     
@@ -204,7 +208,6 @@
     }
     return _lineView;
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

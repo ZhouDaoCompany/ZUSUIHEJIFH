@@ -190,6 +190,8 @@
 		180B31671C8ECFFF00360A23 /* recommentUnSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180B315F1C8ECFFF00360A23 /* recommentUnSelect@2x.png */; };
 		180B31681C8ECFFF00360A23 /* ToolsSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180B31601C8ECFFF00360A23 /* ToolsSelect@2x.png */; };
 		180B31691C8ECFFF00360A23 /* ToolsUnSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180B31611C8ECFFF00360A23 /* ToolsUnSelect@2x.png */; };
+		180F70C01D88EA6A00081CAE /* PersonalHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180F70BF1D88EA6A00081CAE /* PersonalHeadView.m */; };
+		180F70C21D88EA8300081CAE /* PersonalHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 180F70C11D88EA8300081CAE /* PersonalHeadView.xib */; };
 		181125D21CDADBF200ACA16D /* CompensationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 181125D11CDADBF200ACA16D /* CompensationData.m */; };
 		181125D61CDB36FB00ACA16D /* GovData.m in Sources */ = {isa = PBXBuildFile; fileRef = 181125D51CDB36FB00ACA16D /* GovData.m */; };
 		181292B11C87E81000EBB5CD /* RecomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181292AF1C87E81000EBB5CD /* RecomViewController.m */; };
@@ -894,6 +896,9 @@
 		180B315F1C8ECFFF00360A23 /* recommentUnSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recommentUnSelect@2x.png"; sourceTree = "<group>"; };
 		180B31601C8ECFFF00360A23 /* ToolsSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolsSelect@2x.png"; sourceTree = "<group>"; };
 		180B31611C8ECFFF00360A23 /* ToolsUnSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolsUnSelect@2x.png"; sourceTree = "<group>"; };
+		180F70BE1D88EA6A00081CAE /* PersonalHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalHeadView.h; sourceTree = "<group>"; };
+		180F70BF1D88EA6A00081CAE /* PersonalHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalHeadView.m; sourceTree = "<group>"; };
+		180F70C11D88EA8300081CAE /* PersonalHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalHeadView.xib; sourceTree = "<group>"; };
 		181125D01CDADBF200ACA16D /* CompensationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompensationData.h; sourceTree = "<group>"; };
 		181125D11CDADBF200ACA16D /* CompensationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompensationData.m; sourceTree = "<group>"; };
 		181125D41CDB36FB00ACA16D /* GovData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GovData.h; sourceTree = "<group>"; };
@@ -2968,6 +2973,9 @@
 				187367431D754B6F000C1169 /* PersonalInjuryViewController.m */,
 				18F7D63C1D7D0DC5001A35CD /* PersonalComputingResultsVC.h */,
 				18F7D63D1D7D0DC5001A35CD /* PersonalComputingResultsVC.m */,
+				180F70BE1D88EA6A00081CAE /* PersonalHeadView.h */,
+				180F70BF1D88EA6A00081CAE /* PersonalHeadView.m */,
+				180F70C11D88EA8300081CAE /* PersonalHeadView.xib */,
 			);
 			path = PersonalInjuryVC;
 			sourceTree = "<group>";
@@ -4359,6 +4367,7 @@
 				18BDD4301D6EDFE8001541E1 /* Checkmark@3x.png in Resources */,
 				1856A11A1D4F35150070B93E /* bootstrap-datetimepicker.sw.js in Resources */,
 				18DB8E441D001F1E000C9D8B /* man_contract.caf in Resources */,
+				180F70C21D88EA8300081CAE /* PersonalHeadView.xib in Resources */,
 				18F593E71CB636A500F5619D /* SearchWebView.js in Resources */,
 				18F2F1CE1CBE2EC40068453D /* Esearch_SouSuo@2x.png in Resources */,
 				1856A0E11D4F35150070B93E /* f_icon.png in Resources */,
@@ -4580,6 +4589,7 @@
 				1830E0711D4863B9005D287E /* SDWaitingView.m in Sources */,
 				10172BE01CBBF16C00B7553E /* KxMenu.m in Sources */,
 				183FFCB41D378546007D0494 /* ShareView.m in Sources */,
+				180F70C01D88EA6A00081CAE /* PersonalHeadView.m in Sources */,
 				1844A8581D7E6FC70049C862 /* BreachHeadView.m in Sources */,
 				18AD6AAE1CD99D500053F46B /* TheContractData.m in Sources */,
 				18E4C8D61D77BF3300D83DEF /* AllProportionModel.m in Sources */,

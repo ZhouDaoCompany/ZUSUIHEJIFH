@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger,DisabilityType) {
 @property (nonatomic, weak)   id<Disability_AlertViewPro>delegate;
 
 
-- (id)initWithType:(DisabilityType)type withDelegate:(id<Disability_AlertViewPro>)delegate;
+- (id)initWithType:(DisabilityType)type withSource:(NSArray *)sourceArrays withDelegate:(id<Disability_AlertViewPro>)delegate;
 
 -(void)zd_Windowclose;
 - (void)show;

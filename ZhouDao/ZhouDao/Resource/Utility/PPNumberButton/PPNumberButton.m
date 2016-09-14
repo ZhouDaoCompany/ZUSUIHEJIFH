@@ -66,7 +66,6 @@
     _textField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self addSubview:_textField];
 }
-
 //设置加减按钮的公共方法
 - (UIButton *)setupButtonWithTitle:(NSString *)text
 {
@@ -218,6 +217,10 @@
 - (void)setCurrentNumber:(NSString *)currentNumber
 {
     _textField.text = currentNumber;
+    if (![currentNumber isEqualToString:@"0"]) {
+        
+        [_decreaseBtn setTitleColor:hexColor(848484) forState:0];
+    }
 }
 
 - (void)setInputFieldFont:(UIFont *)inputFieldFont
