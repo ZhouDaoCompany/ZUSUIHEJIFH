@@ -123,7 +123,7 @@
     [MBProgressHUD hideHUD];
     DLog(@"加载完成");
 }
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {    DLog(@"加载失败");
     [MBProgressHUD hideHUD];
 }

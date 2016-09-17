@@ -98,7 +98,6 @@
 #define kDISPATCH_GLOBAL_QUEUE_DEFAULT(globalQueueBlocl) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), globalQueueBlocl);
 
 #define line_w 0.5
-#define isTest 0
 
 #define DATE_FORMAT_YMDHMS             @"yyyy-MM-dd HH:mm:ss"
 #define DATE_FORMAT_YMDHM               @"yyyy-MM-dd HH:mm"
@@ -173,9 +172,6 @@ __TIMER = nil;\
 #define DLog(...)
 #endif
 
-//当前设备是否为 iPhone5
-#define IS_IPHONE5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
-
 //宏定义方法
 #define SHOW_ALERT(msg) UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];\
 [alert show];\
@@ -186,19 +182,8 @@ __TIMER = nil;\
 #define USER_D [NSUserDefaults standardUserDefaults]
 
 
-/**
- *
- * system  macros
- *
- **/
-
+//iOS版本
 #define CurrentSystemVersion                    ([[[UIDevice currentDevice] systemVersion] floatValue])
-#define IOS_VERSION_ABOVE_8                     (([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) ? (YES) : (NO))
-#define IOS_VERSION_ABOVE_7                     (([[UIDevice currentDevice].systemVersion floatValue] >= 7.0) ? (YES) : (NO))
-#define IOS_VERSION_ABOVE_7_1                     (([[UIDevice currentDevice].systemVersion floatValue] >= 7.1) ? (YES) : (NO))
-#define IOS_VERSION_6                           (([[UIDevice currentDevice].systemVersion floatValue] < 7.0 && [[UIDevice currentDevice].systemVersion floatValue] >= 6.0) ? (YES) : (NO))
-
-#define iOSVersion [[[UIDevice currentDevice] systemVersion] floatValue] //iOS版本
 
 #define ProvinceArrays  [NSMutableArray arrayWithObjects:@"北京",@"天津",@"上海",@"江苏省",@"河北省",@"河南省",@"湖南省",@"湖北省",@"浙江省",@"云南省",@"陕西省",@"台湾",@"贵州省",@"广西壮族自治区",@"黑龙江省",@"甘肃省",@"吉林省",@"四川省",@"广东省",@"江西省",@"青海省",@"辽宁省",@"香港特别行政区",@"山东省",@"西藏自治区",@"重庆",@"福建省",@"新疆维吾尔自治区",@"内蒙古自治区",@"山西省",@"海南省",@"宁夏回族自治区",@"澳门特别行政区",@"安徽省", nil]
 

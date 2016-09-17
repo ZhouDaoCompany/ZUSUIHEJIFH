@@ -232,8 +232,9 @@
    [MBProgressHUD hideHUD];
     DLog(@"加载完成");
 }
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error{
-    [MBProgressHUD hideHUD];
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    
+[MBProgressHUD hideHUD];
     
     [_webView loadHtml:@"error"];
     _singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(againLoad)];
