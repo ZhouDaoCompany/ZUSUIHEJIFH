@@ -23,6 +23,8 @@ static NSString *const COURTCELL = @"courtacceptcell";
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
 @property (strong, nonatomic) NSMutableDictionary *noMoneyDictionary;//不涉及财产计算
+@property (strong, nonatomic) UILabel *bottomLabel;
+
 @end
 
 @implementation CourtViewController
@@ -59,10 +61,12 @@ static NSString *const COURTCELL = @"courtacceptcell";
         NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"是",@"",@"全额", nil];
         [self.dataSourceArrays addObject:arr1];
         [UIView animateWithDuration:.25f animations:^{
+            [weakSelf.tableView setTableFooterView:self.bottomLabel];
             [weakSelf.tableView reloadData];
         }];
         return;
     }
+    
     if (_dataSourceArrays.count >1) {
         [_dataSourceArrays removeObjectAtIndex:1];
     }
@@ -132,6 +136,10 @@ static NSString *const COURTCELL = @"courtacceptcell";
         NSString *str = self.noMoneyDictionary[caseType];
         [self doNotInvolvePropertyCalculation:str];
     }
+    
+    
+    [_tableView setTableFooterView:self.bottomLabel];
+
 }
 - (void)doNotInvolvePropertyCalculation:(NSString *)string
 {
@@ -427,6 +435,19 @@ static NSString *const COURTCELL = @"courtacceptcell";
         [_resetButton addTarget:self action:@selector(calculateAndResetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _resetButton;
+}
+- (UILabel *)bottomLabel
+{
+    if (!_bottomLabel) {
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-10, 30)];
+        _bottomLabel.textAlignment = NSTextAlignmentLeft;
+        _bottomLabel.numberOfLines = 0;
+        _bottomLabel.backgroundColor = [UIColor clearColor];
+        _bottomLabel.textColor = hexColor(00c8aa);
+        _bottomLabel.font = Font_12;
+        _bottomLabel.text = @"《诉讼费用缴纳办法》";
+    }
+    return _bottomLabel;
 }
 
 

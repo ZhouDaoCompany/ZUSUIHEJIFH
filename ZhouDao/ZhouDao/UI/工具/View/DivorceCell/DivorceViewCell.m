@@ -39,8 +39,8 @@
     if (section == 0) {
         
         NSMutableArray *arr1 = arrays[0];
-        NSArray *titleArr = @[@"结婚时诉争房产价格（元）",@"离婚时诉争房产价格（元）",@"共同已还利息（元）",@"契税等其他费用（元）",@"共同还贷部分（元）"];
-        _titleLab.frame = CGRectMake(15, 12, 180, 20);
+        NSArray *titleArr = @[@"结婚时诉争房产价格（万元)",@"离婚时诉争房产价格（万元)",@"共同已还利息（万元)",@"契税等其他费用（万元)",@"共同还贷部分（万元)"];
+        _titleLab.frame = CGRectMake(15, 12, 190, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
         _textField.placeholder = @"";
@@ -96,8 +96,8 @@
     }else {
 
         NSMutableArray *arr2 = arrays[1];
-        NSArray *titleArr = @[@"计算结果",@"诉争房产的升值率（%）",@"婚后增值金额（元）"];
-        _titleLab.frame = CGRectMake(15, 12, 180, 20);
+        NSArray *titleArr = @[@"计算结果",@"诉争房产的升值率（%）",@"婚后增值金额（万元)"];
+        _titleLab.frame = CGRectMake(15, 12, 190, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
         _textField.placeholder = @"";

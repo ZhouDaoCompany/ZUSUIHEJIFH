@@ -126,7 +126,6 @@ static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
         } fail:^{
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
         }];
-
     }
 }
 #pragma mark -UITableViewDataSource

@@ -27,7 +27,7 @@
     NSCalendar *calendar=[NSCalendar currentCalendar];
     //定义成分
     NSCalendarUnit unitFlags=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    NSDate *tempDate = [NSDate dateFromString:@"2015-05-23" format:@"yyyy-MM-dd"];
+    NSDate *tempDate = [NSDate dateFromString:@"2016-09-18" format:@"yyyy-MM-dd"];
     NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
     [dateComponent  setYear:0];
     [dateComponent setMonth:1];
@@ -37,9 +37,8 @@
     NSString *str1 = [NSDate datestrFromDate:newdate withDateFormat:@"yyyy-MM-dd"];//[NSDate datestrFromDate:newdate format:@"yyyy-MM-dd"];
 //    DLog(@"输出时间是－－－%@",str1);
     
-    [self calculateAgeFromDate:[NSDate dateFromString:@"2010-05-28" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2014-02-28" format:@"yyyy-MM-dd"]];
+    [self calculateAgeFromDate:[NSDate dateFromString:@"2016-09-04" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-10-01" format:@"yyyy-MM-dd"]];
     
-
 //    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 //    
 //    NSDateComponents *comps = nil;
@@ -104,18 +103,81 @@
 - (void )calculateAgeFromDate:(NSDate *)date1 toDate:(NSDate *)date2{
     
     NSCalendar *userCalendar = [NSCalendar currentCalendar];
-    
-    unsigned int unitFlags =  NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    
+    unsigned int unitFlags =  NSCalendarUnitWeekday | NSCalendarUnitDay;
     NSDateComponents *components = [userCalendar components:unitFlags fromDate:date1 toDate:date2 options:0];
-    
-//    NSUInteger years = [components year];
-    NSUInteger month = [components month];
+     //两个日期相距的天数
     NSUInteger days = [components day];
+    //计算开始星期几
+    NSDateComponents *beginComponets = [[NSCalendar autoupdatingCurrentCalendar] components:NSCalendarUnitWeekday fromDate:date1];
+    NSUInteger beginWeekDay = [beginComponets weekday];
     
-    DLog(@"时间间隔－－－－       %lu         %lu",(unsigned long)month,(unsigned long)days);
-}
+    //计算结束星期几
+    NSDateComponents *endComponets = [[NSCalendar autoupdatingCurrentCalendar] components:NSCalendarUnitWeekday fromDate:date2];
+    NSUInteger endWeekDay = [endComponets weekday];
 
+    //计算多少个星期
+    NSUInteger allWeek = days/7;
+    
+    //每周算2天周末，计算一共多少个周末
+    NSUInteger weekend = allWeek * 2;
+
+    //处理临界点，比如起始日是周日
+    if(beginWeekDay == 1){
+        weekend -= 1;
+    }
+    if(endWeekDay == 1){
+        weekend += 1;
+    }else if(endWeekDay > 6){
+        weekend += 2;
+    }
+
+    //weekend 的值就是周末的天数
+    //weekday 的值就是工作日的天数
+    NSUInteger weekday =days - weekend;
+    DLog(@"总天数:%lu     工作日:%lu",(unsigned long)days,(unsigned long)weekday);
+
+}
+/*
+ //一天的毫秒数
+ var oneDay = 1000 * 60 * 60 * 24;
+ 
+ //from:起始
+ //to:截止
+ function calcWeekend(from, to){
+ //两个日期相距的天数
+ var interval = Math.floor(to.getTime() / oneDay) - Math.floor(from.getTime() / oneDay);
+ 
+ //计算星期几
+ var x = from.getDay(); //0-6
+ 
+ //计算多少个星期
+ var weeks = Math.floor(interval / 7);
+ 
+ //计算零头
+ var rest = interval - weeks*7;
+ 
+ //根据当天是星期几，加上零头，计算截止日是星期几
+ var y = x + rest;
+ 
+ //每周算2天周末，计算一共多少个周末
+ var weekend = weeks * 2;
+ //处理临界点，比如起始日是周日
+ if(x == 6){
+ weekend -= 1;
+ }
+ if(y == 6){
+ weekend += 1;
+ }
+ else if(y > 5){
+ weekend += 2;
+ }
+ 
+ //weekend 的值就是周末的天数
+ 
+ //weekday 的值就是工作日的天数
+ weekday =interval - weekend;
+ }
+ */
 
 - (UIButton *)sureBtn
 {

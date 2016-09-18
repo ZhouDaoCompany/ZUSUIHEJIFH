@@ -8,11 +8,16 @@
 
 #import "EconomicViewController.h"
 #import "EconomicViewCell.h"
+#import "ZHPickView.h"
+
 static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 
 @interface EconomicViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
+@property (copy, nonatomic) NSString *startTime;//开始时间戳
+@property (copy, nonatomic) NSString *endTime;//结束时间戳
+
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
@@ -39,11 +44,9 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 - (void)initUI
 {
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",nil];
     [self.dataSourceArrays addObject:arr1];
-    [self.dataSourceArrays addObject:arr2];
     
-    [self setupNaviBarWithTitle:@"裁决书逾期利息计算"];
+    [self setupNaviBarWithTitle:@"经济补偿金计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
@@ -54,17 +57,36 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
+    
+    if (btn.tag == 3038) {
+        
+        if (_dataSourceArrays.count == 2) {
+            [_dataSourceArrays removeObjectAtIndex:1];
+            [_tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+        }
+        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
+        [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        [_tableView endUpdates];
+
+    }else{
+        
+        
+        
+    }
+    
     DLog(@"计算或者重置");
 }
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return self.dataSourceArrays.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?4:3;
+    NSMutableArray *arr = self.dataSourceArrays[section];
+    return [arr count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -80,12 +102,38 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+{WEAKSELF;
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
+    
+    if (section == 0) {
+        
+        
+        if (row == 0 || row == 1) {
+            
+            ZHPickView *pickView = [[ZHPickView alloc] init];
+            [pickView setDateViewWithTitle:@"选择时间"];
+            UIWindow *windows = [QZManager getWindow];
+            [pickView showWindowPickView:windows];
+            pickView.alertBlock = ^(NSString *selectedStr)
+            {
+                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
+                NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
+                (row == 0)?(weakSelf.startTime = timeStr):(weakSelf.endTime = timeStr);
+                [arr1 replaceObjectAtIndex:row withObject:selectedStr];
+                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+            };
+        }else if (row == 3){
+            //选择地区
+        }
+        
+        
+    }
     
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == 1) {
         return nil;
     }
     UIView *secitionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 80)];
@@ -98,11 +146,11 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 {
     return 45.f;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return (section == 0)?0.1f:80.f;
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return (section == 0)?80.f:0.1f;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.1f;
 }
@@ -171,7 +219,7 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         [_calculateButton setTitleColor:[UIColor whiteColor] forState:0];
         [_calculateButton setTitle:@"计算" forState:0];
         _calculateButton.titleLabel.font = Font_15;
-        _calculateButton.tag = 3033;
+        _calculateButton.tag = 3037;
         [_calculateButton addTarget:self action:@selector(calculateAndResetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _calculateButton;
@@ -187,7 +235,7 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         [_resetButton setTitleColor:[UIColor whiteColor] forState:0];
         [_resetButton setTitle:@"重置" forState:0];
         _resetButton.titleLabel.font = Font_15;
-        _resetButton.tag = 3034;
+        _resetButton.tag = 3038;
         [_resetButton addTarget:self action:@selector(calculateAndResetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _resetButton;

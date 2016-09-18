@@ -166,7 +166,7 @@
                     case 3:
                     {
                         _textField.enabled = YES;
-                        _textField.placeholder = @"请您输入平方单价";
+                        _textField.placeholder = @"请您输入面积";
                         self.accessoryType = UITableViewCellAccessoryNone;
                         _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
                     }
@@ -180,13 +180,13 @@
                     }
                         break;
                     case 6:{
-                        _textField.placeholder = @"请选择贷款类型";
+                        _textField.placeholder = @"请选择首付比例";
                         _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
 
                     }
                         break;
                     case 5:{
-                        _textField.placeholder = @"请选择贷款类型";
+                        _textField.placeholder = @"请选择还款期限";
                         _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
                         
                     }

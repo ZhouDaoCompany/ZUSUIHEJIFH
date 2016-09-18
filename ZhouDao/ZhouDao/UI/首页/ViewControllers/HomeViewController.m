@@ -306,22 +306,21 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     if(response.regeocode != nil)
     {
         //通过AMapReGeocodeSearchResponse对象处理搜索结果
-        NSString *provience = response.regeocode.addressComponent.province;
-        NSString *city = response.regeocode.addressComponent.city;
-
-        if ([QZManager isString:provience withContainsStr:@"北京"]) {
-            provience = @"北京";
-            city  = @"北京市";
-        }else if ([QZManager isString:provience withContainsStr:@"上海"]){
-            provience = @"上海";
-            city  = @"上海市";
-        }else if ([QZManager isString:provience withContainsStr:@"重庆"]){
-            provience = @"重庆";
-            city  = @"重庆市";
-        }else if ([QZManager isString:provience withContainsStr:@"天津"]){
-            provience = @"天津";
-            city  = @"天津市";
-        }
+        __block NSString *provience = response.regeocode.addressComponent.province;
+        __block NSString *city = response.regeocode.addressComponent.city;
+        __block NSDictionary *cityDict = [NSDictionary dictionaryWithObjectsAndKeys:@"北京市",@"北京",@"上海市",@"上海",@"重庆市",@"重庆",@"天津市",@"天津", nil];
+        
+        NSArray *keysArrays = [cityDict allKeys];
+        
+        [keysArrays enumerateObjectsUsingBlock:^(NSString *objString, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if ([QZManager isString:provience withContainsStr:objString]) {
+                
+                provience = objString;
+                city = cityDict[objString];
+                *stop = YES;
+            }
+        }];
         [PublicFunction ShareInstance].locProv = provience;
         [PublicFunction ShareInstance].locCity = city;
         [PublicFunction ShareInstance].locDistrict = response.regeocode.addressComponent.district;

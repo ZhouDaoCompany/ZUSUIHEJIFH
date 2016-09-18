@@ -29,7 +29,7 @@
 #pragma mark - private methods
 - (void)initUI
 {
-    [self setupNaviBarWithTitle:@"裁决书逾期利息计算"];
+    [self setupNaviBarWithTitle:@"日期计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     
