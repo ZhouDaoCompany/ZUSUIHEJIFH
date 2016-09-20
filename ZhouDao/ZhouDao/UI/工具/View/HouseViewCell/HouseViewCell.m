@@ -74,22 +74,29 @@
                    break;
                case 1:
                {
-                   _textField.enabled = YES;
-                   _textField.placeholder = @"请输入金额";
-                   _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
-                   _textField.keyboardType = UIKeyboardTypeDecimalPad;
-               }
-                   break;
-               case 2:
-               {
                    _textField.placeholder = @"请选择贷款期限";
                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                }
                    break;
+               case 2:
+               {
+                   _textField.enabled = YES;
+                   _textField.placeholder = @"请输入金额";
+                   _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
+                   _textField.keyboardType = UIKeyboardTypeDecimalPad;
+
+               }
+                   break;
                case 3:
                {
-                   _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+                   _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
+                   NSString *rateString = arr1[3];
+                   if (rateString.length != 0) {
+                       
+                       _textField.text = [NSString stringWithFormat:@"%@％",arr1[3]];
+                   }
+
                }
                    break;
                case 4:
@@ -103,7 +110,13 @@
                    break;
                case 5:
                {
-                   _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+                   _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
+                   NSString *rateString = arr1[5];
+                   if (rateString.length != 0) {
+                       
+                       _textField.text = [NSString stringWithFormat:@"%@％",arr1[5]];
+                   }
+
                }
                    break;
                case 6:
@@ -113,6 +126,7 @@
                    _manualLabel.hidden = NO;
                    _symbolLabel.hidden = NO;
                    _textField.frame = CGRectMake(Orgin_x(_manualLabel) + 2 , 10, 64, 25);
+                   _textField.placeholder = @"100";
                    _textField.borderStyle = UITextBorderStyleRoundedRect;
                    _textField.keyboardType = UIKeyboardTypeDecimalPad;
                }
@@ -138,6 +152,7 @@
                 {
                     _textField.enabled = YES;
                     _textField.placeholder = @"请输入金额";
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
                     _textField.keyboardType = UIKeyboardTypeDecimalPad;
                     self.accessoryType = UITableViewCellAccessoryNone;
                 }
@@ -153,7 +168,12 @@
                 case 3:
                 {
                     _lineView.hidden = ([arr1[0] isEqualToString:@"商业贷款"])?NO:YES;
-                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
+                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
+                    NSString *rateString = arr1[3];
+                    if (rateString.length != 0) {
+                        
+                        _textField.text = [NSString stringWithFormat:@"%@％",arr1[3]];
+                    }
                     self.accessoryType = UITableViewCellAccessoryNone;
                 }
                     break;
@@ -166,6 +186,7 @@
                     _textField.frame = CGRectMake(Orgin_x(_manualLabel) + 2 , 10, 64, 25);
                     _textField.borderStyle = UITextBorderStyleRoundedRect;
                     _textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    _textField.placeholder = @"100";
                     self.accessoryType = UITableViewCellAccessoryNone;
 
                 }
@@ -218,26 +239,33 @@
                 _textField.hidden = YES;
                 _lineView.hidden = YES;
                 _segButton.selectedSegmentIndex = (_isBJ == NO)?0:1;
-                
+                self.accessoryType = UITableViewCellAccessoryNone;
+
             }
                 break;
             case 1:
             {
+                self.accessoryType = UITableViewCellAccessoryNone;
 
             }
                 break;
             case 2:
             {
+                self.accessoryType = UITableViewCellAccessoryNone;
+
             }
                 break;
             case 3:
             {
+                self.accessoryType = UITableViewCellAccessoryNone;
 
                 _lineView.hidden = (_isBJ == NO)?NO:YES;
             }
                 break;
             case 4:
             {
+                self.accessoryType = UITableViewCellAccessoryNone;
+
                 _lineView.hidden = YES;
 
             }
@@ -311,7 +339,6 @@
         _segButton.frame = CGRectMake(kMainScreenWidth - 102, 9, 87, 27);
         _segButton.selectedSegmentIndex = 0;
         _segButton.tintColor = hexColor(00c8aa);
-        _segButton.tag = 4006;
         NSDictionary* selectedTextAttributes = @{NSFontAttributeName:Font_13,
                                                  NSForegroundColorAttributeName: [UIColor whiteColor]};
         [_segButton setTitleTextAttributes:selectedTextAttributes forState:UIControlStateSelected];//设置文字属性

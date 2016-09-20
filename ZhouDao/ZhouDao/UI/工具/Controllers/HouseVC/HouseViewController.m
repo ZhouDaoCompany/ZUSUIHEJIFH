@@ -6,7 +6,7 @@
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 #define  FUNDARRAYS      @[ @"2.75", @"3.25"]
-#define  BUSINESSARRSYS  @[@"0.0435",@"0.0435",@"0.0475",@"0.0475",@"0.0490"]
+#define  BUSINESSARRSYS  @[@"4.35",@"4.35",@"0.0475",@"4.75",@"4.90"]
 
 #import "HouseViewController.h"
 #import "HouseViewCell.h"
@@ -71,11 +71,11 @@ static NSString *const HOUSECELL = @"housecellid";
         
         for (NSUInteger i = 0; i<arr1.count; i++) {
             
-//            NSString *tempString = arr1[i];
-//            if (tempString.length == 0 && i<arr1.count -1) {
-//                [JKPromptView showWithImageName:nil message:alertArrays[i]];
-//                return;
-//            }
+            NSString *tempString = arr1[i];
+            if (tempString.length == 0 && i<arr1.count -1) {
+                [JKPromptView showWithImageName:nil message:alertArrays[i]];
+                return;
+            }
         }
         
         if (_dataSourceArrays.count == 2) {
@@ -85,31 +85,26 @@ static NSString *const HOUSECELL = @"housecellid";
         if ([oneString isEqualToString:@"组合贷款"]) {
             
             NSString *limitString = arr1[1];
-            double rate01 = ([limitString isEqualToString:@"5"])?[FUNDARRAYS[0] doubleValue]:[FUNDARRAYS[1] doubleValue];
+            double rate01 = [arr1[3] doubleValue];
             rate01 = rate01/1200.f;
 
             //商业
             NSString *discountString = [arr1 lastObject];
             double discount = (discountString.length == 0)?1.f:([discountString floatValue]/100.f);
-            double rate11 = ([limitString isEqualToString:@"5"])?[BUSINESSARRSYS[3] doubleValue]:[BUSINESSARRSYS[4] doubleValue];
+            double rate11 = [arr1[5] doubleValue];
             rate11 = rate11*discount/1200.f;
 
             [self loanPortfolioMethodsWithArrays:arr1 withRate01:rate01 withRate11:rate11 withLimitString:limitString];
         }else {
             
             NSString *limitString = arr1[2];
-            double rate = 0.0f;
+            double rate = [arr1[3] doubleValue];
+            rate = rate/1200.f;
             if ([oneString isEqualToString:@"商业贷款"]){
-                rate = ([limitString isEqualToString:@"5"])?[BUSINESSARRSYS[3] doubleValue]:[BUSINESSARRSYS[4] doubleValue];
-                rate = rate/1200.f;
                 NSString *discountString = [arr1 lastObject];
                 double discount = (discountString.length == 0)?1.f:([discountString floatValue]/100.f);
                 rate = rate*discount;
-            }else {
-                rate = ([limitString isEqualToString:@"5"])?[FUNDARRAYS[0] doubleValue]:[FUNDARRAYS[1] doubleValue];
-                rate = rate/1200.f;
             }
-            
             [self calculationOfAccumulationFundLoanWithArrays:arr1 withRate:rate withLimitString:limitString];
         }
     }
@@ -224,7 +219,6 @@ static NSString *const HOUSECELL = @"housecellid";
     cell.delegate = self;
     cell.isBJ = _isBJ;
     [cell settingHouseCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification
@@ -270,18 +264,47 @@ static NSString *const HOUSECELL = @"housecellid";
         };
     }else if (row == 2){
         
-        [self selectTimeLimit:row];
+        NSMutableArray *temArr = _dataSourceArrays[0];
+        NSString *oneString = temArr[0];
+
+        [self selectTimeLimit:row withType:oneString];
+    }else if (row == 1){
+        NSMutableArray *temArr = _dataSourceArrays[0];
+        NSString *oneString = temArr[0];
+        if ([oneString isEqualToString:@"组合贷款"]) {
+            
+            [self selectTimeLimit:row withType:oneString];
+        }
     }
 }
-- (void)selectTimeLimit:(NSInteger)row
+- (void)selectTimeLimit:(NSInteger)row withType:(NSString *)oneString
 {WEAKSELF;
     ZHPickView *pickView = [[ZHPickView alloc] init];
     [pickView setDataViewWithItem:@[@"5",@"10",@"15",@"20",@"25",@"30"] title:@"贷款期限"];
     [pickView showPickView:self];
     pickView.block = ^(NSString *selectedStr,NSString *type)
     {
-        NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
-        [arr1 replaceObjectAtIndex:row withObject:selectedStr];
+        if ([oneString isEqualToString:@"公积金贷款"]) {
+            NSString *rateString = ([selectedStr isEqualToString:@"5"])?FUNDARRAYS[0]:FUNDARRAYS[1];
+            NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
+            [arr1 replaceObjectAtIndex:row withObject:selectedStr];
+            [arr1 replaceObjectAtIndex:3 withObject:rateString];
+        }else if ([oneString isEqualToString:@"商业贷款"]){
+            
+            NSString *rateString = ([selectedStr isEqualToString:@"5"])?BUSINESSARRSYS[3]:BUSINESSARRSYS[4];
+            NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
+            [arr1 replaceObjectAtIndex:row withObject:selectedStr];
+            [arr1 replaceObjectAtIndex:3 withObject:rateString];
+        }else {
+            NSString *rateString1 = ([selectedStr isEqualToString:@"5"])?FUNDARRAYS[0]:FUNDARRAYS[1];
+            NSString *rateString2 = ([selectedStr isEqualToString:@"5"])?BUSINESSARRSYS[3]:BUSINESSARRSYS[4];
+
+            NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
+            [arr1 replaceObjectAtIndex:row withObject:selectedStr];
+            [arr1 replaceObjectAtIndex:3 withObject:rateString1];
+            [arr1 replaceObjectAtIndex:5 withObject:rateString2];
+
+        }
         [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
     };
 }
@@ -327,6 +350,9 @@ static NSString *const HOUSECELL = @"housecellid";
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     [self dismissKeyBoard];
+    if (textField.text.length == 0) {
+        return YES;
+    }
     CaseTextField *text = (CaseTextField *)textField;
     NSInteger row = text.row;
     NSMutableArray *arr = _dataSourceArrays[0];
@@ -358,7 +384,6 @@ static NSString *const HOUSECELL = @"housecellid";
             }
         }
     }
-
     return YES;
 }
 - (void)textFieldChanged:(NSNotification*)noti{

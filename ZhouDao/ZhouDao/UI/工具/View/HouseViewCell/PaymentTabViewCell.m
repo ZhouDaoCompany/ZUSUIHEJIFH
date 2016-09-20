@@ -37,9 +37,9 @@
     return self;
 }
 #pragma mark - methods
-- (void)settingUI
+- (void)settingUIWithRow:(NSInteger)row
 {
-    _monthLabel.text = @"1月";
+    _monthLabel.text = [NSString stringWithFormat:@"%ld月",row+1];
     _principalLabel.text = @"29,597.16";
     _interesLabel.text = @"7,916.67";
     _remainLabel.text = @"2,213,315.61";

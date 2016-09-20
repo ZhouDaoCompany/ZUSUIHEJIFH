@@ -64,7 +64,7 @@ static NSString *const HOUSEDETAILCELL = @"HouseDetailCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PaymentTabViewCell *cell = (PaymentTabViewCell *)[tableView dequeueReusableCellWithIdentifier:HOUSEDETAILCELL];
-    [cell settingUI];
+    [cell settingUIWithRow:indexPath.row];
     if (_dataSourceArrays.count >0) {
         
     }
