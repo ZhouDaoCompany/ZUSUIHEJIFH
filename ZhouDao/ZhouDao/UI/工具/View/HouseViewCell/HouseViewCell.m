@@ -62,7 +62,7 @@
         self.accessoryType = UITableViewCellAccessoryNone;
 
        if ([arr1[0] isEqualToString:@"组合贷款"]){
-           NSArray *titleArr = @[@"贷款类型",@"公积金贷款金额(万元)",@"期限 (年)",@"年利率",@"商业贷款金额(万元)",@"期限 (年)",@"年利率",@""];
+           NSArray *titleArr = @[@"贷款类型",@"期限 (年)",@"公积金贷款金额(万元)",@"年利率",@"商业贷款金额(万元)",@"年利率",@""];
            _titleLab.text = titleArr[row];
            switch (row) {
                case 0:
@@ -70,7 +70,6 @@
                    _textField.placeholder = @"请选择贷款类型";
                    _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
                    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
                }
                    break;
                case 1:
@@ -133,7 +132,6 @@
                     _textField.placeholder = @"请选择贷款类型";
                     _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 140, 30);
                     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
                 }
                     break;
                 case 1:
@@ -186,10 +184,9 @@
         if (_isBJ == NO) {
             
             smallArr = arr2[0];
-            titleArr = @[@"计算结果",@"月供（万元）",@"还款月数（月）",@"支付利息（万元）",@"还款总额（万元）"];
+            titleArr = @[@"计算结果",@"月供（元）",@"还款月数（月）",@"支付利息（万元）",@"还款总额（万元）"];
         }else {
-            
-            
+
             smallArr = arr2[1];
             titleArr = @[@"计算结果",@"还款月数（月）",@"支付利息（万元）",@"还款总额（万元）"];
         }

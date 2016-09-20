@@ -6,7 +6,8 @@
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 #define  FUNDARRAYS      @[ @"2.75", @"3.25"]
-#define  BUSINESSARRSYS  @[@"0.0460",@"0.0460",@"0.0500",@"0.0500",@"0.0515"]
+#define  BUSINESSARRSYS  @[@"0.0435",@"0.0435",@"0.0475",@"0.0475",@"0.0490"]
+
 #import "HouseViewController.h"
 #import "HouseViewCell.h"
 #import "ZHPickView.h"
@@ -83,7 +84,7 @@ static NSString *const HOUSECELL = @"housecellid";
         }
         if ([oneString isEqualToString:@"组合贷款"]) {
             
-            NSString *limitString = arr1[2];
+            NSString *limitString = arr1[1];
             double rate01 = ([limitString isEqualToString:@"5"])?[FUNDARRAYS[0] doubleValue]:[FUNDARRAYS[1] doubleValue];
             rate01 = rate01/1200.f;
 
@@ -124,7 +125,7 @@ static NSString *const HOUSECELL = @"housecellid";
     double allMoney1 = limit * monthMoney1;
     double allLiXiMoney1 = allMoney1 - money;
     
-    NSArray *array1 = @[@"",[NSString stringWithFormat:@"%.2f",monthMoney1],[NSString stringWithFormat:@"%.0f",limit],[NSString stringWithFormat:@"%.2f",allLiXiMoney1],[NSString stringWithFormat:@"%.2f",allMoney1]];
+    NSArray *array1 = @[@"",[NSString stringWithFormat:@"%.2f",monthMoney1*10000],[NSString stringWithFormat:@"%.0f",limit],[NSString stringWithFormat:@"%.2f",allLiXiMoney1],[NSString stringWithFormat:@"%.2f",allMoney1]];
 
     //等额本金
     double monthBJMoney2 = money/limit;//月还本金额
@@ -160,7 +161,7 @@ static NSString *const HOUSECELL = @"housecellid";
     double allMoney11 = limit * monthMoney11;
     double allLiXiMoney11 = allMoney11 - money11;
 
-    NSArray *array1 = @[@"",[NSString stringWithFormat:@"%.2f",monthMoney01 + monthMoney11],[NSString stringWithFormat:@"%.0f",limit],[NSString stringWithFormat:@"%.2f",allLiXiMoney01 + allLiXiMoney11],[NSString stringWithFormat:@"%.2f",allMoney01 + allMoney11]];
+    NSArray *array1 = @[@"",[NSString stringWithFormat:@"%.2f",(monthMoney01 + monthMoney11)*10000],[NSString stringWithFormat:@"%.0f",limit],[NSString stringWithFormat:@"%.2f",allLiXiMoney01 + allLiXiMoney11],[NSString stringWithFormat:@"%.2f",allMoney01 + allMoney11]];
     
     /*******等额本金****************/
     //公积金
@@ -326,7 +327,38 @@ static NSString *const HOUSECELL = @"housecellid";
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     [self dismissKeyBoard];
-    
+    CaseTextField *text = (CaseTextField *)textField;
+    NSInteger row = text.row;
+    NSMutableArray *arr = _dataSourceArrays[0];
+    NSString *oneString = arr[0];
+    if ([oneString isEqualToString:@"商业贷款"]) {
+        if (row == 4) {
+            
+            double txtNumber = [textField.text doubleValue];
+            if (txtNumber >130) {
+                textField.text = @"70";
+                [arr replaceObjectAtIndex:4 withObject:@"130"];
+            }
+            if (txtNumber < 70) {
+                textField.text = @"70";
+                [arr replaceObjectAtIndex:4 withObject:@"70"];
+            }
+        }
+    }else if ([oneString isEqualToString:@"组合贷款"]){
+        if (row == 6) {
+            
+            double txtNumber = [textField.text doubleValue];
+            if (txtNumber >130) {
+                textField.text = @"70";
+                [arr replaceObjectAtIndex:6 withObject:@"130"];
+            }
+            if (txtNumber < 70) {
+                textField.text = @"70";
+                [arr replaceObjectAtIndex:6 withObject:@"70"];
+            }
+        }
+    }
+
     return YES;
 }
 - (void)textFieldChanged:(NSNotification*)noti{
@@ -340,30 +372,6 @@ static NSString *const HOUSECELL = @"housecellid";
     NSInteger section = textField.section;
     
     NSMutableArray *arr = _dataSourceArrays[section];
-    NSString *oneString = arr[0];
-    if ([oneString isEqualToString:@"商业贷款"]) {
-        if (row == 4) {
-            
-            double txtNumber = [textField.text doubleValue];
-            if (txtNumber >130) {
-                textField.text = @"130";
-            }
-            if (txtNumber < 70) {
-                textField.text = @"70";
-            }
-        }
-    }else if ([oneString isEqualToString:@"组合贷款"]){
-        if (row == 6) {
-            
-            double txtNumber = [textField.text doubleValue];
-            if (txtNumber >130) {
-                textField.text = @"130";
-            }
-            if (txtNumber < 70) {
-                textField.text = @"70";
-            }
-        }
-    }
     [arr replaceObjectAtIndex:row withObject:textField.text];
 }
 
