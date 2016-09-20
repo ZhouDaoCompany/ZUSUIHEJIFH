@@ -26,11 +26,10 @@
         [self.contentView addSubview:self.titleLab];
         [self.contentView addSubview:self.lineView];
         [self.contentView addSubview:self.textField];
-
     }
-    
     return self;
 }
+
 #pragma mark -
 #pragma mark - methods
 
@@ -39,7 +38,7 @@
     _textField.section = section;
     _textField.row = row;
     _textField.enabled = NO;
-
+    
     if (section == 0) {
         
         NSMutableArray *arr1 = arrays[0];
@@ -52,7 +51,6 @@
         switch (row) {
             case 0:
             {
-                
                 _lineView.hidden = NO;
                 _textField.placeholder = @"请选择开始日期";
 

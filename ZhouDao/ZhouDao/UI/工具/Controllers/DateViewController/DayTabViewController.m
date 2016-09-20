@@ -73,6 +73,10 @@ static NSString *const DAYCellID = @"dayCellID";
             }
         }
         
+        if (_dataSourceArrays.count == 2) {
+            [_dataSourceArrays removeObjectAtIndex:1];
+        }
+
         __block NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"", nil];
 //        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",nil];
         
@@ -80,7 +84,6 @@ static NSString *const DAYCellID = @"dayCellID";
             
             [arr2 addObject:allDays];
             [arr2 addObject:workingDays];
-            
         }];
         
         [self calculateYearsWithMonthsFromDate:[QZManager timeStampChangeNSDate:[_startTime floatValue]] toDate:[QZManager timeStampChangeNSDate:[_endTime floatValue]] withYear:NO Success:^(NSString *dateString) {

@@ -80,7 +80,6 @@ static NSString *const LIXICELL = @"lixicellid";
         
     }else {
         //计算
-        //等额本息
         NSMutableArray *arr1 = self.dataSourceArrays[0];
         
         NSArray *arrays = [NSArray arrayWithObjects:@"请输入本金总额",@"请选择贷款起算日期",@"请选择贷款截止日期",@"请选择还款方式",@"请选择利率方式",@"请选择利率选项",@"请您填写利率", nil];
@@ -113,11 +112,13 @@ static NSString *const LIXICELL = @"lixicellid";
     NSString *rateType = arr1[4];
     if ([reimbursementType isEqualToString:@"等额本息"]) {
         
-        [self accordingToTheInterestRateCalculationWithRateType:rateType withArrays:arr1];
-        NSMutableArray *bigArrays = self.detailDictionary[@"MutableArrays"];
-        float amountMoney = (_allLiXiMoney + _principalMoney)/[bigArrays count];
-        for (NSMutableArray *smallArr in bigArrays) {
-            [smallArr addObject:[NSString stringWithFormat:@"%.2f",amountMoney]];
+        if ([rateType isEqualToString:@"人民银行同期利率"]) {
+            
+            [self waitingForTheForehead:arr1 withIsBank:YES];
+            _tableView.tableFooterView = self.bottomView;
+        }else{
+            
+            [self waitingForTheForehead:arr1 withIsBank:NO];
         }
         
     }else if ([reimbursementType isEqualToString:@"一次性还本付息"]) {
@@ -227,7 +228,86 @@ static NSString *const LIXICELL = @"lixicellid";
     [self reloadTableViewWithAnimation];
     
 }
+#pragma mark - 等额本息 按银行同期利率  约定利率
+- (void)waitingForTheForehead:(NSMutableArray *)arrays withIsBank:(BOOL)isBank
+{
+    double money = [arrays[0] floatValue];
+    
+    double rate;
 
+    if (isBank == YES) {
+        //银行同期
+        NSString *discountString = [arrays lastObject];
+        float discount = (discountString.length == 0)?1.f:([discountString floatValue]/100.f);
+        float startTimeInt = [_startTime floatValue];
+        float days = ([_endTime integerValue] - [_startTime integerValue])/86400.f;//总的相差天数
+        if (startTimeInt > [QZManager timeToTimeStamp:[self.timeArrays lastObject]]){
+            
+            NSArray *rateArrays = self.rateDictionary[[self.timeArrays lastObject]];
+            rate = [self getRateCalculateWithRateArrays:rateArrays withDays:days];
+        }else {
+            __block NSUInteger startIndex = 0;
+            [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                NSUInteger timeObj = [QZManager timeToTimeStamp:obj];
+                if (startTimeInt - timeObj <=0) {
+                    startIndex = (idx == 0)?idx:(idx-1);
+                    *stop = YES;
+                }
+            }];
+            NSArray *rateArrays = self.rateDictionary[self.timeArrays[startIndex]];
+            rate = [self getRateCalculateWithRateArrays:rateArrays withDays:days];
+        }
+        rate = rate * discount/12.f;
+
+    }else{
+
+        NSString *lilvString = [arrays lastObject];
+        rate = [lilvString floatValue]/100.f;
+        _reatString = [NSString stringWithFormat:@"%.4f",rate];
+        NSString *typeString = arrays[5];
+        if ([typeString isEqualToString:@"日利率"]) {
+            
+            rate = rate *30.f;
+        }else if ([typeString isEqualToString:@"年利率"]){
+            
+            rate = rate/12.f;
+        }
+    }
+
+    //得到利率 进行运算
+    __block   NSUInteger monthsCount = 0;
+    __block   NSUInteger remainingDays = 0;
+    [self calculateAgeFromDate:_startTime withEndStamp:_endTime RequestSuccess:^(NSInteger months, NSInteger daysT) {
+        
+        monthsCount = (daysT >0)?(months +1):months;
+        remainingDays = daysT;
+    }];
+
+    
+    double lastMoney = [self loanPrincipal:money withAnInterest:rate withRepaymentPeriods:monthsCount];
+    
+    double allMoney = lastMoney * monthsCount/1.f;
+    double lixiMoney = allMoney - money;
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",allMoney],[NSString stringWithFormat:@"%.2f",lixiMoney],[NSString stringWithFormat:@"%.2f",money], nil];
+    (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
+    [self reloadTableViewWithAnimation];
+    
+    if (isBank == YES) {
+      
+        //收集信息
+        [self calculateDeatilViewControllerMonth];//得到月份
+        
+        float amountMoney = allMoney/[self.detailArrays count]*1.f;
+        for (NSMutableArray *smallArr in self.detailArrays) {
+            [smallArr addObject:[NSString stringWithFormat:@"%.2f",amountMoney]];
+        }
+
+        NSString *allDays = [NSString stringWithFormat:@"%@-%@",[QZManager changeTimeMethods:[_startTime integerValue] withType:@"yy/MM/dd"],[QZManager changeTimeMethods:[_endTime integerValue] withType:@"yy/MM/dd"]];
+        [self collectInformationToAnotherInterfaceWithMoney:money WithBreachMoney:lastMoney WithAllDays:allDays WithArrays:self.detailArrays WithReatType:_reatString];
+
+    }
+}
 #pragma mark - 等额本金 按银行同期利率
 - (void)standOfTheBankInterestRatesOverTheSame:(NSMutableArray *)arrays
 {
@@ -296,7 +376,6 @@ static NSString *const LIXICELL = @"lixicellid";
     [self collectInformationToAnotherInterfaceWithMoney:money WithBreachMoney:lastMoney WithAllDays:allDays WithArrays:self.detailArrays WithReatType:_reatString];
 }
 #pragma mark - 等额本金 按约定利率 自定义利率
-
 - (void)standardOfCustomReatWithArrays:(NSMutableArray *)arrays
 {
     float lastMoney = 0.0f;
@@ -623,6 +702,25 @@ static NSString *const LIXICELL = @"lixicellid";
     NSInteger days1 = [components day];
     success(months1,days1);
 }
+#pragma mark - 房贷等额本息计算公式
+///P:贷款本金  R:月利率    N:还款期数    还款期数=贷款年限×12
+
+/**
+ 房贷等额本息计算公式
+ 
+ @param P 贷款本金
+ @param R 月利率
+ @param N 还款期数
+ 
+ @return 月供本息
+ */
+- (double)loanPrincipal:(double)P withAnInterest:(double)R withRepaymentPeriods:(NSUInteger)N
+{
+    double money = 0.0f;
+    money = P*(R*pow(1 + R, N))/(pow(1 + R, N) - 1);
+    return money;
+}
+
 #pragma mark -手势
 - (void)dismissKeyBoard{
     [self.view endEditing:YES];

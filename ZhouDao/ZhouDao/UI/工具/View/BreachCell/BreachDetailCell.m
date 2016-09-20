@@ -39,7 +39,7 @@
 {
     NSString *startTime = arrays[0];
     NSString *endTime = arrays[1];
-    _label1.text = [NSString stringWithFormat:@"%@-%@",[QZManager changeTimeMethods:[startTime doubleValue] withType:@"yy/MM/dd"],[QZManager changeTimeMethods:[endTime doubleValue] withType:@"yy/MM/dd"]];
+    _label1.text = [NSString stringWithFormat:@"%@-%@",[QZManager changeTimeMethods:[startTime doubleValue] withType:@"yy/MM/dd"],[QZManager changeTimeMethods:[endTime doubleValue] - 86400.f withType:@"yy/MM/dd"]];
     
     NSUInteger tttt = ([endTime integerValue] - [startTime integerValue])/86400.f;
 //    NSUInteger year = tttt/(12*30);

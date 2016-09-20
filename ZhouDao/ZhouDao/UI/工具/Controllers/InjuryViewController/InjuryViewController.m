@@ -182,9 +182,6 @@ static NSString *const INJURYCELL = @"injurycellid";
     }
     return _resetButton;
 }
-
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

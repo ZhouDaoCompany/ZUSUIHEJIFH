@@ -501,6 +501,7 @@
 		18CB0F0B1CBF5E00009C41CE /* SeniorTabViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB0F091CBF5E00009C41CE /* SeniorTabViewCell.m */; };
 		18CB0F0E1CBF77E6009C41CE /* Esearch_jiantou@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CB0F0D1CBF77E6009C41CE /* Esearch_jiantou@2x.png */; };
 		18CB0F131CBF8F3F009C41CE /* Esearch_dateSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CB0F121CBF8F3F009C41CE /* Esearch_dateSelect@2x.png */; };
+		18CBF26C1D911AF900F3137E /* CalculateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CBF26B1D911AF900F3137E /* CalculateManager.m */; };
 		18CC2E1F1D2243CC004B37DA /* Case_WhiteSD@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CC2E1E1D2243CC004B37DA /* Case_WhiteSD@2x.png */; };
 		18CC2E231D224DD5004B37DA /* case_alerticon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CC2E201D224DD5004B37DA /* case_alerticon@2x.png */; };
 		18CC2E241D224DD5004B37DA /* case_lookicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CC2E211D224DD5004B37DA /* case_lookicon@2x.png */; };
@@ -1379,6 +1380,8 @@
 		18CB0F091CBF5E00009C41CE /* SeniorTabViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeniorTabViewCell.m; sourceTree = "<group>"; };
 		18CB0F0D1CBF77E6009C41CE /* Esearch_jiantou@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Esearch_jiantou@2x.png"; sourceTree = "<group>"; };
 		18CB0F121CBF8F3F009C41CE /* Esearch_dateSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Esearch_dateSelect@2x.png"; sourceTree = "<group>"; };
+		18CBF26A1D911AF900F3137E /* CalculateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateManager.h; sourceTree = "<group>"; };
+		18CBF26B1D911AF900F3137E /* CalculateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateManager.m; sourceTree = "<group>"; };
 		18CC2E1E1D2243CC004B37DA /* Case_WhiteSD@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Case_WhiteSD@2x.png"; sourceTree = "<group>"; };
 		18CC2E201D224DD5004B37DA /* case_alerticon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_alerticon@2x.png"; sourceTree = "<group>"; };
 		18CC2E211D224DD5004B37DA /* case_lookicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_lookicon@2x.png"; sourceTree = "<group>"; };
@@ -1648,7 +1651,6 @@
 		10241A201CBA4001000CBEAE /* 案件管理 */ = {
 			isa = PBXGroup;
 			children = (
-				181292A61C87E7B100EBB5CD /* 推荐 */,
 				10241A211CBA403E000CBEAE /* TheCaseManageVC.h */,
 				10241A221CBA403E000CBEAE /* TheCaseManageVC.m */,
 				10241A271CBA4CE0000CBEAE /* TheCaseDetailVC.h */,
@@ -2348,8 +2350,7 @@
 				181292A81C87E7B100EBB5CD /* Model */,
 				181292A91C87E7B100EBB5CD /* View */,
 			);
-			name = "推荐";
-			path = "../../../推荐";
+			path = "推荐";
 			sourceTree = "<group>";
 		};
 		181292A71C87E7B100EBB5CD /* Controllers */ = {
@@ -3781,6 +3782,8 @@
 				1863DFE41C8D316200F7A84E /* DefineHeader */,
 				18FF3F341C85234A0098C60B /* ZhouDao_NetWorkManger.h */,
 				18FF3F351C85234A0098C60B /* ZhouDao_NetWorkManger.m */,
+				18CBF26A1D911AF900F3137E /* CalculateManager.h */,
+				18CBF26B1D911AF900F3137E /* CalculateManager.m */,
 				187D68AA1CCF362100C3946A /* NetWorkMangerTools.h */,
 				187D68AB1CCF362100C3946A /* NetWorkMangerTools.m */,
 			);
@@ -3933,6 +3936,7 @@
 			isa = PBXGroup;
 			children = (
 				18FF3F691C8547610098C60B /* 首页 */,
+				181292A61C87E7B100EBB5CD /* 推荐 */,
 				1812929E1C87E7B100EBB5CD /* 更多 */,
 				181292A21C87E7B100EBB5CD /* 工具 */,
 				181292AA1C87E7B100EBB5CD /* 我的 */,
@@ -4596,6 +4600,7 @@
 				18D9570B1CF5ADED00F0E4DB /* ToolsIntroduceVC.m in Sources */,
 				1830E0701D4863B9005D287E /* SDPhotoBrowser.m in Sources */,
 				18FF42D91C97AF6F00C6B29A /* MoveTopTabViewCell.m in Sources */,
+				18CBF26C1D911AF900F3137E /* CalculateManager.m in Sources */,
 				187A54A71D642CBD0076A8E6 /* DNFullImageButton.m in Sources */,
 				181E512E1CD1E81E00BBA10D /* ReplacePhoneVC.m in Sources */,
 				18DD1EBA1C88389B004630C1 /* ZHPickView.m in Sources */,
@@ -4939,8 +4944,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46ba44ed-3cd4-41d2-a52a-273e22b8e216";
-				PROVISIONING_PROFILE_SPECIFIER = 9_17_02;
+				PROVISIONING_PROFILE = "1349579a-f783-4ba6-ae5c-3de2efe2bb47";
+				PROVISIONING_PROFILE_SPECIFIER = 9_19_3;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
@@ -4976,6 +4981,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1349579a-f783-4ba6-ae5c-3de2efe2bb47";
+				PROVISIONING_PROFILE_SPECIFIER = 9_19_3;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};

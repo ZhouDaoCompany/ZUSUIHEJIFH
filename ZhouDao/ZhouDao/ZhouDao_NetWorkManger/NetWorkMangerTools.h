@@ -408,10 +408,10 @@
 /**
  *  88 单纯绑定账号 不登录
  */
+
 + (void)pureAuBindingURLString:(NSString *)urlString
                 RequestSuccess:(void (^)())success
                           fail:(void (^)())fail;
-
 
 /*
  * 自动登录

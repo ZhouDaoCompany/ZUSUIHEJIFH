@@ -54,6 +54,7 @@
     _phoneLab.textColor = [UIColor lightGrayColor];
     [self.contentView addSubview:_phoneLab];
 }
+
 - (void)reloadNameWithPhone
 {
     [_headImgView sd_setImageWithURL:[NSURL URLWithString:[PublicFunction ShareInstance].m_user.data.photo] placeholderImage:[UIImage imageNamed:@"mine_head"]];

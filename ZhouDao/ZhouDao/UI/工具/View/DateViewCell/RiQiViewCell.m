@@ -72,17 +72,18 @@
                 _textField.placeholder = @"请输入间隔天数";
                 _textField.keyboardType = UIKeyboardTypeDecimalPad;
                 
-                
             }
                 break;
             case 2:
             {
                 _textField.hidden = YES;
                 _segButton.hidden = NO;
+                _segButton.frame = CGRectMake(kMainScreenWidth - 135.f, 9, 120.f, 27.f);
                 [_segButton removeAllSegments];
                 [_segButton insertSegmentWithTitle:@"向前推算" atIndex:0 animated:NO];
                 [_segButton insertSegmentWithTitle:@"向后推算" atIndex:0 animated:NO];
                 _segButton.selectedSegmentIndex = 0;
+                
             }
                 break;
             case 3:

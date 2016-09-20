@@ -39,7 +39,6 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
 {
     _dataSourceArrays = [NSMutableArray array];
     [self setupNaviBarWithTitle:@"推荐"];
-    
 
     [ self.view addSubview:self.tableView];
     _tableView.tableHeaderView = self.headView;
@@ -173,7 +172,7 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
     vc.pType = CompensationFromHome;
     [self.navigationController pushViewController:vc animated:YES];
 }
-//气质文章
+//气质文章r
 - (void)recommendTheArticle
 {
     DLog(@"气质文章");

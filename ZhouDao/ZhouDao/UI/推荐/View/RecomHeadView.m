@@ -11,6 +11,7 @@
 #import "FlipPageView.h"
 #import "GovListmodel.h"
 #import "BasicModel.h"
+
 #define oftenLaws     [UIScreen mainScreen].bounds.size.width*(311.f/750.f)
 @interface RecomHeadView()<SDCycleScrollViewDelegate>
 @property (strong, nonatomic) FlipPageView *adView;
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) NSMutableArray *titleArrays;
 @property (strong, nonatomic) UIView *newslLawView;
 @property (strong, nonatomic) UIImageView *imgView3;
+
 @end
 
 @implementation RecomHeadView
@@ -57,7 +59,7 @@
     newImg.image = [UIImage imageNamed:@"recommedNew"];
     [_newslLawView addSubview:newImg];
     
-    UILabel *titLab = [[UILabel alloc] initWithFrame:CGRectMake(Orgin_x(newImg) +7.5f, 15, 60, 20)];
+    UILabel *titLab = [[UILabel alloc] initWithFrame:CGRectMake(Orgin_x(newImg) +5.5f, 15, 62, 20)];
     titLab.font = Font_15;
     titLab.textColor = THIRDCOLOR;
     titLab.text = @"新法速递";

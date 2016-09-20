@@ -34,10 +34,17 @@
     [dateComponent setDay:0];
     NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
     
-    NSString *str1 = [NSDate datestrFromDate:newdate withDateFormat:@"yyyy-MM-dd"];//[NSDate datestrFromDate:newdate format:@"yyyy-MM-dd"];
+//    NSString *str1 = [NSDate datestrFromDate:newdate withDateFormat:@"yyyy-MM-dd"];//[NSDate datestrFromDate:newdate format:@"yyyy-MM-dd"];
 //    DLog(@"输出时间是－－－%@",str1);
     
     [self calculateAgeFromDate:[NSDate dateFromString:@"2016-09-04" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-10-01" format:@"yyyy-MM-dd"]];
+    
+    ///P:贷款本金  R:月利率    N:还款期数    还款期数=贷款年限×12
+
+    
+    double x = [self loanPrincipal:200000.f withAnInterest:0.00465 withRepaymentPeriods:180];
+    DLog(@"--------%.2f",x);
+    
     
 //    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 //    
@@ -53,6 +60,24 @@
 //    
 //    [adcomps setDay:0];
 //    NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:mydate options:0];
+}
+#pragma mark - 房贷等额本息计算公式
+///P:贷款本金  R:月利率    N:还款期数    还款期数=贷款年限×12
+
+/**
+ 房贷等额本息计算公式
+
+ @param P 贷款本金
+ @param R 月利率
+ @param N 还款期数
+
+ @return 月供本息
+ */
+- (double)loanPrincipal:(double)P withAnInterest:(double)R withRepaymentPeriods:(NSUInteger)N
+{
+    double money = 0.0f;
+    money = P*(R*pow(1 + R, N))/(pow(1 + R, N) - 1);
+    return money;
 }
 //得到时间戳
 - (NSString *)getTheTimeStamp:(NSString *)timeStamp
@@ -70,6 +95,7 @@
     NSString *sjcString = [self dateChangeTimeStampMethods:newdate];
     return sjcString;
 }
+
 #pragma mark - NSDate转换为时间戳
 - (NSString *)dateChangeTimeStampMethods:(NSDate *)date
 {

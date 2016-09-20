@@ -44,6 +44,7 @@
 #import "NetWorkMangerTools.h"
 #import "ThemeColor.h"
 #import "GcNoticeUtil.h"
+#import "CalculateManager.h"
 
 #define YTXAPPID @"8a216da854ff8dcc0155098e25bc0e15"          //应用ID
 #define YTXTOKEN @"6b169f4522eadc646cc4441c50f5ff7d"

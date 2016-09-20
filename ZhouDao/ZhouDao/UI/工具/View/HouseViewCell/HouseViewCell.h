@@ -12,6 +12,7 @@
 
 @interface HouseViewCell : UITableViewCell
 
+@property (assign, nonatomic) BOOL isBJ;
 @property (strong, nonatomic) CaseTextField *textField;
 @property (weak, nonatomic)   id<HouseViewDelegate>delegate;
 
@@ -20,5 +21,5 @@
 @end
 @protocol  HouseViewDelegate <NSObject>
 
-- (void)optionEvent:(NSInteger)section withCell:(HouseViewCell *)cell;
+- (void)optionEvent:(NSInteger)segIndex withCell:(HouseViewCell *)cell;
 @end
