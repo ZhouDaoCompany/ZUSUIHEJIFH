@@ -37,13 +37,21 @@
     return self;
 }
 #pragma mark - methods
-- (void)settingUIWithRow:(NSInteger)row
+- (void)settingUIWithRow:(NSInteger)row withArrays:(NSArray *)arrays
 {
     _monthLabel.text = [NSString stringWithFormat:@"%ld月",row+1];
-    _principalLabel.text = @"29,597.16";
-    _interesLabel.text = @"7,916.67";
-    _remainLabel.text = @"2,213,315.61";
+    _principalLabel.text = arrays[0];
+    _interesLabel.text = arrays[1];
+    _remainLabel.text = [arrays lastObject];
 }
+- (void)settingUIWithRow:(NSInteger)row withArrays1:(NSArray *)arrays1 withArrays2:(NSArray *)arrays2
+{
+    _monthLabel.text = [NSString stringWithFormat:@"%ld月",row+1];
+    _principalLabel.text = [NSString stringWithFormat:@"%.2f",[arrays1[0] doubleValue] + [arrays2[0] doubleValue]];
+    _interesLabel.text = [NSString stringWithFormat:@"%.2f",[arrays1[1] doubleValue] + [arrays2[1] doubleValue]];
+    _remainLabel.text = [NSString stringWithFormat:@"%.2f",[[arrays1 lastObject] doubleValue] + [[arrays2 lastObject] doubleValue]];
+}
+
 #pragma mark - setter and getter
 - (UILabel *)monthLabel
 {

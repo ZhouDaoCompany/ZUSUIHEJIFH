@@ -20,12 +20,17 @@ static NSString *const HOUSEDETAILCELL = @"HouseDetailCell";
 @property (strong, nonatomic)  NSMutableArray *dataSourceArrays;
 @property (strong, nonatomic)  ParallaxHeaderView *headerView;
 @property (strong, nonatomic) UISegmentedControl *segmentButton;
+
+@property (strong, nonatomic) NSMutableDictionary *tempDictionary;
+@property (strong, nonatomic) NSMutableArray *arrays1;
+@property (strong, nonatomic) NSMutableArray *arrays2;
 @end
 
 @implementation HouseDetailVC
 
 #pragma mark - life cycle
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
 
     [self initUI];
@@ -33,7 +38,16 @@ static NSString *const HOUSEDETAILCELL = @"HouseDetailCell";
 #pragma mark - private methods
 - (void)initUI
 {
+    self.tempDictionary = self.bigDictionary[@"OneDictionary"];
     
+    if (_isZH == YES) {
+        
+        self.arrays1 = _tempDictionary[@"MutableArray"];
+        self.arrays2 = _tempDictionary[@"MutableArray2"];
+    }else{
+        self.dataSourceArrays = _tempDictionary[@"MutableArray"];
+    }
+
     [self setupNaviBarWithTitle:@"还款详情"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
@@ -41,8 +55,20 @@ static NSString *const HOUSEDETAILCELL = @"HouseDetailCell";
 }
 #pragma mark - event response
 - (void)didClicksegmentedControlAction:(UISegmentedControl *)seg
-{
+{WEAKSELF;
+    self.tempDictionary = (seg.selectedSegmentIndex == 0)?_bigDictionary[@"OneDictionary"]:_bigDictionary[@"TwoDictionary"];
     
+    if (_isZH == YES) {
+        
+        _arrays1 = _tempDictionary[@"MutableArray"];
+        _arrays2 = _tempDictionary[@"MutableArray2"];
+    }else{
+        _dataSourceArrays = _tempDictionary[@"MutableArray"];
+    }
+    [UIView animateWithDuration:.25f animations:^{
+       
+        [weakSelf.tableView reloadData];
+    }];
 }
 #pragma mark - UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -55,24 +81,38 @@ static NSString *const HOUSEDETAILCELL = @"HouseDetailCell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 7;
+    NSInteger yearRount = [_tempDictionary[@"months"] doubleValue]/12.f;
+    return yearRount;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 12;//[_dataSourceArrays count];
+    return 12;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PaymentTabViewCell *cell = (PaymentTabViewCell *)[tableView dequeueReusableCellWithIdentifier:HOUSEDETAILCELL];
-    [cell settingUIWithRow:indexPath.row];
     if (_dataSourceArrays.count >0) {
+        NSArray *arrays = _dataSourceArrays[indexPath.section*12 + indexPath.row];
+        [cell settingUIWithRow:indexPath.row withArrays:arrays];
+    }
+    
+    if (_arrays1.count >0) {
         
+        NSArray *arrays1 = _arrays1[indexPath.section*12 + indexPath.row];
+        NSArray *arrays2 = _arrays2[indexPath.section*12 + indexPath.row];
+
+        [cell settingUIWithRow:indexPath.row withArrays1:arrays1 withArrays2:arrays2];
     }
     return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return (section == 0)?[HouseDetailHeadView instanceHouseDetailHeadViewPaymentMoney:@"2000" withInterest:@"100" withLoan:@"2100" withMonths:@"12"]:[HouseDetailHeadView setOtherSetionTitle:[NSString stringWithFormat:@"第%ld年",section + 1]];
+    NSString *allMoney = _tempDictionary[@"allMoney"];
+    NSString *allLiXiMoney = _tempDictionary[@"allLiXiMoney"];
+    NSString *money = _tempDictionary[@"money"];
+    NSString *months = _tempDictionary[@"months"];
+
+    return (section == 0)?[HouseDetailHeadView instanceHouseDetailHeadViewPaymentMoney:allMoney withInterest:allLiXiMoney withLoan:money withMonths:months]:[HouseDetailHeadView setOtherSetionTitle:[NSString stringWithFormat:@"第%ld年",section + 1]];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -129,7 +169,29 @@ static NSString *const HOUSEDETAILCELL = @"HouseDetailCell";
     }
     return _dataSourceArrays;
 }
+- (NSMutableArray *)arrays1
+{
+    if (!_arrays1) {
+        _arrays1 = [NSMutableArray array];
+    }
+    return _arrays1;
+}
+- (NSMutableArray *)arrays2
+{
+    if (!_arrays2) {
+        _arrays2 = [NSMutableArray array];
+    }
+    return _arrays2;
+}
 
+- (NSMutableDictionary *)tempDictionary
+{
+    if (!_tempDictionary) {
+        
+        _tempDictionary = [NSMutableDictionary dictionary];
+    }
+    return _tempDictionary;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

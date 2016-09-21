@@ -22,4 +22,17 @@
  @return 月供本息
  */
 + (double)loanPrincipal:(double)P withAnInterest:(double)R withRepaymentPeriods:(NSUInteger)N;
+
+/**
+ 等额本息计算月供本金
+
+ @param principal    总贷款
+ @param monthsMoneys 月供
+ @param rate         利率
+ @param monthsCounts 总期数
+
+ @return 等额本息信息数组
+ */
++ (NSMutableArray *)getAllMonthsWithPrincipal:(double)principal withMonthsMoney:(double)monthsMoneys withRate:(double)rate withMonthsCounts:(double)monthsCounts;
+
 @end

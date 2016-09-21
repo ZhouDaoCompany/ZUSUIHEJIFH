@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *monthCount;//总月数
 
 @property (strong, nonatomic) UILabel *titleLabel;
+
 @end
 
 @implementation HouseDetailHeadView

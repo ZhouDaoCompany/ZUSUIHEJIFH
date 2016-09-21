@@ -22,6 +22,8 @@ static NSString *const HOUSECELL = @"housecellid";
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
 @property (assign, nonatomic) BOOL isBJ;
+@property (strong, nonatomic) NSMutableDictionary *bigDictionary;//详情大字典
+@property (copy, nonatomic) UIView *bottomView;
 
 @end
 
@@ -60,6 +62,7 @@ static NSString *const HOUSECELL = @"housecellid";
             
             [_dataSourceArrays removeObjectAtIndex:1];
         }
+        _tableView.tableFooterView = nil;
         NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
         [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
         [_tableView reloadData];
@@ -77,7 +80,9 @@ static NSString *const HOUSECELL = @"housecellid";
                 return;
             }
         }
-        
+        _isBJ = NO;
+        _tableView.tableFooterView = self.bottomView;
+
         if (_dataSourceArrays.count == 2) {
             
             [_dataSourceArrays removeObjectAtIndex:1];
@@ -119,17 +124,30 @@ static NSString *const HOUSECELL = @"housecellid";
     
     double allMoney1 = limit * monthMoney1;
     double allLiXiMoney1 = allMoney1 - money;
-    
+
     NSArray *array1 = @[@"",[NSString stringWithFormat:@"%.2f",monthMoney1*10000],[NSString stringWithFormat:@"%.0f",limit],[NSString stringWithFormat:@"%.2f",allLiXiMoney1],[NSString stringWithFormat:@"%.2f",allMoney1]];
 
+    //详情
+    NSMutableArray *dicArr1 = [CalculateManager getAllMonthsWithPrincipal:money withMonthsMoney:monthMoney1 withRate:rate withMonthsCounts:limit];
+    NSMutableDictionary *oneDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%.2f",allMoney1],@"allMoney",[NSString stringWithFormat:@"%.2f",allLiXiMoney1],@"allLiXiMoney",[NSString stringWithFormat:@"%.2f",money],@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr1,@"MutableArray",nil,@"MutableArray2",nil];
+    [self.bigDictionary setObjectWithNullValidate:oneDict forKey:@"OneDictionary"];
+
     //等额本金
-    double monthBJMoney2 = money/limit;//月还本金额
-    
+    NSMutableArray *dicArr2 = [NSMutableArray array];
+    double monthBJMoney2 = money/limit;//月供本金
     double allLiXiMoney2 = 0.0f;
     for (NSUInteger i = 0; i<limit; i++) {
         
-        double monthLiXiMoney2 = (money - monthBJMoney2*i)*rate;
+        NSMutableArray *smallArrays = [NSMutableArray array]; //小数组内结构 月供本金，月供利息，剩余本金
+        double remainMoney = money - monthBJMoney2*i;//剩余本金
+        double monthLiXiMoney2 = remainMoney*rate;//月供利息
         allLiXiMoney2 += monthLiXiMoney2;
+        
+        [smallArrays addObject:[NSString stringWithFormat:@"%.2f",monthBJMoney2 *10000]];
+        [smallArrays addObject:[NSString stringWithFormat:@"%.2f",monthLiXiMoney2 *10000]];
+        [smallArrays addObject:[NSString stringWithFormat:@"%.2f",(remainMoney -monthBJMoney2)*10000]];
+        
+        [dicArr2 addObject:smallArrays];
     }
     double allMoney2 = allLiXiMoney2 + money;
     
@@ -137,11 +155,16 @@ static NSString *const HOUSECELL = @"housecellid";
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:array1,array2, nil];
     [_dataSourceArrays addObject:arr2];
     [self  reloadTableViewWithAnimation];
+    
+    //添加详情
+    NSMutableDictionary *twoDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%.2f",allMoney2],@"allMoney",[NSString stringWithFormat:@"%.2f",allLiXiMoney2],@"allLiXiMoney",[NSString stringWithFormat:@"%.2f",money],@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr2,@"MutableArray",nil,@"MutableArray2",nil];
+    [self.bigDictionary setObjectWithNullValidate:twoDict forKey:@"TwoDictionary"];
+
 }
 #pragma mark - 组合贷款
 - (void)loanPortfolioMethodsWithArrays:(NSMutableArray *)arrays withRate01:(double)rate01 withRate11:(double)rate11 withLimitString:(NSString *)limitString
 {
-    double money01 = [arrays[1] doubleValue];
+    double money01 = [arrays[2] doubleValue];
     double money11 = [arrays[4] doubleValue];
     double limit = [limitString doubleValue]*12;
     
@@ -158,15 +181,30 @@ static NSString *const HOUSECELL = @"housecellid";
 
     NSArray *array1 = @[@"",[NSString stringWithFormat:@"%.2f",(monthMoney01 + monthMoney11)*10000],[NSString stringWithFormat:@"%.0f",limit],[NSString stringWithFormat:@"%.2f",allLiXiMoney01 + allLiXiMoney11],[NSString stringWithFormat:@"%.2f",allMoney01 + allMoney11]];
     
+    //详情
+    NSMutableArray *dicArr01 = [CalculateManager getAllMonthsWithPrincipal:money01 withMonthsMoney:monthMoney01 withRate:rate01 withMonthsCounts:limit];
+    NSMutableArray *dicArr11 = [CalculateManager getAllMonthsWithPrincipal:money11 withMonthsMoney:monthMoney11 withRate:rate11 withMonthsCounts:limit];
+
+    NSMutableDictionary *oneDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%.2f",allMoney01 + allMoney11],@"allMoney",[NSString stringWithFormat:@"%.2f",allLiXiMoney01 + allLiXiMoney11],@"allLiXiMoney",[NSString stringWithFormat:@"%.2f",money01 + money11],@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr01,@"MutableArray",dicArr11,@"MutableArray2",nil];
+    [self.bigDictionary setObjectWithNullValidate:oneDict forKey:@"OneDictionary"];
+
     /*******等额本金****************/
     //公积金
-    double monthBJMoney02 = money01/limit;//月还本金额
-    
+    double monthBJMoney02 = money01/limit;//月供本金
+    NSMutableArray *dicArr02 = [NSMutableArray array];
+    NSMutableArray *dicArr12 = [NSMutableArray array];
+
     double allLiXiMoney02 = 0.0f;
     for (NSUInteger i = 0; i<limit; i++) {
-        
-        double monthLiXiMoney02 = (money01 - monthBJMoney02*i)*rate01;
+        NSMutableArray *smallArrays01 = [NSMutableArray array];
+        double remainMoney = money01 - monthBJMoney02*i;//剩余本金
+        double monthLiXiMoney02 = remainMoney*rate01; //月供利息
         allLiXiMoney02 += monthLiXiMoney02;
+        
+        [smallArrays01 addObject:[NSString stringWithFormat:@"%.2f",monthBJMoney02 *10000]];
+        [smallArrays01 addObject:[NSString stringWithFormat:@"%.2f",monthLiXiMoney02 *10000]];
+        [smallArrays01 addObject:[NSString stringWithFormat:@"%.2f",(remainMoney -monthBJMoney02)*10000]];
+        [dicArr02 addObject:smallArrays01];
     }
     double allMoney02 = allLiXiMoney02 + money01;
     
@@ -176,8 +214,16 @@ static NSString *const HOUSECELL = @"housecellid";
     double allLiXiMoney12 = 0.0f;
     for (NSUInteger i = 0; i<limit; i++) {
         
-        double monthLiXiMoney12 = (money11 - monthBJMoney12*i)*rate11;
+        NSMutableArray *smallArrays11 = [NSMutableArray array];
+
+        double remainMoney = money11 - monthBJMoney12*i;//剩余本金
+        double monthLiXiMoney12 = remainMoney*rate11;
         allLiXiMoney12 += monthLiXiMoney12;
+        
+        [smallArrays11 addObject:[NSString stringWithFormat:@"%.2f",monthBJMoney12 *10000]];
+        [smallArrays11 addObject:[NSString stringWithFormat:@"%.2f",monthLiXiMoney12 *10000]];
+        [smallArrays11 addObject:[NSString stringWithFormat:@"%.2f",(remainMoney -monthBJMoney12)*10000]];
+        [dicArr12 addObject:smallArrays11];
     }
     double allMoney12 = allLiXiMoney12 + money11;
 
@@ -185,18 +231,19 @@ static NSString *const HOUSECELL = @"housecellid";
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:array1,array2, nil];
     [_dataSourceArrays addObject:arr2];
     [self  reloadTableViewWithAnimation];
+    
+    //添加详情
+    NSMutableDictionary *twoDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%.2f",allMoney02 + allMoney12],@"allMoney",[NSString stringWithFormat:@"%.2f",allLiXiMoney02 + allLiXiMoney12],@"allLiXiMoney",[NSString stringWithFormat:@"%.2f",money01 + money11],@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr02,@"MutableArray",dicArr12,@"MutableArray2",nil];
+    [self.bigDictionary setObjectWithNullValidate:twoDict forKey:@"TwoDictionary"];
+
 }
 - (void)rightBtnAction
 {
-    HouseDetailVC *vc = [HouseDetailVC new];
-    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 - (void)reloadTableViewWithAnimation
-{WEAKSELF;
-    
-    [UIView animateWithDuration:.25 animations:^{
-        [weakSelf.tableView reloadData];
-    }];
+{
+    [_tableView reloadData];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -429,9 +476,18 @@ static NSString *const HOUSECELL = @"housecellid";
 - (NSMutableArray *)dataSourceArrays
 {
     if (!_dataSourceArrays) {
+        
         _dataSourceArrays = [NSMutableArray array];
     }
     return _dataSourceArrays;
+}
+- (NSMutableDictionary *)bigDictionary
+{
+    if (!_bigDictionary) {
+       
+        _bigDictionary = [NSMutableDictionary dictionary];
+    }
+    return _bigDictionary;
 }
 - (UIButton *)calculateButton
 {
@@ -464,6 +520,43 @@ static NSString *const HOUSECELL = @"housecellid";
         [_resetButton addTarget:self action:@selector(calculateAndResetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _resetButton;
+}
+
+- (UIView *)bottomView
+{
+    if (!_bottomView) {WEAKSELF;
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 75.f)];
+        _bottomView.backgroundColor = [UIColor clearColor];
+        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 35, kMainScreenWidth-10, 25)];
+        label2.textAlignment = NSTextAlignmentLeft;
+        label2.numberOfLines = 0;
+        label2.backgroundColor = [UIColor clearColor];
+        label2.textColor = hexColor(00c8aa);
+        label2.font = Font_12;
+        label2.text = @"按《人民银行利率表》进行计算，结果仅供参考。";
+        [_bottomView addSubview:label2];
+        
+        UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 35)];
+        label1.textAlignment = NSTextAlignmentCenter;
+        label1.numberOfLines = 0;
+        label1.backgroundColor = [UIColor clearColor];
+        label1.textColor = hexColor(00c8aa);
+        label1.font = Font_12;
+        label1.text = @"查看分段计算详情 >";
+        [_bottomView addSubview:label1];
+        
+        [label1 whenCancelTapped:^{
+            
+            NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
+            NSString *oneString = arr1[0];
+            HouseDetailVC *vc = [HouseDetailVC new];
+            vc.bigDictionary = _bigDictionary;
+            vc.isZH = [oneString isEqualToString:@"组合贷款"]?YES:NO;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }];
+        
+    }
+    return _bottomView;
 }
 
 

@@ -37,13 +37,14 @@
 //    NSString *str1 = [NSDate datestrFromDate:newdate withDateFormat:@"yyyy-MM-dd"];//[NSDate datestrFromDate:newdate format:@"yyyy-MM-dd"];
 //    DLog(@"输出时间是－－－%@",str1);
     
-    [self calculateAgeFromDate:[NSDate dateFromString:@"2016-09-04" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-10-01" format:@"yyyy-MM-dd"]];
+//    [self calculateAgeFromDate:[NSDate dateFromString:@"2016-09-04" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-10-01" format:@"yyyy-MM-dd"]];
+//    
+//    ///P:贷款本金  R:月利率    N:还款期数    还款期数=贷款年限×12
+//
+//    
+//    double x = [self loanPrincipal:200000.f withAnInterest:0.00465 withRepaymentPeriods:180];
+//    DLog(@"--------%.2f",x);
     
-    ///P:贷款本金  R:月利率    N:还款期数    还款期数=贷款年限×12
-
-    
-    double x = [self loanPrincipal:200000.f withAnInterest:0.00465 withRepaymentPeriods:180];
-    DLog(@"--------%.2f",x);
     
     
 //    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -61,6 +62,36 @@
 //    [adcomps setDay:0];
 //    NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:mydate options:0];
 }
+- (void)calculateYearsWithMonthsFromDate:(NSDate *)date1 toDate:(NSDate *)date2 withYear:(BOOL)isYear Success:(void(^)(NSString *dateString))success
+{
+    NSCalendar *userCalendar = [NSCalendar currentCalendar];
+    
+    unsigned int unitFlags = (isYear == YES)?(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay):(NSCalendarUnitMonth | NSCalendarUnitDay);
+    NSDateComponents *components = [userCalendar components:unitFlags fromDate:date1 toDate:date2 options:0];
+    NSUInteger years = [components year];
+    NSUInteger months = [components month];
+    NSUInteger days = [components day];
+    
+    NSMutableString *str = [[NSMutableString alloc] init];
+    if (isYear == YES) {
+        
+        if (years > 0) {
+            
+            [str appendFormat:@"%ld年",years];
+        }
+    }
+    if (months > 0) {
+        
+        [str appendFormat:@"%ld月",months];
+    }
+    if (days > 0) {
+        
+        [str appendFormat:@"%ld天",days];
+    }
+    
+    success(str);
+}
+
 #pragma mark - 房贷等额本息计算公式
 ///P:贷款本金  R:月利率    N:还款期数    还款期数=贷款年限×12
 

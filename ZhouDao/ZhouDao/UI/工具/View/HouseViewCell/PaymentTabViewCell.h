@@ -11,5 +11,7 @@
 @interface PaymentTabViewCell : UITableViewCell
 
 
-- (void)settingUIWithRow:(NSInteger)row;
+- (void)settingUIWithRow:(NSInteger)row withArrays:(NSArray *)arrays;
+- (void)settingUIWithRow:(NSInteger)row withArrays1:(NSArray *)arrays1 withArrays2:(NSArray *)arrays2;
+
 @end
