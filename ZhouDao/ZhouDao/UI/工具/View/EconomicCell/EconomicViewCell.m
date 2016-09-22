@@ -45,7 +45,7 @@
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
         _lineView.hidden = NO;
         _textField.keyboardType = UIKeyboardTypeDecimalPad;
-        _textField.placeholder = @"请输入金额";
+        _textField.placeholder = @"";
         _textField.text = arr1[row];
         _textField.enabled = NO;
         
@@ -80,6 +80,7 @@
                 _textField.frame =  CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
                 _lineView.hidden = YES;
                 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                _textField.placeholder = @"请选择城市";
 
             }
                 break;

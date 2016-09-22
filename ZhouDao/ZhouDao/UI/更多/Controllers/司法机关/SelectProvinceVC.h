@@ -13,5 +13,6 @@ typedef void(^StringBlock)(NSString *string,NSString *str);
 
 @interface SelectProvinceVC : BaseViewController
 
+@property (nonatomic, assign) BOOL isNoTW;
 @property (nonatomic, copy) StringBlock selectBlock;
 @end

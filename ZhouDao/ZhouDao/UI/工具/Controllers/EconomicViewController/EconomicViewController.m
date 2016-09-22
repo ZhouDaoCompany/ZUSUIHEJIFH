@@ -9,6 +9,7 @@
 #import "EconomicViewController.h"
 #import "EconomicViewCell.h"
 #import "ZHPickView.h"
+#import "SelectProvinceVC.h"
 
 static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 
@@ -21,6 +22,8 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
+@property (strong, nonatomic) NSMutableDictionary *moneyDictionary;
+@property (copy, nonatomic) UIView *bottomView;
 
 @end
 
@@ -66,16 +69,75 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         }
         NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
         [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+        _tableView.tableFooterView = nil;
         [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         [_tableView endUpdates];
 
     }else{
+        NSMutableArray *arr1 = _dataSourceArrays[0];
+        NSArray *alertArrays = @[@"请选择开始日期",@"请选择结束日期",@"请填写平均工资",@"请选择工作城市"];
         
+        for (NSUInteger i = 0; i<alertArrays.count; i++) {
+            NSString *tempString = arr1[i];
+            if (tempString.length == 0) {
+                [JKPromptView showWithImageName:nil message:alertArrays[i]];
+                return;
+            }
+        }
         
+        if ([_endTime floatValue] <= [_startTime floatValue]) {
+            [JKPromptView showWithImageName:nil message:@"请您检查所选时间"];
+            return;
+        }
         
+        if (_dataSourceArrays.count == 2) {
+            [_dataSourceArrays removeObjectAtIndex:1];
+        }
+        
+        [self theAmountOfCompensation:arr1];
+        _tableView.tableFooterView = self.bottomView;
+
     }
     
-    DLog(@"计算或者重置");
+}
+
+- (void)theAmountOfCompensation:(NSMutableArray *)arrys
+{WEAKSELF;
+    NSDate *date1 = [QZManager timeStampChangeNSDate:[_startTime doubleValue]];
+    NSDate *date2 = [QZManager timeStampChangeNSDate:[_endTime doubleValue]];
+
+    [self calculateYearsWithMonthsFromDate:date1 toDate:date2 withProvince:arrys[3]withWage:arrys[2] Success:^(NSString *money, NSString *months) {
+        
+        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",money,months, nil];
+        [weakSelf.dataSourceArrays addObject:arr2];
+        [weakSelf.tableView reloadData];
+    }];
+}
+- (void)calculateYearsWithMonthsFromDate:(NSDate *)date1 toDate:(NSDate *)date2 withProvince:(NSString *)province withWage:(NSString *)wage Success:(void(^)(NSString *money,NSString *months))success
+{
+    NSCalendar *userCalendar = [NSCalendar currentCalendar];
+    
+    unsigned int unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSDateComponents *components = [userCalendar components:unitFlags fromDate:date1 toDate:date2 options:0];
+    NSUInteger years = [components year];
+    NSUInteger months = [components month];
+    NSUInteger days = [components day];
+    double money = 0.0f;
+    double counts = years;
+    if (months >6) {
+        counts +=1;
+    }else {
+        counts +=.5f;
+    }
+    if (counts >12) {
+        counts = 12.f;
+    }
+    double averayeMoney = ([wage doubleValue] >= [self.moneyDictionary[province] doubleValue] *3)?[self.moneyDictionary[province] doubleValue] *3: [self.moneyDictionary[province] doubleValue];
+    money = averayeMoney * years;
+    NSString *moneyString = [NSString stringWithFormat:@"%.2f",money];
+    NSString *monthsString = [NSString stringWithFormat:@"%ld",years *12 + months];
+
+    success(moneyString, monthsString);
 }
 
 #pragma mark - UITableViewDataSource
@@ -108,7 +170,6 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     
     if (section == 0) {
         
-        
         if (row == 0 || row == 1) {
             
             ZHPickView *pickView = [[ZHPickView alloc] init];
@@ -124,9 +185,17 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
                 [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
             };
         }else if (row == 3){
-            //选择地区
+            
+            SelectProvinceVC *selectVC = [SelectProvinceVC new];
+            selectVC.isNoTW = YES;
+            selectVC.selectBlock = ^(NSString *string,NSString *str){
+                
+                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
+                [arr1 replaceObjectAtIndex:row withObject:string];
+                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+            };
+            [self presentViewController:selectVC animated:YES completion:nil];
         }
-        
         
     }
     
@@ -201,6 +270,14 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     }
     return _tableView;
 }
+- (NSMutableDictionary *)moneyDictionary
+{
+    if (!_moneyDictionary) {
+        
+        _moneyDictionary = AVERAGESALARYARRAYS;
+    }
+    return _moneyDictionary;
+}
 - (NSMutableArray *)dataSourceArrays
 {
     if (!_dataSourceArrays) {
@@ -239,6 +316,26 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         [_resetButton addTarget:self action:@selector(calculateAndResetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _resetButton;
+}
+- (UIView *)bottomView
+{
+    if (!_bottomView) {WEAKSELF;
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 75.f)];
+        _bottomView.backgroundColor = [UIColor clearColor];
+        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 35, kMainScreenWidth-10, 40)];
+        label2.textAlignment = NSTextAlignmentLeft;
+        label2.numberOfLines = 0;
+        label2.backgroundColor = [UIColor clearColor];
+        label2.textColor = hexColor(00c8aa);
+        label2.font = Font_12;
+        label2.text = @"根据《劳动合同法》计算，本计算器的补偿标准仅适用于2008年 1月1日以后订立的劳动合同，供您参考。";
+        [_bottomView addSubview:label2];
+        [label2 whenCancelTapped:^{
+            
+            
+        }];
+    }
+    return _bottomView;
 }
 
 - (void)didReceiveMemoryWarning {

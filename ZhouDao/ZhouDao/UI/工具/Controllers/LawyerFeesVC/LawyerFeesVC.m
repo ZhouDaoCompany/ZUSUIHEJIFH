@@ -38,7 +38,6 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [self initUI];
 }
@@ -55,8 +54,8 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     [_tableView setTableFooterView:self.bottomLabel];
     
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"lawerFees" ofType:@"txt"];
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"xizang" ofType:@"txt"];
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"lawerFees" ofType:@"txt"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"xizang" ofType:@"txt"];
     NSData *data = [NSData dataWithContentsOfFile:path];
     NSDictionary *dict= [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
     _areasDictionary = dict[@"area"];
