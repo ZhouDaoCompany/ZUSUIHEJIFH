@@ -29,13 +29,47 @@
         [self.contentView addSubview:self.lineView];
         [self.contentView addSubview:self.segButton];
         [self.contentView addSubview:self.textField];
-
     }
     
     return self;
 }
-
 #pragma mark - method
+
+#pragma mark - 结果详情页
+- (void)settingDetailViewUIWithSection:(NSInteger)section withRow:(NSInteger)row WithMutableArrays:(NSMutableArray *)arrays
+{
+    _titleLab.frame = CGRectMake(15, 12, 160, 20);
+    _titleLab.textAlignment = NSTextAlignmentLeft;
+    _textField.placeholder = @"";
+    _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
+    _lineView.hidden = NO;
+    _textField.hidden = NO;
+    _segButton.hidden = YES;
+    self.accessoryType = UITableViewCellAccessoryNone;
+    _textField.frame = CGRectMake(kMainScreenWidth - 160, 7, 145, 30);
+
+    if (section == 0) {
+        NSArray *arr1 = arrays[0];
+        _titleLab.text = @"伤残赔偿金";
+        _textField.enabled = NO;
+        _textField.text = arr1[row];
+    }else{
+        
+        _textField.placeholder  = @"请输入金额";
+        if (row == 3) {
+            _textField.placeholder  = @"以发票为准";
+        }else if (row == 4){
+            _textField.placeholder  = @"据实据需";
+        }
+        NSArray *titleArr2 = @[@"误工费（元）",@"被抚养人生活费（元)",@"交通费（元）",@"医疗费（元）",@"住宿费（元)"];
+        _titleLab.text = titleArr2[row];
+        NSArray *arr2 = arrays[1];
+        _textField.enabled = YES;
+        _textField.text = arr2[row];
+        _lineView.hidden = (row == 4)?YES:NO;
+    }
+}
+#pragma mark - 计算页
 - (void)settingPersonalCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays withDelegate:(id<PersonalInjuryDelegate>)delegate
 {
     self.delegate = delegate;

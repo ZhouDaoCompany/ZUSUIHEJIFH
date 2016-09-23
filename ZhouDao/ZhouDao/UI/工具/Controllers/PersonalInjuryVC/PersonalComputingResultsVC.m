@@ -9,14 +9,15 @@
 #import "PersonalComputingResultsVC.h"
 #import "ParallaxHeaderView.h"
 #import "PersonalHeadView.h"
+#import "PersonalInjuryCell.h"
 
 static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 
 @interface PersonalComputingResultsVC ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (nonatomic, strong)  ParallaxHeaderView *headerView;
-
+@property (nonatomic, strong) ParallaxHeaderView *headerView;
+@property (nonatomic, strong) NSMutableArray *dataSourcesArrays;
 @end
 
 @implementation PersonalComputingResultsVC
@@ -33,6 +34,12 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 {
     [self setupNaviBarWithTitle:@"计算结果"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
+    
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"25000", nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
+    [self.dataSourcesArrays addObject:arr1];
+    [self.dataSourcesArrays addObject:arr2];
+
     [self.view addSubview:self.tableView];
 
 //    [_headerView addSubview:[PersonalHeadView instancePersonalHeadViewWithTotalMoney:@"1763514.00" withArea:@"上海" withHK:@"城镇" withItem:@"六级" withGrade:@"六级"]];
@@ -50,16 +57,20 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return [_dataSourcesArrays count];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (section == 0)?1:5;
+    NSMutableArray *arr = _dataSourcesArrays[section];
+    return [arr count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:PERSONALRESULTCELL];
+    PersonalInjuryCell *cell = (PersonalInjuryCell *)[tableView dequeueReusableCellWithIdentifier:PERSONALRESULTCELL];
+    if (_dataSourcesArrays.count >0) {
+        [cell settingDetailViewUIWithSection:indexPath.section withRow:indexPath.row WithMutableArrays:_dataSourcesArrays];
+    }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -86,7 +97,7 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 }
 
 #pragma mark - setter and getter
--(UITableView *)tableView{
+-(UITableView *)tableView{WEAKSELF;
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
@@ -94,13 +105,33 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:PERSONALRESULTCELL];
+        [_tableView registerClass:[PersonalInjuryCell class] forCellReuseIdentifier:PERSONALRESULTCELL];
+        [_tableView whenCancelTapped:^{
+            
+            [weakSelf dismissKeyBoard];
+        }];
         _headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:[QZManager createImageWithColor:hexColor(00c8aa) size:CGSizeMake(kMainScreenWidth, 145)] forSize:CGSizeMake(kMainScreenWidth, 1)];
         _tableView.tableHeaderView = _headerView;
-
     }
     return _tableView;
 }
+- (NSMutableArray *)dataSourcesArrays
+{
+    if (!_dataSourcesArrays) {
+        
+        _dataSourcesArrays = [NSMutableArray array];
+    }
+    return _dataSourcesArrays;
+}
+#pragma mark -手势
+- (void)dismissKeyBoard{
+    [self.view endEditing:YES];
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self dismissKeyBoard];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

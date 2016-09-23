@@ -10,6 +10,7 @@
 #import "PersonalInjuryCell.h"
 #import "Disability_AlertView.h"
 #import "PersonalComputingResultsVC.h"
+#import "SelectProvinceVC.h"
 
 static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 
@@ -129,22 +130,30 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {WEAKSELF;
     NSInteger row = indexPath.row;
-    NSInteger section = indexPath.section;
-    if (section == 0) {
+    
+    if (row == 0){
         
+        SelectProvinceVC *selectVC = [SelectProvinceVC new];
+        selectVC.isNoTW = YES;
+        selectVC.selectBlock = ^(NSString *string,NSString *str){
+            
+            NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
+            [arr1 replaceObjectAtIndex:row withObject:string];
+            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        };
+        [self presentViewController:selectVC animated:YES completion:nil];
+    }else if (row == 4){
         NSMutableArray *arr1 = _dataSourceArrays[0];
 
-        if (row == 4) {
-            DisabilityType type = ([arr1[3] integerValue] == 0)?SelectOnly:DisabilityGradeType;
-            
-            NSArray *array = ([arr1[3] integerValue] == 0)?nil:arr1[4];
-            Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:type withSource:array withDelegate:self];
-            [alertView show];
-            
-        }
+        DisabilityType type = ([arr1[3] integerValue] == 0)?SelectOnly:DisabilityGradeType;
+        
+        NSArray *array = ([arr1[3] integerValue] == 0)?nil:arr1[4];
+        Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:type withSource:array withDelegate:self];
+        [alertView show];
+        
     }
-
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (section == 1) {
@@ -177,7 +186,7 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
     return 0.1f;
 }
 #pragma mark - setters and getters
--(UITableView *)tableView{
+-(UITableView *)tableView{WEAKSELF;
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
@@ -186,6 +195,10 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
         [_tableView registerClass:[PersonalInjuryCell class] forCellReuseIdentifier:PERSONALCELL];
+        [_tableView whenCancelTapped:^{
+            
+            [weakSelf dismissKeyBoard];
+        }];
     }
     return _tableView;
 }
@@ -227,6 +240,14 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
         [_resetButton addTarget:self action:@selector(calculateAndResetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _resetButton;
+}
+#pragma mark -手势
+- (void)dismissKeyBoard{
+    [self.view endEditing:YES];
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self dismissKeyBoard];
 }
 
 - (void)didReceiveMemoryWarning {

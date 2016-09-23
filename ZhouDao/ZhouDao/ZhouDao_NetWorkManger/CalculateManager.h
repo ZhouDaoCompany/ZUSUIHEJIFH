@@ -35,4 +35,15 @@
  */
 + (NSMutableArray *)getAllMonthsWithPrincipal:(double)principal withMonthsMoney:(double)monthsMoneys withRate:(double)rate withMonthsCounts:(double)monthsCounts;
 
+
+/**
+ 根据时间取出银行同期利率
+
+ @param rateArrays    银行同期公布利率数组
+ @param differTimeDay 相差天数
+
+ @return 银行利率
+ */
++ (double)getRateCalculateWithRateArrays:(NSArray *)rateArrays withDays:(double)differTimeDay;
+
 @end

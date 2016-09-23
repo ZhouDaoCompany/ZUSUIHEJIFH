@@ -48,6 +48,28 @@
     
     return arrays;
 }
+#pragma mark -根据时间取出银行同期利率
++ (double)getRateCalculateWithRateArrays:(NSArray *)rateArrays withDays:(double)differTimeDay
+{
+    NSString *rateString = @"";
+    if(differTimeDay <= 180){
+        
+        rateString = rateArrays[0];
+    }else if(differTimeDay > 180 && differTimeDay <= 365){
+        
+        rateString = rateArrays[1];
+    }else if(differTimeDay > 365 && differTimeDay <= 1095){
+        
+        rateString = rateArrays[2];
+    }else if(differTimeDay > 1095 && differTimeDay <= 1825){
+        
+        rateString = rateArrays[3];
+    }else if(differTimeDay > 1825){
+        
+        rateString = rateArrays[4];
+    }
+    return [rateString doubleValue];
+}
 
 
 @end

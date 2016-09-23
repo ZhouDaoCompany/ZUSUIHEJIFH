@@ -14,8 +14,11 @@
 
 @property (weak, nonatomic)   id<PersonalInjuryDelegate>delegate;
 
+//结果页
 - (void)settingPersonalCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays withDelegate:(id<PersonalInjuryDelegate>)delegate;
 
+//详情页
+- (void)settingDetailViewUIWithSection:(NSInteger)section withRow:(NSInteger)row WithMutableArrays:(NSMutableArray *)arrays;
 @end
 @protocol  PersonalInjuryDelegate <NSObject>
 

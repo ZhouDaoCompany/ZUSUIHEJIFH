@@ -39,14 +39,14 @@
     if (section == 0) {
         
         NSMutableArray *arr1 = arrays[0];
-        NSArray *titleArr = @[@"标的金额（元）",@"还款方式",@"违约金利率（%/日）",@"起算日",@"截止日"];
+        NSArray *titleArr = @[@"标的金额（元）",@"起算日",@"截止日",@"利率选项",@"违约金利率 (%/日)"];
         _titleLab.frame = CGRectMake(15, 12, 160, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
         _textField.placeholder = @"";
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
         _lineView.hidden = NO;
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        _textField.text = arr1[row];
 
         switch (row) {
             case 0:
@@ -54,11 +54,9 @@
                 _textField.hidden = NO;
                 _textField.enabled = YES;
                 _textField.placeholder = @"请输入金额";
-                _textField.frame = CGRectMake(kMainScreenWidth - 135, 7, 120, 30);
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
                 _textField.keyboardType = UIKeyboardTypeDecimalPad;
                 self.accessoryType = UITableViewCellAccessoryNone;
-                _textField.text = arr1[0];
-
                 
             }
                 break;
@@ -66,8 +64,9 @@
             {
                 _textField.enabled = NO;
                 _textField.hidden = NO;
-                _textField.text = arr1[1];
-                _textField.placeholder = @"请选择还款方式";
+                _textField.placeholder = @"请选择起算日";
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
+                self.accessoryType = UITableViewCellAccessoryNone;
 
                 
             }
@@ -76,8 +75,9 @@
             {
                 _textField.enabled = NO;
                 _textField.hidden = NO;
-                _textField.text = arr1[2];
-                _textField.placeholder = @"请选择利率";
+                _textField.placeholder = @"请选择截止日";
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
+                self.accessoryType = UITableViewCellAccessoryNone;
 
             }
                 break;
@@ -85,21 +85,22 @@
             {
                 _textField.enabled = NO;
                 _textField.hidden = NO;
-                _textField.text = arr1[3];
-                _textField.placeholder = @"请选择起算日";
+                _textField.placeholder = @"请选择利率利率选项";
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 180, 30);
+                self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-                
             }
                 break;
             case 4:
             {
-                _textField.enabled = NO;
                 _textField.hidden = NO;
-                _textField.text = arr1[4];
+                _textField.enabled = YES;
+                _textField.placeholder = @"请输入利率";
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
+                _textField.keyboardType = UIKeyboardTypeDecimalPad;
+                self.accessoryType = UITableViewCellAccessoryNone;
                 _lineView.hidden = YES;
-                _textField.placeholder = @"请选择截止日";
 
-                
             }
                 break;
 
@@ -109,7 +110,7 @@
     }else {
         NSMutableArray *arr2 = arrays[1];
         
-        NSArray *titleArr = @[@"计算结果",@"还款总额（元）",@"利息（元）",@"本金（元）"];
+        NSArray *titleArr = @[@"计算结果",@"一般债务利息 (元)",@"加倍部分债务利息 (元)",@"延迟期间债务利息 (元)"];
         _titleLab.frame = CGRectMake(15, 12, 160, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
@@ -134,17 +135,20 @@
                 break;
             case 1:
             {
-                
-                
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
+
             }
                 break;
             case 2:
             {
-                
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
+
             }
                 break;
             case 3:
             {
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
+
                 _lineView.hidden = YES;
                 
             }
@@ -174,7 +178,7 @@
 - (CaseTextField *)textField
 {
     if (!_textField) {
-        _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 155, 7, 120, 30)];
+        _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 195, 7, 160, 30)];
         _textField.borderStyle = UITextBorderStyleNone;
         _textField.textColor = hexColor(666666);
         [_textField setValue:hexColor(ADADAD) forKeyPath:@"_placeholderLabel.textColor"];

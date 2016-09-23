@@ -80,7 +80,7 @@ static NSString *const NewsCellIdentifier = @"NewsCellIdentifier";
 {
     _effectCurrent = 0;
     _timeCurrent = -1;
-    _effectArr = [NSMutableArray arrayWithObjects:@"全部法律",@"法律",@"行政法规",@"司法解释",@"部门规章",@"军事法规规章",@"行业规定",@"团体规定",@"中央规范性文件",@"地方性法规",@"地方规章",@"单行条例和自治条例",@"地方司法文件",@"地方规范性文件",@"外国语国际法律",@"立法动态", nil];
+    _effectArr = [NSMutableArray arrayWithObjects:@"全部法律",@"法律",@"行政法规",@"司法解释",@"部门规章",@"军事法规规章",@"行业规定",@"团体规定",@"国务院",@"地方性法规",@"地方规章",@"单行条例和自治条例",@"地方司法文件",@"地方规范性文件",@"外国语国际法律",@"立法动态", nil];
     _timeArr = [NSMutableArray arrayWithObjects:@"按颁布时间",@"按生效时间", nil];
     
     _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
@@ -245,6 +245,11 @@ static NSString *const NewsCellIdentifier = @"NewsCellIdentifier";
 - (void)didSelectRowMenu{
     WEAKSELF;
     _page = 0;
+    if ([_eff isEqualToString:@"国务院"]) {
+        
+        _eff = @"中央规范性文件";
+    }
+
     [NetWorkMangerTools lawsNewsListWithUrl:_urlString withPage:_page witheff:_eff withTime:_time RequestSuccess:^(NSArray *arr) {
         
         [weakSelf.dataArrays removeAllObjects];
