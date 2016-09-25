@@ -15,11 +15,16 @@
 static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 
 @interface PersonalInjuryViewController ()<UITableViewDelegate, UITableViewDataSource,Disability_AlertViewPro,PersonalInjuryDelegate>
+{
+    BOOL _flag[3];
+}
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
+@property (strong, nonatomic) NSMutableDictionary *cityDictionnary;//城镇
+@property (strong, nonatomic) NSMutableDictionary *ruralDictionnary;//农村
 
 @end
 
@@ -47,10 +52,84 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
+    if (btn.tag == 3089 ) {
+        
+        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"0",@"0",@"0",@"", nil];
+        [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
+        [_tableView reloadData];
+    }else {
+       
+        NSMutableArray *arr1 = _dataSourceArrays[0];
+        
+        if ([arr1[4] isKindOfClass:[NSString class]]) {
+            for (NSUInteger i = 0; i<arr1.count; i++) {
+                NSString *valueString = arr1[i];
+                if (valueString.length == 0) {
+                    NSString *alertString = (i == 0)?@"请选择地区":@"请选择伤残等级";
+                    [JKPromptView showWithImageName:nil message:alertString];
+                    return;
+                }
+            }
+        }
+        
+        [self formulaToCalculateWithArrays:arr1];
+    }
+}
+#pragma mark - formula to calculate
+- (void)formulaToCalculateWithArrays:(NSMutableArray *)arrays
+{
+    NSString *name = arrays[0];
+    double money = 0.0f;
+    double allMoney = 0.0f;
+    money = (_flag[0] == NO)?[self.cityDictionnary[name] doubleValue]:[self.ruralDictionnary[name] doubleValue];
+    if (_flag[1] == YES) {
+        
+        allMoney = money *20;
+    }else {
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"一级",@"0.9",@"二级",@"0.8",@"三级",@"0.7",@"四级",@"0.6",@"五级",@"0.5",@"六级",@"0.4",@"七级",@"0.3",@"八级",@"0.2",@"九级",@"0.1",@"十级", nil];
+
+        if (_flag[2] == NO) {
+            
+            allMoney = money *[dict[arrays[4]] doubleValue] *20;
+        }else{
+            
+            NSArray *cendArrays = arrays[4];
+            //从小到大排序
+            [cendArrays sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *objcDict1, NSDictionary *objcDict2) {
+                if ([objcDict1[@"row"] intValue] < [objcDict2[@"row"] intValue])
+                {
+                    return NSOrderedAscending;
+                } else {
+                    return NSOrderedDescending;
+                }
+            }];
+            
+            __block double disabilityLevel = 0.0f;//伤残等级
+            [cendArrays enumerateObjectsUsingBlock:^(NSDictionary *levelDict, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *levelString = levelDict[@"level"];
+                double several = [levelDict[@"several"] doubleValue];
+                if (idx == 0) {
+                    disabilityLevel += [dict[levelString] doubleValue] + [dict[levelString] doubleValue] * (several - 1.f) *0.1f;
+                }else {
+                    disabilityLevel +=  [dict[levelString] doubleValue] *several *0.1f;
+                }
+            }];
+            
+            if (disabilityLevel >1.f) {
+                disabilityLevel = 1.f;
+            }
+            allMoney = money *disabilityLevel *20;
+            DLog(@"cendArrays--------%@",cendArrays);
+        }
+    }
+    
     PersonalComputingResultsVC *vc = [PersonalComputingResultsVC new];
+    vc.isDie = _flag[1];
+    vc.hkString = (_flag[0] == NO)?@"城镇":@"农村";
+    vc.cityString = arrays[0];
+    vc.moneyString = [NSString stringWithFormat:@"%.2f",allMoney];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
 #pragma mark - PersonalInjuryDelegate
 
 - (void)optionEventWithCell:(PersonalInjuryCell *)cell withSelecIndex:(NSInteger)index
@@ -59,6 +138,7 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
     NSInteger row = indexPath.row;
     NSMutableArray *arr1 = _dataSourceArrays[0];
 
+    _flag[row - 1] = (index == 0)?YES:NO;
     if (row == 2) {
         if (index == 0) {
             if (arr1.count == 3) {
@@ -209,6 +289,20 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
     }
     return _dataSourceArrays;
 }
+- (NSMutableDictionary *)cityDictionnary
+{
+    if (!_cityDictionnary) {
+        _cityDictionnary = CITYDICTIONARY;
+    }
+    return _cityDictionnary;
+}
+- (NSMutableDictionary *)ruralDictionnary{
+    if (!_ruralDictionnary) {
+        _ruralDictionnary = RURALDICTIONARY;
+    }
+    return _ruralDictionnary;
+}
+
 - (UIButton *)calculateButton
 {
     if (!_calculateButton) {
@@ -220,7 +314,7 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
         [_calculateButton setTitleColor:[UIColor whiteColor] forState:0];
         [_calculateButton setTitle:@"计算" forState:0];
         _calculateButton.titleLabel.font = Font_15;
-        _calculateButton.tag = 3033;
+        _calculateButton.tag = 3088;
         [_calculateButton addTarget:self action:@selector(calculateAndResetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _calculateButton;
@@ -236,7 +330,7 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
         [_resetButton setTitleColor:[UIColor whiteColor] forState:0];
         [_resetButton setTitle:@"重置" forState:0];
         _resetButton.titleLabel.font = Font_15;
-        _resetButton.tag = 3034;
+        _resetButton.tag = 3089;
         [_resetButton addTarget:self action:@selector(calculateAndResetBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _resetButton;

@@ -4106,6 +4106,11 @@
 					187E6D5A1C841A11009169C2 = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = DX33K55M2K;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					187E6D731C841A15009169C2 = {
 						CreatedOnToolsVersion = 7.2.1;

@@ -13,7 +13,6 @@
 @property (strong, nonatomic) UILabel *titleLab;
 @property (strong, nonatomic) UIView *lineView;
 @property (strong, nonatomic) UISegmentedControl *segButton;
-@property (strong, nonatomic) UITextField *textField;
 
 @end
 
@@ -38,6 +37,8 @@
 #pragma mark - 结果详情页
 - (void)settingDetailViewUIWithSection:(NSInteger)section withRow:(NSInteger)row WithMutableArrays:(NSMutableArray *)arrays
 {
+    _textField.section = section;
+    _textField.row = row;
     _titleLab.frame = CGRectMake(15, 12, 160, 20);
     _titleLab.textAlignment = NSTextAlignmentLeft;
     _textField.placeholder = @"";
@@ -47,7 +48,7 @@
     _segButton.hidden = YES;
     self.accessoryType = UITableViewCellAccessoryNone;
     _textField.frame = CGRectMake(kMainScreenWidth - 160, 7, 145, 30);
-
+    _textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     if (section == 0) {
         NSArray *arr1 = arrays[0];
         _titleLab.text = @"伤残赔偿金";
@@ -205,10 +206,10 @@
     }
     return _titleLab;
 }
-- (UITextField *)textField
+- (CaseTextField *)textField
 {
     if (!_textField) {
-        _textField = [[UITextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 215, 7, 180, 30)];
+        _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 215, 7, 180, 30)];
         _textField.borderStyle = UITextBorderStyleNone;
         _textField.textColor = hexColor(666666);
         [_textField setValue:hexColor(ADADAD) forKeyPath:@"_placeholderLabel.textColor"];

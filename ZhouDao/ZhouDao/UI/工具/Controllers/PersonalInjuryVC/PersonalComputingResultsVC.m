@@ -13,14 +13,20 @@
 
 static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 
-@interface PersonalComputingResultsVC ()<UITableViewDelegate, UITableViewDataSource>
+@interface PersonalComputingResultsVC ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic, strong) ParallaxHeaderView *headerView;
 @property (nonatomic, strong) NSMutableArray *dataSourcesArrays;
+@property (nonatomic, copy) NSString *allMoneyString;
+
 @end
 
 @implementation PersonalComputingResultsVC
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark - life cycle
 - (void)viewDidLoad {
@@ -35,15 +41,15 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
     [self setupNaviBarWithTitle:@"计算结果"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"25000", nil];
+    _allMoneyString = _moneyString;
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:_allMoneyString, nil];
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
     [self.dataSourcesArrays addObject:arr1];
     [self.dataSourcesArrays addObject:arr2];
 
     [self.view addSubview:self.tableView];
-
 //    [_headerView addSubview:[PersonalHeadView instancePersonalHeadViewWithTotalMoney:@"1763514.00" withArea:@"上海" withHK:@"城镇" withItem:@"六级" withGrade:@"六级"]];
-    
+
 }
 #pragma mark - UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -68,20 +74,20 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     PersonalInjuryCell *cell = (PersonalInjuryCell *)[tableView dequeueReusableCellWithIdentifier:PERSONALRESULTCELL];
+    cell.textField.delegate = self;
     if (_dataSourcesArrays.count >0) {
         [cell settingDetailViewUIWithSection:indexPath.section withRow:indexPath.row WithMutableArrays:_dataSourcesArrays];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textFieldChanged:)
+                                                 name:UITextFieldTextDidChangeNotification
+                                               object:cell.textField];
+
     return cell;
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
-    NSInteger row = indexPath.row;
-    NSInteger section = indexPath.section;
-    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return (section == 0)?[PersonalHeadView instancePersonalHeadViewWithTotalMoney:@"1763514.00" withArea:@"上海" withHK:@"城镇" withItem:@"" withGrade:@""]:nil;
+    return (section == 0)?[PersonalHeadView instancePersonalHeadViewWithTotalMoney:_allMoneyString withArea:_cityString withHK:_hkString withItem:@"" withGrade:@""]:nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -94,6 +100,40 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.1f;
+}
+#pragma mark -UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self dismissKeyBoard];
+    return YES;
+}
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    [self dismissKeyBoard];
+    NSMutableArray *arr = _dataSourcesArrays[1];
+    double money = 0.0f;
+    for (NSUInteger i = 0; i<arr.count; i++) {
+        NSString *valueString = arr[i];
+        if (valueString.length >0) {
+            money += [valueString doubleValue];
+        }
+    }
+    _allMoneyString = [NSString stringWithFormat:@"%.2f",[_moneyString doubleValue] + money];
+    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+    return YES;
+}
+- (void)textFieldChanged:(NSNotification*)noti{
+    
+    CaseTextField *textField = (CaseTextField *)noti.object;
+    BOOL flag=[NSString isContainsTwoEmoji:textField.text];
+    if (flag){
+        textField.text = [NSString disable_emoji:textField.text];
+    }
+    NSInteger row = textField.row;
+    NSInteger section = textField.section;
+    
+    NSMutableArray *arr = _dataSourcesArrays[section];
+    [arr replaceObjectAtIndex:row withObject:textField.text];
 }
 
 #pragma mark - setter and getter
