@@ -14,6 +14,7 @@
 @interface DisabilityViewCell()
 
 @property (nonatomic, strong) UIView *lineView;
+@property (nonatomic, strong) UILabel *label;
 @end
 @implementation DisabilityViewCell
 
@@ -35,6 +36,7 @@
     [self.contentView addSubview:self.titlelabel];
     [self.contentView addSubview:self.numberButtons];
     [self.contentView addSubview:self.lineView];
+    [self.contentView addSubview:self.label];
     _numberButtons.numberBlock = ^(NSString *num){
         DLog(@"%@",num);
         
@@ -73,6 +75,26 @@
 //    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:obj,@"several",arr[i],@"level",indexRow,@"row",nil];
 
 }
+- (void)settingUIWithLevelNoEdit:(NSInteger)row withSourceArrays:(NSMutableArray *)sourceArrays
+{
+    //    _delegate = delegate;
+    _row = row;
+    _numberButtons.hidden = YES;
+    NSArray *arr = @[@"一级",@"二级",@"三级",@"四级",@"五级",@"六级",@"七级",@"八级",@"九级",@"十级"];
+    _titlelabel.text = arr[row];
+    
+    [sourceArrays enumerateObjectsUsingBlock:^(NSDictionary *objDict, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        NSInteger indexRow = [objDict[@"row"] integerValue];
+        if (row == indexRow) {
+            
+            _label.text = objDict[@"several"];
+        }
+    }];
+    //    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:obj,@"several",arr[i],@"level",indexRow,@"row",nil];
+    
+}
+
 - (void)selectOnlyUI:(NSInteger)row
 {
     _row = row;
@@ -94,7 +116,16 @@
     }
     return _titlelabel;
 }
-
+- (UILabel *)label
+{
+    if (!_label) {
+        _label = [[UILabel alloc] initWithFrame:CGRectMake(kContentLabelWidth - 115, 7.5f, 90, 30)];
+        _label.textColor = hexColor(666666);
+        _label.font = Font_13;
+        _label.textAlignment = NSTextAlignmentCenter;
+    }
+    return _label;
+}
 - (PPNumberButton *)numberButtons
 {
     if (!_numberButtons) {

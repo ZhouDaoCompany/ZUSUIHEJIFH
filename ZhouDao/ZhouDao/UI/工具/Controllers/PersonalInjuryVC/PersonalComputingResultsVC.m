@@ -10,10 +10,11 @@
 #import "ParallaxHeaderView.h"
 #import "PersonalHeadView.h"
 #import "PersonalInjuryCell.h"
+#import "Disability_AlertView.h"
 
 static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 
-@interface PersonalComputingResultsVC ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface PersonalComputingResultsVC ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,PersonalHeadViewDelegate,Disability_AlertViewPro>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic, strong) ParallaxHeaderView *headerView;
@@ -87,7 +88,7 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return (section == 0)?[PersonalHeadView instancePersonalHeadViewWithTotalMoney:_allMoneyString withArea:_cityString withHK:_hkString withItem:@"" withGrade:@""]:nil;
+    return (section == 0)?[PersonalHeadView instancePersonalHeadViewWithTotalMoney:_allMoneyString withDictionary:_detailDictionary withDelegate:self]:nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -100,6 +101,13 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.1f;
+}
+#pragma mark - PersonalHeadViewDelegate
+- (void)clickGradeEvent
+{
+    NSArray *array = _detailDictionary[@"grade"];
+    Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:CheckNoEdit withSource:array withDelegate:self];
+    [alertView show];
 }
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

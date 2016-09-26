@@ -50,7 +50,6 @@
         _textField.placeholder = @"";
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
         _lineView.hidden = NO;
-        _textField.text = arr1[row];
         _textField.enabled = NO;
         _segButton.hidden = YES;
         _textField.textAlignment = NSTextAlignmentRight;
@@ -62,7 +61,8 @@
                 _textField.hidden = NO;
                 _segButton.hidden = YES;
                 _textField.placeholder = @"请选择开始日期";
-                
+                _textField.text = arr1[row];
+
             }
                 break;
             case 1:
@@ -71,7 +71,8 @@
                 _textField.enabled = YES;
                 _textField.placeholder = @"请输入间隔天数";
                 _textField.keyboardType = UIKeyboardTypeDecimalPad;
-                
+                _textField.text = arr1[row];
+
             }
                 break;
             case 2:
@@ -82,16 +83,19 @@
                 [_segButton removeAllSegments];
                 [_segButton insertSegmentWithTitle:@"向前推算" atIndex:0 animated:NO];
                 [_segButton insertSegmentWithTitle:@"向后推算" atIndex:0 animated:NO];
-                _segButton.selectedSegmentIndex = 0;
+                _segButton.selectedSegmentIndex = [arr1[row] integerValue];
                 
             }
                 break;
             case 3:
             {
-               
                 _segButton.hidden = NO;
                 _lineView.hidden = YES;
-                
+                _segButton.frame = CGRectMake(kMainScreenWidth - 102, 9, 87, 27);
+                [_segButton removeAllSegments];
+                [_segButton insertSegmentWithTitle:@"是" atIndex:0 animated:NO];
+                [_segButton insertSegmentWithTitle:@"否" atIndex:0 animated:NO];
+                _segButton.selectedSegmentIndex = [arr1[row] integerValue];
                 
             }
                 break;
@@ -148,7 +152,11 @@
 #pragma mark - seg
 - (void)didClicksegmentedControlAction:(UISegmentedControl *)Seg
 {
-    
+    if ([self.delegate respondsToSelector:@selector(optionRiQiEventWithCell:withSelecIndex:)])
+    {
+        [self.delegate optionRiQiEventWithCell:self withSelecIndex:Seg.selectedSegmentIndex];
+    }
+
 }
 #pragma mark - setter and getter
 - (UILabel *)titleLab

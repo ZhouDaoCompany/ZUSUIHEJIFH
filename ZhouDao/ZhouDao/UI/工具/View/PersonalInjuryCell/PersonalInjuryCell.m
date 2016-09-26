@@ -48,7 +48,7 @@
     _segButton.hidden = YES;
     self.accessoryType = UITableViewCellAccessoryNone;
     _textField.frame = CGRectMake(kMainScreenWidth - 160, 7, 145, 30);
-    _textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    _textField.keyboardType = UIKeyboardTypeDecimalPad;
     if (section == 0) {
         NSArray *arr1 = arrays[0];
         _titleLab.text = @"伤残赔偿金";
@@ -100,6 +100,9 @@
             {
                 _textField.hidden = YES;
                 _segButton.hidden = NO;
+                [_segButton removeAllSegments];
+                [_segButton insertSegmentWithTitle:@"城镇" atIndex:0 animated:NO];
+                [_segButton insertSegmentWithTitle:@"农村" atIndex:1 animated:NO];
                 _segButton.selectedSegmentIndex = [arr1[row] integerValue];
 
             }

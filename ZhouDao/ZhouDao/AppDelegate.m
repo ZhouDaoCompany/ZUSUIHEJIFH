@@ -55,6 +55,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -65,7 +66,9 @@
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
 
-    
+    NSString *identifierStr = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSLog(@"设备唯一标识符:%@",identifierStr);
+
     kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
         
         //键盘配置

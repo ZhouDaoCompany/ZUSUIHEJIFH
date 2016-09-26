@@ -21,6 +21,8 @@
 		1046225B1D7BFB5A00D5640C /* PPNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1046225A1D7BFB5A00D5640C /* PPNumberButton.m */; };
 		1046225E1D7C2DBE00D5640C /* ConsultantHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1046225D1D7C2DBE00D5640C /* ConsultantHeadView.m */; };
 		182C24A01D8118E0005B4426 /* NSDate+fish_Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C249F1D8118E0005B4426 /* NSDate+fish_Extension.m */; };
+		183469431D98ED720007B0D9 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 183469421D98ED720007B0D9 /* README.txt */; };
+		183469481D98FC730007B0D9 /* Temp.m in Sources */ = {isa = PBXBuildFile; fileRef = 183469471D98FC730007B0D9 /* Temp.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,9 @@
 		1046225D1D7C2DBE00D5640C /* ConsultantHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultantHeadView.m; sourceTree = "<group>"; };
 		182C249E1D8118E0005B4426 /* NSDate+fish_Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+fish_Extension.h"; sourceTree = "<group>"; };
 		182C249F1D8118E0005B4426 /* NSDate+fish_Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+fish_Extension.m"; sourceTree = "<group>"; };
+		183469421D98ED720007B0D9 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		183469461D98FC730007B0D9 /* Temp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Temp.h; sourceTree = "<group>"; };
+		183469471D98FC730007B0D9 /* Temp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Temp.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +139,9 @@
 				1046224E1D7BBAC600D5640C /* DefineHeader.h */,
 				1046224F1D7BBAE600D5640C /* UIColor+Helper.h */,
 				104622501D7BBAE600D5640C /* UIColor+Helper.m */,
+				183469461D98FC730007B0D9 /* Temp.h */,
+				183469471D98FC730007B0D9 /* Temp.m */,
+				183469421D98ED720007B0D9 /* README.txt */,
 				104622271D7BBAA100D5640C /* Assets.xcassets */,
 				1046225C1D7C2DBE00D5640C /* ConsultantHeadView.h */,
 				1046225D1D7C2DBE00D5640C /* ConsultantHeadView.m */,
@@ -285,6 +293,7 @@
 			files = (
 				1046222B1D7BBAA100D5640C /* LaunchScreen.storyboard in Resources */,
 				104622281D7BBAA100D5640C /* Assets.xcassets in Resources */,
+				183469431D98ED720007B0D9 /* README.txt in Resources */,
 				104622261D7BBAA100D5640C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +324,7 @@
 				104622541D7BBB5F00D5640C /* Disability_AlertView.m in Sources */,
 				104622231D7BBAA100D5640C /* ViewController.m in Sources */,
 				104622201D7BBAA100D5640C /* AppDelegate.m in Sources */,
+				183469481D98FC730007B0D9 /* Temp.m in Sources */,
 				1046221D1D7BBAA100D5640C /* main.m in Sources */,
 				182C24A01D8118E0005B4426 /* NSDate+fish_Extension.m in Sources */,
 				104622511D7BBAE600D5640C /* UIColor+Helper.m in Sources */,

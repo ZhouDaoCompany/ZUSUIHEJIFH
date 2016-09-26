@@ -21,46 +21,66 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view addSubview:self.sureBtn];
-    
-    //创建日历
-    NSCalendar *calendar=[NSCalendar currentCalendar];
-    //定义成分
-    NSCalendarUnit unitFlags=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    NSDate *tempDate = [NSDate dateFromString:@"2016-09-18" format:@"yyyy-MM-dd"];
-    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
-    [dateComponent  setYear:0];
-    [dateComponent setMonth:1];
-    [dateComponent setDay:0];
-    NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
-    
-//    NSString *str1 = [NSDate datestrFromDate:newdate withDateFormat:@"yyyy-MM-dd"];//[NSDate datestrFromDate:newdate format:@"yyyy-MM-dd"];
-//    DLog(@"输出时间是－－－%@",str1);
-    
-//    [self calculateAgeFromDate:[NSDate dateFromString:@"2016-09-04" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-10-01" format:@"yyyy-MM-dd"]];
-//    
-//    ///P:贷款本金  R:月利率    N:还款期数    还款期数=贷款年限×12
-//
-//    
-//    double x = [self loanPrincipal:200000.f withAnInterest:0.00465 withRepaymentPeriods:180];
-//    DLog(@"--------%.2f",x);
+        NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"README" ofType:@"txt"];
+        NSData *data = [NSData dataWithContentsOfFile:pathsss];
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+/*
+    //获取本地沙盒路径
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //获取完整路径
+    NSString *documentsPath = [path objectAtIndex:0];
+    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"Holiday.plist"];
+//    NSMutableDictionary *usersDic = [[NSMutableDictionary alloc ] init];
+//    //设置属性值
+//    [usersDic setObject:@"chan" forKey:@"name"];
+//    [usersDic setObject:@"123456" forKey:@"password"];
+    //写入文件
+    [dict writeToFile:plistPath atomically:YES];
+ */
     
     
+
     
-//    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    [self.view addSubview:self.sureBtn];
 //    
-//    NSDateComponents *comps = nil;
+//    //创建日历
+//    NSCalendar *calendar=[NSCalendar currentCalendar];
+//    //定义成分
+//    NSCalendarUnit unitFlags=NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+//    NSDate *tempDate = [NSDate dateFromString:@"2016-09-18" format:@"yyyy-MM-dd"];
+//    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
+//    [dateComponent  setYear:0];
+//    [dateComponent setMonth:1];
+//    [dateComponent setDay:0];
+//    NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
 //    
-//    comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:mydate];
+////    NSString *str1 = [NSDate datestrFromDate:newdate withDateFormat:@"yyyy-MM-dd"];//[NSDate datestrFromDate:newdate format:@"yyyy-MM-dd"];
+////    DLog(@"输出时间是－－－%@",str1);
 //    
-//    NSDateComponents *adcomps = [[NSDateComponents alloc] init];
+////    [self calculateAgeFromDate:[NSDate dateFromString:@"2016-09-04" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-10-01" format:@"yyyy-MM-dd"]];
+////    
+////    ///P:贷款本金  R:月利率    N:还款期数    还款期数=贷款年限×12
+////
+////    
+////    double x = [self loanPrincipal:200000.f withAnInterest:0.00465 withRepaymentPeriods:180];
+////    DLog(@"--------%.2f",x);
 //    
-//    [adcomps setYear:0];
 //    
-//    [adcomps setMonth:-1];
 //    
-//    [adcomps setDay:0];
-//    NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:mydate options:0];
+////    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+////    
+////    NSDateComponents *comps = nil;
+////    
+////    comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:mydate];
+////    
+////    NSDateComponents *adcomps = [[NSDateComponents alloc] init];
+////    
+////    [adcomps setYear:0];
+////    
+////    [adcomps setMonth:-1];
+////    
+////    [adcomps setDay:0];
+////    NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:mydate options:0];
 }
 - (void)calculateYearsWithMonthsFromDate:(NSDate *)date1 toDate:(NSDate *)date2 withYear:(BOOL)isYear Success:(void(^)(NSString *dateString))success
 {

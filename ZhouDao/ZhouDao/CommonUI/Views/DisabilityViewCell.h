@@ -21,6 +21,8 @@
 - (void)setCaseTypeUIwithArrays:(NSMutableArray *)sourceArrays withSection:(NSInteger)section withRow:(NSInteger)row;
 - (void)settingUIWithLevel:(NSInteger)row withSourceArrays:(NSMutableArray *)sourceArrays;
 - (void)selectOnlyUI:(NSInteger)row;
+- (void)settingUIWithLevelNoEdit:(NSInteger)row withSourceArrays:(NSMutableArray *)sourceArrays;
+
 @end
 
 //@protocol DisabilityViewDelegate <NSObject>

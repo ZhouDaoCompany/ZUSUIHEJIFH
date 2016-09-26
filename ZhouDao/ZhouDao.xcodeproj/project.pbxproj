@@ -226,6 +226,7 @@
 		1830E06F1D4863B9005D287E /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830E0691D4863B9005D287E /* SDBrowserImageView.m */; };
 		1830E0701D4863B9005D287E /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830E06B1D4863B9005D287E /* SDPhotoBrowser.m */; };
 		1830E0711D4863B9005D287E /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1830E06E1D4863B9005D287E /* SDWaitingView.m */; };
+		183469451D98F2F80007B0D9 /* Holiday.plist in Resources */ = {isa = PBXBuildFile; fileRef = 183469441D98F2F80007B0D9 /* Holiday.plist */; };
 		183498571CE03694009707E2 /* LawsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 183498561CE03694009707E2 /* LawsDataModel.m */; };
 		18360F791CA287F300077914 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC08C1C9FF92000FD1221 /* CoreLocation.framework */; };
 		183CE1A51D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CE1A31D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a */; };
@@ -965,6 +966,8 @@
 		1830E06C1D4863B9005D287E /* SDPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserConfig.h; sourceTree = "<group>"; };
 		1830E06D1D4863B9005D287E /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
 		1830E06E1D4863B9005D287E /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
+		1834693E1D98B0A50007B0D9 /* ZhouDao.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZhouDao.entitlements; sourceTree = "<group>"; };
+		183469441D98F2F80007B0D9 /* Holiday.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Holiday.plist; sourceTree = "<group>"; };
 		183498551CE03694009707E2 /* LawsDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LawsDataModel.h; sourceTree = "<group>"; };
 		183498561CE03694009707E2 /* LawsDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LawsDataModel.m; sourceTree = "<group>"; };
 		183CE1A31D10F06C00A8ADAF /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
@@ -3075,6 +3078,7 @@
 		187E6D5D1C841A11009169C2 /* ZhouDao */ = {
 			isa = PBXGroup;
 			children = (
+				1834693E1D98B0A50007B0D9 /* ZhouDao.entitlements */,
 				187E6D611C841A11009169C2 /* AppDelegate.h */,
 				187E6D621C841A11009169C2 /* AppDelegate.m */,
 				18FF3F681C8547610098C60B /* UI */,
@@ -3916,6 +3920,7 @@
 			children = (
 				10FA3E241CAD6B14005C4C0C /* 铃声 */,
 				103D48C41CE8705500ED0864 /* Areas.plist */,
+				183469441D98F2F80007B0D9 /* Holiday.plist */,
 				18CD4D951C928111001838D2 /* Utility */,
 				18FF3F631C85348B0098C60B /* Image */,
 			);
@@ -4108,7 +4113,7 @@
 						DevelopmentTeam = DX33K55M2K;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -4155,6 +4160,7 @@
 				180B31631C8ECFFF00360A23 /* homeUnselect@2x.png in Resources */,
 				187367671D758929000C1169 /* RiQiTablViewController.xib in Resources */,
 				18CD01D71C901367009DE385 /* tabbar_judicial@2x.png in Resources */,
+				183469451D98F2F80007B0D9 /* Holiday.plist in Resources */,
 				1856A1151D4F35150070B93E /* bootstrap-datetimepicker.rs.js in Resources */,
 				109EA9EC1D4C3CD1005C09BB /* ToolsCalculate_weiyuejin.html in Resources */,
 				1065C3471CA91BA4003F4089 /* law_shezhi@2x.png in Resources */,
@@ -4923,6 +4929,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = ZhouDao/ZhouDao.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -4962,6 +4969,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = ZhouDao/ZhouDao.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
 				ENABLE_BITCODE = NO;

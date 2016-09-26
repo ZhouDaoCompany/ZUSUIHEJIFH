@@ -20,6 +20,8 @@ static NSString *const DAYCellID = @"dayCellID";
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
 @property (copy, nonatomic) NSString *startTime;//开始时间戳
 @property (copy, nonatomic) NSString *endTime;//结束时间戳
+@property (strong, nonatomic) NSMutableArray *timeArrays;
+@property (strong, nonatomic) NSMutableDictionary *timeDictionary;
 
 @end
 
@@ -35,6 +37,12 @@ static NSString *const DAYCellID = @"dayCellID";
 }
 #pragma mark - private methods
 - (void)initUI{
+    
+    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"Holiday" ofType:@"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+    self.timeArrays = dict[@"time"];
+    self.timeDictionary = dict[@"allHoliday"];
+    
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
 
@@ -72,16 +80,20 @@ static NSString *const DAYCellID = @"dayCellID";
                 return;
             }
         }
-        
+        if ([_endTime floatValue] <= [_startTime floatValue]) {
+            [JKPromptView showWithImageName:nil message:@"请您检查所选时间"];
+            return;
+        }
+
         if (_dataSourceArrays.count == 2) {
             [_dataSourceArrays removeObjectAtIndex:1];
         }
 
         __block NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"", nil];
-//        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",nil];
-        
+        __block NSString *workDays = @"0";
         [self calculateTheTotalDaysWithWorkingDaysFromDate:[QZManager timeStampChangeNSDate:[_startTime floatValue]] toDate:[QZManager timeStampChangeNSDate:[_endTime floatValue]] Success:^(NSString *allDays, NSString *workingDays) {
             
+            workDays = workingDays;
             [arr2 addObject:allDays];
             [arr2 addObject:workingDays];
         }];
@@ -96,16 +108,76 @@ static NSString *const DAYCellID = @"dayCellID";
         }];
 
         [_dataSourceArrays addObject:arr2];
-        [UIView animateWithDuration:.25 animations:^{
+        
+        [self.tableView reloadData];
+
+        [self concludedThatMoreAccurateWorkingDays:workDays withSuccess:^(NSString *work) {
+            
+            NSMutableArray *arrays = weakSelf.dataSourceArrays[1];
+            [arrays replaceObjectAtIndex:4 withObject:work];
             [weakSelf.tableView reloadData];
         }];
-
     }
-    
-
     DLog(@"计算或者重置");
 }
+- (void)concludedThatMoreAccurateWorkingDays:(NSString *)workDays withSuccess:(void(^)(NSString *work))success
+{
+    NSUInteger workDayInter = [workDays integerValue];
+    NSString *working = @"";
+    float startTimeInt = [_startTime floatValue];
+    float endTimeInt = [_endTime floatValue];
 
+    if ([_startTime integerValue] > [[_timeArrays lastObject] integerValue]) {
+        
+        working = [NSString stringWithFormat:@"%@天",workDays];
+    }else if ([_endTime integerValue] < [[_timeArrays firstObject] integerValue]){
+        
+        working = [NSString stringWithFormat:@"%@天",workDays];
+    }else {
+        
+        __block NSUInteger startIndex = 0;
+        __block NSUInteger endIndex = [self.timeArrays count];
+
+        [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (startTimeInt - [obj floatValue] <=0) {
+                startIndex = idx;
+                *stop = YES;
+            }
+        }];
+        [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (endTimeInt - [obj floatValue] == 0) {
+                endIndex = idx + 1;
+                *stop = YES;
+            }
+            if (endTimeInt - [obj floatValue] < 0) {
+                endIndex = idx;
+                *stop = YES;
+            }
+        }];
+
+        for (NSUInteger i = startIndex; i < endIndex; i++)
+        {
+            /*
+             2   放假
+             0   周六周日 工作日
+             3   放假并且是周六周日
+             */
+            NSString *holiday = _timeArrays[i];
+            NSString *contrastString = [NSString stringWithFormat:@"%@",_timeDictionary[holiday]];
+            if ([contrastString isEqualToString:@"2"]) {
+                
+                workDayInter -= 1;
+            }else if ([contrastString isEqualToString:@"0"]){
+                
+                workDayInter += 1;
+            }
+        }
+        working = [NSString stringWithFormat:@"%ld天",workDayInter];
+    }
+    success(working);
+}
 #pragma mark - 计算总天数 工作日
 - (void)calculateTheTotalDaysWithWorkingDaysFromDate:(NSDate *)date1 toDate:(NSDate *)date2 Success:(void(^)(NSString *allDays,NSString *workingDays))success
 {
@@ -142,7 +214,7 @@ static NSString *const DAYCellID = @"dayCellID";
     //weekday 的值就是工作日的天数
     NSUInteger weekday =days - weekend;
     DLog(@"总天数:%lu     工作日:%lu",(unsigned long)days,(unsigned long)weekday);
-    success([NSString stringWithFormat:@"%ld天",days],[NSString stringWithFormat:@"%ld天",weekday]);
+    success([NSString stringWithFormat:@"%ld天",days],[NSString stringWithFormat:@"%ld",weekday]);
 }
 - (void)calculateYearsWithMonthsFromDate:(NSDate *)date1 toDate:(NSDate *)date2 withYear:(BOOL)isYear Success:(void(^)(NSString *dateString))success
 {
@@ -302,7 +374,20 @@ static NSString *const DAYCellID = @"dayCellID";
     }
     return _resetButton;
 }
-
+- (NSMutableDictionary *)timeDictionary
+{
+    if (!_timeDictionary) {
+        _timeDictionary = [NSMutableDictionary dictionary];
+    }
+    return _timeDictionary;
+}
+- (NSMutableArray *)timeArrays
+{
+    if (!_timeArrays) {
+        _timeArrays = [NSMutableArray array ];
+    }
+    return _timeArrays;
+}
 #pragma mark -手势
 - (void)dismissKeyBoard{
     [self.view endEditing:YES];

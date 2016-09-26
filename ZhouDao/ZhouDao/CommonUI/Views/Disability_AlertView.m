@@ -39,7 +39,7 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
         _delegate = delegate;
         _type = type;
 
-        if (type == DisabilityGradeType) {
+        if (type == DisabilityGradeType || type == CheckNoEdit) {
 
             [self.sourceArrays addObjectsFromArray:sourceArrays];
             [self disabilityGradeSelectUI];
@@ -82,7 +82,12 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
 
     [self.zd_superView addSubview:self.headlab];
     [self.zd_superView addSubview:self.tableView];
-    [self.zd_superView addSubview:self.sureBtn];
+    
+    if (_type == CheckNoEdit) {
+        _tableView.frame = CGRectMake(0,75, kContentLabelWidth, self.zd_superView.frame.size.height - 75);
+    }else {
+        [self.zd_superView addSubview:self.sureBtn];
+    }
     
     [self.zd_superView whenCancelTapped:^{
     }];
@@ -208,9 +213,11 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     }else if (_type == CaseType){
         
         [cell setCaseTypeUIwithArrays:_dataSourceArrays withSection:indexPath.section withRow:indexPath.row];
-    }else {
+    }else if (_type == SelectOnly){
         
         [cell selectOnlyUI:indexPath.row];
+    }else {
+        [cell settingUIWithLevelNoEdit:indexPath.row withSourceArrays:_sourceArrays];
     }
 
     return cell;

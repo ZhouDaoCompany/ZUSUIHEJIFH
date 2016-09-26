@@ -54,23 +54,42 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 {
     if (btn.tag == 3089 ) {
         
+        for (NSUInteger i = 0; i<3; i++) {
+            _flag[i] = NO;
+        }
         NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"0",@"0",@"0",@"", nil];
         [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
         [_tableView reloadData];
     }else {
        
         NSMutableArray *arr1 = _dataSourceArrays[0];
-        
-        if ([arr1[4] isKindOfClass:[NSString class]]) {
-            for (NSUInteger i = 0; i<arr1.count; i++) {
+        for (NSUInteger i = 0; i<arr1.count; i++) {
+            NSString *alertString = (i == 0)?@"请选择地区":@"请选择伤残等级";
+
+            if (i <4) {
                 NSString *valueString = arr1[i];
                 if (valueString.length == 0) {
-                    NSString *alertString = (i == 0)?@"请选择地区":@"请选择伤残等级";
                     [JKPromptView showWithImageName:nil message:alertString];
                     return;
                 }
+            }else {
+                if ([arr1[4] isKindOfClass:[NSString class]]) {
+                    NSString *valueString = arr1[i];
+                    if (valueString.length == 0) {
+                        [JKPromptView showWithImageName:nil message:alertString];
+                        return;
+                    }
+                }else {
+                    NSArray *leavelArr = arr1[4];
+                    if (leavelArr.count == 0) {
+                        [JKPromptView showWithImageName:nil message:alertString];
+                        return;
+                    }
+                }
+
             }
         }
+
         
         [self formulaToCalculateWithArrays:arr1];
     }
@@ -124,9 +143,16 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
     }
     
     PersonalComputingResultsVC *vc = [PersonalComputingResultsVC new];
-    vc.isDie = _flag[1];
-    vc.hkString = (_flag[0] == NO)?@"城镇":@"农村";
-    vc.cityString = arrays[0];
+    NSMutableDictionary *dict;
+    NSString *hkString = (_flag[0] == NO)?@"城镇":@"农村";
+    NSString *ableString = (_flag[2] == NO)?@"单级":@"多级";
+
+    if (_flag[1] == YES) {
+        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:arrays[0],@"area",hkString,@"hk", nil];
+    }else {
+        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:arrays[0],@"area",hkString,@"hk",ableString,@"item",arrays[4],@"grade", nil];
+    }
+    vc.detailDictionary = dict;
     vc.moneyString = [NSString stringWithFormat:@"%.2f",allMoney];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -138,7 +164,7 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
     NSInteger row = indexPath.row;
     NSMutableArray *arr1 = _dataSourceArrays[0];
 
-    _flag[row - 1] = (index == 0)?YES:NO;
+    _flag[row - 1] = (index == 0)?NO:YES;
     if (row == 2) {
         if (index == 0) {
             if (arr1.count == 3) {

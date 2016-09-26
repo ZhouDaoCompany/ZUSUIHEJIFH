@@ -11,9 +11,7 @@
 
 @interface PersonalComputingResultsVC : BaseViewController
 
-@property (nonatomic, assign) BOOL isDie;
 @property (nonatomic, copy) NSString *moneyString;
-@property (nonatomic, copy) NSString *cityString;
-@property (nonatomic, copy) NSString *hkString;
-
+@property (nonatomic, strong) NSMutableDictionary *detailDictionary;
+//地区，户口，伤残项，伤残等级
 @end

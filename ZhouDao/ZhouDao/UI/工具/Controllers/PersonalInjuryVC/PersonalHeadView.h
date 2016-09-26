@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol  PersonalHeadViewDelegate;
 
 @interface PersonalHeadView : UIView
++ (PersonalHeadView *)instancePersonalHeadViewWithTotalMoney:(NSString *)totalMoney withDictionary:(NSDictionary *)dict withDelegate:(id<PersonalHeadViewDelegate>)delegate;
 
-+ (PersonalHeadView *)instancePersonalHeadViewWithTotalMoney:(NSString *)totalMoney withArea:(NSString *)area withHK:(NSString *)hk withItem:(NSString *)item withGrade:(NSString *)grade;
+@property (weak, nonatomic)   id<PersonalHeadViewDelegate>delegate;
 
+@end
+@protocol  PersonalHeadViewDelegate <NSObject>
+@optional
+- (void)clickGradeEvent;
 @end

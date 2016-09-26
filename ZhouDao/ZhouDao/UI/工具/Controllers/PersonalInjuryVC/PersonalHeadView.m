@@ -27,19 +27,19 @@
 
 @implementation PersonalHeadView
 
-+ (PersonalHeadView *)instancePersonalHeadViewWithTotalMoney:(NSString *)totalMoney withArea:(NSString *)area withHK:(NSString *)hk withItem:(NSString *)item withGrade:(NSString *)grade
++ (PersonalHeadView *)instancePersonalHeadViewWithTotalMoney:(NSString *)totalMoney withDictionary:(NSDictionary *)dict withDelegate:(id<PersonalHeadViewDelegate>)delegate
 {
     NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"PersonalHeadView" owner:self options:nil];
     PersonalHeadView *headView = [nibView objectAtIndex:0];
-    [headView initUIWithTotalMoney:totalMoney withArea:area withHK:hk withItem:item withGrade:grade];
+    [headView initUIWithTotalMoney:totalMoney withDictionary:dict withDelegate:delegate];
     return headView;
 
 }
-- (void)initUIWithTotalMoney:(NSString *)totalMoney withArea:(NSString *)area withHK:(NSString *)hk withItem:(NSString *)item withGrade:(NSString *)grade
+- (void)initUIWithTotalMoney:(NSString *)totalMoney withDictionary:(NSDictionary *)dict withDelegate:(id<PersonalHeadViewDelegate>)delegate
 {
     _totalLabel.text = totalMoney;
-
-    if (item.length == 0) {
+    _delegate = delegate;
+    if (dict.count == 2) {
         
         _lineView1.hidden = YES;
         _lineView3.hidden = YES;
@@ -51,17 +51,48 @@
         [self.bottomView addSubview:self.oneLabel];
         [self.bottomView addSubview:self.twoLabel];
         
-        _oneLabel.text = area;
-        _twoLabel.text = hk;
-
-
+        NSString *area = dict[@"area"];
+        NSString *hk   = dict[@"hk"];
+        _oneLabel.text = [NSString stringWithFormat:@"地区\n%@",area];
+        _twoLabel.text = [NSString stringWithFormat:@"户口\n%@",hk];
+// [NSString stringWithFormat:@"%@",[ stringByReplacingOccurrencesOfString:@"\\n" withString:@" \r\n" ]];
     }else{
        
-        _areaLabel.text = area;
-        _hkLabel.text = hk;
-        _itemLabel.text = item;
-        _gradeLabel.text = grade;
+        NSString *area = dict[@"area"];
+        NSString *hk   = dict[@"hk"];
+        NSString *item = dict[@"item"];
+        NSString *sss = [NSString stringWithFormat:@"地区\n%@",area];
+        _areaLabel.text = sss;
+        _hkLabel.text = [NSString stringWithFormat:@"户口\n%@",hk];
+        _itemLabel.text = [NSString stringWithFormat:@"伤残项\n%@",item];
+        
+        if ([item isEqualToString:@"单级"]) {
+            NSString *grade = dict[@"grade"];
+            _gradeLabel.text =  [NSString stringWithFormat:@"伤残等级\n%@",grade];
+        }else {
+            
+            NSArray *levelArr = dict[@"grade"];
+            NSDictionary *dict = levelArr[0];
+            if (levelArr.count >1) {
+                
+                _gradeLabel.text = [NSString stringWithFormat:@"伤残等级\n%@:%@处···",dict[@"level"],dict[@"several"]];
+            }else {
+                
+                _gradeLabel.text = [NSString stringWithFormat:@"伤残等级\n%@  %@处",dict[@"level"],dict[@"several"]];
+            }
+            
+            
+            WEAKSELF;
+            [_gradeLabel whenCancelTapped:^{
+                
+                if ([weakSelf.delegate respondsToSelector:@selector(clickGradeEvent)])
+                {
+                    [weakSelf.delegate clickGradeEvent];
+                }
 
+            }];
+            
+        }
     }
     
 }
@@ -73,6 +104,7 @@
         _oneLabel.font = Font_12;
         _oneLabel.backgroundColor = [UIColor clearColor];
         _oneLabel.textColor = hexColor(FFFFFF);
+        _oneLabel.numberOfLines = 0;
         _oneLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _oneLabel;
@@ -85,6 +117,7 @@
         _twoLabel.font = Font_12;
         _twoLabel.backgroundColor = [UIColor clearColor];
         _twoLabel.textColor = hexColor(FFFFFF);
+        _twoLabel.numberOfLines = 0;
         _twoLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _twoLabel;
