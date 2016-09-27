@@ -8,15 +8,20 @@
 
 #import "InjuryViewController.h"
 #import "InjuryViewCell.h"
+#import "SelectCityViewController.h"
+#import "Disability_AlertView.h"
+#import "InjuryResultVC.h"
+#define GETFloat(numbers) [NSString stringWithFormat:@"%.2f",numbers]
+
 static NSString *const INJURYCELL = @"injurycellid";
 
-@interface InjuryViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface InjuryViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,Disability_AlertViewPro>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
-
+@property (copy, nonatomic) NSString *idString;
 
 @end
 
@@ -35,7 +40,6 @@ static NSString *const INJURYCELL = @"injurycellid";
 #pragma mark - private methods
 - (void)initUI
 {
-    
     [self setupNaviBarWithTitle:@"工伤赔偿计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
@@ -44,9 +48,179 @@ static NSString *const INJURYCELL = @"injurycellid";
 }
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
-{
+{WEAKSELF;
     [self dismissKeyBoard];
+    if (btn.tag == 3034) {
+        _dataSourceArrays = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
+        [UIView animateWithDuration:.25f animations:^{
+            
+            [weakSelf.tableView reloadData];
+        }];
+    }else {
+        
+        NSArray *alertArrays = @[@"请选择城市",@"请选择伤残等级",@"请输入月薪"];
+        for (NSUInteger i = 0; i<_dataSourceArrays.count; i++) {
+           
+            NSString *tempString = _dataSourceArrays[i];
+            if (tempString.length == 0) {
+                [JKPromptView showWithImageName:nil message:alertArrays[i]];
+                return;
+            }
+        }
+        
+        //计算
+        
+        [self calculationOfDisability];
+    }
 }
+- (void)calculationOfDisability
+{
+    NSMutableDictionary *detailDict = [NSMutableDictionary dictionary];
+    
+    NSDictionary *levelDict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"一级",@"2",@"二级",@"3",@"三级",@"4",@"四级",@"5",@"五级",@"6",@"六级",@"7",@"七级",@"8",@"八级",@"9",@"九级",@"10",@"十级", nil];
+    NSString *levelString = _dataSourceArrays[1];
+    NSString *cityName = _dataSourceArrays[0];
+    double wageMoney = [_dataSourceArrays[2] doubleValue];
+
+    NSUInteger levelInter = [levelDict[levelString] integerValue];
+
+    if (levelInter <5) {
+        NSDictionary *blDict = [NSDictionary dictionaryWithObjectsAndKeys:@"0.9",@"一级",@"0.85",@"二级",@"0.8",@"三级",@"0.75",@"四级", nil];
+        double bl = [blDict[levelString] doubleValue];
+        double months = 27 - (levelInter-1)*2;
+        
+        //伤残补偿金(元)，伤残津贴，一次性结算，
+        double money1 = months * wageMoney;
+        double money2 = bl *wageMoney;
+        double money3 = money2 *12.f *20.f;
+        double allMoney = money1 + money2 + money3;
+        
+        //信息
+        NSDictionary *dict1 = [NSDictionary dictionaryWithObjectsAndKeys:@"伤残补偿金(元)",@"title",GETFloat(money1),@"money", nil];
+        NSDictionary *dict2 = [NSDictionary dictionaryWithObjectsAndKeys:@"伤残津贴",@"title",GETFloat(money2),@"money", nil];
+        NSDictionary *dict3 = [NSDictionary dictionaryWithObjectsAndKeys:@"一次性结算",@"title",GETFloat(money3),@"money", nil];
+
+        NSMutableArray *mutableArrays = [NSMutableArray arrayWithObjects:dict1,dict2,dict3, nil];
+        
+        [detailDict setObjectWithNullValidate:GETFloat(allMoney) forKey:@"money"];
+        [detailDict setObjectWithNullValidate:mutableArrays forKey:@"mutableArrays"];
+
+        
+    }else if (levelInter >=5 && levelInter <7){
+        
+        NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"gongShang" ofType:@"plist"];
+        NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+        NSString *keyString = [NSString stringWithFormat:@"%@_%ld",_idString,levelInter];
+        NSDictionary *useDict = bigDictionary[keyString];
+
+        
+        //医疗补偿金，就业补偿金，伤残补偿金，伤残津贴
+        double money1 = 0.0f; double money2 = 0.0f;double money3 = 0.0f;double money4 = 0.0f;
+
+        NSDictionary *blDict = [NSDictionary dictionaryWithObjectsAndKeys:@"0.7",@"五级",@"0.6",@"六级", nil];
+        double bl = [blDict[levelString] doubleValue];
+        NSDictionary *hisamtDict = useDict[@"hisamt"];
+        if ([hisamtDict[@"type"] integerValue] == 1) {
+            
+            money1 = [hisamtDict[@"month"] doubleValue] * wageMoney;
+        }else if([hisamtDict[@"type"] integerValue] == 2){
+            
+            money1 = [hisamtDict[@"standard"] doubleValue] * [hisamtDict[@"month"] doubleValue];
+        }else {
+            
+            money1 = [hisamtDict[@"fixed"] doubleValue];
+        }
+        money2 = [useDict[@"injuryamt"] doubleValue] *wageMoney;
+        
+        NSDictionary *workamtDict = useDict[@"workamt"];
+        if ([workamtDict[@"type"] integerValue] == 1) {
+            
+            money3 = [workamtDict[@"month"] doubleValue] * wageMoney;
+        }else if([workamtDict[@"type"] integerValue] == 2){
+            
+            money3 = [workamtDict[@"standard"] doubleValue] * [workamtDict[@"month"] doubleValue];
+        }else {
+            
+            money3 = [workamtDict[@"fixed"] doubleValue];
+        }
+
+        money4 = wageMoney *bl;
+
+        double allMoney = money1 + money2 + money3 + money4;
+        
+        //信息
+        NSDictionary *dict1 = [NSDictionary dictionaryWithObjectsAndKeys:@"医疗补偿金",@"title",GETFloat(money1),@"money", nil];
+        NSDictionary *dict2 = [NSDictionary dictionaryWithObjectsAndKeys:@"就业补偿金",@"title",GETFloat(money2),@"money", nil];
+        NSDictionary *dict3 = [NSDictionary dictionaryWithObjectsAndKeys:@"伤残补偿金",@"title",GETFloat(money3),@"money", nil];
+        NSDictionary *dict4 = [NSDictionary dictionaryWithObjectsAndKeys:@"伤残津贴",@"title",GETFloat(money4),@"money", nil];
+
+        NSMutableArray *mutableArrays = [NSMutableArray arrayWithObjects:dict1,dict2,dict3,dict4, nil];
+        
+        [detailDict setObjectWithNullValidate:GETFloat(allMoney) forKey:@"money"];
+        [detailDict setObjectWithNullValidate:mutableArrays forKey:@"mutableArrays"];
+    }else{
+        
+        NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"gongShang" ofType:@"plist"];
+        NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+        NSString *keyString = [NSString stringWithFormat:@"%@_%ld",_idString,levelInter];
+        NSDictionary *useDict = bigDictionary[keyString];
+
+        
+        //医疗补偿金，就业补偿金，伤残补偿金
+        double money1 = 0.0f; double money2 = 0.0f; double money3 = 0.0f;
+        NSDictionary *hisamtDict = useDict[@"hisamt"];
+        if ([hisamtDict[@"type"] integerValue] == 1) {
+            
+            money1 = [hisamtDict[@"month"] doubleValue] * wageMoney;
+        }else if([hisamtDict[@"type"] integerValue] == 2){
+            
+            money1 = [hisamtDict[@"standard"] doubleValue] * [hisamtDict[@"month"] doubleValue];
+        }else {
+            
+            money1 = [hisamtDict[@"fixed"] doubleValue];
+        }
+
+        money2 = [useDict[@"injuryamt"] doubleValue] *wageMoney;
+        NSDictionary *workamtDict = useDict[@"workamt"];
+        if ([workamtDict[@"type"] integerValue] == 1) {
+            
+            money3 = [workamtDict[@"month"] doubleValue] * wageMoney;
+        }else if([workamtDict[@"type"] integerValue] == 2){
+            
+            money3 = [workamtDict[@"standard"] doubleValue] * [workamtDict[@"month"] doubleValue];
+        }else {
+            
+            money3 = [workamtDict[@"fixed"] doubleValue];
+        }
+        
+        double allMoney = money1 + money2 + money3;
+
+        //信息
+        NSDictionary *dict1 = [NSDictionary dictionaryWithObjectsAndKeys:@"医疗补偿金",@"title",GETFloat(money1),@"money", nil];
+        NSDictionary *dict2 = [NSDictionary dictionaryWithObjectsAndKeys:@"就业补偿金",@"title",GETFloat(money2),@"money", nil];
+        NSDictionary *dict3 = [NSDictionary dictionaryWithObjectsAndKeys:@"伤残补偿金",@"title",GETFloat(money3),@"money", nil];
+        NSMutableArray *mutableArrays = [NSMutableArray arrayWithObjects:dict1,dict2,dict3, nil];
+        
+        [detailDict setObjectWithNullValidate:GETFloat(allMoney) forKey:@"money"];
+        [detailDict setObjectWithNullValidate:mutableArrays forKey:@"mutableArrays"];
+    }
+    
+    [detailDict setObjectWithNullValidate:cityName forKey:@"city"];
+    [detailDict setObjectWithNullValidate:levelString forKey:@"level"];
+    [detailDict setObjectWithNullValidate:GETFloat(wageMoney) forKey:@"gongzi"];
+    
+    InjuryResultVC *vc = [InjuryResultVC new];
+    vc.detailDictionary = detailDict;
+    [self.navigationController pushViewController:vc animated:YES];
+
+}
+#pragma mark - Disability_AlertViewPro
+- (void)selectCaseType:(NSString *)caseString
+{
+    [_dataSourceArrays replaceObjectAtIndex:1 withObject:caseString];
+    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -71,8 +245,23 @@ static NSString *const INJURYCELL = @"injurycellid";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {WEAKSELF;
     NSInteger row = indexPath.row;
-    NSInteger section = indexPath.section;
     
+    if (row == 0) {
+        SelectCityViewController *cityVC = [SelectCityViewController new];
+        
+        cityVC.citySelectBlock = ^(NSString *name, NSString *idString){
+            
+            weakSelf.idString = idString;
+            [weakSelf.dataSourceArrays replaceObjectAtIndex:0 withObject:name];
+            [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        };
+        [self  presentViewController:cityVC animated:YES completion:^{
+        }];
+    }else if (row == 1){
+        
+        Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:SelectOnly withSource:nil withDelegate:self];
+        [alertView show];
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -81,7 +270,6 @@ static NSString *const INJURYCELL = @"injurycellid";
     [secitionView addSubview:self.calculateButton];
     [secitionView addSubview:self.resetButton];
     return secitionView;
-
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -110,11 +298,8 @@ static NSString *const INJURYCELL = @"injurycellid";
     if (flag){
         textField.text = [NSString disable_emoji:textField.text];
     }
-    NSInteger row = textField.row;
-    NSInteger section = textField.section;
-    
-    NSMutableArray *arr = _dataSourceArrays[section];
-    [arr replaceObjectAtIndex:row withObject:textField.text];
+    NSInteger row = textField.row;    
+    [_dataSourceArrays replaceObjectAtIndex:row withObject:textField.text];
 }
 
 #pragma mark -手势

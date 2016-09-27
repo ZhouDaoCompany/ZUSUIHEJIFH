@@ -56,7 +56,6 @@
 - (void)dayAndDateBtnEvent:(UIButton *)button
 {WEAKSELF;
     NSInteger index = button.tag - 3043;
-
     
     [UIView animateWithDuration:0.25f animations:^{
         

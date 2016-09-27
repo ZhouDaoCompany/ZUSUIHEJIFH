@@ -14,5 +14,6 @@
 @property (strong, nonatomic) CaseTextField *textField;
 
 - (void)settingInjuryViewCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays;
+- (void)settingUIDetailWithDictionary:(NSDictionary *)dictionary;
 
 @end

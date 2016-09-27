@@ -23,6 +23,11 @@
 		182C24A01D8118E0005B4426 /* NSDate+fish_Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C249F1D8118E0005B4426 /* NSDate+fish_Extension.m */; };
 		183469431D98ED720007B0D9 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 183469421D98ED720007B0D9 /* README.txt */; };
 		183469481D98FC730007B0D9 /* Temp.m in Sources */ = {isa = PBXBuildFile; fileRef = 183469471D98FC730007B0D9 /* Temp.m */; };
+		18FDC3631D9A0CA60011EB33 /* theCityList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC3621D9A0CA60011EB33 /* theCityList.txt */; };
+		18FDC3651D9A0E220011EB33 /* TheCityList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC3641D9A0E220011EB33 /* TheCityList.plist */; };
+		18FDC3671D9A0F320011EB33 /* gongshangjisuan.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC3661D9A0F320011EB33 /* gongshangjisuan.txt */; };
+		18FDC3691D9A0FDA0011EB33 /* gongShang001.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC3681D9A0FDA0011EB33 /* gongShang001.plist */; };
+		18FDC36B1D9A18760011EB33 /* gongShang.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC36A1D9A18760011EB33 /* gongShang.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +80,11 @@
 		183469421D98ED720007B0D9 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		183469461D98FC730007B0D9 /* Temp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Temp.h; sourceTree = "<group>"; };
 		183469471D98FC730007B0D9 /* Temp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Temp.m; sourceTree = "<group>"; };
+		18FDC3621D9A0CA60011EB33 /* theCityList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = theCityList.txt; sourceTree = "<group>"; };
+		18FDC3641D9A0E220011EB33 /* TheCityList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TheCityList.plist; sourceTree = "<group>"; };
+		18FDC3661D9A0F320011EB33 /* gongshangjisuan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gongshangjisuan.txt; sourceTree = "<group>"; };
+		18FDC3681D9A0FDA0011EB33 /* gongShang001.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gongShang001.plist; sourceTree = "<group>"; };
+		18FDC36A1D9A18760011EB33 /* gongShang.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gongShang.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +152,11 @@
 				183469461D98FC730007B0D9 /* Temp.h */,
 				183469471D98FC730007B0D9 /* Temp.m */,
 				183469421D98ED720007B0D9 /* README.txt */,
+				18FDC3621D9A0CA60011EB33 /* theCityList.txt */,
+				18FDC36A1D9A18760011EB33 /* gongShang.plist */,
+				18FDC3641D9A0E220011EB33 /* TheCityList.plist */,
+				18FDC3681D9A0FDA0011EB33 /* gongShang001.plist */,
+				18FDC3661D9A0F320011EB33 /* gongshangjisuan.txt */,
 				104622271D7BBAA100D5640C /* Assets.xcassets */,
 				1046225C1D7C2DBE00D5640C /* ConsultantHeadView.h */,
 				1046225D1D7C2DBE00D5640C /* ConsultantHeadView.m */,
@@ -291,10 +306,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18FDC36B1D9A18760011EB33 /* gongShang.plist in Resources */,
 				1046222B1D7BBAA100D5640C /* LaunchScreen.storyboard in Resources */,
 				104622281D7BBAA100D5640C /* Assets.xcassets in Resources */,
+				18FDC3671D9A0F320011EB33 /* gongshangjisuan.txt in Resources */,
 				183469431D98ED720007B0D9 /* README.txt in Resources */,
 				104622261D7BBAA100D5640C /* Main.storyboard in Resources */,
+				18FDC3691D9A0FDA0011EB33 /* gongShang001.plist in Resources */,
+				18FDC3631D9A0CA60011EB33 /* theCityList.txt in Resources */,
+				18FDC3651D9A0E220011EB33 /* TheCityList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

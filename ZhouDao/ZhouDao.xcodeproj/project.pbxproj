@@ -598,6 +598,12 @@
 		18FD83331CBB858F00D50E20 /* case_download@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD832E1CBB858F00D50E20 /* case_download@2x.png */; };
 		18FD83341CBB858F00D50E20 /* case_look@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD832F1CBB858F00D50E20 /* case_look@2x.png */; };
 		18FD83351CBB858F00D50E20 /* case_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FD83301CBB858F00D50E20 /* case_share@2x.png */; };
+		18FDC36D1D9A19CC0011EB33 /* gongShang.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC36C1D9A19CC0011EB33 /* gongShang.plist */; };
+		18FDC36F1D9A19DC0011EB33 /* TheCityList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC36E1D9A19DC0011EB33 /* TheCityList.plist */; };
+		18FDC3721D9A1A200011EB33 /* SelectCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FDC3711D9A1A200011EB33 /* SelectCityViewController.m */; };
+		18FDC3751D9A35570011EB33 /* InjuryResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FDC3741D9A35570011EB33 /* InjuryResultVC.m */; };
+		18FDC3781D9A38B80011EB33 /* InjuryHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FDC3771D9A38B80011EB33 /* InjuryHeadView.m */; };
+		18FDC37A1D9A38CD0011EB33 /* InjuryHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC3791D9A38CD0011EB33 /* InjuryHeadView.xib */; };
 		18FF3F361C85234A0098C60B /* ZhouDao_NetWorkManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3F351C85234A0098C60B /* ZhouDao_NetWorkManger.m */; };
 		18FF3F3D1C8529CA0098C60B /* JKPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3F3A1C8529CA0098C60B /* JKPromptView.m */; };
 		18FF3F3E1C8529CB0098C60B /* UIView+JKPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3F3C1C8529CA0098C60B /* UIView+JKPicker.m */; };
@@ -1520,6 +1526,15 @@
 		18FD832E1CBB858F00D50E20 /* case_download@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_download@2x.png"; sourceTree = "<group>"; };
 		18FD832F1CBB858F00D50E20 /* case_look@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_look@2x.png"; sourceTree = "<group>"; };
 		18FD83301CBB858F00D50E20 /* case_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_share@2x.png"; sourceTree = "<group>"; };
+		18FDC36C1D9A19CC0011EB33 /* gongShang.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gongShang.plist; sourceTree = "<group>"; };
+		18FDC36E1D9A19DC0011EB33 /* TheCityList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TheCityList.plist; sourceTree = "<group>"; };
+		18FDC3701D9A1A200011EB33 /* SelectCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCityViewController.h; sourceTree = "<group>"; };
+		18FDC3711D9A1A200011EB33 /* SelectCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCityViewController.m; sourceTree = "<group>"; };
+		18FDC3731D9A35570011EB33 /* InjuryResultVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InjuryResultVC.h; sourceTree = "<group>"; };
+		18FDC3741D9A35570011EB33 /* InjuryResultVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InjuryResultVC.m; sourceTree = "<group>"; };
+		18FDC3761D9A38B80011EB33 /* InjuryHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InjuryHeadView.h; sourceTree = "<group>"; };
+		18FDC3771D9A38B80011EB33 /* InjuryHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InjuryHeadView.m; sourceTree = "<group>"; };
+		18FDC3791D9A38CD0011EB33 /* InjuryHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InjuryHeadView.xib; sourceTree = "<group>"; };
 		18FF3F341C85234A0098C60B /* ZhouDao_NetWorkManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhouDao_NetWorkManger.h; sourceTree = "<group>"; };
 		18FF3F351C85234A0098C60B /* ZhouDao_NetWorkManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhouDao_NetWorkManger.m; sourceTree = "<group>"; };
 		18FF3F391C8529CA0098C60B /* JKPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKPromptView.h; sourceTree = "<group>"; };
@@ -2933,6 +2948,13 @@
 			children = (
 				187367321D752BB7000C1169 /* InjuryViewController.h */,
 				187367331D752BB7000C1169 /* InjuryViewController.m */,
+				18FDC3731D9A35570011EB33 /* InjuryResultVC.h */,
+				18FDC3741D9A35570011EB33 /* InjuryResultVC.m */,
+				18FDC3761D9A38B80011EB33 /* InjuryHeadView.h */,
+				18FDC3771D9A38B80011EB33 /* InjuryHeadView.m */,
+				18FDC3791D9A38CD0011EB33 /* InjuryHeadView.xib */,
+				18FDC3701D9A1A200011EB33 /* SelectCityViewController.h */,
+				18FDC3711D9A1A200011EB33 /* SelectCityViewController.m */,
 			);
 			path = InjuryViewController;
 			sourceTree = "<group>";
@@ -3920,6 +3942,8 @@
 			children = (
 				10FA3E241CAD6B14005C4C0C /* 铃声 */,
 				103D48C41CE8705500ED0864 /* Areas.plist */,
+				18FDC36C1D9A19CC0011EB33 /* gongShang.plist */,
+				18FDC36E1D9A19DC0011EB33 /* TheCityList.plist */,
 				183469441D98F2F80007B0D9 /* Holiday.plist */,
 				18CD4D951C928111001838D2 /* Utility */,
 				18FF3F631C85348B0098C60B /* Image */,
@@ -4212,6 +4236,7 @@
 				108DC0311C9FA38E00FD1221 /* mine_delete@2x.png in Resources */,
 				18CD01D91C901367009DE385 /* tabbar_management@2x.png in Resources */,
 				1813EF7C1D5C46D10019CA33 /* close_icon_highlight@2x.png in Resources */,
+				18FDC36D1D9A19CC0011EB33 /* gongShang.plist in Resources */,
 				188A781F1D73C64400BCB54D /* Tools_sunhai@2x.png in Resources */,
 				108DC0301C9FA38E00FD1221 /* mine_collection@2x.png in Resources */,
 				109EA9ED1D4C3CD1005C09BB /* ToolsCalculate_riqi.html in Resources */,
@@ -4235,6 +4260,7 @@
 				10D31D801CDEEA09008D6F42 /* Gov_phone@2x.png in Resources */,
 				1856A0EA1D4F35150070B93E /* bootstrap.min.css in Resources */,
 				1856A0F21D4F35150070B93E /* bootstrap.min.js in Resources */,
+				18FDC37A1D9A38CD0011EB33 /* InjuryHeadView.xib in Resources */,
 				1856A0E01D4F35150070B93E /* erweima.png in Resources */,
 				1856A1011D4F35150070B93E /* bootstrap-datetimepicker.hr.js in Resources */,
 				187349DB1D2F4F96001A3E91 /* scan_1@2x.png in Resources */,
@@ -4284,6 +4310,7 @@
 				10D31D731CDE2459008D6F42 /* sanjiao@2x.png in Resources */,
 				18B16ACD1CFD5CE300561CD5 /* UMShareEditViewController.xib in Resources */,
 				18CD01D51C901367009DE385 /* tabbar_CaseQuery@2x.png in Resources */,
+				18FDC36F1D9A19DC0011EB33 /* TheCityList.plist in Resources */,
 				1060DA141CACF8D400D779A5 /* CompensationStandard@2x.png in Resources */,
 				188F9E371CF7FAF2000F9B2D /* Intro_2@2x.png in Resources */,
 				18F2F19F1CBDDAD70068453D /* case_juanzong4s@2x.png in Resources */,
@@ -4560,6 +4587,7 @@
 				18A56C4A1D86572100C133B2 /* HouseDetailHeadView.m in Sources */,
 				10457F521C9EEEFA00E1D3B2 /* StoreKitManager.m in Sources */,
 				188F9E491CF82077000F9B2D /* SCIntroView.m in Sources */,
+				18FDC3751D9A35570011EB33 /* InjuryResultVC.m in Sources */,
 				187367281D75235B000C1169 /* HouseViewCell.m in Sources */,
 				181292CE1C87EBF100EBB5CD /* UIImage+Extend.m in Sources */,
 				1060DA0D1CACD5EC00D779A5 /* RecomHeadView.m in Sources */,
@@ -4630,6 +4658,7 @@
 				18F08DBF1D6FEFB700B29AF9 /* LawyerFeesCell.m in Sources */,
 				18FF3F521C852BDB0098C60B /* UIColor+Helper.m in Sources */,
 				109EAB241D4C79F9005C09BB /* ScanViewController.m in Sources */,
+				18FDC3781D9A38B80011EB33 /* InjuryHeadView.m in Sources */,
 				188A783F1D742E0F00BCB54D /* LiXiViewController.m in Sources */,
 				104B44301C9BCCE400FC19B3 /* AllReusableView.m in Sources */,
 				10FA3E231CAD648A005C4C0C /* RemindSoundVCr.m in Sources */,
@@ -4785,6 +4814,7 @@
 				187367401D753574000C1169 /* PersonalInjuryCell.m in Sources */,
 				187DB8BD1CDC6216009CF1D6 /* GovListmodel.m in Sources */,
 				187A54AF1D642CBD0076A8E6 /* UIView+DNImagePicker.m in Sources */,
+				18FDC3721D9A1A200011EB33 /* SelectCityViewController.m in Sources */,
 				186640471D24AEC800E1F455 /* GBTagListView.m in Sources */,
 				184983161D2A0D63009AF29F /* OnlyAddCaseVC.m in Sources */,
 				18FF3F361C85234A0098C60B /* ZhouDao_NetWorkManger.m in Sources */,

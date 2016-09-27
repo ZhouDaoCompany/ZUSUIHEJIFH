@@ -135,7 +135,7 @@
                 <outlet property="lineView3" destination="Rik-kQ-O7c" id="eiP-n1-7kc"/>
                 <outlet property="totalLabel" destination="TXL-wj-N5R" id="Bdc-w2-Qku"/>
             </connections>
-            <point key="canvasLocation" x="284" y="236"/>
+            <point key="canvasLocation" x="278" y="235"/>
         </view>
     </objects>
 </document>

@@ -33,17 +33,25 @@
 
 #pragma mark - method
 
+- (void)settingUIDetailWithDictionary:(NSDictionary *)dictionary
+{
+    _titleLab.frame = CGRectMake(15, 12, 160, 20);
+    _textField.enabled = NO;
+    _titleLab.textAlignment = NSTextAlignmentLeft;
+
+    _titleLab.text = dictionary[@"title"];
+    _textField.text = dictionary[@"money"];
+}
 - (void)settingInjuryViewCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays
 {
     _textField.section = section;
     _textField.row = row;
-    NSArray *titleArr = @[@"选择地区",@"伤残等级",@"工资（元/月）"];
+    NSArray *titleArr = @[@"选择地区",@"伤残等级",@"工资（元/月)"];
     _titleLab.frame = CGRectMake(15, 12, 160, 20);
     _titleLab.textAlignment = NSTextAlignmentLeft;
     _titleLab.text = titleArr[row];
     _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
     _lineView.hidden = NO;
-    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     _textField.hidden = NO;
     _textField.text = arrays[row];
     _textField.placeholder = @"";
@@ -53,19 +61,17 @@
         case 0:
         {
             _textField.placeholder = @"请选择地区";
-            _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
-            
-            
-            
+            _textField.frame = CGRectMake(kMainScreenWidth - 195, 7, 160, 30);
+            self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
         }
             break;
         case 1:
         {
             _textField.placeholder = @"请选择";
-            _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
-            
-            
-            
+            _textField.frame = CGRectMake(kMainScreenWidth - 195, 7, 160, 30);
+            self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
         }
             break;
         case 2:
@@ -75,7 +81,6 @@
             _textField.placeholder = @"请输入金额";
             _textField.keyboardType = UIKeyboardTypeDecimalPad;
             self.accessoryType = UITableViewCellAccessoryNone;
-            
             
         }
             break;
@@ -105,7 +110,7 @@
 - (CaseTextField *)textField
 {
     if (!_textField) {
-        _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 135, 7, 120, 30)];
+        _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 175, 7, 160, 30)];
         _textField.borderStyle = UITextBorderStyleNone;
         _textField.textColor = hexColor(666666);
         [_textField setValue:hexColor(ADADAD) forKeyPath:@"_placeholderLabel.textColor"];

@@ -98,12 +98,74 @@ static NSString *const RIQICellID = @"RIQICellID";
             [self doNotCalculateAccordingToTheWorkingDaysWithArr:arr1];
         }else {
             //按照工作日推算
-            
+            [self CalculateAccordingToTheWorkingDaysWithArr:arr1];
         }
     }
     
     DLog(@"计算或者重置");
 }
+#pragma mark - 按照工作日推算
+- (void)CalculateAccordingToTheWorkingDaysWithArr:(NSMutableArray *)arrays
+{
+    NSUInteger index = [arrays[1] integerValue];
+    NSString *tempTimeString = _startTime;
+//    NSUInteger limitIndex = index;
+    
+    while (index > 0) {
+        
+        NSUInteger indexInter;
+        if (_flags[0] == NO) {
+            
+            indexInter = [[NSString stringWithFormat:@"%ld",index] integerValue];
+        }else {
+            indexInter = [[NSString stringWithFormat:@"-%ld",index] integerValue];
+        }
+
+        //得到终点时间
+        NSString *endTimeString = [self getManyDaysLaterTheTimeStamp:tempTimeString withDays:indexInter];
+        NSUInteger weekDays = 0;
+        
+        if (_flags[0] == NO) {
+            //向后推算
+            weekDays = [self getPreciseWorkDaysWithDateTime1:tempTimeString withDateTime2:endTimeString];
+        }else {
+            //向前推算
+            weekDays = [self getPreciseWorkDaysWithDateTime1:endTimeString withDateTime2:tempTimeString];
+        }
+        
+        tempTimeString = endTimeString;
+        index -= weekDays;
+    }
+    
+    //得到终点时间
+    NSString *twoSectionString = [self getTheFinalResultWithTimeString:tempTimeString];
+    
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",twoSectionString,nil];
+    [_dataSourceArrays addObject:arr2];
+    [self.tableView reloadData];
+
+}
+
+- (NSString *)getManyDaysLaterTheTimeStamp:(NSString *)timeStamp withDays:(NSUInteger)days
+{
+    //创建日历
+    NSCalendar *calendar=[NSCalendar currentCalendar];
+    //定义成分
+    NSCalendarUnit unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute;
+    NSDate *tempDate = [QZManager timeStampChangeNSDate:[timeStamp doubleValue]];
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
+    [dateComponent  setYear:0];
+    [dateComponent setMonth:0];
+    [dateComponent setDay:0];
+    [dateComponent setHour:days];
+    [dateComponent setMinute:0];
+    
+    NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
+    NSString *sjcString = [QZManager dateChangeTimeStampMethods:newdate];
+    DLog(@"%@",sjcString);
+    return sjcString;
+}
+
 #pragma mark - 不按工作日推算
 - (void)doNotCalculateAccordingToTheWorkingDaysWithArr:(NSMutableArray *)arrays
 {
@@ -142,13 +204,22 @@ static NSString *const RIQICellID = @"RIQICellID";
     
     //算出是否是周末
     //计算开始星期几
+    NSString *lastString = [self getTheFinalResultWithTimeString:sjcString];
+    return lastString;
+}
+#pragma mark - 得到最后结果描述
+- (NSString *)getTheFinalResultWithTimeString:(NSString *)timeString
+{
+    NSDate *newdate = [QZManager timeStampChangeNSDate:[timeString floatValue]];
+    //算出是否是周末
+    //计算开始星期几
     NSDateComponents *endComponets = [[NSCalendar autoupdatingCurrentCalendar] components:NSCalendarUnitWeekday fromDate:newdate];
     NSUInteger endWeekDay = [endComponets weekday];
-
+    
     NSString *suffix = @"";
-    if ([self.timeArrays containsObject:sjcString]) {
+    if ([self.timeArrays containsObject:timeString]) {
         //包含的话就是节假日
-        NSString *contrastString = [NSString stringWithFormat:@"%@",_timeDictionary[sjcString]];
+        NSString *contrastString = [NSString stringWithFormat:@"%@",_timeDictionary[timeString]];
         if ([contrastString isEqualToString:@"0"]) {
             suffix = @"工作日";
         }else {
@@ -164,12 +235,106 @@ static NSString *const RIQICellID = @"RIQICellID";
         }
     }
     
-    NSString *str1 = [QZManager changeTimestampToCommonTime:[sjcString doubleValue] format:@"yyyy年MM月dd日"];
+    NSString *str1 = [QZManager changeTimestampToCommonTime:[timeString doubleValue] format:@"yyyy年MM月dd日"];
     NSArray *weekArrays = @[@"星期日",@"星期一",@"星期二",@"星期三",@"星期四",@"星期五",@"星期六"];
     NSString *str2 = [NSString stringWithFormat:@"%@",weekArrays[endWeekDay -1]];
     
     NSString *lastString = [NSString stringWithFormat:@"%@（%@，%@）",str1,str2,suffix];
     return lastString;
+}
+#pragma mark - 得到精确工作日时间
+- (NSUInteger)getPreciseWorkDaysWithDateTime1:(NSString *)startTime withDateTime2:(NSString *)endTime
+{
+    NSDate *date1 = [QZManager timeStampChangeNSDate:[startTime floatValue]];
+    NSDate *date2 = [QZManager timeStampChangeNSDate:[endTime floatValue]];
+
+    NSCalendar *userCalendar = [NSCalendar currentCalendar];
+    unsigned int unitFlags =  NSCalendarUnitDay;
+    NSDateComponents *components = [userCalendar components:unitFlags fromDate:date1 toDate:date2 options:0];
+    //两个日期相距的天数
+    NSUInteger days = [components day];
+    //计算开始星期几
+    NSDateComponents *beginComponets = [[NSCalendar autoupdatingCurrentCalendar] components:NSCalendarUnitWeekday fromDate:date1];
+    NSUInteger beginWeekDay = [beginComponets weekday];
+    
+    //计算结束星期几
+    NSDateComponents *endComponets = [[NSCalendar autoupdatingCurrentCalendar] components:NSCalendarUnitWeekday fromDate:date2];
+    NSUInteger endWeekDay = [endComponets weekday];
+    
+    //计算多少个星期
+    NSUInteger allWeek = days/7;
+    
+    //每周算2天周末，计算一共多少个周末
+    NSUInteger weekend = allWeek * 2;
+    
+    //处理临界点，比如起始日是周日
+    if(beginWeekDay == 1){
+        weekend -= 1;
+    }
+    if(endWeekDay == 1){
+        weekend += 1;
+    }else if(endWeekDay > 6){
+        weekend += 2;
+    }
+    
+    //weekend 的值就是周末的天数
+    //weekday 的值就是工作日的天数
+    NSUInteger weekday =days - weekend;
+    
+    
+    //跑文件
+    NSString *working = @"";
+    float startTimeInt = [startTime floatValue];
+    float endTimeInt = [endTime floatValue];
+    
+    if ([_startTime integerValue] > [[_timeArrays lastObject] integerValue]) {
+        
+    }else if ([endTime integerValue] < [[_timeArrays firstObject] integerValue]){
+        
+    }else {
+        
+        __block NSUInteger startIndex = 0;
+        __block NSUInteger endIndex = [self.timeArrays count];
+        
+        [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (startTimeInt - [obj floatValue] <=0) {
+                startIndex = idx;
+                *stop = YES;
+            }
+        }];
+        [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if (endTimeInt - [obj floatValue] == 0) {
+                endIndex = idx + 1;
+                *stop = YES;
+            }
+            if (endTimeInt - [obj floatValue] < 0) {
+                endIndex = idx;
+                *stop = YES;
+            }
+        }];
+        
+        for (NSUInteger i = startIndex; i < endIndex; i++)
+        {
+            /*
+             2   放假
+             0   周六周日 工作日
+             3   放假并且是周六周日
+             */
+            NSString *holiday = _timeArrays[i];
+            NSString *contrastString = [NSString stringWithFormat:@"%@",_timeDictionary[holiday]];
+            if ([contrastString isEqualToString:@"2"]) {
+                
+                weekday -= 1;
+            }else if ([contrastString isEqualToString:@"0"]){
+                
+                weekday += 1;
+            }
+        }
+    }
+
+    return weekday;
 }
 
 #pragma mark - RiQiViewCellDelegate

@@ -1,48 +1,55 @@
 //
-//  SelectProvinceVC.m
+//  SelectCityViewController.m
 //  ZhouDao
 //
-//  Created by apple on 16/7/28.
+//  Created by apple on 16/9/27.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-#import "SelectProvinceVC.h"
+#import "SelectCityViewController.h"
 #import "NSString+SPStr.h"
 #import "ConsultantHeadView.h"
 #import "SelectProvinceCell.h"
 
-static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
+static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
 
-@interface SelectProvinceVC ()<UITableViewDelegate, UITableViewDataSource,SelectProvinceCellPro>
+@interface SelectCityViewController ()<UITableViewDelegate, UITableViewDataSource,SelectProvinceCellPro>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSourceArrays;
 @property (nonatomic, strong) NSMutableArray *sectionHeadTitleArrays;//存放获取人名的首字母
 @property (nonatomic, strong) NSMutableDictionary *cityDictionary;
-
+@property (nonatomic, strong) NSDictionary *dict;
 @end
 
-@implementation SelectProvinceVC
+@implementation SelectCityViewController
 
 #pragma mark - life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
     [self initUI];
 }
 #pragma mark - private methods
 - (void)initUI{
     
+    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"TheCityList" ofType:@"plist"];
+    _dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+    NSArray *keysArrays = [_dict allKeys];
+    [self.dataSourceArrays addObjectsFromArray:keysArrays];
+    
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"mine_guanbi"];
     self.statusBarView.backgroundColor = [UIColor whiteColor];
     self.naviBarView.backgroundColor = [UIColor whiteColor];
-
+    
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, .6f)];
     lineView.backgroundColor = [UIColor colorWithHexString:@"D7D7D7"];
     [self.view addSubview:lineView];
-
+    
     [self.view addSubview:self.tableView];
     
     [self hanZiToPinYin];
@@ -53,14 +60,14 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
     NSRange range;
     range.length = 1;
     range.location =0;
-
+    
     WEAKSELF;
     [self.dataSourceArrays enumerateObjectsUsingBlock:^(NSString *cityName, NSUInteger idx, BOOL * _Nonnull stop) {
         
         NSString *pinyinStr = [NSString HanZiZhuanPinYin:cityName];
         //获取首字母并转化为大写
         NSString *fristChar = [[pinyinStr substringWithRange:range] uppercaseString];
-
+        
         //如果字典里面还没有插入 这个字符开头的 数据
         if (![weakSelf.cityDictionary objectForKey:fristChar]) {
             NSMutableArray *arr = [NSMutableArray arrayWithObject:cityName];
@@ -71,7 +78,7 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
             [[weakSelf.cityDictionary objectForKey:fristChar] addObject:cityName];
         }
     }];
-     NSArray *titleArrays = [[self.cityDictionary allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *titleArrays = [[self.cityDictionary allKeys] sortedArrayUsingSelector:@selector(compare:)];
     [self.cityDictionary setObject:[NSArray array] forKey:@"热门"];
     [self.sectionHeadTitleArrays addObject:@"热门"];
     [self.sectionHeadTitleArrays addObjectsFromArray:titleArrays];
@@ -95,9 +102,9 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    SelectProvinceCell *cell = (SelectProvinceCell *)[tableView dequeueReusableCellWithIdentifier:CELLIDENTIFER];
+    SelectProvinceCell *cell = (SelectProvinceCell *)[tableView dequeueReusableCellWithIdentifier:SELECTCELLIDENTIFER];
     cell.delegate = self;
-
+    
     if (indexPath.section == 0) {
         cell.lineView.hidden = YES;
         [cell setOtherCitySelect:@"" wihSection:indexPath.section];
@@ -112,7 +119,7 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
             cell.lineView.hidden = NO;
         }
     }
-
+    
     return cell;
 }
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
@@ -154,46 +161,36 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    DLog(@"indexRow----%ld",indexPath.row);
+    //    DLog(@"indexRow----%ld",indexPath.row);
     if (indexPath.section >0) {
         NSString *key = [self.sectionHeadTitleArrays objectAtIndex:indexPath.section];
         NSArray *arr = [self.cityDictionary objectForKey:key];
         NSString *cityName = arr[indexPath.row];
-
-        if ([QZManager isString:cityName withContainsStr:@"内蒙古"]== YES || [QZManager isString:cityName withContainsStr:@"黑龙江"]== YES) {
-            cityName = [cityName substringToIndex:3];
-        }else {
-            cityName = [cityName substringToIndex:2];
-        }
+        NSString *idString = _dict[cityName];
         
-        if (_isNoTW == NO){
-            [PublicFunction ShareInstance].locProv = arr[indexPath.row];
-        }
-
-        if (_selectBlock) {
+        if (_citySelectBlock) {
             
-            _selectBlock(arr[indexPath.row],cityName);
+            _citySelectBlock(cityName,idString);
         }
         [self dismissViewControllerAnimated:YES completion:^{
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         }];
-
+        
     }
 }
 #pragma mark - SelectProvinceCellPro
 - (void)getSeletyCityName:(NSString *)provinceName
 {
-    if (_isNoTW == NO){
-        [PublicFunction ShareInstance].locProv = provinceName;
-    }
-    if (_selectBlock) {
+    NSString *idString = _dict[provinceName];
+
+    if (_citySelectBlock) {
         
-        _selectBlock(provinceName,provinceName);
+        _citySelectBlock(provinceName,idString);
     }
     [self dismissViewControllerAnimated:YES completion:^{
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
-
+    
 }
 #pragma mark - event response
 - (void)rightBtnAction
@@ -204,7 +201,7 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
     }];
 }
 #pragma mark - getters and setters
-    
+
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -216,19 +213,14 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
         _tableView.delegate = self;
         _tableView.backgroundColor = [UIColor clearColor];
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[SelectProvinceCell class] forCellReuseIdentifier:CELLIDENTIFER];
+        [_tableView registerClass:[SelectProvinceCell class] forCellReuseIdentifier:SELECTCELLIDENTIFER];
     }
     return _tableView;
 }
 - (NSMutableArray *)dataSourceArrays
 {
     if (!_dataSourceArrays) {
-        
-        if (_isNoTW == NO) {
-            _dataSourceArrays = [NSMutableArray arrayWithObjects:@"北京市",@"天津市",@"上海市",@"江苏省",@"河北省",@"河南省",@"湖南省",@"湖北省",@"浙江省",@"云南省",@"陕西省",@"台湾",@"贵州省",@"广西壮族自治区",@"黑龙江省",@"甘肃省",@"吉林省",@"四川省",@"广东省",@"江西省",@"青海省",@"辽宁省",@"香港特别行政区",@"山东省",@"西藏自治区",@"重庆市",@"福建省",@"新疆维吾尔自治区",@"内蒙古自治区",@"山西省",@"海南省",@"宁夏回族自治区",@"澳门特别行政区",@"安徽省", nil];
-        }else {
-            _dataSourceArrays = [NSMutableArray arrayWithObjects:@"北京市",@"天津市",@"上海市",@"江苏省",@"河北省",@"河南省",@"湖南省",@"湖北省",@"浙江省",@"云南省",@"陕西省",@"贵州省",@"广西壮族自治区",@"黑龙江省",@"甘肃省",@"吉林省",@"四川省",@"广东省",@"江西省",@"青海省",@"辽宁省",@"山东省",@"西藏自治区",@"重庆市",@"福建省",@"新疆维吾尔自治区",@"内蒙古自治区",@"山西省",@"海南省",@"宁夏回族自治区",@"安徽省", nil];
-        }
+        _dataSourceArrays = [NSMutableArray array];
     }
     return _dataSourceArrays;
 }
@@ -246,6 +238,7 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
     }
     return _cityDictionary;
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
