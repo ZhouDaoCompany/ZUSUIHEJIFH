@@ -93,7 +93,7 @@ static NSString *const INJURYCELL = @"injurycellid";
         double money1 = months * wageMoney;
         double money2 = bl *wageMoney;
         double money3 = money2 *12.f *20.f;
-        double allMoney = money1 + money2 + money3;
+        double allMoney = money1;
         
         //信息
         NSDictionary *dict1 = [NSDictionary dictionaryWithObjectsAndKeys:@"伤残补偿金(元)",@"title",GETFloat(money1),@"money", nil];
@@ -130,23 +130,24 @@ static NSString *const INJURYCELL = @"injurycellid";
             
             money1 = [hisamtDict[@"fixed"] doubleValue];
         }
-        money2 = [useDict[@"injuryamt"] doubleValue] *wageMoney;
         
         NSDictionary *workamtDict = useDict[@"workamt"];
         if ([workamtDict[@"type"] integerValue] == 1) {
             
-            money3 = [workamtDict[@"month"] doubleValue] * wageMoney;
+            money2 = [workamtDict[@"month"] doubleValue] * wageMoney;
         }else if([workamtDict[@"type"] integerValue] == 2){
             
-            money3 = [workamtDict[@"standard"] doubleValue] * [workamtDict[@"month"] doubleValue];
+            money2 = [workamtDict[@"standard"] doubleValue] * [workamtDict[@"month"] doubleValue];
         }else {
             
-            money3 = [workamtDict[@"fixed"] doubleValue];
+            money2 = [workamtDict[@"fixed"] doubleValue];
         }
+
+        money3 = [useDict[@"injuryamt"] doubleValue] *wageMoney;
 
         money4 = wageMoney *bl;
 
-        double allMoney = money1 + money2 + money3 + money4;
+        double allMoney = money1 + money2 + money3;
         
         //信息
         NSDictionary *dict1 = [NSDictionary dictionaryWithObjectsAndKeys:@"医疗补偿金",@"title",GETFloat(money1),@"money", nil];
@@ -180,18 +181,20 @@ static NSString *const INJURYCELL = @"injurycellid";
             money1 = [hisamtDict[@"fixed"] doubleValue];
         }
 
-        money2 = [useDict[@"injuryamt"] doubleValue] *wageMoney;
         NSDictionary *workamtDict = useDict[@"workamt"];
         if ([workamtDict[@"type"] integerValue] == 1) {
             
-            money3 = [workamtDict[@"month"] doubleValue] * wageMoney;
+            money2 = [workamtDict[@"month"] doubleValue] * wageMoney;
         }else if([workamtDict[@"type"] integerValue] == 2){
             
-            money3 = [workamtDict[@"standard"] doubleValue] * [workamtDict[@"month"] doubleValue];
+            money2 = [workamtDict[@"standard"] doubleValue] * [workamtDict[@"month"] doubleValue];
         }else {
             
-            money3 = [workamtDict[@"fixed"] doubleValue];
+            money2 = [workamtDict[@"fixed"] doubleValue];
         }
+
+        
+        money3 = [useDict[@"injuryamt"] doubleValue] *wageMoney;
         
         double allMoney = money1 + money2 + money3;
 
