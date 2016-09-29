@@ -235,6 +235,7 @@
 		1843C5B71D38CD2800414C2E /* ThirdPartyLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1843C5B61D38CD2800414C2E /* ThirdPartyLoginView.m */; };
 		1844A8551D7E6AE50049C862 /* BreachDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1844A8541D7E6AE50049C862 /* BreachDetailVC.m */; };
 		1844A8581D7E6FC70049C862 /* BreachHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1844A8571D7E6FC70049C862 /* BreachHeadView.m */; };
+		1844F5C61D9CB8750021C1FB /* 新疆维吾尔自治区.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1844F5C51D9CB8750021C1FB /* 新疆维吾尔自治区.txt */; };
 		18474DB01CCDED3400515CD6 /* EditCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DAF1CCDED3400515CD6 /* EditCaseVC.m */; };
 		18474DB31CCE098300515CD6 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18474DB21CCE098300515CD6 /* UserData.m */; };
 		18496D621D4757A10071E689 /* ToolsWedViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18496D601D4757A00071E689 /* ToolsWedViewVC.m */; };
@@ -343,6 +344,37 @@
 		185838871D49B9FC00C6A0EE /* gov_NoReview@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185838851D49B9FC00C6A0EE /* gov_NoReview@2x.png */; };
 		185838881D49B9FC00C6A0EE /* gov_Review@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185838861D49B9FC00C6A0EE /* gov_Review@2x.png */; };
 		1858388B1D49D15800C6A0EE /* SelectProvinceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1858388A1D49D15800C6A0EE /* SelectProvinceVC.m */; };
+		1860AB321D9B66FE008A2A1E /* 上海市.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB141D9B66FE008A2A1E /* 上海市.txt */; };
+		1860AB331D9B66FE008A2A1E /* 云南省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB151D9B66FE008A2A1E /* 云南省.txt */; };
+		1860AB341D9B66FE008A2A1E /* 内蒙古自治区.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB161D9B66FE008A2A1E /* 内蒙古自治区.txt */; };
+		1860AB351D9B66FE008A2A1E /* 北京市.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB171D9B66FE008A2A1E /* 北京市.txt */; };
+		1860AB361D9B66FE008A2A1E /* 吉林省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB181D9B66FE008A2A1E /* 吉林省.txt */; };
+		1860AB371D9B66FE008A2A1E /* 四川省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB191D9B66FE008A2A1E /* 四川省.txt */; };
+		1860AB381D9B66FE008A2A1E /* 天津市.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB1A1D9B66FE008A2A1E /* 天津市.txt */; };
+		1860AB391D9B66FE008A2A1E /* 宁夏回族自治区.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB1B1D9B66FE008A2A1E /* 宁夏回族自治区.txt */; };
+		1860AB3A1D9B66FE008A2A1E /* 安徽省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB1C1D9B66FE008A2A1E /* 安徽省.txt */; };
+		1860AB3B1D9B66FE008A2A1E /* 山东省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB1D1D9B66FE008A2A1E /* 山东省.txt */; };
+		1860AB3C1D9B66FE008A2A1E /* 山西省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB1E1D9B66FE008A2A1E /* 山西省.txt */; };
+		1860AB3D1D9B66FE008A2A1E /* 广东省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB1F1D9B66FE008A2A1E /* 广东省.txt */; };
+		1860AB3E1D9B66FE008A2A1E /* 广西壮族自治区.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB201D9B66FE008A2A1E /* 广西壮族自治区.txt */; };
+		1860AB3F1D9B66FE008A2A1E /* 江苏省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB211D9B66FE008A2A1E /* 江苏省.txt */; };
+		1860AB401D9B66FE008A2A1E /* 江西省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB221D9B66FE008A2A1E /* 江西省.txt */; };
+		1860AB411D9B66FE008A2A1E /* 河北省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB231D9B66FE008A2A1E /* 河北省.txt */; };
+		1860AB421D9B66FE008A2A1E /* 河南省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB241D9B66FE008A2A1E /* 河南省.txt */; };
+		1860AB431D9B66FE008A2A1E /* 浙江省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB251D9B66FE008A2A1E /* 浙江省.txt */; };
+		1860AB441D9B66FE008A2A1E /* 海南省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB261D9B66FE008A2A1E /* 海南省.txt */; };
+		1860AB451D9B66FE008A2A1E /* 湖北省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB271D9B66FE008A2A1E /* 湖北省.txt */; };
+		1860AB461D9B66FE008A2A1E /* 湖南省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB281D9B66FE008A2A1E /* 湖南省.txt */; };
+		1860AB471D9B66FE008A2A1E /* 甘肃省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB291D9B66FE008A2A1E /* 甘肃省.txt */; };
+		1860AB481D9B66FE008A2A1E /* 福建省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB2A1D9B66FE008A2A1E /* 福建省.txt */; };
+		1860AB491D9B66FE008A2A1E /* 西藏自治区.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB2B1D9B66FE008A2A1E /* 西藏自治区.txt */; };
+		1860AB4A1D9B66FE008A2A1E /* 贵州省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB2C1D9B66FE008A2A1E /* 贵州省.txt */; };
+		1860AB4B1D9B66FE008A2A1E /* 辽宁省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB2D1D9B66FE008A2A1E /* 辽宁省.txt */; };
+		1860AB4C1D9B66FE008A2A1E /* 重庆市.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB2E1D9B66FE008A2A1E /* 重庆市.txt */; };
+		1860AB4D1D9B66FE008A2A1E /* 陕西省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB2F1D9B66FE008A2A1E /* 陕西省.txt */; };
+		1860AB4E1D9B66FE008A2A1E /* 青海省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB301D9B66FE008A2A1E /* 青海省.txt */; };
+		1860AB4F1D9B66FE008A2A1E /* 黑龙江省.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1860AB311D9B66FE008A2A1E /* 黑龙江省.txt */; };
+		1860AB5C1D9BD946008A2A1E /* CalculateShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1860AB5B1D9BD946008A2A1E /* CalculateShareView.m */; };
 		1863DFE31C8D2B5B00F7A84E /* GcNoticeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863DFE21C8D2B5B00F7A84E /* GcNoticeUtil.m */; };
 		186553A71D76BB6B00DBA8D8 /* LayerFeesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186553A61D76BB6B00DBA8D8 /* LayerFeesModel.m */; };
 		186640471D24AEC800E1F455 /* GBTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186640461D24AEC800E1F455 /* GBTagListView.m */; };
@@ -555,7 +587,6 @@
 		18E1F4241D13A2CF003C94CD /* Count_close_normal_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E1F4231D13A2CF003C94CD /* Count_close_normal_@2x.png */; };
 		18E2E7FF1D0FD08E00330AFA /* JKCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2E7FE1D0FD08E00330AFA /* JKCountDownButton.m */; };
 		18E4C8D61D77BF3300D83DEF /* AllProportionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4C8D51D77BF3300D83DEF /* AllProportionModel.m */; };
-		18E4C8D81D77DB3600D83DEF /* lawerFees.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18E4C8D71D77DB3600D83DEF /* lawerFees.txt */; };
 		18E6ECEC1CEEF1E300ED74E3 /* law_selectedSC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E6ECEB1CEEF1E300ED74E3 /* law_selectedSC@2x.png */; };
 		18E7C47F1CFC312E00E01A11 /* law_placeHold@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E7C47E1CFC312E00E01A11 /* law_placeHold@2x.png */; };
 		18EE958C1D2373150030AE2B /* AddFinanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE958B1D2373150030AE2B /* AddFinanceVC.m */; };
@@ -588,7 +619,6 @@
 		18FBD84A1CED90CD00674D1E /* case_txt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBD8451CED90CD00674D1E /* case_txt@2x.png */; };
 		18FBD84B1CED90CD00674D1E /* case_wenjainjia@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBD8461CED90CD00674D1E /* case_wenjainjia@2x.png */; };
 		18FBD84C1CED90CD00674D1E /* case_word@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBD8471CED90CD00674D1E /* case_word@2x.png */; };
-		18FD1AE61D791876005DD06C /* xizang.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18FD1AE51D791876005DD06C /* xizang.txt */; };
 		18FD82FD1CBB4E8C00D50E20 /* case_detailHead.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18FD82FC1CBB4E8C00D50E20 /* case_detailHead.jpg */; };
 		18FD83041CBB54F500D50E20 /* TheCaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD83021CBB54F500D50E20 /* TheCaseCollectionCell.m */; };
 		18FD83181CBB6F9C00D50E20 /* CaseDetailTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FD83161CBB6F9C00D50E20 /* CaseDetailTabCell.m */; };
@@ -990,6 +1020,7 @@
 		1844A8541D7E6AE50049C862 /* BreachDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BreachDetailVC.m; sourceTree = "<group>"; };
 		1844A8561D7E6FC70049C862 /* BreachHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BreachHeadView.h; sourceTree = "<group>"; };
 		1844A8571D7E6FC70049C862 /* BreachHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BreachHeadView.m; sourceTree = "<group>"; };
+		1844F5C51D9CB8750021C1FB /* 新疆维吾尔自治区.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "新疆维吾尔自治区.txt"; sourceTree = "<group>"; };
 		18474DAE1CCDED3400515CD6 /* EditCaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCaseVC.h; sourceTree = "<group>"; };
 		18474DAF1CCDED3400515CD6 /* EditCaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCaseVC.m; sourceTree = "<group>"; };
 		18474DB11CCE098300515CD6 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
@@ -1106,6 +1137,38 @@
 		185838861D49B9FC00C6A0EE /* gov_Review@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gov_Review@2x.png"; sourceTree = "<group>"; };
 		185838891D49D15800C6A0EE /* SelectProvinceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectProvinceVC.h; sourceTree = "<group>"; };
 		1858388A1D49D15800C6A0EE /* SelectProvinceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectProvinceVC.m; sourceTree = "<group>"; };
+		1860AB141D9B66FE008A2A1E /* 上海市.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "上海市.txt"; sourceTree = "<group>"; };
+		1860AB151D9B66FE008A2A1E /* 云南省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "云南省.txt"; sourceTree = "<group>"; };
+		1860AB161D9B66FE008A2A1E /* 内蒙古自治区.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "内蒙古自治区.txt"; sourceTree = "<group>"; };
+		1860AB171D9B66FE008A2A1E /* 北京市.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "北京市.txt"; sourceTree = "<group>"; };
+		1860AB181D9B66FE008A2A1E /* 吉林省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "吉林省.txt"; sourceTree = "<group>"; };
+		1860AB191D9B66FE008A2A1E /* 四川省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "四川省.txt"; sourceTree = "<group>"; };
+		1860AB1A1D9B66FE008A2A1E /* 天津市.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "天津市.txt"; sourceTree = "<group>"; };
+		1860AB1B1D9B66FE008A2A1E /* 宁夏回族自治区.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "宁夏回族自治区.txt"; sourceTree = "<group>"; };
+		1860AB1C1D9B66FE008A2A1E /* 安徽省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "安徽省.txt"; sourceTree = "<group>"; };
+		1860AB1D1D9B66FE008A2A1E /* 山东省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "山东省.txt"; sourceTree = "<group>"; };
+		1860AB1E1D9B66FE008A2A1E /* 山西省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "山西省.txt"; sourceTree = "<group>"; };
+		1860AB1F1D9B66FE008A2A1E /* 广东省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "广东省.txt"; sourceTree = "<group>"; };
+		1860AB201D9B66FE008A2A1E /* 广西壮族自治区.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "广西壮族自治区.txt"; sourceTree = "<group>"; };
+		1860AB211D9B66FE008A2A1E /* 江苏省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "江苏省.txt"; sourceTree = "<group>"; };
+		1860AB221D9B66FE008A2A1E /* 江西省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "江西省.txt"; sourceTree = "<group>"; };
+		1860AB231D9B66FE008A2A1E /* 河北省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "河北省.txt"; sourceTree = "<group>"; };
+		1860AB241D9B66FE008A2A1E /* 河南省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "河南省.txt"; sourceTree = "<group>"; };
+		1860AB251D9B66FE008A2A1E /* 浙江省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "浙江省.txt"; sourceTree = "<group>"; };
+		1860AB261D9B66FE008A2A1E /* 海南省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "海南省.txt"; sourceTree = "<group>"; };
+		1860AB271D9B66FE008A2A1E /* 湖北省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "湖北省.txt"; sourceTree = "<group>"; };
+		1860AB281D9B66FE008A2A1E /* 湖南省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "湖南省.txt"; sourceTree = "<group>"; };
+		1860AB291D9B66FE008A2A1E /* 甘肃省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "甘肃省.txt"; sourceTree = "<group>"; };
+		1860AB2A1D9B66FE008A2A1E /* 福建省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "福建省.txt"; sourceTree = "<group>"; };
+		1860AB2B1D9B66FE008A2A1E /* 西藏自治区.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "西藏自治区.txt"; sourceTree = "<group>"; };
+		1860AB2C1D9B66FE008A2A1E /* 贵州省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "贵州省.txt"; sourceTree = "<group>"; };
+		1860AB2D1D9B66FE008A2A1E /* 辽宁省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "辽宁省.txt"; sourceTree = "<group>"; };
+		1860AB2E1D9B66FE008A2A1E /* 重庆市.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "重庆市.txt"; sourceTree = "<group>"; };
+		1860AB2F1D9B66FE008A2A1E /* 陕西省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "陕西省.txt"; sourceTree = "<group>"; };
+		1860AB301D9B66FE008A2A1E /* 青海省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "青海省.txt"; sourceTree = "<group>"; };
+		1860AB311D9B66FE008A2A1E /* 黑龙江省.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "黑龙江省.txt"; sourceTree = "<group>"; };
+		1860AB5A1D9BD946008A2A1E /* CalculateShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateShareView.h; sourceTree = "<group>"; };
+		1860AB5B1D9BD946008A2A1E /* CalculateShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateShareView.m; sourceTree = "<group>"; };
 		1863DFD71C8D0FC700F7A84E /* MyPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPickView.h; sourceTree = "<group>"; };
 		1863DFE11C8D2B5B00F7A84E /* GcNoticeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcNoticeUtil.h; sourceTree = "<group>"; };
 		1863DFE21C8D2B5B00F7A84E /* GcNoticeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcNoticeUtil.m; sourceTree = "<group>"; };
@@ -1464,7 +1527,6 @@
 		18E2E7FE1D0FD08E00330AFA /* JKCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCountDownButton.m; sourceTree = "<group>"; };
 		18E4C8D41D77BF3300D83DEF /* AllProportionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllProportionModel.h; sourceTree = "<group>"; };
 		18E4C8D51D77BF3300D83DEF /* AllProportionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllProportionModel.m; sourceTree = "<group>"; };
-		18E4C8D71D77DB3600D83DEF /* lawerFees.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lawerFees.txt; sourceTree = "<group>"; };
 		18E6ECEB1CEEF1E300ED74E3 /* law_selectedSC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "law_selectedSC@2x.png"; sourceTree = "<group>"; };
 		18E7C47E1CFC312E00E01A11 /* law_placeHold@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "law_placeHold@2x.png"; sourceTree = "<group>"; };
 		18EE958A1D2373150030AE2B /* AddFinanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFinanceVC.h; sourceTree = "<group>"; };
@@ -1514,7 +1576,6 @@
 		18FBD8451CED90CD00674D1E /* case_txt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_txt@2x.png"; sourceTree = "<group>"; };
 		18FBD8461CED90CD00674D1E /* case_wenjainjia@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_wenjainjia@2x.png"; sourceTree = "<group>"; };
 		18FBD8471CED90CD00674D1E /* case_word@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_word@2x.png"; sourceTree = "<group>"; };
-		18FD1AE51D791876005DD06C /* xizang.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xizang.txt; sourceTree = "<group>"; };
 		18FD82FC1CBB4E8C00D50E20 /* case_detailHead.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = case_detailHead.jpg; sourceTree = "<group>"; };
 		18FD83011CBB54F500D50E20 /* TheCaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheCaseCollectionCell.h; sourceTree = "<group>"; };
 		18FD83021CBB54F500D50E20 /* TheCaseCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheCaseCollectionCell.m; sourceTree = "<group>"; };
@@ -2486,6 +2547,8 @@
 				104622621D7C531700D5640C /* DisabilityViewCell.m */,
 				18E059B01D6174C3009A2DFD /* ZD_AlertWindow.h */,
 				18E059B11D6174C3009A2DFD /* ZD_AlertWindow.m */,
+				1860AB5A1D9BD946008A2A1E /* CalculateShareView.h */,
+				1860AB5B1D9BD946008A2A1E /* CalculateShareView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2817,6 +2880,44 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		1860AB131D9B66FE008A2A1E /* TxT */ = {
+			isa = PBXGroup;
+			children = (
+				1860AB141D9B66FE008A2A1E /* 上海市.txt */,
+				1844F5C51D9CB8750021C1FB /* 新疆维吾尔自治区.txt */,
+				1860AB151D9B66FE008A2A1E /* 云南省.txt */,
+				1860AB161D9B66FE008A2A1E /* 内蒙古自治区.txt */,
+				1860AB171D9B66FE008A2A1E /* 北京市.txt */,
+				1860AB181D9B66FE008A2A1E /* 吉林省.txt */,
+				1860AB191D9B66FE008A2A1E /* 四川省.txt */,
+				1860AB1A1D9B66FE008A2A1E /* 天津市.txt */,
+				1860AB1B1D9B66FE008A2A1E /* 宁夏回族自治区.txt */,
+				1860AB1C1D9B66FE008A2A1E /* 安徽省.txt */,
+				1860AB1D1D9B66FE008A2A1E /* 山东省.txt */,
+				1860AB1E1D9B66FE008A2A1E /* 山西省.txt */,
+				1860AB1F1D9B66FE008A2A1E /* 广东省.txt */,
+				1860AB201D9B66FE008A2A1E /* 广西壮族自治区.txt */,
+				1860AB211D9B66FE008A2A1E /* 江苏省.txt */,
+				1860AB221D9B66FE008A2A1E /* 江西省.txt */,
+				1860AB231D9B66FE008A2A1E /* 河北省.txt */,
+				1860AB241D9B66FE008A2A1E /* 河南省.txt */,
+				1860AB251D9B66FE008A2A1E /* 浙江省.txt */,
+				1860AB261D9B66FE008A2A1E /* 海南省.txt */,
+				1860AB271D9B66FE008A2A1E /* 湖北省.txt */,
+				1860AB281D9B66FE008A2A1E /* 湖南省.txt */,
+				1860AB291D9B66FE008A2A1E /* 甘肃省.txt */,
+				1860AB2A1D9B66FE008A2A1E /* 福建省.txt */,
+				1860AB2B1D9B66FE008A2A1E /* 西藏自治区.txt */,
+				1860AB2C1D9B66FE008A2A1E /* 贵州省.txt */,
+				1860AB2D1D9B66FE008A2A1E /* 辽宁省.txt */,
+				1860AB2E1D9B66FE008A2A1E /* 重庆市.txt */,
+				1860AB2F1D9B66FE008A2A1E /* 陕西省.txt */,
+				1860AB301D9B66FE008A2A1E /* 青海省.txt */,
+				1860AB311D9B66FE008A2A1E /* 黑龙江省.txt */,
+			);
+			path = TxT;
+			sourceTree = "<group>";
+		};
 		1863DFD01C8D0FC700F7A84E /* 省市区 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2856,8 +2957,6 @@
 				186553A61D76BB6B00DBA8D8 /* LayerFeesModel.m */,
 				18E4C8D41D77BF3300D83DEF /* AllProportionModel.h */,
 				18E4C8D51D77BF3300D83DEF /* AllProportionModel.m */,
-				18E4C8D71D77DB3600D83DEF /* lawerFees.txt */,
-				18FD1AE51D791876005DD06C /* xizang.txt */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3940,6 +4039,7 @@
 		18FF3F621C85348B0098C60B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				1860AB131D9B66FE008A2A1E /* TxT */,
 				10FA3E241CAD6B14005C4C0C /* 铃声 */,
 				103D48C41CE8705500ED0864 /* Areas.plist */,
 				18FDC36C1D9A19CC0011EB33 /* gongShang.plist */,
@@ -4218,11 +4318,11 @@
 				1856A1231D4F35150070B93E /* jquery-1.7.1.min.js in Resources */,
 				1065C34A1CA91BA4003F4089 /* law_wodeshoucang@2x.png in Resources */,
 				1856A1361D4F35150070B93E /* shoulifei.html in Resources */,
-				18FD1AE61D791876005DD06C /* xizang.txt in Resources */,
 				188651BB1D264DDC00E030F7 /* CaseRemindListCell.xib in Resources */,
 				108DC03A1C9FA38E00FD1221 /* mine_recommend@2x.png in Resources */,
 				184983121D2A0CA7009AF29F /* case_mangerGW@2x.png in Resources */,
 				108DC02D1C9FA38E00FD1221 /* mine_calendar@2x.png in Resources */,
+				1860AB331D9B66FE008A2A1E /* 云南省.txt in Resources */,
 				109EAB201D4C5395005C09BB /* wifi_pic.png in Resources */,
 				1856A1331D4F35150070B93E /* canji.html in Resources */,
 				1856A12D1D4F35150070B93E /* normalize3.0.2.min.css in Resources */,
@@ -4247,7 +4347,9 @@
 				18BDD4341D6EDFE8001541E1 /* info@3x.png in Resources */,
 				18CB0F0E1CBF77E6009C41CE /* Esearch_jiantou@2x.png in Resources */,
 				18FD83341CBB858F00D50E20 /* case_look@2x.png in Resources */,
+				1860AB381D9B66FE008A2A1E /* 天津市.txt in Resources */,
 				181BA40F1CE598B600A29E2E /* share_platform_qqfriends@2x.png in Resources */,
+				1860AB421D9B66FE008A2A1E /* 河南省.txt in Resources */,
 				18BDD4311D6EDFE8001541E1 /* error@2x.png in Resources */,
 				188A78171D73C64400BCB54D /* Tools_caijueshu@2x.png in Resources */,
 				187DB8BF1CDC6310009CF1D6 /* gov_tupian@2x.png in Resources */,
@@ -4257,12 +4359,14 @@
 				1856A0FC1D4F35150070B93E /* bootstrap-datetimepicker.el.js in Resources */,
 				188F9E3C1CF81B14000F9B2D /* laws_GovSearch.jpg in Resources */,
 				18FD83351CBB858F00D50E20 /* case_share@2x.png in Resources */,
+				1860AB4C1D9B66FE008A2A1E /* 重庆市.txt in Resources */,
 				10D31D801CDEEA09008D6F42 /* Gov_phone@2x.png in Resources */,
 				1856A0EA1D4F35150070B93E /* bootstrap.min.css in Resources */,
 				1856A0F21D4F35150070B93E /* bootstrap.min.js in Resources */,
 				18FDC37A1D9A38CD0011EB33 /* InjuryHeadView.xib in Resources */,
 				1856A0E01D4F35150070B93E /* erweima.png in Resources */,
 				1856A1011D4F35150070B93E /* bootstrap-datetimepicker.hr.js in Resources */,
+				1844F5C61D9CB8750021C1FB /* 新疆维吾尔自治区.txt in Resources */,
 				187349DB1D2F4F96001A3E91 /* scan_1@2x.png in Resources */,
 				1856A0DD1D4F35150070B93E /* riqi.css in Resources */,
 				18B16AD41CFD5CE300561CD5 /* WeiboSDK.bundle in Resources */,
@@ -4270,9 +4374,11 @@
 				10D31D7F1CDEEA09008D6F42 /* Gov_location@2x.png in Resources */,
 				108DC0321C9FA38E00FD1221 /* mine_good@2x.png in Resources */,
 				1856A1301D4F35150070B93E /* mobiscroll.js in Resources */,
+				1860AB341D9B66FE008A2A1E /* 内蒙古自治区.txt in Resources */,
 				18BDD4321D6EDFE8001541E1 /* error@3x.png in Resources */,
 				1856A1311D4F35150070B93E /* mobiscroll_date.js in Resources */,
 				1065C34E1CA91BA4003F4089 /* laws_CaseSearch.jpg in Resources */,
+				1860AB3B1D9B66FE008A2A1E /* 山东省.txt in Resources */,
 				18FBD84B1CED90CD00674D1E /* case_wenjainjia@2x.png in Resources */,
 				18FF42DA1C97AF6F00C6B29A /* MoveTopTabViewCell.xib in Resources */,
 				1856A0EB1D4F35150070B93E /* glyphicons-halflings-regular.eot in Resources */,
@@ -4285,6 +4391,7 @@
 				10172BE91CBBF1F300B7553E /* case_xjwb@2x.png in Resources */,
 				18BDD4331D6EDFE8001541E1 /* info@2x.png in Resources */,
 				1060DA131CACF8D400D779A5 /* commonRegulations@2x.png in Resources */,
+				1860AB391D9B66FE008A2A1E /* 宁夏回族自治区.txt in Resources */,
 				1065C34B1CA91BA4003F4089 /* law_xiangguan@2x.png in Resources */,
 				187E6D6B1C841A12009169C2 /* Assets.xcassets in Resources */,
 				1060DA171CACFBBC00D779A5 /* recommedNew@2x.png in Resources */,
@@ -4293,12 +4400,14 @@
 				108DC02E1C9FA38E00FD1221 /* mine_cer@2x.png in Resources */,
 				1856A1141D4F35150070B93E /* bootstrap-datetimepicker.rs-latin.js in Resources */,
 				10172BE61CBBF1F300B7553E /* case_paiZhao@2x.png in Resources */,
+				1860AB461D9B66FE008A2A1E /* 湖南省.txt in Resources */,
 				18CD01E21C90206F009DE385 /* LoginViewController.xib in Resources */,
 				1856A0FD1D4F35150070B93E /* bootstrap-datetimepicker.es.js in Resources */,
 				1856A12C1D4F35150070B93E /* mobiscroll_date.css in Resources */,
 				1068EADE1CB3485000AAADD4 /* mine_NZSelected@2x.png in Resources */,
 				18D957081CF5AC0400F0E4DB /* tools_introduce@2x.png in Resources */,
 				1068EADF1CB3485000AAADD4 /* mine_NZUnSelected@2x.png in Resources */,
+				1860AB471D9B66FE008A2A1E /* 甘肃省.txt in Resources */,
 				1856A1271D4F35150070B93E /* share.js in Resources */,
 				1065C3441CA91BA4003F4089 /* law_fanhuidingbu@2x.png in Resources */,
 				108DC0271C9FA38E00FD1221 /* login_lice.jpg in Resources */,
@@ -4316,17 +4425,19 @@
 				18F2F19F1CBDDAD70068453D /* case_juanzong4s@2x.png in Resources */,
 				181BA4111CE598B600A29E2E /* share_platform_sina@2x.png in Resources */,
 				108DC02B1C9FA38E00FD1221 /* mine_banner.jpg in Resources */,
+				1860AB451D9B66FE008A2A1E /* 湖北省.txt in Resources */,
 				188A781C1D73C64400BCB54D /* Tools_lihun@2x.png in Resources */,
 				1856A0DF1D4F35150070B93E /* weiyuejin.css in Resources */,
 				1065C3451CA91BA4003F4089 /* law_jiegou@2x.png in Resources */,
+				1860AB481D9B66FE008A2A1E /* 福建省.txt in Resources */,
 				1856A1221D4F35150070B93E /* ccbq.js in Resources */,
 				108DC03E1C9FBC3100FD1221 /* blackBack@2x.png in Resources */,
-				18E4C8D81D77DB3600D83DEF /* lawerFees.txt in Resources */,
 				188F9E361CF7FAF2000F9B2D /* Intro_1@2x.png in Resources */,
 				1856A1241D4F35150070B93E /* jquery.min.js in Resources */,
 				108DC0341C9FA38E00FD1221 /* mine_head@2x.png in Resources */,
 				108DC0391C9FA38E00FD1221 /* mine_noScer@2x.png in Resources */,
 				18EE95951D23E5B70030AE2B /* case_up@2x.png in Resources */,
+				1860AB351D9B66FE008A2A1E /* 北京市.txt in Resources */,
 				18167E971CBBA03C00193EB6 /* case_juanzong@2x.png in Resources */,
 				1856A0E61D4F35150070B93E /* bootstrap-datetimepicker.min.css in Resources */,
 				18D9D67C1CBCA78A008F9CC8 /* case_jianTou@2x.png in Resources */,
@@ -4338,6 +4449,8 @@
 				1856A1201D4F35150070B93E /* bootstrap-datetimepicker.zh-TW.js in Resources */,
 				18C4B05E1CB4DD9500D3CB8B /* template_Word@2x.png in Resources */,
 				18B16ACA1CFD5CE300561CD5 /* UMSCommentDetailController.xib in Resources */,
+				1860AB3D1D9B66FE008A2A1E /* 广东省.txt in Resources */,
+				1860AB3A1D9B66FE008A2A1E /* 安徽省.txt in Resources */,
 				109EAB1F1D4C5395005C09BB /* error.html in Resources */,
 				1856A11D1D4F35150070B93E /* bootstrap-datetimepicker.ua.js in Resources */,
 				18DB8E481D001F1E000C9D8B /* woman_court.caf in Resources */,
@@ -4356,6 +4469,7 @@
 				108DC0261C9FA38E00FD1221 /* login_key@2x.png in Resources */,
 				18B16AD71CFD5CE300561CD5 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				1856A1071D4F35150070B93E /* bootstrap-datetimepicker.ja.js in Resources */,
+				1860AB441D9B66FE008A2A1E /* 海南省.txt in Resources */,
 				109EA9EE1D4C3CD1005C09BB /* ToolsCalculate_canji.html in Resources */,
 				187349DF1D2F4F96001A3E91 /* scan_net@2x.png in Resources */,
 				10D31D7C1CDEE92C008D6F42 /* GovDetailCell.xib in Resources */,
@@ -4375,6 +4489,7 @@
 				18DB8E461D001F1E000C9D8B /* man_meeting.caf in Resources */,
 				187A54AC1D642CBD0076A8E6 /* selected.png in Resources */,
 				1856A0EE1D4F35150070B93E /* glyphicons-halflings-regular.woff in Resources */,
+				1860AB411D9B66FE008A2A1E /* 河北省.txt in Resources */,
 				1856A0DE1D4F35150070B93E /* shoulifei.css in Resources */,
 				18DB8E491D001F1E000C9D8B /* woman_meeting.caf in Resources */,
 				1856A11E1D4F35150070B93E /* bootstrap-datetimepicker.uk.js in Resources */,
@@ -4399,22 +4514,27 @@
 				18FBD8491CED90CD00674D1E /* case_photo@2x.png in Resources */,
 				18DB8E471D001F1E000C9D8B /* woman_contract.caf in Resources */,
 				1065C3461CA91BA4003F4089 /* law_share@2x.png in Resources */,
+				1860AB3E1D9B66FE008A2A1E /* 广西壮族自治区.txt in Resources */,
 				109EA9E91D4C3CD1005C09BB /* ToolsCalculate_shoulifei.html in Resources */,
 				1856A1121D4F35150070B93E /* bootstrap-datetimepicker.pt.js in Resources */,
 				1856A1081D4F35150070B93E /* bootstrap-datetimepicker.ka.js in Resources */,
+				1860AB3C1D9B66FE008A2A1E /* 山西省.txt in Resources */,
 				108323321CAA2B14004B8045 /* law_contentSearch@2x.png in Resources */,
 				1856A0E81D4F35150070B93E /* bootstrap-theme.min.css in Resources */,
 				185838881D49B9FC00C6A0EE /* gov_Review@2x.png in Resources */,
 				180B31661C8ECFFF00360A23 /* recommentSelect@2x.png in Resources */,
 				18BDD4301D6EDFE8001541E1 /* Checkmark@3x.png in Resources */,
 				1856A11A1D4F35150070B93E /* bootstrap-datetimepicker.sw.js in Resources */,
+				1860AB371D9B66FE008A2A1E /* 四川省.txt in Resources */,
 				18DB8E441D001F1E000C9D8B /* man_contract.caf in Resources */,
 				180F70C21D88EA8300081CAE /* PersonalHeadView.xib in Resources */,
 				18F593E71CB636A500F5619D /* SearchWebView.js in Resources */,
 				18F2F1CE1CBE2EC40068453D /* Esearch_SouSuo@2x.png in Resources */,
 				1856A0E11D4F35150070B93E /* f_icon.png in Resources */,
 				188F9E381CF7FAF2000F9B2D /* Intro_3@2x.png in Resources */,
+				1860AB4D1D9B66FE008A2A1E /* 陕西省.txt in Resources */,
 				10241A1F1CB9FCDE000CBEAE /* pc_yiliao@2x.png in Resources */,
+				1860AB4B1D9B66FE008A2A1E /* 辽宁省.txt in Resources */,
 				187A54AB1D642CBD0076A8E6 /* notSelected.png in Resources */,
 				1856A1181D4F35150070B93E /* bootstrap-datetimepicker.sl.js in Resources */,
 				1856A0E91D4F35150070B93E /* bootstrap.css in Resources */,
@@ -4427,6 +4547,7 @@
 				1873676C1D7589D4000C1169 /* DayTabViewController.xib in Resources */,
 				18B16ADA1CFD5CE300561CD5 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				1856A0FB1D4F35150070B93E /* bootstrap-datetimepicker.ee.js in Resources */,
+				1860AB4E1D9B66FE008A2A1E /* 青海省.txt in Resources */,
 				1856A1211D4F35150070B93E /* canji.js in Resources */,
 				188A781E1D73C64400BCB54D /* Tools_peichang@2x.png in Resources */,
 				18CD01DC1C90172A009DE385 /* fork@2x.png in Resources */,
@@ -4436,9 +4557,11 @@
 				18E7C47F1CFC312E00E01A11 /* law_placeHold@2x.png in Resources */,
 				1856A0E31D4F35150070B93E /* share.png in Resources */,
 				1856A1191D4F35150070B93E /* bootstrap-datetimepicker.sv.js in Resources */,
+				1860AB431D9B66FE008A2A1E /* 浙江省.txt in Resources */,
 				18B16ACC1CFD5CE300561CD5 /* UMSCommentInputControlleriPad.xib in Resources */,
 				189B78561C8572D30022BCEA /* picker_alert_sigh@2x.png in Resources */,
 				1856A10B1D4F35150070B93E /* bootstrap-datetimepicker.lv.js in Resources */,
+				1860AB361D9B66FE008A2A1E /* 吉林省.txt in Resources */,
 				1065C34C1CA91BA4003F4089 /* law_xinfasudi@2x.png in Resources */,
 				108DC0201C9FA38E00FD1221 /* CollectEmpty@2x.png in Resources */,
 				180B31681C8ECFFF00360A23 /* ToolsSelect@2x.png in Resources */,
@@ -4451,6 +4574,7 @@
 				1856A1101D4F35150070B93E /* bootstrap-datetimepicker.pl.js in Resources */,
 				1856A12B1D4F35150070B93E /* mobiscroll.css in Resources */,
 				1065C3401CA91BA4003F4089 /* law_changyongfagui@2x.png in Resources */,
+				1860AB4A1D9B66FE008A2A1E /* 贵州省.txt in Resources */,
 				1065C3481CA91BA4003F4089 /* law_shoucang@2x.png in Resources */,
 				1856A1061D4F35150070B93E /* bootstrap-datetimepicker.it.js in Resources */,
 				1856A10D1D4F35150070B93E /* bootstrap-datetimepicker.nb.js in Resources */,
@@ -4458,7 +4582,9 @@
 				1856A1051D4F35150070B93E /* bootstrap-datetimepicker.is.js in Resources */,
 				1856A1251D4F35150070B93E /* jquery.mobile.min.js in Resources */,
 				1856A1031D4F35150070B93E /* bootstrap-datetimepicker.hy.js in Resources */,
+				1860AB4F1D9B66FE008A2A1E /* 黑龙江省.txt in Resources */,
 				10172BEA1CBBF1F300B7553E /* case_xjwjj@2x.png in Resources */,
+				1860AB491D9B66FE008A2A1E /* 西藏自治区.txt in Resources */,
 				10241A1E1CB9FCDE000CBEAE /* pc_jiaotong@2x.png in Resources */,
 				184983111D2A0CA7009AF29F /* case_mangeFS@2x.png in Resources */,
 				10D31D701CDE1DDB008D6F42 /* jiantou@3x.png in Resources */,
@@ -4472,6 +4598,7 @@
 				10C86B8A1CABCC28002A75AC /* home_hot@2x.png in Resources */,
 				184983131D2A0CA7009AF29F /* case_mangeSS@2x.png in Resources */,
 				108DC0281C9FA38E00FD1221 /* login_logo@2x.png in Resources */,
+				1860AB401D9B66FE008A2A1E /* 江西省.txt in Resources */,
 				1856A0F71D4F35150070B93E /* bootstrap-datetimepicker.ca.js in Resources */,
 				10172BE71CBBF1F300B7553E /* case_shangC@2x.png in Resources */,
 				185838871D49B9FC00C6A0EE /* gov_NoReview@2x.png in Resources */,
@@ -4481,8 +4608,10 @@
 				1856A0FF1D4F35150070B93E /* bootstrap-datetimepicker.fr.js in Resources */,
 				1856A12A1D4F35150070B93E /* zhixing.js in Resources */,
 				1856A11B1D4F35150070B93E /* bootstrap-datetimepicker.th.js in Resources */,
+				1860AB3F1D9B66FE008A2A1E /* 江苏省.txt in Resources */,
 				188651BD1D26609600E030F7 /* everyDay_history@2x.png in Resources */,
 				1065C3411CA91BA4003F4089 /* law_contenAdd@2x.png in Resources */,
+				1860AB321D9B66FE008A2A1E /* 上海市.txt in Resources */,
 				108DC0331C9FA38E00FD1221 /* mine_guanbi@2x.png in Resources */,
 				10FA3E3E1CAD73A2005C4C0C /* defaultSound.caf in Resources */,
 				186DF0CF1CB5094900D66994 /* template_shoucang@2x.png in Resources */,
@@ -4772,6 +4901,7 @@
 				18AF33F41CC0DFD30063485E /* ConsultantCell.m in Sources */,
 				108323301CAA19B2004B8045 /* UIWebView+HTML5.m in Sources */,
 				104157521C94530F00EE5303 /* HeadTableViewCell.m in Sources */,
+				1860AB5C1D9BD946008A2A1E /* CalculateShareView.m in Sources */,
 				104B44331C9BCCE400FC19B3 /* SelectReusableView.m in Sources */,
 				18474DB31CCE098300515CD6 /* UserData.m in Sources */,
 				1856F7031C869217003A0C17 /* HomeViewController.m in Sources */,
@@ -4986,8 +5116,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1349579a-f783-4ba6-ae5c-3de2efe2bb47";
-				PROVISIONING_PROFILE_SPECIFIER = 9_19_3;
+				PROVISIONING_PROFILE = "e7d3a5d0-2aab-4dd7-87f7-cea579eda0de";
+				PROVISIONING_PROFILE_SPECIFIER = 88888;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
@@ -5024,8 +5154,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1349579a-f783-4ba6-ae5c-3de2efe2bb47";
-				PROVISIONING_PROFILE_SPECIFIER = 9_19_3;
+				PROVISIONING_PROFILE = "e7d3a5d0-2aab-4dd7-87f7-cea579eda0de";
+				PROVISIONING_PROFILE_SPECIFIER = 88888;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};

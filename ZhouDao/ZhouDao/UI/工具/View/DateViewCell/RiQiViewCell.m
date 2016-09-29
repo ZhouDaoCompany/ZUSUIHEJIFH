@@ -136,7 +136,7 @@
                 _lineView.hidden = YES;
                 _titleLab.hidden = YES;
                 _textField.frame = CGRectMake(0, 6, kMainScreenWidth, 30);
-                _textField.text = @"2016年3月10日（周二，工作日）";
+                _textField.text = arr2[1];
                 _textField.textAlignment = NSTextAlignmentCenter;
                 
             }

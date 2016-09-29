@@ -14,6 +14,9 @@
 
 @property (weak, nonatomic)   id<LawyerFeesCellPro>delegate;
 @property (strong, nonatomic) CaseTextField *textField;
+@property (strong, nonatomic) UILabel *titleLab;
+
+//@property (strong, nonatomic) NSMutableArray *titleArrays;//标题数组
 
 - (void)settingUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays;
 @end

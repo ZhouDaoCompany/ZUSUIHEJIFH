@@ -115,6 +115,14 @@ singleton_for_header(QZManager)
                              format:(NSString *)format;
 
 
+/**
+ 转json
+
+ @param theData <#theData description#>
+
+ @return <#return value description#>
+ */
++ (NSData *)toJSONData:(id)theData;
 #pragma mark - 获取当前使用语言
 /**
  *  获取当前使用语言

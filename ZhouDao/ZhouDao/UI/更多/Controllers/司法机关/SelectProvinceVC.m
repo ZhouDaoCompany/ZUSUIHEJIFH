@@ -58,6 +58,7 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
     [self.dataSourceArrays enumerateObjectsUsingBlock:^(NSString *cityName, NSUInteger idx, BOOL * _Nonnull stop) {
         
         NSString *pinyinStr = [NSString HanZiZhuanPinYin:cityName];
+//        NSString *strUrl = [pinyinStr stringByReplacingOccurrencesOfString:@" " withString:@""];
         //获取首字母并转化为大写
         NSString *fristChar = [[pinyinStr substringWithRange:range] uppercaseString];
 
@@ -71,9 +72,10 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
             [[weakSelf.cityDictionary objectForKey:fristChar] addObject:cityName];
         }
     }];
+
      NSArray *titleArrays = [[self.cityDictionary allKeys] sortedArrayUsingSelector:@selector(compare:)];
     [self.cityDictionary setObject:[NSArray array] forKey:@"热门"];
-    [self.sectionHeadTitleArrays addObject:@"热门"];
+    [self.sectionHeadTitleArrays addObject:@""];
     [self.sectionHeadTitleArrays addObjectsFromArray:titleArrays];
     [self.tableView reloadData];
 }

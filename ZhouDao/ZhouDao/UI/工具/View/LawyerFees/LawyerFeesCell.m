@@ -10,7 +10,6 @@
 
 @interface LawyerFeesCell()
 
-@property (strong, nonatomic) UILabel *titleLab;
 @property (strong, nonatomic) UIView *lineView;
 @property (strong, nonatomic) UISegmentedControl *segButton;
 @end
@@ -53,6 +52,7 @@
                 _textField.enabled = NO;
                 _textField.hidden = NO;
                 _segButton.hidden = YES;
+                _textField.placeholder = @"请选择地区";
                 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
 
@@ -65,7 +65,7 @@
                 _segButton.hidden = YES;
                 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 120, 30);
-
+                _textField.placeholder = @"请选择案件类型";
                 
             }
                 break;
@@ -88,7 +88,6 @@
                 _textField.keyboardType = UIKeyboardTypeDecimalPad;
                 self.accessoryType = UITableViewCellAccessoryNone;
                 _lineView.hidden = YES;
-
 
             }
                 break;
@@ -115,7 +114,7 @@
         _textField.text = arr2[row];
         _lineView.hidden = NO;
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
-        _textField.frame = CGRectMake(kMainScreenWidth - 175, 7, 160, 30);
+        _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 200, 30);
         
         if (row == 0) {
             _titleLab.frame = CGRectMake(15, 12, kMainScreenWidth - 30, 20);
@@ -123,9 +122,10 @@
             _textField.hidden = YES;
             _lineView.frame = CGRectMake(0, 44.4f, kMainScreenWidth, .6f);
         }else if (row == arr2.count -1){
+            
             _lineView.hidden = YES;
-        }
 
+        }
         
     }
 }
@@ -135,7 +135,6 @@
     if ([self.delegate respondsToSelector:@selector(aboutProperty:)]) {
         [self.delegate aboutProperty:Seg.selectedSegmentIndex];
     }
-    
 }
 #pragma mark - setter and getter
 - (UILabel *)titleLab
@@ -151,7 +150,7 @@
 - (CaseTextField *)textField
 {
     if (!_textField) {
-        _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 135, 7, 120, 30)];
+        _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 215, 7, 200, 30)];
         _textField.borderStyle = UITextBorderStyleNone;
         _textField.textColor = hexColor(666666);
         [_textField setValue:hexColor(ADADAD) forKeyPath:@"_placeholderLabel.textColor"];

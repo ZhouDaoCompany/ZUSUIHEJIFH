@@ -63,13 +63,13 @@ static NSString *const RIQICellID = @"RIQICellID";
 {
     [self dismissKeyBoard];
     
-    if (btn.tag == 3063) {
+    if (btn.tag == 3064) {
         
         if (_dataSourceArrays.count == 2) {
             [_dataSourceArrays removeObjectAtIndex:1];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
         }
-        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"", nil];
+        NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"0",@"0", nil];
         [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
         [self.tableView  reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView  endUpdates];
@@ -92,8 +92,10 @@ static NSString *const RIQICellID = @"RIQICellID";
         if (_dataSourceArrays.count == 2) {
             [_dataSourceArrays removeObjectAtIndex:1];
         }
-
-        if (_flags[1] == YES) {
+        
+        _startTime = [NSString stringWithFormat:@"%ld",[_startTime integerValue] + 86400];
+        
+        if (_flags[1] == NO) {
             //不按照工作日推算
             [self doNotCalculateAccordingToTheWorkingDaysWithArr:arr1];
         }else {
@@ -156,8 +158,8 @@ static NSString *const RIQICellID = @"RIQICellID";
     NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
     [dateComponent  setYear:0];
     [dateComponent setMonth:0];
-    [dateComponent setDay:0];
-    [dateComponent setHour:days];
+    [dateComponent setDay:days];
+    [dateComponent setHour:-8];
     [dateComponent setMinute:0];
     
     NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
@@ -172,9 +174,9 @@ static NSString *const RIQICellID = @"RIQICellID";
     NSUInteger indexInter;
     if (_flags[0] == NO) {
         
-        indexInter = [[NSString stringWithFormat:@"%@",arrays[2]] integerValue];
+        indexInter = [[NSString stringWithFormat:@"%@",arrays[1]] integerValue];
     }else {
-        indexInter = [[NSString stringWithFormat:@"-%@",arrays[2]] integerValue];
+        indexInter = [[NSString stringWithFormat:@"-%@",arrays[1]] integerValue];
     }
     
     NSString *twoSectionString = [self getHowManyDaysLaterTheTimeStamp:_startTime withDays:indexInter];
@@ -193,8 +195,8 @@ static NSString *const RIQICellID = @"RIQICellID";
     NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:tempDate];
     [dateComponent  setYear:0];
     [dateComponent setMonth:0];
-    [dateComponent setDay:0];
-    [dateComponent setHour:days];
+    [dateComponent setDay:days];
+    [dateComponent setHour:-8];
     [dateComponent setMinute:0];
     
     NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
@@ -223,7 +225,7 @@ static NSString *const RIQICellID = @"RIQICellID";
         if ([contrastString isEqualToString:@"0"]) {
             suffix = @"工作日";
         }else {
-            suffix = @"放假";
+            suffix = @"节假日";
         }
         
     }else {
@@ -281,9 +283,7 @@ static NSString *const RIQICellID = @"RIQICellID";
     //weekday 的值就是工作日的天数
     NSUInteger weekday =days - weekend;
     
-    
     //跑文件
-    NSString *working = @"";
     float startTimeInt = [startTime floatValue];
     float endTimeInt = [endTime floatValue];
     
@@ -293,7 +293,7 @@ static NSString *const RIQICellID = @"RIQICellID";
         
     }else {
         
-        __block NSUInteger startIndex = 0;
+        __block NSUInteger startIndex = [self.timeArrays count];
         __block NSUInteger endIndex = [self.timeArrays count];
         
         [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -344,7 +344,7 @@ static NSString *const RIQICellID = @"RIQICellID";
     NSInteger row = indexPath.row;
     NSMutableArray *arr1 = _dataSourceArrays[0];
 
-    _flags[row] = (index == 0)?NO:YES;
+    _flags[row-2] = (index == 0)?NO:YES;
     [arr1 replaceObjectAtIndex:row withObject:[NSString stringWithFormat:@"%ld",index]];
 }
 #pragma mark - Table view data source
@@ -363,6 +363,7 @@ static NSString *const RIQICellID = @"RIQICellID";
     RiQiViewCell *cell = (RiQiViewCell *)[tableView dequeueReusableCellWithIdentifier:RIQICellID];
     [cell settingRiQiCellUIWithSection:indexPath.section withRow:indexPath.row withNSMutableArray:_dataSourceArrays];
     cell.textField.delegate = self;
+    cell.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification

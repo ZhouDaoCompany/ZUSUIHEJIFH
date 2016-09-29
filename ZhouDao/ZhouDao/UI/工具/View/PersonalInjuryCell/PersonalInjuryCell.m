@@ -88,6 +88,11 @@
         _segButton.hidden = YES;
         self.accessoryType = UITableViewCellAccessoryNone;
         
+        
+        UILabel *lab = (UILabel *)[self.contentView viewWithTag:9000];
+        [lab removeFromSuperview];
+
+        
         switch (row) {
             case 0:
             {
@@ -134,9 +139,6 @@
             {
                 _lineView.hidden = YES;
                 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
-                UILabel *lab = (UILabel *)[self.contentView viewWithTag:9000];
-                [lab removeFromSuperview];
 
                 if ([arr1[3] integerValue] == 0) {
                     

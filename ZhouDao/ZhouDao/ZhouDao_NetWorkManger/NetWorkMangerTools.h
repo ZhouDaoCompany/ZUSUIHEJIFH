@@ -413,6 +413,17 @@
                 RequestSuccess:(void (^)())success
                           fail:(void (^)())fail;
 
+/**
+ 89 分享计算结果
+
+ @param urlString urlString
+ @param success   成功回调
+ @param fail      失败回调
+ */
++ (void)shareTheResultsWithDictionary:(NSDictionary *)dictionary
+             RequestSuccess:(void (^)(NSString *urlString))success
+                       fail:(void (^)())fail;
+
 /*
  * 自动登录
  */

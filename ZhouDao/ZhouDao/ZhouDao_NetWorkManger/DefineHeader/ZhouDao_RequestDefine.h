@@ -390,6 +390,10 @@
  */
 #define ErrorCorrectionURL      @"api_judicial.php?key=16248ef5&c=ErrorCorrection&id="
 
+/**
+ *  89 分享计算 post
+ */
+#define SHARECALCulate          @"api_tools.php?key=16248ef5&c=toolsShareNew"
 
 
 /**************************分享的链接***************************/

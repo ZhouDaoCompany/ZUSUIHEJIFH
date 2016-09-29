@@ -16,7 +16,7 @@
 
 static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 
-@interface LawyerFeesVC ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,LawyerFeesCellPro>
+@interface LawyerFeesVC ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,LawyerFeesCellPro,CalculateShareDelegate>
 {
     
 }
@@ -55,11 +55,6 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     
     
 //    NSString *path = [[NSBundle mainBundle] pathForResource:@"lawerFees" ofType:@"txt"];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"xizang" ofType:@"txt"];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    NSDictionary *dict= [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    _areasDictionary = dict[@"area"];
-    _isInterval = _areasDictionary[@"isInterval"];
     [_bottomLabel whenCancelTapped:^{
         
         DLog(@"点击跳转");
@@ -72,6 +67,49 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     }];
 }
 #pragma mark - event response
+- (void)rightBtnAction
+{
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index
+{
+    if (index >0) {
+        if (_dataSourceArrays.count == 1) {
+            
+            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            return;
+        }
+        
+        NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-lvshifei",@"type", nil];
+        for (NSUInteger i = 0; i<_dataSourceArrays.count; i++) {
+            
+            NSMutableArray *arrays = _dataSourceArrays[i];
+            NSMutableArray *arr = [NSMutableArray array];
+            for (NSUInteger j = 0; j<arrays.count; j++) {
+                NSIndexPath *indexPath=[NSIndexPath indexPathForRow:j inSection:i];
+                LawyerFeesCell *cell = (LawyerFeesCell *)[_tableView cellForRowAtIndexPath:indexPath];
+                DLog(@"999--:%@",cell.titleLab.text);
+                NSString *tempString = [NSString stringWithFormat:@"%@-%@",cell.titleLab.text,arrays[j]];
+                [arr addObject:tempString];
+            }
+            NSString *keyString = (i == 0)?@"conditions":@"results";
+            [shareDict setObject:arr forKey:keyString];
+        }
+        
+        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString) {
+            
+        } fail:^{
+            
+        }];
+
+    }else {//分享计算器
+        
+        
+    }
+    DLog(@"分享的是第几个－－－%ld",index);
+}
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
@@ -120,14 +158,24 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         NSString *isMoney = arr[2];
         if ([isMoney isEqualToString:@"是"]) {
             
-            LayerFeesModel *model = [[LayerFeesModel alloc] initWithDictionary:_areasDictionary[@"xz1"]];
             
-            if ([_isInterval isEqualToString:@"1"]) {
-                //1 是百分比  2百分比区间计算
-                [self calaulateWithMSAndXZCaseWith:model];
+            if ([proString isEqualToString:@"新疆维吾尔自治区"]) {
+                
+                [self xinJiangEventWithArrays:arr];
+                
             }else {
-                [self percentageRangeCalculationWith:model];
+                
+                LayerFeesModel *model = [[LayerFeesModel alloc] initWithDictionary:_areasDictionary[@"xz1"]];
+                
+                if ([_isInterval isEqualToString:@"1"]) {
+                    //1 是百分比  2百分比区间计算
+                    [self calaulateWithMSAndXZCaseWith:model];
+                }else {
+                    [self percentageRangeCalculationWith:model];
+                }
+
             }
+
 
         }else {
             
@@ -141,11 +189,19 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         NSString *isMoney = arr[2];
         if ([isMoney isEqualToString:@"是"]) {
             
-            LayerFeesModel *model = [[LayerFeesModel alloc] initWithDictionary:_areasDictionary[@"ms1"]];
-            if ([_isInterval isEqualToString:@"1"]) {
-                [self calaulateWithMSAndXZCaseWith:model];
+            if ([proString isEqualToString:@"新疆维吾尔自治区"]) {
+                
+                [self xinJiangEventWithArrays:arr];
+                
             }else {
-                [self percentageRangeCalculationWith:model];
+               
+                LayerFeesModel *model = [[LayerFeesModel alloc] initWithDictionary:_areasDictionary[@"ms1"]];
+                if ([_isInterval isEqualToString:@"1"]) {
+                    [self calaulateWithMSAndXZCaseWith:model];
+                }else {
+                    [self percentageRangeCalculationWith:model];
+                }
+
             }
             
         }else {
@@ -202,7 +258,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             lastMoneyMin = lastMoneyMin + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMin floatValue];
             lastMoneyMax = lastMoneyMax + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMax floatValue];
             
-            NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f ~ %.2f元",lastMoneyMin,lastMoneyMax];
+            NSString *lastMoneyString = [NSString stringWithFormat:@"%.0f ~ %.0f元",lastMoneyMin,lastMoneyMax];
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
             [_dataSourceArrays addObject:arr2];
             [self reloadTableViewWithAnimation];
@@ -225,7 +281,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             lastMoneyMin = lastMoneyMin + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMin floatValue];
             lastMoneyMax = lastMoneyMax + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMax floatValue];
         }
-        NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f ~ %.2f元",lastMoneyMin,lastMoneyMax];
+        NSString *lastMoneyString = [NSString stringWithFormat:@"%.0f ~ %.0f元",lastMoneyMin,lastMoneyMax];
         NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
         [_dataSourceArrays addObject:arr2];
         [self reloadTableViewWithAnimation];
@@ -273,7 +329,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             }
             lastMoney = lastMoney + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.con floatValue];
             
-            NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f元",lastMoney];
+            NSString *lastMoneyString = [NSString stringWithFormat:@"%.0f元",lastMoney];
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
             [_dataSourceArrays addObject:arr2];
             [self reloadTableViewWithAnimation];
@@ -291,11 +347,51 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             
             lastMoney  = lastMoney + ([moneyString floatValue] - [model.allMoney[index-1] floatValue])*[perModel.con floatValue];
         }
-        NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f元",lastMoney];
+        NSString *lastMoneyString = [NSString stringWithFormat:@"%.0f元",lastMoney];
         NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
         [_dataSourceArrays addObject:arr2];
         [self reloadTableViewWithAnimation];
     }
+}
+
+#pragma mark - 新疆单独算
+- (void)xinJiangEventWithArrays:(NSMutableArray *)arrays
+{
+    double money = [arrays[3] doubleValue];
+    NSString *lastMoneyString = @"";
+    if (money <= 10000.f) {
+        
+        lastMoneyString = @"500—800元";
+    }else if (money> 10000.f && money <= 100000.f){
+        
+        double mm = (money * 0.05f) + 300.f;
+        lastMoneyString = [NSString stringWithFormat:@"%.0f",mm];
+    }else if (money> 100000.f && money <= 500000.f){
+        
+        double mm = (money * 0.04f) + 1300.f;
+        lastMoneyString = [NSString stringWithFormat:@"%.0f",mm];
+    }else if (money> 500000.f && money <= 1000000.f){
+        
+        double mm = (money * 0.03f) + 6300.f;
+        lastMoneyString = [NSString stringWithFormat:@"%.0f",mm];
+    }else if (money> 1000000.f && money <= 5000000.f){
+        
+        double mm = (money * 0.02f) + 16300.f;
+        lastMoneyString = [NSString stringWithFormat:@"%.0f",mm];
+    }else if (money> 5000000.f && money <= 10000000.f){
+        
+        double mm = (money * 0.01f) + 66300.f;
+        lastMoneyString = [NSString stringWithFormat:@"%.0f",mm];
+    }else {
+        
+        double mm = (money * 0.005f) + 116300.f;
+        lastMoneyString = [NSString stringWithFormat:@"%.0f",mm];
+    }
+    
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
+    [_dataSourceArrays addObject:arr2];
+    [self reloadTableViewWithAnimation];
+
 }
 
 #pragma mark - LawyerFeesCellPro
@@ -345,9 +441,15 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     if (section == 0) {
         if (row == 0) {
             SelectProvinceVC *selectVC = [SelectProvinceVC new];
+            selectVC.isNoTW = YES;
             selectVC.selectBlock = ^(NSString *province, NSString *local){
 
-//                上海
+                NSString *path = [[NSBundle mainBundle] pathForResource:province ofType:@"txt"];
+                NSData *data = [NSData dataWithContentsOfFile:path];
+                NSDictionary *dict= [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                weakSelf.areasDictionary = dict[@"area"];
+                weakSelf.isInterval = weakSelf.areasDictionary[@"isInterval"];
+
                 weakSelf.bottomLabel.text = [NSString stringWithFormat:@"根据《%@诉讼费用交纳办法》计算，供您参考",province];
                 NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                 [arr1 replaceObjectAtIndex:row withObject:province];

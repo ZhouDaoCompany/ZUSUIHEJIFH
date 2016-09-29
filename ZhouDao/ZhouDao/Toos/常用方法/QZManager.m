@@ -158,7 +158,19 @@ singleton_for_class(QZManager)
     return (long)[[formatter dateFromString:time] timeIntervalSince1970];
 }
 
-
+#pragma mark - 转json
++ (NSData *)toJSONData:(id)theData{
+    
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theData
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    if ( error == nil){
+        return jsonData;
+    }else{
+        return nil;
+    }
+}
 #pragma mark - 获取当前使用语言
 + (NSString *)currentLanguage
 {

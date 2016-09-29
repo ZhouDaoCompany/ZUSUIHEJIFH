@@ -79,7 +79,7 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
         }
     }];
     NSArray *titleArrays = [[self.cityDictionary allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    [self.cityDictionary setObject:[NSArray array] forKey:@"热门"];
+    [self.cityDictionary setObject:[NSArray array] forKey:@""];
     [self.sectionHeadTitleArrays addObject:@"热门"];
     [self.sectionHeadTitleArrays addObjectsFromArray:titleArrays];
     [self.tableView reloadData];

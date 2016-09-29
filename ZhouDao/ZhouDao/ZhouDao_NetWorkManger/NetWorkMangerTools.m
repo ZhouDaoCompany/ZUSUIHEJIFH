@@ -2021,7 +2021,32 @@
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
 }
+#pragma mark - 89 分享计算结果
++ (void)shareTheResultsWithDictionary:(NSDictionary *)dictionary
+                       RequestSuccess:(void (^)(NSString *urlString))success
+                                 fail:(void (^)())fail
+{
+    
+    [MBProgressHUD showMBLoadingWithText:nil];
+    NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,SHARECALCulate];
+    [ZhouDao_NetWorkManger PostJSONWithUrl:url parameters:dictionary success:^(NSDictionary *jsonDic) {
+        
+        [MBProgressHUD hideHUD];
+        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+        NSString *msg = jsonDic[@"info"];
+        [JKPromptView showWithImageName:nil message:msg];
+        if (errorcode !=1) {
+            return ;
+        }
+        NSDictionary *dataDic = jsonDic[@"data"];
+//        NSString *idStr = dataDic[@"id"];
+//        success(idStr);
+    } fail:^{
+        [MBProgressHUD hideHUD];
+        [JKPromptView showWithImageName:nil message:AlrertMsg];
+    }];
 
+}
 /**
  *  判断铃声
  */

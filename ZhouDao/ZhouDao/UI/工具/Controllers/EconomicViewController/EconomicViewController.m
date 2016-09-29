@@ -121,7 +121,6 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     NSDateComponents *components = [userCalendar components:unitFlags fromDate:date1 toDate:date2 options:0];
     NSUInteger years = [components year];
     NSUInteger months = [components month];
-    NSUInteger days = [components day];
     double money = 0.0f;
     double counts = years;
     if (months >6) {
@@ -133,9 +132,9 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         counts = 12.f;
     }
     double averayeMoney = ([wage doubleValue] >= [self.moneyDictionary[province] doubleValue] *3)?[self.moneyDictionary[province] doubleValue] *3: [self.moneyDictionary[province] doubleValue];
-    money = averayeMoney * years;
+    money = averayeMoney * counts;
     NSString *moneyString = [NSString stringWithFormat:@"%.2f",money];
-    NSString *monthsString = [NSString stringWithFormat:@"%ld",years *12 + months];
+    NSString *monthsString = [NSString stringWithFormat:@"%.2f",counts];
 
     success(moneyString, monthsString);
 }
