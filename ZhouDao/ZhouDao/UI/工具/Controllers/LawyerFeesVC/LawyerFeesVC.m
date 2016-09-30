@@ -100,6 +100,11 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         
         [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString) {
             
+            NSArray *arrays = [NSArray arrayWithObjects:@"律师费计算",@"律师费计算结果",urlString,@"", nil];
+            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            }];
+
+            
         } fail:^{
             
         }];

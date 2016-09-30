@@ -63,7 +63,11 @@
     //写入文件
     [dict001 writeToFile:plistPath atomically:YES];
  
-    
+    [self calculateYearsWithMonthsFromDate:[NSDate dateFromString:@"2016-09-30" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-10-31" format:@"yyyy-MM-dd"] withYear:YES Success:^(NSString *dateString) {
+        
+        
+        
+    }];
 
     
 //    [self.view addSubview:self.sureBtn];

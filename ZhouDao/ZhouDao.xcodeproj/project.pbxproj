@@ -1034,6 +1034,7 @@
 		184983151D2A0D63009AF29F /* OnlyAddCaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnlyAddCaseVC.m; sourceTree = "<group>"; };
 		18539B371D3CA3A400ADE566 /* BindingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindingViewController.h; sourceTree = "<group>"; };
 		18539B381D3CA3A400ADE566 /* BindingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindingViewController.m; sourceTree = "<group>"; };
+		18563A1C1D9DFB2C00D11F53 /* CalculateHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculateHeader.h; sourceTree = "<group>"; };
 		1856A0701D4F35150070B93E /* base.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = base.css; sourceTree = "<group>"; };
 		1856A0711D4F35150070B93E /* canji.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = canji.css; sourceTree = "<group>"; };
 		1856A0721D4F35150070B93E /* jquery.mobile.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = jquery.mobile.min.css; sourceTree = "<group>"; };
@@ -2941,6 +2942,7 @@
 			children = (
 				1863DFE51C8D316200F7A84E /* DefineHeader.h */,
 				1863DFE61C8D316200F7A84E /* ZhouDao_Prefix.pch */,
+				18563A1C1D9DFB2C00D11F53 /* CalculateHeader.h */,
 				1863DFE71C8D316200F7A84E /* ZhouDao_RequestDefine.h */,
 				18230CF61CC76F1800F4ACCF /* QZPathDefine.h */,
 				18230CF71CC76F8300F4ACCF /* QZPersistentDefine.h */,

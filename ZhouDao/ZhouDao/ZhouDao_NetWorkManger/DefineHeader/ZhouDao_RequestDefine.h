@@ -394,7 +394,18 @@
  *  89 分享计算 post
  */
 #define SHARECALCulate          @"api_tools.php?key=16248ef5&c=toolsShareNew"
-
+#define FANGWUCulate            @"api_tools.php?key=16248ef5&c=tools_fangwuhuandai.php"//房屋还贷
+#define GSPCCulate              @"api_tools.php?key=16248ef5&c=tools_gongshangpeichang.php"//工商赔偿
+#define JJBCCulate              @"api_tools.php?key=16248ef5&c=tools_jingjibuchangjin.php"//经济补偿
+#define LHFCCulate              @"api_tools.php?key=16248ef5&c=tools_lihunfangchan.php"//离婚房产
+#define LIXICulate              @"api_tools.php?key=16248ef5&c=tools_lixi.php"//利息
+#define LVSFCulate              @"api_tools.php?key=16248ef5&c=tools_lvshifei.php"//律师费
+#define RSSHCulate              @"api_tools.php?key=16248ef5&c=tools_renshensunhai.php"//人身损害
+#define DAYSCulate              @"api_tools.php?key=16248ef5&c=tools_riqi.php"//天数计算
+#define DATESCulate             @"api_tools.php?key=16248ef5&c=tools_riqi.php?id=1"//日期计算
+#define SLFCulate               @"api_tools.php?key=16248ef5&c=tools_shoulifei.php"//受理费
+#define WYJCulate               @"api_tools.php?key=16248ef5&c=tools_weiyuejin.php"// 违约金
+#define YUQILXCulate            @"api_tools.php?key=16248ef5&c=tools_yuqilixi.php"//逾期利息
 
 /**************************分享的链接***************************/
 //法律法规

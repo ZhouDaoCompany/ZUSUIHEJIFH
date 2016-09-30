@@ -2038,9 +2038,8 @@
         if (errorcode !=1) {
             return ;
         }
-        NSDictionary *dataDic = jsonDic[@"data"];
-//        NSString *idStr = dataDic[@"id"];
-//        success(idStr);
+        NSString *dataUrlString = jsonDic[@"data"];
+        success(dataUrlString);
     } fail:^{
         [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
