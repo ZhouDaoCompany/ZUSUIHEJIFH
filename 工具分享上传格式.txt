@@ -1,0 +1,56 @@
+share-fangwuhuandai-edu    房屋还贷（公积金、计算页）
+    conditions：[贷款金额，期限，年利率]
+    results：[本息月供，本息月数，本息利息，本息总额，本金月数，本金利息，本金总额]
+
+share-fangwuhuandai-shangye    房屋还贷（商业、计算页）
+    conditions：[贷款金额，期限，年利率，浮动比例]
+    results：[本息月供，本息月数，本息利息，本息总额，本金月数，本金利息，本金总额]
+
+share-fangwuhuandai-zuhe    房屋还贷（组合、计算页）
+    conditions：[公积金金额，商业金额，期限，公积金年利率，商业贷款年利率，商业贷款浮动比例]
+    results：[本息月供，本息月数，本息利息，本息总额，本金月数，本金利息，本金总额]
+
+share-gongshangpeichang    工伤赔偿（结果页）
+    conditions：[]
+    results：[赔偿总金额，地区名，等级，工资，标题-值，标题-值，标题-值。。。]
+
+share-jingjibuchang    经济补偿（计算页）
+    conditions：[开始时间，结束时间，工资，城市]
+    results：[经济补偿金，补偿月数]
+
+share-lihunfangchan    离婚房产（计算页）
+    conditions：[结婚时诉争房产价格，离婚时诉争房产价格，已还利息，其他费用，还贷部分]
+    results：[升值率，增值金额]
+
+share-lixi    利息（计算页）
+    conditions：[标题-值，标题-值，标题-值。。。]
+    results：[还款总额，利息，本金]
+
+share-lvshifei    律师费（计算页）
+    conditions：[标题-值，标题-值，标题-值。。。]
+    results：[标题-值，标题-值，标题-值。。。]
+
+share-renshensunhaipeichangjieguo    人身损害赔偿（结果页）
+    conditions：[]
+    results：[赔偿总金额，地区，户口，伤残项，伤残等级，伤残赔偿金，误工费，生活费，交通费，医疗费，住宿费]
+
+share-tianshujisuan    日期（天数计算、计算页）
+    conditions：[开始日期，结束时间]
+    results：[天，月，年，工作日]
+
+
+share-riqijisuan    日期计算（计算页）
+    conditions：[开始日期，间隔时间，推算方式，工作日]
+    results：[结果]
+
+share-shoulifei    受理费（计算页）
+    conditions：[标题-值，标题-值，标题-值。。。]
+    results：[标题-值，标题-值，标题-值。。。]
+
+share-weiyuejin    违约金（计算页）
+    conditions：[标题-值，标题-值，标题-值。。。]
+    results：[逾期违约金，逾期天数]
+
+share-yuqilixi    逾期利息（计算页）
+    conditions：[标题-值，标题-值，标题-值。。。]
+    results：[一般债务利息，加倍部分债务利息，延迟期间债务利息]
