@@ -10,7 +10,6 @@
 
 @interface InjuryViewCell()
 
-@property (strong, nonatomic) UILabel *titleLab;
 @property (strong, nonatomic) UIView *lineView;
 
 @end
@@ -38,7 +37,8 @@
     _titleLab.frame = CGRectMake(15, 12, 160, 20);
     _textField.enabled = NO;
     _titleLab.textAlignment = NSTextAlignmentLeft;
-
+    _lineView.hidden = NO;
+    _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
     _titleLab.text = dictionary[@"title"];
     _textField.text = dictionary[@"money"];
 }
@@ -89,11 +89,6 @@
     }
 
 
-}
-#pragma mark - seg
-- (void)didClicksegmentedControlAction:(UISegmentedControl *)Seg
-{
-    
 }
 #pragma mark - setter and getter
 - (UILabel *)titleLab

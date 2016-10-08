@@ -10,7 +10,6 @@
 
 @interface CourtViewCell()
 
-@property (strong, nonatomic) UILabel *titleLab;
 @property (strong, nonatomic) UIView *lineView;
 @property (strong, nonatomic) UISegmentedControl *segButton;
 @property (strong, nonatomic) UISegmentedControl *segButtonTwo;

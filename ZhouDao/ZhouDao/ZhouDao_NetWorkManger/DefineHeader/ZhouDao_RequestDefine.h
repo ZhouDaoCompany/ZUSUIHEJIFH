@@ -394,6 +394,8 @@
  *  89 分享计算 post
  */
 #define SHARECALCulate          @"api_tools.php?key=16248ef5&c=toolsShareNew"
+#define TOOLSWORDSHAREURL       @"tools_word.php?id="
+
 #define FANGWUCulate            @"api_tools.php?key=16248ef5&c=tools_fangwuhuandai.php"//房屋还贷
 #define GSPCCulate              @"api_tools.php?key=16248ef5&c=tools_gongshangpeichang.php"//工商赔偿
 #define JJBCCulate              @"api_tools.php?key=16248ef5&c=tools_jingjibuchangjin.php"//经济补偿

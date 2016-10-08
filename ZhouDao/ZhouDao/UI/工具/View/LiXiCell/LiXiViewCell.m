@@ -10,7 +10,6 @@
 
 @interface LiXiViewCell()
 
-@property (strong, nonatomic) UILabel *titleLab;
 @property (strong, nonatomic) UIView *lineView;
 @property (strong, nonatomic) UILabel *manualLabel;
 @property (strong, nonatomic) UILabel *symbolLabel;

@@ -14,7 +14,7 @@
 
 static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 
-@interface PersonalComputingResultsVC ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,PersonalHeadViewDelegate,Disability_AlertViewPro>
+@interface PersonalComputingResultsVC ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,PersonalHeadViewDelegate,Disability_AlertViewPro,CalculateShareDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic, strong) ParallaxHeaderView *headerView;
@@ -41,7 +41,8 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 {
     [self setupNaviBarWithTitle:@"计算结果"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
-    
+    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
+
     _allMoneyString = _moneyString;
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:_allMoneyString, nil];
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
@@ -179,6 +180,76 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 {
     [self dismissKeyBoard];
 }
+
+#pragma mark - 分享
+- (void)rightBtnAction
+{
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index
+{
+    if (index >0) {
+        
+        NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-renshensunhaipeichangjieguo",@"type", nil];
+        
+        NSString *item = _detailDictionary[@"item"];
+        NSMutableString *levelString = [[NSMutableString alloc] init];
+        if ([item isEqualToString:@"单级"]) {
+            
+            levelString = _detailDictionary[@"grade"];
+        }else {
+            
+            NSArray *levelArr = _detailDictionary[@"grade"];
+            
+            for (NSDictionary *dict in levelArr) {
+                
+                [levelString appendString:[NSString stringWithFormat:@"%@级:%@处 ",dict[@"level"],dict[@"several"]]];
+            }
+        }
+
+        NSMutableArray *resultArr = [NSMutableArray arrayWithObjects:_allMoneyString,_detailDictionary[@"area"],_detailDictionary[@"hk"],_detailDictionary[@"item"],levelString, nil];
+
+        NSMutableArray *arr2 = _dataSourcesArrays[1];
+
+        for (NSUInteger i = 0; i<arr2.count; i++) {
+            
+            [resultArr addObject:arr2[i]];
+        }
+        [shareDict setObject:resultArr forKey:@"results"];
+        [shareDict setObject:[NSArray array] forKey:@"conditions"];
+        
+        
+        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
+            
+            NSArray *arrays;
+            if (index == 1) {
+                
+                arrays = [NSArray arrayWithObjects:@"人身损害赔偿计算",@"人身损害赔偿计算结果",urlString,@"", nil];
+            }else {
+                
+                arrays = [NSArray arrayWithObjects:@"人身损害赔偿计算",@"人身损害赔偿计算结果Word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString], nil];
+            }
+            
+            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            }];
+
+        } fail:^{
+            
+        }];
+        
+    }else {//分享计算器
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,RSSHCulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"人身损害赔偿计算",@"人身损害赔偿计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
+        
+    }
+    DLog(@"分享的是第几个－－－%ld",index);
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

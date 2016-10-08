@@ -12,7 +12,7 @@
 
 static NSString *const RIQICellID = @"RIQICellID";
 
-@interface RiQiTablViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,RiQiViewCellDelegate>
+@interface RiQiTablViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,RiQiViewCellDelegate,CalculateShareDelegate>
 
 {
     BOOL _flags[2];
@@ -57,7 +57,83 @@ static NSString *const RIQICellID = @"RIQICellID";
         
         [weakSelf dismissKeyBoard];
     }];
+    
+    [GcNoticeUtil handleNotification:@"RiQiTablViewController"
+                            Selector:@selector(clickShareEvent)
+                            Observer:self];
+
 }
+- (void)clickShareEvent
+{
+    DLog(@"分享日期计算");
+    
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+    
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index
+{
+    if (index >0) {
+        if (_dataSourceArrays.count == 1) {
+            
+            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            return;
+        }
+        
+        NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-riqijisuan",@"type", nil];
+        NSMutableArray *arr1 = _dataSourceArrays[0];
+        NSString *str3 = @"";
+        if (_flags[0] == NO) {
+            str3 = @"向后推算";
+        }else {
+           str3 = @"向前推算";
+        }
+        NSString *str4 = @"";
+        if (_flags[1] == NO) {
+            str3 = @"否";
+        }else {
+            str3 = @"是";
+        }
+
+
+        NSMutableArray *conditionsArr = [NSMutableArray arrayWithObjects:arr1[0],arr1[1],str3,str4, nil];
+        NSMutableArray *resultsArr = [_dataSourceArrays[1] mutableCopy];
+        [resultsArr removeObjectAtIndex:0];
+        [shareDict setObject:conditionsArr forKey:@"conditions"];
+        [shareDict setObject:resultsArr forKey:@"results"];
+        
+        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
+            
+            
+            NSArray *arrays;
+            if (index == 1) {
+                
+                arrays = [NSArray arrayWithObjects:@"日期计算",@"日期计算结果",urlString,@"", nil];
+            }else {
+                
+                arrays = [NSArray arrayWithObjects:@"日期计算",@"日期计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+            }
+
+            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            }];
+            
+            
+        } fail:^{
+            
+        }];
+        
+    }else {//分享计算器
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,DATESCulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"日期计算",@"日期计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
+        
+    }
+    DLog(@"分享的是第几个－－－%ld",index);
+}
+
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {

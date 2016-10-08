@@ -15,7 +15,7 @@
 
 static NSString *const INJURYCELL = @"injurycellid";
 
-@interface InjuryViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,Disability_AlertViewPro>
+@interface InjuryViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,Disability_AlertViewPro,CalculateShareDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -47,6 +47,32 @@ static NSString *const INJURYCELL = @"injurycellid";
     
 }
 #pragma mark - event response
+- (void)rightBtnAction
+{
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index
+{
+    if (index >0) {
+        if (_dataSourceArrays.count == 1) {
+            
+            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            return;
+        }
+        
+    }else {//分享计算器
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,GSPCCulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"工伤赔偿计算",@"工伤赔偿计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
+        
+    }
+    DLog(@"分享的是第几个－－－%ld",index);
+}
+
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {WEAKSELF;
     [self dismissKeyBoard];
@@ -251,7 +277,7 @@ static NSString *const INJURYCELL = @"injurycellid";
     
     if (row == 0) {
         SelectCityViewController *cityVC = [SelectCityViewController new];
-        
+        cityVC.type = InjuryType;
         cityVC.citySelectBlock = ^(NSString *name, NSString *idString){
             
             weakSelf.idString = idString;

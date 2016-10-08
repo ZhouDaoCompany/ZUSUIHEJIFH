@@ -12,6 +12,7 @@
 @interface DivorceViewCell : UITableViewCell
 
 @property (strong, nonatomic) CaseTextField *textField;
+@property (strong, nonatomic) UILabel *titleLab;
 
 - (void)settingOverdueCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays;
 

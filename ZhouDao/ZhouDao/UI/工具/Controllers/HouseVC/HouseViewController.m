@@ -15,7 +15,7 @@
 
 static NSString *const HOUSECELL = @"housecellid";
 
-@interface HouseViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,HouseViewDelegate>
+@interface HouseViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,HouseViewDelegate,CalculateShareDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -236,10 +236,6 @@ static NSString *const HOUSECELL = @"housecellid";
     NSMutableDictionary *twoDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%.2f",allMoney02 + allMoney12],@"allMoney",[NSString stringWithFormat:@"%.2f",allLiXiMoney02 + allLiXiMoney12],@"allLiXiMoney",[NSString stringWithFormat:@"%.2f",money01 + money11],@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr02,@"MutableArray",dicArr12,@"MutableArray2",nil];
     [self.bigDictionary setObjectWithNullValidate:twoDict forKey:@"TwoDictionary"];
 
-}
-- (void)rightBtnAction
-{
-    
 }
 - (void)reloadTableViewWithAnimation
 {
@@ -559,6 +555,94 @@ static NSString *const HOUSECELL = @"housecellid";
     return _bottomView;
 }
 
+#pragma mark - 分享
+- (void)rightBtnAction
+{
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index
+{
+    if (index >0) {
+        if (_dataSourceArrays.count == 1) {
+            
+            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            return;
+        }
+        
+        NSMutableArray *arr1 = _dataSourceArrays[0];
+        NSString *oneString = arr1[0];
+        NSMutableDictionary *shareDict = [NSMutableDictionary dictionary];
+
+        if ([oneString isEqualToString:@"组合贷款"]) {
+
+            [shareDict setObject:@"share-fangwuhuandai-zuhe" forKey:@"type"];
+            NSMutableArray *arr1 = _dataSourceArrays[0];
+            NSMutableArray *conditionsArr = [NSMutableArray arrayWithObjects:arr1[2],arr1[4],arr1[1],arr1[3],arr1[5],arr1[6], nil];
+            [shareDict setObject:conditionsArr forKey:@"conditions"];
+            
+            NSMutableArray *arr2 = _dataSourceArrays[1];
+            NSMutableArray *resultArr = [NSMutableArray array];
+            for (NSUInteger i = 0; i<arr2.count; i++)
+            {
+                NSMutableArray *arrays = arr2[i];
+                for (NSUInteger j = 1; j<arrays.count; j++)
+                {
+                    [resultArr addObject:arrays[j]];
+                }
+            }
+            [shareDict setObject:resultArr forKey:@"results"];
+        }else {
+            
+            if([oneString isEqualToString:@"公积金贷款"]){
+                [shareDict setObject:@"share-fangwuhuandai-edu" forKey:@"type"];
+            }else {
+                [shareDict setObject:@"share-fangwuhuandai-shangye" forKey:@"type"];
+            }
+            
+            NSMutableArray *conditionsArr = [_dataSourceArrays[0] mutableCopy];
+            [conditionsArr removeObjectAtIndex:0];
+            [shareDict setObject:conditionsArr forKey:@"conditions"];
+            
+            NSMutableArray *arr2 = _dataSourceArrays[1];
+            NSMutableArray *resultArr = [NSMutableArray array];
+            for (NSUInteger i = 0; i<arr2.count; i++)
+            {
+                NSMutableArray *arrays = arr2[i];
+                for (NSUInteger j = 1; j<arrays.count; j++)
+                {
+                    [resultArr addObject:arrays[j]];
+                }
+            }
+            [shareDict setObject:resultArr forKey:@"results"];
+        }
+        
+        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
+            
+            NSArray *arrays;
+            if (index == 1) {
+                arrays = [NSArray arrayWithObjects:@"房屋还贷计算",@"房屋还贷计算结果",urlString,@"", nil];
+            }else {
+                arrays = [NSArray arrayWithObjects:@"房屋还贷计算",@"房屋还贷计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+            }
+
+            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            }];
+            
+        } fail:^{
+        }];
+        
+    }else {//分享计算器
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,FANGWUCulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"房屋还贷计算",@"房屋还贷计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
+        
+    }
+    DLog(@"分享的是第几个－－－%ld",index);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -10,7 +10,6 @@
 
 @interface OverdueCell()
 
-@property (strong, nonatomic) UILabel *titleLab;
 @property (strong, nonatomic) UIView *lineView;
 
 @end

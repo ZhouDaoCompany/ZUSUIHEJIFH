@@ -74,9 +74,11 @@
 - (void)settingPersonalCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays withDelegate:(id<PersonalInjuryDelegate>)delegate
 {
     self.delegate = delegate;
+    _textField.section = section;
+    _textField.row = row;
     if (section == 0) {
         NSMutableArray *arr1 = arrays[0];
-        NSArray *titleArr = @[@"选择地区",@"选择户口",@"是否伤亡",@"伤残项",@"伤残等级"];
+        NSArray *titleArr = @[@"选择地区",@"年龄",@"选择户口",@"是否伤亡",@"伤残项",@"伤残等级"];
         _titleLab.frame = CGRectMake(15, 12, 160, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];
@@ -88,7 +90,6 @@
         _segButton.hidden = YES;
         self.accessoryType = UITableViewCellAccessoryNone;
         
-        
         UILabel *lab = (UILabel *)[self.contentView viewWithTag:9000];
         [lab removeFromSuperview];
 
@@ -98,10 +99,23 @@
             {
                 _textField.placeholder = @"请选择地区";
                 _textField.text = arr1[row];
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 180, 30);
+
                 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
                 break;
             case 1:
+            {
+                _textField.placeholder = @"请输入年龄";
+                _textField.enabled = YES;
+                _textField.text = arr1[row];
+                _textField.frame = CGRectMake(kMainScreenWidth - 155, 7, 140, 30);
+                _textField.keyboardType = UIKeyboardTypeDecimalPad;
+                self.accessoryType = UITableViewCellAccessoryNone;
+            }
+                break;
+
+            case 2:
             {
                 _textField.hidden = YES;
                 _segButton.hidden = NO;
@@ -112,7 +126,7 @@
 
             }
                 break;
-            case 2:
+            case 3:
             {
                 _textField.hidden = YES;
                 _segButton.hidden = NO;
@@ -123,7 +137,7 @@
                 
             }
                 break;
-            case 3:
+            case 4:
             {
                 _textField.hidden = YES;
                 _segButton.hidden = NO;
@@ -135,19 +149,20 @@
                 
             }
                 break;
-            case 4:
+            case 5:
             {
                 _lineView.hidden = YES;
                 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                _textField.frame = CGRectMake(kMainScreenWidth - 215, 7, 180, 30);
 
-                if ([arr1[3] integerValue] == 0) {
+                if ([arr1[4] integerValue] == 0) {
                     
                     _textField.hidden = NO;
                     _textField.placeholder = @"选择伤残等级";
                     _textField.text = arr1[row];
 
                 }else{
-                    NSArray *levelArr = arr1[4];
+                    NSArray *levelArr = arr1[5];
                     if (levelArr.count == 0) {
                         
                         _textField.hidden = NO;

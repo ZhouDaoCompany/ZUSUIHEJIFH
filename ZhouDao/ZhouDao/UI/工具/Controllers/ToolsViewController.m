@@ -23,6 +23,7 @@
 #import "PersonalInjuryViewController.h"
 #import "EconomicViewController.h"
 #import "DateViewController.h"
+#import "MobClick.h"
 
 #define toolWidth     [UIScreen mainScreen].bounds.size.width/2.f -0.5f
 #define toolHeight    68
@@ -88,46 +89,67 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     NSString *titleString = _dataSourceArrays[indexPath.row];
     if ([titleString isEqualToString:@"裁决书逾期利息计算器"]) {
         
+        [MobClick event:@"GJ_CJSYQ" label:@"工具"];
         OverdueViewController *overdueVC = [OverdueViewController new];
         [self.navigationController pushViewController:overdueVC animated:YES];
     }else if ([titleString isEqualToString:@"律师费计算器"]){
         
+        [MobClick event:@"GJ_LvShiFei" label:@"工具"];
+
         LawyerFeesVC *vc = [LawyerFeesVC new];
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([titleString isEqualToString:@"法院受理费计算器"]){
         
+        [MobClick event:@"GJ_FYSL" label:@"工具"];
+
         CourtViewController *vc = [CourtViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([titleString isEqualToString:@"离婚房产分割计算器"]){
         
+        [MobClick event:@"GJLiHun" label:@"工具"];
+
         DivorceViewController *vc = [DivorceViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([titleString isEqualToString:@"利息计算器"]){
         
+        [MobClick event:@"GJ_LiXi" label:@"工具"];
+
         LiXiViewController *vc = [LiXiViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([titleString isEqualToString:@"房屋还贷计算器"]){
         
+        [MobClick event:@"GJ_FWHD" label:@"工具"];
+
         HouseViewController *vc = [HouseViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([titleString isEqualToString:@"工伤赔偿计算器"]){
         
+        [MobClick event:@"GJ_GSPC" label:@"工具"];
+
         InjuryViewController *vc = [InjuryViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([titleString isEqualToString:@"违约金计算器"]){
         
+        [MobClick event:@"GJ_WYJ" label:@"工具"];
+
         BreachViewController *vc = [BreachViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([titleString isEqualToString:@"人身损害赔偿计算器"]){
         
+        [MobClick event:@"GJ_RSSH" label:@"工具"];
+
         PersonalInjuryViewController *vc = [PersonalInjuryViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([titleString isEqualToString:@"经济赔偿金计算器"]){
         
+        [MobClick event:@"GJ_JJPCJ" label:@"工具"];
+
         EconomicViewController *vc = [EconomicViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([titleString isEqualToString:@"日期计算器"]){
         
+        [MobClick event:@"GJ_RQ" label:@"工具"];
+
         DateViewController *vc = [DateViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }

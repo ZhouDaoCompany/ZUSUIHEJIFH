@@ -9,11 +9,11 @@
 #import "EconomicViewController.h"
 #import "EconomicViewCell.h"
 #import "ZHPickView.h"
-#import "SelectProvinceVC.h"
+#import "SelectCityViewController.h"
 
 static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 
-@interface EconomicViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface EconomicViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,CalculateShareDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (copy, nonatomic) NSString *startTime;//开始时间戳
@@ -22,9 +22,8 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
-@property (strong, nonatomic) NSMutableDictionary *moneyDictionary;
 @property (copy, nonatomic) UIView *bottomView;
-
+@property (copy, nonatomic) NSString *averageMoney;//各市平均工资
 @end
 
 @implementation EconomicViewController
@@ -57,6 +56,57 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 }
 #pragma mark -
 #pragma mark - event response
+- (void)rightBtnAction
+{
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index
+{
+    if (index >0) {
+        if (_dataSourceArrays.count == 1) {
+            
+            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            return;
+        }
+        
+        NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-jingjibuchang",@"type", nil];
+        for (NSUInteger i = 0; i<_dataSourceArrays.count; i++) {
+            
+            NSMutableArray *arrays = [_dataSourceArrays[i] mutableCopy];
+            [arrays removeObject:@""];
+            NSString *keyString = (i == 0)?@"conditions":@"results";
+            [shareDict setObject:arrays forKey:keyString];
+        }
+        
+        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
+            
+            NSArray *arrays;
+            if (index == 1) {
+                 arrays = [NSArray arrayWithObjects:@"经济补偿计算",@"经济补偿计算结果",urlString,@"", nil];
+            }else {
+                 arrays = [NSArray arrayWithObjects:@"经济补偿计算",@"经济补偿计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+            }
+
+            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            }];
+            
+        } fail:^{
+            
+        }];
+        
+    }else {//分享计算器
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,JJBCCulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"经济补偿计算",@"经济补偿计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
+        
+    }
+    DLog(@"分享的是第几个－－－%ld",index);
+}
+
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
@@ -97,6 +147,8 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         [self theAmountOfCompensation:arr1];
         _tableView.tableFooterView = self.bottomView;
 
+        [JKPromptView showWithImageName:nil message:@"工资低于最低工资标准时候 \n 请按照该地区最低工资标准计算"];
+
     }
     
 }
@@ -131,7 +183,8 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     if (counts >12) {
         counts = 12.f;
     }
-    double averayeMoney = ([wage doubleValue] >= [self.moneyDictionary[province] doubleValue] *3)?[self.moneyDictionary[province] doubleValue] *3: [self.moneyDictionary[province] doubleValue];
+    
+    double averayeMoney = ([wage doubleValue] >= [_averageMoney doubleValue] *3)?[_averageMoney doubleValue] *3: [_averageMoney doubleValue];
     money = averayeMoney * counts;
     NSString *moneyString = [NSString stringWithFormat:@"%.2f",money];
     NSString *monthsString = [NSString stringWithFormat:@"%.2f",counts];
@@ -185,15 +238,17 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
             };
         }else if (row == 3){
             
-            SelectProvinceVC *selectVC = [SelectProvinceVC new];
-            selectVC.isNoTW = YES;
-            selectVC.selectBlock = ^(NSString *string,NSString *str){
+            SelectCityViewController *cityVC = [SelectCityViewController new];
+            cityVC.type = EconomicType;
+            cityVC.citySelectBlock = ^(NSString *name, NSString *idString){
                 
                 NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
-                [arr1 replaceObjectAtIndex:row withObject:string];
+                weakSelf.averageMoney = idString;
+                [arr1 replaceObjectAtIndex:row withObject:name];
                 [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
             };
-            [self presentViewController:selectVC animated:YES completion:nil];
+            [self  presentViewController:cityVC animated:YES completion:^{
+            }];
         }
         
     }
@@ -268,14 +323,6 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         }];
     }
     return _tableView;
-}
-- (NSMutableDictionary *)moneyDictionary
-{
-    if (!_moneyDictionary) {
-        
-        _moneyDictionary = AVERAGESALARYARRAYS;
-    }
-    return _moneyDictionary;
 }
 - (NSMutableArray *)dataSourceArrays
 {

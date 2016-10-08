@@ -12,6 +12,7 @@
 @interface LiXiViewCell : UITableViewCell
 
 @property (strong, nonatomic) CaseTextField *textField;
+@property (strong, nonatomic) UILabel *titleLab;
 
 - (void)settingLiXiCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays;
 

@@ -13,6 +13,8 @@
 @interface CourtViewCell : UITableViewCell
 
 @property (strong, nonatomic) CaseTextField *textField;
+@property (strong, nonatomic) UILabel *titleLab;
+
 @property (weak, nonatomic)   id<CourtViewDelegate>delegate;
 
 - (void)settingUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays;

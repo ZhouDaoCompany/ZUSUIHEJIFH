@@ -15,6 +15,7 @@
 #import "CompensationVC.h"
 #import "ToolsWedViewVC.h"
 #import "MoreViewController.h"
+#import "MobClick.h"
 
 static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
 
@@ -136,6 +137,9 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    [MobClick event:@"TJRD" label:@"推荐"];
+
     if (_dataSourceArrays.count >0) {
         BasicModel *model = _dataSourceArrays[indexPath.row];
         NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,DetailsEventHotSpot,model.id];

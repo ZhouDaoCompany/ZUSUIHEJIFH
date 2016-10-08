@@ -12,6 +12,7 @@
 @interface InjuryViewCell : UITableViewCell
 
 @property (strong, nonatomic) CaseTextField *textField;
+@property (strong, nonatomic) UILabel *titleLab;
 
 - (void)settingInjuryViewCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays;
 - (void)settingUIDetailWithDictionary:(NSDictionary *)dictionary;

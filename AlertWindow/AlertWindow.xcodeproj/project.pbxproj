@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10369B141DA8A6A0004C2F8B /* 地级市平均工资.txt in Resources */ = {isa = PBXBuildFile; fileRef = 10369B131DA8A6A0004C2F8B /* 地级市平均工资.txt */; };
 		1046221D1D7BBAA100D5640C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1046221C1D7BBAA100D5640C /* main.m */; };
 		104622201D7BBAA100D5640C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1046221F1D7BBAA100D5640C /* AppDelegate.m */; };
 		104622231D7BBAA100D5640C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 104622221D7BBAA100D5640C /* ViewController.m */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10369B131DA8A6A0004C2F8B /* 地级市平均工资.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "地级市平均工资.txt"; sourceTree = "<group>"; };
 		104622181D7BBAA100D5640C /* AlertWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlertWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1046221C1D7BBAA100D5640C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1046221E1D7BBAA100D5640C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				183469471D98FC730007B0D9 /* Temp.m */,
 				183469421D98ED720007B0D9 /* README.txt */,
 				18FDC3621D9A0CA60011EB33 /* theCityList.txt */,
+				10369B131DA8A6A0004C2F8B /* 地级市平均工资.txt */,
 				18FDC36A1D9A18760011EB33 /* gongShang.plist */,
 				18FDC3641D9A0E220011EB33 /* TheCityList.plist */,
 				18FDC3681D9A0FDA0011EB33 /* gongShang001.plist */,
@@ -311,6 +314,7 @@
 				104622281D7BBAA100D5640C /* Assets.xcassets in Resources */,
 				18FDC3671D9A0F320011EB33 /* gongshangjisuan.txt in Resources */,
 				183469431D98ED720007B0D9 /* README.txt in Resources */,
+				10369B141DA8A6A0004C2F8B /* 地级市平均工资.txt in Resources */,
 				104622261D7BBAA100D5640C /* Main.storyboard in Resources */,
 				18FDC3691D9A0FDA0011EB33 /* gongShang001.plist in Resources */,
 				18FDC3631D9A0CA60011EB33 /* theCityList.txt in Resources */,

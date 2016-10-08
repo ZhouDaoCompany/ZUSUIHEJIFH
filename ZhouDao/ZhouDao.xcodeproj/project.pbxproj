@@ -25,6 +25,7 @@
 		10241A2F1CBA8E63000CBEAE /* case_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10241A2E1CBA8E63000CBEAE /* case_add@2x.png */; };
 		10241A311CBA8FD0000CBEAE /* case_edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10241A301CBA8FD0000CBEAE /* case_edit@2x.png */; };
 		1031B1141CB01B43006CE3FB /* LocalLawsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1031B1131CB01B43006CE3FB /* LocalLawsVC.m */; };
+		10369B161DA8B89D004C2F8B /* TheAverageSalary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10369B151DA8B89D004C2F8B /* TheAverageSalary.plist */; };
 		103D25901CAE712800F2B93A /* GovermentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 103D258F1CAE712800F2B93A /* GovermentVC.m */; };
 		103D25931CAE729A00F2B93A /* GovCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 103D25921CAE729A00F2B93A /* GovCollectionViewCell.m */; };
 		103D48C51CE8705500ED0864 /* Areas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 103D48C41CE8705500ED0864 /* Areas.plist */; };
@@ -695,6 +696,7 @@
 		10241A301CBA8FD0000CBEAE /* case_edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_edit@2x.png"; sourceTree = "<group>"; };
 		1031B1121CB01B43006CE3FB /* LocalLawsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalLawsVC.h; sourceTree = "<group>"; };
 		1031B1131CB01B43006CE3FB /* LocalLawsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalLawsVC.m; sourceTree = "<group>"; };
+		10369B151DA8B89D004C2F8B /* TheAverageSalary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TheAverageSalary.plist; sourceTree = "<group>"; };
 		103D258E1CAE712800F2B93A /* GovermentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GovermentVC.h; sourceTree = "<group>"; };
 		103D258F1CAE712800F2B93A /* GovermentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GovermentVC.m; sourceTree = "<group>"; };
 		103D25911CAE729A00F2B93A /* GovCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GovCollectionViewCell.h; sourceTree = "<group>"; };
@@ -4047,6 +4049,7 @@
 				18FDC36C1D9A19CC0011EB33 /* gongShang.plist */,
 				18FDC36E1D9A19DC0011EB33 /* TheCityList.plist */,
 				183469441D98F2F80007B0D9 /* Holiday.plist */,
+				10369B151DA8B89D004C2F8B /* TheAverageSalary.plist */,
 				18CD4D951C928111001838D2 /* Utility */,
 				18FF3F631C85348B0098C60B /* Image */,
 			);
@@ -4419,6 +4422,7 @@
 				108DC0381C9FA38E00FD1221 /* mine_nobanner.jpg in Resources */,
 				1856A0FA1D4F35150070B93E /* bootstrap-datetimepicker.de.js in Resources */,
 				10D31D731CDE2459008D6F42 /* sanjiao@2x.png in Resources */,
+				10369B161DA8B89D004C2F8B /* TheAverageSalary.plist in Resources */,
 				18B16ACD1CFD5CE300561CD5 /* UMShareEditViewController.xib in Resources */,
 				18CD01D51C901367009DE385 /* tabbar_CaseQuery@2x.png in Resources */,
 				18FDC36F1D9A19DC0011EB33 /* TheCityList.plist in Resources */,
@@ -5118,8 +5122,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e7d3a5d0-2aab-4dd7-87f7-cea579eda0de";
-				PROVISIONING_PROFILE_SPECIFIER = 88888;
+				PROVISIONING_PROFILE = "d1933a7e-cb13-4f1b-81b3-216435013d19";
+				PROVISIONING_PROFILE_SPECIFIER = 201709029;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
@@ -5156,8 +5160,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e7d3a5d0-2aab-4dd7-87f7-cea579eda0de";
-				PROVISIONING_PROFILE_SPECIFIER = 88888;
+				PROVISIONING_PROFILE = "d1933a7e-cb13-4f1b-81b3-216435013d19";
+				PROVISIONING_PROFILE_SPECIFIER = 201709029;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};

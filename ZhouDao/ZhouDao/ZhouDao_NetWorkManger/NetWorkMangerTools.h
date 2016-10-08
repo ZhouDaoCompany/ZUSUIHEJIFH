@@ -421,8 +421,8 @@
  @param fail      失败回调
  */
 + (void)shareTheResultsWithDictionary:(NSDictionary *)dictionary
-             RequestSuccess:(void (^)(NSString *urlString))success
-                       fail:(void (^)())fail;
+                       RequestSuccess:(void (^)(NSString *urlString,NSString *idString))success
+                                 fail:(void (^)())fail;
 
 /*
  * 自动登录

@@ -2023,7 +2023,7 @@
 }
 #pragma mark - 89 分享计算结果
 + (void)shareTheResultsWithDictionary:(NSDictionary *)dictionary
-                       RequestSuccess:(void (^)(NSString *urlString))success
+                       RequestSuccess:(void (^)(NSString *urlString,NSString *idString))success
                                  fail:(void (^)())fail
 {
     
@@ -2034,12 +2034,14 @@
         [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
-        [JKPromptView showWithImageName:nil message:msg];
         if (errorcode !=1) {
+            [JKPromptView showWithImageName:nil message:msg];
             return ;
         }
         NSString *dataUrlString = jsonDic[@"data"];
-        success(dataUrlString);
+        NSString *idString = jsonDic[@"id"];
+
+        success(dataUrlString,idString);
     } fail:^{
         [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];

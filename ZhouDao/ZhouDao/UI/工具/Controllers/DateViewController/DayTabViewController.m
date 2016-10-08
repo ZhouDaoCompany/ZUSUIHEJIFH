@@ -9,10 +9,11 @@
 #import "DayTabViewController.h"
 #import "DayViewCell.h"
 #import "ZHPickView.h"
+#import "GcNoticeUtil.h"
 
 static NSString *const DAYCellID = @"dayCellID";
 
-@interface DayTabViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface DayTabViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,CalculateShareDelegate>
 
 
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -53,8 +54,65 @@ static NSString *const DAYCellID = @"dayCellID";
         
         [weakSelf dismissKeyBoard];
     }];
+    
+    
+    [GcNoticeUtil handleNotification:@"DayTabViewController"
+                            Selector:@selector(clickShareEvent)
+                            Observer:self];
 
 }
+- (void)clickShareEvent
+{
+    DLog(@"分享天数计算");
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index
+{
+    if (index >0) {
+        if (_dataSourceArrays.count == 1) {
+            
+            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            return;
+        }
+        
+        NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-tianshujisuan",@"type", nil];
+        NSMutableArray *conditionsArr = _dataSourceArrays[0];
+        NSMutableArray *resultsArr = [_dataSourceArrays[1] mutableCopy];
+        [resultsArr removeObjectAtIndex:0];
+        [shareDict setObject:conditionsArr forKey:@"conditions"];
+        [shareDict setObject:resultsArr forKey:@"results"];
+
+        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
+            
+            NSArray *arrays;
+            if (index == 1) {
+                arrays = [NSArray arrayWithObjects:@"天数计算",@"天数计算结果",urlString,@"", nil];
+            }else {
+                arrays = [NSArray arrayWithObjects:@"天数计算",@"天数计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+            }
+
+            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            }];
+            
+            
+        } fail:^{
+            
+        }];
+        
+    }else {//分享计算器
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,DAYSCulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"天数计算",@"天数计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
+        
+    }
+    DLog(@"分享的是第几个－－－%ld",index);
+}
+
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {WEAKSELF;

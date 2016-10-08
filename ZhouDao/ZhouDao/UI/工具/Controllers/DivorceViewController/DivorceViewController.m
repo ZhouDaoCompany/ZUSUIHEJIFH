@@ -11,7 +11,7 @@
 
 static NSString *const DivorceCellID = @"DivorceCellID";
 
-@interface DivorceViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface DivorceViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,CalculateShareDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -47,6 +47,58 @@ static NSString *const DivorceCellID = @"DivorceCellID";
 }
 #pragma mark -
 #pragma mark - event response
+- (void)rightBtnAction
+{
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index
+{
+    if (index >0) {
+        if (_dataSourceArrays.count == 1) {
+            
+            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            return;
+        }
+        
+        NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-lihunfangchan",@"type", nil];
+        for (NSUInteger i = 0; i<_dataSourceArrays.count; i++) {
+            
+            NSMutableArray *arrays = [_dataSourceArrays[i] mutableCopy];
+            [arrays removeObject:@""];
+            NSString *keyString = (i == 0)?@"conditions":@"results";
+            [shareDict setObject:arrays forKey:keyString];
+        }
+        
+        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
+            
+            NSArray *arrays;
+            if (index == 1) {
+                arrays = [NSArray arrayWithObjects:@"离婚房产计算",@"离婚房产计算结果",urlString,@"", nil];
+            }else {
+                arrays = [NSArray arrayWithObjects:@"离婚房产计算",@"离婚房产计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+            }
+
+            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            }];
+            
+            
+        } fail:^{
+            
+        }];
+        
+    }else {//分享计算器
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,LHFCCulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"离婚房产计算",@"离婚房产计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
+        
+    }
+    DLog(@"分享的是第几个－－－%ld",index);
+}
+
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];

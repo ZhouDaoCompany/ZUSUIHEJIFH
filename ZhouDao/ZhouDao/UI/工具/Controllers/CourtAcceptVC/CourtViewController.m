@@ -12,7 +12,7 @@
 #import "Disability_AlertView.h"
 
 static NSString *const COURTCELL = @"courtacceptcell";
-@interface CourtViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,Disability_AlertViewPro,CourtViewDelegate>
+@interface CourtViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,Disability_AlertViewPro,CourtViewDelegate,CalculateShareDelegate>
 {
     BOOL _isHalf;
     BOOL _isMoney;
@@ -56,6 +56,8 @@ static NSString *const COURTCELL = @"courtacceptcell";
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {WEAKSELF;
     [self dismissKeyBoard];
+    [_tableView setTableFooterView:nil];
+    
     if (btn.tag == 3034) {
         [self.dataSourceArrays removeAllObjects];
         NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"是",@"",@"全额", nil];
@@ -450,6 +452,70 @@ static NSString *const COURTCELL = @"courtacceptcell";
     return _bottomLabel;
 }
 
+#pragma mark - 分享
+- (void)rightBtnAction
+{
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index
+{
+    if (index >0) {
+        if (_dataSourceArrays.count == 1) {
+            
+            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            return;
+        }
+        
+        NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-shoulifei",@"type", nil];
+        for (NSUInteger i = 0; i<_dataSourceArrays.count; i++) {
+            
+            NSMutableArray *arrays = _dataSourceArrays[i];
+            NSMutableArray *arr = [NSMutableArray array];
+            for (NSUInteger j = 0; j<arrays.count; j++) {
+                NSIndexPath *indexPath=[NSIndexPath indexPathForRow:j inSection:i];
+                CourtViewCell *cell = (CourtViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+                DLog(@"999--:%@",cell.titleLab.text);
+                
+                NSString *tempString = [NSString stringWithFormat:@"%@-%@",cell.titleLab.text,arrays[j]];
+                if (![cell.titleLab.text isEqualToString:@"计算结果"]) {
+                    
+                    [arr addObject:tempString];
+                }
+                
+            }
+            NSString *keyString = (i == 0)?@"conditions":@"results";
+            [shareDict setObject:arr forKey:keyString];
+        }
+        
+        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
+            
+            
+            NSArray *arrays;
+            if (index == 1) {
+                arrays = [NSArray arrayWithObjects:@"受理费计算",@"受理费计算结果",urlString,@"", nil];
+            }else {
+                arrays = [NSArray arrayWithObjects:@"受理费计算",@"受理费计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+            }
+
+            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            }];
+            
+        } fail:^{
+            
+        }];
+        
+    }else {//分享计算器
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,SLFCulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"受理费计算",@"受理费计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
+        
+    }
+    DLog(@"分享的是第几个－－－%ld",index);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

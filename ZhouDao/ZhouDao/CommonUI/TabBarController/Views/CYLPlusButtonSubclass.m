@@ -17,6 +17,7 @@
 #import "TheCaseManageVC.h"//案件管理
 #import "ExampleSearchVC.h"//案例查询
 #import "LoginViewController.h"
+#import "MobClick.h"
 
 #define TOP_VIEW  [[UIApplication sharedApplication]keyWindow].rootViewController.view
 
@@ -132,6 +133,10 @@
     
     UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
     UIViewController *viewController = tabBarController.selectedViewController;
+    
+    
+    NSMutableArray *eventIdArrays = [NSMutableArray arrayWithObjects:@"JHFLFG",@"JHSFJG",@"JHHTMB",@"JHPCBZ",@"JHALCX",@"JHAJGL", nil];
+    [MobClick event:eventIdArrays[index] label:@"加号"];
 
     if (index == 0)
     {

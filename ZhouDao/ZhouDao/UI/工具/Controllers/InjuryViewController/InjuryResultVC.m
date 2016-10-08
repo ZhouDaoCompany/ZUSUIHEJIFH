@@ -13,7 +13,7 @@
 
 static NSString *const INJURYRESULTCELL = @"injurycellid";
 
-@interface InjuryResultVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface InjuryResultVC ()<UITableViewDataSource,UITableViewDelegate,CalculateShareDelegate>
 
 
 @property (nonatomic, strong) ParallaxHeaderView *headerView;
@@ -37,11 +37,72 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
 {
     [self setupNaviBarWithTitle:@"计算结果"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
-    
+    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
+
     self.dataSourceArrays = _detailDictionary[@"mutableArrays"];
     
     [self.view addSubview:self.tableView];
 }
+#pragma mark - event response
+- (void)rightBtnAction
+{
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index
+{
+    if (index >0) {
+        if (_dataSourceArrays.count == 1) {
+            
+            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            return;
+        }
+        
+        NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-gongshangpeichang",@"type", nil];
+
+        NSMutableArray *resultArr = [NSMutableArray arrayWithObjects:_detailDictionary[@"money"],_detailDictionary[@"city"],_detailDictionary[@"level"],_detailDictionary[@"gongzi"], nil];
+        for (NSUInteger i = 0; i<_dataSourceArrays.count; i++) {
+            
+            NSIndexPath *indexPath=[NSIndexPath indexPathForRow:i inSection:0];
+            InjuryViewCell *cell = (InjuryViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+            DLog(@"999--:%@",cell.titleLab.text);
+            
+            NSString *tempString = [NSString stringWithFormat:@"%@-%@",cell.titleLab.text,_dataSourceArrays[i]];
+            [resultArr addObject:tempString];
+        }
+        [shareDict setObject:resultArr forKey:@"results"];
+        [shareDict setObject:[NSArray array] forKey:@"conditions"];
+
+        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
+            
+            NSArray *arrays;
+            if (index == 1) {
+                
+                arrays = [NSArray arrayWithObjects:@"工伤赔偿计算",@"工伤赔偿计算结果",urlString,@"", nil];
+            }else {
+                arrays = [NSArray arrayWithObjects:@"工伤赔偿计算",@"工伤赔偿计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+            }
+
+            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            }];
+            
+            
+        } fail:^{
+            
+        }];
+        
+    }else {//分享计算器
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,GSPCCulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"工伤赔偿计算",@"工伤赔偿计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
+        
+    }
+    DLog(@"分享的是第几个－－－%ld",index);
+}
+
 #pragma mark - UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -76,7 +137,7 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return (section == 0)?145.f:10.f;
+    return 145.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -91,7 +152,7 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[InjuryViewCell class] forCellReuseIdentifier:INJURYRESULTCELL    ];
+        [_tableView registerClass:[InjuryViewCell class] forCellReuseIdentifier:INJURYRESULTCELL];
         _headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:[QZManager createImageWithColor:hexColor(00c8aa) size:CGSizeMake(kMainScreenWidth, 145)] forSize:CGSizeMake(kMainScreenWidth, 1)];
         _tableView.tableHeaderView = _headerView;
     }

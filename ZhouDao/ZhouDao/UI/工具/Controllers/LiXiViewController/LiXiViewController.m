@@ -13,7 +13,7 @@
 
 static NSString *const LIXICELL = @"lixicellid";
 
-@interface LiXiViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+@interface LiXiViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,CalculateShareDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIButton *calculateButton;
@@ -59,9 +59,6 @@ static NSString *const LIXICELL = @"lixicellid";
     
 }
 #pragma mark - event response
-- (void)rightBtnAction
-{
-}
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
 {
     [self dismissKeyBoard];
@@ -848,6 +845,67 @@ static NSString *const LIXICELL = @"lixicellid";
     }
     return _bottomView;
 }
+#pragma mark - 分享
+- (void)rightBtnAction
+{
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index
+{
+    if (index >0) {
+        if (_dataSourceArrays.count == 1) {
+            
+            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            return;
+        }
+        
+        NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-lixi",@"type", nil];
+        NSMutableArray *arr1 = _dataSourceArrays[0];
+        NSMutableArray *conditionsArr = [NSMutableArray array];
+        NSMutableArray *resultsArr = [_dataSourceArrays[1] mutableCopy];
+        [resultsArr removeObjectAtIndex:0];
+        
+        for (NSUInteger i = 0; i<arr1.count; i++) {
+            
+            NSIndexPath *indexPath=[NSIndexPath indexPathForRow:i inSection:0];
+            LiXiViewCell *cell = (LiXiViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+            DLog(@"999--:%@",cell.titleLab.text);
+            
+            NSString *tempString = [NSString stringWithFormat:@"%@-%@",cell.titleLab.text,arr1[i]];
+            [conditionsArr addObject:tempString];
+        }
+        [shareDict setObject:conditionsArr forKey:@"conditions"];
+        [shareDict setObject:resultsArr forKey:@"results"];
+        
+        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
+            
+            NSArray *arrays;
+            if (index == 1) {
+                
+                arrays = [NSArray arrayWithObjects:@"利息计算",@"利息计算结果",urlString,@"", nil];
+            }else {
+                arrays = [NSArray arrayWithObjects:@"利息计算",@"利息计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+            }
+
+            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            }];
+            
+        } fail:^{
+            
+        }];
+        
+    }else {//分享计算器
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,LIXICulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"利息计算",@"利息计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
+    }
+    DLog(@"分享的是第几个－－－%ld",index);
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

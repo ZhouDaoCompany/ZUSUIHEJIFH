@@ -26,6 +26,18 @@
 
     [self initUI];
 }
+- (void)rightBtnAction
+{
+    
+    // 获得索引
+    NSInteger index = self.bigScrollView.contentOffset.x / self.bigScrollView.frame.size.width;
+
+    if (index == 0) {
+        [GcNoticeUtil sendNotification:@"DayTabViewController"];
+    }else {
+        [GcNoticeUtil sendNotification:@"RiQiTablViewController"];
+    }
+}
 #pragma mark - private methods
 - (void)initUI
 {

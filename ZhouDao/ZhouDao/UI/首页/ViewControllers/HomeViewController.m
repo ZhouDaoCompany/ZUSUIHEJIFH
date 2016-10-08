@@ -18,6 +18,7 @@
 
 #import <AMapSearchKit/AMapSearchKit.h>
 #import "AMapLocationKit.h"
+#import "MobClick.h"
 
 static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
 
@@ -111,7 +112,6 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         }
         
     };
-   
 
     [self loadCacheData];
     
@@ -225,6 +225,8 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     
     if (_dataSourceArrays.count >0) {
         
+        [MobClick event:@"SYreDian" label:@"首页"];
+
         BasicModel *model = _dataSourceArrays[indexPath.row];
         NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,DetailsEventHotSpot,model.id];
         ToolsWedViewVC *vc = [ToolsWedViewVC new];

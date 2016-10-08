@@ -69,7 +69,7 @@
             case 2:
             {
                 _textField.enabled = YES;
-                _textField.placeholder = @"请输入离职前12个月平均薪资";
+                _textField.placeholder = @"离职前12个月平均薪资";
                 _textField.frame = CGRectMake(kMainScreenWidth - 200, 7, 185, 30);
                 self.accessoryType = UITableViewCellAccessoryNone;
 

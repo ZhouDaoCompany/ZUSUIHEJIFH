@@ -11,6 +11,7 @@
 #import "FlipPageView.h"
 #import "GovListmodel.h"
 #import "BasicModel.h"
+#import "MobClick.h"
 
 #define oftenLaws     [UIScreen mainScreen].bounds.size.width*(311.f/750.f)
 @interface RecomHeadView()<SDCycleScrollViewDelegate>
@@ -82,6 +83,9 @@
     [imgBgView addSubview:imgView1];
     [imgView1 whenCancelTapped:^{
         
+        
+        [MobClick event:@"TJCYFG" label:@"推荐"];
+
         if ([weakSelf.delegate respondsToSelector:@selector(commonRegulations)])
         {
             [weakSelf.delegate commonRegulations];
@@ -97,6 +101,8 @@
     [imgBgView addSubview:imgView2];
     [imgView2 whenCancelTapped:^{
         
+        [MobClick event:@"TJPCBZ" label:@"推荐"];
+
         if ([weakSelf.delegate respondsToSelector:@selector(theCompensationStandard)])
         {
             [weakSelf.delegate theCompensationStandard];
@@ -136,6 +142,8 @@
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
+    
+    [MobClick event:@"TJLunBo" label:@"推荐"];
     DLog(@"---点击了第%ld张图片", (long)index);
     //    NSString *str = [NSString stringWithFormat:@"%ld",(long)index];
     //    SHOW_ALERT(str);
@@ -184,6 +192,8 @@
         
         [_imgView3 whenCancelTapped:^{
             
+            [MobClick event:@"TJMRLB" label:@"推荐"];
+
             if ([weakSelf.delegate respondsToSelector:@selector(recommendTheArticle)])
             {
                 [weakSelf.delegate recommendTheArticle];
@@ -213,6 +223,10 @@
     //广告文字
     [_newslLawView addSubview:self.adView];
     [_adView startAdsWithBlock:nameArr block:^(NSInteger clickIndex){
+        
+        
+        [MobClick event:@"TJxinFaSuDi" label:@"推荐"];
+
         [weakSelf.adView stopAds];
         DLog(@"%d",(int)clickIndex);
         GovListmodel *model = _flipPageArr[clickIndex];

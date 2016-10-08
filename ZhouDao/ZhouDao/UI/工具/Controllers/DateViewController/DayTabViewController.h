@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol  DayTabViewControllerPro;
 
 @interface DayTabViewController : UITableViewController
 
+
+//@property (weak, nonatomic)   id<DayTabViewControllerPro>delegate;
+
 @end
+//@protocol  DayTabViewControllerPro <NSObject>
+//
+//- (void)DayTabViewControllerShareEvent;
+//
+//@end

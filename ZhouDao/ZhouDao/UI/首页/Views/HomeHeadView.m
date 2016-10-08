@@ -11,6 +11,8 @@
 #import "DPHorizontalScrollView.h"
 #import "LawsKindView.h"
 #import "BasicModel.h"
+#import "MobClick.h"
+
 #define lawWidth     [UIScreen mainScreen].bounds.size.width/4.f
 
 @interface HomeHeadView()<SDCycleScrollViewDelegate,DPHorizontalScrollViewDelegate>
@@ -129,8 +131,12 @@
     view.type = HomeFrom;
     view.indexBlock = ^(NSInteger index){
         
+        
         if (_indexBlock) {
             
+            NSMutableArray *eventIDArray = [NSMutableArray arrayWithObjects:@"SYfaLvFaGui",@"SYanLiChaXun",@"SYsiFaJiGuan",@"SYpeiChangBZ", nil];
+            [MobClick event:eventIDArray[index] label:@"首页"];
+
             _indexBlock(index);
         }
     };

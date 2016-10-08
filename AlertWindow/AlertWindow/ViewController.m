@@ -21,47 +21,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-        NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"gongshangjisuan" ofType:@"txt"];
+        NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"地级市平均工资" ofType:@"txt"];
         NSData *data = [NSData dataWithContentsOfFile:pathsss];
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
     
-    NSArray *keysArrays = [dict allKeys];
-    
-    NSMutableDictionary *dict001 = [NSMutableDictionary dictionary];
-    for (NSString *hs in keysArrays) {
-        
-        NSMutableDictionary *dict002 = [NSMutableDictionary dictionary];
-
-        NSDictionary *dictionary = dict[hs];
-        NSString *str1 = dictionary[@"hisamt"];
-        NSData *data1 = [str1 dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *dict1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingAllowFragments error:nil];
-
-        
-        NSString *str2 = dictionary[@"workamt"];
-        NSData *data2 = [str2 dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *dict2 = [NSJSONSerialization JSONObjectWithData:data2 options:NSJSONReadingAllowFragments error:nil];
-        
-        NSString *str3 = dictionary[@"injuryamt"];
-
-        [dict002 setValue:str3 forKey:@"injuryamt"];
-        [dict002 setValue:dict1 forKey:@"hisamt"];
-        [dict002 setValue:dict2 forKey:@"workamt"];
-
-        [dict001 setValue:dict002 forKey:hs];
-    }
-    
+//    NSArray *keysArrays = [dict allKeys];
+//    
+//    NSMutableDictionary *dict001 = [NSMutableDictionary dictionary];
+//    for (NSString *hs in keysArrays) {
+//        
+//        NSMutableDictionary *dict002 = [NSMutableDictionary dictionary];
+//
+//        NSDictionary *dictionary = dict[hs];
+//        NSString *str1 = dictionary[@"hisamt"];
+//        NSData *data1 = [str1 dataUsingEncoding:NSUTF8StringEncoding];
+//        NSDictionary *dict1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingAllowFragments error:nil];
+//
+//        
+//        NSString *str2 = dictionary[@"workamt"];
+//        NSData *data2 = [str2 dataUsingEncoding:NSUTF8StringEncoding];
+//        NSDictionary *dict2 = [NSJSONSerialization JSONObjectWithData:data2 options:NSJSONReadingAllowFragments error:nil];
+//        
+//        NSString *str3 = dictionary[@"injuryamt"];
+//
+//        [dict002 setValue:str3 forKey:@"injuryamt"];
+//        [dict002 setValue:dict1 forKey:@"hisamt"];
+//        [dict002 setValue:dict2 forKey:@"workamt"];
+//
+//        [dict001 setValue:dict002 forKey:hs];
+//    }
     //获取本地沙盒路径
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     //获取完整路径
     NSString *documentsPath = [path objectAtIndex:0];
-    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"gongShang.plist"];
+    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"TheAverageSalary.plist"];
 //    NSMutableDictionary *usersDic = [[NSMutableDictionary alloc ] init];
 //    //设置属性值
 //    [usersDic setObject:@"chan" forKey:@"name"];
 //    [usersDic setObject:@"123456" forKey:@"password"];
     //写入文件
-    [dict001 writeToFile:plistPath atomically:YES];
+    [dict writeToFile:plistPath atomically:YES];
  
     [self calculateYearsWithMonthsFromDate:[NSDate dateFromString:@"2016-09-30" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-10-31" format:@"yyyy-MM-dd"] withYear:YES Success:^(NSString *dateString) {
         

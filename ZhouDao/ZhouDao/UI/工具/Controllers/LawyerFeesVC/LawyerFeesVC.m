@@ -91,16 +91,28 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
                 NSIndexPath *indexPath=[NSIndexPath indexPathForRow:j inSection:i];
                 LawyerFeesCell *cell = (LawyerFeesCell *)[_tableView cellForRowAtIndexPath:indexPath];
                 DLog(@"999--:%@",cell.titleLab.text);
+
                 NSString *tempString = [NSString stringWithFormat:@"%@-%@",cell.titleLab.text,arrays[j]];
-                [arr addObject:tempString];
+                if (![cell.titleLab.text isEqualToString:@"计算结果"]) {
+                    
+                    [arr addObject:tempString];
+                }
+
             }
             NSString *keyString = (i == 0)?@"conditions":@"results";
             [shareDict setObject:arr forKey:keyString];
         }
         
-        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString) {
+        [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
             
-            NSArray *arrays = [NSArray arrayWithObjects:@"律师费计算",@"律师费计算结果",urlString,@"", nil];
+            NSArray *arrays;
+            if (index == 1) {
+                
+                arrays = [NSArray arrayWithObjects:@"律师费计算",@"律师费计算结果",urlString,@"", nil];
+            }else {
+                arrays = [NSArray arrayWithObjects:@"律师费计算",@"律师费计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+            }
+
             [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
             }];
 
@@ -110,7 +122,11 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         }];
 
     }else {//分享计算器
-        
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,LVSFCulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"律师费计算",@"律师费计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
         
     }
     DLog(@"分享的是第几个－－－%ld",index);

@@ -35,10 +35,20 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
 #pragma mark - private methods
 - (void)initUI{
     
-    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"TheCityList" ofType:@"plist"];
-    _dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
-    NSArray *keysArrays = [_dict allKeys];
-    [self.dataSourceArrays addObjectsFromArray:keysArrays];
+    if (_type == EconomicType) {
+        
+        NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"TheAverageSalary" ofType:@"plist"];
+        _dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+        NSArray *keysArrays = [_dict allKeys];
+        [self.dataSourceArrays addObjectsFromArray:keysArrays];
+        
+    }else if (_type == InjuryType){
+        
+        NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"TheCityList" ofType:@"plist"];
+        _dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+        NSArray *keysArrays = [_dict allKeys];
+        [self.dataSourceArrays addObjectsFromArray:keysArrays];
+    }
     
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
