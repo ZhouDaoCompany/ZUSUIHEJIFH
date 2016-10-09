@@ -54,56 +54,37 @@
 }
 - (void)loadCommonMethod{
     
-    if (_tType == FromToolsType){
-        [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"tools_introduce"];
-        if (_bridge) { return; }
+    if (_tType == FromHotType || _tType == FromRecHDType) {
+        [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_Share"];
+    }else if (_tType == FromEveryType){
+        [self.view addSubview:self.shareBtn];
+        [self.view addSubview:self.historyBtn];
+    }
+    
+    WEAKSELF;
+    if (!_bridge){
         [WebViewJavascriptBridge enableLogging];
         self.bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
         [self.bridge setWebViewDelegate:self];
-
-        WEAKSELF;
-        [_bridge registerHandler:@"shareZhoudao" handler:^(id data, WVJBResponseCallback responseCallback) {
+        
+        [_bridge registerHandler:@"imgAll" handler:^(id data, WVJBResponseCallback responseCallback) {
             
-            DLog(@"testObjcCallback called: %@", data);
+            DLog(@" called: %@", data);
+            responseCallback(@"Response from imgAll");
             NSDictionary *dataDic = (NSDictionary *)data;
-            [weakSelf testObjcCallback:dataDic];
-            responseCallback(@"Response from shareZhoudao");
-        }];
-        [_webView loadHtml:_url];
-        
-    }else {
-
-        if (_tType == FromHotType || _tType == FromRecHDType) {
-            [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"template_Share"];
-        }else if (_tType == FromEveryType){
-            [self.view addSubview:self.shareBtn];
-            [self.view addSubview:self.historyBtn];
-        }
-
-        WEAKSELF;
-        if (!_bridge){
-            [WebViewJavascriptBridge enableLogging];
-            self.bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
-            [self.bridge setWebViewDelegate:self];
-            
-            [_bridge registerHandler:@"imgAll" handler:^(id data, WVJBResponseCallback responseCallback) {
-                
-                DLog(@" called: %@", data);
-                responseCallback(@"Response from imgAll");
-                NSDictionary *dataDic = (NSDictionary *)data;
-                NSMutableArray *arr = dataDic[@"all"];
-                NSString *curr = dataDic[@"curr"];
-                [weakSelf.imgArrays addObjectsFromArray:arr];
-                [arr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([curr isEqualToString:obj]) {
-                        [weakSelf testImg:arr withInte:idx];
-                    }
-                }];
+            NSMutableArray *arr = dataDic[@"all"];
+            NSString *curr = dataDic[@"curr"];
+            [weakSelf.imgArrays addObjectsFromArray:arr];
+            [arr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([curr isEqualToString:obj]) {
+                    [weakSelf testImg:arr withInte:idx];
+                }
             }];
-        }
-        
-        [_webView loadURL:_url];
+        }];
     }
+    
+    [_webView loadURL:_url];
+
     
     if (_singleTap) {
         [_webView removeGestureRecognizer:_singleTap];
@@ -189,17 +170,6 @@
         }];
     }
     
-    if (_tType == FromToolsType){
-        
-        if (_introContent.length >0) {
-            ToolsIntroduceVC *vc = [ToolsIntroduceVC new];
-            vc.introContent = _introContent;
-            [self presentViewController:vc animated:YES completion:^{
-            }];
-        }else{
-            [JKPromptView showWithImageName:nil message:@"暂无说明"];
-        }
-    }
 }
 - (void)chenckHistoryEvent
 {
@@ -223,9 +193,8 @@
     return YES;
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView{
-    if (_tType != FromToolsType){
-       [MBProgressHUD showMBLoadingWithText:nil];
-    }
+    
+    [MBProgressHUD showMBLoadingWithText:nil];
     DLog(@"开始加载");
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{

@@ -12,10 +12,9 @@
 typedef NS_ENUM(NSInteger, ToolsType)
 {
     FromCaseType  =   0,     //案件管理
-    FromToolsType =   1,     //工具
-    FromHotType   =   2,     //实事热点
-    FromEveryType =   3,     //每日轮播
-    FromRecHDType =   4,     //推荐页幻灯
+    FromHotType   =   1,     //实事热点
+    FromEveryType =   2,     //每日轮播
+    FromRecHDType =   3,     //推荐页幻灯
 };
 
 @interface ToolsWedViewVC : BaseViewController

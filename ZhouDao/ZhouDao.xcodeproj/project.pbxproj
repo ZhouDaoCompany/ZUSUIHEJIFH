@@ -140,13 +140,6 @@
 		108DC0911C9FF93E00FD1221 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC0901C9FF93E00FD1221 /* MediaPlayer.framework */; };
 		108DC0931C9FF94A00FD1221 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC0921C9FF94A00FD1221 /* AVFoundation.framework */; };
 		108DC0951C9FF96100FD1221 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 108DC0941C9FF96100FD1221 /* libstdc++.6.0.9.tbd */; };
-		109EA9E91D4C3CD1005C09BB /* ToolsCalculate_shoulifei.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9841D4C3CD1005C09BB /* ToolsCalculate_shoulifei.html */; };
-		109EA9EA1D4C3CD1005C09BB /* ToolsCalculate_zhixing.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9851D4C3CD1005C09BB /* ToolsCalculate_zhixing.html */; };
-		109EA9EB1D4C3CD1005C09BB /* ToolsCalculate_lixi.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9861D4C3CD1005C09BB /* ToolsCalculate_lixi.html */; };
-		109EA9EC1D4C3CD1005C09BB /* ToolsCalculate_weiyuejin.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9871D4C3CD1005C09BB /* ToolsCalculate_weiyuejin.html */; };
-		109EA9ED1D4C3CD1005C09BB /* ToolsCalculate_riqi.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9881D4C3CD1005C09BB /* ToolsCalculate_riqi.html */; };
-		109EA9EE1D4C3CD1005C09BB /* ToolsCalculate_canji.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA9891D4C3CD1005C09BB /* ToolsCalculate_canji.html */; };
-		109EA9EF1D4C3CD1005C09BB /* ToolsCalculate_caichan.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EA98A1D4C3CD1005C09BB /* ToolsCalculate_caichan.html */; };
 		109EAB1F1D4C5395005C09BB /* error.html in Resources */ = {isa = PBXBuildFile; fileRef = 109EAB1D1D4C5395005C09BB /* error.html */; };
 		109EAB201D4C5395005C09BB /* wifi_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 109EAB1E1D4C5395005C09BB /* wifi_pic.png */; };
 		109EAB241D4C79F9005C09BB /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 109EAB231D4C79F9005C09BB /* ScanViewController.m */; };
@@ -245,101 +238,6 @@
 		184983131D2A0CA7009AF29F /* case_mangeSS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184983101D2A0CA7009AF29F /* case_mangeSS@2x.png */; };
 		184983161D2A0D63009AF29F /* OnlyAddCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 184983151D2A0D63009AF29F /* OnlyAddCaseVC.m */; };
 		18539B391D3CA3A400ADE566 /* BindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18539B381D3CA3A400ADE566 /* BindingViewController.m */; };
-		1856A0DA1D4F35150070B93E /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0701D4F35150070B93E /* base.css */; };
-		1856A0DB1D4F35150070B93E /* canji.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0711D4F35150070B93E /* canji.css */; };
-		1856A0DC1D4F35150070B93E /* jquery.mobile.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0721D4F35150070B93E /* jquery.mobile.min.css */; };
-		1856A0DD1D4F35150070B93E /* riqi.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0731D4F35150070B93E /* riqi.css */; };
-		1856A0DE1D4F35150070B93E /* shoulifei.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0741D4F35150070B93E /* shoulifei.css */; };
-		1856A0DF1D4F35150070B93E /* weiyuejin.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0751D4F35150070B93E /* weiyuejin.css */; };
-		1856A0E01D4F35150070B93E /* erweima.png in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0771D4F35150070B93E /* erweima.png */; };
-		1856A0E11D4F35150070B93E /* f_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0781D4F35150070B93E /* f_icon.png */; };
-		1856A0E21D4F35150070B93E /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0791D4F35150070B93E /* more.png */; };
-		1856A0E31D4F35150070B93E /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = 1856A07A1D4F35150070B93E /* share.png */; };
-		1856A0E41D4F35150070B93E /* alert.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A07C1D4F35150070B93E /* alert.js */; };
-		1856A0E51D4F35150070B93E /* bootstrap-datetimepicker.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A07F1D4F35150070B93E /* bootstrap-datetimepicker.css */; };
-		1856A0E61D4F35150070B93E /* bootstrap-datetimepicker.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0801D4F35150070B93E /* bootstrap-datetimepicker.min.css */; };
-		1856A0E71D4F35150070B93E /* bootstrap-theme.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0811D4F35150070B93E /* bootstrap-theme.css */; };
-		1856A0E81D4F35150070B93E /* bootstrap-theme.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0821D4F35150070B93E /* bootstrap-theme.min.css */; };
-		1856A0E91D4F35150070B93E /* bootstrap.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0831D4F35150070B93E /* bootstrap.css */; };
-		1856A0EA1D4F35150070B93E /* bootstrap.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0841D4F35150070B93E /* bootstrap.min.css */; };
-		1856A0EB1D4F35150070B93E /* glyphicons-halflings-regular.eot in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0861D4F35150070B93E /* glyphicons-halflings-regular.eot */; };
-		1856A0EC1D4F35150070B93E /* glyphicons-halflings-regular.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0871D4F35150070B93E /* glyphicons-halflings-regular.svg */; };
-		1856A0ED1D4F35150070B93E /* glyphicons-halflings-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0881D4F35150070B93E /* glyphicons-halflings-regular.ttf */; };
-		1856A0EE1D4F35150070B93E /* glyphicons-halflings-regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0891D4F35150070B93E /* glyphicons-halflings-regular.woff */; };
-		1856A0EF1D4F35150070B93E /* bootstrap-datetimepicker.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A08B1D4F35150070B93E /* bootstrap-datetimepicker.js */; };
-		1856A0F01D4F35150070B93E /* bootstrap-datetimepicker.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A08C1D4F35150070B93E /* bootstrap-datetimepicker.min.js */; };
-		1856A0F11D4F35150070B93E /* bootstrap.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A08D1D4F35150070B93E /* bootstrap.js */; };
-		1856A0F21D4F35150070B93E /* bootstrap.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A08E1D4F35150070B93E /* bootstrap.min.js */; };
-		1856A0F31D4F35150070B93E /* bootstrap-datetimepicker.ar.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0901D4F35150070B93E /* bootstrap-datetimepicker.ar.js */; };
-		1856A0F41D4F35150070B93E /* bootstrap-datetimepicker.az.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0911D4F35150070B93E /* bootstrap-datetimepicker.az.js */; };
-		1856A0F51D4F35150070B93E /* bootstrap-datetimepicker.bg.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0921D4F35150070B93E /* bootstrap-datetimepicker.bg.js */; };
-		1856A0F61D4F35150070B93E /* bootstrap-datetimepicker.bn.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0931D4F35150070B93E /* bootstrap-datetimepicker.bn.js */; };
-		1856A0F71D4F35150070B93E /* bootstrap-datetimepicker.ca.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0941D4F35150070B93E /* bootstrap-datetimepicker.ca.js */; };
-		1856A0F81D4F35150070B93E /* bootstrap-datetimepicker.cs.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0951D4F35150070B93E /* bootstrap-datetimepicker.cs.js */; };
-		1856A0F91D4F35150070B93E /* bootstrap-datetimepicker.da.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0961D4F35150070B93E /* bootstrap-datetimepicker.da.js */; };
-		1856A0FA1D4F35150070B93E /* bootstrap-datetimepicker.de.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0971D4F35150070B93E /* bootstrap-datetimepicker.de.js */; };
-		1856A0FB1D4F35150070B93E /* bootstrap-datetimepicker.ee.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0981D4F35150070B93E /* bootstrap-datetimepicker.ee.js */; };
-		1856A0FC1D4F35150070B93E /* bootstrap-datetimepicker.el.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0991D4F35150070B93E /* bootstrap-datetimepicker.el.js */; };
-		1856A0FD1D4F35150070B93E /* bootstrap-datetimepicker.es.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A09A1D4F35150070B93E /* bootstrap-datetimepicker.es.js */; };
-		1856A0FE1D4F35150070B93E /* bootstrap-datetimepicker.fi.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A09B1D4F35150070B93E /* bootstrap-datetimepicker.fi.js */; };
-		1856A0FF1D4F35150070B93E /* bootstrap-datetimepicker.fr.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A09C1D4F35150070B93E /* bootstrap-datetimepicker.fr.js */; };
-		1856A1001D4F35150070B93E /* bootstrap-datetimepicker.he.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A09D1D4F35150070B93E /* bootstrap-datetimepicker.he.js */; };
-		1856A1011D4F35150070B93E /* bootstrap-datetimepicker.hr.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A09E1D4F35150070B93E /* bootstrap-datetimepicker.hr.js */; };
-		1856A1021D4F35150070B93E /* bootstrap-datetimepicker.hu.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A09F1D4F35150070B93E /* bootstrap-datetimepicker.hu.js */; };
-		1856A1031D4F35150070B93E /* bootstrap-datetimepicker.hy.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0A01D4F35150070B93E /* bootstrap-datetimepicker.hy.js */; };
-		1856A1041D4F35150070B93E /* bootstrap-datetimepicker.id.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0A11D4F35150070B93E /* bootstrap-datetimepicker.id.js */; };
-		1856A1051D4F35150070B93E /* bootstrap-datetimepicker.is.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0A21D4F35150070B93E /* bootstrap-datetimepicker.is.js */; };
-		1856A1061D4F35150070B93E /* bootstrap-datetimepicker.it.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0A31D4F35150070B93E /* bootstrap-datetimepicker.it.js */; };
-		1856A1071D4F35150070B93E /* bootstrap-datetimepicker.ja.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0A41D4F35150070B93E /* bootstrap-datetimepicker.ja.js */; };
-		1856A1081D4F35150070B93E /* bootstrap-datetimepicker.ka.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0A51D4F35150070B93E /* bootstrap-datetimepicker.ka.js */; };
-		1856A1091D4F35150070B93E /* bootstrap-datetimepicker.ko.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0A61D4F35150070B93E /* bootstrap-datetimepicker.ko.js */; };
-		1856A10A1D4F35150070B93E /* bootstrap-datetimepicker.lt.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0A71D4F35150070B93E /* bootstrap-datetimepicker.lt.js */; };
-		1856A10B1D4F35150070B93E /* bootstrap-datetimepicker.lv.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0A81D4F35150070B93E /* bootstrap-datetimepicker.lv.js */; };
-		1856A10C1D4F35150070B93E /* bootstrap-datetimepicker.ms.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0A91D4F35150070B93E /* bootstrap-datetimepicker.ms.js */; };
-		1856A10D1D4F35150070B93E /* bootstrap-datetimepicker.nb.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0AA1D4F35150070B93E /* bootstrap-datetimepicker.nb.js */; };
-		1856A10E1D4F35150070B93E /* bootstrap-datetimepicker.nl.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0AB1D4F35150070B93E /* bootstrap-datetimepicker.nl.js */; };
-		1856A10F1D4F35150070B93E /* bootstrap-datetimepicker.no.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0AC1D4F35150070B93E /* bootstrap-datetimepicker.no.js */; };
-		1856A1101D4F35150070B93E /* bootstrap-datetimepicker.pl.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0AD1D4F35150070B93E /* bootstrap-datetimepicker.pl.js */; };
-		1856A1111D4F35150070B93E /* bootstrap-datetimepicker.pt-BR.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0AE1D4F35150070B93E /* bootstrap-datetimepicker.pt-BR.js */; };
-		1856A1121D4F35150070B93E /* bootstrap-datetimepicker.pt.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0AF1D4F35150070B93E /* bootstrap-datetimepicker.pt.js */; };
-		1856A1131D4F35150070B93E /* bootstrap-datetimepicker.ro.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0B01D4F35150070B93E /* bootstrap-datetimepicker.ro.js */; };
-		1856A1141D4F35150070B93E /* bootstrap-datetimepicker.rs-latin.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0B11D4F35150070B93E /* bootstrap-datetimepicker.rs-latin.js */; };
-		1856A1151D4F35150070B93E /* bootstrap-datetimepicker.rs.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0B21D4F35150070B93E /* bootstrap-datetimepicker.rs.js */; };
-		1856A1161D4F35150070B93E /* bootstrap-datetimepicker.ru.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0B31D4F35150070B93E /* bootstrap-datetimepicker.ru.js */; };
-		1856A1171D4F35150070B93E /* bootstrap-datetimepicker.sk.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0B41D4F35150070B93E /* bootstrap-datetimepicker.sk.js */; };
-		1856A1181D4F35150070B93E /* bootstrap-datetimepicker.sl.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0B51D4F35150070B93E /* bootstrap-datetimepicker.sl.js */; };
-		1856A1191D4F35150070B93E /* bootstrap-datetimepicker.sv.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0B61D4F35150070B93E /* bootstrap-datetimepicker.sv.js */; };
-		1856A11A1D4F35150070B93E /* bootstrap-datetimepicker.sw.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0B71D4F35150070B93E /* bootstrap-datetimepicker.sw.js */; };
-		1856A11B1D4F35150070B93E /* bootstrap-datetimepicker.th.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0B81D4F35150070B93E /* bootstrap-datetimepicker.th.js */; };
-		1856A11C1D4F35150070B93E /* bootstrap-datetimepicker.tr.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0B91D4F35150070B93E /* bootstrap-datetimepicker.tr.js */; };
-		1856A11D1D4F35150070B93E /* bootstrap-datetimepicker.ua.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0BA1D4F35150070B93E /* bootstrap-datetimepicker.ua.js */; };
-		1856A11E1D4F35150070B93E /* bootstrap-datetimepicker.uk.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0BB1D4F35150070B93E /* bootstrap-datetimepicker.uk.js */; };
-		1856A11F1D4F35150070B93E /* bootstrap-datetimepicker.zh-CN.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0BC1D4F35150070B93E /* bootstrap-datetimepicker.zh-CN.js */; };
-		1856A1201D4F35150070B93E /* bootstrap-datetimepicker.zh-TW.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0BD1D4F35150070B93E /* bootstrap-datetimepicker.zh-TW.js */; };
-		1856A1211D4F35150070B93E /* canji.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0BE1D4F35150070B93E /* canji.js */; };
-		1856A1221D4F35150070B93E /* ccbq.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0BF1D4F35150070B93E /* ccbq.js */; };
-		1856A1231D4F35150070B93E /* jquery-1.7.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0C01D4F35150070B93E /* jquery-1.7.1.min.js */; };
-		1856A1241D4F35150070B93E /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0C11D4F35150070B93E /* jquery.min.js */; };
-		1856A1251D4F35150070B93E /* jquery.mobile.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0C21D4F35150070B93E /* jquery.mobile.min.js */; };
-		1856A1261D4F35150070B93E /* lixi.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0C31D4F35150070B93E /* lixi.js */; };
-		1856A1271D4F35150070B93E /* share.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0C41D4F35150070B93E /* share.js */; };
-		1856A1281D4F35150070B93E /* shoulifei.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0C51D4F35150070B93E /* shoulifei.js */; };
-		1856A1291D4F35150070B93E /* weiyuejin.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0C61D4F35150070B93E /* weiyuejin.js */; };
-		1856A12A1D4F35150070B93E /* zhixing.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0C71D4F35150070B93E /* zhixing.js */; };
-		1856A12B1D4F35150070B93E /* mobiscroll.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0CA1D4F35150070B93E /* mobiscroll.css */; };
-		1856A12C1D4F35150070B93E /* mobiscroll_date.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0CB1D4F35150070B93E /* mobiscroll_date.css */; };
-		1856A12D1D4F35150070B93E /* normalize3.0.2.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0CC1D4F35150070B93E /* normalize3.0.2.min.css */; };
-		1856A12E1D4F35150070B93E /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0CD1D4F35150070B93E /* style.css */; };
-		1856A12F1D4F35150070B93E /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0CF1D4F35150070B93E /* jquery.min.js */; };
-		1856A1301D4F35150070B93E /* mobiscroll.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0D01D4F35150070B93E /* mobiscroll.js */; };
-		1856A1311D4F35150070B93E /* mobiscroll_date.js in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0D11D4F35150070B93E /* mobiscroll_date.js */; };
-		1856A1321D4F35150070B93E /* caichan.html in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0D31D4F35150070B93E /* caichan.html */; };
-		1856A1331D4F35150070B93E /* canji.html in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0D41D4F35150070B93E /* canji.html */; };
-		1856A1341D4F35150070B93E /* lixi.html in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0D51D4F35150070B93E /* lixi.html */; };
-		1856A1351D4F35150070B93E /* riqi.html in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0D61D4F35150070B93E /* riqi.html */; };
-		1856A1361D4F35150070B93E /* shoulifei.html in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0D71D4F35150070B93E /* shoulifei.html */; };
-		1856A1371D4F35150070B93E /* weiyuejin.html in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0D81D4F35150070B93E /* weiyuejin.html */; };
-		1856A1381D4F35150070B93E /* zhixing.html in Resources */ = {isa = PBXBuildFile; fileRef = 1856A0D91D4F35150070B93E /* zhixing.html */; };
 		1856EC971D18E1A000016778 /* CaseFIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856EC961D18E1A000016778 /* CaseFIViewController.m */; };
 		1856F7031C869217003A0C17 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856F7001C869217003A0C17 /* HomeViewController.m */; };
 		185838871D49B9FC00C6A0EE /* gov_NoReview@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185838851D49B9FC00C6A0EE /* gov_NoReview@2x.png */; };
@@ -863,13 +761,6 @@
 		108DC0901C9FF93E00FD1221 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		108DC0921C9FF94A00FD1221 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		108DC0941C9FF96100FD1221 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
-		109EA9841D4C3CD1005C09BB /* ToolsCalculate_shoulifei.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_shoulifei.html; sourceTree = "<group>"; };
-		109EA9851D4C3CD1005C09BB /* ToolsCalculate_zhixing.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_zhixing.html; sourceTree = "<group>"; };
-		109EA9861D4C3CD1005C09BB /* ToolsCalculate_lixi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_lixi.html; sourceTree = "<group>"; };
-		109EA9871D4C3CD1005C09BB /* ToolsCalculate_weiyuejin.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_weiyuejin.html; sourceTree = "<group>"; };
-		109EA9881D4C3CD1005C09BB /* ToolsCalculate_riqi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_riqi.html; sourceTree = "<group>"; };
-		109EA9891D4C3CD1005C09BB /* ToolsCalculate_canji.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_canji.html; sourceTree = "<group>"; };
-		109EA98A1D4C3CD1005C09BB /* ToolsCalculate_caichan.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ToolsCalculate_caichan.html; sourceTree = "<group>"; };
 		109EAB1D1D4C5395005C09BB /* error.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = error.html; sourceTree = "<group>"; };
 		109EAB1E1D4C5395005C09BB /* wifi_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifi_pic.png; sourceTree = "<group>"; };
 		109EAB221D4C79F9005C09BB /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
@@ -1037,101 +928,6 @@
 		18539B371D3CA3A400ADE566 /* BindingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindingViewController.h; sourceTree = "<group>"; };
 		18539B381D3CA3A400ADE566 /* BindingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindingViewController.m; sourceTree = "<group>"; };
 		18563A1C1D9DFB2C00D11F53 /* CalculateHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculateHeader.h; sourceTree = "<group>"; };
-		1856A0701D4F35150070B93E /* base.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = base.css; sourceTree = "<group>"; };
-		1856A0711D4F35150070B93E /* canji.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = canji.css; sourceTree = "<group>"; };
-		1856A0721D4F35150070B93E /* jquery.mobile.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = jquery.mobile.min.css; sourceTree = "<group>"; };
-		1856A0731D4F35150070B93E /* riqi.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = riqi.css; sourceTree = "<group>"; };
-		1856A0741D4F35150070B93E /* shoulifei.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = shoulifei.css; sourceTree = "<group>"; };
-		1856A0751D4F35150070B93E /* weiyuejin.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = weiyuejin.css; sourceTree = "<group>"; };
-		1856A0771D4F35150070B93E /* erweima.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = erweima.png; sourceTree = "<group>"; };
-		1856A0781D4F35150070B93E /* f_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = f_icon.png; sourceTree = "<group>"; };
-		1856A0791D4F35150070B93E /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
-		1856A07A1D4F35150070B93E /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
-		1856A07C1D4F35150070B93E /* alert.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = alert.js; sourceTree = "<group>"; };
-		1856A07F1D4F35150070B93E /* bootstrap-datetimepicker.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "bootstrap-datetimepicker.css"; sourceTree = "<group>"; };
-		1856A0801D4F35150070B93E /* bootstrap-datetimepicker.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "bootstrap-datetimepicker.min.css"; sourceTree = "<group>"; };
-		1856A0811D4F35150070B93E /* bootstrap-theme.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "bootstrap-theme.css"; sourceTree = "<group>"; };
-		1856A0821D4F35150070B93E /* bootstrap-theme.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "bootstrap-theme.min.css"; sourceTree = "<group>"; };
-		1856A0831D4F35150070B93E /* bootstrap.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = bootstrap.css; sourceTree = "<group>"; };
-		1856A0841D4F35150070B93E /* bootstrap.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = bootstrap.min.css; sourceTree = "<group>"; };
-		1856A0861D4F35150070B93E /* glyphicons-halflings-regular.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glyphicons-halflings-regular.eot"; sourceTree = "<group>"; };
-		1856A0871D4F35150070B93E /* glyphicons-halflings-regular.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "glyphicons-halflings-regular.svg"; sourceTree = "<group>"; };
-		1856A0881D4F35150070B93E /* glyphicons-halflings-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glyphicons-halflings-regular.ttf"; sourceTree = "<group>"; };
-		1856A0891D4F35150070B93E /* glyphicons-halflings-regular.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glyphicons-halflings-regular.woff"; sourceTree = "<group>"; };
-		1856A08B1D4F35150070B93E /* bootstrap-datetimepicker.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.js"; sourceTree = "<group>"; };
-		1856A08C1D4F35150070B93E /* bootstrap-datetimepicker.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.min.js"; sourceTree = "<group>"; };
-		1856A08D1D4F35150070B93E /* bootstrap.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bootstrap.js; sourceTree = "<group>"; };
-		1856A08E1D4F35150070B93E /* bootstrap.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bootstrap.min.js; sourceTree = "<group>"; };
-		1856A0901D4F35150070B93E /* bootstrap-datetimepicker.ar.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ar.js"; sourceTree = "<group>"; };
-		1856A0911D4F35150070B93E /* bootstrap-datetimepicker.az.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.az.js"; sourceTree = "<group>"; };
-		1856A0921D4F35150070B93E /* bootstrap-datetimepicker.bg.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.bg.js"; sourceTree = "<group>"; };
-		1856A0931D4F35150070B93E /* bootstrap-datetimepicker.bn.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.bn.js"; sourceTree = "<group>"; };
-		1856A0941D4F35150070B93E /* bootstrap-datetimepicker.ca.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ca.js"; sourceTree = "<group>"; };
-		1856A0951D4F35150070B93E /* bootstrap-datetimepicker.cs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.cs.js"; sourceTree = "<group>"; };
-		1856A0961D4F35150070B93E /* bootstrap-datetimepicker.da.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.da.js"; sourceTree = "<group>"; };
-		1856A0971D4F35150070B93E /* bootstrap-datetimepicker.de.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.de.js"; sourceTree = "<group>"; };
-		1856A0981D4F35150070B93E /* bootstrap-datetimepicker.ee.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ee.js"; sourceTree = "<group>"; };
-		1856A0991D4F35150070B93E /* bootstrap-datetimepicker.el.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.el.js"; sourceTree = "<group>"; };
-		1856A09A1D4F35150070B93E /* bootstrap-datetimepicker.es.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.es.js"; sourceTree = "<group>"; };
-		1856A09B1D4F35150070B93E /* bootstrap-datetimepicker.fi.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.fi.js"; sourceTree = "<group>"; };
-		1856A09C1D4F35150070B93E /* bootstrap-datetimepicker.fr.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.fr.js"; sourceTree = "<group>"; };
-		1856A09D1D4F35150070B93E /* bootstrap-datetimepicker.he.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.he.js"; sourceTree = "<group>"; };
-		1856A09E1D4F35150070B93E /* bootstrap-datetimepicker.hr.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.hr.js"; sourceTree = "<group>"; };
-		1856A09F1D4F35150070B93E /* bootstrap-datetimepicker.hu.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.hu.js"; sourceTree = "<group>"; };
-		1856A0A01D4F35150070B93E /* bootstrap-datetimepicker.hy.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.hy.js"; sourceTree = "<group>"; };
-		1856A0A11D4F35150070B93E /* bootstrap-datetimepicker.id.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.id.js"; sourceTree = "<group>"; };
-		1856A0A21D4F35150070B93E /* bootstrap-datetimepicker.is.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.is.js"; sourceTree = "<group>"; };
-		1856A0A31D4F35150070B93E /* bootstrap-datetimepicker.it.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.it.js"; sourceTree = "<group>"; };
-		1856A0A41D4F35150070B93E /* bootstrap-datetimepicker.ja.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ja.js"; sourceTree = "<group>"; };
-		1856A0A51D4F35150070B93E /* bootstrap-datetimepicker.ka.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ka.js"; sourceTree = "<group>"; };
-		1856A0A61D4F35150070B93E /* bootstrap-datetimepicker.ko.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ko.js"; sourceTree = "<group>"; };
-		1856A0A71D4F35150070B93E /* bootstrap-datetimepicker.lt.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.lt.js"; sourceTree = "<group>"; };
-		1856A0A81D4F35150070B93E /* bootstrap-datetimepicker.lv.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.lv.js"; sourceTree = "<group>"; };
-		1856A0A91D4F35150070B93E /* bootstrap-datetimepicker.ms.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ms.js"; sourceTree = "<group>"; };
-		1856A0AA1D4F35150070B93E /* bootstrap-datetimepicker.nb.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.nb.js"; sourceTree = "<group>"; };
-		1856A0AB1D4F35150070B93E /* bootstrap-datetimepicker.nl.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.nl.js"; sourceTree = "<group>"; };
-		1856A0AC1D4F35150070B93E /* bootstrap-datetimepicker.no.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.no.js"; sourceTree = "<group>"; };
-		1856A0AD1D4F35150070B93E /* bootstrap-datetimepicker.pl.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.pl.js"; sourceTree = "<group>"; };
-		1856A0AE1D4F35150070B93E /* bootstrap-datetimepicker.pt-BR.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.pt-BR.js"; sourceTree = "<group>"; };
-		1856A0AF1D4F35150070B93E /* bootstrap-datetimepicker.pt.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.pt.js"; sourceTree = "<group>"; };
-		1856A0B01D4F35150070B93E /* bootstrap-datetimepicker.ro.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ro.js"; sourceTree = "<group>"; };
-		1856A0B11D4F35150070B93E /* bootstrap-datetimepicker.rs-latin.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.rs-latin.js"; sourceTree = "<group>"; };
-		1856A0B21D4F35150070B93E /* bootstrap-datetimepicker.rs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.rs.js"; sourceTree = "<group>"; };
-		1856A0B31D4F35150070B93E /* bootstrap-datetimepicker.ru.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ru.js"; sourceTree = "<group>"; };
-		1856A0B41D4F35150070B93E /* bootstrap-datetimepicker.sk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.sk.js"; sourceTree = "<group>"; };
-		1856A0B51D4F35150070B93E /* bootstrap-datetimepicker.sl.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.sl.js"; sourceTree = "<group>"; };
-		1856A0B61D4F35150070B93E /* bootstrap-datetimepicker.sv.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.sv.js"; sourceTree = "<group>"; };
-		1856A0B71D4F35150070B93E /* bootstrap-datetimepicker.sw.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.sw.js"; sourceTree = "<group>"; };
-		1856A0B81D4F35150070B93E /* bootstrap-datetimepicker.th.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.th.js"; sourceTree = "<group>"; };
-		1856A0B91D4F35150070B93E /* bootstrap-datetimepicker.tr.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.tr.js"; sourceTree = "<group>"; };
-		1856A0BA1D4F35150070B93E /* bootstrap-datetimepicker.ua.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.ua.js"; sourceTree = "<group>"; };
-		1856A0BB1D4F35150070B93E /* bootstrap-datetimepicker.uk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.uk.js"; sourceTree = "<group>"; };
-		1856A0BC1D4F35150070B93E /* bootstrap-datetimepicker.zh-CN.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.zh-CN.js"; sourceTree = "<group>"; };
-		1856A0BD1D4F35150070B93E /* bootstrap-datetimepicker.zh-TW.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "bootstrap-datetimepicker.zh-TW.js"; sourceTree = "<group>"; };
-		1856A0BE1D4F35150070B93E /* canji.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = canji.js; sourceTree = "<group>"; };
-		1856A0BF1D4F35150070B93E /* ccbq.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ccbq.js; sourceTree = "<group>"; };
-		1856A0C01D4F35150070B93E /* jquery-1.7.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.7.1.min.js"; sourceTree = "<group>"; };
-		1856A0C11D4F35150070B93E /* jquery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
-		1856A0C21D4F35150070B93E /* jquery.mobile.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.mobile.min.js; sourceTree = "<group>"; };
-		1856A0C31D4F35150070B93E /* lixi.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = lixi.js; sourceTree = "<group>"; };
-		1856A0C41D4F35150070B93E /* share.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = share.js; sourceTree = "<group>"; };
-		1856A0C51D4F35150070B93E /* shoulifei.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = shoulifei.js; sourceTree = "<group>"; };
-		1856A0C61D4F35150070B93E /* weiyuejin.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = weiyuejin.js; sourceTree = "<group>"; };
-		1856A0C71D4F35150070B93E /* zhixing.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = zhixing.js; sourceTree = "<group>"; };
-		1856A0CA1D4F35150070B93E /* mobiscroll.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = mobiscroll.css; sourceTree = "<group>"; };
-		1856A0CB1D4F35150070B93E /* mobiscroll_date.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = mobiscroll_date.css; sourceTree = "<group>"; };
-		1856A0CC1D4F35150070B93E /* normalize3.0.2.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = normalize3.0.2.min.css; sourceTree = "<group>"; };
-		1856A0CD1D4F35150070B93E /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
-		1856A0CF1D4F35150070B93E /* jquery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
-		1856A0D01D4F35150070B93E /* mobiscroll.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mobiscroll.js; sourceTree = "<group>"; };
-		1856A0D11D4F35150070B93E /* mobiscroll_date.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mobiscroll_date.js; sourceTree = "<group>"; };
-		1856A0D31D4F35150070B93E /* caichan.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = caichan.html; sourceTree = "<group>"; };
-		1856A0D41D4F35150070B93E /* canji.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = canji.html; sourceTree = "<group>"; };
-		1856A0D51D4F35150070B93E /* lixi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = lixi.html; sourceTree = "<group>"; };
-		1856A0D61D4F35150070B93E /* riqi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = riqi.html; sourceTree = "<group>"; };
-		1856A0D71D4F35150070B93E /* shoulifei.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = shoulifei.html; sourceTree = "<group>"; };
-		1856A0D81D4F35150070B93E /* weiyuejin.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = weiyuejin.html; sourceTree = "<group>"; };
-		1856A0D91D4F35150070B93E /* zhixing.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = zhixing.html; sourceTree = "<group>"; };
 		1856EC951D18E1A000016778 /* CaseFIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseFIViewController.h; sourceTree = "<group>"; };
 		1856EC961D18E1A000016778 /* CaseFIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseFIViewController.m; sourceTree = "<group>"; };
 		1856F6FF1C869217003A0C17 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -2170,19 +1966,7 @@
 		109EA9191D4C3CD1005C09BB /* HtmlFiles */ = {
 			isa = PBXGroup;
 			children = (
-				1856A06F1D4F35150070B93E /* Css */,
-				1856A0761D4F35150070B93E /* Images */,
-				1856A07B1D4F35150070B93E /* Js */,
-				1856A0C81D4F35150070B93E /* riqi */,
-				1856A0D21D4F35150070B93E /* share */,
 				109EAB1C1D4C5395005C09BB /* Error */,
-				109EA9841D4C3CD1005C09BB /* ToolsCalculate_shoulifei.html */,
-				109EA9851D4C3CD1005C09BB /* ToolsCalculate_zhixing.html */,
-				109EA9861D4C3CD1005C09BB /* ToolsCalculate_lixi.html */,
-				109EA9871D4C3CD1005C09BB /* ToolsCalculate_weiyuejin.html */,
-				109EA9881D4C3CD1005C09BB /* ToolsCalculate_riqi.html */,
-				109EA9891D4C3CD1005C09BB /* ToolsCalculate_canji.html */,
-				109EA98A1D4C3CD1005C09BB /* ToolsCalculate_caichan.html */,
 			);
 			path = HtmlFiles;
 			sourceTree = "<group>";
@@ -2655,192 +2439,6 @@
 				1843C5B61D38CD2800414C2E /* ThirdPartyLoginView.m */,
 			);
 			path = "Third-party login";
-			sourceTree = "<group>";
-		};
-		1856A06F1D4F35150070B93E /* Css */ = {
-			isa = PBXGroup;
-			children = (
-				1856A0701D4F35150070B93E /* base.css */,
-				1856A0711D4F35150070B93E /* canji.css */,
-				1856A0721D4F35150070B93E /* jquery.mobile.min.css */,
-				1856A0731D4F35150070B93E /* riqi.css */,
-				1856A0741D4F35150070B93E /* shoulifei.css */,
-				1856A0751D4F35150070B93E /* weiyuejin.css */,
-			);
-			path = Css;
-			sourceTree = "<group>";
-		};
-		1856A0761D4F35150070B93E /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				1856A0771D4F35150070B93E /* erweima.png */,
-				1856A0781D4F35150070B93E /* f_icon.png */,
-				1856A0791D4F35150070B93E /* more.png */,
-				1856A07A1D4F35150070B93E /* share.png */,
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
-		1856A07B1D4F35150070B93E /* Js */ = {
-			isa = PBXGroup;
-			children = (
-				1856A07C1D4F35150070B93E /* alert.js */,
-				1856A07D1D4F35150070B93E /* bootstrap */,
-				1856A0BE1D4F35150070B93E /* canji.js */,
-				1856A0BF1D4F35150070B93E /* ccbq.js */,
-				1856A0C01D4F35150070B93E /* jquery-1.7.1.min.js */,
-				1856A0C11D4F35150070B93E /* jquery.min.js */,
-				1856A0C21D4F35150070B93E /* jquery.mobile.min.js */,
-				1856A0C31D4F35150070B93E /* lixi.js */,
-				1856A0C41D4F35150070B93E /* share.js */,
-				1856A0C51D4F35150070B93E /* shoulifei.js */,
-				1856A0C61D4F35150070B93E /* weiyuejin.js */,
-				1856A0C71D4F35150070B93E /* zhixing.js */,
-			);
-			path = Js;
-			sourceTree = "<group>";
-		};
-		1856A07D1D4F35150070B93E /* bootstrap */ = {
-			isa = PBXGroup;
-			children = (
-				1856A07E1D4F35150070B93E /* css */,
-				1856A0851D4F35150070B93E /* fonts */,
-				1856A08A1D4F35150070B93E /* js */,
-			);
-			path = bootstrap;
-			sourceTree = "<group>";
-		};
-		1856A07E1D4F35150070B93E /* css */ = {
-			isa = PBXGroup;
-			children = (
-				1856A07F1D4F35150070B93E /* bootstrap-datetimepicker.css */,
-				1856A0801D4F35150070B93E /* bootstrap-datetimepicker.min.css */,
-				1856A0811D4F35150070B93E /* bootstrap-theme.css */,
-				1856A0821D4F35150070B93E /* bootstrap-theme.min.css */,
-				1856A0831D4F35150070B93E /* bootstrap.css */,
-				1856A0841D4F35150070B93E /* bootstrap.min.css */,
-			);
-			path = css;
-			sourceTree = "<group>";
-		};
-		1856A0851D4F35150070B93E /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-				1856A0861D4F35150070B93E /* glyphicons-halflings-regular.eot */,
-				1856A0871D4F35150070B93E /* glyphicons-halflings-regular.svg */,
-				1856A0881D4F35150070B93E /* glyphicons-halflings-regular.ttf */,
-				1856A0891D4F35150070B93E /* glyphicons-halflings-regular.woff */,
-			);
-			path = fonts;
-			sourceTree = "<group>";
-		};
-		1856A08A1D4F35150070B93E /* js */ = {
-			isa = PBXGroup;
-			children = (
-				1856A08B1D4F35150070B93E /* bootstrap-datetimepicker.js */,
-				1856A08C1D4F35150070B93E /* bootstrap-datetimepicker.min.js */,
-				1856A08D1D4F35150070B93E /* bootstrap.js */,
-				1856A08E1D4F35150070B93E /* bootstrap.min.js */,
-				1856A08F1D4F35150070B93E /* locales */,
-			);
-			path = js;
-			sourceTree = "<group>";
-		};
-		1856A08F1D4F35150070B93E /* locales */ = {
-			isa = PBXGroup;
-			children = (
-				1856A0901D4F35150070B93E /* bootstrap-datetimepicker.ar.js */,
-				1856A0911D4F35150070B93E /* bootstrap-datetimepicker.az.js */,
-				1856A0921D4F35150070B93E /* bootstrap-datetimepicker.bg.js */,
-				1856A0931D4F35150070B93E /* bootstrap-datetimepicker.bn.js */,
-				1856A0941D4F35150070B93E /* bootstrap-datetimepicker.ca.js */,
-				1856A0951D4F35150070B93E /* bootstrap-datetimepicker.cs.js */,
-				1856A0961D4F35150070B93E /* bootstrap-datetimepicker.da.js */,
-				1856A0971D4F35150070B93E /* bootstrap-datetimepicker.de.js */,
-				1856A0981D4F35150070B93E /* bootstrap-datetimepicker.ee.js */,
-				1856A0991D4F35150070B93E /* bootstrap-datetimepicker.el.js */,
-				1856A09A1D4F35150070B93E /* bootstrap-datetimepicker.es.js */,
-				1856A09B1D4F35150070B93E /* bootstrap-datetimepicker.fi.js */,
-				1856A09C1D4F35150070B93E /* bootstrap-datetimepicker.fr.js */,
-				1856A09D1D4F35150070B93E /* bootstrap-datetimepicker.he.js */,
-				1856A09E1D4F35150070B93E /* bootstrap-datetimepicker.hr.js */,
-				1856A09F1D4F35150070B93E /* bootstrap-datetimepicker.hu.js */,
-				1856A0A01D4F35150070B93E /* bootstrap-datetimepicker.hy.js */,
-				1856A0A11D4F35150070B93E /* bootstrap-datetimepicker.id.js */,
-				1856A0A21D4F35150070B93E /* bootstrap-datetimepicker.is.js */,
-				1856A0A31D4F35150070B93E /* bootstrap-datetimepicker.it.js */,
-				1856A0A41D4F35150070B93E /* bootstrap-datetimepicker.ja.js */,
-				1856A0A51D4F35150070B93E /* bootstrap-datetimepicker.ka.js */,
-				1856A0A61D4F35150070B93E /* bootstrap-datetimepicker.ko.js */,
-				1856A0A71D4F35150070B93E /* bootstrap-datetimepicker.lt.js */,
-				1856A0A81D4F35150070B93E /* bootstrap-datetimepicker.lv.js */,
-				1856A0A91D4F35150070B93E /* bootstrap-datetimepicker.ms.js */,
-				1856A0AA1D4F35150070B93E /* bootstrap-datetimepicker.nb.js */,
-				1856A0AB1D4F35150070B93E /* bootstrap-datetimepicker.nl.js */,
-				1856A0AC1D4F35150070B93E /* bootstrap-datetimepicker.no.js */,
-				1856A0AD1D4F35150070B93E /* bootstrap-datetimepicker.pl.js */,
-				1856A0AE1D4F35150070B93E /* bootstrap-datetimepicker.pt-BR.js */,
-				1856A0AF1D4F35150070B93E /* bootstrap-datetimepicker.pt.js */,
-				1856A0B01D4F35150070B93E /* bootstrap-datetimepicker.ro.js */,
-				1856A0B11D4F35150070B93E /* bootstrap-datetimepicker.rs-latin.js */,
-				1856A0B21D4F35150070B93E /* bootstrap-datetimepicker.rs.js */,
-				1856A0B31D4F35150070B93E /* bootstrap-datetimepicker.ru.js */,
-				1856A0B41D4F35150070B93E /* bootstrap-datetimepicker.sk.js */,
-				1856A0B51D4F35150070B93E /* bootstrap-datetimepicker.sl.js */,
-				1856A0B61D4F35150070B93E /* bootstrap-datetimepicker.sv.js */,
-				1856A0B71D4F35150070B93E /* bootstrap-datetimepicker.sw.js */,
-				1856A0B81D4F35150070B93E /* bootstrap-datetimepicker.th.js */,
-				1856A0B91D4F35150070B93E /* bootstrap-datetimepicker.tr.js */,
-				1856A0BA1D4F35150070B93E /* bootstrap-datetimepicker.ua.js */,
-				1856A0BB1D4F35150070B93E /* bootstrap-datetimepicker.uk.js */,
-				1856A0BC1D4F35150070B93E /* bootstrap-datetimepicker.zh-CN.js */,
-				1856A0BD1D4F35150070B93E /* bootstrap-datetimepicker.zh-TW.js */,
-			);
-			path = locales;
-			sourceTree = "<group>";
-		};
-		1856A0C81D4F35150070B93E /* riqi */ = {
-			isa = PBXGroup;
-			children = (
-				1856A0C91D4F35150070B93E /* css */,
-				1856A0CE1D4F35150070B93E /* js */,
-			);
-			path = riqi;
-			sourceTree = "<group>";
-		};
-		1856A0C91D4F35150070B93E /* css */ = {
-			isa = PBXGroup;
-			children = (
-				1856A0CA1D4F35150070B93E /* mobiscroll.css */,
-				1856A0CB1D4F35150070B93E /* mobiscroll_date.css */,
-				1856A0CC1D4F35150070B93E /* normalize3.0.2.min.css */,
-				1856A0CD1D4F35150070B93E /* style.css */,
-			);
-			path = css;
-			sourceTree = "<group>";
-		};
-		1856A0CE1D4F35150070B93E /* js */ = {
-			isa = PBXGroup;
-			children = (
-				1856A0CF1D4F35150070B93E /* jquery.min.js */,
-				1856A0D01D4F35150070B93E /* mobiscroll.js */,
-				1856A0D11D4F35150070B93E /* mobiscroll_date.js */,
-			);
-			path = js;
-			sourceTree = "<group>";
-		};
-		1856A0D21D4F35150070B93E /* share */ = {
-			isa = PBXGroup;
-			children = (
-				1856A0D31D4F35150070B93E /* caichan.html */,
-				1856A0D41D4F35150070B93E /* canji.html */,
-				1856A0D51D4F35150070B93E /* lixi.html */,
-				1856A0D61D4F35150070B93E /* riqi.html */,
-				1856A0D71D4F35150070B93E /* shoulifei.html */,
-				1856A0D81D4F35150070B93E /* weiyuejin.html */,
-				1856A0D91D4F35150070B93E /* zhixing.html */,
-			);
-			path = share;
 			sourceTree = "<group>";
 		};
 		1856EC941D18E15400016778 /* 案件财务 */ = {
@@ -4281,56 +3879,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				18CC2E241D224DD5004B37DA /* case_lookicon@2x.png in Resources */,
-				1856A0E51D4F35150070B93E /* bootstrap-datetimepicker.css in Resources */,
-				1856A12F1D4F35150070B93E /* jquery.min.js in Resources */,
 				188A780C1D73C3FF00BCB54D /* Tools_riqi@2x.png in Resources */,
-				1856A1131D4F35150070B93E /* bootstrap-datetimepicker.ro.js in Resources */,
-				109EA9EF1D4C3CD1005C09BB /* ToolsCalculate_caichan.html in Resources */,
 				180B31631C8ECFFF00360A23 /* homeUnselect@2x.png in Resources */,
 				187367671D758929000C1169 /* RiQiTablViewController.xib in Resources */,
 				18CD01D71C901367009DE385 /* tabbar_judicial@2x.png in Resources */,
 				183469451D98F2F80007B0D9 /* Holiday.plist in Resources */,
-				1856A1151D4F35150070B93E /* bootstrap-datetimepicker.rs.js in Resources */,
-				109EA9EC1D4C3CD1005C09BB /* ToolsCalculate_weiyuejin.html in Resources */,
 				1065C3471CA91BA4003F4089 /* law_shezhi@2x.png in Resources */,
 				1060DA151CACF8D400D779A5 /* recommedArticle.jpg in Resources */,
-				1856A1171D4F35150070B93E /* bootstrap-datetimepicker.sk.js in Resources */,
 				108DC0241C9FA38E00FD1221 /* find_eye@2x.png in Resources */,
 				182D31B21D4B083A00883660 /* gov_SelectLoc@2x.png in Resources */,
 				18FD83311CBB858F00D50E20 /* case_cmingming@2x.png in Resources */,
-				1856A1161D4F35150070B93E /* bootstrap-datetimepicker.ru.js in Resources */,
 				188A781B1D73C64400BCB54D /* Tools_lawerFees@2x.png in Resources */,
-				1856A0E41D4F35150070B93E /* alert.js in Resources */,
 				1060DA0F1CACD69700D779A5 /* home_palcehold@2x.png in Resources */,
 				18CB0F131CBF8F3F009C41CE /* Esearch_dateSelect@2x.png in Resources */,
 				108DC0371C9FA38E00FD1221 /* mine_moveTop@2x.png in Resources */,
 				18B16ACF1CFD5CE300561CD5 /* UMSLoginViewController.xib in Resources */,
-				109EA9EB1D4C3CD1005C09BB /* ToolsCalculate_lixi.html in Resources */,
 				18FBD84C1CED90CD00674D1E /* case_word@2x.png in Resources */,
-				1856A0EC1D4F35150070B93E /* glyphicons-halflings-regular.svg in Resources */,
 				108DC0211C9FA38E00FD1221 /* compose_pic_add@2x.png in Resources */,
 				18A56C4C1D86582200C133B2 /* HouseDetailHeadView.xib in Resources */,
 				18E6ECEC1CEEF1E300ED74E3 /* law_selectedSC@2x.png in Resources */,
-				1856A1021D4F35150070B93E /* bootstrap-datetimepicker.hu.js in Resources */,
 				187E6D6E1C841A12009169C2 /* LaunchScreen.storyboard in Resources */,
 				18FBD84A1CED90CD00674D1E /* case_txt@2x.png in Resources */,
 				10241A1D1CB9FCDE000CBEAE /* pc_gongshang@2x.png in Resources */,
-				109EA9EA1D4C3CD1005C09BB /* ToolsCalculate_zhixing.html in Resources */,
 				188A78181D73C64400BCB54D /* Tools_fangwu@2x.png in Resources */,
 				187349DE1D2F4F96001A3E91 /* scan_4@2x.png in Resources */,
 				18B5834B1C9A98C700CB3009 /* PlanTableViewCell.xib in Resources */,
 				180B31671C8ECFFF00360A23 /* recommentUnSelect@2x.png in Resources */,
-				1856A1231D4F35150070B93E /* jquery-1.7.1.min.js in Resources */,
 				1065C34A1CA91BA4003F4089 /* law_wodeshoucang@2x.png in Resources */,
-				1856A1361D4F35150070B93E /* shoulifei.html in Resources */,
 				188651BB1D264DDC00E030F7 /* CaseRemindListCell.xib in Resources */,
 				108DC03A1C9FA38E00FD1221 /* mine_recommend@2x.png in Resources */,
 				184983121D2A0CA7009AF29F /* case_mangerGW@2x.png in Resources */,
 				108DC02D1C9FA38E00FD1221 /* mine_calendar@2x.png in Resources */,
 				1860AB331D9B66FE008A2A1E /* 云南省.txt in Resources */,
 				109EAB201D4C5395005C09BB /* wifi_pic.png in Resources */,
-				1856A1331D4F35150070B93E /* canji.html in Resources */,
-				1856A12D1D4F35150070B93E /* normalize3.0.2.min.css in Resources */,
 				18C4B0661CB4FC7600D3CB8B /* SelectTemplateCell.xib in Resources */,
 				18CC2E251D224DD5004B37DA /* case_moneyicon@2x.png in Resources */,
 				18C4B0681CB4FCCB00D3CB8B /* template_yuedu@2x.png in Resources */,
@@ -4344,10 +3925,8 @@
 				18FDC36D1D9A19CC0011EB33 /* gongShang.plist in Resources */,
 				188A781F1D73C64400BCB54D /* Tools_sunhai@2x.png in Resources */,
 				108DC0301C9FA38E00FD1221 /* mine_collection@2x.png in Resources */,
-				109EA9ED1D4C3CD1005C09BB /* ToolsCalculate_riqi.html in Resources */,
 				108DC0221C9FA38E00FD1221 /* compose_pic_add@3x.png in Resources */,
 				18B16ACB1CFD5CE300561CD5 /* UMSCommentInputController.xib in Resources */,
-				1856A1261D4F35150070B93E /* lixi.js in Resources */,
 				108DC01F1C9FA38E00FD1221 /* backVC@2x.png in Resources */,
 				18BDD4341D6EDFE8001541E1 /* info@3x.png in Resources */,
 				18CB0F0E1CBF77E6009C41CE /* Esearch_jiantou@2x.png in Resources */,
@@ -4360,39 +3939,27 @@
 				187DB8BF1CDC6310009CF1D6 /* gov_tupian@2x.png in Resources */,
 				187349DC1D2F4F96001A3E91 /* scan_2@2x.png in Resources */,
 				18CC2E1F1D2243CC004B37DA /* Case_WhiteSD@2x.png in Resources */,
-				1856A0F11D4F35150070B93E /* bootstrap.js in Resources */,
-				1856A0FC1D4F35150070B93E /* bootstrap-datetimepicker.el.js in Resources */,
 				188F9E3C1CF81B14000F9B2D /* laws_GovSearch.jpg in Resources */,
 				18FD83351CBB858F00D50E20 /* case_share@2x.png in Resources */,
 				1860AB4C1D9B66FE008A2A1E /* 重庆市.txt in Resources */,
 				10D31D801CDEEA09008D6F42 /* Gov_phone@2x.png in Resources */,
-				1856A0EA1D4F35150070B93E /* bootstrap.min.css in Resources */,
-				1856A0F21D4F35150070B93E /* bootstrap.min.js in Resources */,
 				18FDC37A1D9A38CD0011EB33 /* InjuryHeadView.xib in Resources */,
-				1856A0E01D4F35150070B93E /* erweima.png in Resources */,
-				1856A1011D4F35150070B93E /* bootstrap-datetimepicker.hr.js in Resources */,
 				1844F5C61D9CB8750021C1FB /* 新疆维吾尔自治区.txt in Resources */,
 				187349DB1D2F4F96001A3E91 /* scan_1@2x.png in Resources */,
-				1856A0DD1D4F35150070B93E /* riqi.css in Resources */,
 				18B16AD41CFD5CE300561CD5 /* WeiboSDK.bundle in Resources */,
 				18B16AD11CFD5CE300561CD5 /* UMSShareListController.xib in Resources */,
 				10D31D7F1CDEEA09008D6F42 /* Gov_location@2x.png in Resources */,
 				108DC0321C9FA38E00FD1221 /* mine_good@2x.png in Resources */,
-				1856A1301D4F35150070B93E /* mobiscroll.js in Resources */,
 				1860AB341D9B66FE008A2A1E /* 内蒙古自治区.txt in Resources */,
 				18BDD4321D6EDFE8001541E1 /* error@3x.png in Resources */,
-				1856A1311D4F35150070B93E /* mobiscroll_date.js in Resources */,
 				1065C34E1CA91BA4003F4089 /* laws_CaseSearch.jpg in Resources */,
 				1860AB3B1D9B66FE008A2A1E /* 山东省.txt in Resources */,
 				18FBD84B1CED90CD00674D1E /* case_wenjainjia@2x.png in Resources */,
 				18FF42DA1C97AF6F00C6B29A /* MoveTopTabViewCell.xib in Resources */,
-				1856A0EB1D4F35150070B93E /* glyphicons-halflings-regular.eot in Resources */,
 				18EE9F051D586A4400F217BD /* Gov_Edit@2x.png in Resources */,
 				1065C34D1CA91BA4003F4089 /* law_yuyin@2x.png in Resources */,
-				1856A0F81D4F35150070B93E /* bootstrap-datetimepicker.cs.js in Resources */,
 				188F9E3A1CF81AB7000F9B2D /* laws_lawsSearch@2x.png in Resources */,
 				18D957061CF59F4F00F0E4DB /* home_Shuff@2x.png in Resources */,
-				1856A0FE1D4F35150070B93E /* bootstrap-datetimepicker.fi.js in Resources */,
 				10172BE91CBBF1F300B7553E /* case_xjwb@2x.png in Resources */,
 				18BDD4331D6EDFE8001541E1 /* info@2x.png in Resources */,
 				1060DA131CACF8D400D779A5 /* commonRegulations@2x.png in Resources */,
@@ -4401,26 +3968,19 @@
 				187E6D6B1C841A12009169C2 /* Assets.xcassets in Resources */,
 				1060DA171CACFBBC00D779A5 /* recommedNew@2x.png in Resources */,
 				18FD831B1CBB70DF00D50E20 /* case_sandian@2x.png in Resources */,
-				1856A0F91D4F35150070B93E /* bootstrap-datetimepicker.da.js in Resources */,
 				108DC02E1C9FA38E00FD1221 /* mine_cer@2x.png in Resources */,
-				1856A1141D4F35150070B93E /* bootstrap-datetimepicker.rs-latin.js in Resources */,
 				10172BE61CBBF1F300B7553E /* case_paiZhao@2x.png in Resources */,
 				1860AB461D9B66FE008A2A1E /* 湖南省.txt in Resources */,
 				18CD01E21C90206F009DE385 /* LoginViewController.xib in Resources */,
-				1856A0FD1D4F35150070B93E /* bootstrap-datetimepicker.es.js in Resources */,
-				1856A12C1D4F35150070B93E /* mobiscroll_date.css in Resources */,
 				1068EADE1CB3485000AAADD4 /* mine_NZSelected@2x.png in Resources */,
 				18D957081CF5AC0400F0E4DB /* tools_introduce@2x.png in Resources */,
 				1068EADF1CB3485000AAADD4 /* mine_NZUnSelected@2x.png in Resources */,
 				1860AB471D9B66FE008A2A1E /* 甘肃省.txt in Resources */,
-				1856A1271D4F35150070B93E /* share.js in Resources */,
 				1065C3441CA91BA4003F4089 /* law_fanhuidingbu@2x.png in Resources */,
 				108DC0271C9FA38E00FD1221 /* login_lice.jpg in Resources */,
 				10D31D6F1CDE1DDB008D6F42 /* jiantou@2x.png in Resources */,
-				1856A1041D4F35150070B93E /* bootstrap-datetimepicker.id.js in Resources */,
 				18CB0F071CBF42EA009C41CE /* TwoCompensationCell.xib in Resources */,
 				108DC0381C9FA38E00FD1221 /* mine_nobanner.jpg in Resources */,
-				1856A0FA1D4F35150070B93E /* bootstrap-datetimepicker.de.js in Resources */,
 				10D31D731CDE2459008D6F42 /* sanjiao@2x.png in Resources */,
 				10369B161DA8B89D004C2F8B /* TheAverageSalary.plist in Resources */,
 				18B16ACD1CFD5CE300561CD5 /* UMShareEditViewController.xib in Resources */,
@@ -4433,187 +3993,123 @@
 				108DC02B1C9FA38E00FD1221 /* mine_banner.jpg in Resources */,
 				1860AB451D9B66FE008A2A1E /* 湖北省.txt in Resources */,
 				188A781C1D73C64400BCB54D /* Tools_lihun@2x.png in Resources */,
-				1856A0DF1D4F35150070B93E /* weiyuejin.css in Resources */,
 				1065C3451CA91BA4003F4089 /* law_jiegou@2x.png in Resources */,
 				1860AB481D9B66FE008A2A1E /* 福建省.txt in Resources */,
-				1856A1221D4F35150070B93E /* ccbq.js in Resources */,
 				108DC03E1C9FBC3100FD1221 /* blackBack@2x.png in Resources */,
 				188F9E361CF7FAF2000F9B2D /* Intro_1@2x.png in Resources */,
-				1856A1241D4F35150070B93E /* jquery.min.js in Resources */,
 				108DC0341C9FA38E00FD1221 /* mine_head@2x.png in Resources */,
 				108DC0391C9FA38E00FD1221 /* mine_noScer@2x.png in Resources */,
 				18EE95951D23E5B70030AE2B /* case_up@2x.png in Resources */,
 				1860AB351D9B66FE008A2A1E /* 北京市.txt in Resources */,
 				18167E971CBBA03C00193EB6 /* case_juanzong@2x.png in Resources */,
-				1856A0E61D4F35150070B93E /* bootstrap-datetimepicker.min.css in Resources */,
 				18D9D67C1CBCA78A008F9CC8 /* case_jianTou@2x.png in Resources */,
-				1856A1381D4F35150070B93E /* zhixing.html in Resources */,
-				1856A10A1D4F35150070B93E /* bootstrap-datetimepicker.lt.js in Resources */,
-				1856A1371D4F35150070B93E /* weiyuejin.html in Resources */,
 				1065C34F1CA91BA4003F4089 /* wpp_readall_top_down_normal@2x.png in Resources */,
 				18CC2E231D224DD5004B37DA /* case_alerticon@2x.png in Resources */,
-				1856A1201D4F35150070B93E /* bootstrap-datetimepicker.zh-TW.js in Resources */,
 				18C4B05E1CB4DD9500D3CB8B /* template_Word@2x.png in Resources */,
 				18B16ACA1CFD5CE300561CD5 /* UMSCommentDetailController.xib in Resources */,
 				1860AB3D1D9B66FE008A2A1E /* 广东省.txt in Resources */,
 				1860AB3A1D9B66FE008A2A1E /* 安徽省.txt in Resources */,
 				109EAB1F1D4C5395005C09BB /* error.html in Resources */,
-				1856A11D1D4F35150070B93E /* bootstrap-datetimepicker.ua.js in Resources */,
 				18DB8E481D001F1E000C9D8B /* woman_court.caf in Resources */,
 				188A781A1D73C64400BCB54D /* Tools_gongshang@2x.png in Resources */,
 				18FD82FD1CBB4E8C00D50E20 /* case_detailHead.jpg in Resources */,
-				1856A1291D4F35150070B93E /* weiyuejin.js in Resources */,
 				108DC0361C9FA38E00FD1221 /* mine_manager@2x.png in Resources */,
 				108DC02C1C9FA38E00FD1221 /* mine_box@2x.png in Resources */,
-				1856A11F1D4F35150070B93E /* bootstrap-datetimepicker.zh-CN.js in Resources */,
-				1856A1281D4F35150070B93E /* shoulifei.js in Resources */,
-				1856A0F61D4F35150070B93E /* bootstrap-datetimepicker.bn.js in Resources */,
 				18B16AD01CFD5CE300561CD5 /* UMSnsAccountViewController.xib in Resources */,
 				18CD01D81C901367009DE385 /* tabbar_LawsRegular@2x.png in Resources */,
 				18CD01DA1C901367009DE385 /* tabbar_template@2x.png in Resources */,
 				18F666AA1D07C37B0004FF55 /* tapbar_top_line@2x.png in Resources */,
 				108DC0261C9FA38E00FD1221 /* login_key@2x.png in Resources */,
 				18B16AD71CFD5CE300561CD5 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				1856A1071D4F35150070B93E /* bootstrap-datetimepicker.ja.js in Resources */,
 				1860AB441D9B66FE008A2A1E /* 海南省.txt in Resources */,
-				109EA9EE1D4C3CD1005C09BB /* ToolsCalculate_canji.html in Resources */,
 				187349DF1D2F4F96001A3E91 /* scan_net@2x.png in Resources */,
 				10D31D7C1CDEE92C008D6F42 /* GovDetailCell.xib in Resources */,
 				10172BE81CBBF1F300B7553E /* case_wifi@2x.png in Resources */,
-				1856A11C1D4F35150070B93E /* bootstrap-datetimepicker.tr.js in Resources */,
 				18FD83321CBB858F00D50E20 /* case_delete@2x.png in Resources */,
 				1068EADD1CB3485000AAADD4 /* mine_addNZ@2x.png in Resources */,
 				18F2F1A11CBDE0930068453D /* case_juanzong6p@3x.png in Resources */,
 				180B31641C8ECFFF00360A23 /* mineSelect@2x.png in Resources */,
-				1856A0F51D4F35150070B93E /* bootstrap-datetimepicker.bg.js in Resources */,
 				108DC03B1C9FA38E00FD1221 /* mine_scer@2x.png in Resources */,
-				1856A10E1D4F35150070B93E /* bootstrap-datetimepicker.nl.js in Resources */,
 				103D48C51CE8705500ED0864 /* Areas.plist in Resources */,
 				188A78201D73C64400BCB54D /* Tools_weiyue@2x.png in Resources */,
-				1856A0DC1D4F35150070B93E /* jquery.mobile.min.css in Resources */,
 				180B31691C8ECFFF00360A23 /* ToolsUnSelect@2x.png in Resources */,
 				18DB8E461D001F1E000C9D8B /* man_meeting.caf in Resources */,
 				187A54AC1D642CBD0076A8E6 /* selected.png in Resources */,
-				1856A0EE1D4F35150070B93E /* glyphicons-halflings-regular.woff in Resources */,
 				1860AB411D9B66FE008A2A1E /* 河北省.txt in Resources */,
-				1856A0DE1D4F35150070B93E /* shoulifei.css in Resources */,
 				18DB8E491D001F1E000C9D8B /* woman_meeting.caf in Resources */,
-				1856A11E1D4F35150070B93E /* bootstrap-datetimepicker.uk.js in Resources */,
-				1856A0E71D4F35150070B93E /* bootstrap-theme.css in Resources */,
-				1856A1091D4F35150070B93E /* bootstrap-datetimepicker.ko.js in Resources */,
 				188A78191D73C64400BCB54D /* Tools_fayuan@2x.png in Resources */,
 				18CD01CE1C8FEFA0009DE385 /* BottomImg@2x.png in Resources */,
 				10241A181CB9F5A0000CBEAE /* CompensationTabCell.xib in Resources */,
 				180B31621C8ECFFF00360A23 /* homeSelect@2x.png in Resources */,
 				10241A2F1CBA8E63000CBEAE /* case_add@2x.png in Resources */,
-				1856A12E1D4F35150070B93E /* style.css in Resources */,
 				18D66AC71CE16DDE00BF2C17 /* template_SC@2x.png in Resources */,
-				1856A0F31D4F35150070B93E /* bootstrap-datetimepicker.ar.js in Resources */,
-				1856A0E21D4F35150070B93E /* more.png in Resources */,
-				1856A1001D4F35150070B93E /* bootstrap-datetimepicker.he.js in Resources */,
-				1856A10C1D4F35150070B93E /* bootstrap-datetimepicker.ms.js in Resources */,
 				108DC02A1C9FA38E00FD1221 /* mine_about@2x.png in Resources */,
-				1856A0EF1D4F35150070B93E /* bootstrap-datetimepicker.js in Resources */,
 				10C86B861CABC00A002A75AC /* home_peichangbiaozhun@2x.png in Resources */,
-				1856A1341D4F35150070B93E /* lixi.html in Resources */,
 				180B31651C8ECFFF00360A23 /* mineUnSelect@2x.png in Resources */,
 				18FBD8491CED90CD00674D1E /* case_photo@2x.png in Resources */,
 				18DB8E471D001F1E000C9D8B /* woman_contract.caf in Resources */,
 				1065C3461CA91BA4003F4089 /* law_share@2x.png in Resources */,
 				1860AB3E1D9B66FE008A2A1E /* 广西壮族自治区.txt in Resources */,
-				109EA9E91D4C3CD1005C09BB /* ToolsCalculate_shoulifei.html in Resources */,
-				1856A1121D4F35150070B93E /* bootstrap-datetimepicker.pt.js in Resources */,
-				1856A1081D4F35150070B93E /* bootstrap-datetimepicker.ka.js in Resources */,
 				1860AB3C1D9B66FE008A2A1E /* 山西省.txt in Resources */,
 				108323321CAA2B14004B8045 /* law_contentSearch@2x.png in Resources */,
-				1856A0E81D4F35150070B93E /* bootstrap-theme.min.css in Resources */,
 				185838881D49B9FC00C6A0EE /* gov_Review@2x.png in Resources */,
 				180B31661C8ECFFF00360A23 /* recommentSelect@2x.png in Resources */,
 				18BDD4301D6EDFE8001541E1 /* Checkmark@3x.png in Resources */,
-				1856A11A1D4F35150070B93E /* bootstrap-datetimepicker.sw.js in Resources */,
 				1860AB371D9B66FE008A2A1E /* 四川省.txt in Resources */,
 				18DB8E441D001F1E000C9D8B /* man_contract.caf in Resources */,
 				180F70C21D88EA8300081CAE /* PersonalHeadView.xib in Resources */,
 				18F593E71CB636A500F5619D /* SearchWebView.js in Resources */,
 				18F2F1CE1CBE2EC40068453D /* Esearch_SouSuo@2x.png in Resources */,
-				1856A0E11D4F35150070B93E /* f_icon.png in Resources */,
 				188F9E381CF7FAF2000F9B2D /* Intro_3@2x.png in Resources */,
 				1860AB4D1D9B66FE008A2A1E /* 陕西省.txt in Resources */,
 				10241A1F1CB9FCDE000CBEAE /* pc_yiliao@2x.png in Resources */,
 				1860AB4B1D9B66FE008A2A1E /* 辽宁省.txt in Resources */,
 				187A54AB1D642CBD0076A8E6 /* notSelected.png in Resources */,
-				1856A1181D4F35150070B93E /* bootstrap-datetimepicker.sl.js in Resources */,
-				1856A0E91D4F35150070B93E /* bootstrap.css in Resources */,
-				1856A0F01D4F35150070B93E /* bootstrap-datetimepicker.min.js in Resources */,
-				1856A0F41D4F35150070B93E /* bootstrap-datetimepicker.az.js in Resources */,
-				1856A1351D4F35150070B93E /* riqi.html in Resources */,
 				1065C3431CA91BA4003F4089 /* law_difangfagui@2x.png in Resources */,
 				18BDD42F1D6EDFE8001541E1 /* Checkmark@2x.png in Resources */,
 				108DC0351C9FA38E00FD1221 /* mine_jiantou@2x.png in Resources */,
 				1873676C1D7589D4000C1169 /* DayTabViewController.xib in Resources */,
 				18B16ADA1CFD5CE300561CD5 /* UMSocialSDKResourcesNew.bundle in Resources */,
-				1856A0FB1D4F35150070B93E /* bootstrap-datetimepicker.ee.js in Resources */,
 				1860AB4E1D9B66FE008A2A1E /* 青海省.txt in Resources */,
-				1856A1211D4F35150070B93E /* canji.js in Resources */,
 				188A781E1D73C64400BCB54D /* Tools_peichang@2x.png in Resources */,
 				18CD01DC1C90172A009DE385 /* fork@2x.png in Resources */,
 				186DF0CE1CB5094900D66994 /* template_Share@2x.png in Resources */,
 				108DC0291C9FA38E00FD1221 /* login_name@2x.png in Resources */,
 				18DB8E451D001F1E000C9D8B /* man_court.caf in Resources */,
 				18E7C47F1CFC312E00E01A11 /* law_placeHold@2x.png in Resources */,
-				1856A0E31D4F35150070B93E /* share.png in Resources */,
-				1856A1191D4F35150070B93E /* bootstrap-datetimepicker.sv.js in Resources */,
 				1860AB431D9B66FE008A2A1E /* 浙江省.txt in Resources */,
 				18B16ACC1CFD5CE300561CD5 /* UMSCommentInputControlleriPad.xib in Resources */,
 				189B78561C8572D30022BCEA /* picker_alert_sigh@2x.png in Resources */,
-				1856A10B1D4F35150070B93E /* bootstrap-datetimepicker.lv.js in Resources */,
 				1860AB361D9B66FE008A2A1E /* 吉林省.txt in Resources */,
 				1065C34C1CA91BA4003F4089 /* law_xinfasudi@2x.png in Resources */,
 				108DC0201C9FA38E00FD1221 /* CollectEmpty@2x.png in Resources */,
 				180B31681C8ECFFF00360A23 /* ToolsSelect@2x.png in Resources */,
-				1856A0DA1D4F35150070B93E /* base.css in Resources */,
 				10C01AFC1CA7F01A0000EF7A /* LawsTableViewCell.xib in Resources */,
 				108DC03C1C9FA38E00FD1221 /* mine_shadow@2x.png in Resources */,
-				1856A0DB1D4F35150070B93E /* canji.css in Resources */,
-				1856A10F1D4F35150070B93E /* bootstrap-datetimepicker.no.js in Resources */,
 				10C86B881CABC042002A75AC /* home_fagui@2x.png in Resources */,
-				1856A1101D4F35150070B93E /* bootstrap-datetimepicker.pl.js in Resources */,
-				1856A12B1D4F35150070B93E /* mobiscroll.css in Resources */,
 				1065C3401CA91BA4003F4089 /* law_changyongfagui@2x.png in Resources */,
 				1860AB4A1D9B66FE008A2A1E /* 贵州省.txt in Resources */,
 				1065C3481CA91BA4003F4089 /* law_shoucang@2x.png in Resources */,
-				1856A1061D4F35150070B93E /* bootstrap-datetimepicker.it.js in Resources */,
-				1856A10D1D4F35150070B93E /* bootstrap-datetimepicker.nb.js in Resources */,
 				18B717601C9149A800F2AAED /* FindKeyViewController.xib in Resources */,
-				1856A1051D4F35150070B93E /* bootstrap-datetimepicker.is.js in Resources */,
-				1856A1251D4F35150070B93E /* jquery.mobile.min.js in Resources */,
-				1856A1031D4F35150070B93E /* bootstrap-datetimepicker.hy.js in Resources */,
 				1860AB4F1D9B66FE008A2A1E /* 黑龙江省.txt in Resources */,
 				10172BEA1CBBF1F300B7553E /* case_xjwjj@2x.png in Resources */,
 				1860AB491D9B66FE008A2A1E /* 西藏自治区.txt in Resources */,
 				10241A1E1CB9FCDE000CBEAE /* pc_jiaotong@2x.png in Resources */,
 				184983111D2A0CA7009AF29F /* case_mangeFS@2x.png in Resources */,
 				10D31D701CDE1DDB008D6F42 /* jiantou@3x.png in Resources */,
-				1856A1321D4F35150070B93E /* caichan.html in Resources */,
 				187349DD1D2F4F96001A3E91 /* scan_3@2x.png in Resources */,
 				10241A311CBA8FD0000CBEAE /* case_edit@2x.png in Resources */,
-				1856A0ED1D4F35150070B93E /* glyphicons-halflings-regular.ttf in Resources */,
 				10D31D741CDE2459008D6F42 /* sanjiao@3x.png in Resources */,
-				1856A1111D4F35150070B93E /* bootstrap-datetimepicker.pt-BR.js in Resources */,
 				108DC0231C9FA38E00FD1221 /* find_code@2x.png in Resources */,
 				10C86B8A1CABCC28002A75AC /* home_hot@2x.png in Resources */,
 				184983131D2A0CA7009AF29F /* case_mangeSS@2x.png in Resources */,
 				108DC0281C9FA38E00FD1221 /* login_logo@2x.png in Resources */,
 				1860AB401D9B66FE008A2A1E /* 江西省.txt in Resources */,
-				1856A0F71D4F35150070B93E /* bootstrap-datetimepicker.ca.js in Resources */,
 				10172BE71CBBF1F300B7553E /* case_shangC@2x.png in Resources */,
 				185838871D49B9FC00C6A0EE /* gov_NoReview@2x.png in Resources */,
 				181BA4121CE598B600A29E2E /* share_platform_wechat@2x.png in Resources */,
 				18FBD8481CED90CD00674D1E /* case_pdf@2x.png in Resources */,
 				188A781D1D73C64400BCB54D /* Tools_lixi@2x.png in Resources */,
-				1856A0FF1D4F35150070B93E /* bootstrap-datetimepicker.fr.js in Resources */,
-				1856A12A1D4F35150070B93E /* zhixing.js in Resources */,
-				1856A11B1D4F35150070B93E /* bootstrap-datetimepicker.th.js in Resources */,
 				1860AB3F1D9B66FE008A2A1E /* 江苏省.txt in Resources */,
 				188651BD1D26609600E030F7 /* everyDay_history@2x.png in Resources */,
 				1065C3411CA91BA4003F4089 /* law_contenAdd@2x.png in Resources */,
@@ -5115,7 +4611,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ZhouDao/ZhouDao_NetWorkManger/DefineHeader/ZhouDao_Prefix.pch";
 				INFOPLIST_FILE = ZhouDao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5128,8 +4624,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e7d3a5d0-2aab-4dd7-87f7-cea579eda0de";
-				PROVISIONING_PROFILE_SPECIFIER = 88888;
+				PROVISIONING_PROFILE = "55269414-18e0-45c0-9709-59af8fb4c25c";
+				PROVISIONING_PROFILE_SPECIFIER = 10_08;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
@@ -5154,7 +4650,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ZhouDao/ZhouDao_NetWorkManger/DefineHeader/ZhouDao_Prefix.pch";
 				INFOPLIST_FILE = ZhouDao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5167,8 +4663,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e7d3a5d0-2aab-4dd7-87f7-cea579eda0de";
-				PROVISIONING_PROFILE_SPECIFIER = 88888;
+				PROVISIONING_PROFILE = "55269414-18e0-45c0-9709-59af8fb4c25c";
+				PROVISIONING_PROFILE_SPECIFIER = 10_08;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};

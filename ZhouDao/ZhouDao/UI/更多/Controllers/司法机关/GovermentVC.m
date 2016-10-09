@@ -37,6 +37,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 @end
 
 @implementation GovermentVC
+
 - (void)dealloc
 {
     TTVIEW_RELEASE_SAFELY(_falseImgView);

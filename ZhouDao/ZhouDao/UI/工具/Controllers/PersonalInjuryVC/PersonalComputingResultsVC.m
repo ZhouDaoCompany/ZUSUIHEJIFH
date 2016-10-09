@@ -196,20 +196,32 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
         
         NSString *item = _detailDictionary[@"item"];
         NSMutableString *levelString = [[NSMutableString alloc] init];
-        if ([item isEqualToString:@"单级"]) {
+        NSString *itemString = @"";
+        if (_detailDictionary.count == 2) {
             
-            levelString = _detailDictionary[@"grade"];
+            itemString = @"死亡";
+            levelString = @"一级";
         }else {
             
-            NSArray *levelArr = _detailDictionary[@"grade"];
-            
-            for (NSDictionary *dict in levelArr) {
+            if ([item isEqualToString:@"单级"]) {
                 
-                [levelString appendString:[NSString stringWithFormat:@"%@级:%@处 ",dict[@"level"],dict[@"several"]]];
+                itemString = @"单级";
+                levelString = _detailDictionary[@"grade"];
+            }else {
+                
+                itemString = @"多级";
+
+                NSArray *levelArr = _detailDictionary[@"grade"];
+                
+                for (NSDictionary *dict in levelArr) {
+                    
+                    [levelString appendString:[NSString stringWithFormat:@"%@级:%@处 ",dict[@"level"],dict[@"several"]]];
+                }
             }
+
         }
 
-        NSMutableArray *resultArr = [NSMutableArray arrayWithObjects:_allMoneyString,_detailDictionary[@"area"],_detailDictionary[@"hk"],_detailDictionary[@"item"],levelString, nil];
+        NSMutableArray *resultArr = [NSMutableArray arrayWithObjects:_allMoneyString,_detailDictionary[@"area"],_detailDictionary[@"hk"],itemString,levelString, nil];
 
         NSMutableArray *arr2 = _dataSourcesArrays[1];
 

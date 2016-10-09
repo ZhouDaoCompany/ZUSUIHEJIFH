@@ -147,7 +147,7 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         [self theAmountOfCompensation:arr1];
         _tableView.tableFooterView = self.bottomView;
 
-        [JKPromptView showWithImageName:nil message:@"工资低于最低工资标准时候 \n 请按照该地区最低工资标准计算"];
+        [JKPromptView showWithImageName:nil message:@"平均工资低于当地最低工资标准时 \n 请输入当地最低工资标准."];
 
     }
     
