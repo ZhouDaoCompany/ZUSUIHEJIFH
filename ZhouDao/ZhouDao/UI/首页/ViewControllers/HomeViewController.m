@@ -110,7 +110,6 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
             default:
                 break;
         }
-        
     };
 
     [self loadCacheData];

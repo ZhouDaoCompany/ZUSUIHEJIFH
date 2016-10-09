@@ -305,8 +305,8 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self dismissKeyBoard];
+    
 }
-
 #pragma mark - setters and getters
 -(UITableView *)tableView{WEAKSELF;
     if (!_tableView) {

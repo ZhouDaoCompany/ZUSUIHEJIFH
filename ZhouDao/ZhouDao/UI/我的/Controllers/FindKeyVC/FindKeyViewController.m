@@ -28,7 +28,7 @@
 - (void)initUI{
     
     _codeStr = @"";
-    [self setupNaviBarWithTitle:@"找回密码"];
+    [self setupNaviBarWithTitle:_navTitle];
     [self setupNaviBarWithBtn:NaviLeftBtn title:@"" img:@"backVC"];
     
     self.bottomView.layer.masksToBounds = YES;

@@ -185,6 +185,7 @@
         case 1001:
         {//忘记密码
             FindKeyViewController *findVC = [FindKeyViewController new];
+            findVC.navTitle = @"找回密码";
             findVC.findBlock = ^(NSString *phone){
                 _nameText.text = phone;
             };

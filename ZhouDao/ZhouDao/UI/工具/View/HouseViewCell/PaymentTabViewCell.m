@@ -42,7 +42,13 @@
     _monthLabel.text = [NSString stringWithFormat:@"%ld月",row+1];
     _principalLabel.text = arrays[0];
     _interesLabel.text = arrays[1];
-    _remainLabel.text = [arrays lastObject];
+    
+    if ([[arrays lastObject] isEqualToString:@"-0.00"]) {
+
+        _remainLabel.text = @"0.00";
+    }else{
+        _remainLabel.text = [arrays lastObject];
+    }
 }
 - (void)settingUIWithRow:(NSInteger)row withArrays1:(NSArray *)arrays1 withArrays2:(NSArray *)arrays2
 {
@@ -50,6 +56,12 @@
     _principalLabel.text = [NSString stringWithFormat:@"%.2f",[arrays1[0] doubleValue] + [arrays2[0] doubleValue]];
     _interesLabel.text = [NSString stringWithFormat:@"%.2f",[arrays1[1] doubleValue] + [arrays2[1] doubleValue]];
     _remainLabel.text = [NSString stringWithFormat:@"%.2f",[[arrays1 lastObject] doubleValue] + [[arrays2 lastObject] doubleValue]];
+    
+    if ([_remainLabel.text isEqualToString:@"-0.00"]) {
+        
+        _remainLabel.text = @"0.00";
+    }
+
 }
 
 #pragma mark - setter and getter
@@ -67,6 +79,7 @@
 - (UILabel *)principalLabel
 {
     if (!_principalLabel) {
+        
         _principalLabel = [[UILabel alloc] initWithFrame:CGRectMake(LABELWIDTH, 5, LABELWIDTH, 20)];
         _principalLabel.font = Font_14;
         _principalLabel.textAlignment = NSTextAlignmentCenter;
@@ -78,6 +91,7 @@
 - (UILabel *)interesLabel
 {
     if (!_interesLabel) {
+        
         _interesLabel = [[UILabel alloc] initWithFrame:CGRectMake(LABELWIDTH *2, 5, LABELWIDTH, 20)];
         _interesLabel.font = Font_14;
         _interesLabel.textAlignment = NSTextAlignmentCenter;
@@ -89,6 +103,7 @@
 - (UILabel *)remainLabel
 {
     if (!_remainLabel) {
+        
         _remainLabel = [[UILabel alloc] initWithFrame:CGRectMake(LABELWIDTH *3, 5, LABELWIDTH, 20)];
         _remainLabel.font = Font_14;
         _remainLabel.textAlignment = NSTextAlignmentCenter;

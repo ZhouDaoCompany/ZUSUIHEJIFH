@@ -146,10 +146,10 @@
             
             ReadViewController *readVC = [ReadViewController new];
             weakSelf.model.url = [[NSString stringWithFormat:@"%@%@",DownloadThePrefix,htmlString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            readVC.model = _model;
+            readVC.model = weakSelf.model;
             readVC.rType = FileNOExist;
             readVC.readBlock  = ^(NSString *str){
-                _label.text = str;
+                weakSelf.label.text = str;
                 _exist = !_exist;
             };
             [self.navigationController pushViewController:readVC animated:YES];

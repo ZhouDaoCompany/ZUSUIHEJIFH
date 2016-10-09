@@ -147,6 +147,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
         }else if (indexPath.row == 2){
             
             FindKeyViewController *findVC = [FindKeyViewController new];
+            findVC.navTitle = @"修改密码";
             findVC.findBlock = ^(NSString *str){
             };
             [self.navigationController pushViewController:findVC animated:YES];

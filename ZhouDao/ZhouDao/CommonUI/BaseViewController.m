@@ -16,11 +16,11 @@
 #import "ToolsWedViewVC.h"
 
 
-@interface BaseViewController ()
+@interface BaseViewController ()<UIAlertViewDelegate>
 {
     CGFloat barSpacing;
 }
-
+@property (nonatomic, strong) NSDictionary *notiDic;
 @end
 
 @implementation BaseViewController
@@ -144,8 +144,17 @@
                               Object:nil];
 }
 - (void)presentview:(NSNotification *)notification
-{WEAKSELF;
+{
     /*
+     {
+     aps =     {
+     alert = ffff;
+     sound = default;
+     };
+     d = uu44403147597970306611;
+     p = 0;
+     }
+     
      {
      aps =     {
      alert = "\U6d4b\U8bd5\U5185\U5bb9";
@@ -164,11 +173,11 @@
      4、自定义消息
      */
     NSDictionary *notiDic = (NSDictionary *)notification.object;
-    
+    _notiDic = notiDic;
     NSString *type = notiDic[@"type"];
     NSString *alertString = notiDic[@"aps"][@"alert"];
     NSString *tit = notiDic[@"title"];
-    NSUInteger indexType = [type integerValue] -1;
+//    NSUInteger indexType = [type integerValue] -1;
     
     if ([type isEqualToString:@"2"]){
         NSString *bellName = [NetWorkMangerTools getSoundName:notiDic[@"bell"]];
@@ -180,48 +189,65 @@
         tit  = @"周道慧法-每日轮播";
     }else if ([type isEqualToString:@"4"]){
         tit  = @"周道慧法-消息提醒";
+    }else {
+        tit = @"温馨提示";
     }
-    UIWindow *windows = [QZManager getWindow];
 
     if ([PublicFunction ShareInstance].openApp ==  YES) {
         
         [PublicFunction ShareInstance].openApp =  NO;
         [self pushWithUserInfo:notiDic];
-        if ([type isEqualToString:@"2"]){
-            PushAlertWindow *alertWindow = [[PushAlertWindow alloc] initWithFrame:kMainScreenFrameRect WithTitle:tit WithContent:alertString withType:indexType];
-            alertWindow.pushBlock = ^(){
-                
-                [[SoundManager sharedSoundManager] musicStop];
-            };
-            [windows addSubview:alertWindow];
+        if ([type isEqualToString:@"2"] || [type isEqualToString:@"4"]){
+            
+            UIAlertView *alarmView = [[UIAlertView alloc] initWithTitle:tit message:alertString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            alarmView.tag = 9543;
+            [alarmView show];
+            
         }
         
     }else {
         
         if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
         {
-            PushAlertWindow *alertWindow = [[PushAlertWindow alloc] initWithFrame:kMainScreenFrameRect WithTitle:tit WithContent:alertString withType:indexType];
-            
-            alertWindow.pushBlock = ^(){
+            if ([type isEqualToString:@"2"] || [type isEqualToString:@"4"]){
                 
-                [[SoundManager sharedSoundManager] musicStop];
-                [weakSelf pushWithUserInfo:notiDic];
-            };
-            [windows addSubview:alertWindow];
+                UIAlertView *alarmView = [[UIAlertView alloc] initWithTitle:tit message:alertString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                alarmView.tag = 9543;
+                [alarmView show];
+            }else {
+                UIAlertView *normalView = [[UIAlertView alloc] initWithTitle:tit message:alertString delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"立即查看", nil];
+                normalView.tag = 9544;
+                [normalView show];
+            }
+            
         }else {
             [self pushWithUserInfo:notiDic];
             
-            if ([type isEqualToString:@"2"]){
+            if ([type isEqualToString:@"2"] || [type isEqualToString:@"4"]){
                 
-                PushAlertWindow *alertWindow = [[PushAlertWindow alloc] initWithFrame:kMainScreenFrameRect WithTitle:tit WithContent:alertString withType:indexType];
-                alertWindow.pushBlock = ^(){
-                    
-                    [[SoundManager sharedSoundManager] musicStop];
-                };
-                [windows addSubview:alertWindow];
+                UIAlertView *alarmView = [[UIAlertView alloc] initWithTitle:tit message:alertString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                alarmView.tag = 9543;
+                [alarmView show];
             }
         }
     }
+}
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSUInteger index = alertView.tag;
+    
+    if (index == 9543) {
+        [[SoundManager sharedSoundManager] musicStop];
+    }else if (index == 9544){
+        [[SoundManager sharedSoundManager] musicStop];
+
+        if (buttonIndex == 1) {
+            
+            [self pushWithUserInfo:_notiDic];
+        }
+    }
+    
 }
 #pragma mark - 分析跳转 显示
 - (void)pushWithUserInfo:(NSDictionary *)notiDic

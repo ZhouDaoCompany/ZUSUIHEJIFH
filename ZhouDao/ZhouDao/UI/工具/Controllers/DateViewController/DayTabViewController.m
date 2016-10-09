@@ -24,6 +24,8 @@ static NSString *const DAYCellID = @"dayCellID";
 @property (strong, nonatomic) NSMutableArray *timeArrays;
 @property (strong, nonatomic) NSMutableDictionary *timeDictionary;
 
+@property (strong, nonatomic) UILabel *bottomLabel;
+
 @end
 
 @implementation DayTabViewController
@@ -120,6 +122,8 @@ static NSString *const DAYCellID = @"dayCellID";
     
     if (btn.tag == 3045) {
         
+        [self.tableView setTableFooterView:nil];
+
         if (_dataSourceArrays.count == 2) {
             [_dataSourceArrays removeObjectAtIndex:1];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
@@ -175,6 +179,9 @@ static NSString *const DAYCellID = @"dayCellID";
             [arrays replaceObjectAtIndex:4 withObject:work];
             [weakSelf.tableView reloadData];
         }];
+        
+        [self.tableView setTableFooterView:self.bottomLabel];
+
     }
     DLog(@"计算或者重置");
 }
@@ -258,14 +265,17 @@ static NSString *const DAYCellID = @"dayCellID";
     //每周算2天周末，计算一共多少个周末
     NSUInteger weekend = allWeek * 2;
     
-    //处理临界点，比如起始日是周日
-    if(beginWeekDay == 1){
-        weekend -= 1;
-    }
-    if(endWeekDay == 1){
-        weekend += 1;
-    }else if(endWeekDay > 6){
-        weekend += 2;
+    //处理临界点，比如起始日是周六
+    if (weekend >0) {
+        
+        if(beginWeekDay == 7){
+            weekend -= 1;
+        }
+        if(endWeekDay == 7){
+            weekend += 1;
+        }else if(endWeekDay > 6){
+            weekend += 2;
+        }
     }
     
     //weekend 的值就是周末的天数
@@ -446,6 +456,20 @@ static NSString *const DAYCellID = @"dayCellID";
     }
     return _timeArrays;
 }
+- (UILabel *)bottomLabel
+{
+    if (!_bottomLabel) {
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-10, 50)];
+        _bottomLabel.textAlignment = NSTextAlignmentLeft;
+        _bottomLabel.numberOfLines = 0;
+        _bottomLabel.backgroundColor = [UIColor clearColor];
+        _bottomLabel.textColor = hexColor(00c8aa);
+        _bottomLabel.text = @"申明：本平台提供的数据从2010开始至今，若给您的使用带来不便，敬请谅解。";
+        _bottomLabel.font = Font_12;
+    }
+    return _bottomLabel;
+}
+
 #pragma mark -手势
 - (void)dismissKeyBoard{
     [self.view endEditing:YES];

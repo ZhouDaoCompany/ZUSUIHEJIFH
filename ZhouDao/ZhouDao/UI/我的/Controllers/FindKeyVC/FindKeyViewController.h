@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *resetBtn;
 
 @property (nonatomic, copy) ZDStringBlock findBlock;
-
+@property (nonatomic, copy) NSString *navTitle;//导航栏标题
 
 - (IBAction)getCodeOrResetEvent:(id)sender;
 

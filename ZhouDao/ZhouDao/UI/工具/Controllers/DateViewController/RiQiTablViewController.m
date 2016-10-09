@@ -24,6 +24,8 @@ static NSString *const RIQICellID = @"RIQICellID";
 @property (strong, nonatomic) NSMutableArray *timeArrays;
 @property (strong, nonatomic) NSMutableDictionary *timeDictionary;
 
+@property (strong, nonatomic) UILabel *bottomLabel;
+
 @end
 
 @implementation RiQiTablViewController
@@ -141,6 +143,8 @@ static NSString *const RIQICellID = @"RIQICellID";
     
     if (btn.tag == 3064) {
         
+        [self.tableView setTableFooterView:nil];
+
         if (_dataSourceArrays.count == 2) {
             [_dataSourceArrays removeObjectAtIndex:1];
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
@@ -169,7 +173,7 @@ static NSString *const RIQICellID = @"RIQICellID";
             [_dataSourceArrays removeObjectAtIndex:1];
         }
         
-        _startTime = [NSString stringWithFormat:@"%ld",[_startTime integerValue] + 86400];
+        _startTime = [NSString stringWithFormat:@"%ld",[_startTime integerValue]];
         
         if (_flags[1] == NO) {
             //不按照工作日推算
@@ -178,6 +182,9 @@ static NSString *const RIQICellID = @"RIQICellID";
             //按照工作日推算
             [self CalculateAccordingToTheWorkingDaysWithArr:arr1];
         }
+        
+        [self.tableView setTableFooterView:self.bottomLabel];
+
     }
     
     DLog(@"计算或者重置");
@@ -212,9 +219,16 @@ static NSString *const RIQICellID = @"RIQICellID";
         }
         
         tempTimeString = endTimeString;
-        index -= weekDays;
+        
+        if (index < weekDays) {
+            index = 0;
+        }else{
+            index = index - weekDays;
+        }
+        DLog(@"-----%ld",index);
     }
     
+    tempTimeString = [NSString stringWithFormat:@"%ld",[tempTimeString integerValue] + 172800];
     //得到终点时间
     NSString *twoSectionString = [self getTheFinalResultWithTimeString:tempTimeString];
     
@@ -235,7 +249,7 @@ static NSString *const RIQICellID = @"RIQICellID";
     [dateComponent  setYear:0];
     [dateComponent setMonth:0];
     [dateComponent setDay:days];
-    [dateComponent setHour:-8];
+    [dateComponent setHour:-16];
     [dateComponent setMinute:0];
     
     NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
@@ -272,7 +286,7 @@ static NSString *const RIQICellID = @"RIQICellID";
     [dateComponent  setYear:0];
     [dateComponent setMonth:0];
     [dateComponent setDay:days];
-    [dateComponent setHour:-8];
+    [dateComponent setHour:-16];
     [dateComponent setMinute:0];
     
     NSDate *newdate = [calendar dateByAddingComponents:dateComponent toDate:tempDate options:0];
@@ -306,7 +320,7 @@ static NSString *const RIQICellID = @"RIQICellID";
         
     }else {
         
-        if (endWeekDay == 1 && endWeekDay == 7) {
+        if (endWeekDay == 1 || endWeekDay == 7) {
             suffix = @"休息日";
         }else{
             suffix = @"工作日";
@@ -345,14 +359,18 @@ static NSString *const RIQICellID = @"RIQICellID";
     //每周算2天周末，计算一共多少个周末
     NSUInteger weekend = allWeek * 2;
     
-    //处理临界点，比如起始日是周日
-    if(beginWeekDay == 1){
-        weekend -= 1;
-    }
-    if(endWeekDay == 1){
-        weekend += 1;
-    }else if(endWeekDay > 6){
-        weekend += 2;
+    //处理临界点，比如起始日是周六
+    if (weekend >0) {
+        
+        if(beginWeekDay == 7){
+            weekend -= 1;
+        }
+        if(endWeekDay == 7){
+            weekend += 1;
+        }else if(endWeekDay > 6){
+            weekend += 2;
+        }
+
     }
     
     //weekend 的值就是周末的天数
@@ -566,6 +584,19 @@ static NSString *const RIQICellID = @"RIQICellID";
         _timeArrays = [NSMutableArray array ];
     }
     return _timeArrays;
+}
+- (UILabel *)bottomLabel
+{
+    if (!_bottomLabel) {
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-10, 50)];
+        _bottomLabel.textAlignment = NSTextAlignmentLeft;
+        _bottomLabel.numberOfLines = 0;
+        _bottomLabel.backgroundColor = [UIColor clearColor];
+        _bottomLabel.textColor = hexColor(00c8aa);
+        _bottomLabel.text = @"申明：本平台提供的数据从2010开始至今，若给您的使用带来不便，敬请谅解。";
+        _bottomLabel.font = Font_12;
+    }
+    return _bottomLabel;
 }
 
 #pragma mark -手势
