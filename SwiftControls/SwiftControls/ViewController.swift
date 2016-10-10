@@ -8,10 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
 
     var tableView : UITableView!
     var btn : UIButton!
+    var lab : UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,14 +60,94 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 //        self.view.addSubview(tableView)
         
         //UILabel
-        let label = UILabel(frame: CGRect(x: 80, y: 80, width: 200, height: 40))
-        label.backgroundColor = UIColor.cyan
-        label.textAlignment = NSTextAlignment.center;
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.text = "标签 \n展示"
-        label.numberOfLines = 0
-        self.view.addSubview(label)
-        //
+//        let label = UILabel(frame: CGRect(x: 80, y: 80, width: 200, height: 100))
+//        label.backgroundColor = UIColor.cyan
+//        label.textAlignment = NSTextAlignment.center;
+//        label.font = UIFont.systemFont(ofSize: 12)
+//        label.text = "岁月难得沉默 秋风厌倦漂泊 夕阳赖着不走挂在墙头舍不得我 昔日伊人耳边话 已和潮声向东流 再回首往事也随枫叶一片片落 爱已走到尽头 恨也放弃承诺 命运自认幽默 想法太多由不得"
+//        label.numberOfLines = 0
+//        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+//        self.view.addSubview(label)
+        
+        //UISwitch
+    
+//        let rect = CGRect(x: 50, y: 100, width: 100, height: 40)
+//        let uiswitch = UISwitch(frame: rect)
+//        uiswitch.backgroundColor = UIColor.clear
+//        uiswitch.setOn(true, animated: true)
+//        uiswitch.addTarget(self, action: #selector(ViewController.switchChange(_:)), for: UIControlEvents.valueChanged)
+//        self.view.addSubview(uiswitch)
+        
+        //UIStepper
+//        lab = UILabel(frame: CGRect(x: 10, y: 64, width: 100, height: 20))
+//        lab.font = UIFont.systemFont(ofSize: 18)
+//        lab.backgroundColor = UIColor.cyan
+//        self.view.addSubview(lab)
+//        
+//        let stepper = UIStepper(frame: CGRect(x: 110, y: 64, width: 60, height: 40))
+//        stepper.backgroundColor = UIColor.yellow
+//        stepper.maximumValue = 10
+//        stepper.minimumValue = 0
+//        stepper.stepValue = 1
+//        stepper.addTarget(self, action: #selector(stepperEvent(stepper:)), for: UIControlEvents.valueChanged)
+//        self.view.addSubview(stepper)
+        
+        //UITextField
+//        let rect = CGRect(x: 70, y: 120, width: 90, height: 30)
+//        let textFild = UITextField(frame: rect)
+//        textFild.backgroundColor = UIColor.black
+//        textFild.textColor = UIColor.white
+//        textFild.autocorrectionType = UITextAutocorrectionType.no
+//        textFild.placeholder = "此处填写文字"
+//        textFild.clearButtonMode = UITextFieldViewMode.whileEditing
+//        textFild.keyboardType = UIKeyboardType.emailAddress
+//        textFild.keyboardAppearance = UIKeyboardAppearance.dark
+//        textFild.delegate = self
+//        self.view.addSubview(textFild)
+        
+        //UIWebView
+        
+        let rect = CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64)
+        let webView = UIWebView(frame: rect)
+        webView.backgroundColor  = UIColor.black
+        let url = URL(string: "https://www.baidu.com")
+        let request = URLRequest(url: url!)
+        webView.loadRequest(request)
+        self.view.addSubview(webView)
+        
+    }
+    
+    //MARK    UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func stepperEvent(stepper: UIStepper) {
+    
+        let value = stepper.value
+        
+        lab.text = "\(value)"
+    }
+    
+    func switchChange(_ uiSwitch:UISwitch)  {
+        
+        var message = "打开开关"
+        
+        if (!uiSwitch.isOn) {
+            
+            message = "关闭开关"
+        }
+        
+        let alert = UIAlertController(title: "提示框", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default) { (UIAlertAction) in
+            
+            print("点击消失")
+        }
+        alert.addAction(okAction)
+        
+        self.present(alert, animated: true, completion: nil)
         
     }
     

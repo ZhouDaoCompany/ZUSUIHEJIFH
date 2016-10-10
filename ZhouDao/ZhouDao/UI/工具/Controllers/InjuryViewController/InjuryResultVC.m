@@ -59,12 +59,18 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
         NSArray *tempArr = areasDictionary[keyString];
         NSArray *cityArr = [[tempArr objectAtIndex:0] allKeys];
         
+        BOOL isBreak = NO;
         for (NSString *cityString in cityArr) {
             
             if ([_detailDictionary[@"city"] isEqualToString:cityString]) {
                 
+                isBreak = YES;
                 break;
             }
+        }
+        
+        if (isBreak == YES) {
+            break;
         }
     }
     NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"InjuryInductrial" ofType:@"plist"];
@@ -82,7 +88,6 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
             vc.introContent = contentText;
             [weakSelf.navigationController pushViewController:vc animated:YES];
         }
-        
     }];
 
 }

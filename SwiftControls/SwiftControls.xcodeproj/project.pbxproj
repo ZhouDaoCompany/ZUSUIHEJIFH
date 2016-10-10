@@ -14,6 +14,7 @@
 		109DF9971DA93AC000FB45CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 109DF9951DA93AC000FB45CA /* LaunchScreen.storyboard */; };
 		109DF9A21DA93AC000FB45CA /* SwiftControlsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109DF9A11DA93AC000FB45CA /* SwiftControlsTests.swift */; };
 		109DF9AD1DA93AC000FB45CA /* SwiftControlsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109DF9AC1DA93AC000FB45CA /* SwiftControlsUITests.swift */; };
+		18EDCB671DAB97AC001A7302 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDCB661DAB97AC001A7302 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		109DF9A81DA93AC000FB45CA /* SwiftControlsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftControlsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		109DF9AC1DA93AC000FB45CA /* SwiftControlsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftControlsUITests.swift; sourceTree = "<group>"; };
 		109DF9AE1DA93AC000FB45CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18EDCB661DAB97AC001A7302 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18EDCB671DAB97AC001A7302 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +84,7 @@
 				109DF9A01DA93AC000FB45CA /* SwiftControlsTests */,
 				109DF9AB1DA93AC000FB45CA /* SwiftControlsUITests */,
 				109DF98A1DA93AC000FB45CA /* Products */,
+				18EDCB651DAB97AC001A7302 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,6 +127,14 @@
 				109DF9AE1DA93AC000FB45CA /* Info.plist */,
 			);
 			path = SwiftControlsUITests;
+			sourceTree = "<group>";
+		};
+		18EDCB651DAB97AC001A7302 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18EDCB661DAB97AC001A7302 /* UIKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
