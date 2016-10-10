@@ -10,6 +10,9 @@
 #import "InjuryHeadView.h"
 #import "ParallaxHeaderView.h"
 #import "InjuryViewCell.h"
+#import "TaskModel.h"
+#import "ReadViewController.h"
+#import "ToolsIntroduceVC.h"
 
 static NSString *const INJURYRESULTCELL = @"injurycellid";
 
@@ -19,6 +22,7 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
 @property (nonatomic, strong) ParallaxHeaderView *headerView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
+@property (strong, nonatomic) UILabel *bottomLabel;
 
 @end
 
@@ -42,6 +46,45 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
     self.dataSourceArrays = _detailDictionary[@"mutableArrays"];
     
     [self.view addSubview:self.tableView];
+    
+    
+    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"Areas" ofType:@"plist"];
+    NSDictionary *areasDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+
+    NSArray *proviceArr = [areasDictionary allKeys];
+    NSString *keyString = @"";
+    for (NSUInteger i = 0; i < proviceArr.count; i++) {
+        
+        keyString = proviceArr[i];
+        NSArray *tempArr = areasDictionary[keyString];
+        NSArray *cityArr = [[tempArr objectAtIndex:0] allKeys];
+        
+        for (NSString *cityString in cityArr) {
+            
+            if ([_detailDictionary[@"city"] isEqualToString:cityString]) {
+                
+                break;
+            }
+        }
+    }
+    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"InjuryInductrial" ofType:@"plist"];
+    NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
+
+    __block NSString *contentText = bigDictionary[keyString];
+    
+    [_tableView setTableFooterView:self.bottomLabel];
+    WEAKSELF;
+    [_bottomLabel whenCancelTapped:^{
+        
+        DLog(@"点击跳转");
+        if (weakSelf.bottomLabel.text.length >0) {
+            ToolsIntroduceVC *vc = [ToolsIntroduceVC new];
+            vc.introContent = contentText;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }
+        
+    }];
+
 }
 #pragma mark - event response
 - (void)rightBtnAction
@@ -51,7 +94,7 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
 }
 #pragma mark - CalculateShareDelegate
 - (void)clickIsWhichOne:(NSInteger)index
-{
+{WEAKSELF;
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
@@ -72,20 +115,31 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
             [resultArr addObject:tempString];
         }
         [shareDict setObject:resultArr forKey:@"results"];
-        [shareDict setObject:[NSArray array] forKey:@"conditions"];
+        [shareDict setObject:[NSArray arrayWithObjects:@"", nil] forKey:@"conditions"];
 
         [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
             
-            NSArray *arrays;
             if (index == 1) {
                 
-                arrays = [NSArray arrayWithObjects:@"工伤赔偿计算",@"工伤赔偿计算结果",urlString,@"", nil];
+                NSArray *arrays = [NSArray arrayWithObjects:@"工伤赔偿计算",@"工伤赔偿计算结果",urlString,@"", nil];
+                [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+                }];
+
             }else {
-                arrays = [NSArray arrayWithObjects:@"工伤赔偿计算",@"工伤赔偿计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+                NSString *wordString = [[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                TaskModel *model = [TaskModel model];
+                model.name=[NSString stringWithFormat:@"工伤赔偿计算结果Word%@.docx",idString];
+                model.url= wordString;
+                model.content = @"工伤赔偿计算结果Word";
+                model.destinationPath=[kCachePath stringByAppendingPathComponent:model.name];
+                
+                ReadViewController *readVC = [ReadViewController new];
+                readVC.model = model;
+                readVC.navTitle = @"计算结果";
+                readVC.rType = FileNOExist;
+                [weakSelf.navigationController pushViewController:readVC animated:YES];
             }
 
-            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
-            }];
             
             
         } fail:^{
@@ -165,6 +219,19 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
         _dataSourceArrays = [NSMutableArray array];
     }
     return _dataSourceArrays;
+}
+- (UILabel *)bottomLabel
+{
+    if (!_bottomLabel) {
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-20, 30)];
+        _bottomLabel.textAlignment = NSTextAlignmentLeft;
+        _bottomLabel.numberOfLines = 0;
+        _bottomLabel.backgroundColor = [UIColor clearColor];
+        _bottomLabel.textColor = hexColor(00c8aa);
+        _bottomLabel.font = Font_12;
+        _bottomLabel.text = [NSString stringWithFormat:@"%@工伤赔偿金计算依据，供您参考",_detailDictionary[@"city"]];
+    }
+    return _bottomLabel;
 }
 
 - (void)didReceiveMemoryWarning {

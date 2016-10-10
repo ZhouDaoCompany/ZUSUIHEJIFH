@@ -8,6 +8,9 @@
 
 #import "DivorceViewController.h"
 #import "DivorceViewCell.h"
+#import "TaskModel.h"
+#import "ReadViewController.h"
+#import "ToolsIntroduceVC.h"
 
 static NSString *const DivorceCellID = @"DivorceCellID";
 
@@ -17,6 +20,7 @@ static NSString *const DivorceCellID = @"DivorceCellID";
 @property (strong, nonatomic) UIButton *calculateButton;
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
+@property (strong, nonatomic) UILabel *bottomLabel;
 
 @end
 
@@ -43,7 +47,24 @@ static NSString *const DivorceCellID = @"DivorceCellID";
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
+    [_tableView setTableFooterView:self.bottomLabel];
+    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"CalculationBasis" ofType:@"plist"];
+    NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
     
+    __block NSString *contentText = bigDictionary[@"离婚房产分割计算器"];
+    
+    WEAKSELF;
+    [_bottomLabel whenCancelTapped:^{
+        
+        DLog(@"点击跳转");
+        if (weakSelf.bottomLabel.text.length >0) {
+            ToolsIntroduceVC *vc = [ToolsIntroduceVC new];
+            vc.introContent = contentText;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }
+        
+    }];
+
 }
 #pragma mark -
 #pragma mark - event response
@@ -54,7 +75,7 @@ static NSString *const DivorceCellID = @"DivorceCellID";
 }
 #pragma mark - CalculateShareDelegate
 - (void)clickIsWhichOne:(NSInteger)index
-{
+{WEAKSELF;
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
@@ -73,15 +94,26 @@ static NSString *const DivorceCellID = @"DivorceCellID";
         
         [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
             
-            NSArray *arrays;
             if (index == 1) {
-                arrays = [NSArray arrayWithObjects:@"离婚房产计算",@"离婚房产计算结果",urlString,@"", nil];
+                NSArray *arrays = [NSArray arrayWithObjects:@"离婚房产计算",@"离婚房产计算结果",urlString,@"", nil];
+                [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+                }];
+
             }else {
-                arrays = [NSArray arrayWithObjects:@"离婚房产计算",@"离婚房产计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+                NSString *wordString = [[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                TaskModel *model = [TaskModel model];
+                model.name=[NSString stringWithFormat:@"离婚房产计算结果Word%@.docx",idString];
+                model.url= wordString;
+                model.content = @"离婚房产计算结果Word";
+                model.destinationPath=[kCachePath stringByAppendingPathComponent:model.name];
+                
+                ReadViewController *readVC = [ReadViewController new];
+                readVC.model = model;
+                readVC.navTitle = @"计算结果";
+                readVC.rType = FileNOExist;
+                [weakSelf.navigationController pushViewController:readVC animated:YES];
             }
 
-            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
-            }];
             
             
         } fail:^{
@@ -289,6 +321,20 @@ static NSString *const DivorceCellID = @"DivorceCellID";
     }
     return _resetButton;
 }
+- (UILabel *)bottomLabel
+{
+    if (!_bottomLabel) {
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-20, 30)];
+        _bottomLabel.textAlignment = NSTextAlignmentLeft;
+        _bottomLabel.numberOfLines = 0;
+        _bottomLabel.backgroundColor = [UIColor clearColor];
+        _bottomLabel.textColor = hexColor(00c8aa);
+        _bottomLabel.font = Font_12;
+        _bottomLabel.text = @"根据《婚姻法司法解释三》等相关法律法规的规定";
+    }
+    return _bottomLabel;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

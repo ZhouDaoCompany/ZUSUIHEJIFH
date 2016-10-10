@@ -78,7 +78,11 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     ToolCollectionViewCell * cell = (ToolCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:toolIdentifier forIndexPath:indexPath];
     
     if (self.dataSourceArrays.count >0) {
-        [cell settingToolsUIWithName:self.dataSourceArrays[indexPath.row]];
+        NSString *calculateName = self.dataSourceArrays[indexPath.row];
+        if ([calculateName isEqualToString:@"经济赔偿金计算器"]) {
+            calculateName = @"劳动补偿金计算器";
+        }
+        [cell settingToolsUIWithName:calculateName];
     }
     return cell;
 }
@@ -87,6 +91,10 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
 
     NSString *titleString = _dataSourceArrays[indexPath.row];
+    if ([titleString isEqualToString:@"经济赔偿金计算器"]) {
+        titleString = @"劳动补偿金计算器";
+    }
+
     if ([titleString isEqualToString:@"裁决书逾期利息计算器"]) {
         
         [MobClick event:@"GJ_CJSYQ" label:@"工具"];
@@ -140,7 +148,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 
         PersonalInjuryViewController *vc = [PersonalInjuryViewController new];
         [self.navigationController pushViewController:vc animated:YES];
-    }else if ([titleString isEqualToString:@"经济赔偿金计算器"]){
+    }else if ([titleString isEqualToString:@"劳动补偿金计算器"]){
         
         [MobClick event:@"GJ_JJPCJ" label:@"工具"];
 
@@ -205,7 +213,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
 - (NSMutableArray *)dataSourceArrays
 {
     if (!_dataSourceArrays) {
-        _dataSourceArrays =  [NSMutableArray arrayWithObjects:@"日期计算器",@"人身损害赔偿计算器",@"违约金计算器",@"利息计算器",@"律师费计算器",@"离婚房产分割计算器",@"经济赔偿金计算器",@"工伤赔偿计算器",@"房屋还贷计算器",@"法院受理费计算器",@"裁决书逾期利息计算器",@"", nil];
+        _dataSourceArrays =  [NSMutableArray arrayWithObjects:@"日期计算器",@"人身损害赔偿计算器",@"违约金计算器",@"利息计算器",@"律师费计算器",@"离婚房产分割计算器",@"劳动补偿金计算器",@"工伤赔偿计算器",@"房屋还贷计算器",@"法院受理费计算器",@"裁决书逾期利息计算器",@"", nil];
     }
     return _dataSourceArrays;
 }

@@ -10,6 +10,9 @@
 #import "EconomicViewCell.h"
 #import "ZHPickView.h"
 #import "SelectCityViewController.h"
+#import "TaskModel.h"
+#import "ReadViewController.h"
+#import "ToolsIntroduceVC.h"
 
 static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 
@@ -48,11 +51,26 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
     
-    [self setupNaviBarWithTitle:@"经济补偿金计算"];
+    [self setupNaviBarWithTitle:@"劳动补偿金计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
     
+    [_tableView setTableFooterView:self.bottomView];
+    
+    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"CalculationBasis" ofType:@"plist"];
+    NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
+    
+    __block NSString *contentText = bigDictionary[@"劳动补偿金计算器"];
+
+    WEAKSELF;
+    [_bottomView whenCancelTapped:^{
+        
+        ToolsIntroduceVC *vc = [ToolsIntroduceVC new];
+        vc.introContent = contentText;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    }];
+
 }
 #pragma mark -
 #pragma mark - event response
@@ -63,7 +81,7 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 }
 #pragma mark - CalculateShareDelegate
 - (void)clickIsWhichOne:(NSInteger)index
-{
+{WEAKSELF;
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
@@ -82,15 +100,26 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         
         [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
             
-            NSArray *arrays;
             if (index == 1) {
-                 arrays = [NSArray arrayWithObjects:@"经济补偿计算",@"经济补偿计算结果",urlString,@"", nil];
+                 NSArray *arrays = [NSArray arrayWithObjects:@"经济补偿计算",@"经济补偿计算结果",urlString,@"", nil];
+                [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+                }];
+
             }else {
-                 arrays = [NSArray arrayWithObjects:@"经济补偿计算",@"经济补偿计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+                NSString *wordString = [[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                TaskModel *model = [TaskModel model];
+                model.name=[NSString stringWithFormat:@"经济补偿计算结果Word%@.docx",idString];
+                model.url= wordString;
+                model.content = @"经济补偿计算结果Word";
+                model.destinationPath=[kCachePath stringByAppendingPathComponent:model.name];
+                
+                ReadViewController *readVC = [ReadViewController new];
+                readVC.model = model;
+                readVC.navTitle = @"计算结果";
+                readVC.rType = FileNOExist;
+                [weakSelf.navigationController pushViewController:readVC animated:YES];
             }
 
-            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
-            }];
             
         } fail:^{
             
@@ -119,7 +148,6 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         }
         NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
         [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
-        _tableView.tableFooterView = nil;
         [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         [_tableView endUpdates];
 
@@ -145,7 +173,6 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         }
         
         [self theAmountOfCompensation:arr1];
-        _tableView.tableFooterView = self.bottomView;
 
         [JKPromptView showWithImageName:nil message:@"平均工资低于当地最低工资标准时 \n 请输入当地最低工资标准."];
 
@@ -365,21 +392,17 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
 }
 - (UIView *)bottomView
 {
-    if (!_bottomView) {WEAKSELF;
-        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 75.f)];
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 30.f)];
         _bottomView.backgroundColor = [UIColor clearColor];
-        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 35, kMainScreenWidth-10, 40)];
+        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, kMainScreenWidth-20, 20)];
         label2.textAlignment = NSTextAlignmentLeft;
         label2.numberOfLines = 0;
         label2.backgroundColor = [UIColor clearColor];
         label2.textColor = hexColor(00c8aa);
         label2.font = Font_12;
-        label2.text = @"根据《劳动合同法》计算，本计算器的补偿标准仅适用于2008年 1月1日以后订立的劳动合同，供您参考。";
+        label2.text = @"根据《中华人民共和国劳动合同法》规定";
         [_bottomView addSubview:label2];
-        [label2 whenCancelTapped:^{
-            
-            
-        }];
     }
     return _bottomView;
 }

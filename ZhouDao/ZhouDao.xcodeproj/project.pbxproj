@@ -427,6 +427,8 @@
 		18C4B0651CB4FC7600D3CB8B /* SelectTemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C4B0631CB4FC7600D3CB8B /* SelectTemplateCell.m */; };
 		18C4B0661CB4FC7600D3CB8B /* SelectTemplateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C4B0641CB4FC7600D3CB8B /* SelectTemplateCell.xib */; };
 		18C4B0681CB4FCCB00D3CB8B /* template_yuedu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C4B0671CB4FCCB00D3CB8B /* template_yuedu@2x.png */; };
+		18C9C3071DAB47ED0089979E /* InjuryInductrial.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C9C3061DAB47ED0089979E /* InjuryInductrial.plist */; };
+		18C9C3091DAB685D0089979E /* CalculationBasis.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C9C3081DAB685D0089979E /* CalculationBasis.plist */; };
 		18CB0F021CBF2496009C41CE /* TwoCompensationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB0F011CBF2496009C41CE /* TwoCompensationVC.m */; };
 		18CB0F061CBF42EA009C41CE /* TwoCompensationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB0F041CBF42EA009C41CE /* TwoCompensationCell.m */; };
 		18CB0F071CBF42EA009C41CE /* TwoCompensationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CB0F051CBF42EA009C41CE /* TwoCompensationCell.xib */; };
@@ -1242,6 +1244,8 @@
 		18C4B0631CB4FC7600D3CB8B /* SelectTemplateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTemplateCell.m; sourceTree = "<group>"; };
 		18C4B0641CB4FC7600D3CB8B /* SelectTemplateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTemplateCell.xib; sourceTree = "<group>"; };
 		18C4B0671CB4FCCB00D3CB8B /* template_yuedu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "template_yuedu@2x.png"; sourceTree = "<group>"; };
+		18C9C3061DAB47ED0089979E /* InjuryInductrial.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InjuryInductrial.plist; sourceTree = "<group>"; };
+		18C9C3081DAB685D0089979E /* CalculationBasis.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalculationBasis.plist; sourceTree = "<group>"; };
 		18CB0F001CBF2496009C41CE /* TwoCompensationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoCompensationVC.h; sourceTree = "<group>"; };
 		18CB0F011CBF2496009C41CE /* TwoCompensationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoCompensationVC.m; sourceTree = "<group>"; };
 		18CB0F031CBF42EA009C41CE /* TwoCompensationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoCompensationCell.h; sourceTree = "<group>"; };
@@ -3647,7 +3651,9 @@
 				18FDC36C1D9A19CC0011EB33 /* gongShang.plist */,
 				18FDC36E1D9A19DC0011EB33 /* TheCityList.plist */,
 				183469441D98F2F80007B0D9 /* Holiday.plist */,
+				18C9C3061DAB47ED0089979E /* InjuryInductrial.plist */,
 				10369B151DA8B89D004C2F8B /* TheAverageSalary.plist */,
+				18C9C3081DAB685D0089979E /* CalculationBasis.plist */,
 				18CD4D951C928111001838D2 /* Utility */,
 				18FF3F631C85348B0098C60B /* Image */,
 			);
@@ -4035,6 +4041,7 @@
 				180B31691C8ECFFF00360A23 /* ToolsUnSelect@2x.png in Resources */,
 				18DB8E461D001F1E000C9D8B /* man_meeting.caf in Resources */,
 				187A54AC1D642CBD0076A8E6 /* selected.png in Resources */,
+				18C9C3091DAB685D0089979E /* CalculationBasis.plist in Resources */,
 				1860AB411D9B66FE008A2A1E /* 河北省.txt in Resources */,
 				18DB8E491D001F1E000C9D8B /* woman_meeting.caf in Resources */,
 				188A78191D73C64400BCB54D /* Tools_fayuan@2x.png in Resources */,
@@ -4110,6 +4117,7 @@
 				181BA4121CE598B600A29E2E /* share_platform_wechat@2x.png in Resources */,
 				18FBD8481CED90CD00674D1E /* case_pdf@2x.png in Resources */,
 				188A781D1D73C64400BCB54D /* Tools_lixi@2x.png in Resources */,
+				18C9C3071DAB47ED0089979E /* InjuryInductrial.plist in Resources */,
 				1860AB3F1D9B66FE008A2A1E /* 江苏省.txt in Resources */,
 				188651BD1D26609600E030F7 /* everyDay_history@2x.png in Resources */,
 				1065C3411CA91BA4003F4089 /* law_contenAdd@2x.png in Resources */,

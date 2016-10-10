@@ -129,7 +129,7 @@ static NSString *const BREACHDETAILCELL = @"BreachDetailCellid";
 - (UILabel *)bottomLabel
 {
     if (!_bottomLabel) {
-        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-10, 30)];
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-20, 30)];
         _bottomLabel.textAlignment = NSTextAlignmentLeft;
         _bottomLabel.numberOfLines = 0;
         _bottomLabel.backgroundColor = [UIColor clearColor];

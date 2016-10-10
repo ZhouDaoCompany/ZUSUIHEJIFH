@@ -13,6 +13,8 @@
 #import "ToolsIntroduceVC.h"
 #import "LayerFeesModel.h"
 #import "AllProportionModel.h"
+#import "TaskModel.h"
+#import "ReadViewController.h"
 
 static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 
@@ -61,7 +63,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         if (weakSelf.bottomLabel.text.length >0) {
             ToolsIntroduceVC *vc = [ToolsIntroduceVC new];
             vc.introContent = weakSelf.areasDictionary[@"text"];
-            [self.navigationController pushViewController:vc animated:YES];
+            [weakSelf.navigationController pushViewController:vc animated:YES];
         }
         
     }];
@@ -74,7 +76,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 }
 #pragma mark - CalculateShareDelegate
 - (void)clickIsWhichOne:(NSInteger)index
-{
+{WEAKSELF;
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
@@ -105,16 +107,28 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         
         [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
             
-            NSArray *arrays;
             if (index == 1) {
                 
-                arrays = [NSArray arrayWithObjects:@"律师费计算",@"律师费计算结果",urlString,@"", nil];
+                 NSArray *arrays = [NSArray arrayWithObjects:@"律师费计算",@"律师费计算结果",urlString,@"", nil];
+                
+                [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+                }];
+
             }else {
-                arrays = [NSArray arrayWithObjects:@"律师费计算",@"律师费计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+                NSString *wordString = [[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                TaskModel *model = [TaskModel model];
+                model.name=[NSString stringWithFormat:@"律师费计算结果Word%@.docx",idString];
+                model.url= wordString;
+                model.content = @"律师费计算结果Word";
+                model.destinationPath=[kCachePath stringByAppendingPathComponent:model.name];
+
+                ReadViewController *readVC = [ReadViewController new];
+                readVC.model = model;
+                readVC.navTitle = @"计算结果";
+                readVC.rType = FileNOExist;
+                [weakSelf.navigationController pushViewController:readVC animated:YES];
             }
 
-            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
-            }];
 
             
         } fail:^{
@@ -613,7 +627,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 - (UILabel *)bottomLabel
 {
     if (!_bottomLabel) {
-        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-10, 30)];
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-20, 30)];
         _bottomLabel.textAlignment = NSTextAlignmentLeft;
         _bottomLabel.numberOfLines = 0;
         _bottomLabel.backgroundColor = [UIColor clearColor];

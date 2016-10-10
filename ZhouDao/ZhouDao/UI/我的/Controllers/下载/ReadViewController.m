@@ -40,7 +40,7 @@
 - (void)initUI{
     
     self.view.backgroundColor = ViewBackColor;
-    [self setupNaviBarWithTitle:@"合同模版"];
+    [self setupNaviBarWithTitle:_navTitle];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
     if (_rType == FileExist) {

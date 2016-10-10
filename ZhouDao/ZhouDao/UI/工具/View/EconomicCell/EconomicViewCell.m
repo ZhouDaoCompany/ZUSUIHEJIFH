@@ -90,7 +90,7 @@
     }else {
         
         NSMutableArray *arr2 = arrays[1];
-        NSArray *titleArr = @[@"计算结果",@"经济补偿金（元）",@"补偿月数（月）"];
+        NSArray *titleArr = @[@"计算结果",@"劳动补偿金（元）",@"补偿月数（月）"];
         _titleLab.frame = CGRectMake(15, 12, 180, 20);
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.text = titleArr[row];

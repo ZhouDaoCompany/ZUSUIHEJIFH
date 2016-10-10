@@ -9,6 +9,8 @@
 #import "RiQiTablViewController.h"
 #import "RiQiViewCell.h"
 #import "ZHPickView.h"
+#import "TaskModel.h"
+#import "ReadViewController.h"
 
 static NSString *const RIQICellID = @"RIQICellID";
 
@@ -75,7 +77,7 @@ static NSString *const RIQICellID = @"RIQICellID";
 }
 #pragma mark - CalculateShareDelegate
 - (void)clickIsWhichOne:(NSInteger)index
-{
+{WEAKSELF;
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
@@ -108,17 +110,27 @@ static NSString *const RIQICellID = @"RIQICellID";
         [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
             
             
-            NSArray *arrays;
             if (index == 1) {
                 
-                arrays = [NSArray arrayWithObjects:@"日期计算",@"日期计算结果",urlString,@"", nil];
+                NSArray *arrays = [NSArray arrayWithObjects:@"日期计算",@"日期计算结果",urlString,@"", nil];
+                [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+                }];
+
             }else {
+                NSString *wordString = [[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                TaskModel *model = [TaskModel model];
+                model.name=[NSString stringWithFormat:@"日期计算结果Word%@.docx",idString];
+                model.url= wordString;
+                model.content = @"律师费计算结果Word";
+                model.destinationPath=[kCachePath stringByAppendingPathComponent:model.name];
                 
-                arrays = [NSArray arrayWithObjects:@"日期计算",@"日期计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+                ReadViewController *readVC = [ReadViewController new];
+                readVC.model = model;
+                readVC.navTitle = @"计算结果";
+                readVC.rType = FileNOExist;
+                [weakSelf.navigationController pushViewController:readVC animated:YES];
             }
 
-            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
-            }];
             
             
         } fail:^{
@@ -588,7 +600,7 @@ static NSString *const RIQICellID = @"RIQICellID";
 - (UILabel *)bottomLabel
 {
     if (!_bottomLabel) {
-        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-10, 50)];
+        _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-20, 50)];
         _bottomLabel.textAlignment = NSTextAlignmentLeft;
         _bottomLabel.numberOfLines = 0;
         _bottomLabel.backgroundColor = [UIColor clearColor];

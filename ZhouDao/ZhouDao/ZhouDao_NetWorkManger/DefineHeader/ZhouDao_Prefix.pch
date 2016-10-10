@@ -58,6 +58,10 @@
 #define NAVI_TEST_APP_KEY   @"KfgRYgAZoQwNMytpVnhHYcGXrybA9Gws"  //百度地图
 
 #define commonCellHeight  0.5f
+/*
+ * 下载存储地址
+ */
+#define kCachePath (NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0])
 
 /*
  生产  app.cloopen.com

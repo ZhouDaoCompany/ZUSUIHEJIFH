@@ -89,7 +89,7 @@
 - (NSMutableDictionary *)dataSourceDictionary
 {
     if (!_dataSourceDictionary) {
-        _dataSourceDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Tools_riqi",@"日期计算器",@"Tools_sunhai",@"人身损害赔偿计算器",@"Tools_weiyue",@"违约金计算器",@"Tools_lixi",@"利息计算器",@"Tools_lawerFees",@"律师费计算器",@"Tools_lihun",@"离婚房产分割计算器",@"Tools_peichang",@"经济赔偿金计算器",@"Tools_gongshang",@"工伤赔偿计算器",@"Tools_fangwu",@"房屋还贷计算器",@"Tools_fayuan",@"法院受理费计算器",@"Tools_caijueshu",@"裁决书逾期利息计算器", nil];
+        _dataSourceDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Tools_riqi",@"日期计算器",@"Tools_sunhai",@"人身损害赔偿计算器",@"Tools_weiyue",@"违约金计算器",@"Tools_lixi",@"利息计算器",@"Tools_lawerFees",@"律师费计算器",@"Tools_lihun",@"离婚房产分割计算器",@"Tools_peichang",@"劳动补偿金计算器",@"Tools_gongshang",@"工伤赔偿计算器",@"Tools_fangwu",@"房屋还贷计算器",@"Tools_fayuan",@"法院受理费计算器",@"Tools_caijueshu",@"裁决书逾期利息计算器", nil];
     }
     return _dataSourceDictionary;
 }

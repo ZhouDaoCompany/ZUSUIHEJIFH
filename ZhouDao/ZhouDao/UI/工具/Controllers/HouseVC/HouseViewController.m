@@ -12,6 +12,8 @@
 #import "HouseViewCell.h"
 #import "ZHPickView.h"
 #import "HouseDetailVC.h"
+#import "TaskModel.h"
+#import "ReadViewController.h"
 
 static NSString *const HOUSECELL = @"housecellid";
 
@@ -327,11 +329,16 @@ static NSString *const HOUSECELL = @"housecellid";
     [pickView showPickView:self];
     pickView.block = ^(NSString *selectedStr,NSString *type)
     {
-        if ([oneString isEqualToString:@"公积金贷款"]) {
-            NSString *rateString = ([selectedStr isEqualToString:@"5"])?FUNDARRAYS[0]:FUNDARRAYS[1];
+        if ([oneString isEqualToString:@"组合贷款"]) {
+
+            NSString *rateString1 = ([selectedStr isEqualToString:@"5"])?FUNDARRAYS[0]:FUNDARRAYS[1];
+            NSString *rateString2 = ([selectedStr isEqualToString:@"5"])?BUSINESSARRSYS[3]:BUSINESSARRSYS[4];
+            
             NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
             [arr1 replaceObjectAtIndex:row withObject:selectedStr];
-            [arr1 replaceObjectAtIndex:3 withObject:rateString];
+            [arr1 replaceObjectAtIndex:3 withObject:rateString1];
+            [arr1 replaceObjectAtIndex:5 withObject:rateString2];
+
         }else if ([oneString isEqualToString:@"商业贷款"]){
             
             NSString *rateString = ([selectedStr isEqualToString:@"5"])?BUSINESSARRSYS[3]:BUSINESSARRSYS[4];
@@ -339,13 +346,11 @@ static NSString *const HOUSECELL = @"housecellid";
             [arr1 replaceObjectAtIndex:row withObject:selectedStr];
             [arr1 replaceObjectAtIndex:3 withObject:rateString];
         }else {
-            NSString *rateString1 = ([selectedStr isEqualToString:@"5"])?FUNDARRAYS[0]:FUNDARRAYS[1];
-            NSString *rateString2 = ([selectedStr isEqualToString:@"5"])?BUSINESSARRSYS[3]:BUSINESSARRSYS[4];
 
+            NSString *rateString = ([selectedStr isEqualToString:@"5"])?FUNDARRAYS[0]:FUNDARRAYS[1];
             NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
             [arr1 replaceObjectAtIndex:row withObject:selectedStr];
-            [arr1 replaceObjectAtIndex:3 withObject:rateString1];
-            [arr1 replaceObjectAtIndex:5 withObject:rateString2];
+            [arr1 replaceObjectAtIndex:3 withObject:rateString];
 
         }
         [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
@@ -563,7 +568,7 @@ static NSString *const HOUSECELL = @"housecellid";
 }
 #pragma mark - CalculateShareDelegate
 - (void)clickIsWhichOne:(NSInteger)index
-{
+{WEAKSELF;
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
@@ -620,15 +625,26 @@ static NSString *const HOUSECELL = @"housecellid";
         
         [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
             
-            NSArray *arrays;
             if (index == 1) {
-                arrays = [NSArray arrayWithObjects:@"房屋还贷计算",@"房屋还贷计算结果",urlString,@"", nil];
+                NSArray *arrays = [NSArray arrayWithObjects:@"房屋还贷计算",@"房屋还贷计算结果",urlString,@"", nil];
+                [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+                }];
+
             }else {
-                arrays = [NSArray arrayWithObjects:@"房屋还贷计算",@"房屋还贷计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+                NSString *wordString = [[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                TaskModel *model = [TaskModel model];
+                model.name=[NSString stringWithFormat:@"房屋还贷计算结果Word%@.docx",idString];
+                model.url= wordString;
+                model.content = @"房屋还贷计算结果Word";
+                model.destinationPath=[kCachePath stringByAppendingPathComponent:model.name];
+                
+                ReadViewController *readVC = [ReadViewController new];
+                readVC.model = model;
+                readVC.navTitle = @"计算结果";
+                readVC.rType = FileNOExist;
+                [weakSelf.navigationController pushViewController:readVC animated:YES];
             }
 
-            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
-            }];
             
         } fail:^{
         }];

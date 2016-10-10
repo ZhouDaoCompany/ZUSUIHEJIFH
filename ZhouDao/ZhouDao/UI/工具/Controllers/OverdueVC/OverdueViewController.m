@@ -9,6 +9,9 @@
 #import "OverdueViewController.h"
 #import "OverdueCell.h"
 #import "ZHPickView.h"
+#import "TaskModel.h"
+#import "ReadViewController.h"
+#import "ToolsIntroduceVC.h"
 
 static NSString *const OverdueCellID = @"OverdueCellID";
 
@@ -24,6 +27,7 @@ static NSString *const OverdueCellID = @"OverdueCellID";
 
 @property (copy, nonatomic) NSString *startTime;//开始时间戳
 @property (copy, nonatomic) NSString *endTime;//结束时间戳
+@property (copy, nonatomic) UIView *bottomView;
 
 @end
 
@@ -55,6 +59,22 @@ static NSString *const OverdueCellID = @"OverdueCellID";
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
     
+    [_tableView setTableFooterView:self.bottomView];
+    
+    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"CalculationBasis" ofType:@"plist"];
+    NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
+    
+    __block NSString *contentText = bigDictionary[@"裁决书逾期利息计算器"];
+    
+    WEAKSELF;
+    [_bottomView whenCancelTapped:^{
+        
+        ToolsIntroduceVC *vc = [ToolsIntroduceVC new];
+        vc.introContent = contentText;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+        
+    }];
+
 }
 #pragma mark - 
 #pragma mark - event response
@@ -70,7 +90,6 @@ static NSString *const OverdueCellID = @"OverdueCellID";
         }
         NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
         [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
-        _tableView.tableFooterView = nil;
         [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         [_tableView endUpdates];
 
@@ -133,7 +152,7 @@ static NSString *const OverdueCellID = @"OverdueCellID";
 
         rate = [CalculateManager getRateCalculateWithRateArrays:rateArrays withDays:days]/360.f;
     }else {
-        rate = [[arrays lastObject] doubleValue];
+        rate = [[arrays lastObject] doubleValue]/100.f;
     }
     
     double generalLiXiMoney = days*rate*money;//一般利息
@@ -356,6 +375,22 @@ static NSString *const OverdueCellID = @"OverdueCellID";
     }
     return _resetButton;
 }
+- (UIView *)bottomView
+{
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 45.f)];
+        _bottomView.backgroundColor = [UIColor clearColor];
+        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, kMainScreenWidth-20, 40)];
+        label2.textAlignment = NSTextAlignmentLeft;
+        label2.numberOfLines = 0;
+        label2.backgroundColor = [UIColor clearColor];
+        label2.textColor = hexColor(00c8aa);
+        label2.font = Font_12;
+        label2.text = @"根据《最高人民法院关于执行程序中计算迟延履行期间的债务利息适用法律若干问题的解释》等相关法律法规的规定";
+        [_bottomView addSubview:label2];
+    }
+    return _bottomView;
+}
 
 #pragma mark - 分享
 - (void)rightBtnAction
@@ -365,7 +400,7 @@ static NSString *const OverdueCellID = @"OverdueCellID";
 }
 #pragma mark - CalculateShareDelegate
 - (void)clickIsWhichOne:(NSInteger)index
-{
+{WEAKSELF;
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
@@ -393,15 +428,26 @@ static NSString *const OverdueCellID = @"OverdueCellID";
         
         [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
             
-            NSArray *arrays;
             if (index == 1) {
-                arrays = [NSArray arrayWithObjects:@"裁决书逾期利息计算",@"裁决书逾期利息计算结果",urlString,@"", nil];
+                NSArray *arrays = [NSArray arrayWithObjects:@"裁决书逾期利息计算",@"裁决书逾期利息计算结果",urlString,@"", nil];
+                [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+                }];
+
             }else {
-                arrays = [NSArray arrayWithObjects:@"裁决书逾期利息计算",@"裁决书逾期利息计算结果word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString],@"", nil];
+                NSString *wordString = [[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                TaskModel *model = [TaskModel model];
+                model.name=[NSString stringWithFormat:@"裁决书逾期利息计算结果Word%@.docx",idString];
+                model.url= wordString;
+                model.content = @"裁决书逾期利息计算结果Word";
+                model.destinationPath=[kCachePath stringByAppendingPathComponent:model.name];
+                
+                ReadViewController *readVC = [ReadViewController new];
+                readVC.model = model;
+                readVC.navTitle = @"计算结果";
+                readVC.rType = FileNOExist;
+                [weakSelf.navigationController pushViewController:readVC animated:YES];
             }
 
-            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
-            }];
             
         } fail:^{
             

@@ -15,7 +15,6 @@
 #import "ShareView.h"
 #import "MenuLabel.h"
 
-#define kCachePath (NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0])
 
 @interface TemplateDetailVC ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 {
@@ -138,6 +137,7 @@
     {
         ReadViewController *readVC = [ReadViewController new];
         readVC.model = _model;
+        readVC.navTitle = @"合同模版";
         readVC.rType = FileExist;
         [self.navigationController pushViewController:readVC animated:YES];
     }else{
@@ -147,12 +147,13 @@
             ReadViewController *readVC = [ReadViewController new];
             weakSelf.model.url = [[NSString stringWithFormat:@"%@%@",DownloadThePrefix,htmlString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             readVC.model = weakSelf.model;
+            readVC.navTitle = @"合同模版";
             readVC.rType = FileNOExist;
             readVC.readBlock  = ^(NSString *str){
                 weakSelf.label.text = str;
                 _exist = !_exist;
             };
-            [self.navigationController pushViewController:readVC animated:YES];
+            [weakSelf.navigationController pushViewController:readVC animated:YES];
         }];
     }
 }

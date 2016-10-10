@@ -11,6 +11,9 @@
 #import "PersonalHeadView.h"
 #import "PersonalInjuryCell.h"
 #import "Disability_AlertView.h"
+#import "TaskModel.h"
+#import "ReadViewController.h"
+#import "ToolsIntroduceVC.h"
 
 static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 
@@ -20,6 +23,7 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 @property (nonatomic, strong) ParallaxHeaderView *headerView;
 @property (nonatomic, strong) NSMutableArray *dataSourcesArrays;
 @property (nonatomic, copy) NSString *allMoneyString;
+@property (copy, nonatomic) UIView *bottomView;
 
 @end
 
@@ -44,12 +48,28 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
 
     _allMoneyString = _moneyString;
-    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:_allMoneyString, nil];
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:_moneyString, nil];
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
     [self.dataSourcesArrays addObject:arr1];
     [self.dataSourcesArrays addObject:arr2];
 
     [self.view addSubview:self.tableView];
+    
+    [_tableView setTableFooterView:self.bottomView];
+
+    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"CalculationBasis" ofType:@"plist"];
+    NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
+
+    __block NSString *contentText = bigDictionary[@"人身损害赔偿计算器"];
+
+    WEAKSELF;
+    [_bottomView whenCancelTapped:^{
+        
+        ToolsIntroduceVC *vc = [ToolsIntroduceVC new];
+        vc.introContent = contentText;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    }];
+
 //    [_headerView addSubview:[PersonalHeadView instancePersonalHeadViewWithTotalMoney:@"1763514.00" withArea:@"上海" withHK:@"城镇" withItem:@"六级" withGrade:@"六级"]];
 
 }
@@ -172,6 +192,23 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
     }
     return _dataSourcesArrays;
 }
+- (UIView *)bottomView
+{
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 45.f)];
+        _bottomView.backgroundColor = [UIColor clearColor];
+        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, kMainScreenWidth-20, 40)];
+        label2.textAlignment = NSTextAlignmentLeft;
+        label2.numberOfLines = 0;
+        label2.backgroundColor = [UIColor clearColor];
+        label2.textColor = hexColor(00c8aa);
+        label2.font = Font_12;
+        label2.text = @"根据《最高人民法院关于审理人身损害赔偿案件适用法律若干问题的解释》等相关法律法规的规定";
+        [_bottomView addSubview:label2];
+    }
+    return _bottomView;
+}
+
 #pragma mark -手势
 - (void)dismissKeyBoard{
     [self.view endEditing:YES];
@@ -189,7 +226,7 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 }
 #pragma mark - CalculateShareDelegate
 - (void)clickIsWhichOne:(NSInteger)index
-{
+{WEAKSELF;
     if (index >0) {
         
         NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-renshensunhaipeichangjieguo",@"type", nil];
@@ -200,13 +237,13 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
         if (_detailDictionary.count == 2) {
             
             itemString = @"死亡";
-            levelString = @"一级";
+            [levelString setString:@"一级"];
         }else {
             
             if ([item isEqualToString:@"单级"]) {
                 
                 itemString = @"单级";
-                levelString = _detailDictionary[@"grade"];
+                [levelString setString:_detailDictionary[@"grade"]];
             }else {
                 
                 itemString = @"多级";
@@ -221,7 +258,7 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
 
         }
 
-        NSMutableArray *resultArr = [NSMutableArray arrayWithObjects:_allMoneyString,_detailDictionary[@"area"],_detailDictionary[@"hk"],itemString,levelString, nil];
+        NSMutableArray *resultArr = [NSMutableArray arrayWithObjects:_allMoneyString,_detailDictionary[@"area"],_detailDictionary[@"hk"],itemString,levelString,_moneyString, nil];
 
         NSMutableArray *arr2 = _dataSourcesArrays[1];
 
@@ -230,22 +267,32 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
             [resultArr addObject:arr2[i]];
         }
         [shareDict setObject:resultArr forKey:@"results"];
-        [shareDict setObject:[NSArray array] forKey:@"conditions"];
+        [shareDict setObject:[NSArray arrayWithObjects:@"", nil] forKey:@"conditions"];
         
         
         [NetWorkMangerTools shareTheResultsWithDictionary:shareDict RequestSuccess:^(NSString *urlString, NSString *idString) {
             
-            NSArray *arrays;
             if (index == 1) {
                 
-                arrays = [NSArray arrayWithObjects:@"人身损害赔偿计算",@"人身损害赔偿计算结果",urlString,@"", nil];
+                NSArray *arrays = [NSArray arrayWithObjects:@"人身损害赔偿计算",@"人身损害赔偿计算结果",urlString,@"", nil];
+                [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+                }];
+
             }else {
+                NSString *wordString = [[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                TaskModel *model = [TaskModel model];
+                model.name=[NSString stringWithFormat:@"人身损害赔偿计算结果Word%@.docx",idString];
+                model.url= wordString;
+                model.content = @"人身损害赔偿计算结果Word";
+                model.destinationPath=[kCachePath stringByAppendingPathComponent:model.name];
                 
-                arrays = [NSArray arrayWithObjects:@"人身损害赔偿计算",@"人身损害赔偿计算结果Word",[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString], nil];
+                ReadViewController *readVC = [ReadViewController new];
+                readVC.model = model;
+                readVC.navTitle = @"计算结果";
+                readVC.rType = FileNOExist;
+                [weakSelf.navigationController pushViewController:readVC animated:YES];
             }
             
-            [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
-            }];
 
         } fail:^{
             
