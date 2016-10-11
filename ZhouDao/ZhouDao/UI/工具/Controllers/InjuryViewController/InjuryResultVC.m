@@ -48,7 +48,7 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
     [self.view addSubview:self.tableView];
     
     
-    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"Areas" ofType:@"plist"];
+    NSString *pathSource = [MYBUNDLE pathForResource:@"Areas" ofType:@"plist"];
     NSDictionary *areasDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
 
     NSArray *proviceArr = [areasDictionary allKeys];
@@ -73,7 +73,7 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
             break;
         }
     }
-    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"InjuryInductrial" ofType:@"plist"];
+    NSString *pathSource1 = [MYBUNDLE pathForResource:@"InjuryInductrial" ofType:@"plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
 
     __block NSString *contentText = bigDictionary[keyString];
@@ -101,11 +101,6 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
 - (void)clickIsWhichOne:(NSInteger)index
 {WEAKSELF;
     if (index >0) {
-        if (_dataSourceArrays.count == 1) {
-            
-            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
-            return;
-        }
         
         NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-gongshangpeichang",@"type", nil];
 
@@ -116,7 +111,8 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
             InjuryViewCell *cell = (InjuryViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
             DLog(@"999--:%@",cell.titleLab.text);
             
-            NSString *tempString = [NSString stringWithFormat:@"%@-%@",cell.titleLab.text,_dataSourceArrays[i]];
+            NSDictionary *dict = _dataSourceArrays[i];
+            NSString *tempString = [NSString stringWithFormat:@"%@-%@",cell.titleLab.text,dict[@"money"]];
             [resultArr addObject:tempString];
         }
         [shareDict setObject:resultArr forKey:@"results"];

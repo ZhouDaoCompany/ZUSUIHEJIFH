@@ -56,7 +56,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
     
     [_tableView setTableFooterView:self.bottomLabel];
 
-    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"CalculationBasis" ofType:@"plist"];
+    NSString *pathSource1 = [MYBUNDLE pathForResource:@"CalculationBasis" ofType:@"plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
     
     __block NSString *contentText = bigDictionary[@"法院受理费计算器"];

@@ -43,7 +43,7 @@ static NSString *const DAYCellID = @"dayCellID";
 #pragma mark - private methods
 - (void)initUI{
     
-    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"Holiday" ofType:@"plist"];
+    NSString *pathSource = [MYBUNDLE pathForResource:@"Holiday" ofType:@"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
     self.timeArrays = dict[@"time"];
     self.timeDictionary = dict[@"allHoliday"];

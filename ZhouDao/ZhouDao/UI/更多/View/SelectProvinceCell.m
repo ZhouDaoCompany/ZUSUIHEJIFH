@@ -45,6 +45,18 @@
         _thirdButton.hidden = NO;
         _fourButton.hidden = NO;
         _nameLab.hidden = YES;
+        NSArray *hotCity;
+        if (_isCity == YES) {
+            hotCity = @[@"北京市",@"上海市",@"天津市",@"重庆市"];
+        }else{
+            hotCity = @[@"北京",@"上海",@"天津",@"重庆"];
+        }
+
+        [_oneButton setTitle:hotCity[0] forState:0];
+        [_twoButton setTitle:hotCity[1] forState:0];
+        [_thirdButton setTitle:hotCity[2] forState:0];
+        [_fourButton setTitle:hotCity[3] forState:0];
+
     }else {
         self.backgroundColor = [UIColor whiteColor];
         _oneButton.hidden = YES;
@@ -59,7 +71,12 @@
 - (void)hotBtnClick:(UIButton *)btn
 {
     NSInteger index = btn.tag;
-    NSArray *hotCity = @[@"北京市",@"上海市",@"天津市",@"重庆市"];
+    NSArray *hotCity;
+    if (_isCity == YES) {
+        hotCity = @[@"北京市",@"上海市",@"天津市",@"重庆市"];
+    }else{
+        hotCity = @[@"北京",@"上海",@"天津",@"重庆"];
+    }
     if ([self.delegate respondsToSelector:@selector(getSeletyCityName:)]) {
         [self.delegate getSeletyCityName:hotCity[index - 3000]];
     }
@@ -90,7 +107,7 @@
         _oneButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _oneButton.backgroundColor = [UIColor whiteColor];
         _oneButton.tag = 3000;
-        [_oneButton setTitle:@"北京市" forState:0];
+    
         _oneButton.layer.borderColor = [UIColor colorWithHexString:@"#d7d7d7"].CGColor;
         _oneButton.layer.borderWidth = 1.f;
         _oneButton.layer.masksToBounds = YES;
@@ -109,7 +126,7 @@
         _twoButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _twoButton.backgroundColor = [UIColor whiteColor];
         _twoButton.tag = 3001;
-        [_twoButton setTitle:@"上海市" forState:0];
+       
         _twoButton.layer.borderColor = [UIColor colorWithHexString:@"#d7d7d7"].CGColor;
         _twoButton.layer.borderWidth = 1.f;
         _twoButton.layer.masksToBounds = YES;
@@ -129,7 +146,7 @@
         _thirdButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _thirdButton.backgroundColor = [UIColor whiteColor];
         _thirdButton.tag = 3002;
-        [_thirdButton setTitle:@"天津市" forState:0];
+      
         _thirdButton.layer.borderColor = [UIColor colorWithHexString:@"#d7d7d7"].CGColor;
         _thirdButton.layer.borderWidth = 1.f;
         _thirdButton.layer.masksToBounds = YES;
@@ -148,7 +165,6 @@
         _fourButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _fourButton.backgroundColor = [UIColor whiteColor];
         _fourButton.tag = 3003;
-        [_fourButton setTitle:@"重庆市" forState:0];
         _fourButton.layer.borderColor = [UIColor colorWithHexString:@"#d7d7d7"].CGColor;
         _fourButton.layer.borderWidth = 1.f;
         _fourButton.layer.masksToBounds = YES;

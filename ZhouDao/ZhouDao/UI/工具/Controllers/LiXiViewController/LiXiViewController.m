@@ -222,7 +222,7 @@ static NSString *const LIXICELL = @"lixicellid";
         lastMoney = money*rate*days/360;
     }
     float allMoney = lastMoney + money;
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",allMoney],[NSString stringWithFormat:@"%.2f",lastMoney],[NSString stringWithFormat:@"%.2f",money], nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",CancelPoint2(allMoney),CancelPoint2(lastMoney),CancelPoint2(money), nil];
     (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
     [self reloadTableViewWithAnimation];
     

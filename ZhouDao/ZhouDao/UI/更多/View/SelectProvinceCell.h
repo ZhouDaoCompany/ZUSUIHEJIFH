@@ -13,7 +13,7 @@
 
 @property (weak, nonatomic) id<SelectProvinceCellPro>delegate;
 @property (strong, nonatomic) UIView *lineView;
-
+@property (nonatomic, assign) BOOL isCity;//是否是城市
 
 - (void)setOtherCitySelect:(NSString *)name wihSection:(NSInteger)section;
 @end

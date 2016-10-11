@@ -82,7 +82,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 }
 - (void)loadAreasPlistfile
 {WEAKSELF;
-    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"Areas" ofType:@"plist"];
+    NSString *pathSource = [MYBUNDLE pathForResource:@"Areas" ofType:@"plist"];
     __block NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
     
     _twoCurrent = 0;

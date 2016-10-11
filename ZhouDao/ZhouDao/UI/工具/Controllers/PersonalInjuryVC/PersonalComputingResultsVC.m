@@ -57,7 +57,7 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
     
     [_tableView setTableFooterView:self.bottomView];
 
-    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"CalculationBasis" ofType:@"plist"];
+    NSString *pathSource1 = [MYBUNDLE pathForResource:@"CalculationBasis" ofType:@"plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
 
     __block NSString *contentText = bigDictionary[@"人身损害赔偿计算器"];

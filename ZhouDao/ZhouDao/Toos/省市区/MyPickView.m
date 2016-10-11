@@ -115,7 +115,7 @@
 //    //DLog(@"输出文件数据－－－－－%@",dataS);
 //    NSData *data = [dataS dataUsingEncoding:NSUTF8StringEncoding];
 //    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"Areas" ofType:@"plist"];
+    NSString *pathSource = [MYBUNDLE pathForResource:@"Areas" ofType:@"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
 
     //DLog(@"解析是否成功－－－－－%@",dict);

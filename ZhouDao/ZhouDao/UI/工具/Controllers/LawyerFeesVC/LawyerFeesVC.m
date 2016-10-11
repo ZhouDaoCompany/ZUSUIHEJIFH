@@ -479,7 +479,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             selectVC.isNoTW = YES;
             selectVC.selectBlock = ^(NSString *province, NSString *local){
 
-                NSString *path = [[NSBundle mainBundle] pathForResource:province ofType:@"txt"];
+                NSString *path = [MYBUNDLE pathForResource:province ofType:@"txt"];
                 NSData *data = [NSData dataWithContentsOfFile:path];
                 NSDictionary *dict= [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
                 weakSelf.areasDictionary = dict[@"area"];

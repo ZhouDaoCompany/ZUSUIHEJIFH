@@ -56,11 +56,8 @@ static NSString *const INJURYCELL = @"injurycellid";
 - (void)clickIsWhichOne:(NSInteger)index
 {
     if (index >0) {
-        if (_dataSourceArrays.count == 1) {
-            
-            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
-            return;
-        }
+        [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+        return;
         
     }else {//分享计算器
         NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,GSPCCulate];
@@ -134,7 +131,7 @@ static NSString *const INJURYCELL = @"injurycellid";
         
     }else if (levelInter >=5 && levelInter <7){
         
-        NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"gongShang" ofType:@"plist"];
+        NSString *pathSource = [MYBUNDLE pathForResource:@"gongShang" ofType:@"plist"];
         NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         NSString *keyString = [NSString stringWithFormat:@"%@_%ld",_idString,levelInter];
         NSDictionary *useDict = bigDictionary[keyString];
@@ -187,7 +184,7 @@ static NSString *const INJURYCELL = @"injurycellid";
         [detailDict setObjectWithNullValidate:mutableArrays forKey:@"mutableArrays"];
     }else{
         
-        NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"gongShang" ofType:@"plist"];
+        NSString *pathSource = [MYBUNDLE pathForResource:@"gongShang" ofType:@"plist"];
         NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         NSString *keyString = [NSString stringWithFormat:@"%@_%ld",_idString,levelInter];
         NSDictionary *useDict = bigDictionary[keyString];

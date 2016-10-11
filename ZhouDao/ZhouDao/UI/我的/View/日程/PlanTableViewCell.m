@@ -13,6 +13,9 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    [super awakeFromNib];
+
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     //_nameLab.textColor = [UIColor colorWithHexString:@"#d7d7d7"];

@@ -61,7 +61,7 @@ static NSString *const OverdueCellID = @"OverdueCellID";
     
     [_tableView setTableFooterView:self.bottomView];
     
-    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"CalculationBasis" ofType:@"plist"];
+    NSString *pathSource1 = [MYBUNDLE pathForResource:@"CalculationBasis" ofType:@"plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
     
     __block NSString *contentText = bigDictionary[@"裁决书逾期利息计算器"];
@@ -171,9 +171,9 @@ static NSString *const OverdueCellID = @"OverdueCellID";
         limitLiXiMoney = money * days1 *rate *2.f + money * days2 *1.75/10000.f;
     }
     
-    NSString *allLiXi = [NSString stringWithFormat:@"%.2f",generalLiXiMoney + limitLiXiMoney];
+    NSString *allLiXi = CancelPoint2(generalLiXiMoney + limitLiXiMoney);
     
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",generalLiXiMoney],[NSString stringWithFormat:@"%.2f",limitLiXiMoney],allLiXi, nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",CancelPoint2(generalLiXiMoney),CancelPoint2(limitLiXiMoney),allLiXi, nil];
     [_dataSourceArrays addObject:arr2];
     [_tableView reloadData];
 

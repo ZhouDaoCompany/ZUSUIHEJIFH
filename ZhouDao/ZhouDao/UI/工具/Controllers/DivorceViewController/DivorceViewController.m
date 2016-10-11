@@ -48,7 +48,7 @@ static NSString *const DivorceCellID = @"DivorceCellID";
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
     [_tableView setTableFooterView:self.bottomLabel];
-    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"CalculationBasis" ofType:@"plist"];
+    NSString *pathSource1 = [MYBUNDLE pathForResource:@"CalculationBasis" ofType:@"plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
     
     __block NSString *contentText = bigDictionary[@"离婚房产分割计算器"];
@@ -157,8 +157,8 @@ static NSString *const DivorceCellID = @"DivorceCellID";
             }
         }
         float rate = [self getAppreciationRateWithArrays:arr];
-        NSString *str1 = [NSString stringWithFormat:@"%.0f",rate*100];
-        NSString *str2 = [NSString stringWithFormat:@"%f",[self valueAddedAmountAfterMarriage:rate withArrays:arr]];
+        NSString *str1 = CancelPoint2(rate*100);
+        NSString *str2 = CancelPoint2([self valueAddedAmountAfterMarriage:rate withArrays:arr]);
         NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",str1,str2, nil];
         [_dataSourceArrays addObject:arr2];
         [self reloadTableViewWithAnimation];

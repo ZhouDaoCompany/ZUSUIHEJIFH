@@ -453,8 +453,7 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
             
             float tc = [zje floatValue]*[bl floatValue]/100.f;
             
-            [_commitArr replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"%.2f",tc]];
-            
+            [_commitArr replaceObjectAtIndex:2 withObject:CancelPoint2(tc)];            
             [_tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:2 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
         }
     }

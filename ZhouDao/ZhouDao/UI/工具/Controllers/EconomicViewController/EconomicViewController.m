@@ -58,7 +58,7 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     
     [_tableView setTableFooterView:self.bottomView];
     
-    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"CalculationBasis" ofType:@"plist"];
+    NSString *pathSource1 = [MYBUNDLE pathForResource:@"CalculationBasis" ofType:@"plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
     
     __block NSString *contentText = bigDictionary[@"劳动补偿金计算器"];
@@ -204,7 +204,7 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     double counts = years;
     if (months >6) {
         counts +=1;
-    }else {
+    }else if (months > 0 && months <=6){
         counts +=.5f;
     }
     if (counts >12) {
@@ -214,7 +214,7 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     double averayeMoney = ([wage doubleValue] >= [_averageMoney doubleValue] *3)?[_averageMoney doubleValue] *3: [_averageMoney doubleValue];
     money = averayeMoney * counts;
     NSString *moneyString = [NSString stringWithFormat:@"%.2f",money];
-    NSString *monthsString = [NSString stringWithFormat:@"%.2f",counts];
+    NSString *monthsString = [NSString stringWithFormat:@"%.1f",counts];
 
     success(moneyString, monthsString);
 }

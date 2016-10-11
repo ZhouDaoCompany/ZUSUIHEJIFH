@@ -37,14 +37,14 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
     
     if (_type == EconomicType) {
         
-        NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"TheAverageSalary" ofType:@"plist"];
+        NSString *pathSource = [MYBUNDLE pathForResource:@"TheAverageSalary" ofType:@"plist"];
         _dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         NSArray *keysArrays = [_dict allKeys];
         [self.dataSourceArrays addObjectsFromArray:keysArrays];
         
     }else if (_type == InjuryType){
         
-        NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"TheCityList" ofType:@"plist"];
+        NSString *pathSource = [MYBUNDLE pathForResource:@"TheCityList" ofType:@"plist"];
         _dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         NSArray *keysArrays = [_dict allKeys];
         [self.dataSourceArrays addObjectsFromArray:keysArrays];
@@ -114,7 +114,7 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     SelectProvinceCell *cell = (SelectProvinceCell *)[tableView dequeueReusableCellWithIdentifier:SELECTCELLIDENTIFER];
     cell.delegate = self;
-    
+    cell.isCity = YES;
     if (indexPath.section == 0) {
         cell.lineView.hidden = YES;
         [cell setOtherCitySelect:@"" wihSection:indexPath.section];

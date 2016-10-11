@@ -102,10 +102,6 @@
     [super viewDidLoad];
     [self performSelector:@selector(delayInitialLoading) withObject:nil afterDelay:0.05];
     
-    [GcNoticeUtil handleNotification:@"presentView"
-                            Selector:@selector(presentview:)
-                            Observer:self];
-
     //隐藏手势的导航栏
     self.fd_prefersNavigationBarHidden = YES;
 
@@ -136,6 +132,21 @@
 
     self.view.backgroundColor = ViewBackColor;
     
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [GcNoticeUtil handleNotification:@"presentView"
+                            Selector:@selector(presentview:)
+                            Observer:self];
+
+}
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [GcNoticeUtil removeNotification:@"presentView"
+                            Observer:self
+                              Object:nil];
 }
 - (void)dealloc
 {

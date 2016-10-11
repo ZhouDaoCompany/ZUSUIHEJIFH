@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVSpeechSynthesis.h>
+#import <AVFoundation/AVFoundation.h>
+
+//#import <AVFoundation/AVSpeechSynthesis.h>
 
 /**
  *  iOS7及以上版本可以使用 AVSpeechSynthesizer 合成语音

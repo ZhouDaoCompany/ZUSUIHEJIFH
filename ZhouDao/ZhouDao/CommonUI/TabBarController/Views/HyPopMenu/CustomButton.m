@@ -11,7 +11,7 @@
 
 #define KeyPath @"transform.scale"
 
-@interface CustomButton ()
+@interface CustomButton ()<CAAnimationDelegate>
 
 @end
 

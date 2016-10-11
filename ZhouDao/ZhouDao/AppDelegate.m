@@ -42,12 +42,15 @@
  */
 #import "MobClick.h"
 #import "UMessage.h"
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+#import <UserNotifications/UserNotifications.h>
+#endif
 /**
  *  掉帧测试
  */
 //#import "KMCGeigerCounter.h"
 
-@interface AppDelegate ()<UITabBarControllerDelegate,SKStoreProductViewControllerDelegate>
+@interface AppDelegate ()<UITabBarControllerDelegate,SKStoreProductViewControllerDelegate,UNUserNotificationCenterDelegate>
 
 
 @end
@@ -214,6 +217,23 @@
     
     [UMessage startWithAppkey:UMENG_APPKEY launchOptions:launchOptions];
     [UMessage registerForRemoteNotifications];
+    //iOS10必须加下面这段代码。
+    if (CurrentSystemVersion >=10) {
+        
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate=self;
+        UNAuthorizationOptions types10=UNAuthorizationOptionBadge|UNAuthorizationOptionAlert|UNAuthorizationOptionSound;
+        [center requestAuthorizationWithOptions:types10 completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (granted) {
+                //点击允许
+                
+            } else {
+                //点击不允许
+                
+            }
+        }];
+    }
+
     [UMessage setLogEnabled:YES];
     
     //点击推送打开
@@ -230,6 +250,11 @@
 }
 #pragma mark -远程推送
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [self umPushToShowWithNotification:userInfo];
+}
+#pragma mark - 推送展示
+- (void)umPushToShowWithNotification:(NSDictionary *)userInfo
 {
     //关闭友盟自带的弹出框
     [UMessage setAutoAlert:NO];
@@ -260,10 +285,37 @@
      */
     
     [UMessage sendClickReportForRemoteNotification:userInfo];
-
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"presentView"
                                                         object:userInfo];
+
 }
+//iOS10新增：处理前台收到通知的代理方法
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        //应用处于前台时的远程推送接受
+        [self umPushToShowWithNotification:userInfo];
+        
+    }else{
+        //应用处于前台时的本地推送接受
+    }
+    
+}
+
+//iOS10新增：处理后台点击通知的代理方法
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        //应用处于后台时的远程推送接受
+        [self umPushToShowWithNotification:userInfo];
+        
+    }else{
+        //应用处于后台时的本地推送接受
+    }
+    
+}
+
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

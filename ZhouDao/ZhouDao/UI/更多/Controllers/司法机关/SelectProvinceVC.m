@@ -99,7 +99,7 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     SelectProvinceCell *cell = (SelectProvinceCell *)[tableView dequeueReusableCellWithIdentifier:CELLIDENTIFER];
     cell.delegate = self;
-
+    cell.isCity = NO;
     if (indexPath.section == 0) {
         cell.lineView.hidden = YES;
         [cell setOtherCitySelect:@"" wihSection:indexPath.section];
@@ -186,6 +186,7 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
 - (void)getSeletyCityName:(NSString *)provinceName
 {
     if (_isNoTW == NO){
+        
         [PublicFunction ShareInstance].locProv = provinceName;
     }
     if (_selectBlock) {
@@ -227,7 +228,7 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
     if (!_dataSourceArrays) {
         
         if (_isNoTW == NO) {
-            _dataSourceArrays = [NSMutableArray arrayWithObjects:@"北京市",@"天津市",@"上海市",@"江苏省",@"河北省",@"河南省",@"湖南省",@"湖北省",@"浙江省",@"云南省",@"陕西省",@"台湾",@"贵州省",@"广西壮族自治区",@"黑龙江省",@"甘肃省",@"吉林省",@"四川省",@"广东省",@"江西省",@"青海省",@"辽宁省",@"香港特别行政区",@"山东省",@"西藏自治区",@"重庆市",@"福建省",@"新疆维吾尔自治区",@"内蒙古自治区",@"山西省",@"海南省",@"宁夏回族自治区",@"澳门特别行政区",@"安徽省", nil];
+            _dataSourceArrays = [NSMutableArray arrayWithObjects:@"北京",@"天津",@"上海",@"江苏省",@"河北省",@"河南省",@"湖南省",@"湖北省",@"浙江省",@"云南省",@"陕西省",@"台湾",@"贵州省",@"广西壮族自治区",@"黑龙江省",@"甘肃省",@"吉林省",@"四川省",@"广东省",@"江西省",@"青海省",@"辽宁省",@"香港特别行政区",@"山东省",@"西藏自治区",@"重庆",@"福建省",@"新疆维吾尔自治区",@"内蒙古自治区",@"山西省",@"海南省",@"宁夏回族自治区",@"澳门特别行政区",@"安徽省", nil];
         }else {
             _dataSourceArrays = [NSMutableArray arrayWithObjects:@"北京市",@"天津市",@"上海市",@"江苏省",@"河北省",@"河南省",@"湖南省",@"湖北省",@"浙江省",@"云南省",@"陕西省",@"贵州省",@"广西壮族自治区",@"黑龙江省",@"甘肃省",@"吉林省",@"四川省",@"广东省",@"江西省",@"青海省",@"辽宁省",@"山东省",@"西藏自治区",@"重庆市",@"福建省",@"新疆维吾尔自治区",@"内蒙古自治区",@"山西省",@"海南省",@"宁夏回族自治区",@"安徽省", nil];
         }

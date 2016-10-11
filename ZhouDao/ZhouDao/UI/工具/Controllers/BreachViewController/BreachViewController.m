@@ -115,13 +115,13 @@ static NSString *const BREACHCELLID = @"breachcellid";
         
         NSArray *rateArrays = self.rateDictionary[[self.timeArrays lastObject]];
         lastMoney = [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:days withMoney:money];
-        NSArray *array1 = [NSArray arrayWithObjects:_startTime,_endTime,_reatString,[NSString stringWithFormat:@"%.2f",lastMoney], nil];
+        NSArray *array1 = [NSArray arrayWithObjects:_startTime,_endTime,_reatString,CancelPoint2(lastMoney), nil];
         [self.detailArrays addObject:array1];
     }else if (endTimeInt < [QZManager timeToTimeStamp:[self.timeArrays firstObject]]){
         
         NSArray *rateArrays = self.rateDictionary[[self.timeArrays firstObject]];
         lastMoney = [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:days withMoney:money];
-        NSArray *array1 = [NSArray arrayWithObjects:_startTime,_endTime,_reatString,[NSString stringWithFormat:@"%.2f",lastMoney], nil];
+        NSArray *array1 = [NSArray arrayWithObjects:_startTime,_endTime,_reatString,CancelPoint2(lastMoney), nil];
         [self.detailArrays addObject:array1];
     }else {
         
@@ -162,7 +162,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
             [tempArrays addObject:[NSString stringWithFormat:@"%.0f",onATimeInt]];//开始时间
             (i == endIndex -1)?[tempArrays addObject:[NSString stringWithFormat:@"%.0f",endTimeInt]]:[tempArrays addObject:[NSString stringWithFormat:@"%.0f",dateTimeInt]];//结束时间
             [tempArrays addObject:GET(_reatString)];
-            [tempArrays addObject:[NSString stringWithFormat:@"%.2f",calculateMoney]];
+            [tempArrays addObject:CancelPoint2(calculateMoney)];
             [self.detailArrays addObject:tempArrays];
             onATimeInt = dateTimeInt;
             DLog(@"相差天数－－%.0f------利率:  %@",differTimeDay,_reatString);

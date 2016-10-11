@@ -17,6 +17,11 @@
  *  主屏的高
  */
 #define DEF_SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
+
+@interface AnimationTools()<CAAnimationDelegate>
+
+@end
+
 @implementation AnimationTools
 
 #pragma mark - 登录界面pop动画效果
@@ -83,7 +88,7 @@
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
     transition.type = kCATransitionPush;
     transition.subtype = kCATransitionFromTop;
-    transition.delegate = self;
+    transition.delegate = [[self class] self];
     [views.layer addAnimation:transition forKey:nil];
 }
 + (void)makeAnimationFade:(UIViewController *)nextVc :(UINavigationController *)nav
@@ -93,7 +98,7 @@
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionFade;
     transition.subtype = kCATransitionFromBottom;
-    transition.delegate = self;
+    transition.delegate = [[self class] self];
     [nav.view.layer addAnimation:transition forKey:nil];
     [nav pushViewController:nextVc animated:NO];
     
@@ -106,7 +111,7 @@
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionFade;
     transition.subtype = kCATransitionFromTop;
-    transition.delegate = self;
+    transition.delegate = [[self class] self];
     [nav.view.layer addAnimation:transition forKey:nil];
     [nav popViewControllerAnimated:NO];
     
