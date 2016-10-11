@@ -50,14 +50,14 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 //        self.view.addSubview(btn1)
         
         //表
-//        self.automaticallyAdjustsScrollViewInsets = true
-//        self.edgesForExtendedLayout = UIRectEdge(rawValue: UInt(0))
-//        tableView = UITableView(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64), style: UITableViewStyle.grouped)
-//        tableView.backgroundColor = UIColor.brown
-//        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        self.view.addSubview(tableView)
+        self.automaticallyAdjustsScrollViewInsets = true
+        self.edgesForExtendedLayout = UIRectEdge(rawValue: UInt(0))
+        tableView = UITableView(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64), style: UITableViewStyle.grouped)
+        tableView.backgroundColor = UIColor.brown
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        tableView.delegate = self
+        tableView.dataSource = self
+        self.view.addSubview(tableView)
         
         //UILabel
 //        let label = UILabel(frame: CGRect(x: 80, y: 80, width: 200, height: 100))
@@ -77,6 +77,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 //        uiswitch.setOn(true, animated: true)
 //        uiswitch.addTarget(self, action: #selector(ViewController.switchChange(_:)), for: UIControlEvents.valueChanged)
 //        self.view.addSubview(uiswitch)
+        
         
         //UIStepper
 //        lab = UILabel(frame: CGRect(x: 10, y: 64, width: 100, height: 20))
@@ -105,16 +106,22 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 //        textFild.delegate = self
 //        self.view.addSubview(textFild)
         
+        
+        
         //UIWebView
+//        let rect = CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64)
+//        let webView = UIWebView(frame: rect)
+//        webView.backgroundColor = UIColor.blue
+//        let url = URL(string: "http://www.baidu.com")
+//        
+//        let request = URLRequest(url: url!)
+//        webView.loadRequest(request)
+//        self.view.addSubview(webView)
         
-        let rect = CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64)
-        let webView = UIWebView(frame: rect)
-        webView.backgroundColor  = UIColor.black
-        let url = URL(string: "https://www.baidu.com")
-        let request = URLRequest(url: url!)
-        webView.loadRequest(request)
-        self.view.addSubview(webView)
         
+        
+        
+
     }
     
     //MARK    UITextFieldDelegate
@@ -173,19 +180,33 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let identifer = "cellID"
+//        let identifer = "cellID"
+//        
+//        var cell = tableView.dequeueReusableCell(withIdentifier: identifer)
+//        
+//        if (cell == nil) {
+//            
+//            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifer)
+//        }
+//        cell?.selectionStyle = UITableViewCellSelectionStyle.none
+//        cell?.textLabel?.font = UIFont.systemFont(ofSize: 14)
+//        cell?.textLabel?.textColor = UIColor.red
+//        cell?.textLabel?.text = "第几行:  \(indexPath.row)"
+//        return cell!
         
+        let identifer = "cellID"
         var cell = tableView.dequeueReusableCell(withIdentifier: identifer)
         
-        if (cell == nil) {
+        if cell == nil {
             
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: identifer)
+            cell = UITableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: identifer)
         }
-        cell?.selectionStyle = UITableViewCellSelectionStyle.none
         cell?.textLabel?.font = UIFont.systemFont(ofSize: 14)
-        cell?.textLabel?.textColor = UIColor.red
-        cell?.textLabel?.text = "第几行:  \(indexPath.row)"
+        cell?.textLabel?.textColor = UIColor.darkText
+        cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+        cell?.textLabel?.text = "第\(indexPath.row)行"
         return cell!
+        
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
