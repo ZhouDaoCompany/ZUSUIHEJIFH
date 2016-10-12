@@ -4,19 +4,16 @@ import UIKit
 
 
 var tempString = "yyhhjcdncjdbcjvdhdfshdgjsbvvndkv"
-var dictt:[String : String] = [:]
-
-var arr1 = Array<String>()
-var arr2:[String] = []
-var arr3 = Array<String>(repeating: "10", count: 10)
+//var dictt:[String : String] = [:]
+//
+//var arr1 = Array<String>()
+//var arr2:[String] = []
+//var arr3 = Array<String>(repeating: "10", count: 10)
 
 
 
 
 var dict = Dictionary<Character,Int>()
-
-
-
 
 for ch in tempString.characters {
     
@@ -49,11 +46,16 @@ for (ch,chCount) in dict {
     }
 }
 
+//集合
+let arr11 = ["w","d"]
+var arr3  = Array<String>()
+var arr4:[String] = []
+var arr5 = Array<String>(repeating: "33", count: 30)
+var mutableDic = Dictionary<String, Int>()
+var mutableD: [String : Int] = [:]
+
 /******************************控件******************************************/
 
-var array = Array<String>()
-
-let arr = ["2","4","6","8","10"]
 
 
 

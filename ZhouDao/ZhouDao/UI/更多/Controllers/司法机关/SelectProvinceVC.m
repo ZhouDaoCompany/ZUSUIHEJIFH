@@ -99,7 +99,11 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     SelectProvinceCell *cell = (SelectProvinceCell *)[tableView dequeueReusableCellWithIdentifier:CELLIDENTIFER];
     cell.delegate = self;
-    cell.isCity = NO;
+    if (_isNoTW == YES) {
+        cell.isCity = YES;
+    }else {
+        cell.isCity = NO;
+    }
     if (indexPath.section == 0) {
         cell.lineView.hidden = YES;
         [cell setOtherCitySelect:@"" wihSection:indexPath.section];
