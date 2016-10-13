@@ -15,6 +15,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var lab : UILabel!
     var webView : UIWebView!
     var _timer = Timer()
+    var _indexCount : Int = 0
+    var _uiScrollView : UIScrollView!
+    var _isScr : Bool! = false
     
     
     override func viewDidLoad() {
@@ -122,32 +125,33 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         //UIScrollView
          let rect = CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64)
-        let uiScrollView = UIScrollView(frame: rect)
-        uiScrollView.backgroundColor = UIColor.red
-        uiScrollView.contentSize = CGSize(width: UIScreen.main.bounds.size.width * 3, height: UIScreen.main.bounds.size.height - 64)
-        uiScrollView.delegate = self
-        uiScrollView.showsVerticalScrollIndicator = false
-        uiScrollView.showsHorizontalScrollIndicator = false
-        uiScrollView.isPagingEnabled = true
-        self.view.addSubview(uiScrollView)
+        _uiScrollView = UIScrollView(frame: rect)
+        _uiScrollView.backgroundColor = UIColor.red
+        _uiScrollView.contentSize = CGSize(width: UIScreen.main.bounds.size.width * 3, height: UIScreen.main.bounds.size.height - 64)
+        _uiScrollView.delegate = self
+        _uiScrollView.showsVerticalScrollIndicator = false
+        _uiScrollView.showsHorizontalScrollIndicator = false
+        _uiScrollView.isPagingEnabled = true
+        self.view.addSubview(_uiScrollView)
         
         let image1 = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64))
         image1.image = UIImage(named: "001.jpg")
-        uiScrollView.addSubview(image1)
+        _uiScrollView.addSubview(image1)
         
         let image2 = UIImageView(frame: CGRect(x: UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64))
         image2.image = UIImage(named: "002.jpg")
         image2.contentMode = UIViewContentMode.scaleAspectFit
-        uiScrollView.addSubview(image2)
+        _uiScrollView.addSubview(image2)
 
         let image3 = UIImageView(frame: CGRect(x: UIScreen.main.bounds.size.width * 2, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64))
         image3.image = UIImage(named: "003.jpg")
-        uiScrollView.addSubview(image3)
+        _uiScrollView.addSubview(image3)
 
         if #available(iOS 10.0, *) {
 
             _timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { (Timer) in
                 
+                self.timerStart()
             })
         } else {
             // Fallback on earlier versions
@@ -195,6 +199,35 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func timerStart()  {
         
         print("开始")
+        if _isScr == false {
+            
+            if _indexCount < 3 {
+                
+                _indexCount += 1
+            }
+            if _indexCount == 3 {
+                
+                _indexCount = 2
+                _isScr = true
+            }
+        }
+        
+        if _isScr == true  {
+            
+            _indexCount -= 1
+            
+            if _indexCount == -1 {
+                
+                _indexCount = 0
+                _isScr = false
+            }
+        }
+        
+        
+        let x =  UIScreen.main.bounds.size.width * (CGFloat)(_indexCount)
+        
+        let srcPoint = CGPoint(x: x, y: 0)
+        _uiScrollView.setContentOffset(srcPoint, animated: true)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
