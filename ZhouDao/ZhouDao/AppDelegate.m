@@ -19,6 +19,7 @@
 #import "SDImageCache.h"
 #import "GcNoticeUtil.h"
 #import "PushAlertWindow.h"
+#import "Harpy.h"//检测更新
 
 /**
  高德地图
@@ -50,7 +51,7 @@
  */
 //#import "KMCGeigerCounter.h"
 
-@interface AppDelegate ()<UITabBarControllerDelegate,SKStoreProductViewControllerDelegate,UNUserNotificationCenterDelegate>
+@interface AppDelegate ()<UITabBarControllerDelegate,SKStoreProductViewControllerDelegate,UNUserNotificationCenterDelegate,HarpyDelegate>
 
 
 @end
@@ -69,6 +70,7 @@
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
 
+    WEAKSELF;
     kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
         
         //键盘配置
@@ -77,11 +79,9 @@
         [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
         [self umengTrack];//友盟统计
         //高德地图
-        [self setMapEvent];
-        [self setIFlyVoice];
+        [weakSelf setMapEvent];
+        [weakSelf setIFlyVoice];
         [NetWorkMangerTools isAutoLogin];
-        //监测版本
-        [self checkVersionUpdate];
     });
     //友盟分享
     [self uMSocialEvent];
@@ -93,6 +93,10 @@
     tabBarControllerConfig.tabBarController.delegate = self;
     [self.window setRootViewController:tabBarControllerConfig.tabBarController];
     [self.window makeKeyAndVisible];
+    
+    //监测版本
+    [self checkVersionUpdate];
+
     return YES;
 }
 #pragma mark -UITabBarControllerDelegate
@@ -153,12 +157,14 @@
 #pragma mark -监测版本
 - (void)checkVersionUpdate{
     
-    [NetWorkMangerTools checkHistoryVersionRequestSuccess:^(NSString *desc) {
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"有新版本了马上更新" message:desc delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"立即升级", nil];
-        alert.tag = 2201;
-        [alert show];
-    }];
+    [[Harpy sharedInstance] setPresentingViewController:_window.rootViewController];
+    [[Harpy sharedInstance] setDelegate:self];
+    [[Harpy sharedInstance] setAppID:@"1105833212"];
+    [[Harpy sharedInstance] setAppName:@"周道慧法"];
+    [[Harpy sharedInstance] setAlertType:HarpyAlertTypeSkip];
+    [[Harpy sharedInstance] setForceLanguageLocalization:HarpyLanguageChineseSimplified];
+    [[Harpy sharedInstance] setDebugEnabled:true];
+    [[Harpy sharedInstance] checkVersion];
 }
 
 #pragma mark -讯飞语音
@@ -316,28 +322,15 @@
     
 }
 
-#pragma mark - UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+#pragma mark - HarpyDelegate
+- (void)harpyDidShowUpdateDialog
 {
-    if (alertView.tag == 2201) {
-        if (buttonIndex == 1) {
-            
-            [self openAppStoreEvent];
-        }
-    }
-//    [UMessage sendClickReportForRemoteNotification:self.userInfo];
-    
+    DLog(@"%s", __FUNCTION__);
 }
-#pragma mark -跳转App Store
-- (void)openAppStoreEvent
+
+- (void)harpyUserDidLaunchAppStore
 {
-    //第一种方法  直接跳转
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1105833212"]];
-//    exit(0);
-}
-- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController __TVOS_PROHIBITED NS_AVAILABLE_IOS(6_0);
-{
-    //点击取消后的操作
+    DLog(@"%s", __FUNCTION__);
 }
 
 @end

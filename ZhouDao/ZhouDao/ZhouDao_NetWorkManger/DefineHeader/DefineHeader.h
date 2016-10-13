@@ -165,6 +165,7 @@ __REF = nil;\
 __TIMER = nil;\
 }
 
+
 /**
  * NSLog宏，限定仅在Debug时才打印,release不打印，防止拖慢程序运行
  */
@@ -204,5 +205,13 @@ typedef void(^ZDCancelBlock)(id viewController);
 typedef void(^ZDFinishedBlock)(id viewController, id object);
 typedef void(^ZDSendRequestAndResendRequestBlock)(id sendBlock, id resendBlock);
 
+#define WIDTH(view) view.frame.size.width
+#define HEIGHT(view) view.frame.size.height
+#define X(view) view.frame.origin.x
+#define Y(view) view.frame.origin.y
+#define LEFT(view) view.frame.origin.x
+#define TOP(view) view.frame.origin.y
+#define BOTTOM(view) (view.frame.origin.y + view.frame.size.height)
+#define RIGHT(view) (view.frame.origin.x + view.frame.size.width)
 
 #endif /* DefineHeader_h */

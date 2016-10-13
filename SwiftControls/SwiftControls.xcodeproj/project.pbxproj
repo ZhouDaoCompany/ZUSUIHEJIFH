@@ -14,6 +14,9 @@
 		109DF9971DA93AC000FB45CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 109DF9951DA93AC000FB45CA /* LaunchScreen.storyboard */; };
 		109DF9A21DA93AC000FB45CA /* SwiftControlsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109DF9A11DA93AC000FB45CA /* SwiftControlsTests.swift */; };
 		109DF9AD1DA93AC000FB45CA /* SwiftControlsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109DF9AC1DA93AC000FB45CA /* SwiftControlsUITests.swift */; };
+		18220F2A1DAF89B2007C0315 /* 001.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18220F271DAF89B2007C0315 /* 001.jpg */; };
+		18220F2B1DAF89B2007C0315 /* 002.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18220F281DAF89B2007C0315 /* 002.jpg */; };
+		18220F2C1DAF89B2007C0315 /* 003.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18220F291DAF89B2007C0315 /* 003.jpg */; };
 		18EDCB671DAB97AC001A7302 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EDCB661DAB97AC001A7302 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +51,9 @@
 		109DF9A81DA93AC000FB45CA /* SwiftControlsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftControlsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		109DF9AC1DA93AC000FB45CA /* SwiftControlsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftControlsUITests.swift; sourceTree = "<group>"; };
 		109DF9AE1DA93AC000FB45CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18220F271DAF89B2007C0315 /* 001.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 001.jpg; sourceTree = "<group>"; };
+		18220F281DAF89B2007C0315 /* 002.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 002.jpg; sourceTree = "<group>"; };
+		18220F291DAF89B2007C0315 /* 003.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 003.jpg; sourceTree = "<group>"; };
 		18EDCB661DAB97AC001A7302 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -103,6 +109,9 @@
 			children = (
 				109DF98C1DA93AC000FB45CA /* AppDelegate.swift */,
 				109DF98E1DA93AC000FB45CA /* ViewController.swift */,
+				18220F271DAF89B2007C0315 /* 001.jpg */,
+				18220F281DAF89B2007C0315 /* 002.jpg */,
+				18220F291DAF89B2007C0315 /* 003.jpg */,
 				109DF9901DA93AC000FB45CA /* Main.storyboard */,
 				109DF9931DA93AC000FB45CA /* Assets.xcassets */,
 				109DF9951DA93AC000FB45CA /* LaunchScreen.storyboard */,
@@ -250,6 +259,9 @@
 				109DF9971DA93AC000FB45CA /* LaunchScreen.storyboard in Resources */,
 				109DF9941DA93AC000FB45CA /* Assets.xcassets in Resources */,
 				109DF9921DA93AC000FB45CA /* Main.storyboard in Resources */,
+				18220F2C1DAF89B2007C0315 /* 003.jpg in Resources */,
+				18220F2B1DAF89B2007C0315 /* 002.jpg in Resources */,
+				18220F2A1DAF89B2007C0315 /* 001.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

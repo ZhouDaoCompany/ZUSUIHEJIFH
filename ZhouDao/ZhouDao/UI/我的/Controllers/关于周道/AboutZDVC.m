@@ -167,7 +167,40 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+/*
+ #pragma mark - UIAlertViewDelegate
+ - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+ {
+ if (alertView.tag == 2201) {
+ if (buttonIndex == 1) {
+ 
+ [self openAppStoreEvent];
+ }
+ }
+ //    [UMessage sendClickReportForRemoteNotification:self.userInfo];
+ 
+ }
+ #pragma mark -跳转App Store
+ - (void)openAppStoreEvent
+ {
+ //第一种方法  直接跳转
+ [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1105833212"]];
+ //    exit(0);
+ }
+ - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController __TVOS_PROHIBITED NS_AVAILABLE_IOS(6_0);
+ {
+ //点击取消后的操作
+ }
+ 
+ 
+ //    [NetWorkMangerTools checkHistoryVersionRequestSuccess:^(NSString *desc) {
+ //
+ //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"有新版本了马上更新" message:desc delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"立即升级", nil];
+ //        alert.tag = 2201;
+ //        [alert show];
+ //    }];
 
+ */
 /*
 #pragma mark - Navigation
 

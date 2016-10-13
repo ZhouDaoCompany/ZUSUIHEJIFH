@@ -32,7 +32,10 @@ pod 'FDFullscreenPopGesture', '1.1'
 #菜单
 pod 'DLWidgetMenu'
 pod 'WebViewJavascriptBridge', '~> 5.0.5'
-pod 'FMDB', '~> 2.6.2'
+#pod 'FMDB', '~> 2.6.2'
+#检测更新
+pod 'Harpy'
+
 
 #webView
 #pod 'DZNWebViewController'

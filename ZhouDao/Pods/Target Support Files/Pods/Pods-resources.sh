@@ -60,6 +60,7 @@ install_resource()
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "AMap3DMap/MAMapKit.framework/AMap.bundle"
   install_resource "AMapNavi/AMapNaviKit.framework/AMapNavi.bundle"
+  install_resource "Harpy/Harpy/Harpy.bundle"
   install_resource "IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle"
   install_resource "LCActionSheet/LCActionSheet/LCActionSheet.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
@@ -67,6 +68,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "AMap3DMap/MAMapKit.framework/AMap.bundle"
   install_resource "AMapNavi/AMapNaviKit.framework/AMapNavi.bundle"
+  install_resource "Harpy/Harpy/Harpy.bundle"
   install_resource "IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle"
   install_resource "LCActionSheet/LCActionSheet/LCActionSheet.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"

@@ -155,7 +155,7 @@
                               Object:nil];
 }
 - (void)presentview:(NSNotification *)notification
-{
+{WEAKSELF;
     /*
      {
      aps =     {
@@ -186,7 +186,14 @@
     NSDictionary *notiDic = (NSDictionary *)notification.object;
     _notiDic = notiDic;
     NSString *type = notiDic[@"type"];
-    NSString *alertString = notiDic[@"aps"][@"alert"];
+    NSString *alertString = @"";
+    if ([notiDic[@"aps"][@"alert"] isKindOfClass:[NSString class]]) {
+        alertString = notiDic[@"aps"][@"alert"];
+    }else if ([notiDic[@"aps"][@"alert"] isKindOfClass:[NSDictionary class]]){
+        
+        NSDictionary *alertDict = notiDic[@"aps"][@"alert"];
+        alertString = alertDict[@"body"];
+    }
     NSString *tit = notiDic[@"title"];
 //    NSUInteger indexType = [type integerValue] -1;
     

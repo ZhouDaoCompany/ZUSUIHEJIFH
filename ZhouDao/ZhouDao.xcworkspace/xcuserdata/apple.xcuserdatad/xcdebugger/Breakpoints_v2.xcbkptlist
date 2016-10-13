@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZhouDao/AppDelegate.m"
-            timestampString = "497850411.243098"
+            filePath = "ZhouDao/UI/&#x6211;&#x7684;/Controllers/&#x5173;&#x4e8e;&#x5468;&#x9053;/AboutZDVC.m"
+            timestampString = "498038548.109834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
-            landmarkName = "-application:didReceiveRemoteNotification:"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "-getVersion"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

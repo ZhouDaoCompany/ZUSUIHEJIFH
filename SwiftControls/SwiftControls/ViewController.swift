@@ -8,11 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate ,UIScrollViewDelegate{
 
     var tableView : UITableView!
     var btn : UIButton!
     var lab : UILabel!
+    var webView : UIWebView!
+    var _timer = Timer()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,14 +53,14 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 //        self.view.addSubview(btn1)
         
         //表
-        self.automaticallyAdjustsScrollViewInsets = true
-        self.edgesForExtendedLayout = UIRectEdge(rawValue: UInt(0))
-        tableView = UITableView(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64), style: UITableViewStyle.grouped)
-        tableView.backgroundColor = UIColor.brown
-        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        tableView.delegate = self
-        tableView.dataSource = self
-        self.view.addSubview(tableView)
+//        self.automaticallyAdjustsScrollViewInsets = true
+//        self.edgesForExtendedLayout = UIRectEdge(rawValue: UInt(0))
+//        tableView = UITableView(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64), style: UITableViewStyle.grouped)
+//        tableView.backgroundColor = UIColor.brown
+//        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        self.view.addSubview(tableView)
         
         //UILabel
 //        let label = UILabel(frame: CGRect(x: 80, y: 80, width: 200, height: 100))
@@ -110,18 +113,94 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         //UIWebView
 //        let rect = CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64)
-//        let webView = UIWebView(frame: rect)
+//        webView = UIWebView(frame: rect)
 //        webView.backgroundColor = UIColor.blue
-//        let url = URL(string: "http://www.baidu.com")
-//        
+//        let url = URL(string: "https://www.baidu.com")
 //        let request = URLRequest(url: url!)
 //        webView.loadRequest(request)
 //        self.view.addSubview(webView)
         
+        //UIScrollView
+         let rect = CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64)
+        let uiScrollView = UIScrollView(frame: rect)
+        uiScrollView.backgroundColor = UIColor.red
+        uiScrollView.contentSize = CGSize(width: UIScreen.main.bounds.size.width * 3, height: UIScreen.main.bounds.size.height - 64)
+        uiScrollView.delegate = self
+        uiScrollView.showsVerticalScrollIndicator = false
+        uiScrollView.showsHorizontalScrollIndicator = false
+        uiScrollView.isPagingEnabled = true
+        self.view.addSubview(uiScrollView)
         
+        let image1 = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64))
+        image1.image = UIImage(named: "001.jpg")
+        uiScrollView.addSubview(image1)
         
-        
+        let image2 = UIImageView(frame: CGRect(x: UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64))
+        image2.image = UIImage(named: "002.jpg")
+        image2.contentMode = UIViewContentMode.scaleAspectFit
+        uiScrollView.addSubview(image2)
 
+        let image3 = UIImageView(frame: CGRect(x: UIScreen.main.bounds.size.width * 2, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 64))
+        image3.image = UIImage(named: "003.jpg")
+        uiScrollView.addSubview(image3)
+
+        if #available(iOS 10.0, *) {
+
+            _timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { (Timer) in
+                
+            })
+        } else {
+            // Fallback on earlier versions
+            _timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(timerStart), userInfo: nil, repeats: true)
+            
+        }
+        
+        //计算哪个字符
+//        let myTestString = "jkgjdgjhhshssdfg"
+//        
+//        var tempDict = Dictionary<Character, Int>()
+//        
+//        for ch in myTestString.characters {
+//            
+//            let num = tempDict[ch]
+//            
+//            if  num == nil {
+//                tempDict[ch] = 1
+//            } else {
+//                tempDict[ch] = num! + 1
+//            }
+//            
+//        }
+//        
+//        var maxCount = 0
+//        
+//        for count in tempDict.values {
+//            
+//            if maxCount < count {
+//                
+//                maxCount = count
+//            }
+//        }
+//        
+//        for (ch, counts) in tempDict {
+//            
+//            if counts == maxCount {
+//                
+//                print("最多的字符是－－－－\(ch)")
+//            }
+//        }
+        
+    }
+    
+    func timerStart()  {
+        
+        print("开始")
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        
+        
     }
     
     //MARK    UITextFieldDelegate
