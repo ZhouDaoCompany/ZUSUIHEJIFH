@@ -211,7 +211,7 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         counts = 12.f;
     }
     
-    double averayeMoney = ([wage doubleValue] >= [_averageMoney doubleValue] *3)?[_averageMoney doubleValue] *3: [_averageMoney doubleValue];
+    double averayeMoney = ([wage doubleValue] >= [_averageMoney doubleValue] *3)?[_averageMoney doubleValue] *3: [wage doubleValue];
     money = averayeMoney * counts;
     NSString *moneyString = [NSString stringWithFormat:@"%.2f",money];
     NSString *monthsString = [NSString stringWithFormat:@"%.1f",counts];
