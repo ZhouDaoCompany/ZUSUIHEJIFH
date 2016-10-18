@@ -322,9 +322,9 @@
 		188A78341D74209900BCB54D /* DivorceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A78331D74209900BCB54D /* DivorceViewController.m */; };
 		188A783B1D74268A00BCB54D /* LiXiViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A783A1D74268A00BCB54D /* LiXiViewCell.m */; };
 		188A783F1D742E0F00BCB54D /* LiXiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188A783E1D742E0F00BCB54D /* LiXiViewController.m */; };
-		188F9E361CF7FAF2000F9B2D /* Intro_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E331CF7FAF2000F9B2D /* Intro_1@2x.png */; };
-		188F9E371CF7FAF2000F9B2D /* Intro_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E341CF7FAF2000F9B2D /* Intro_2@2x.png */; };
-		188F9E381CF7FAF2000F9B2D /* Intro_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E351CF7FAF2000F9B2D /* Intro_3@2x.png */; };
+		188F9E361CF7FAF2000F9B2D /* Intro_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E331CF7FAF2000F9B2D /* Intro_3.jpg */; };
+		188F9E371CF7FAF2000F9B2D /* Intro_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E341CF7FAF2000F9B2D /* Intro_2.jpg */; };
+		188F9E381CF7FAF2000F9B2D /* Intro_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E351CF7FAF2000F9B2D /* Intro_1.jpg */; };
 		188F9E3A1CF81AB7000F9B2D /* laws_lawsSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E391CF81AB7000F9B2D /* laws_lawsSearch@2x.png */; };
 		188F9E3C1CF81B14000F9B2D /* laws_GovSearch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 188F9E3B1CF81B14000F9B2D /* laws_GovSearch.jpg */; };
 		188F9E491CF82077000F9B2D /* SCIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F9E481CF82077000F9B2D /* SCIntroView.m */; };
@@ -1044,9 +1044,9 @@
 		188A783A1D74268A00BCB54D /* LiXiViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiXiViewCell.m; sourceTree = "<group>"; };
 		188A783D1D742E0F00BCB54D /* LiXiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiXiViewController.h; sourceTree = "<group>"; };
 		188A783E1D742E0F00BCB54D /* LiXiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiXiViewController.m; sourceTree = "<group>"; };
-		188F9E331CF7FAF2000F9B2D /* Intro_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Intro_1@2x.png"; sourceTree = "<group>"; };
-		188F9E341CF7FAF2000F9B2D /* Intro_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Intro_2@2x.png"; sourceTree = "<group>"; };
-		188F9E351CF7FAF2000F9B2D /* Intro_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Intro_3@2x.png"; sourceTree = "<group>"; };
+		188F9E331CF7FAF2000F9B2D /* Intro_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Intro_3.jpg; sourceTree = "<group>"; };
+		188F9E341CF7FAF2000F9B2D /* Intro_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Intro_2.jpg; sourceTree = "<group>"; };
+		188F9E351CF7FAF2000F9B2D /* Intro_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Intro_1.jpg; sourceTree = "<group>"; };
 		188F9E391CF81AB7000F9B2D /* laws_lawsSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "laws_lawsSearch@2x.png"; sourceTree = "<group>"; };
 		188F9E3B1CF81B14000F9B2D /* laws_GovSearch.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = laws_GovSearch.jpg; sourceTree = "<group>"; };
 		188F9E471CF82077000F9B2D /* SCIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCIntroView.h; sourceTree = "<group>"; };
@@ -2790,9 +2790,9 @@
 		188F9E321CF7FAF2000F9B2D /* GuidePage */ = {
 			isa = PBXGroup;
 			children = (
-				188F9E331CF7FAF2000F9B2D /* Intro_1@2x.png */,
-				188F9E341CF7FAF2000F9B2D /* Intro_2@2x.png */,
-				188F9E351CF7FAF2000F9B2D /* Intro_3@2x.png */,
+				188F9E331CF7FAF2000F9B2D /* Intro_3.jpg */,
+				188F9E341CF7FAF2000F9B2D /* Intro_2.jpg */,
+				188F9E351CF7FAF2000F9B2D /* Intro_1.jpg */,
 			);
 			path = GuidePage;
 			sourceTree = "<group>";
@@ -3862,14 +3862,14 @@
 				18CD01D51C901367009DE385 /* tabbar_CaseQuery@2x.png in Resources */,
 				1060DA141CACF8D400D779A5 /* CompensationStandard@2x.png in Resources */,
 				1895BDD41DACB89800EA5FF2 /* man_court.caf in Resources */,
-				188F9E371CF7FAF2000F9B2D /* Intro_2@2x.png in Resources */,
+				188F9E371CF7FAF2000F9B2D /* Intro_2.jpg in Resources */,
 				18F2F19F1CBDDAD70068453D /* case_juanzong4s@2x.png in Resources */,
 				181BA4111CE598B600A29E2E /* share_platform_sina@2x.png in Resources */,
 				108DC02B1C9FA38E00FD1221 /* mine_banner.jpg in Resources */,
 				188A781C1D73C64400BCB54D /* Tools_lihun@2x.png in Resources */,
 				1065C3451CA91BA4003F4089 /* law_jiegou@2x.png in Resources */,
 				108DC03E1C9FBC3100FD1221 /* blackBack@2x.png in Resources */,
-				188F9E361CF7FAF2000F9B2D /* Intro_1@2x.png in Resources */,
+				188F9E361CF7FAF2000F9B2D /* Intro_3.jpg in Resources */,
 				108DC0341C9FA38E00FD1221 /* mine_head@2x.png in Resources */,
 				108DC0391C9FA38E00FD1221 /* mine_noScer@2x.png in Resources */,
 				18EE95951D23E5B70030AE2B /* case_up@2x.png in Resources */,
@@ -3921,7 +3921,7 @@
 				180F70C21D88EA8300081CAE /* PersonalHeadView.xib in Resources */,
 				18F593E71CB636A500F5619D /* SearchWebView.js in Resources */,
 				18F2F1CE1CBE2EC40068453D /* Esearch_SouSuo@2x.png in Resources */,
-				188F9E381CF7FAF2000F9B2D /* Intro_3@2x.png in Resources */,
+				188F9E381CF7FAF2000F9B2D /* Intro_1.jpg in Resources */,
 				10241A1F1CB9FCDE000CBEAE /* pc_yiliao@2x.png in Resources */,
 				187A54AB1D642CBD0076A8E6 /* notSelected.png in Resources */,
 				1065C3431CA91BA4003F4089 /* law_difangfagui@2x.png in Resources */,
@@ -4446,8 +4446,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZhouDao/ZhouDao.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = DX33K55M2K;
 				ENABLE_BITCODE = NO;
@@ -4473,8 +4473,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "55269414-18e0-45c0-9709-59af8fb4c25c";
-				PROVISIONING_PROFILE_SPECIFIER = 10_08;
+				PROVISIONING_PROFILE = "2b2927f5-a712-4700-9af4-b28dd0bb90a5";
+				PROVISIONING_PROFILE_SPECIFIER = 7_07hffb;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
@@ -4487,8 +4487,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZhouDao/ZhouDao.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
 				DEVELOPMENT_TEAM = DX33K55M2K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4513,8 +4513,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "55269414-18e0-45c0-9709-59af8fb4c25c";
-				PROVISIONING_PROFILE_SPECIFIER = 10_08;
+				PROVISIONING_PROFILE = "2b2927f5-a712-4700-9af4-b28dd0bb90a5";
+				PROVISIONING_PROFILE_SPECIFIER = 7_07hffb;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};

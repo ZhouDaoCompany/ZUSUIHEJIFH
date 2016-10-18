@@ -10,20 +10,21 @@ import UIKit
 
 protocol OneViewControllerDelegate {
     
-    func changeBackGroundColor()
+    func changeBackGroundColor(color :UIColor)
 }
 
 class OneViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var tableView : UITableView!
-
+    var delegate : OneViewControllerDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        self.title = "第二页"
-        
+//        self.navigationController?.title = "第二页"
+        automaticallyAdjustsScrollViewInsets = false
         let rect = CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64)
         
         tableView = UITableView(frame: rect, style: UITableViewStyle.grouped)
@@ -44,15 +45,23 @@ class OneViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID") as UITableViewCell!
-        
+        cell?.selectionStyle = UITableViewCellSelectionStyle.none
         cell?.textLabel?.font = FONT(size: 15)
         cell?.textLabel?.text = "第 \(indexPath.row)行"
         return cell!
     }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.1
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.1
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
+        if delegate != nil {
+            delegate!.changeBackGroundColor()
+        }
         
     }
     

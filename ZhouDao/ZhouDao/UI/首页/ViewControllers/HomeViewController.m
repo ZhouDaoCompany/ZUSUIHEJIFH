@@ -257,9 +257,9 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
 - (NSArray *)contentImagesInIntroView:(SCIntroView *)introView {
 //    introView.introViewPageControl.hidden = YES;
     return @[
-             [UIImage imageNamed:@"Intro_1"],
-             [UIImage imageNamed:@"Intro_2"],
-             [UIImage imageNamed:@"Intro_3"]
+             [UIImage imageNamed:@"Intro_1.jpg"],
+             [UIImage imageNamed:@"Intro_2.jpg"],
+             [UIImage imageNamed:@"Intro_3.jpg"]
              ];
 }
 - (UIButton *)doneButtonInIntroView:(SCIntroView *)introView {

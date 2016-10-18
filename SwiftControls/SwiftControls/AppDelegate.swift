@@ -21,24 +21,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = UIColor.white
         
         
-        let vc = self.newNavigationControllerForClass(controllerClass:ViewController.self, title: "首页", itemImage: "homeSelect", selectedImage: "homeUnselect")
-        let oneVC = self.newNavigationControllerForClass(controllerClass:OneViewController.self, title: "我的", itemImage: "mineSelect", selectedImage: "mineUnSelect")
-        
-        let tabViewController = UITabBarController()
-        tabViewController.viewControllers = [vc,oneVC]
-        tabViewController.view.backgroundColor = UIColor.white
-        let nav = UINavigationController.init(rootViewController: tabViewController)
+//        let vc = self.newNavigationControllerForClass(controllerClass:ViewController(), title: "首页", itemImage: "homeSelect", selectedImage: "homeUnselect")
+//        let oneVC = self.newNavigationControllerForClass(controllerClass:OneViewController(), title: "我的", itemImage: "mineSelect", selectedImage: "mineUnSelect")
+//        
+//        let tabViewController = UITabBarController()
+//        tabViewController.viewControllers = [vc,oneVC]
+//        tabViewController.view.backgroundColor = UIColor.white
+        let vc = ViewController()
+        let nav = UINavigationController.init(rootViewController: vc)
         
         window?.rootViewController = nav
         return true
     }
 
     // MARK: tabbar
-    func newNavigationControllerForClass(controllerClass:AnyClass,title:String,itemImage:String,selectedImage:String) -> UINavigationController {
+    func newNavigationControllerForClass(controllerClass:UIViewController,title:String,itemImage:String,selectedImage:String) -> UINavigationController {
         
-        let vc = UIViewController()
         
-        let theNavigationController = UINavigationController(rootViewController: vc)
+        let vc = controllerClass as UIViewController!
+        
+        let theNavigationController = UINavigationController(rootViewController: vc!)
         
         theNavigationController.tabBarItem.title = title
         

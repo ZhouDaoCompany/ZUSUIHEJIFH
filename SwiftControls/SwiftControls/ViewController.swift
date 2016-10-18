@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController , OneViewControllerDelegate {
 
     
     override func viewDidLoad() {
@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        self.title = "首页"
+        self.navigationController?.title = "首页"
         automaticallyAdjustsScrollViewInsets = false
 
         let view = CustomHeadview(frame: CGRect(x: 0, y: 64, width: ScreenWidth, height: 200))
@@ -30,8 +30,15 @@ class ViewController: UIViewController {
     {
         
         let  oneVC = OneViewController()
+        oneVC.delegate = self
         self.navigationController?.pushViewController(oneVC, animated: true)
         
+    }
+    
+    // MARK: OneViewControllerDelegate
+    func changeBackGroundColor() {
+        
+        self.view.backgroundColor = UIColor.red
     }
     
 //    private var rightBtn : UIButton {

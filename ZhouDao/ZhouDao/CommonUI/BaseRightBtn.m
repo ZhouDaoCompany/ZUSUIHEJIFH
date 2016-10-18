@@ -20,11 +20,11 @@
 //文字相对按钮的位置
 - (CGRect)titleRectForContentRect:(CGRect)contentRect
 {
-   return CGRectMake(0, 12, self.frame.size.width - 30, 20);
+   return CGRectMake(0, 12, self.frame.size.width - 23, 20);
 }
 - (CGRect)imageRectForContentRect:(CGRect)contentRect
 {
-    return CGRectMake(self.frame.size.width - 30, 12, 20, 20);
+    return CGRectMake(self.frame.size.width - 23, 12, 20, 20);
 }
 
 /*
