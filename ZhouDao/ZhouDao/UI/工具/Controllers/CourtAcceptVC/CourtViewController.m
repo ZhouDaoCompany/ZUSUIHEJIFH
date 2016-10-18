@@ -117,7 +117,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
         [self.dataSourceArrays addObject:arr2];
         [self reloadTableViewWithAnimation];
         
-    }else if ([arr1[0] isEqualToString:@"离婚案件"] || [arr1[0] isEqualToString:@"人格权案件"] || [arr1[0] isEqualToString:@"知识产权案件"] || [arr1[0] isEqualToString:@"财产保全案件"]){
+    }else if ([arr1[0] isEqualToString:@"离婚案件"] || [arr1[0] isEqualToString:@"人格权案件"] || [arr1[0] isEqualToString:@"知识产权案件"] || [arr1[0] isEqualToString:@"财产保全案件"] || [arr1[0] isEqualToString:@"执行费"]){
         
         if (_isMoney == YES) {
             
@@ -139,6 +139,15 @@ static NSString *const COURTCELL = @"courtacceptcell";
             }else if ([arr1[0] isEqualToString:@"知识产权案件"]){
                 lastmoney = (_isHalf == YES)?[self involvingPropertyCalculationWithmoney:[[self propertyPreservationWithMoney:[moneyString floatValue]] floatValue]/2.f]:[self involvingPropertyCalculationWithmoney:[[self propertyPreservationWithMoney:[moneyString floatValue]] floatValue]];
                 NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",lastmoney], nil];
+                [self.dataSourceArrays addObject:arr2];
+                [self reloadTableViewWithAnimation];
+
+            }else if ([arr1[0] isEqualToString:@"执行费"]){
+                lastmoney = [self getExecutionFees:[moneyString floatValue]];
+                
+                lastmoney = (_isHalf == YES)? lastmoney/2.f : lastmoney;
+
+                NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f元",lastmoney], nil];
                 [self.dataSourceArrays addObject:arr2];
                 [self reloadTableViewWithAnimation];
 
@@ -174,6 +183,29 @@ static NSString *const COURTCELL = @"courtacceptcell";
     [self reloadTableViewWithAnimation];
 }
 #pragma mark -
+#pragma mark - 执行费
+- (float )getExecutionFees:(float)frontalMoney
+{
+    CGFloat lastmoney = 0.0f;
+    if (frontalMoney <= 10000) {
+        
+        lastmoney = 50.f;
+    }else if (frontalMoney > 10000 && frontalMoney <= 500000){
+        
+        lastmoney = 50.f + (frontalMoney - 10000.f) *0.015f;
+        
+    }else if (frontalMoney > 500000 && frontalMoney <= 5000000){
+        
+        lastmoney = 7400.f + (frontalMoney - 500000.f) *0.01f;
+    }else if (frontalMoney > 5000000 && frontalMoney <= 10000000){
+        
+        lastmoney = 52400.f + (frontalMoney - 5000000.f) *0.005f;
+    }else{
+        
+         lastmoney = 77400.f + (frontalMoney - 10000000.f) *0.001f;
+    }
+    return lastmoney;
+}
 #pragma mark - 离婚
 - (NSString *)divorceWithMoney:(float)frontalMoney
 {
@@ -326,7 +358,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
         _isMoney = YES;
         NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:caseString,@"",str2, nil];
         [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
-    }else if ([caseString isEqualToString:@"离婚案件"] || [caseString isEqualToString:@"人格权案件"] || [caseString isEqualToString:@"知识产权案件"] || [caseString isEqualToString:@"财产保全案件"]){
+    }else if ([caseString isEqualToString:@"离婚案件"] || [caseString isEqualToString:@"人格权案件"] || [caseString isEqualToString:@"知识产权案件"] || [caseString isEqualToString:@"财产保全案件"] || [caseString isEqualToString:@"执行费"]){
         NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:caseString,str1,@"",str2, nil];
         [_dataSourceArrays replaceObjectAtIndex:0 withObject:arr1];
 
@@ -419,7 +451,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
 - (NSMutableDictionary *)noMoneyDictionary
 {
     if (!_noMoneyDictionary) {
-        _noMoneyDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"30",@"财产保全案件",@"50,300",@"离婚案件",@"100,500",@"人格权案件",@"500,1000元",@"知识产权案件",@"10",@"劳动争议案件",@"50,100",@"管辖权异议不成立的案件",@"100",@"商标、专利、海事行政案件",@"50",@"其他行政案件",@"100",@"公示催告", nil];
+        _noMoneyDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"30",@"财产保全案件",@"50,300",@"离婚案件",@"100,500",@"人格权案件",@"500,1000元",@"知识产权案件",@"10",@"劳动争议案件",@"50,100",@"管辖权异议不成立的案件",@"100",@"商标、专利、海事行政案件",@"50",@"其他行政案件",@"100",@"公示催告",@"50,500",@"执行费", nil];
     }
     return _noMoneyDictionary;
 }

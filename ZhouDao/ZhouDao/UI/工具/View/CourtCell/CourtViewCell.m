@@ -90,7 +90,7 @@
                     break;
             }
 
-        }else if ([arr1[0] isEqualToString:@"离婚案件"] || [arr1[0] isEqualToString:@"人格权案件"] || [arr1[0] isEqualToString:@"知识产权案件"] || [arr1[0] isEqualToString:@"财产保全案件"] || [arr1[0] isEqualToString:@""]){
+        }else if ([arr1[0] isEqualToString:@"离婚案件"] || [arr1[0] isEqualToString:@"人格权案件"] || [arr1[0] isEqualToString:@"知识产权案件"] || [arr1[0] isEqualToString:@"财产保全案件"] || [arr1[0] isEqualToString:@"执行费"] || [arr1[0] isEqualToString:@""]){
             
             if (arr1.count == 3) {
                 

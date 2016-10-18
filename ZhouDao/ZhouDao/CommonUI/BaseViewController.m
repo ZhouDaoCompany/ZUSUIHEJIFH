@@ -155,7 +155,7 @@
                               Object:nil];
 }
 - (void)presentview:(NSNotification *)notification
-{WEAKSELF;
+{//WEAKSELF;
     /*
      {
      aps =     {

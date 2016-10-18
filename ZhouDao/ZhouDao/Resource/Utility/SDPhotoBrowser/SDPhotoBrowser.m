@@ -142,6 +142,13 @@
         
         [singleTap requireGestureRecognizerToFail:doubleTap];
         
+        //旋转手势
+        UIRotationGestureRecognizer *rotateGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(rotateGesture:)];
+        rotateGesture.delegate = self;
+        [imageView addGestureRecognizer:rotateGesture];
+        
+        
         [imageView addGestureRecognizer:singleTap];
         [imageView addGestureRecognizer:doubleTap];
         [_scrollView addSubview:imageView];
@@ -211,7 +218,12 @@
 
     [view doubleTapToZommWithScale:scale];
 }
-
+- (void)rotateGesture:(UIRotationGestureRecognizer *)sender
+{
+    UIView *view = sender.view;
+    CGFloat rotation = sender.rotation;
+    view.transform = CGAffineTransformMakeRotation(rotation);
+}
 - (void)layoutSubviews
 {
     [super layoutSubviews];

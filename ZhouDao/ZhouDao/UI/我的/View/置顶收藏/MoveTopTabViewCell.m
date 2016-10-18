@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     _zdImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];

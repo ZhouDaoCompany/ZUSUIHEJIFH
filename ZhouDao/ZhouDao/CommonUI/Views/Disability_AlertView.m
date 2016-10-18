@@ -118,7 +118,7 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
         [weakSelf zd_Windowclose];
     }];
 
-    _dataSourceArrays = [NSMutableArray arrayWithObjects:@[@"财产案件"],@[@"离婚案件",@"人格权案件",@"知识产权案件",@"劳动争议案件",@"财产保全案件",@"管辖权异议不成立的案件"],@[@"商标、专利、海事行政案件",@"其他行政案件"],@[@"支付令",@"公示催告"],nil];
+    _dataSourceArrays = [NSMutableArray arrayWithObjects:@[@"财产案件"],@[@"离婚案件",@"人格权案件",@"知识产权案件",@"劳动争议案件",@"财产保全案件",@"管辖权异议不成立的案件"],@[@"商标、专利、海事行政案件",@"其他行政案件"],@[@"执行费",@"支付令",@"公示催告"],nil];
     
 }
 #pragma mark - 单处伤残等级
