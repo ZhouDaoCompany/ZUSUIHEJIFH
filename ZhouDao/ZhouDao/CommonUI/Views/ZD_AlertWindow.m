@@ -163,8 +163,8 @@ static CGFloat kTransitionDuration = 0.3f;
 }
 - (void)selectButtonEvent:(NSInteger)index
 {
-    if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
-        [self.delegate alertView:self clickedButtonAtIndex:index];
+    if ([self.delegate respondsToSelector:@selector(customAlertView:clickedButtonAtIndex:)]) {
+        [self.delegate customAlertView:self clickedButtonAtIndex:index];
     }
     [self implementationBlockwithIndex:index];
 }

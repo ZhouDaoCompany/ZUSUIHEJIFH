@@ -170,21 +170,21 @@ static NSString *const cellIdentifer = @"cellIdentifer";
 //        CGSize size = [@"当日无日程，" boundingRectWithSize:CGSizeMake(300,MAXFLOAT)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
 //        DLog(@"大小－－－－－－%f",size.width);
         
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -196, 7, 76, 15)];
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -200, 7, 78, 15)];
         lab.textColor = SIXCOLOR;
         [lab setText:@"默认两种方式:"];
         lab.font = Font_12;
         lab.numberOfLines = 1;
         [cell.contentView addSubview:lab];
         
-        UILabel *lab1 = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -120, 7, 90, 15)];
+        UILabel *lab1 = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -122, 7, 92, 15)];
         lab1.textColor = SIXCOLOR;
         [lab1 setText:@"1、消息推送提醒"];
         lab1.font = Font_12;
         lab1.numberOfLines = 1;
         [cell.contentView addSubview:lab1];
 
-        UILabel *lab2 = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -120, 22, 68, 15)];
+        UILabel *lab2 = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth -122, 22, 70, 15)];
         lab2.textColor = SIXCOLOR;
         [lab2 setText:@"2、短信提醒"];
         lab2.font = Font_12;

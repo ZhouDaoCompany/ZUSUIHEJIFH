@@ -11,9 +11,9 @@
 #import "CollectionData.h"
 @interface MoveTopTabViewCell : SWTableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *lawNameLab;
-@property (weak, nonatomic) IBOutlet UILabel *unitLab;
-@property (weak, nonatomic) IBOutlet UILabel *dateLab;
+@property (nonatomic,strong)  UILabel *lawNameLab;
+@property (nonatomic,strong)  UILabel *unitLab;
+@property (nonatomic,strong)  UILabel *dateLab;
 @property (nonatomic,assign) NSUInteger moveSection;
 @property (nonatomic,strong) UIImageView *zdImgView;
 @property (nonatomic,strong) CollectionData *dataModel;

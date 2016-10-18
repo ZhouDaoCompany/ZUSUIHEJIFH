@@ -44,7 +44,7 @@ THE SOFTWARE.
 			<string>Copyright &#169; 2014 AutoNavi. All Rights Reserved.
 </string>
 			<key>Title</key>
-			<string>AMap3DMap</string>
+			<string>AMap3DMap-NO-IDFA</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -53,7 +53,7 @@ THE SOFTWARE.
 			<string>Copyright &#169; 2014 AutoNavi. All Rights Reserved.
 </string>
 			<key>Title</key>
-			<string>AMapFoundation</string>
+			<string>AMapFoundation-NO-IDFA</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -62,7 +62,7 @@ THE SOFTWARE.
 			<string>Copyright &#169; 2014 AutoNavi. All Rights Reserved.
 </string>
 			<key>Title</key>
-			<string>AMapLocation</string>
+			<string>AMapLocation-NO-IDFA</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -71,7 +71,7 @@ THE SOFTWARE.
 			<string>Copyright &#169; 2014 AutoNavi. All Rights Reserved.
 </string>
 			<key>Title</key>
-			<string>AMapNavi</string>
+			<string>AMapNavi-NO-IDFA</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -80,7 +80,7 @@ THE SOFTWARE.
 			<string>Copyright &#169; 2014 AutoNavi. All Rights Reserved.
 </string>
 			<key>Title</key>
-			<string>AMapSearch</string>
+			<string>AMapSearch-NO-IDFA</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

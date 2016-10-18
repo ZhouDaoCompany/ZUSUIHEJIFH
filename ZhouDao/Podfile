@@ -15,9 +15,9 @@ pod 'LCActionSheet', '~> 1.2.3'
 #pod 'BaiduMapKit'
 #高德地图
 #pod 'AMap2DMap' #2D地图SDK(2D地图和3D地图不能同时使用)
-#pod 'AMapNavi', '~> 2.0.0'                #导航SDK
-#pod 'AMapLocation', '~> 2.0.0'            #定位SDK
-#pod 'AMapSearch', '~> 4.0.0'              #搜索服务SDK
+pod 'AMapNavi-NO-IDFA', '~> 2.3.0'                 #导航SDK
+pod 'AMapLocation-NO-IDFA', '~> 2.1.1'             #定位SDK
+pod 'AMapSearch-NO-IDFA', '~> 4.3.0'               #搜索服务SDK
 #tabbar
 pod 'CYLTabBarController', '~> 1.5.6'     #TabBar1.2.1
 pod 'pop', '~> 1.0.9'

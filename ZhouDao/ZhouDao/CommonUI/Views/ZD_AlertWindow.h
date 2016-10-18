@@ -77,7 +77,7 @@ typedef enum {
 @protocol ZD_AlertWindowPro <NSObject>
 
 @optional
-- (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+- (void)customAlertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 - (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex withName:(NSString *)name withIndexPath:(NSIndexPath *)indexPath;
 
 @end

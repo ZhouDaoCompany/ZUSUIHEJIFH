@@ -196,7 +196,10 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         }
         
         if (!_startPoint) {
-            [JKPromptView showWithImageName:nil message:@"没有开启定位 ，请您开启定位"];
+//            [JKPromptView showWithImageName:nil message:@"没有开启定位 ，请您开启定位"];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"没有开启定位 ，请您开启定位" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去设置", nil];
+            alertView.tag = 6389;
+            [alertView show];
             return;
         }
         
@@ -205,8 +208,16 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         [self.view addSubview:alertWindow];
     }
 }
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 6389) {
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
+}
 #pragma mark - ZD_AlertWindowPro
-- (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)customAlertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (alertView.style == ZD_AlertViewStyleNAV) {
         if (buttonIndex == 0) {

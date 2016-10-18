@@ -510,7 +510,6 @@
 		18FF3F611C8530290098C60B /* FMUSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3F601C8530290098C60B /* FMUSystem.m */; };
 		18FF3F7B1C85617A0098C60B /* QHCommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3F7A1C85617A0098C60B /* QHCommonUtil.m */; };
 		18FF42D91C97AF6F00C6B29A /* MoveTopTabViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF42D71C97AF6F00C6B29A /* MoveTopTabViewCell.m */; };
-		18FF42DA1C97AF6F00C6B29A /* MoveTopTabViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FF42D81C97AF6F00C6B29A /* MoveTopTabViewCell.xib */; };
 		18FF42E01C9805C200C6B29A /* PublicFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF42DF1C9805C200C6B29A /* PublicFunction.m */; };
 		18FF42E41C9807AA00C6B29A /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF42E31C9807AA00C6B29A /* UserModel.m */; };
 		CB8B7D69D1C0D4E424CD327D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1523312781A5C0A89A2BBE53 /* libPods.a */; };
@@ -1350,7 +1349,6 @@
 		18FF3F7A1C85617A0098C60B /* QHCommonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHCommonUtil.m; sourceTree = "<group>"; };
 		18FF42D61C97AF6F00C6B29A /* MoveTopTabViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveTopTabViewCell.h; sourceTree = "<group>"; };
 		18FF42D71C97AF6F00C6B29A /* MoveTopTabViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveTopTabViewCell.m; sourceTree = "<group>"; };
-		18FF42D81C97AF6F00C6B29A /* MoveTopTabViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoveTopTabViewCell.xib; sourceTree = "<group>"; };
 		18FF42DE1C9805C200C6B29A /* PublicFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicFunction.h; sourceTree = "<group>"; };
 		18FF42DF1C9805C200C6B29A /* PublicFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicFunction.m; sourceTree = "<group>"; };
 		18FF42E21C9807AA00C6B29A /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
@@ -3589,7 +3587,6 @@
 			children = (
 				18FF42D61C97AF6F00C6B29A /* MoveTopTabViewCell.h */,
 				18FF42D71C97AF6F00C6B29A /* MoveTopTabViewCell.m */,
-				18FF42D81C97AF6F00C6B29A /* MoveTopTabViewCell.xib */,
 			);
 			path = "置顶收藏";
 			sourceTree = "<group>";
@@ -3837,7 +3834,6 @@
 				1895BDD71DACB89800EA5FF2 /* woman_court.caf in Resources */,
 				1065C34E1CA91BA4003F4089 /* laws_CaseSearch.jpg in Resources */,
 				18FBD84B1CED90CD00674D1E /* case_wenjainjia@2x.png in Resources */,
-				18FF42DA1C97AF6F00C6B29A /* MoveTopTabViewCell.xib in Resources */,
 				18EE9F051D586A4400F217BD /* Gov_Edit@2x.png in Resources */,
 				1065C34D1CA91BA4003F4089 /* law_yuyin@2x.png in Resources */,
 				188F9E3A1CF81AB7000F9B2D /* laws_lawsSearch@2x.png in Resources */,

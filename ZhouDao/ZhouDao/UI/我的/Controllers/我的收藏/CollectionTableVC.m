@@ -58,8 +58,8 @@ static NSString *const COLLECTIDENTIFER = @"collectionCellIdentifer";
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-   self.tableView.backgroundColor = ViewBackColor;
-    [self.tableView registerNib:[UINib nibWithNibName:@"MoveTopTabViewCell" bundle:nil] forCellReuseIdentifier:COLLECTIDENTIFER];
+    self.tableView.backgroundColor = ViewBackColor;
+    [self.tableView registerClass:[MoveTopTabViewCell class] forCellReuseIdentifier:COLLECTIDENTIFER];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
     // 马上进入刷新状态
