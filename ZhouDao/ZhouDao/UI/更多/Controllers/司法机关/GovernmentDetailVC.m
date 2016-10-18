@@ -211,7 +211,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == 6389) {
+    if (alertView.tag == 6389 && buttonIndex == 1) {
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }
@@ -376,7 +376,9 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     }
     //通过AMapGeocodeSearchResponse对象处理搜索结果
     DLog(@"多少个地址---- %@",[NSString stringWithFormat:@"count: %ld", (long)response.count]);
-    AMapTip *p = response.geocodes[0];
+    
+//    AMapTip *p = response.geocodes[0];
+    AMapGeocode *p = response.geocodes[0];
     self.endPoint   = [AMapNaviPoint locationWithLatitude:p.location.latitude longitude:p.location.longitude];
 //    DLog(@"Geocode: %@", result);
 }
