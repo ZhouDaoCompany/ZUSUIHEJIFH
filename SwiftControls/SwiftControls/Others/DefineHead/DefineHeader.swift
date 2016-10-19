@@ -15,11 +15,18 @@ let ScreenHeight : CGFloat = UIScreen.main.bounds.size.height
 
 // MARK: - 颜色
 func RGBA (r:CGFloat,_ g:CGFloat, _ b:CGFloat,_ a:CGFloat) -> UIColor {
+    
     return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
 }
+func RandomColor() -> UIColor {
+    let r = CGFloat((arc4random()%256))/255.0
+    let g = CGFloat(arc4random()%256)/255.0
+    let b = CGFloat(arc4random()%256)/255.0
 
-func RandomColor
+    return UIColor(red: r, green: g, blue: b, alpha: 1)
+}
 func RGB (r:CGFloat,_ g:CGFloat, _ b:CGFloat) -> UIColor {
+    
     return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: 1.0)
 }
 

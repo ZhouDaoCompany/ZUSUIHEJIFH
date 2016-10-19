@@ -4446,8 +4446,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZhouDao/ZhouDao.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = DX33K55M2K;
 				ENABLE_BITCODE = NO;
@@ -4473,8 +4473,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2b2927f5-a712-4700-9af4-b28dd0bb90a5";
-				PROVISIONING_PROFILE_SPECIFIER = 7_07hffb;
+				PROVISIONING_PROFILE = "55269414-18e0-45c0-9709-59af8fb4c25c";
+				PROVISIONING_PROFILE_SPECIFIER = 10_08;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
@@ -4487,8 +4487,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ZhouDao/ZhouDao.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dao Zhou Network Technology Co., Ltd (DX33K55M2K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
 				DEVELOPMENT_TEAM = DX33K55M2K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4513,8 +4513,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2b2927f5-a712-4700-9af4-b28dd0bb90a5";
-				PROVISIONING_PROFILE_SPECIFIER = 7_07hffb;
+				PROVISIONING_PROFILE = "55269414-18e0-45c0-9709-59af8fb4c25c";
+				PROVISIONING_PROFILE_SPECIFIER = 10_08;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};

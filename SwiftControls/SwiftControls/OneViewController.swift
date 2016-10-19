@@ -12,11 +12,19 @@ protocol OneViewControllerDelegate {
     
     func changeBackGroundColor(color :UIColor)
 }
+private func myBlock(color : UIColor){
+    
+}
+
+//无参无返回值
+typealias funcBlock = (_ color : UIColor) -> Void
+
 
 class OneViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var tableView : UITableView!
     var delegate : OneViewControllerDelegate!
+    var testBlock : funcBlock!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +56,7 @@ class OneViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         cell?.selectionStyle = UITableViewCellSelectionStyle.none
         cell?.textLabel?.font = FONT(size: 15)
         cell?.textLabel?.text = "第 \(indexPath.row)行"
+        cell?.backgroundColor = RandomColor()
         return cell!
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -59,9 +68,15 @@ class OneViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if delegate != nil {
-            delegate!.changeBackGroundColor()
+//        if delegate != nil {
+//            delegate!.changeBackGroundColor(color: RandomColor())
+//        }
+        if (testBlock != nil) {
+            
+            testBlock(RandomColor())
         }
+        
+        self.navigationController?.popViewController(animated: true)
         
     }
     

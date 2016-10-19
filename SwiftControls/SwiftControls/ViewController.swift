@@ -31,14 +31,18 @@ class ViewController: UIViewController , OneViewControllerDelegate {
         
         let  oneVC = OneViewController()
         oneVC.delegate = self
+        oneVC.testBlock { (color) in
+            http://blog.csdn.net/lqq200912408/article/details/51774555
+            
+        }
         self.navigationController?.pushViewController(oneVC, animated: true)
         
     }
     
     // MARK: OneViewControllerDelegate
-    func changeBackGroundColor() {
+    func changeBackGroundColor(color: UIColor) {
         
-        self.view.backgroundColor = UIColor.red
+        self.view.backgroundColor = color
     }
     
 //    private var rightBtn : UIButton {

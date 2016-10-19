@@ -19,6 +19,8 @@ class CustomHeadview: UIView ,UIScrollViewDelegate {
     var previousImgView : UIImageView!
     var currentImgView  : UIImageView!
     var nextImgView     : UIImageView!
+    var pageControl : UIPageControl!
+    
 
     let myTimer : String = "myTimer"
     
@@ -48,7 +50,7 @@ class CustomHeadview: UIView ,UIScrollViewDelegate {
         scrollView.contentSize = CGSize(width: ViewWidth(view: self) * 3, height: ViewHeight(view: self))
         scrollView.bounces = false;
 
-         previousImgView = UIImageView(frame: rect)
+        previousImgView = UIImageView(frame: rect)
         previousImgView.contentMode = UIViewContentMode.scaleAspectFill
         
         let rect1 = CGRect(x: ViewWidth(view: self), y: 0, width: ViewWidth(view: self), height: ViewHeight(view: self))
@@ -64,7 +66,19 @@ class CustomHeadview: UIView ,UIScrollViewDelegate {
         scrollView.addSubview(self.currentImgView)
         scrollView.addSubview(self.nextImgView)
         
+        
+        pageControl = UIPageControl(frame: CGRect(x: 0, y: ViewHeight(view: self) - 20, width: ViewWidth(view: self), height: 20))
+        pageControl.numberOfPages = imageArrays.count
+        pageControl.currentPage = 0;
+        pageControl.addTarget(self, action: #selector(pageChange(_:)), for: UIControlEvents.valueChanged)
+        
+        self.addSubview(pageControl)
         reloadImageView()
+    }
+    
+    func pageChange(_ pageControl : UIPageControl!) {
+        
+        
     }
     
     // MARK: -取值
@@ -114,6 +128,10 @@ class CustomHeadview: UIView ,UIScrollViewDelegate {
            
             currentIndex -= 1
         }
+        
+        let num = scrollView.contentOffset.x / ViewWidth(view: self)
+        pageControl.currentPage = Int(num)
+        
         reloadImageView()
     }
     
@@ -129,10 +147,15 @@ class CustomHeadview: UIView ,UIScrollViewDelegate {
         let rect = CGRect(x: ViewWidth(view: self) * 2, y: 0, width: ViewWidth(view: self), height: ViewHeight(view: self))
         
         scrollView.scrollRectToVisible(rect, animated: false)
+        
+
         currentIndex += 1
 
         GCD_Delay(seconds: 0.3) { [weak self] in
    
+            let num = (self?.scrollView.contentOffset.x)! / ViewWidth(view: self!)
+            self?.pageControl.currentPage = Int(num)
+
             self?.reloadImageView()
         }
     }
