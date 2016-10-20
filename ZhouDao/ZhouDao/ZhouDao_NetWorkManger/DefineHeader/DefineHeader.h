@@ -169,11 +169,17 @@ __TIMER = nil;\
 /**
  * NSLog宏，限定仅在Debug时才打印,release不打印，防止拖慢程序运行
  */
+//#ifdef DEBUG
+//#define DLog(...) NSLog(@"%s 第%d行 \n %@\n\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
+//#else
+//#define DLog(...)
+//#endif
 #ifdef DEBUG
-#define DLog(...) NSLog(@"%s 第%d行 \n %@\n\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
+#define DLog(s, ... ) NSLog( @"[%@ in line %d] ===============>%@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
 #else
-#define DLog(...)
+#define DLog(s, ... )
 #endif
+
 
 //宏定义方法
 #define SHOW_ALERT(msg) UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];\
