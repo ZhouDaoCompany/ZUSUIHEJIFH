@@ -291,7 +291,7 @@
 #pragma mark -验证手机号是否注册
 + (void)validationPhoneNumber:(NSString *)phone
                RequestSuccess:(void(^)())success
-                         fail:(void (^)(NSString *msg))fail {WEAKSELF;
+                         fail:(void (^)(NSString *msg))fail {
     //发个请求验证手机号码
     NSString *phoneUrl = [NSString stringWithFormat:@"%@%@mobile=%@",kProjectBaseUrl,VerifyTheMobile,phone];
     [ZhouDao_NetWorkManger getWithUrl:phoneUrl sg_cache:NO success:^(id response) {
@@ -670,7 +670,6 @@
             [allArr addObject:model];
         }];
         success(allArr,index);
-
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
@@ -1068,7 +1067,7 @@
     }];
 }
 #pragma mark -案件搜索  案件筛选
-+ (void)arrangeSearchUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail {WEAKSELF;
++ (void)arrangeSearchUrl:(NSString *)url RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail {
     [MBProgressHUD showMBLoadingWithText:nil];
     [ZhouDao_NetWorkManger getWithUrl:url sg_cache:NO success:^(id response) {
         
@@ -1306,7 +1305,6 @@
     [ZhouDao_NetWorkManger getWithUrl:url sg_cache:NO success:^(id response) {
         
         [[weakSelf class] getResponseObjectCommonMethods:response];
-        NSDictionary *jsonDic = (NSDictionary *)response;
         success();
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];

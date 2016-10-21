@@ -61,10 +61,8 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         }];
         [SCIntroView showIntrolViewFromView:[QZManager getWindow] dataSource:self introViewContentImageMode:SCIntroViewContentImageModeDefault introViewDoneMode:SCIntroViewDoneModeDefault];
     }
-    
 
     [self initUI];
-    
 }
 - (void)initUI
 {

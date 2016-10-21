@@ -73,19 +73,21 @@ static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
     if (_isStart == YES) {
         [self.rightBtn setTitle:@"取消" forState:0];
     }else {
+        [ZhouDao_NetWorkManger cancelAllRequest];
         [self.rightBtn setTitle:@"上传" forState:0];
     }
     [_tableView reloadData];
 }
 #pragma mark  ZD_AlertWindowPro
-- (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex withName:(NSString *)name withIndexPath:(NSIndexPath *)indexPath
-{
+- (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex withName:(NSString *)name withIndexPath:(NSIndexPath *)indexPath {
     if (alertView.tag == 7003) {
         
         if (_isStart == YES) {
             _isStart = NO;
             [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         }
+        [ZhouDao_NetWorkManger cancelAllRequest];
+
         if (_reloadBlock) {
             _reloadBlock();
         }

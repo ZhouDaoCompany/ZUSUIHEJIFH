@@ -218,20 +218,27 @@ static inline NSString *cachePath() {
                               progress:(ZDDownloadProgress)progress
                                success:(ZDResponseSuccess)success
                                   fail:(ZDResponseFail)fail {
-    if ([self shouldEncode]) {
-        url = [self encodeUrl:url];
-    }
     
+//    if ([self shouldEncode]) {
+//        url = [self encodeUrl:url];
+//    }
+    url = [self encodeUrl:url];
+
     AFHTTPSessionManager *manager = [self manager];
-    NSString *absolute = url;//[self absoluteUrlWithPath:url];
+    NSString *absolute = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];//[self absoluteUrlWithPath:url];
     
     NSURL *absoluteURL = [NSURL URLWithString:absolute];
     
     if (absoluteURL == nil) {
         DLog(@"URLString无效，无法生成URL。可能是URL中有中文，请尝试Encode URL");
-        return nil;
     }
     
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [MBProgressHUD hideHUD];
+    });
+
     ZDURLSessionTask *session = nil;
     
     if (httpMethod == 1) {

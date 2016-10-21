@@ -252,7 +252,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
             [USER_D removeObjectForKey:keyIdentifer];
             [USER_D removeObjectForKey:SearchIdentifer];
             [USER_D synchronize];
-            
+
             //删除别名
             [UMessage removeAlias:[NSString stringWithFormat:@"uid_%@",UID] type:@"ZDHF" response:^(id responseObject, NSError *error) {
                 DLog(@"移除成功-----%@",responseObject);
@@ -439,6 +439,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 - (void)clearApplicationCaChe{WEAKSELF;
     [MBProgressHUD showMBLoadingWithText:@"清理中..."];
     [[SDImageCache sharedImageCache] cleanDisk];
+    [ZhouDao_NetWorkManger clearCaches];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask, YES) objectAtIndex:0];
         

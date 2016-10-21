@@ -41,6 +41,15 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 
 @implementation GovernmentListVC
 
+- (void)dealloc
+{
+    NSString *url1 = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,goverAllClasslist];
+    NSString *url2 = (_prov.length == 0) ? [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld",kProjectBaseUrl,judicialList,_pid,_cid,(unsigned long)_page] : [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld&prov=%@&city=%@&area=%@",kProjectBaseUrl,judicialList,_pid,_cid,(unsigned long)_page,_prov,_city,_areas];
+
+    [ZhouDao_NetWorkManger cancelRequestWithURL:url1];
+    [ZhouDao_NetWorkManger cancelRequestWithURL:url2];
+}
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
