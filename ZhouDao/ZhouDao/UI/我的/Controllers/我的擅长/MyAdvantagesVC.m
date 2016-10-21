@@ -49,20 +49,22 @@ static float const kCollectionViewCellsHorizonMargin          = 5.f;//每个item
     [self initUI];
 }
 - (void)getData
-{
+{WEAKSELF;
     [MBProgressHUD showMBLoadingWithText:nil];
     NSString *dmainUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,DomainList];
-    [ZhouDao_NetWorkManger GetJSONWithUrl:dmainUrl success:^(NSDictionary *jsonDic) {
-       [MBProgressHUD hideHUD];
+    [ZhouDao_NetWorkManger getWithUrl:dmainUrl sg_cache:NO success:^(id response) {
+        
+        [MBProgressHUD hideHUD];
+        NSDictionary *jsonDic = (NSDictionary *)response;
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
             [JKPromptView showWithImageName:nil message:msg];
             return ;
         }
-        [self analyticalData:jsonDic];
-        
-    } fail:^{
+        [weakSelf analyticalData:jsonDic];
+
+    } fail:^(NSError *error) {
         [MBProgressHUD showError:AlrertMsg];
     }];
     
@@ -365,9 +367,10 @@ referenceSizeForHeaderInSection:(NSInteger)section
             NSString *addUrl = [NSString stringWithFormat:@"%@%@uid=%@&special=%@",kProjectBaseUrl,DomainAdd,UID,GET(dominString)];
             
             [MBProgressHUD showMBLoadingWithText:nil];
-            [ZhouDao_NetWorkManger GetJSONWithUrl:addUrl success:^(NSDictionary *jsonDic) {
-                
+            [ZhouDao_NetWorkManger getWithUrl:addUrl sg_cache:NO success:^(id response) {
+               
                 [MBProgressHUD hideHUD];
+                NSDictionary *jsonDic = (NSDictionary *)response;
                 NSUInteger errorcode = [jsonDic[@"state"] integerValue];
                 NSString *msg = jsonDic[@"info"];
                 [JKPromptView showWithImageName:nil message:msg];
@@ -376,17 +379,19 @@ referenceSizeForHeaderInSection:(NSInteger)section
                 }
                 weakSelf.domainBlock(weakSelf.selectArrays);
                 
-                [self dismissViewControllerAnimated:YES completion:^{
+                [weakSelf dismissViewControllerAnimated:YES completion:^{
                     
                     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
                 }];
-                
-            } fail:^{
-                [self dismissViewControllerAnimated:YES completion:^{
+
+            } fail:^(NSError *error) {
+               
+                [weakSelf dismissViewControllerAnimated:YES completion:^{
                     
                     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
                 }];
                 [MBProgressHUD showError:AlrertMsg];
+
             }];
 
         }else{

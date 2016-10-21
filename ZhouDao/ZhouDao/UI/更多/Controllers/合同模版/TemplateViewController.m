@@ -65,62 +65,27 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     
     WEAKSELF;
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+       
         [weakSelf.collectionView.mj_header endRefreshing];
         [weakSelf loadData];
     }];
-    NSArray *arrays = [USER_D objectForKey:TemplateStorage];
-    if (arrays.count >0) {
-        [weakSelf.dataSourceArr removeAllObjects];
-        NSArray *nameArr = [USER_D objectForKey:@"nameArr"];
-        NSArray *idArrays = [USER_D objectForKey:@"idArrays"];
-        [_nameArrays addObjectsFromArray:nameArr];
-        [_idArrays addObjectsFromArray:idArrays];
-        [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            TheContractData *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-            [weakSelf.dataSourceArr addObject:model];
-        }];
-        [weakSelf.collectionView reloadData];
-    }
-    /**
-     *  加载新数据
-     */
+
     [self loadData];
-//    [self.collectionView.mj_header beginRefreshing];
 }
 - (void)loadData
 {WEAKSELF;
     [NetWorkMangerTools theContractFirstListRequestSuccess:^(NSArray *arrays, NSArray *nameArr, NSArray *idArrays) {
         
         if (arrays.count>0) {
-            [_dataSourceArr removeAllObjects];
-            [_nameArrays removeAllObjects];
-            [_idArrays removeAllObjects];
-            [_dataSourceArr addObjectsFromArray:arrays];
-        }
-        [_nameArrays addObjectsFromArray:nameArr];
-        [_idArrays addObjectsFromArray:idArrays];
-        [weakSelf.collectionView reloadData];
-        NSMutableArray *arr = [NSMutableArray array];
-        [arrays enumerateObjectsUsingBlock:^(TheContractData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
-            [arr addObject:data];
-        }];
-        [USER_D setObject:arr forKey:TemplateStorage];
-        [USER_D setObject:nameArr forKey:@"nameArr"];
-        [USER_D setObject:idArrays forKey:@"idArrays"];
-
-        [USER_D synchronize];
-    } fail:^{
-        NSArray *arrays = [USER_D objectForKey:TemplateStorage];
-        if (arrays.count >0) {
             [weakSelf.dataSourceArr removeAllObjects];
-            [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                TheContractData *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-                [weakSelf.dataSourceArr addObject:model];
-            }];
-            [weakSelf.collectionView reloadData];
+            [weakSelf.nameArrays removeAllObjects];
+            [weakSelf.idArrays removeAllObjects];
+            [weakSelf.dataSourceArr addObjectsFromArray:arrays];
         }
+        [weakSelf.nameArrays addObjectsFromArray:nameArr];
+        [weakSelf.idArrays addObjectsFromArray:idArrays];
+        [weakSelf.collectionView reloadData];
+    } fail:^{
     }];
 }
 #pragma mark - UICollectionViewDataSource

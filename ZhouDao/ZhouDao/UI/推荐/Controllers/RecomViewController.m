@@ -45,7 +45,6 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
     _tableView.tableHeaderView = self.headView;
 
     
-    [self loadCacheData];
     [self loadNewData];
     
 //    [_tableView.mj_header beginRefreshing];
@@ -99,19 +98,6 @@ static NSString *const RecomCellIdentifier = @"RecomCellIdentifier";
         [weakSelf.dataSourceArrays addObjectsFromArray:hotArr];
         [weakSelf.tableView reloadData];
     } fail:^{
-//        [weakSelf loadCacheData];
-    }];
-}
-- (void)loadCacheData{
-    WEAKSELF;
-    [NetWorkMangerTools recomTheCacheSuccess:^(NSArray *hdArr, NSArray *xfArr, NSArray *jdArr, NSArray *hotArr) {
-        
-        [weakSelf.dataSourceArrays removeAllObjects];
-        [weakSelf.headView setFlipPageArr:xfArr];
-        [weakSelf.headView setRecomArrays:hdArr];
-        [weakSelf.headView setJdArrays:jdArr];
-        [weakSelf.dataSourceArrays addObjectsFromArray:hotArr];
-        [weakSelf.tableView reloadData];
     }];
 }
 #pragma mark -UITableViewDataSource

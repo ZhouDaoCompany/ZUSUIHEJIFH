@@ -271,14 +271,6 @@
 + (void)recomViewAllRequestSuccess:(void (^)(NSArray *hdArr,NSArray *xfArr,NSArray *jdArr,NSArray *hotArr))success
                               fail:(void (^)())fail;
 /**
- * 推荐缓存
- */
-+ (void)recomTheCacheSuccess:(void (^)(NSArray *hdArr,NSArray *xfArr,NSArray *jdArr,NSArray *hotArr))success;
-/**
- * 首页缓存
- */
-+ (void)readHomeTheCacheSuccess:(void (^)(NSArray *hdArr,NSArray *hotArr))success;
-/**
  * 首页全部
  */
 + (void)homeViewAllDataRequestSuccess:(void (^)(NSArray *hdArr,NSArray *hotArr))success
@@ -349,11 +341,6 @@
  * 版本更新
  */
 + (void)checkHistoryVersionRequestSuccess:(void (^)(NSString *desc))success;
-/**
- * 工具分享链接
- */
-+ (void)toolsSharewithParaDic:(NSDictionary *)dict
-               RequestSuccess:(void (^)(NSString *shareUrl))success;
 /**
  * 查看全部日程
  */

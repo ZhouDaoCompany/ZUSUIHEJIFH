@@ -177,7 +177,7 @@
     };
     [self.navigationController pushViewController:registerVC animated:YES];
 }
-- (IBAction)forgetAndLoginEvent:(id)sender {
+- (IBAction)forgetAndLoginEvent:(id)sender {WEAKSELF;
     UIButton *button = (UIButton *)sender;
     NSUInteger index = button.tag;
     
@@ -187,7 +187,7 @@
             FindKeyViewController *findVC = [FindKeyViewController new];
             findVC.navTitle = @"找回密码";
             findVC.findBlock = ^(NSString *phone){
-                _nameText.text = phone;
+                weakSelf.nameText.text = phone;
             };
             [self.navigationController  pushViewController:findVC animated:YES];
         }
@@ -203,8 +203,7 @@
                 return;
             }
             
-            
-            if ([QZManager isValidatePassword:_keyText.text] == NO)
+            if (![QZManager isValidatePassword:_keyText.text])
             {
                 [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合，请您仔细检查"];
                 return;
@@ -212,8 +211,10 @@
             [MBProgressHUD showMBLoadingWithText:@"登录中..."];
 
             NSString *loginurl = [NSString stringWithFormat:@"%@%@mobile=%@&pw=%@",kProjectBaseUrl,LoginUrlString,_nameText.text,[_keyText.text md5]];
-            [ZhouDao_NetWorkManger GetJSONWithUrl:loginurl success:^(NSDictionary *jsonDic) {
+            [ZhouDao_NetWorkManger getWithUrl:loginurl sg_cache:NO success:^(id response) {
+                
                 [MBProgressHUD hideHUD];
+                NSDictionary *jsonDic = (NSDictionary *)response;
                 NSUInteger errorcode = [jsonDic[@"state"] integerValue];
                 NSString *msg = jsonDic[@"info"];
                 if (errorcode !=1) {
@@ -224,9 +225,9 @@
                 
                 [USER_D setObject:_nameText.text forKey:StoragePhone];
                 [USER_D setObject:[_keyText.text md5] forKey:StoragePassword];
-//                [USER_D removeObjectForKey:StorageTYPE];
-//                [USER_D removeObjectForKey:StorageUSID];
-
+                //                [USER_D removeObjectForKey:StorageTYPE];
+                //                [USER_D removeObjectForKey:StorageUSID];
+                
                 [USER_D synchronize];
                 UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
                 [PublicFunction ShareInstance].m_user = model;
@@ -236,7 +237,7 @@
                 //                [UMessage addAlias:@"22222" type:@"ZDHF" response:^(id responseObject, NSError *error) {
                 //                    DLog(@"888-----%@",responseObject);
                 //                }];
-
+                
                 [UMessage setAlias:[NSString stringWithFormat:@"uid_%@",UID] type:@"ZDHF" response:^(id responseObject, NSError *error) {
                     
                     DLog(@"添加成功-----%@",responseObject);
@@ -245,13 +246,14 @@
                         response:^(id responseObject, NSInteger remain, NSError *error) {
                             DLog(@"添加标签成功-----%@",responseObject);
                         }];
+                
+                //                [NetWorkMangerTools getaWekRemindsRequestSuccess:^{
+                //
+                //                }];
+                
+                [weakSelf rightBtnAction];
 
-//                [NetWorkMangerTools getaWekRemindsRequestSuccess:^{
-//                    
-//                }];
-
-                [self rightBtnAction];
-            } fail:^{
+            } fail:^(NSError *error) {
                 [MBProgressHUD showError:AlrertMsg];
             }];
         }

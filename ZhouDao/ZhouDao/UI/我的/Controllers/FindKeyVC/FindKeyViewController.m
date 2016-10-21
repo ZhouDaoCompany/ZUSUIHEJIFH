@@ -106,7 +106,7 @@
     return YES;
 }
 #pragma mark -UIButtonEvent
-- (IBAction)getCodeOrResetEvent:(id)sender {
+- (IBAction)getCodeOrResetEvent:(id)sender {WEAKSELF;
     UIButton *btn = (UIButton *)sender;
     NSUInteger index = btn.tag;
     
@@ -136,7 +136,6 @@
                 }
             }else{
                 [JKPromptView showWithImageName:nil message:@"请您填写手机号嘛!"];
-
             }
         }
             break;
@@ -166,8 +165,10 @@
             [MBProgressHUD showMBLoadingWithText:@"提交中..."];
 
             NSString *forgetUrl = [NSString stringWithFormat:@"%@%@mobile=%@&pw=%@",kProjectBaseUrl,ForgetKey,_phoneText.text,[_keyText.text md5]];
-            [ZhouDao_NetWorkManger GetJSONWithUrl:forgetUrl success:^(NSDictionary *jsonDic) {
+            [ZhouDao_NetWorkManger getWithUrl:forgetUrl sg_cache:NO success:^(id response) {
+                
                 [MBProgressHUD hideHUD];
+                NSDictionary *jsonDic = (NSDictionary *)response;
                 NSUInteger errorcode = [jsonDic[@"state"] integerValue];
                 NSString *msg = jsonDic[@"info"];
                 if (errorcode !=1) {
@@ -178,14 +179,15 @@
                 
                 [USER_D setObject:_phoneText.text forKey:StoragePhone];
                 [USER_D setObject:[_keyText.text md5] forKey:StoragePassword];
-//                [USER_D removeObjectForKey:StorageTYPE];
-//                [USER_D removeObjectForKey:StorageUSID];
-
+                //                [USER_D removeObjectForKey:StorageTYPE];
+                //                [USER_D removeObjectForKey:StorageUSID];
+                
                 [USER_D synchronize];
                 
-                self.findBlock(_phoneText.text);
-                [self.navigationController popViewControllerAnimated:YES];
-            } fail:^{
+                weakSelf.findBlock(_phoneText.text);
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+
+            } fail:^(NSError *error) {
                 [MBProgressHUD showError:AlrertMsg];
             }];
             

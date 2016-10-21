@@ -117,30 +117,6 @@
     return nil;
 }
 
-#pragma mark -分享按钮
-- (void)testObjcCallback:(NSDictionary *)dict
-{WEAKSELF;
-    [NetWorkMangerTools toolsSharewithParaDic:dict RequestSuccess:^(NSString *shareUrl) {
-        
-        NSString *contentString;
-        if (_tType == FromHotType) {
-            contentString = GET(weakSelf.shareContent);
-        }else{
-            contentString = GET(weakSelf.navTitle);
-        }
-        NSString *title = @"周道慧法";
-        NSString *url = GET(shareUrl);
-        NSString *imgUrlString = _imgUrlString;
-        NSArray *arrays = [NSArray arrayWithObjects:title,contentString,url,imgUrlString, nil];
-        [ShareView CreatingPopMenuObjectItmes:ShareObjs
-                                contentArrays:arrays
-                      withPresentedController:self
-                       SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
-                           
-                       }];
-    }];
-}
-
 #pragma mark -UIButtonEvent
 - (void)rightBtnAction
 {

@@ -9,8 +9,8 @@
 #import "QiniuToken.h"
 #import <CommonCrypto/CommonHMAC.h>
 #import <CommonCrypto/CommonCryptor.h>
-#import "GTMDefines.h"
-#import "GTMBase64.h"
+#import "QUMDefines.h"
+#import "QUMBase64.h"
 
 @implementation QiniuToken
 
@@ -85,7 +85,7 @@ static QiniuToken *qiniuToken = nil;
 
 - (NSString *)urlSafeBase64Encode:(NSData *)text
 {
-    NSString *base64 = [[NSString alloc] initWithData:[GTMBase64 encodeData:text]
+    NSString *base64 = [[NSString alloc] initWithData:[QUMBase64 encodeData:text]
                                              encoding:NSUTF8StringEncoding];
     base64 = [base64 stringByReplacingOccurrencesOfString:@"+" withString:@"-"];
     base64 = [base64 stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
@@ -101,7 +101,7 @@ static QiniuToken *qiniuToken = nil;
 -(NSString*)encryptMD5String:(NSString*)string{
     const char *cStr = [string UTF8String];
     unsigned char result[32];
-    CC_MD5( cStr, strlen(cStr),result );
+    CC_MD5( cStr, (CC_LONG)strlen(cStr),result );
     NSMutableString *hash =[NSMutableString string];
     for (int i = 0; i < 16; i++)
         [hash appendFormat:@"%02X", result[i]];

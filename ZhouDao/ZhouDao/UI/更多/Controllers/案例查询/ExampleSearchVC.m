@@ -79,18 +79,6 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         [weakSelf loadData];
     }];
     
-    NSArray *arrays = [USER_D objectForKey:ExampleSearchStorage];
-    if (arrays.count >0) {
-        [self.dataSourceArr removeAllObjects];
-        [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            ExampleData *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-            [weakSelf.dataSourceArr addObject:model];
-        }];
-        [weakSelf.collectionView reloadData];
-    }else{
-        [MBProgressHUD showMBLoadingWithText:nil];
-    }
     [self loadData];
 
 }
@@ -101,24 +89,8 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
             [weakSelf.dataSourceArr removeAllObjects];
             [weakSelf.dataSourceArr addObjectsFromArray:arr];
             [weakSelf.collectionView reloadData];
-            NSMutableArray *arrays = [NSMutableArray array];
-            [arr enumerateObjectsUsingBlock:^(ExampleData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
-                [arrays addObject:data];
-            }];
-            [USER_D setObject:arrays forKey:ExampleSearchStorage];
-            [USER_D synchronize];
         }
     } fail:^{
-        NSArray *arrays = [USER_D objectForKey:ExampleSearchStorage];
-        if (arrays.count >0) {
-            [weakSelf.dataSourceArr removeAllObjects];
-            [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                ExampleData *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-                [weakSelf.dataSourceArr addObject:model];
-            }];
-            [weakSelf.collectionView reloadData];
-        }
     }];
 }
 #pragma mark - UICollectionViewDataSource

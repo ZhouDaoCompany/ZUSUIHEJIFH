@@ -105,18 +105,6 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
    //    // 马上进入刷新状态
 //    [_tableView.mj_header beginRefreshing];
     
-    NSArray *arrays = DEF_PERSISTENT_GET_OBJECT(LawsStorage);
-    if (arrays.count >0) {
-        [_dataArrays removeAllObjects];
-        [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            LawsDataModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-            [_dataArrays addObject:model];
-        }];
-        [_tableView reloadData];
-    }else{
-        [MBProgressHUD showMBLoadingWithText:@"正在加载..."];
-    }
     [self loadNewData];
 
    /* UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -137,23 +125,7 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
         [weakSelf.dataArrays removeAllObjects];
         [weakSelf.dataArrays addObjectsFromArray:arr];
         [weakSelf.tableView reloadData];
-        NSMutableArray *arrays = [NSMutableArray array];
-        [arr enumerateObjectsUsingBlock:^(LawsDataModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
-            [arrays addObject:data];
-        }];
-        [USER_D setObject:arrays forKey:LawsStorage];
-        [USER_D synchronize];
     } fail:^{
-        NSArray *arrays = [USER_D objectForKey:LawsStorage];
-        if (arrays.count >0) {
-            [weakSelf.dataArrays removeAllObjects];
-            [arrays enumerateObjectsUsingBlock:^(NSData *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                LawsDataModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-                [weakSelf.dataArrays addObject:model];
-            }];
-            [_tableView reloadData];
-        }
     }];
 }
 #pragma mark ------ 下拉刷新

@@ -60,15 +60,18 @@ static NSString *const PlanCellIdentifier = @"planCellIdentifier";
     WEAKSELF;
     [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@time=%@&uid=%@",kProjectBaseUrl,RemindList,dateString,UID];
-    [ZhouDao_NetWorkManger GetJSONWithUrl:url success:^(NSDictionary *jsonDic) {
+    
+    [ZhouDao_NetWorkManger getWithUrl:url sg_cache:NO success:^(id response) {
+       
+        NSDictionary *jsonDic = (NSDictionary *)response;
         [MBProgressHUD hideHUD];
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         weakSelf.tableView.tableFooterView = nil;
         [weakSelf.lookView removeFromSuperview];
-
-//        NSString *msg = jsonDic[@"info"];
+        
+        //        NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
-//            [JKPromptView showWithImageName:nil message:msg];
+            //            [JKPromptView showWithImageName:nil message:msg];
             weakSelf.lookView = [weakSelf lookAllScheduleView];
             [weakSelf.view addSubview:weakSelf.lookView];
             return ;
@@ -90,9 +93,11 @@ static NSString *const PlanCellIdentifier = @"planCellIdentifier";
             weakSelf.tableView.tableFooterView = [weakSelf tabFootBtn];
         }
         [weakSelf.tableView reloadData];
-    } fail:^{
+
+    } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
     }];
+    
 }
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -409,39 +409,44 @@
     
     [MBProgressHUD showMBLoadingWithText:nil];
     UIDevice *device = [UIDevice currentDevice];
-    NSString *deviceUDID = [NSString stringWithFormat:@"%@",device.identifierForVendor];
+    NSString *deviceUDID = [[device identifierForVendor] UUIDString];
     DLog(@"输出设备的id---%@",deviceUDID);
 
     NSString *regiserUrl = [NSString stringWithFormat:@"%@%@mobile=%@&pw=%@&type=%@&udid=%@",kProjectBaseUrl,RegisterUrlString,_phoneText.text,[_keyText.text md5],_typeString,deviceUDID];
-    [ZhouDao_NetWorkManger GetJSONWithUrl:regiserUrl success:^(NSDictionary *jsonDic) {
+    [ZhouDao_NetWorkManger getWithUrl:regiserUrl sg_cache:NO success:^(id response) {
+        
+        [MBProgressHUD hideHUD];
+        NSDictionary *jsonDic = (NSDictionary *)response;
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
+        [JKPromptView showWithImageName:nil message:msg];
         if (errorcode !=1) {
-            [MBProgressHUD showError:msg];
             return ;
         }
-        [MBProgressHUD showSuccess:msg];
-//        self.successRegisterBlock(_phoneText.text,_keyText.text);
+        //        self.successRegisterBlock(_phoneText.text,_keyText.text);
         [weakSelf loginMethod];
         
         /*****************立即认证*******************************/
-//        if ([_professionalLab.text isEqualToString:@"执业律师"]) {
-//            ImmediatelyVC *vc = [ImmediatelyVC new];
-//            vc.cerType = FromRegister;
-//            [weakSelf.navigationController pushViewController:vc animated:YES];
-//        }else{
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
-//        }
-    } fail:^{
-        [MBProgressHUD showError:AlrertMsg];
+        //        if ([_professionalLab.text isEqualToString:@"执业律师"]) {
+        //            ImmediatelyVC *vc = [ImmediatelyVC new];
+        //            vc.cerType = FromRegister;
+        //            [weakSelf.navigationController pushViewController:vc animated:YES];
+        //        }else{
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        //        }
+
+    } fail:^(NSError *error) {
+        [MBProgressHUD hideHUD];
+        [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];
-    
 }
 - (void)loginMethod
 {
     NSString *loginurl = [NSString stringWithFormat:@"%@%@mobile=%@&pw=%@",kProjectBaseUrl,LoginUrlString,_phoneText.text,[_keyText.text md5]];
-    [ZhouDao_NetWorkManger GetJSONWithUrl:loginurl success:^(NSDictionary *jsonDic) {
+    [ZhouDao_NetWorkManger getWithUrl:loginurl sg_cache:NO success:^(id response) {
         
+        [MBProgressHUD hideHUD];
+        NSDictionary *jsonDic = (NSDictionary *)response;
         NSUInteger errorcode = [jsonDic[@"state"] integerValue];
         NSString *msg = jsonDic[@"info"];
         if (errorcode !=1) {
@@ -450,14 +455,12 @@
         }
         [USER_D setObject:_phoneText.text forKey:StoragePhone];
         [USER_D setObject:[_keyText.text md5] forKey:StoragePassword];
-//        [USER_D removeObjectForKey:StorageTYPE];
-//        [USER_D removeObjectForKey:StorageUSID];
-
         [USER_D synchronize];
         UserModel *model =[[UserModel alloc] initWithDictionary:jsonDic];
         [PublicFunction ShareInstance].m_user = model;
         [PublicFunction ShareInstance].m_bLogin = YES;
-    } fail:^{
+
+    } fail:^(NSError *error) {
     }];
 }
 - (void)didReceiveMemoryWarning {

@@ -1,1 +1,0 @@
-../../../QiniuUpload/Classes/GTMDefines.h

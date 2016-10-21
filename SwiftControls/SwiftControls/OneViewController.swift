@@ -14,6 +14,7 @@ protocol OneViewControllerDelegate {
 }
 
 typealias funcBlock = (_ color : UIColor) -> Void
+
 class OneViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var tableView : UITableView!

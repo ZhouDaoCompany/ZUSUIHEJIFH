@@ -87,20 +87,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         [weakSelf loadData];
     }];
     
-    NSArray *arrays = [USER_D objectForKey:GovermentStorage];
-    if (arrays.count >0) {
-        [self.datasourceArr removeAllObjects];
-        [arrays enumerateObjectsUsingBlock:^(NSDictionary  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            GovData *model = [[GovData alloc] initWithDictionary:obj];
-            [weakSelf.datasourceArr addObject:model];
-        }];
-        [weakSelf.collectionView reloadData];
-    }
     [self loadData];
-
-    
-//    [self.collectionView.mj_header beginRefreshing];
 }
 - (void)loadData
 {WEAKSELF;
@@ -113,19 +100,8 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
                 [weakSelf.datasourceArr addObject:model];
             }];
         }
-        [USER_D setObject:arr forKey:GovermentStorage];
-        [USER_D synchronize];
         [weakSelf.collectionView reloadData];
     } fail:^{
-        NSArray *arrays = [USER_D objectForKey:GovermentStorage];
-        if (arrays.count >0) {
-            [weakSelf.datasourceArr removeAllObjects];
-            [arrays enumerateObjectsUsingBlock:^(NSDictionary  *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                GovData *model = [[GovData alloc] initWithDictionary:obj];
-                [weakSelf.datasourceArr addObject:model];
-            }];
-            [weakSelf.collectionView reloadData];
-        }
     }];
 }
 #pragma mark - UICollectionViewDataSource

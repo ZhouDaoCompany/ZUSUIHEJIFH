@@ -7,48 +7,42 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AFNetworking.h>
 #import "QiniuToken.h"
 #import "QiniuFile.h"
+#import "QiniuInputStream.h"
 
-
-typedef void (^UploadOneFileSucceededBlock)(AFHTTPRequestOperation *operation, NSInteger index, NSString *key);
-typedef void (^UploadOneFileFailedBlock)(AFHTTPRequestOperation *operation, NSInteger index, NSDictionary *error);
-typedef void (^UploadOneFileProgressBlock)(AFHTTPRequestOperation *operation, NSInteger index, double percent);
+typedef void (^UploadOneFileSucceededBlock)(NSInteger index, NSString * _Nonnull key, NSDictionary * _Nonnull info);
+typedef void (^UploadOneFileFailedBlock)(NSInteger index, NSError * _Nullable error);
+typedef void (^UploadOneFileProgressBlock)(NSInteger index, NSProgress * _Nonnull process);
 typedef void (^UploadAllFilesCompleteBlock)(void);
 
 
-typedef NSData* (^processAssetBlock)(ALAsset *asset);
+@interface QiniuUploader : NSObject <NSURLSessionTaskDelegate>
 
-@interface QiniuUploader : NSObject
+@property (retain, atomic) NSMutableArray * _Nonnull files;
 
-
-@property (nonatomic, strong) NSOperationQueue *operationQueue;
-@property (retain, nonatomic) NSMutableArray *files;
-
-@property (nonatomic, copy) UploadOneFileSucceededBlock uploadOneFileSucceeded;
-@property (nonatomic, copy) UploadOneFileFailedBlock uploadOneFileFailed;
-@property (nonatomic, copy) UploadOneFileProgressBlock uploadOneFileProgress;
-@property (nonatomic, copy) UploadAllFilesCompleteBlock uploadAllFilesComplete;
-@property (nonatomic, copy) processAssetBlock processAsset;
-
+@property UploadOneFileSucceededBlock _Nullable uploadOneFileSucceeded;
+@property UploadOneFileFailedBlock _Nullable uploadOneFileFailed;
+@property UploadOneFileProgressBlock _Nullable uploadOneFileProgress;
+@property UploadAllFilesCompleteBlock _Nullable uploadAllFilesComplete;
+@property (assign, atomic)Boolean isRunning;
 
 /**
  *  add QiniuFile to QiniuUploader
  *  @param file QiniuFile
  */
-- (void)addFile:(QiniuFile *)file;
+- (void)addFile:(QiniuFile * _Nonnull)file;
 /**
  *  Upload binary data to qiniu cloud storage.
  *  @param theFiles binary data of upload file
  */
-- (void)addFiles:(NSArray *)theFiles;
+- (void)addFiles:(NSArray * _Nonnull)theFiles;
 
 /**
  *  start upload files to qiniu cloud storage.
  *  @return Boolean if files were nil, it will return NO.
  */
-- (Boolean)startUpload;
+- (Boolean)startUpload __deprecated_msg("deprecated in version 2.4.0");
 
 
 /**
@@ -56,10 +50,10 @@ typedef NSData* (^processAssetBlock)(ALAsset *asset);
  *  @param AccessToken Qiniu AccessToken from your sever
  *  @return Boolean if files were nil, it will return NO.
  */
-- (Boolean)startUploadWithAccessToken:(NSString *)theAccessToken;
+- (Boolean)startUploadWithAccessToken:(NSString * _Nonnull)theAccessToken;
 
 /**
- *  cancel and clear All Upload Task
+ *  cancel uploading task at once.
  */
 - (Boolean)cancelAllUploadTask;
 

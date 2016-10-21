@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    
+
     // 配置请求和响应类型，由于部分伙伴们的服务器不接收JSON传过去，现在默认值改成了plainText
     [ZhouDao_NetWorkManger configRequestType:kZDRequestTypePlainText
                         responseType:kZDResponseTypeJSON
@@ -30,20 +30,29 @@
     
 //    [ZhouDao_NetWorkManger cancelRequestWithURL:url];
 
-    [ZhouDao_NetWorkManger getWithUrl:url sg_cache:YES params:nil progress:^(int64_t bytesRead, int64_t totalBytesRead) {
-        //    NSLog(@"progress: %f, cur: %lld, total: %lld",
-        //          (bytesRead * 1.0) / totalBytesRead,
-        //          bytesRead,
-        //          totalBytesRead);
+    [ZhouDao_NetWorkManger getWithUrl:url sg_cache:YES success:^(id response) {
         
-    } success:^(id response) {
-        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"json" message:[NSString stringWithFormat:@"%@",response] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+        [alertView show];
         NSLog(@"888888888888888888---------%@",response);
-        
+
     } fail:^(NSError *error) {
-        
     }];
-    
+//    [ZhouDao_NetWorkManger getWithUrl:url sg_cache:YES params:nil progress:^(int64_t bytesRead, int64_t totalBytesRead) {
+//            NSLog(@"progress: %f, cur: %lld, total: %lld",
+//                  (bytesRead * 1.0) / totalBytesRead,
+//                  bytesRead,
+//                  totalBytesRead);
+//        
+//    } success:^(id response) {
+//        
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"json" message:[NSString stringWithFormat:@"%@",response] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+//        [alertView show];
+//        NSLog(@"888888888888888888---------%@",response);
+////        [ZhouDao_NetWorkManger clearCaches];
+//    } fail:^(NSError *error) {
+//        
+//    }];
 
 
 }

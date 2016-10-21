@@ -26,7 +26,7 @@
 @implementation UploadTableViewCell
 - (void)dealloc
 {
-    [_uploader.operationQueue cancelAllOperations];
+    [_uploader cancelAllUploadTask];
     TT_RELEASE_SAFELY(_fullScreenImage);
     TT_RELEASE_SAFELY(_uploader);
     TTVIEW_RELEASE_SAFELY(_processLabel);
@@ -102,9 +102,8 @@
     _uploader = [[QiniuUploader alloc] init];
 
     [_uploader addFile:file];
-    [_uploader startUploadWithAccessToken:[PublicFunction ShareInstance].picToken];
-    [_uploader setUploadOneFileFailed:^(AFHTTPRequestOperation *operation, NSInteger index, NSDictionary *error){
-        
+    [_uploader setUploadOneFileFailed:^(NSInteger index, NSError * _Nullable error){
+
         DLog(@"失败原因－－－－%@",error);
         //上传失败重新获取token
         if (weakSelf.isStart == YES) {
@@ -112,17 +111,20 @@
             [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
                 
                 [MBProgressHUD hideHUD];
-                [weakSelf.uploader startUpload];
+                [weakSelf.uploader startUploadWithAccessToken:[PublicFunction ShareInstance].picToken];
             }];
         }
+
     }];
+
     
     __block NSString *successString = @"";
-    [_uploader setUploadOneFileProgress:^(AFHTTPRequestOperation *operation, NSInteger index, double percent){
+    [_uploader setUploadOneFileProgress:^(NSInteger index, NSProgress *process){
 //        DLog(@"进度是----%f",percent);
         if (![successString isEqualToString:@"上传成功"]) {
-            [weakSelf.progressBarView run: percent];
-            int processShow = percent*100;
+            
+            [weakSelf.progressBarView run: process.fractionCompleted];
+            int processShow = process.fractionCompleted * 100;
             if (processShow >=98) {
                 weakSelf.processLabel.text = [NSString stringWithFormat:@"%d％",98];
             }else {
@@ -132,11 +134,13 @@
     }];
     
     [_uploader setUploadAllFilesComplete:^(void){
-        
+
         DLog(@"上传完成");
+
     }];
+
     __block int indexCount = 0;
-    [_uploader setUploadOneFileSucceeded:^(AFHTTPRequestOperation *operation, NSInteger index, NSString *key){
+    [_uploader setUploadOneFileSucceeded:^(NSInteger index, NSString *key, NSDictionary *info){
         DLog(@"index:%ld key:%@",(long)index,key);
         if (indexCount == 0) {
             
@@ -156,7 +160,7 @@
         
     }];
 
-    [_uploader startUpload];
+    [_uploader startUploadWithAccessToken:[PublicFunction ShareInstance].picToken];
     
 }
 - (void)setIsStart:(BOOL)isStart
@@ -165,8 +169,7 @@
     if (_isStart == NO) {
         _processLabel.hidden = YES;
         _progressBarView.hidden = YES;
-
-        [self.uploader.operationQueue cancelAllOperations];
+        [self.uploader cancelAllUploadTask];
     }
 }
 - (void)settingUIWithDictionary:(NSDictionary *)assetDictionary withSection:(NSInteger)section withRow:(NSInteger)row

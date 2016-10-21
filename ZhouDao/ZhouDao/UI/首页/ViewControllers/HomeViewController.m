@@ -111,8 +111,6 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
                 break;
         }
     };
-
-    [self loadCacheData];
     
     [self loadNewData];
     
@@ -171,16 +169,6 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         [weakSelf.tableView reloadData];
     } fail:^{
 //        [weakSelf loadCacheData];
-    }];
-}
-- (void)loadCacheData{
-    WEAKSELF;
-    [NetWorkMangerTools readHomeTheCacheSuccess:^(NSArray *hdArr, NSArray *hotArr) {
-        
-        [weakSelf.dataSourceArrays removeAllObjects];
-        [weakSelf.headView setDataArrays:hdArr];
-        [weakSelf.dataSourceArrays addObjectsFromArray:hotArr];
-        [weakSelf.tableView reloadData];
     }];
 }
 #pragma mark -HomeHeadViewPro

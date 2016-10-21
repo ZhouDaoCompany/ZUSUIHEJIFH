@@ -8,10 +8,13 @@
 
 #import "QiniuUploader.h"
 
-#define kQiniuUpUploadUrl @"http://up.qiniu.com"
+#define kQiniuUploadURL @"https://up.qbox.me"
+#define kQiniuTaskKey @"qiniuTaskKey"
 
 @implementation QiniuUploader{
     NSString *accessToken;
+    NSMutableArray *operations;
+    __weak NSURLSessionTask *currentTask;
 }
 
 - (id)init
@@ -23,9 +26,12 @@
 {
     if (self = [super init]) {
         self.files = [[NSMutableArray alloc] init];
-        self.operationQueue = [[NSOperationQueue alloc] init];
-        [self.operationQueue setMaxConcurrentOperationCount:1];
+        operations = [[NSMutableArray alloc] init];
+        self.isRunning = NO;
     }
+    #ifdef DEBUG
+        [QiniuUploader checkVersion];
+    #endif
     return self;
 }
 
@@ -42,112 +48,170 @@
 - (Boolean)startUploadWithAccessToken:(NSString *)theAccessToken
 {
     accessToken = theAccessToken;
-    return [self startUpload];
+    return [self _startUpload];
 }
 
 - (Boolean)startUpload
 {
-    if (!self.files) {
-        return NO;
-    }
-    [self getQiniuFileSourceDataAndCreateOperation:0];
-    return YES;
+    return [self _startUpload];
 }
 
-- (Boolean)cancelAllUploadTask
+- (Boolean)_startUpload
 {
-    if (self.operationQueue.operations.count == 0) {
+    if (self.isRunning) {
         return NO;
     }
-    [self.operationQueue cancelAllOperations];
-    return YES;
-}
-
-- (AFHTTPRequestOperation*)QiniuOperation:(NSInteger)index sourceData:(NSData*)sourceData
-{
-    QiniuFile *theFile = self.files[index];
-     AFHTTPRequestOperationManager *operationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://up.qiniu.com"]];
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    if (theFile.key){
-        parameters[@"key"] = theFile.key;
+    if (!self.files && self.files.count == 0) {
+        return NO;
     }
     
     if (!accessToken && ![QiniuToken sharedQiniuToken]) {
         [NSException raise:@"QiniuToken is nil" format:@"not resgister QiniuToken with Scope, AccessKey And SecretKey"];
     }
-    parameters[@"token"] = accessToken?:[[QiniuToken sharedQiniuToken] uploadToken];
-    NSMutableURLRequest *request = [operationManager.requestSerializer
-                                     multipartFormRequestWithMethod:@"POST"
-                                                          URLString:kQiniuUpUploadUrl
-                                                         parameters:parameters
-                                          constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                                              NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                                              formatter.dateFormat = @"yyyyMMddHHmmssSSS";
-                                              NSString *str = [formatter stringFromDate:[NSDate date]];
-                                         [formData appendPartWithFileData:sourceData name:@"file" fileName:str mimeType:theFile.mimeType];
-                                     } error:nil];
-    AFHTTPRequestOperation *operation = [operationManager HTTPRequestOperationWithRequest:request
-                success:^(AFHTTPRequestOperation *operation, id responseObject) {
-               
-                    if (self.uploadOneFileSucceeded) {
-                        self.uploadOneFileSucceeded(operation,index,responseObject[@"key"]);
-                        if (index != self.files.count -1) {
-                            [self getQiniuFileSourceDataAndCreateOperation:index+1];
-                        }
-                    }
-                    if (index == self.files.count -1) {
+    
+    self.isRunning = YES;
+    __weak typeof(self) weakSelf = self;
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate: weakSelf delegateQueue: nil];
+    for (int i = 0; i < self.files.count; i++) {
+        NSOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+            QiniuFile *file = self.files[i];
+            QiniuInputStream *inputStream = [[QiniuInputStream alloc] init];
+            if (file.key) {
+                [inputStream addPartWithName:@"key" string:file.key];
+            }
+            
+            [inputStream addPartWithName:@"token" string: accessToken ?: [[QiniuToken sharedQiniuToken] uploadToken]];
 
-                        if (self.uploadAllFilesComplete) {
-                            self.uploadAllFilesComplete();
-                        }
-                    }
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                
+            if (file.path) {
+                [inputStream addPartWithName:@"file" path: file.path];
+            }
+            
+            if (file.rawData){
+                [inputStream addPartWithName:@"file" data: file.rawData];
+            }
+            
+#if TARGET_OS_IOS
+            if (file.asset) {
+                [inputStream addPartWithName:@"file" asset:file.asset];
+            }
+#endif
+            
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kQiniuUploadURL]];
+            [request setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", [inputStream boundary]] forHTTPHeaderField:@"Content-Type"];
+            [request setValue:[NSString stringWithFormat:@"%ld", (unsigned long)[inputStream length]] forHTTPHeaderField:@"Content-Length"];
+            [request setHTTPBodyStream:inputStream];
+            [request setHTTPMethod:@"POST"];
+            
+            NSURLSessionTask * uploadTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                if(error) {
                     if (self.uploadOneFileFailed) {
-                        self.uploadOneFileFailed(operation, index, [error copy]);
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            self.uploadOneFileFailed(i, error);
+                        });
+                    }
+                } else {
+                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                    if (httpResponse.statusCode == 200) {
+                        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingAllowFragments) error:nil];
+                        if (self.uploadOneFileSucceeded) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                self.uploadOneFileSucceeded(i, dic[@"key"], dic);
+                            });
+                        }
+                    } else {
+                        if (self.uploadOneFileFailed) {
+                            error = [NSError errorWithDomain:kQiniuUploadURL code:httpResponse.statusCode userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString([NSString stringWithUTF8String:[data bytes]], @"")}];
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                self.uploadOneFileFailed(i, error);
+                            });
+                        }
                     }
                     
+                    if (i == self.files.count - 1) {
+                        if(self.uploadAllFilesComplete){
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                self.uploadAllFilesComplete();
+                                [self stopUpload];
+                            });
+                        }
+                    } else {
+                        [(NSOperation *)operations[i+1] start];
+                    }
+                }
             }];
-     __block AFHTTPRequestOperation *progressOperation = operation;
-
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        double percent = totalBytesWritten * 1.0 / totalBytesExpectedToWrite;
-
-        if (self.uploadOneFileProgress) {
-            self.uploadOneFileProgress(progressOperation, index, percent);
-        }
-    }];
-
-    return operation;
+            [uploadTask setTaskDescription:[NSString stringWithFormat:@"%d", i]];
+            [uploadTask resume];
+            currentTask = uploadTask;
+        }];
+        i > 0 ? [operation addDependency:operations[i - 1]] : 0;
+        [operations addObject:operation];
+    }
+    [(NSOperation *)operations[0] start];
+    return YES;
 }
 
-- (void)getQiniuFileSourceDataAndCreateOperation:(NSInteger)index
+- (Boolean)cancelAllUploadTask
 {
-    QiniuFile *qiniuFile = self.files[index];
-    if (qiniuFile.rawData) {
-        AFHTTPRequestOperation *theOperation = [self QiniuOperation:index sourceData:qiniuFile.rawData];
-        [self.operationQueue addOperation:theOperation];
-    }else{
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [library assetForURL:qiniuFile.assetURL resultBlock:^(ALAsset *asset) {
-            NSData *sourceData = nil;
-            if (self.processAsset) {
-                sourceData = self.processAsset(asset);
-            }else{
-                UIImage *tempImage = [UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage scale:1.0 orientation:(UIImageOrientation)asset.defaultRepresentation.orientation];
-                sourceData = UIImageJPEGRepresentation(tempImage, 1.0);
-            }
-            if (!sourceData) {
-                 self.uploadOneFileFailed(nil, index, [[[NSError alloc] initWithDomain:@"no found binary data in this image" code:1404 userInfo:nil] copy]);
-            }else{
-                AFHTTPRequestOperation *theOperation = [self QiniuOperation:index sourceData:sourceData];
-                [self.operationQueue addOperation:theOperation];
-            }
-        } failureBlock:^(NSError *error) {
-            NSLog(@"Error: Cannot load asset from photo stream - %@", [error localizedDescription]);
-        }];
-        
+    [currentTask cancel];
+    [self stopUpload];
+    return YES;
+}
+
+- (void)stopUpload
+{
+    self.uploadOneFileSucceeded = nil;
+    self.uploadOneFileFailed = nil;
+    self.uploadOneFileProgress = nil;
+    self.uploadAllFilesComplete = nil;
+    self.isRunning = NO;
+}
+
+#pragma NSURLSessionTaskDelegate
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+   didSendBodyData:(int64_t)bytesSent
+    totalBytesSent:(int64_t)totalBytesSent
+totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend{
+    NSProgress *process = [[NSProgress alloc] init];
+    process.totalUnitCount = totalBytesExpectedToSend;
+    process.completedUnitCount = totalBytesSent;
+    if (self.uploadOneFileProgress) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.uploadOneFileProgress([task.taskDescription intValue], process);
+        });
     }
 }
+
+#pragma version
+
+
++ (NSString *)versionName {
+    return @"2.0.0";
+}
+
++ (NSInteger)version {
+    return 10;
+}
+
+#ifdef DEBUG
++ (void)checkVersion {
+    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://raw.githubusercontent.com/huhuanming/qiniu_upload/master/Classes/version.json"]];
+    
+    NSURLSessionDataTask *checktask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (error) {
+            NSLog(@"QiniuUpload cannot check updates, error:%@", error);
+        } else {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingAllowFragments) error:nil];
+            NSNumber *version = dic[@"version"];
+            if (version.intValue > [self version]) {
+                NSLog(@"QiniuUpload was updated! the new version is %@, but current version is %@. https://github.com/huhuanming/qiniu_upload, desc: %@", dic[@"versionName"], [self versionName], dic[@"desc"]);
+            }
+        }
+    }];
+    [checktask resume];
+}
+#endif
 
 @end

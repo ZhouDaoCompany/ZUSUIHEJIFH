@@ -7,15 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if TARGET_OS_IOS
 #import <AssetsLibrary/AssetsLibrary.h>
+#endif
 
 @interface QiniuFile : NSObject
 
 
-
-
-@property NSURL *assetURL;
-
+#if TARGET_OS_IOS
+@property ALAsset *asset;
+#endif
 
 /**
  *  name of this file. It's could be nil.
@@ -28,14 +30,26 @@
  */
 @property (copy, nonatomic) NSString *mimeType;
 
+@property (copy, nonatomic) NSString *path;
+
 @property (copy, nonatomic) NSData *rawData;
 
 
 /**
- *  (only support image)initialize instance with binary data, and key name for it.
+ *  initialize instance with file path.
+ *  @param path file path
+ */
+- (id)initWithPath:(NSString *)path;
+
+
+/**
+ *  initialize instance with binary data, and key name for it.
  *  @param theAsset the alasset for ios native resource
  */
-- (id)initWithAssetURL:(NSURL *)assetURL;
+
+#if TARGET_OS_IOS
+- (id)initWithAsset:(ALAsset *)asset;
+#endif
 
 /**
  *  (only support image)initialize instance with binary data, and key name for it.
@@ -44,13 +58,6 @@
 - (id)initWithFileData:(NSData *)theData;
 
 
-///**
-// *  initialize instance with binary data, and key name for it.
-// *  @param theData binary data
-// *
-// */
-//- (id)initWithFileData:(NSData *)theData;
-
 /**
  *  initialize instance with binary data.
  *  @param theData binary data
@@ -58,7 +65,7 @@
  */
 - (id)initWithFileData:(NSData *)theData withKey:(NSString*)theKey;
 
-
 - (id)initWithFileData:(NSData *)theData withKey:(NSString*)theKey withMimeType:(NSString *)mimeType;
+
 
 @end
