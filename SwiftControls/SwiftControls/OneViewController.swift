@@ -2,135 +2,104 @@
 //  OneViewController.swift
 //  SwiftControls
 //
-//  Created by apple on 16/10/17.
+//  Created by apple on 16/10/24.
 //  Copyright © 2016年 cqz. All rights reserved.
 //
 
 import UIKit
 
+typealias FuncBlock = (_ color : UIColor) ->Void
 protocol OneViewControllerDelegate {
 
-    func changeLastVCBackGroundColor(color : UIColor)
+    func changeViewColor(color : UIColor)
 }
-
-typealias funcBlock = (_ color : UIColor) -> Void
-
-class OneViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    var tableView : UITableView!
+class OneViewController: UIViewController ,UITableViewDelegate ,UITableViewDataSource  {
+    
+    var testBlock : FuncBlock!
     var delegate  : OneViewControllerDelegate!
-    
-    var testBlock : funcBlock!
-    
+    var tableView : UITableView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-//        self.navigationController?.title = "第二页"
         automaticallyAdjustsScrollViewInsets = false
-//        let rect = CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64)
+        let rect = CGRect(x: 0, y: 64, width: ScreenWidth, height: ScreenHeight - 64)
+        tableView = UITableView(frame: rect)
+        tableView.backgroundColor = UIColor.white
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
+        self.view.addSubview(tableView)
         
-//        tableView = UITableView(frame: rect, style: UITableViewStyle.grouped)
-//        tableView.backgroundColor = UIColor.white
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        tableView.tableFooterView = UIView(frame: CGRect.zero)
-//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
-//        self.view.addSubview(tableView)
-        
-        self.view.addSubview(self.delegateBtn)
-        self.view.addSubview(self.blockButton)
+//        self.view.addSubview(blockBtn)
+//        self.view.addSubview(delegateBtn)
     }
 
-    // MARK: UITableViewDataSource
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20;
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID") as UITableViewCell!
-        cell?.selectionStyle = UITableViewCellSelectionStyle.none
-        cell?.textLabel?.font = FONT(size: 15)
-        cell?.textLabel?.text = "第 \(indexPath.row)行"
-        cell?.backgroundColor = RandomColor()
-        return cell!
-    }
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.1
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.1
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
-        
-
-        self.navigationController!.popViewController(animated: true)
-    }
-    
-    // MARK: Button Action
-    func blockButtonORdelgateButtonEvent(button : UIButton) {
-        
-        let index = button.tag
-        
-        switch index {
-        case 2001:
-            //delegate
-            
-            if delegate != nil {
-                
-                delegate.changeLastVCBackGroundColor(color: RandomColor())
-            }
-            break
-        case 2002:
-            //block
-            
-            if testBlock != nil {
-                
-                testBlock(RandomColor())
-            }
-            
-            break
- 
-        default:
-            break
-        }
-        
-        self.navigationController!.popViewController(animated: true)
-
-    }
-    
-    // MARK: setter and getter
-    private var delegateBtn : UIButton {
-    
-        let delegateBtn = UIButton(frame: CGRect(x: 15, y: 74, width: 100, height: 100))
-    
-        delegateBtn.backgroundColor = UIColor.black
-        delegateBtn.setTitle("delegate", for: UIControlState.normal)
-        delegateBtn.tag = 2001
-        delegateBtn.addTarget(self, action: #selector(blockButtonORdelgateButtonEvent(button:)), for: UIControlEvents.touchUpInside)
-        return delegateBtn
-    }
-    
-    private var  blockButton : UIButton {
-        
-        let blockButton = UIButton(frame: CGRect(x: ScreenWidth - 115, y: 74, width: 100, height: 100))
-        
-        blockButton.backgroundColor = UIColor.black
-        blockButton.setTitle("block", for: UIControlState.normal)
-        blockButton.tag = 2002
-        blockButton.addTarget(self, action: #selector(blockButtonORdelgateButtonEvent(button:)), for: UIControlEvents.touchUpInside)
-        return blockButton
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: Block
+    func blockDelegateEvent(btn : UIButton) {
+        
+        let index = btn.tag
+        
+        if index == 2001 {
+            
+            if testBlock != nil {
+                testBlock(RandomColor())
+            }
+        }else {
+            
+            if delegate != nil {
+                
+                delegate.changeViewColor(color: RandomColor())
+            }
+        }
+        
+        self.navigationController!.popViewController(animated: true)
+        
+    }
+    
+    //MARK: UITableViewDataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 20
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID")
+        return cell!
+    }
+    //MARK: setter and getter
+    
+    private var delegateBtn : UIButton {
+        
+        let rect = CGRect(x: ScreenWidth - 115, y: 100, width: 100, height: 100)
+        let delegateBtn = UIButton(frame: rect)
+        delegateBtn.backgroundColor = UIColor.black
+        delegateBtn.setTitle("block", for: UIControlState.normal)
+        delegateBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
+        delegateBtn.tag = 2002
+        delegateBtn.addTarget(self, action: #selector(blockDelegateEvent), for: UIControlEvents.touchUpInside)
+        return delegateBtn
+    }
+    
+    private var blockBtn : UIButton {
+        
+        let rect = CGRect(x: 15, y: 100, width: 100, height: 100)
+        let blockBtn = UIButton(frame: rect)
+        blockBtn.backgroundColor = UIColor.black
+        blockBtn.setTitle("block", for: UIControlState.normal)
+        blockBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
+        blockBtn.tag = 2001
+        blockBtn.addTarget(self, action: #selector(blockDelegateEvent), for: UIControlEvents.touchUpInside)
+        return blockBtn
+    }
+
 
     /*
     // MARK: - Navigation

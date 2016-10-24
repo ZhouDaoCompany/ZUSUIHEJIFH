@@ -15,7 +15,6 @@ class ViewController: UIViewController , OneViewControllerDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
         self.navigationController?.title = "首页"
         automaticallyAdjustsScrollViewInsets = false
 //
@@ -31,6 +30,7 @@ class ViewController: UIViewController , OneViewControllerDelegate {
         
         let  oneVC = OneViewController()
         oneVC.delegate = self
+        
         oneVC.testBlock = { [weak self] (color) in
             
             self?.view.backgroundColor = color
@@ -40,7 +40,7 @@ class ViewController: UIViewController , OneViewControllerDelegate {
     }
     
     // MARK: OneViewControllerDelegate
-    func changeLastVCBackGroundColor(color: UIColor) {
+    func changeViewColor(color: UIColor) {
         
         self.view.backgroundColor = color
     }

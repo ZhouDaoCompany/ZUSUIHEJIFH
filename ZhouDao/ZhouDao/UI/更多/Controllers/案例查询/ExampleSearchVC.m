@@ -57,6 +57,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         [windows sendSubviewToBack:self.falseImgView];
         [AnimationTools makeAnimationBottom:self.view];
     }
+    
     self.navigationController.navigationBarHidden = YES;
     
     WEAKSELF;
