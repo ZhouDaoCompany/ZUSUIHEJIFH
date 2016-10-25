@@ -77,9 +77,13 @@ class OneViewController: UIViewController ,UITableViewDelegate ,UITableViewDataS
         cell?.textLabel?.text = "第\(indexPath.row)行"
         let url = NSURL(string: "http://img5.imgtn.bdimg.com/it/u=1557665204,456911937&fm=21&gp=0.jpg")
 //        cell?.imageView?.sd_setImage(with: url as URL!, placeholderImage: UIImage(named: "003.jpg"))
+        let data = NSData(contentsOf: url as! URL)
+        let image = UIImage(data: data as! Data)
+        
         
         let imgView = UIImageView(frame: CGRect(x: ScreenWidth - 75, y: 10, width: 60, height: 60))
-        imgView.sd_setImage(with: url as URL!, placeholderImage: UIImage(named: "003.jpg"))
+//        imgView.sd_setImage(with: url as URL!, placeholderImage: UIImage(named: "003.jpg"))
+        imgView.image = image
         imgView.isUserInteractionEnabled = true
         cell?.contentView.addSubview(imgView)
         return cell!

@@ -5,8 +5,6 @@
 
 target 'SwiftControls' do
 
-pod 'Alamofire', '~> 4.0.1'
-
 end
 
 target 'SwiftControlsTests' do

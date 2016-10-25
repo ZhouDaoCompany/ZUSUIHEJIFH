@@ -13,4 +13,4 @@
 #endif /* SwiftControls__bridging_h */
 
 #import "JX_GCDTimerManager.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+// #import <SDWebImage/UIImageView+WebCache.h>
