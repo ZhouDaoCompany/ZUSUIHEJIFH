@@ -72,7 +72,35 @@ class OneViewController: UIViewController ,UITableViewDelegate ,UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID")
+        cell?.selectionStyle = UITableViewCellSelectionStyle.none
+        cell?.textLabel?.font = FONT(size: 14)
+        cell?.textLabel?.text = "第\(indexPath.row)行"
+        let url = NSURL(string: "http://img5.imgtn.bdimg.com/it/u=1557665204,456911937&fm=21&gp=0.jpg")
+//        cell?.imageView?.sd_setImage(with: url as URL!, placeholderImage: UIImage(named: "003.jpg"))
+        
+        let imgView = UIImageView(frame: CGRect(x: ScreenWidth - 75, y: 10, width: 60, height: 60))
+        imgView.sd_setImage(with: url as URL!, placeholderImage: UIImage(named: "003.jpg"))
+        imgView.isUserInteractionEnabled = true
+        cell?.contentView.addSubview(imgView)
         return cell!
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let alertController = UIAlertController(title: "提示", message: "点击的是第\(indexPath.row)行", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default) { (UIAlertAction) in
+            
+            print("点击了确定")
+        }
+        
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true) { 
+            
+            print("弹出来了")
+        }
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 80;
     }
     //MARK: setter and getter
     

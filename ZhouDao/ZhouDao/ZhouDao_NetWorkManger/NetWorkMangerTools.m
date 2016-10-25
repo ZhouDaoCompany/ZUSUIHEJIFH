@@ -326,7 +326,7 @@
 {WEAKSELF;
     [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,RemindAdd];
-    [ZhouDao_NetWorkManger getWithUrl:url sg_cache:NO success:^(id response) {
+    [ZhouDao_NetWorkManger postWithUrl:url params:dictionary success:^(id response) {
         
         [[weakSelf class] getResponseObjectShowMsgCommonMethods:response];
         NSDictionary *jsonDic = (NSDictionary *)response;
@@ -334,7 +334,6 @@
         NSString *idStr = dataDic[@"id"];
         success(idStr);
     } fail:^(NSError *error) {
-      
         [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:AlrertMsg];
     }];

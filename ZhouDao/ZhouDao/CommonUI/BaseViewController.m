@@ -98,6 +98,7 @@
 }
 
 #pragma mark - life cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self performSelector:@selector(delayInitialLoading) withObject:nil afterDelay:0.05];
@@ -133,6 +134,7 @@
     self.view.backgroundColor = ViewBackColor;
     
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -251,6 +253,7 @@
     }
 }
 #pragma mark - UIAlertViewDelegate
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSUInteger index = alertView.tag;
