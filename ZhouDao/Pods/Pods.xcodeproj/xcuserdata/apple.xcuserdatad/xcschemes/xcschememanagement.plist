@@ -14,11 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>DLWidgetMenu.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>FDFullscreenPopGesture.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,17 +82,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>082157DFD44F33D0712F99A97AEE79A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>09846A0F46988573DAEDDD6B55466BEA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>147DD3419A245454DC8A1BBC85777DB8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>157CB18D4D13B626E6E9FB740013311B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,27 +97,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>31DA35F87DE9E64B9A6B4BF81C6A9349</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4C00D0E2A0AF594A971C88903D04022C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>55DBDD8B7D446F1D618F303A9FB53209</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8F74D9EA91F4C43190670066BAC37D44</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>926A1806C21AC0572DE7B336396656CB</key>
+		<key>70BC44266C6FFE30D2C57129458E070B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,7 +112,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9AE4C6E2F1A6006944674398BF06F080</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9D32BA9C93551E37E9EEE3AD8FB35CF5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A119002F6F6ABEA5F77C49245D1CAEEE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,7 +132,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C615AFDE4DA3D18884878F6FBA30C906</key>
+		<key>BD59EF878BC449A26696C6D669518C3B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -157,12 +142,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D5300001CBE60660B3247256B557535C</key>
+		<key>E0B207827CA4A174EB8D40383521012C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F764FC5D9D4796B12507CB1131796BFB</key>
+		<key>EFD39F587558E5C225926EC64F1ABE67</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F6482DF42F18D49C61584E2EFD70E902</key>
 		<dict>
 			<key>primary</key>
 			<true/>

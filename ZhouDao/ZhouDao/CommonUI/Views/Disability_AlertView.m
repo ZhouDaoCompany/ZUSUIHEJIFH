@@ -17,7 +17,7 @@
 #define kContentLabelWidth     4.f/5.f*([UIScreen mainScreen].bounds.size.width)
 static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
 
-@interface Disability_AlertView()<UITableViewDataSource,UITableViewDelegate>
+@interface Disability_AlertView()<UITableViewDataSource,UITableViewDelegate,DisabilityViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic ,strong) UIView *zd_superView;
@@ -39,10 +39,13 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
         _delegate = delegate;
         _type = type;
 
-        if (type == DisabilityGradeType || type == CheckNoEdit) {
-
-            [self.sourceArrays addObjectsFromArray:sourceArrays];
+        if (type == DisabilityGradeType) {
+            _sourceArrays = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"", nil];
             [self disabilityGradeSelectUI];
+        }else if(type == CheckNoEdit) {
+            _sourceArrays = [NSMutableArray array];
+            [_sourceArrays addObjectsFromArray:sourceArrays];
+            [self caseTypeSelectUI];
         }else if(type == CaseType) {
 
             [self caseTypeSelectUI];
@@ -150,18 +153,26 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     
     NSArray *arr = @[@"一级",@"二级",@"三级",@"四级",@"五级",@"六级",@"七级",@"八级",@"九级",@"十级"];
     NSMutableArray *disabilityArrays = [NSMutableArray array];
-    for (NSUInteger i = 0; i<10; i++) {
+    for (NSUInteger i = 0; i<_sourceArrays.count; i++) {
         
-        DisabilityViewCell *cell = (DisabilityViewCell *)[_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        NSString *indexRow = [NSString stringWithFormat:@"%ld",i];
-        NSString *obj = cell.numberButtons.textField.text;
-        if (![obj isEqualToString:@"0"]) {
-            
-            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:obj,@"several",arr[i],@"level",indexRow,@"row",nil];
+        if ([_sourceArrays[i] isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dict = _sourceArrays[i];
             [disabilityArrays addObject:dict];
-            DLog(@"-----%@",cell.numberButtons.textField.text);
         }
     }
+    
+//    for (NSUInteger i = 0; i<10; i++) {
+//        
+//        DisabilityViewCell *cell = (DisabilityViewCell *)[_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+//        NSString *indexRow = [NSString stringWithFormat:@"%ld",i];
+//        NSString *obj = cell.numberButtons.textField.text;
+//        if (![obj isEqualToString:@"0"]) {
+//            
+//            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:obj,@"several",arr[i],@"level",indexRow,@"row",nil];
+//            [disabilityArrays addObject:dict];
+//            DLog(@"-----%@",cell.numberButtons.textField.text);
+//        }
+//    }
     
     if ([self.delegate respondsToSelector:@selector(selectDisableGrade:)]) {
         
@@ -208,7 +219,7 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     
     DisabilityViewCell *cell = (DisabilityViewCell *)[tableView dequeueReusableCellWithIdentifier:DISABLITYCellID];
     if (_type == DisabilityGradeType) {
-        
+        cell.delegate = self;
         [cell settingUIWithLevel:indexPath.row withSourceArrays:_sourceArrays];
     }else if (_type == CaseType){
         
@@ -256,6 +267,19 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return  (_type == CaseType)?36.f:0.1f;
+}
+#pragma mark - 
+- (void)toObtainSeveralDisabilityLevel:(NSString *)text withRow:(NSInteger)row
+{
+    NSArray *arr = @[@"一级",@"二级",@"三级",@"四级",@"五级",@"六级",@"七级",@"八级",@"九级",@"十级"];
+    NSString *indexRow = [NSString stringWithFormat:@"%ld",(long)row];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:text,@"several",arr[row],@"level",indexRow,@"row",nil];
+    if ([text isEqualToString:@"0"]) {
+        
+        [_sourceArrays replaceObjectAtIndex:row withObject:@""];
+    } else {
+        [_sourceArrays replaceObjectAtIndex:row withObject:dict];
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -317,13 +341,13 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
     }
     return _tableView;
 }
-- (NSMutableArray *)sourceArrays
-{
-    if (!_sourceArrays) {
-        _sourceArrays = [NSMutableArray array];
-    }
-    return _sourceArrays;
-}
+//- (NSMutableArray *)sourceArrays
+//{
+//    if (!_sourceArrays) {
+//        _sourceArrays = [NSMutableArray array];
+//    }
+//    return _sourceArrays;
+//}
 - (UIButton *)sureBtn
 {
     if (!_sureBtn) {

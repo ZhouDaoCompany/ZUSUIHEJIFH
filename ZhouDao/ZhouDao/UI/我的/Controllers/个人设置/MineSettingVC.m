@@ -439,7 +439,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 - (void)clearApplicationCaChe{WEAKSELF;
     [MBProgressHUD showMBLoadingWithText:@"清理中..."];
     [[SDImageCache sharedImageCache] cleanDisk];
-    [ZhouDao_NetWorkManger clearCaches];
+//    [ZhouDao_NetWorkManger clearCaches]; //很少不用清除
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask, YES) objectAtIndex:0];
         

@@ -31,7 +31,7 @@
     return self;
 }
 - (void)initUI
-{
+{WEAKSELF;
     
     [self.contentView addSubview:self.titlelabel];
     [self.contentView addSubview:self.numberButtons];
@@ -40,10 +40,10 @@
     _numberButtons.numberBlock = ^(NSString *num){
         DLog(@"%@",num);
         
-//        if ([weakSelf.delegate respondsToSelector:@selector(toObtainSeveralDisabilityLevel:withRow:)]) {
-//            
-//            [weakSelf.delegate toObtainSeveralDisabilityLevel:num withRow:weakSelf.row];
-//        }
+        if ([weakSelf.delegate respondsToSelector:@selector(toObtainSeveralDisabilityLevel:withRow:)]) {
+            
+            [weakSelf.delegate toObtainSeveralDisabilityLevel:num withRow:weakSelf.row];
+        }
     };
 }
 
@@ -58,37 +58,42 @@
     
 }
 - (void)settingUIWithLevel:(NSInteger)row withSourceArrays:(NSMutableArray *)sourceArrays
-{
+{WEAKSELF;
 //    _delegate = delegate;
     _row = row;
     NSArray *arr = @[@"一级",@"二级",@"三级",@"四级",@"五级",@"六级",@"七级",@"八级",@"九级",@"十级"];
     _titlelabel.text = arr[row];
+    [_numberButtons setCurrentNumber:@"0"];
     
-    [sourceArrays enumerateObjectsUsingBlock:^(NSDictionary *objDict, NSUInteger idx, BOOL * _Nonnull stop) {
+    [sourceArrays enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        NSInteger indexRow = [objDict[@"row"] integerValue];
-        if (row == indexRow) {
-            
-            [_numberButtons setCurrentNumber:objDict[@"several"]];
+        if ([obj isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *objDict = (NSDictionary *)obj;
+            NSInteger indexRow = [objDict[@"row"] integerValue];
+            if (row == indexRow) {
+                
+                [weakSelf.numberButtons setCurrentNumber:objDict[@"several"]];
+                *stop = YES;
+            }
         }
     }];
 //    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:obj,@"several",arr[i],@"level",indexRow,@"row",nil];
 
 }
 - (void)settingUIWithLevelNoEdit:(NSInteger)row withSourceArrays:(NSMutableArray *)sourceArrays
-{
+{WEAKSELF;
     //    _delegate = delegate;
     _row = row;
     _numberButtons.hidden = YES;
     NSArray *arr = @[@"一级",@"二级",@"三级",@"四级",@"五级",@"六级",@"七级",@"八级",@"九级",@"十级"];
     _titlelabel.text = arr[row];
-    
+    _label.text = @"";
     [sourceArrays enumerateObjectsUsingBlock:^(NSDictionary *objDict, NSUInteger idx, BOOL * _Nonnull stop) {
         
         NSInteger indexRow = [objDict[@"row"] integerValue];
         if (row == indexRow) {
-            
-            _label.text = objDict[@"several"];
+            weakSelf.label.text = objDict[@"several"];
+            *stop = YES;
         }
     }];
     //    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:obj,@"several",arr[i],@"level",indexRow,@"row",nil];

@@ -7,7 +7,6 @@
 //
 
 #import "ContentViewController.h"
-#import "DWBubbleMenuButton.h"
 #import "UIWebView+Load.h"
 #import "UIWebView+HTML5.h"
 #import "ZD_SettingBottomBar.h"
@@ -17,35 +16,34 @@
 #import "AboutReadView.h"
 #import "UIWebView_SearchWebView.h"
 #import "LawDetailModel.h"
-/*菜单*/
-#import "DLWMMenu.h"
-#import "DLWMMenuAnimator.h"
-#import "DLWMSpringMenuAnimator.h"
-#import "DLWMSelectionMenuAnimator.h"
-#import "DLWMLinearLayout.h"
 #import "LoginViewController.h"
+#import "VerticalMenuButton.h"
+
 #define NoCollected [NSMutableArray arrayWithObjects:@"law_xiangguan",@"law_jiegou",@"law_share",@"law_shoucang", nil];
 #define Collected [NSMutableArray arrayWithObjects:@"law_xiangguan",@"law_jiegou",@"law_share",@"law_selectedSC", nil];
 
 #define xSpace 40
-@interface ContentViewController ()<UIWebViewDelegate,ZD_SettingBottomBarPro,UITextFieldDelegate,DLWMMenuDataSource, DLWMMenuItemSource, DLWMMenuDelegate, DLWMMenuItemDelegate,AboutReadViewPro>
+@interface ContentViewController ()<UIWebViewDelegate,ZD_SettingBottomBarPro,UITextFieldDelegate,AboutReadViewPro>
 {
     NSString *_navTitle;
 }
 @property (nonatomic, strong) UIWebView *webView;
-//@property (nonatomic , strong) DWBubbleMenuButton *dingdingAnimationMenu;
-@property (nonatomic, strong)UITextField *searchField;
+@property (nonatomic, strong) UITextField *searchField;
 @property (nonatomic, strong) UIView *searchView;
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UIButton *setBtn;
+@property (nonatomic, strong) UIButton *addButton;
+@property (nonatomic, strong) UIButton *topBtn;
+
 @property (nonatomic, strong) UIImageView *setImgView;
 @property (nonatomic, strong) UIImageView *searchImgView;
-@property (readwrite, strong, nonatomic) DLWMMenu *menu;
 @property (nonatomic, strong) NSMutableArray *imgNameArrays;
 @property (nonatomic, strong) NSMutableArray *aboutArrays;//相关阅读
 @end
 
 @implementation ContentViewController
+
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -54,31 +52,24 @@
     }
     [self initUI];
 }
+#pragma mark - methods
 - (void)initUI
 {
-    _navTitle = @"";
-    if (_dType == lawsType) {
-        _navTitle = @"法规详情";
-    }else if (_dType == IndemnityType){
-        _navTitle = @"赔偿标准详情";
-    }else {
-        _navTitle = @"案例详情";
-    }
-    [self setupNaviBarWithTitle:_navTitle];
+    NSArray *navArrays = @[@"法规详情",@"赔偿标准详情",@"案例详情"];
+    _navTitle = navArrays[_dType];
 
+    [self setupNaviBarWithTitle:_navTitle];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     
     self.view.backgroundColor = ViewBackColor;
-    _webView.backgroundColor = [UIColor clearColor];
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
-    _webView.delegate = self;
-    _webView.scrollView.showsVerticalScrollIndicator = NO;
-    [_webView loadHTMLString:_model.content baseURL:nil];
-    _webView.scalesPageToFit = NO;//禁止用户缩放页面
-    [_webView setOpaque:NO]; //不设置这个值 页面背景始终是白色
-    _webView.dataDetectorTypes = UIDataDetectorTypeNone;
-    [self.view addSubview:_webView];
-    
+    [self.view addSubview:self.webView];
+    [self.view addSubview:self.addButton];
+    [self.view addSubview:self.topBtn];
+    [self.view addSubview:self.setImgView];
+    [self.view addSubview:self.setBtn];
+    [self.view addSubview:self.searchImgView];
+    [self.view addSubview:self.searchBtn];
+
     NSString *backViewColor = [USER_D objectForKey:@"WebViewColor"];
     if (backViewColor.length>0) {
         self.view.backgroundColor = [UIColor colorWithHexString:backViewColor];
@@ -88,60 +79,10 @@
     }else{
         _imgNameArrays = Collected;
     }
-
-    [self dingdingAnimation];
-
-    [self addButtonTarget];
 }
 - (void)OnclikeWeb
 {
     [self showBotomView];
-}
-#pragma mark -添加按钮
-- (void)addButtonTarget
-{
-    UIButton *topBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [topBtn setBackgroundImage:[UIImage imageNamed:@"law_fanhuidingbu"] forState:0];
-    topBtn.frame = CGRectMake(kMainScreenWidth -55.f, kMainScreenHeight-60.f, 40.f, 40.f);
-    topBtn.layer.cornerRadius = topBtn.frame.size.height / 2.f;
-    topBtn.backgroundColor = [UIColor clearColor];
-    [topBtn addTarget:self action:@selector(backWebTopEvent:) forControlEvents:UIControlEventTouchUpInside];
-    //topBtn.alpha = .3f;
-    topBtn.tag = 3001;
-    topBtn.clipsToBounds = YES;
-    [self.view addSubview:topBtn];
-    
-    UIImageView *setImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -40.f,32.f, 20, 20)];
-    setImgView.image = [UIImage imageNamed:@"law_shezhi"];
-    setImgView.userInteractionEnabled = YES;
-    setImgView.backgroundColor = [UIColor clearColor];
-    _setImgView = setImgView;
-    [self.view addSubview:_setImgView];
-
-    
-    UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    setBtn.frame = CGRectMake(kMainScreenWidth -45.f,27.f, 30.f, 30.f);
-    setBtn.backgroundColor = [UIColor clearColor];
-    [setBtn addTarget:self action:@selector(backWebTopEvent:) forControlEvents:UIControlEventTouchUpInside];
-    setBtn.tag = 3002;
-    _setBtn = setBtn;
-    [self.view addSubview:_setBtn];
-    
-    UIImageView *searchImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -85.f,32.f, 20, 20)];
-    searchImgView.image = [UIImage imageNamed:@"law_contentSearch"];
-    searchImgView.userInteractionEnabled = YES;
-    searchImgView.backgroundColor = [UIColor clearColor];
-    _searchImgView = searchImgView;
-    [self.view addSubview:_searchImgView];
-
-    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    searchBtn.frame = CGRectMake(kMainScreenWidth -90.f,27.f, 30.f, 30.f);
-    searchBtn.backgroundColor = [UIColor clearColor];
-    [searchBtn addTarget:self action:@selector(backWebTopEvent:) forControlEvents:UIControlEventTouchUpInside];
-    searchBtn.tag = 3003;
-    _searchBtn = searchBtn;
-    [self.view addSubview:_searchBtn];
-    
 }
 
 #pragma mark -UIWebViewDelegate
@@ -171,34 +112,20 @@
 {
     [MBProgressHUD showError:@"加载失败"];
 }
-
 #pragma mark - UIButtonEvent
-- (void)backWebTopEvent:(id)sender
+- (void)backWebTopEvent:(UIButton *)button
 {
-    UIButton *btn = (UIButton *)sender;
-    NSUInteger index = btn.tag;
+    NSUInteger index = button.tag;
     
-    switch (index) {
-        case 3001:
-        {
-            [_webView.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-        }
-            break;
-        case 3002:
-        {//设置
-            [self showBotomView];
-        }
-            break;
-        case 3003:
-        {//搜索
-            [self isSearchState];
-        }
-            break;
-            
-        default:
-            break;
+    if (index == 3001) {
+        [_webView.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    }else if (index == 3002) {
+        //设置
+        [self showBotomView];
+    }else if (index == 3003) {
+        //搜索
+        [self isSearchState];
     }
-    
 }
 #pragma mark -设置
 - (void)showBotomView
@@ -206,7 +133,6 @@
     ZD_SettingBottomBar *setView = [[ZD_SettingBottomBar alloc] initWithFrame:kMainScreenFrameRect];
     setView.delegate = self;
     [self.view addSubview:setView];
-
 }
 #pragma mark -ZD_SettingBottomBarPro
 - (void)getbackgroundColor:(NSString *)viewColor WithBackViewColor:(NSString *)backViewColor WithSection:(NSUInteger)section WithRow:(NSUInteger)row
@@ -235,9 +161,7 @@
     [_webView stringByEvaluatingJavaScriptFromString:fontSize];
     [USER_D setObject:fontSize forKey:ReadFont];
     [USER_D synchronize];
-
 }
-
 #pragma mark -分享
 - (void)shareThisArticle
 {
@@ -267,15 +191,10 @@
     _searchImgView.hidden = YES;
     _setImgView.hidden = YES;
     
-    UIView *searchView = [[UIView alloc] initWithFrame:CGRectMake(xSpace, 30, kMainScreenWidth-xSpace-50, 30)];
-    searchView.layer.cornerRadius = 2.5f;
-    searchView.backgroundColor=[UIColor whiteColor];
-    searchView.layer.masksToBounds = YES;
-    _searchView = searchView;
-    [self.view addSubview:_searchView];
-    
+    [self.view addSubview:self.searchView];
+    [_searchView addSubview:self.searchField];
+
     UIImageView *search =[[UIImageView alloc] initWithFrame:CGRectMake(15, 5, 20, 20)];
-    [_searchView addSubview:search];
     search.userInteractionEnabled = YES;
     [search whenTapped:^{
         
@@ -283,33 +202,21 @@
         [weakSelf searchKeyText];
     }];
     search.image = [UIImage imageNamed:@"law_sousuo"];
-    
-    _searchField =[[UITextField alloc] initWithFrame:CGRectMake(42.5f, 0, searchView.frame.size.width-42.5f, 30)];
-    _searchField.placeholder = @"搜索本文内容";
-    _searchField.delegate = self;
-    _searchField.borderStyle = UITextBorderStyleNone;
-    _searchField.returnKeyType = UIReturnKeySearch; //设置按键类型
-    [_searchView addSubview:_searchField];
-    [_searchField becomeFirstResponder];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(textFieldChanged:)
-                                                 name:UITextFieldTextDidChangeNotification
-                                               object:_searchField];
+
+    [_searchView addSubview:search];
 }
 - (void)rightBtnAction
 {
     [self.webView removeAllHighlights];
     NSString *titleStr = self.rightBtn.titleLabel.text;
     if ([titleStr isEqualToString:@"取消"]) {
-        [_searchView removeFromSuperview];
-        _searchView = nil;
-        _searchField = nil;
+        
+        TTVIEW_RELEASE_SAFELY(_searchView);
+        TTVIEW_RELEASE_SAFELY(_searchField);
         _searchBtn.hidden = NO;
         _setBtn.hidden = NO;
         _searchImgView.hidden = NO;
         _setImgView.hidden = NO;
-        
         [self setupNaviBarWithTitle:_navTitle];
     }
     [self.rightBtn setTitle:@"" forState:0];
@@ -335,7 +242,6 @@
         if (count >1) {
             [self.webView searchNext];
         }
-
     }
 }
 - (void)textFieldChanged:(NSNotification*)noti{
@@ -346,144 +252,60 @@
     if (flag){
         textField.text = [NSString disable_emoji:textField.text];
     }
-    
-}
-#pragma mark -手势
-- (void)dismissKeyBoard{
-    [self.view endEditing:YES];
-}
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self dismissKeyBoard];
 }
 /*------------------------------萌萌的分割线----------------------------------*/
 /**
  *  仿造钉钉菜单动画
  */
--(void)dingdingAnimation{
+-(void)dingdingAnimation{ WEAKSELF;
     
-    [_menu removeFromSuperview];
-    id<DLWMMenuLayout> layout = [[self class] layout];
-    _menu = [[DLWMMenu alloc] initWithMainItemView:[self viewForMainItemInMenu:nil]
-                                                 dataSource:self
-                                                 itemSource:self
-                                                   delegate:self
-                                               itemDelegate:self
-                                                     layout:layout
-                                          representedObject:self];
-    _menu.openAnimationDelayBetweenItems = 0.1;
-    _menu.closeAnimationDelayBetweenItems = 0.01;
-    _menu.frame = CGRectMake(kMainScreenWidth - 55.f,kMainScreenHeight - 110.f,40,40);
-//    self.menu = _menu;
-    [self.view addSubview:self.menu];
-}
-#pragma mark - DLWMMenuLayout
-
-+ (id<DLWMMenuLayout>)layout {
-    return [[DLWMLinearLayout alloc] initWithAngle:M_PI_2 * 3 itemSpacing:45.0 centerSpacing:50.0];
-}
-
-#pragma mark - DLWMMenuDataSource Protocol
-
-- (NSUInteger)numberOfObjectsInMenu:(DLWMMenu *)menu {
-    return 4;
-}
-
-- (id)objectAtIndex:(NSUInteger)index inMenu:(DLWMMenu *)menu {
-    
-    return @(index);
-}
-
-#pragma mark - DLWMMenuItemSource Protocol
-
-+ (UIImageView *)menuItemView {
-    UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 40.0, 40.0)];
-    return view;
-}
-
-- (UIImageView *)viewForMainItemInMenu:(DLWMMenu *)menu {
-    UIImageView *view = [[self class] menuItemView];
-    view.bounds = CGRectMake(0.0, 0.0, 40.0, 40.0);
-    view.layer.cornerRadius = 20.0;
-    view.image = [UIImage imageNamed:@"law_contenAdd"];
-    return view;
-}
-- (UIImageView *)viewForObject:(id)object atIndex:(NSUInteger)index inMenu:(DLWMMenu *)menu {
-    UIImageView *view = [[self class] menuItemView];
-    view.bounds = CGRectMake(0.0, 0.0, 40.0, 40.0);
-    view.layer.cornerRadius = 20.0;
-    view.image = [UIImage imageNamed:_imgNameArrays[index]];
-    view.tag = 9000+index;
-    return view;
-}
-#pragma mark -
-#pragma mark - DLWMMenuDelegate Protocol
-- (void)receivedSingleTap:(UITapGestureRecognizer *)recognizer onItem:(DLWMMenuItem *)item inMenu:(DLWMMenu *)menu {
-    NSUInteger index = item.contentView.tag;
-    if ([menu isClosedOrClosing]) {
-        [menu open];
-    } else if ([menu isOpenedOrOpening]) {
-        if (item == menu.mainItem) {
-            [menu close];
-        } else {
-            [menu closeWithSpecialAnimator:[[DLWMSelectionMenuAnimator alloc] init] forItem:item];
+    [UIView animateWithDuration:.1f animations:^{
+        weakSelf.addButton.transform =  CGAffineTransformRotate(weakSelf.addButton.transform, REES_TO_RADIANS(45));
+    }];
+    [VerticalMenuButton showWithImageNameArray:_imgNameArrays clickBlock:^(NSInteger index) {
+        
+        DLog(@"clicked %ld",(long)index);
+        weakSelf.addButton.transform = CGAffineTransformIdentity;
+        if (index != 4237) {
+            [weakSelf receivedSingleTap:index];
         }
-    }
-
+    } bottomPosition:CGPointMake(_addButton.center.x, _addButton.center.y - 30)];
+}
+- (void)receivedSingleTap:(NSInteger)index {
+    
     switch (index) {
-        case 9003:
+        case 3:
         {//收藏
             [self JudgeCollectionMethod];
-        }
             break;
-        case 9002:
+        }
+        case 2:
         {//分享
             [self shareThisArticle];
-        }
             break;
-        case 9001:
+        }
+        case 1:
         {//目录
             [JKPromptView showWithImageName:nil message:@"开发中..."];
-//            ZD_ListView *listviews = [[ZD_ListView alloc] initWithFrame:kMainScreenFrameRect];
-//            [self.view addSubview:listviews];
-        }
+            //            ZD_ListView *listviews = [[ZD_ListView alloc] initWithFrame:kMainScreenFrameRect];
+            //            [self.view addSubview:listviews];
             break;
-        case 9000:
+        }
+        case 0:
         {//相关
             if ([_navTitle isEqualToString:@"案例详情"]) {
                 [JKPromptView showWithImageName:nil message:@"暂无相关案例"];
             }else {
                 [self aboutLawMethod];
             }
-        }
+            
             break;
+        }
         default:
             break;
     }
-    
-}
-- (void)receivedSingleTap:(UITapGestureRecognizer *)recognizer outsideOfMenu:(DLWMMenu *)menu {
-    [menu close];
-}
-- (void)receivedPan:(UIPanGestureRecognizer *)recognizer onItem:(DLWMMenuItem *)item inMenu:(DLWMMenu *)menu {
-    if (item == menu.mainItem)
-    {
-        [menu moveTo:[recognizer locationInView:menu.superview] animated:NO];
-    }
 }
 
-- (void)willOpenMenu:(DLWMMenu *)menu withDuration:(NSTimeInterval)duration {
-    
-    [UIView animateWithDuration:.1f animations:^{
-        menu.mainItem.transform =  CGAffineTransformRotate(menu.mainItem.transform, REES_TO_RADIANS(45));
-    }];
-    
-}
-- (void)didCloseMenu:(DLWMMenu *)menu {
-    [UIView animateWithDuration:.1f animations:^{
-        menu.mainItem.transform =  CGAffineTransformIdentity;
-    }];
-}
 #pragma amrk -相关阅读
 - (void)aboutLawMethod
 {WEAKSELF;
@@ -590,11 +412,129 @@
     NSString *timeSJC = [NSString stringWithFormat:@"%ld",(long)[[NSDate date] timeIntervalSince1970]];
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:scType,@"type",_model.idString,@"article_id",_model.name,@"article_title",@"",@"article_subtitle",timeSJC,@"article_time",UID,@"uid", nil];
     [NetWorkMangerTools collectionAddMine:dictionary RequestSuccess:^{
+       
         weakSelf.model.is_collection = @"1";
         weakSelf.imgNameArrays = Collected;
         [weakSelf dingdingAnimation];
     }];
 }
+
+#pragma mark - setter and getter
+- (UIWebView *)webView {
+    
+    if (!_webView) {
+        _webView.backgroundColor = [UIColor clearColor];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64)];
+        _webView.delegate = self;
+        _webView.scrollView.showsVerticalScrollIndicator = NO;
+        [_webView loadHTMLString:_model.content baseURL:nil];
+        _webView.scalesPageToFit = NO;//禁止用户缩放页面
+        [_webView setOpaque:NO]; //不设置这个值 页面背景始终是白色
+        _webView.dataDetectorTypes = UIDataDetectorTypeNone;
+    }
+    return _webView;
+}
+- (UIButton *)addButton {
+    
+    if (!_addButton) {
+        _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _addButton.frame = CGRectMake(kMainScreenWidth - 55.f,kMainScreenHeight - 110.f,40,40);
+        _addButton.backgroundColor = [UIColor clearColor];
+        [_addButton addTarget:self action:@selector(dingdingAnimation) forControlEvents:UIControlEventTouchUpInside];
+        [_addButton setImage:kGetImage(@"law_contenAdd") forState:0];
+    }
+    return _addButton;
+}
+- (UIButton *)topBtn {
+    if (!_topBtn) {
+        _topBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_topBtn setBackgroundImage:[UIImage imageNamed:@"law_fanhuidingbu"] forState:0];
+        _topBtn.frame = CGRectMake(kMainScreenWidth -55.f, kMainScreenHeight-60.f, 40.f, 40.f);
+        _topBtn.layer.cornerRadius = _topBtn.frame.size.height / 2.f;
+        _topBtn.backgroundColor = [UIColor clearColor];
+        [_topBtn addTarget:self action:@selector(backWebTopEvent:) forControlEvents:UIControlEventTouchUpInside];
+        _topBtn.tag = 3001;
+        _topBtn.clipsToBounds = YES;
+    }
+    return _topBtn;
+}
+- (UIImageView *)setImgView {
+    
+    if (!_setImgView) {
+        _setImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -40.f,32.f, 20, 20)];
+        _setImgView.image = [UIImage imageNamed:@"law_shezhi"];
+        _setImgView.userInteractionEnabled = YES;
+        _setImgView.backgroundColor = [UIColor clearColor];
+    }
+    return _setImgView;
+}
+- (UIImageView *)searchImgView {
+    
+    if (!_searchImgView) {
+        _searchImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth -85.f,32.f, 20, 20)];
+        _searchImgView.image = [UIImage imageNamed:@"law_contentSearch"];
+        _searchImgView.userInteractionEnabled = YES;
+        _searchImgView.backgroundColor = [UIColor clearColor];
+    }
+    return _searchImgView;
+}
+- (UIButton *)setBtn {
+    
+    if (!_setBtn) {
+        _setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _setBtn.frame = CGRectMake(kMainScreenWidth -45.f,27.f, 30.f, 30.f);
+        _setBtn.backgroundColor = [UIColor clearColor];
+        [_setBtn addTarget:self action:@selector(backWebTopEvent:) forControlEvents:UIControlEventTouchUpInside];
+        _setBtn.tag = 3002;
+    }
+    return _setBtn;
+}
+- (UIButton *)searchBtn {
+    
+    if (!_searchBtn) {
+        _searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _searchBtn.frame = CGRectMake(kMainScreenWidth -90.f,27.f, 30.f, 30.f);
+        _searchBtn.backgroundColor = [UIColor clearColor];
+        [_searchBtn addTarget:self action:@selector(backWebTopEvent:) forControlEvents:UIControlEventTouchUpInside];
+        _searchBtn.tag = 3003;
+    }
+    return _searchBtn;
+}
+- (UIView *)searchView {
+    
+    if (!_searchView) {
+        _searchView = [[UIView alloc] initWithFrame:CGRectMake(xSpace, 30, kMainScreenWidth-xSpace-50, 30)];
+        _searchView.layer.cornerRadius = 2.5f;
+        _searchView.backgroundColor=[UIColor whiteColor];
+        _searchView.layer.masksToBounds = YES;
+    }
+    return _searchView;
+}
+- (UITextField *)searchField {
+    
+    if (!_searchField) {
+        _searchField =[[UITextField alloc] initWithFrame:CGRectMake(42.5f, 0, _searchView.frame.size.width-42.5f, 30)];
+        _searchField.placeholder = @"搜索本文内容";
+        _searchField.delegate = self;
+        _searchField.borderStyle = UITextBorderStyleNone;
+        _searchField.returnKeyType = UIReturnKeySearch; //设置按键类型
+        [_searchField becomeFirstResponder];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textFieldChanged:)
+                                                     name:UITextFieldTextDidChangeNotification
+                                                   object:_searchField];
+    }
+    return _searchField;
+}
+#pragma mark -手势
+- (void)dismissKeyBoard{
+    [self.view endEditing:YES];
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self dismissKeyBoard];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

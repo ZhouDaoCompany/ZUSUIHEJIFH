@@ -64,7 +64,6 @@
 		1060DA1E1CAD197B00D779A5 /* ToolCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1060DA1D1CAD197B00D779A5 /* ToolCollectionViewCell.m */; };
 		1065C2C21CA8E13F003F4089 /* LawsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1065C2BD1CA8E13F003F4089 /* LawsViewController.m */; };
 		1065C2C31CA8E13F003F4089 /* SecrchLawsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1065C2BF1CA8E13F003F4089 /* SecrchLawsVC.m */; };
-		1065C2CC1CA902D8003F4089 /* DWBubbleMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1065C2CB1CA902D8003F4089 /* DWBubbleMenuButton.m */; };
 		1065C3201CA91689003F4089 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1065C31F1CA91689003F4089 /* ContentViewController.m */; };
 		1065C3401CA91BA4003F4089 /* law_changyongfagui@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1065C3301CA91BA4003F4089 /* law_changyongfagui@2x.png */; };
 		1065C3411CA91BA4003F4089 /* law_contenAdd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1065C3311CA91BA4003F4089 /* law_contenAdd@2x.png */; };
@@ -203,6 +202,7 @@
 		181BA4131CE598B600A29E2E /* share_platform_wechattimeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181BA40E1CE598B600A29E2E /* share_platform_wechattimeline@2x.png */; };
 		181E512E1CD1E81E00BBA10D /* ReplacePhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E512D1CD1E81E00BBA10D /* ReplacePhoneVC.m */; };
 		181E51311CD1F34700BBA10D /* NewPhoneVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181E51301CD1F34700BBA10D /* NewPhoneVC.m */; };
+		181F6ADA1DC09CE4003FEDA9 /* VerticalMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 181F6AD91DC09CE4003FEDA9 /* VerticalMenuButton.m */; };
 		18230CF21CC7455400F4ACCF /* CustomMenuBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 18230CF11CC7455400F4ACCF /* CustomMenuBtn.m */; };
 		18230CF51CC7580700F4ACCF /* NewsLawsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18230CF41CC7580700F4ACCF /* NewsLawsVC.m */; };
 		1825B0A61C969287003B2096 /* CollectEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1825B0A51C969287003B2096 /* CollectEmptyView.m */; };
@@ -633,8 +633,6 @@
 		1065C2BD1CA8E13F003F4089 /* LawsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LawsViewController.m; sourceTree = "<group>"; };
 		1065C2BE1CA8E13F003F4089 /* SecrchLawsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecrchLawsVC.h; sourceTree = "<group>"; };
 		1065C2BF1CA8E13F003F4089 /* SecrchLawsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecrchLawsVC.m; sourceTree = "<group>"; };
-		1065C2CA1CA902D8003F4089 /* DWBubbleMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWBubbleMenuButton.h; sourceTree = "<group>"; };
-		1065C2CB1CA902D8003F4089 /* DWBubbleMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWBubbleMenuButton.m; sourceTree = "<group>"; };
 		1065C31E1CA91689003F4089 /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
 		1065C31F1CA91689003F4089 /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
 		1065C3301CA91BA4003F4089 /* law_changyongfagui@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "law_changyongfagui@2x.png"; sourceTree = "<group>"; };
@@ -824,6 +822,8 @@
 		181E512D1CD1E81E00BBA10D /* ReplacePhoneVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplacePhoneVC.m; sourceTree = "<group>"; };
 		181E512F1CD1F34700BBA10D /* NewPhoneVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPhoneVC.h; sourceTree = "<group>"; };
 		181E51301CD1F34700BBA10D /* NewPhoneVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPhoneVC.m; sourceTree = "<group>"; };
+		181F6AD81DC09CE4003FEDA9 /* VerticalMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerticalMenuButton.h; sourceTree = "<group>"; };
+		181F6AD91DC09CE4003FEDA9 /* VerticalMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerticalMenuButton.m; sourceTree = "<group>"; };
 		18230CF01CC7455400F4ACCF /* CustomMenuBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMenuBtn.h; sourceTree = "<group>"; };
 		18230CF11CC7455400F4ACCF /* CustomMenuBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMenuBtn.m; sourceTree = "<group>"; };
 		18230CF31CC7580700F4ACCF /* NewsLawsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsLawsVC.h; sourceTree = "<group>"; };
@@ -1732,15 +1732,6 @@
 			path = "法规";
 			sourceTree = "<group>";
 		};
-		1065C2C41CA8FBE1003F4089 /* DWBubbleMenuButton */ = {
-			isa = PBXGroup;
-			children = (
-				1065C2CA1CA902D8003F4089 /* DWBubbleMenuButton.h */,
-				1065C2CB1CA902D8003F4089 /* DWBubbleMenuButton.m */,
-			);
-			path = DWBubbleMenuButton;
-			sourceTree = "<group>";
-		};
 		1065C32F1CA91BA4003F4089 /* lawspage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2036,7 +2027,6 @@
 				18F2F1A81CBE16540068453D /* 案例search */,
 				18FD82FE1CBB54F500D50E20 /* 案件manager */,
 				108323361CAA5101004B8045 /* ZD_SettingBottomBar */,
-				1065C2C41CA8FBE1003F4089 /* DWBubbleMenuButton */,
 				10C01AF21CA7D13C0000EF7A /* DPHorizontalScrollView.h */,
 				10C01AF31CA7D13C0000EF7A /* DPHorizontalScrollView.m */,
 				18C4B0621CB4FC7600D3CB8B /* SelectTemplateCell.h */,
@@ -2288,6 +2278,15 @@
 				18AF33F31CC0DFD30063485E /* ConsultantCell.m */,
 			);
 			path = "add案件";
+			sourceTree = "<group>";
+		};
+		181F6AD71DC09CC9003FEDA9 /* VerticalMenuButton */ = {
+			isa = PBXGroup;
+			children = (
+				181F6AD81DC09CE4003FEDA9 /* VerticalMenuButton.h */,
+				181F6AD91DC09CE4003FEDA9 /* VerticalMenuButton.m */,
+			);
+			path = VerticalMenuButton;
 			sourceTree = "<group>";
 		};
 		1829BA731CE2F58700F0143F /* 查询 */ = {
@@ -3119,6 +3118,7 @@
 			isa = PBXGroup;
 			children = (
 				18F8789F1D053CCA0069E68A /* APIKey.h */,
+				181F6AD71DC09CC9003FEDA9 /* VerticalMenuButton */,
 				1895BD561DAC838B00EA5FF2 /* UMessage_Sdk_1.4.0 */,
 				104622651D7C535500D5640C /* PPNumberButton */,
 				18BDD4261D6EDFE8001541E1 /* MBProgressHUDTools */,
@@ -4044,6 +4044,7 @@
 			files = (
 				1829BA7C1CE32CA400F0143F /* ExampleListVC.m in Sources */,
 				188651B61D26073100E030F7 /* AddRemindCell.m in Sources */,
+				181F6ADA1DC09CE4003FEDA9 /* VerticalMenuButton.m in Sources */,
 				1068EAF41CB3907B00AAADD4 /* AlertView.m in Sources */,
 				18B5833A1C9A4A7D00CB3009 /* MyPlanViewController.m in Sources */,
 				18F2F1A71CBE157B0068453D /* ExampleSearchVC.m in Sources */,
@@ -4185,7 +4186,6 @@
 				10241A171CB9F5A0000CBEAE /* CompensationTabCell.m in Sources */,
 				1083233C1CAA5339004B8045 /* SetCollectionViewCell.m in Sources */,
 				10ECB1AF1CCD127600EE7341 /* NSString+MHCommon.m in Sources */,
-				1065C2CC1CA902D8003F4089 /* DWBubbleMenuButton.m in Sources */,
 				1060DA1E1CAD197B00D779A5 /* ToolCollectionViewCell.m in Sources */,
 				104622641D7C531700D5640C /* DisabilityViewCell.m in Sources */,
 				18DE724D1C98F2330068F7E5 /* AnimationTools.m in Sources */,

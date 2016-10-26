@@ -1,15 +1,15 @@
 platform:ios, '7.0'
-pod 'SDWebImage', '~> 3.7.5'
+pod 'SDWebImage', '~> 3.8.2'
 pod 'AFNetworking', '~> 3.1.0'
 #键盘控制
-pod 'IQKeyboardManager', '~> 3.3.4'
+#pod 'IQKeyboardManager', '~> 3.3.4'
+pod 'IQKeyboardManager', '~> 3.3.7'
 #轮播图
 pod 'SDCycleScrollView', '~> 1.65'
 #友盟分享 太大 手动导入
 #pod 'UMengSocialCOM', '~> 5.2.1'
 #友盟应用统计 无广告标识符
-#pod 'UMengAnalytics', '~> 3.6.6'
-pod 'UMengAnalytics-NO-IDFA', '~> 4.0.1'
+pod 'UMengAnalytics-NO-IDFA', '~> 4.1.3'
 pod 'LCActionSheet', '~> 1.2.3'
  #百度地图SDK
 #pod 'BaiduMapKit'
@@ -23,19 +23,20 @@ pod 'CYLTabBarController', '~> 1.5.6'     #TabBar1.2.1
 pod 'pop', '~> 1.0.9'
 #置顶
 pod 'SWTableViewCell', '~> 0.3.7'
-pod 'MJRefresh', '~> 3.1.0'
+#pod 'MJRefresh', '~> 3.1.0'
+pod 'MJRefresh', '~> 3.1.12'
 pod 'MBProgressHUD', '~> 1.0.0'
-#pod 'QiniuUpload', '~> 1.5'
 pod 'QiniuUpload', '~> 2.0.2'
 #滑动返回
 pod 'FDFullscreenPopGesture', '1.1'
-#菜单
-pod 'DLWidgetMenu'
 pod 'WebViewJavascriptBridge', '~> 5.0.5'
-#pod 'FMDB', '~> 2.6.2'
 #检测更新
 pod 'Harpy'
 
+
+#菜单
+#pod 'DLWidgetMenu'
+#pod 'FMDB', '~> 2.6.2'
 
 #webView
 #pod 'DZNWebViewController'

@@ -275,7 +275,7 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 
         DisabilityType type = ([arr1[4] integerValue] == 0)?SelectOnly:DisabilityGradeType;
         
-        NSArray *array = ([arr1[4] integerValue] == 0)?nil:arr1[5];
+        NSArray *array = ([arr1[4] integerValue] == 0)?[NSArray array]:arr1[5];
         Disability_AlertView *alertView = [[Disability_AlertView alloc] initWithType:type withSource:array withDelegate:self];
         [alertView show];
     }

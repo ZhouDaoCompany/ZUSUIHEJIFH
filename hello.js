@@ -7,7 +7,6 @@ var str =  takeOutMostOfTheCharacters(testString);
 	console.log(str);
 
 
-
 //输出字串中最多的字符
 function takeOutMostOfTheCharacters(testString) {
 
