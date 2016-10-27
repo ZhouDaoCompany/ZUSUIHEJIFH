@@ -224,12 +224,12 @@ referenceSizeForHeaderInSection:(NSInteger)section
         layout.delegate = self;
         layout.dataSource = self;
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , kMainScreenWidth ,kMainScreenHeight-113.f) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 , kMainScreenWidth ,kMainScreenHeight - 113.f) collectionViewLayout:layout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.allowsMultipleSelection = YES;
-        _collectionView.bounces = NO;
+        _collectionView.bounces = YES;
         [_collectionView registerClass:[ToolCollectionViewCell class] forCellWithReuseIdentifier:toolIdentifier];
     }
     return _collectionView;

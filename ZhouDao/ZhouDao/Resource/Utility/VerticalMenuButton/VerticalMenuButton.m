@@ -7,10 +7,12 @@
 //
 
 #import "VerticalMenuButton.h"
-static CGFloat const ChainBtnWidth = 40.0f;
-static CGFloat const ChainBtnSpace = 10.0f;
+#import <pop/POP.h>
+
+static CGFloat   const ChainBtnWidth = 40.0f;
+static CGFloat   const ChainBtnSpace = 10.0f;
 static NSInteger const ChainBtnTag = 1356;
-static CGFloat const ChainBtnDurationAnimation = 0.35;
+static CGFloat   const ChainBtnDurationAnimation = 0.35;
 
 @interface VerticalMenuButton ()
 {
@@ -32,7 +34,7 @@ static CGFloat const ChainBtnDurationAnimation = 0.35;
     }
     return self;
 }
-- (void)prepareButtons{
+- (void)prepareButtons{WEAKSELF;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
     [self addGestureRecognizer:tap];
@@ -51,41 +53,31 @@ static CGFloat const ChainBtnDurationAnimation = 0.35;
         
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         
-        [self.buttonArray addObject:button];
-        [self addSubview:button];
+        [weakSelf.buttonArray addObject:button];
+        [weakSelf addSubview:button];
     }];
 }
-- (void)showButtons{
+- (void)showButtons{WEAKSELF;
     [self.buttonArray enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL *stop) {
         
         obj.hidden = NO;
-        
-        [UIView animateWithDuration:ChainBtnDurationAnimation delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            obj.center = CGPointMake(self.bottomPosition.x, self.bottomPosition.y-(idx+1)*ChainBtnSpace-idx*ChainBtnWidth);
-        } completion:nil];
-        
+        CGPoint toPoint = CGPointMake(weakSelf.bottomPosition.x, weakSelf.bottomPosition.y-(idx+1)*ChainBtnSpace-idx*ChainBtnWidth - 40);
+        [weakSelf initailzerAnimationWithToPostion:toPoint formPostion:weakSelf.bottomPosition atView:obj beginTime:0.05];
     }];
 }
-- (void)hideButtons{
+- (void)hideButtons{WEAKSELF;
     [self.buttonArray enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL *stop) {
-        [UIView animateWithDuration:ChainBtnDurationAnimation delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            obj.center = self.bottomPosition;
+       
+        [UIView animateWithDuration:ChainBtnDurationAnimation delay:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            obj.center = weakSelf.bottomPosition;
         } completion:^(BOOL finished) {
             obj.hidden = YES;
-            if(idx == self.imageNameArray.count-1){
-                [self removeFromSuperview];
+            if(idx == weakSelf.imageNameArray.count-1){
+                
+                [weakSelf removeFromSuperview];
             }
         }];
         
-        
-        //        [UIView animateWithDuration:ChainBtnDurationAnimation delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        //            obj.center = self.bottomPosition;
-        //        } completion:^(BOOL finished) {
-        //            obj.hidden = YES;
-        //            if(idx == self.imageNameArray.count-1){
-        //                [self removeFromSuperview];
-        //            }
-        //        }];
     }];
     
     if (!_isClickBtn) {
@@ -100,9 +92,26 @@ static CGFloat const ChainBtnDurationAnimation = 0.35;
         self.clickBlock(button.tag-ChainBtnTag);
     }
     _isClickBtn = !_isClickBtn;
-    
     [self hideButtons];
 }
+#pragma mark - Animation
+
+- (void)initailzerAnimationWithToPostion:(CGPoint)toPoint formPostion:(CGPoint)fromPoint atView:(UIView *)view beginTime:(CFTimeInterval)beginTime {
+    
+    POPSpringAnimation *springAnimation = [POPSpringAnimation animation];
+    springAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewCenter];
+    springAnimation.removedOnCompletion = YES;
+    springAnimation.beginTime = beginTime + CACurrentMediaTime();
+    CGFloat springBounciness = 10 - beginTime * 2;
+    springAnimation.springBounciness = springBounciness;    // value between 0-20
+    
+    CGFloat springSpeed = 12 - beginTime * 2;
+    springAnimation.springSpeed = springSpeed;     // value between 0-20
+    springAnimation.toValue = [NSValue valueWithCGPoint:toPoint];
+    springAnimation.fromValue = [NSValue valueWithCGPoint:fromPoint];
+    [view pop_addAnimation:springAnimation forKey:@"POPSpringAnimationKey"];
+}
+
 - (void)tapHandler:(UITapGestureRecognizer *)gesture{
     [self hideButtons];
 }

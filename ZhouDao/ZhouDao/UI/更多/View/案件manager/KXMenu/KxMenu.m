@@ -69,8 +69,6 @@ const CGFloat kArrowSize = 12.f;
     return self;
 }
 
-// thank horaceho https://github.com/horaceho
-// for his solution described in https://github.com/kolyvan/kxmenu/issues/9
 
 - (void)singleTap:(UITapGestureRecognizer *)recognizer
 {

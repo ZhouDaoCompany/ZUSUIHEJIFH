@@ -213,7 +213,7 @@ static NSString *const RIQICellID = @"RIQICellID";
         NSUInteger indexInter;
         if (_flags[0] == NO) {
             
-            indexInter = [[NSString stringWithFormat:@"%ld",index] integerValue];
+            indexInter = [[NSString stringWithFormat:@"%ld",(unsigned long)index] integerValue];
         }else {
             indexInter = [[NSString stringWithFormat:@"-%ld",index] integerValue];
         }

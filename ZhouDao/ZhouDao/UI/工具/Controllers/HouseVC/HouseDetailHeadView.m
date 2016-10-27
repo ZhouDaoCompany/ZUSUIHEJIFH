@@ -47,7 +47,7 @@
 
     if (self) {
         
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = hexColor(F2F2F2);
         [self addSubview:self.titleLabel];
         _titleLabel.text = title;
     }

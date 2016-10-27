@@ -25,14 +25,23 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 
 @implementation ExampleListVC
 
+#pragma mark - life cycle
+- (void)dealloc {
+    
+    NSString *url1 = [NSString stringWithFormat:@"%@%@id=%@&page=%ld",kProjectBaseUrl,InspeTypeList,_idString,_page];
+    NSString *url2 = [NSString stringWithFormat:@"%@%@caseDetail=%@&page=%ld",kProjectBaseUrl,ResultInspeList,_searText,_page];
+
+    [ZhouDao_NetWorkManger cancelRequestWithURL:url1];
+    [ZhouDao_NetWorkManger cancelRequestWithURL:url2];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [self initView];
 }
-- (void)initView
-{
+#pragma mark - methods
+- (void)initView {
     [self setupNaviBarWithTitle:_titString];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
@@ -108,7 +117,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
             
             [weakSelf.dataArrays addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];
-            arr.count>0?[self.tableView.mj_footer endRefreshing]:[self.tableView.mj_footer endRefreshingWithNoMoreData];
+            arr.count>0?[weakSelf.tableView.mj_footer endRefreshing]:[self.tableView.mj_footer endRefreshingWithNoMoreData];
             _page ++;
         } fail:^{
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -117,7 +126,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
         [NetWorkMangerTools LegalIssuesSelfCheckResult:_searText withPage:_page RequestSuccess:^(NSArray *arr) {
             [weakSelf.dataArrays addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];
-            arr.count>0?[self.tableView.mj_footer endRefreshing]:[self.tableView.mj_footer endRefreshingWithNoMoreData];
+            arr.count>0?[weakSelf.tableView.mj_footer endRefreshing]:[self.tableView.mj_footer endRefreshingWithNoMoreData];
             _page ++;
         } fail:^{
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];

@@ -46,8 +46,8 @@
     [self.driveManager calculateDriveRouteWithStartPoints:@[_startPoint]
                                                 endPoints:@[_endPoint]
                                                 wayPoints:nil
-                                          drivingStrategy:AMapNaviDrivingStrategyDefault];
-
+                                          drivingStrategy:AMapNaviDrivingStrategySingleDefault];
+    
 }
 - (void)initMapView
 {

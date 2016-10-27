@@ -56,19 +56,19 @@
 }
 - (NSArray *)viewControllers {
     HomeViewController *firstViewController = [[HomeViewController alloc] init];
-    UIViewController *firstNavigationController = [[CYLBaseNavigationController alloc]
+    UINavigationController *firstNavigationController = [[CYLBaseNavigationController alloc]
                                                    initWithRootViewController:firstViewController];
     
     RecomViewController *secondViewController = [[RecomViewController alloc] init];
-    UIViewController *secondNavigationController = [[CYLBaseNavigationController alloc]
+    UINavigationController *secondNavigationController = [[CYLBaseNavigationController alloc]
                                                     initWithRootViewController:secondViewController];
     
     ToolsViewController *thirdViewController = [[ToolsViewController alloc] init];
-    UIViewController *thirdNavigationController = [[CYLBaseNavigationController alloc]
+    UINavigationController *thirdNavigationController = [[CYLBaseNavigationController alloc]
                                                    initWithRootViewController:thirdViewController];
     
     MeViewController *fourthViewController = [[MeViewController alloc] init];
-    UIViewController *fourthNavigationController = [[CYLBaseNavigationController alloc]
+    UINavigationController *fourthNavigationController = [[CYLBaseNavigationController alloc]
                                                     initWithRootViewController:fourthViewController];
     
     /**

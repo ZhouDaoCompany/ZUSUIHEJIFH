@@ -151,7 +151,6 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
 - (void)sureButtonEvent:(UIButton *)btn
 {
     
-    NSArray *arr = @[@"一级",@"二级",@"三级",@"四级",@"五级",@"六级",@"七级",@"八级",@"九级",@"十级"];
     NSMutableArray *disabilityArrays = [NSMutableArray array];
     for (NSUInteger i = 0; i<_sourceArrays.count; i++) {
         
@@ -160,20 +159,7 @@ static NSString *const DISABLITYCellID = @"DisabilityCellIdentifier";
             [disabilityArrays addObject:dict];
         }
     }
-    
-//    for (NSUInteger i = 0; i<10; i++) {
-//        
-//        DisabilityViewCell *cell = (DisabilityViewCell *)[_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-//        NSString *indexRow = [NSString stringWithFormat:@"%ld",i];
-//        NSString *obj = cell.numberButtons.textField.text;
-//        if (![obj isEqualToString:@"0"]) {
-//            
-//            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:obj,@"several",arr[i],@"level",indexRow,@"row",nil];
-//            [disabilityArrays addObject:dict];
-//            DLog(@"-----%@",cell.numberButtons.textField.text);
-//        }
-//    }
-    
+        
     if ([self.delegate respondsToSelector:@selector(selectDisableGrade:)]) {
         
         [self.delegate selectDisableGrade:disabilityArrays];

@@ -265,7 +265,10 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
             //        [[UIApplication sharedApplication] cancelAllLocalNotifications];
             
             [PublicFunction ShareInstance].m_bLogin = NO;
-            weakSelf.exitBlock();
+            [PublicFunction ShareInstance].m_user = nil;
+            if (weakSelf.exitBlock) {
+                weakSelf.exitBlock();
+            }
             [weakSelf.navigationController popViewControllerAnimated:NO];
         }
     }];

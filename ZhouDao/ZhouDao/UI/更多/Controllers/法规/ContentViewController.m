@@ -258,18 +258,21 @@
  *  仿造钉钉菜单动画
  */
 -(void)dingdingAnimation{ WEAKSELF;
-    
-    [UIView animateWithDuration:.1f animations:^{
-        weakSelf.addButton.transform =  CGAffineTransformRotate(weakSelf.addButton.transform, REES_TO_RADIANS(45));
-    }];
+    //CGPointMake(_addButton.center.x, _addButton.center.y - 30)
     [VerticalMenuButton showWithImageNameArray:_imgNameArrays clickBlock:^(NSInteger index) {
         
         DLog(@"clicked %ld",(long)index);
-        weakSelf.addButton.transform = CGAffineTransformIdentity;
+        [UIView animateWithDuration:0.25 animations:^{
+            weakSelf.addButton.transform = CGAffineTransformIdentity;
+        }];
         if (index != 4237) {
             [weakSelf receivedSingleTap:index];
         }
-    } bottomPosition:CGPointMake(_addButton.center.x, _addButton.center.y - 30)];
+    } bottomPosition:_addButton.center];
+    [UIView animateWithDuration:.35f animations:^{
+        weakSelf.addButton.transform =  CGAffineTransformRotate(weakSelf.addButton.transform, REES_TO_RADIANS(45));
+    }];
+
 }
 - (void)receivedSingleTap:(NSInteger)index {
     
@@ -367,7 +370,7 @@
                         [weakSelf govCollectionMethod];
                     }else{
                         weakSelf.imgNameArrays = Collected;
-                        [weakSelf dingdingAnimation];
+//                        [weakSelf dingdingAnimation];
                     }
                 }];
             }
@@ -392,7 +395,7 @@
             
             weakSelf.model.is_collection = @"0";
             weakSelf.imgNameArrays = NoCollected;
-            [weakSelf dingdingAnimation];
+//            [weakSelf dingdingAnimation];
         }];
     }
 
@@ -415,7 +418,7 @@
        
         weakSelf.model.is_collection = @"1";
         weakSelf.imgNameArrays = Collected;
-        [weakSelf dingdingAnimation];
+//        [weakSelf dingdingAnimation];
     }];
 }
 
