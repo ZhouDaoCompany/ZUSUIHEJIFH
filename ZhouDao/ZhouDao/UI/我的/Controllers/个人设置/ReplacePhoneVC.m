@@ -160,12 +160,12 @@
 - (void)goToReplacePhoneNumber:(id)sender
 {
     if (_codeText.text.length == 0) {
-        [JKPromptView showWithImageName:nil message:@"请您填写验证码!"];
+        [JKPromptView showWithImageName:nil message:LOCVERIFICATION];
         return;
     }
     
     if (![_codeText.text isEqualToString:_codeStr]) {
-        [JKPromptView showWithImageName:nil message:@"验证码错误!"];
+        [JKPromptView showWithImageName:nil message:LOCNOTVERIFICATION];
         return;
     }
     [self dismissKeyBoard];

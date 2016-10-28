@@ -147,14 +147,14 @@
     DLog(@"提交资料");
     WEAKSELF;
     if (_msgText.text.length == 0) {
-        [JKPromptView showWithImageName:nil message:@"请您填写内容!"];
+        [JKPromptView showWithImageName:nil message:LOCFILLCONTENE];
         return;
     }
     NSString *phoneS = [PublicFunction ShareInstance].m_user.data.mobile;
     
     if (_phoneTextF.text.length > 0) {
         if (_phoneTextF.text.length != 11  || [QZManager isPureInt:_phoneTextF.text] == NO) {
-            [JKPromptView showWithImageName:nil message:@"请您填写正确的号吗!"];
+            [JKPromptView showWithImageName:nil message:LOCRIGHTPHONE];
             return;
         }
         phoneS = _phoneTextF.text;

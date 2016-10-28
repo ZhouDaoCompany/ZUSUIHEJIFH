@@ -199,7 +199,7 @@ static CGFloat kTransitionDuration = 0.3f;
         }else {
             
             if (_nameTextF.text.length == 0) {
-                [JKPromptView showWithImageName:nil message:@"请您填写名字"];
+                [JKPromptView showWithImageName:nil message:LOCFILENAME];
                 return;
             }
             [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者

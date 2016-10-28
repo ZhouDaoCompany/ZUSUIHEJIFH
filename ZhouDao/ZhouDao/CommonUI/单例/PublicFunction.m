@@ -9,8 +9,7 @@
 #import "PublicFunction.h"
 
 @implementation PublicFunction
-+(PublicFunction *)ShareInstance
-{
++(PublicFunction *)ShareInstance {
     static PublicFunction *hanle= nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
@@ -19,7 +18,7 @@
     return hanle;
 }
 //是否登录
-- (BOOL)isLogin{
+- (BOOL)isLogin {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"isLogin"];
 }
 #pragma mark - 应用是否为第一次启动
@@ -28,12 +27,9 @@
     NSString *versionKey = (NSString *)kCFBundleVersionKey;
     NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:versionKey];
     NSString *currentVersion =[[[NSBundle mainBundle] infoDictionary] objectForKey:versionKey];
-    if ([lastVersion isEqualToString:currentVersion])
-    {
+    if ([lastVersion isEqualToString:currentVersion]) {
         return NO;
-    }
-    else
-    {
+    } else {
         [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:versionKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
         return YES;

@@ -421,7 +421,7 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
     [_textBasiArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == 0) {
             if (obj.length == 0) {
-                [JKPromptView showWithImageName:nil message:@"请您填写委托人/公司"];
+                [JKPromptView showWithImageName:nil message:LOCPRINCIPAL];
                 _isReturn = YES;
                 *stop = YES;;
                 return ;

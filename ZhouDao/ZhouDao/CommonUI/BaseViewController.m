@@ -16,27 +16,23 @@
 #import "ToolsWedViewVC.h"
 
 
-@interface BaseViewController ()<UIAlertViewDelegate>
-{
+@interface BaseViewController ()<UIAlertViewDelegate> {
     CGFloat barSpacing;
 }
 @property (nonatomic, strong) NSDictionary *notiDic;
 @end
 
 @implementation BaseViewController
-- (id)init
-{
+- (id)init {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         //
         barSpacing = 0.0;
     }
     return self;
 }
 #pragma mark - getters and setters
-- (UIView *)statusBarView
-{
+- (UIView *)statusBarView {
     if (!_statusBarView) {
         CGRect frame = CGRectZero;
         // The status bar default color by red color.
@@ -46,8 +42,7 @@
     }
     return _statusBarView;
 }
-- (UIView *)naviBarView
-{
+- (UIView *)naviBarView {
     if (!_naviBarView) {
         CGRect frame = CGRectZero;
         // The status bar default color by red color.
@@ -57,8 +52,7 @@
     }
     return _naviBarView;
 }
--(UIButton *)leftBtn
-{
+-(UIButton *)leftBtn {
     if (!_leftBtn) {
         CGRect frame = CGRectMake(0.0, 0.0, kDefaultWidth, kDefaultWidth);
         _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -71,17 +65,16 @@
     }
     return _leftBtn;
 }
-- (UIButton *)rightBtn
-{
+- (UIButton *)rightBtn {
     if (!_rightBtn) {
         CGRect frame = CGRectMake(CGRectGetWidth(_naviBarView.bounds) - kDefaultWidth, 0.0, kDefaultWidth, kDefaultWidth);
-        self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.rightBtn.frame = frame;
-        [self.rightBtn addTarget:self
+        _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rightBtn.frame = frame;
+        [_rightBtn addTarget:self
                           action:@selector(handleBtnAction:)
                 forControlEvents:UIControlEventTouchUpInside];
-        [self.rightBtn setTag:NaviRightBtn];
-        [self.rightBtn setHidden:YES];
+        [_rightBtn setTag:NaviRightBtn];
+        [_rightBtn setHidden:YES];
     }
     return _rightBtn;
 }
@@ -135,29 +128,25 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [GcNoticeUtil handleNotification:@"presentView"
                             Selector:@selector(presentview:)
                             Observer:self];
 
 }
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [GcNoticeUtil removeNotification:@"presentView"
                             Observer:self
                               Object:nil];
 }
-- (void)dealloc
-{
+- (void)dealloc {
     [GcNoticeUtil removeNotification:@"presentView"
                             Observer:self
                               Object:nil];
 }
-- (void)presentview:(NSNotification *)notification
-{//WEAKSELF;
+- (void)presentview:(NSNotification *)notification {//WEAKSELF;
     /*
      {
      aps =     {
@@ -196,23 +185,15 @@
         NSDictionary *alertDict = notiDic[@"aps"][@"alert"];
         alertString = alertDict[@"body"];
     }
-    NSString *tit = notiDic[@"title"];
+    NSString *tit = @"温馨提示";//notiDic[@"title"];
 //    NSUInteger indexType = [type integerValue] -1;
-    
+    NSDictionary *typeDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"周道慧法-日程",@"2",@"周道慧法-时事热点",@"1",@"周道慧法-每日轮播",@"3",@"周道慧法-消息提醒",@"4", nil];
+    tit = typeDictionary[type];
     if ([type isEqualToString:@"2"]){
         NSString *bellName = [NetWorkMangerTools getSoundName:notiDic[@"bell"]];
         [[SoundManager sharedSoundManager] musicPlayByName:bellName];
-        tit  = @"周道慧法-日程";
-    }else if ([type isEqualToString:@"1"]){
-        tit  = @"周道慧法-时事热点";
-    }else if ([type isEqualToString:@"3"]){
-        tit  = @"周道慧法-每日轮播";
-    }else if ([type isEqualToString:@"4"]){
-        tit  = @"周道慧法-消息提醒";
-    }else {
-        tit = @"温馨提示";
     }
-
+    
     if ([PublicFunction ShareInstance].openApp ==  YES) {
         
         [PublicFunction ShareInstance].openApp =  NO;
@@ -227,8 +208,7 @@
         
     }else {
         
-        if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
-        {
+        if([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
             if ([type isEqualToString:@"2"] || [type isEqualToString:@"4"]){
                 
                 UIAlertView *alarmView = [[UIAlertView alloc] initWithTitle:tit message:alertString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -254,8 +234,7 @@
 }
 #pragma mark - UIAlertViewDelegate
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSUInteger index = alertView.tag;
     
     if (index == 9543) {
@@ -271,8 +250,7 @@
     
 }
 #pragma mark - 分析跳转 显示
-- (void)pushWithUserInfo:(NSDictionary *)notiDic
-{
+- (void)pushWithUserInfo:(NSDictionary *)notiDic {
     NSString *type = notiDic[@"type"];
     NSString *alertString = notiDic[@"aps"][@"alert"];
     
@@ -296,12 +274,10 @@
         
     }else {
         
-        
     }
 }
 #pragma amrk -每日轮播
-- (void)TheDailyRoundOfPlay:(NSString *)idStr withTit:(NSString *)tit
-{
+- (void)TheDailyRoundOfPlay:(NSString *)idStr withTit:(NSString *)tit {
     NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,dailyInfo,idStr];
     ToolsWedViewVC *vc = [ToolsWedViewVC new];
     vc.url = url;
@@ -312,8 +288,7 @@
     [self.navigationController  pushViewController:vc animated:YES];
 }
 #pragma amrk -时事热点
-- (void)CurrentEventHotSpot:(NSString *)idStr withTit:(NSString *)tit
-{
+- (void)CurrentEventHotSpot:(NSString *)idStr withTit:(NSString *)tit {
     NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,DetailsEventHotSpot,idStr];
     ToolsWedViewVC *vc = [ToolsWedViewVC new];
     vc.url = url;
@@ -325,16 +300,13 @@
     }];
 }
 
--(void)delayInitialLoading
-{
+-(void)delayInitialLoading {
     //子类使用，延时加载，避免页面卡顿
 }
 #pragma mark - Public method
 
-- (void)setupStatusBarWithColor:(UIColor *)color
-{
-    if (![color isEqual:_statusBarView.backgroundColor])
-    {
+- (void)setupStatusBarWithColor:(UIColor *)color {
+    if (![color isEqual:_statusBarView.backgroundColor]) {
         [self.statusBarView setBackgroundColor:color];
     }
 }
@@ -461,32 +433,23 @@
 }
 #pragma mark - Public method
 
-- (void)handleBtnAction:(UIButton *)btn
-{
-    if (btn.tag == NaviLeftBtn)
-    {
-        if ([[self.navigationController viewControllers] count] == 1)
-        {
+- (void)handleBtnAction:(UIButton *)btn {
+    if (btn.tag == NaviLeftBtn) {
+        if ([[self.navigationController viewControllers] count] == 1) {
             //点击根viewController上面的自定义navBar左侧的按钮时需要进行的操作
             [self leftBtnAction];
-        }
-        else
-        {
+        } else {
             //nav中不止一个Viewcontroller时默认的操作
             [self leftBtnAction];
         }
-    }
-    else if (btn.tag == NaviRightBtn)
-    {
+    } else if (btn.tag == NaviRightBtn) {
         [self rightBtnAction];
     }
 }
-- (void)leftBtnAction
-{
+- (void)leftBtnAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (void)rightBtnAction
-{
+- (void)rightBtnAction {
     //子类继承实现
 }
 

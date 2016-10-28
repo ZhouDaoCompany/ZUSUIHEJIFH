@@ -94,7 +94,7 @@ static NSString *const LIXICELL = @"lixicellid";
         
         if ([QZManager compareOneDay:[NSDate dateWithTimeIntervalSince1970:[_startTime integerValue]] withAnotherDay:[NSDate dateWithTimeIntervalSince1970:[_endTime integerValue]]] == 1 || [_startTime isEqualToString:_endTime])
         {
-            [JKPromptView showWithImageName:nil message:@"请您检查设置时间"];
+            [JKPromptView showWithImageName:nil message:LOCDATESET];
             return;
         }
         
@@ -859,7 +859,7 @@ static NSString *const LIXICELL = @"lixicellid";
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
-            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            [JKPromptView showWithImageName:nil message:LOCCALCULATESHARE];
             return;
         }
         

@@ -199,13 +199,13 @@
                 return;
             }else if ([QZManager isIncludeSpecialCharact:self.nameText.text] ==YES || [QZManager isIncludeSpecialCharact:self.keyText.text] == YES)
             {
-                [JKPromptView showWithImageName:nil message:@"账号和密码包含非法字符，请您仔细检查"];
+                [JKPromptView showWithImageName:nil message:@"账号或密码包含非法字符，请您仔细检查"];
                 return;
             }
             
             if (![QZManager isValidatePassword:_keyText.text])
             {
-                [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合，请您仔细检查"];
+                [JKPromptView showWithImageName:nil message:LOCPASSWORDLIMIT];
                 return;
             }
             [MBProgressHUD showMBLoadingWithText:@"登录中..."];
@@ -254,7 +254,7 @@
                 [weakSelf rightBtnAction];
 
             } fail:^(NSError *error) {
-                [MBProgressHUD showError:AlrertMsg];
+                [MBProgressHUD showError:LOCERROEMESSAGE];
             }];
         }
             break;

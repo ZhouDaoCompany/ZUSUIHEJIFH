@@ -100,7 +100,7 @@
         self.imgBlock(image);
         [self.navigationController popViewControllerAnimated:YES];
     }else{
-        [JKPromptView showWithImageName:nil message:@"请您选择图片"];
+        [JKPromptView showWithImageName:nil message:LOCSELECTPICTURE];
     }
 }
 - (void)didReceiveMemoryWarning {

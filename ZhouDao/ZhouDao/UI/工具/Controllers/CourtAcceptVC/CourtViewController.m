@@ -104,7 +104,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
         
         NSString *moneyString = arr1[1];
         if (moneyString.length == 0) {
-            [JKPromptView showWithImageName:nil message:@"请输入金额"];
+            [JKPromptView showWithImageName:nil message:LOCSETMONEY];
             return;
         }
         if ([arr1[0] isEqualToString:@"支付令"]) {
@@ -123,7 +123,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
             
             NSString *moneyString = arr1[2];
             if (moneyString.length == 0) {
-                [JKPromptView showWithImageName:nil message:@"请输入金额"];
+                [JKPromptView showWithImageName:nil message:LOCSETMONEY];
                 return;
             }
 
@@ -259,7 +259,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
     
     if (index == 0) {
         lastmoney = [pieceArrays[0] floatValue];
-    }else if (index > moneyArrays.count - 1){
+    }else if (index > moneyArrays.count - 1) {
         
         [pieceArrays enumerateObjectsUsingBlock:^( NSString *objmoney, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -275,8 +275,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
     }
     return lastmoney;
 }
-- (void)reloadTableViewWithAnimation
-{WEAKSELF;
+- (void)reloadTableViewWithAnimation { WEAKSELF;
     
     [UIView animateWithDuration:.25 animations:^{
         [weakSelf.tableView reloadData];
@@ -513,7 +512,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
-            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            [JKPromptView showWithImageName:nil message:LOCCALCULATESHARE];
             return;
         }
         

@@ -466,7 +466,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
 - (void)clearCacheSuccess
 {
     [MBProgressHUD hideHUD];
-    [JKPromptView showWithImageName:nil message:@"清除成功"];
+    [JKPromptView showWithImageName:nil message:LOCCLEARCACHE];
     [_msgArrays replaceObjectAtIndex:5 withObject:@"0M"];
     [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:5 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }

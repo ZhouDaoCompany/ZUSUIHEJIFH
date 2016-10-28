@@ -98,7 +98,7 @@
 - (void)commitBtnEvent:(UIButton *)btn
 {WEAKSELF;
     if (_introText.text.length == 0 && _addressText.text.length == 0 && _photoImage == nil && _phoneText.text.length == 0) {
-        [JKPromptView showWithImageName:nil message:@"请您至少填写一项资料"];
+        [JKPromptView showWithImageName:nil message:LOCSETDATE];
         return;
     }
     

@@ -132,33 +132,33 @@
                         [ccpRestSdk sendTemplateSMSWithTo:_phoneText.text andTemplateId:YTXTEMPLATE andDatas:arr];
                     }];
                 }else{
-                    [JKPromptView showWithImageName:nil message:@"请您检查手机号码!"];
+                    [JKPromptView showWithImageName:nil message:LOCCHECKPHONE];
                 }
             }else{
-                [JKPromptView showWithImageName:nil message:@"请您填写手机号嘛!"];
+                [JKPromptView showWithImageName:nil message:LOCCHECKPHONE];
             }
         }
             break;
         case 1004:
         {//重置密码
             if (_phoneText.text.length<=0) {
-                [JKPromptView showWithImageName:nil message:@"请您检查手机号码是否填写!"];
+                [JKPromptView showWithImageName:nil message:LOCPHONE];
                 return;
             }else if(_phoneText.text.length != 11  || [QZManager isPureInt:_phoneText.text] == NO){
-                [JKPromptView showWithImageName:nil message:@"请您检查手机号码是否正确!"];
+                [JKPromptView showWithImageName:nil message:LOCCHECKPHONE];
                 return;
             }else if (_keyText.text.length <=0){
-                [JKPromptView showWithImageName:nil message:@"请您检查密码是否填写!"];
+                [JKPromptView showWithImageName:nil message:LOCPASSWORD];
                 return;
             }else if(_codeText.text.length <=0){
-                [JKPromptView showWithImageName:nil message:@"请您检查验证码是否填写!"];
+                [JKPromptView showWithImageName:nil message:LOCVERIFICATION];
                 return;
             }else if(![_codeText.text isEqualToString:_codeStr] || ![_phoneText.text isEqualToString:_phoneString]){
-                [JKPromptView showWithImageName:nil message:@"验证码不正确!"];
+                [JKPromptView showWithImageName:nil message:LOCNOTVERIFICATION];
                 return;
             }else if ([QZManager isValidatePassword:_keyText.text] == NO)
             {
-                [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合，请您仔细检查"];
+                [JKPromptView showWithImageName:nil message:LOCPASSWORDLIMIT];
                 return;
             }
 
@@ -188,7 +188,7 @@
                 [weakSelf.navigationController popViewControllerAnimated:YES];
 
             } fail:^(NSError *error) {
-                [MBProgressHUD showError:AlrertMsg];
+                [MBProgressHUD showError:LOCERROEMESSAGE];
             }];
             
         }

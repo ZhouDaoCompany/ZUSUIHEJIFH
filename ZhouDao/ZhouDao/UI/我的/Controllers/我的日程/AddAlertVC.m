@@ -309,9 +309,8 @@ static NSString *const cellIdentifer = @"cellIdentifer";
     
     if (_alertType == FromAddBtn) {
         //比较时间
-        if ([QZManager compareOneDay:[NSDate date] withAnotherDay:fireDate] == 1)
-        {
-            [JKPromptView showWithImageName:nil message:@"请您检查设置时间"];
+        if ([QZManager compareOneDay:[NSDate date] withAnotherDay:fireDate] == 1) {
+            [JKPromptView showWithImageName:nil message:LOCDATESET];
             return;
         }
     }

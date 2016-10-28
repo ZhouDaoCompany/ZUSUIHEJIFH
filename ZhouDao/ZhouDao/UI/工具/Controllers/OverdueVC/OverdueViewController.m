@@ -108,7 +108,7 @@ static NSString *const OverdueCellID = @"OverdueCellID";
         }
         
         if ([_endTime floatValue] <= [_startTime floatValue]) {
-            [JKPromptView showWithImageName:nil message:@"请您检查所选时间"];
+            [JKPromptView showWithImageName:nil message:LOCDATESET];
             return;
         }
         
@@ -404,7 +404,7 @@ static NSString *const OverdueCellID = @"OverdueCellID";
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
-            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            [JKPromptView showWithImageName:nil message:LOCCALCULATESHARE];
             return;
         }
         

@@ -249,7 +249,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     DLog(@"收藏");
 
     if ([PublicFunction ShareInstance].m_bLogin == NO) {
-        [JKPromptView showWithImageName:nil message:@"登录后才能收藏"];
+        [JKPromptView showWithImageName:nil message:LOCLOGINCOLLECT];
         LoginViewController *loginVc = [LoginViewController new];
         loginVc.closeBlock = ^{
             if ([PublicFunction ShareInstance].m_bLogin == YES)

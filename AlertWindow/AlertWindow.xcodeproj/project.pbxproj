@@ -24,6 +24,11 @@
 		182C24A01D8118E0005B4426 /* NSDate+fish_Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C249F1D8118E0005B4426 /* NSDate+fish_Extension.m */; };
 		183469431D98ED720007B0D9 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 183469421D98ED720007B0D9 /* README.txt */; };
 		183469481D98FC730007B0D9 /* Temp.m in Sources */ = {isa = PBXBuildFile; fileRef = 183469471D98FC730007B0D9 /* Temp.m */; };
+		18526E3D1DC33451003DF559 /* DetailContent.xml in Resources */ = {isa = PBXBuildFile; fileRef = 18526E3A1DC33451003DF559 /* DetailContent.xml */; };
+		18526E3E1DC33451003DF559 /* NSBundle+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 18526E3C1DC33451003DF559 /* NSBundle+HTML.m */; };
+		18526E401DC334DF003DF559 /* InjuryInductrial.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18526E3F1DC334DF003DF559 /* InjuryInductrial.plist */; };
+		18526E421DC34186003DF559 /* content.css in Resources */ = {isa = PBXBuildFile; fileRef = 18526E411DC34186003DF559 /* content.css */; };
+		18526E441DC34AA0003DF559 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 18526E431DC34AA0003DF559 /* base.css */; };
 		18FDC3631D9A0CA60011EB33 /* theCityList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC3621D9A0CA60011EB33 /* theCityList.txt */; };
 		18FDC3651D9A0E220011EB33 /* CalculationBasis.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC3641D9A0E220011EB33 /* CalculationBasis.plist */; };
 		18FDC3671D9A0F320011EB33 /* gongshangjisuan.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC3661D9A0F320011EB33 /* gongshangjisuan.txt */; };
@@ -82,6 +87,12 @@
 		183469421D98ED720007B0D9 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		183469461D98FC730007B0D9 /* Temp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Temp.h; sourceTree = "<group>"; };
 		183469471D98FC730007B0D9 /* Temp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Temp.m; sourceTree = "<group>"; };
+		18526E3A1DC33451003DF559 /* DetailContent.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DetailContent.xml; sourceTree = "<group>"; };
+		18526E3B1DC33451003DF559 /* NSBundle+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+HTML.h"; sourceTree = "<group>"; };
+		18526E3C1DC33451003DF559 /* NSBundle+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+HTML.m"; sourceTree = "<group>"; };
+		18526E3F1DC334DF003DF559 /* InjuryInductrial.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InjuryInductrial.plist; sourceTree = "<group>"; };
+		18526E411DC34186003DF559 /* content.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = content.css; sourceTree = "<group>"; };
+		18526E431DC34AA0003DF559 /* base.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = base.css; sourceTree = "<group>"; };
 		18FDC3621D9A0CA60011EB33 /* theCityList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = theCityList.txt; sourceTree = "<group>"; };
 		18FDC3641D9A0E220011EB33 /* CalculationBasis.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalculationBasis.plist; sourceTree = "<group>"; };
 		18FDC3661D9A0F320011EB33 /* gongshangjisuan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gongshangjisuan.txt; sourceTree = "<group>"; };
@@ -142,10 +153,16 @@
 				104622211D7BBAA100D5640C /* ViewController.h */,
 				104622221D7BBAA100D5640C /* ViewController.m */,
 				104622521D7BBB5F00D5640C /* Disability_AlertView.h */,
+				18526E3F1DC334DF003DF559 /* InjuryInductrial.plist */,
 				104622531D7BBB5F00D5640C /* Disability_AlertView.m */,
 				104622551D7BF66C00D5640C /* DisabilityViewCell.h */,
 				104622561D7BF66C00D5640C /* DisabilityViewCell.m */,
+				18526E3A1DC33451003DF559 /* DetailContent.xml */,
+				18526E3B1DC33451003DF559 /* NSBundle+HTML.h */,
+				18526E3C1DC33451003DF559 /* NSBundle+HTML.m */,
 				104622241D7BBAA100D5640C /* Main.storyboard */,
+				18526E431DC34AA0003DF559 /* base.css */,
+				18526E411DC34186003DF559 /* content.css */,
 				182C249E1D8118E0005B4426 /* NSDate+fish_Extension.h */,
 				182C249F1D8118E0005B4426 /* NSDate+fish_Extension.m */,
 				1046224E1D7BBAC600D5640C /* DefineHeader.h */,
@@ -309,6 +326,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18526E401DC334DF003DF559 /* InjuryInductrial.plist in Resources */,
 				18FDC36B1D9A18760011EB33 /* gongShang.plist in Resources */,
 				1046222B1D7BBAA100D5640C /* LaunchScreen.storyboard in Resources */,
 				104622281D7BBAA100D5640C /* Assets.xcassets in Resources */,
@@ -316,9 +334,12 @@
 				183469431D98ED720007B0D9 /* README.txt in Resources */,
 				10369B141DA8A6A0004C2F8B /* 地级市平均工资.txt in Resources */,
 				104622261D7BBAA100D5640C /* Main.storyboard in Resources */,
+				18526E441DC34AA0003DF559 /* base.css in Resources */,
 				18FDC3691D9A0FDA0011EB33 /* gongShang001.plist in Resources */,
 				18FDC3631D9A0CA60011EB33 /* theCityList.txt in Resources */,
+				18526E3D1DC33451003DF559 /* DetailContent.xml in Resources */,
 				18FDC3651D9A0E220011EB33 /* CalculationBasis.plist in Resources */,
+				18526E421DC34186003DF559 /* content.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				104622571D7BF66C00D5640C /* DisabilityViewCell.m in Sources */,
+				18526E3E1DC33451003DF559 /* NSBundle+HTML.m in Sources */,
 				1046225B1D7BFB5A00D5640C /* PPNumberButton.m in Sources */,
 				104622541D7BBB5F00D5640C /* Disability_AlertView.m in Sources */,
 				104622231D7BBAA100D5640C /* ViewController.m in Sources */,

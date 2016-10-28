@@ -281,7 +281,7 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
     
     if (isCommit == NO) {
         
-        [JKPromptView showWithImageName:nil message:@"请您填写内容"];
+        [JKPromptView showWithImageName:nil message:LOCFILLCONTENE];
         return;
     }
     

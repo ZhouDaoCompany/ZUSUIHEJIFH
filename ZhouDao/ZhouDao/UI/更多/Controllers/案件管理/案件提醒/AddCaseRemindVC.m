@@ -375,17 +375,17 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
         switch (index) {
             case 0:
             {
-                [JKPromptView showWithImageName:nil message:@"请您输入提醒标签"];
+                [JKPromptView showWithImageName:nil message:LOCALERTLABEL];
             }
                 break;
             case 1:
             {
-                [JKPromptView showWithImageName:nil message:@"请您选择提醒类别"];
+                [JKPromptView showWithImageName:nil message:LOCALERTTYPE];
             }
                 break;
             case 2:
             {
-                [JKPromptView showWithImageName:nil message:@"请你选择提醒时间"];
+                [JKPromptView showWithImageName:nil message:LOCSELECTTIME];
             }
                 break;
             case 5:
@@ -408,7 +408,7 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
         //比较时间
         if ([QZManager compareOneDay:[NSDate date] withAnotherDay:fireDate] == 1)
         {
-            [JKPromptView showWithImageName:nil message:@"请您检查设置时间"];
+            [JKPromptView showWithImageName:nil message:LOCDATESET];
             return;
         }
         

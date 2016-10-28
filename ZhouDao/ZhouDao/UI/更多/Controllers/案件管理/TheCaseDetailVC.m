@@ -481,7 +481,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     BOOL exist=[[NSFileManager defaultManager] fileExistsAtPath:tmodel.destinationPath];
     if(exist)
     {
-        [JKPromptView showWithImageName:nil message:@"此文件已经存在"];
+        [JKPromptView showWithImageName:nil message:LOCFILEEXIST];
         return;
     }
     [NetWorkMangerTools arrangeFileInfoWithid:model.id withCaseId:_caseId RequestSuccess:^(NSString *htmlString) {

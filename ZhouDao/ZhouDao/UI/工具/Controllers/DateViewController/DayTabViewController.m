@@ -78,7 +78,7 @@ static NSString *const DAYCellID = @"dayCellID";
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
-            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            [JKPromptView showWithImageName:nil message:LOCCALCULATESHARE];
             return;
         }
         
@@ -152,12 +152,12 @@ static NSString *const DAYCellID = @"dayCellID";
         for (NSString *dateString in arr1) {
             
             if (dateString.length == 0) {
-                [JKPromptView showWithImageName:nil message:@"请您选择日期"];
+                [JKPromptView showWithImageName:nil message:LOCSELECTDATE];
                 return;
             }
         }
         if ([_endTime floatValue] <= [_startTime floatValue]) {
-            [JKPromptView showWithImageName:nil message:@"请您检查所选时间"];
+            [JKPromptView showWithImageName:nil message:LOCDATESET];
             return;
         }
 

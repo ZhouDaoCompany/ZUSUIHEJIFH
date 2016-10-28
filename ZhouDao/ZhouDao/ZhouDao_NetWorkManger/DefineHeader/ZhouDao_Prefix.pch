@@ -43,6 +43,7 @@
 #import "PublicFunction.h"
 #import "NetWorkMangerTools.h"
 #import "ThemeColor.h"
+#import "TheCluesFile.h"
 #import "GcNoticeUtil.h"
 #import "ShareView.h"
 #import "MenuLabel.h"

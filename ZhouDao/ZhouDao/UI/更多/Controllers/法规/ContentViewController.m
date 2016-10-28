@@ -289,7 +289,7 @@
         }
         case 1:
         {//目录
-            [JKPromptView showWithImageName:nil message:@"开发中..."];
+            [JKPromptView showWithImageName:nil message:@"此功能正在开发中..."];
             //            ZD_ListView *listviews = [[ZD_ListView alloc] initWithFrame:kMainScreenFrameRect];
             //            [self.view addSubview:listviews];
             break;
@@ -297,7 +297,7 @@
         case 0:
         {//相关
             if ([_navTitle isEqualToString:@"案例详情"]) {
-                [JKPromptView showWithImageName:nil message:@"暂无相关案例"];
+                [JKPromptView showWithImageName:nil message:LOCABOUTCASE];
             }else {
                 [self aboutLawMethod];
             }
@@ -326,7 +326,7 @@
         }];
     }else{
         if (_aboutArrays.count == 0) {
-            [JKPromptView showWithImageName:nil message:@"暂无相关阅读"];
+            [JKPromptView showWithImageName:nil message:LOCABOUTREAD];
             return;
         }
         AboutReadView *aboutView = [[AboutReadView alloc] initWithFrame:kMainScreenFrameRect];
@@ -356,11 +356,11 @@
 - (void)JudgeCollectionMethod
 {WEAKSELF;
     if ([PublicFunction ShareInstance].m_bLogin == NO) {
-        [JKPromptView showWithImageName:nil message:@"登录后才能收藏"];
+        [JKPromptView showWithImageName:nil message:LOCLOGINCOLLECT];
         LoginViewController *loginVc = [LoginViewController new];
         loginVc.closeBlock = ^{
-            if ([PublicFunction ShareInstance].m_bLogin == YES)
-            {
+            if ([PublicFunction ShareInstance].m_bLogin == YES) {
+                
                 [NetWorkMangerTools lawsDetailData:_model.idString RequestSuccess:^(id obj) {
                     
                     LawDetailModel *tempModel = (LawDetailModel *)obj;

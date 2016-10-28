@@ -328,9 +328,8 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     //    tmodel.url= htmlString;
     tmodel.destinationPath=[_filePath stringByAppendingPathComponent:tmodel.name];
     BOOL exist=[[NSFileManager defaultManager] fileExistsAtPath:tmodel.destinationPath];
-    if(exist)
-    {
-        [JKPromptView showWithImageName:nil message:@"此文件已经存在"];
+    if(exist) {
+        [JKPromptView showWithImageName:nil message:LOCFILEEXIST];
         return;
     }
     [NetWorkMangerTools arrangeFileInfoWithid:model.id withCaseId:_caseId RequestSuccess:^(NSString *htmlString) {
@@ -347,8 +346,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 #pragma mark -DownLoadViewPro
 - (void)getDownloadState:(NSString *)downStr readPath:(NSString *)path
 {
-    if ([downStr isEqualToString:@"完成"])
-    {
+    if ([downStr isEqualToString:@"完成"]) {
         [JKPromptView showWithImageName:nil message:@"下载完成"];
         DownLoadView *downView = (DownLoadView *)[self.view viewWithTag:6207];
         [downView removeFromSuperview];

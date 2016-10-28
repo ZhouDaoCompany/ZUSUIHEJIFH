@@ -231,6 +231,8 @@
 		184983121D2A0CA7009AF29F /* case_mangerGW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1849830F1D2A0CA7009AF29F /* case_mangerGW@2x.png */; };
 		184983131D2A0CA7009AF29F /* case_mangeSS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184983101D2A0CA7009AF29F /* case_mangeSS@2x.png */; };
 		184983161D2A0D63009AF29F /* OnlyAddCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 184983151D2A0D63009AF29F /* OnlyAddCaseVC.m */; };
+		18526E371DC33291003DF559 /* NSBundle+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 18526E361DC33291003DF559 /* NSBundle+HTML.m */; };
+		18526E391DC3338D003DF559 /* DetailContent.xml in Resources */ = {isa = PBXBuildFile; fileRef = 18526E381DC3338D003DF559 /* DetailContent.xml */; };
 		18539B391D3CA3A400ADE566 /* BindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18539B381D3CA3A400ADE566 /* BindingViewController.m */; };
 		1856EC971D18E1A000016778 /* CaseFIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856EC961D18E1A000016778 /* CaseFIViewController.m */; };
 		1856F7031C869217003A0C17 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856F7001C869217003A0C17 /* HomeViewController.m */; };
@@ -882,6 +884,10 @@
 		184983101D2A0CA7009AF29F /* case_mangeSS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_mangeSS@2x.png"; sourceTree = "<group>"; };
 		184983141D2A0D63009AF29F /* OnlyAddCaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlyAddCaseVC.h; sourceTree = "<group>"; };
 		184983151D2A0D63009AF29F /* OnlyAddCaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnlyAddCaseVC.m; sourceTree = "<group>"; };
+		18526E341DC31A93003DF559 /* TheCluesFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheCluesFile.h; sourceTree = "<group>"; };
+		18526E351DC33291003DF559 /* NSBundle+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+HTML.h"; sourceTree = "<group>"; };
+		18526E361DC33291003DF559 /* NSBundle+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+HTML.m"; sourceTree = "<group>"; };
+		18526E381DC3338D003DF559 /* DetailContent.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DetailContent.xml; sourceTree = "<group>"; };
 		18539B371D3CA3A400ADE566 /* BindingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindingViewController.h; sourceTree = "<group>"; };
 		18539B381D3CA3A400ADE566 /* BindingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindingViewController.m; sourceTree = "<group>"; };
 		18563A1C1D9DFB2C00D11F53 /* CalculateHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculateHeader.h; sourceTree = "<group>"; };
@@ -1800,6 +1806,9 @@
 				1083232E1CAA19B2004B8045 /* UIWebView+HTML5.m */,
 				18F593E31CB5F40400F5619D /* UIWebView_SearchWebView.h */,
 				18F593E41CB5F40400F5619D /* UIWebView_SearchWebView.m */,
+				18526E381DC3338D003DF559 /* DetailContent.xml */,
+				18526E351DC33291003DF559 /* NSBundle+HTML.h */,
+				18526E361DC33291003DF559 /* NSBundle+HTML.m */,
 				18F593E61CB636A500F5619D /* SearchWebView.js */,
 			);
 			path = "UIWebView+Load";
@@ -2414,6 +2423,7 @@
 				18230CF71CC76F8300F4ACCF /* QZPersistentDefine.h */,
 				18230CF81CC76FA800F4ACCF /* QZViewDefine.h */,
 				1829B6601CEAA4130086CF67 /* ThemeColor.h */,
+				18526E341DC31A93003DF559 /* TheCluesFile.h */,
 			);
 			path = DefineHeader;
 			sourceTree = "<group>";
@@ -3914,6 +3924,7 @@
 				180B31651C8ECFFF00360A23 /* mineUnSelect@2x.png in Resources */,
 				18FBD8491CED90CD00674D1E /* case_photo@2x.png in Resources */,
 				1065C3461CA91BA4003F4089 /* law_share@2x.png in Resources */,
+				18526E391DC3338D003DF559 /* DetailContent.xml in Resources */,
 				108323321CAA2B14004B8045 /* law_contentSearch@2x.png in Resources */,
 				185838881D49B9FC00C6A0EE /* gov_Review@2x.png in Resources */,
 				180B31661C8ECFFF00360A23 /* recommentSelect@2x.png in Resources */,
@@ -4087,6 +4098,7 @@
 				104157641C94718000EE5303 /* OrderTitleLab.m in Sources */,
 				18DD1E8A1C8810AE004630C1 /* ZDLTabBarControllerConfig.m in Sources */,
 				1873675A1D757404000C1169 /* DayViewCell.m in Sources */,
+				18526E371DC33291003DF559 /* NSBundle+HTML.m in Sources */,
 				18A4284F1CC0C8F100CEB30E /* DateTimeView.m in Sources */,
 				10241A231CBA403E000CBEAE /* TheCaseManageVC.m in Sources */,
 				1065C2C21CA8E13F003F4089 /* LawsViewController.m in Sources */,

@@ -285,7 +285,7 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
     [_textArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == 1) {
             if (obj.length == 0) {
-                [JKPromptView showWithImageName:nil message:@"请您填写案件名称"];
+                [JKPromptView showWithImageName:nil message:LOCCASENAME];
                 _isReturn = YES;
                 *stop = YES;
                 return ;

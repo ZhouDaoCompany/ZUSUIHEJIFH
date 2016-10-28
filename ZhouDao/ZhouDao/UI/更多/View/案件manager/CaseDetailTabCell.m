@@ -194,8 +194,7 @@
 }
 - (void)pointBtnClick:(id)sender {
     
-    if ([self.delegate respondsToSelector:@selector(ExpandOrCloseWithCell:)])
-    {
+    if ([self.delegate respondsToSelector:@selector(ExpandOrCloseWithCell:)]) {
         [self.delegate ExpandOrCloseWithCell:self];
     }
 }
@@ -206,7 +205,7 @@
     DLog(@"tag:%ld",(unsigned long)index);
     
     if ([_listModel.type_file isEqualToString:@"2"] && index == 1002) {
-        [JKPromptView showWithImageName:nil message:@"文件夹暂不提供下载功能"];
+        [JKPromptView showWithImageName:nil message:LOCFILEDOWNLOAD];
         return;
     }
     if ([self.delegate respondsToSelector:@selector(otherEvent:withCell:)])

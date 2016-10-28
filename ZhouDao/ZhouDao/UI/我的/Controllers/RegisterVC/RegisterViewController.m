@@ -384,26 +384,26 @@
 {
     WEAKSELF;
     if (_phoneText.text.length<=0) {
-        [JKPromptView showWithImageName:nil message:@"请您检查手机号码是否填写"];
+        [JKPromptView showWithImageName:nil message:LOCPHONE];
         return;
     }else if (_keyText.text.length <=0){
-        [JKPromptView showWithImageName:nil message:@"请您检查密码是否填写"];
+        [JKPromptView showWithImageName:nil message:LOCPASSWORD];
         return;
     }else if(_codeText.text.length <=0){
-        [JKPromptView showWithImageName:nil message:@"请您检查验证码是否填写"];
+        [JKPromptView showWithImageName:nil message:LOCVERIFICATION];
         return;
     }else if(![_codeText.text isEqualToString:_codeStr] || ![_phoneText.text isEqualToString:_phoneString]){
-        [JKPromptView showWithImageName:nil message:@"验证码不正确"];
+        [JKPromptView showWithImageName:nil message:LOCNOTVERIFICATION];
         return;
     }else if (_professionalLab.text.length <=0){
         [JKPromptView showWithImageName:nil message:@"请您检查职业是否选择"];
         return;
     }else if ([QZManager isValidatePassword:_keyText.text] == NO)
     {
-        [JKPromptView showWithImageName:nil message:@"密码为6-14位数字和字母组合，请您仔细检查"];
+        [JKPromptView showWithImageName:nil message:LOCPASSWORDLIMIT];
         return;
     }else if ([QZManager isIncludeSpecialCharact:_keyText.text]){
-        [JKPromptView showWithImageName:nil message:@"密码中包含非法字符，请您检查"];
+        [JKPromptView showWithImageName:nil message:LOCPASSWORDILLEGAL];
         return;
     }
     
@@ -437,7 +437,7 @@
 
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 - (void)loginMethod

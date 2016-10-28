@@ -118,7 +118,7 @@
 
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -更改通讯地址 4
@@ -135,7 +135,7 @@
 
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -获取上传图片的token 5
@@ -152,7 +152,7 @@
 
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 上传用户头像 6
@@ -192,7 +192,7 @@
             } fail:^(NSError *error) {
                 fail();
                 [MBProgressHUD hideHUD];
-                [JKPromptView showWithImageName:nil message:AlrertMsg];
+                [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
             }];
         }
         indexCount ++;
@@ -218,7 +218,7 @@
         } fail:^(NSError *error) {
             
             [MBProgressHUD hideHUD];
-            [JKPromptView showWithImageName:nil message:AlrertMsg];
+            [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
         }];
 
     }else{
@@ -246,7 +246,7 @@
                 } fail:^(NSError *error) {
                     
                     [MBProgressHUD hideHUD];
-                    [JKPromptView showWithImageName:nil message:AlrertMsg];
+                    [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
                 }];
             }
             index ++;
@@ -281,7 +281,7 @@
             [[weakSelf class] getResponseObjectShowMsgCommonMethods:response];
         } fail:^(NSError *error) {
             [MBProgressHUD hideHUD];
-            [JKPromptView showWithImageName:nil message:AlrertMsg];
+            [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
 
         }];
     }];
@@ -335,7 +335,7 @@
         success(idStr);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -编辑更改日程
@@ -348,7 +348,7 @@
         success();
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 删除日程
@@ -518,7 +518,7 @@
     } fail:^(NSError *error) {
         fail();
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 合同模版详情
@@ -544,7 +544,7 @@
     } fail:^(NSError *error) {
         fail();
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 添加收藏
@@ -671,7 +671,7 @@
         success(allArr,index);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 司法机关列表
@@ -708,7 +708,7 @@
     } fail:^(NSError *error) {
         fail();
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -  司法机关详情
@@ -725,7 +725,7 @@
         success(listModel);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 推荐最新法规列表
@@ -746,7 +746,7 @@
         success(allArr);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -新法速递
@@ -786,7 +786,7 @@
     } fail:^(NSError *error) {
         fail();
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -法规详情
@@ -802,7 +802,7 @@
         success(model);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -相关法规
@@ -831,7 +831,7 @@
         success(allArr);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -法律法规搜索
@@ -990,7 +990,7 @@
             [[weakSelf class] parsingUserModel:model];
         } fail:^(NSError *error) {
             [MBProgressHUD hideHUD];
-            [JKPromptView showWithImageName:nil message:AlrertMsg];
+            [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
         }];
     }
 }
@@ -1032,7 +1032,7 @@
         success();
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -案件列表
@@ -1062,7 +1062,7 @@
     } fail:^(NSError *error) {
         fail();
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -案件搜索  案件筛选
@@ -1091,7 +1091,7 @@
     } fail:^(NSError *error) {
         fail();
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -案件详情
@@ -1108,7 +1108,7 @@
         success(dataDict);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 热词搜索
@@ -1137,7 +1137,7 @@
     } fail:^(NSError *error) {
         fail();
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 推荐页 新法速递
@@ -1158,7 +1158,7 @@
         success(arrays);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -推荐页全部
@@ -1206,7 +1206,7 @@
         success(arr1,arr2,arr3,arr4);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 首页全部
@@ -1238,7 +1238,7 @@
         success(arr1,arr2);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -
@@ -1256,7 +1256,7 @@
         success(model);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 查询案件目录
@@ -1281,7 +1281,7 @@
         success(dataArr);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 案件目录 文件删除
@@ -1294,7 +1294,7 @@
         success();
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -目录文件重命名
@@ -1307,7 +1307,7 @@
         success();
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 案件查看详情
@@ -1322,7 +1322,7 @@
         success(htmlStr);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark -案件上传 图片 文本
@@ -1376,7 +1376,7 @@
     } fail:^(NSError *error) {
         fail();
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 合同下载
@@ -1391,7 +1391,7 @@
         success(htmlStr);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 版本更新
@@ -1440,7 +1440,7 @@
         success(modelArr);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 
@@ -1469,7 +1469,7 @@
         success(modelArr);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 案件整理 财务管理删除
@@ -1481,7 +1481,7 @@
         success();
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 案件整理 提醒列表
@@ -1502,7 +1502,7 @@
         success(arr);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 焦点历史记录
@@ -1534,7 +1534,7 @@
         success(arr);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 第三方授权后判断是否已经绑定手机号
@@ -1574,7 +1574,7 @@
         success(stateCode,model);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 单纯验证账号是否绑定过
@@ -1594,7 +1594,7 @@
         [JKPromptView showWithImageName:nil message:jsonDic[@"info"]];
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 87 解绑账号
@@ -1620,7 +1620,7 @@
     } fail:^(NSError *error) {
         fail();
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 绑定账号
@@ -1665,7 +1665,7 @@
     } fail:^(NSError *error) {
         fail();
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 88 单纯绑定账号 不登录
@@ -1687,7 +1687,7 @@
     } fail:^(NSError *error) {
         fail();
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 89 分享计算结果
@@ -1706,7 +1706,7 @@
         success(dataUrlString,idString);
     } fail:^(NSError *error) {
         [MBProgressHUD hideHUD];
-        [JKPromptView showWithImageName:nil message:AlrertMsg];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
 #pragma mark - 通用判断 ##############

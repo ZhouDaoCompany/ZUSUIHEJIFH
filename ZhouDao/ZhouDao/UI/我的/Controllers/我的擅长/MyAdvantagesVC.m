@@ -65,7 +65,7 @@ static float const kCollectionViewCellsHorizonMargin          = 5.f;//每个item
         [weakSelf analyticalData:jsonDic];
 
     } fail:^(NSError *error) {
-        [MBProgressHUD showError:AlrertMsg];
+        [MBProgressHUD showError:LOCERROEMESSAGE];
     }];
     
 //    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"mygood" ofType:@"txt"];
@@ -390,7 +390,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
                     
                     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
                 }];
-                [MBProgressHUD showError:AlrertMsg];
+                [MBProgressHUD showError:LOCERROEMESSAGE];
 
             }];
 

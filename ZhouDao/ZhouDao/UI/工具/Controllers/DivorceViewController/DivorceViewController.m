@@ -79,7 +79,7 @@ static NSString *const DivorceCellID = @"DivorceCellID";
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
-            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            [JKPromptView showWithImageName:nil message:LOCCALCULATESHARE];
             return;
         }
         

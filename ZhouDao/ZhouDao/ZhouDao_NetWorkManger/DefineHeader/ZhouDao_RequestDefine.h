@@ -451,9 +451,5 @@
  */
 #define   StorageUSID                  @"otherLoginUSid"
 
-/*
- 请求失败 提示语
- */
-#define AlrertMsg                      @"请求失败，请您检查网络"
 
 #define REQUESTV                       @"3ee1bcf667"

@@ -1,0 +1,24 @@
+<html>
+    <style>
+    
+        .content {
+        line-height:28px;
+        color:#666;
+        font-size:17px;
+        
+        
+        }
+        .content img {max-width:100%; margin-top:10px; margin-bottom:10px;}
+        
+        .content p{ margin-bottom:10px;}
+    
+    </style>
+<body style="background-color:#F7F7F7">
+    <div class="content" style="padding:0px 10px 0px 10px;font-size:15;color:#333333">
+        ${content}
+    </div>
+    <br/>
+    <br/>
+    <br/>
+</body>
+</html>

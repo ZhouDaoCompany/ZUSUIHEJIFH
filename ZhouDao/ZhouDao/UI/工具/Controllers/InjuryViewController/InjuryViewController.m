@@ -56,7 +56,7 @@ static NSString *const INJURYCELL = @"injurycellid";
 - (void)clickIsWhichOne:(NSInteger)index
 {
     if (index >0) {
-        [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+        [JKPromptView showWithImageName:nil message:LOCCALCULATESHARE];
         return;
         
     }else {//分享计算器

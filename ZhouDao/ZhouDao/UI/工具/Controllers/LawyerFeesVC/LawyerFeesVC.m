@@ -80,7 +80,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     if (index >0) {
         if (_dataSourceArrays.count == 1) {
             
-            [JKPromptView showWithImageName:nil message:@"请您计算后再来分享"];
+            [JKPromptView showWithImageName:nil message:LOCCALCULATESHARE];
             return;
         }
         
@@ -172,7 +172,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     NSString *caseString = arr[1];
     
     if (proString.length == 0) {
-        [JKPromptView showWithImageName:nil message:@"请您选择地区"];
+        [JKPromptView showWithImageName:nil message:LOCSELECTAREA];
         return;
     }
     if (_dataSourceArrays.count == 2) {
@@ -253,7 +253,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     NSMutableArray *arr = _dataSourceArrays[0];
     NSString *moneyString  =arr[3];
     if (moneyString.length == 0) {
-        [JKPromptView showWithImageName:nil message:@"请您输入金额"];
+        [JKPromptView showWithImageName:nil message:LOCSETMONEY];
         return;
     }
     __block NSUInteger index = model.allMoney.count;
@@ -329,7 +329,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     NSMutableArray *arr = _dataSourceArrays[0];
     NSString *moneyString  =arr[3];
     if (moneyString.length == 0) {
-        [JKPromptView showWithImageName:nil message:@"请您输入金额"];
+        [JKPromptView showWithImageName:nil message:LOCSETMONEY];
         return;
     }
     

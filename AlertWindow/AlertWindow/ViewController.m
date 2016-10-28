@@ -10,9 +10,15 @@
 #import "DefineHeader.h"
 #import "Disability_AlertView.h"
 #import "NSDate+fish_Extension.h"
+#import "NSBundle+HTML.h"
+#define SCREENWIDTH  [UIScreen mainScreen].bounds.size.width
+#define SCREENHEIGHT  [UIScreen mainScreen].bounds.size.height
 
-@interface ViewController ()<Disability_AlertViewPro>
+@interface ViewController ()<Disability_AlertViewPro, UIWebViewDelegate>
+{
+    UIWebView *_webView;
 
+}
 @property (nonatomic, strong) UIButton *sureBtn;
 @end
 
@@ -21,53 +27,70 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-        NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"地级市平均工资" ofType:@"txt"];
-        NSData *data = [NSData dataWithContentsOfFile:pathsss];
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
     
-//    NSArray *keysArrays = [dict allKeys];
-//    
-//    NSMutableDictionary *dict001 = [NSMutableDictionary dictionary];
-//    for (NSString *hs in keysArrays) {
-//        
-//        NSMutableDictionary *dict002 = [NSMutableDictionary dictionary];
-//
-//        NSDictionary *dictionary = dict[hs];
-//        NSString *str1 = dictionary[@"hisamt"];
-//        NSData *data1 = [str1 dataUsingEncoding:NSUTF8StringEncoding];
-//        NSDictionary *dict1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingAllowFragments error:nil];
-//
-//        
-//        NSString *str2 = dictionary[@"workamt"];
-//        NSData *data2 = [str2 dataUsingEncoding:NSUTF8StringEncoding];
-//        NSDictionary *dict2 = [NSJSONSerialization JSONObjectWithData:data2 options:NSJSONReadingAllowFragments error:nil];
-//        
-//        NSString *str3 = dictionary[@"injuryamt"];
-//
-//        [dict002 setValue:str3 forKey:@"injuryamt"];
-//        [dict002 setValue:dict1 forKey:@"hisamt"];
-//        [dict002 setValue:dict2 forKey:@"workamt"];
-//
-//        [dict001 setValue:dict002 forKey:hs];
-//    }
-    //获取本地沙盒路径
-    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    //获取完整路径
-    NSString *documentsPath = [path objectAtIndex:0];
-    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"TheAverageSalary.plist"];
-//    NSMutableDictionary *usersDic = [[NSMutableDictionary alloc ] init];
-//    //设置属性值
-//    [usersDic setObject:@"chan" forKey:@"name"];
-//    [usersDic setObject:@"123456" forKey:@"password"];
-    //写入文件
-    [dict writeToFile:plistPath atomically:YES];
- 
-    [self calculateYearsWithMonthsFromDate:[NSDate dateFromString:@"2016-09-30" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-10-31" format:@"yyyy-MM-dd"] withYear:YES Success:^(NSString *dateString) {
-        
-        
-        
-    }];
+    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"InjuryInductrial" ofType:@"plist"];
+    NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
+    NSString *content = bigDictionary[@"黑龙江省"];
+    _webView.backgroundColor = [UIColor blackColor];
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, SCREENWIDTH, SCREENHEIGHT-64)];
+    _webView.delegate = self;
+    _webView.scalesPageToFit = NO;
+    _webView.scrollView.showsVerticalScrollIndicator = NO;
+    //设置webview的背景色
+    _webView.backgroundColor = [UIColor clearColor];
+    [_webView setOpaque:NO];
+    [self.view addSubview:_webView];
+    
+    NSDictionary *dictt = [NSDictionary dictionaryWithObjectsAndKeys:content,@"content", nil];
+    [self aWebViewCss:@"DetailContent.xml" :dictt];
 
+//        NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"地级市平均工资" ofType:@"txt"];
+//        NSData *data = [NSData dataWithContentsOfFile:pathsss];
+//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+//    
+////    NSArray *keysArrays = [dict allKeys];
+////    
+////    NSMutableDictionary *dict001 = [NSMutableDictionary dictionary];
+////    for (NSString *hs in keysArrays) {
+////        
+////        NSMutableDictionary *dict002 = [NSMutableDictionary dictionary];
+////
+////        NSDictionary *dictionary = dict[hs];
+////        NSString *str1 = dictionary[@"hisamt"];
+////        NSData *data1 = [str1 dataUsingEncoding:NSUTF8StringEncoding];
+////        NSDictionary *dict1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONReadingAllowFragments error:nil];
+////
+////        
+////        NSString *str2 = dictionary[@"workamt"];
+////        NSData *data2 = [str2 dataUsingEncoding:NSUTF8StringEncoding];
+////        NSDictionary *dict2 = [NSJSONSerialization JSONObjectWithData:data2 options:NSJSONReadingAllowFragments error:nil];
+////        
+////        NSString *str3 = dictionary[@"injuryamt"];
+////
+////        [dict002 setValue:str3 forKey:@"injuryamt"];
+////        [dict002 setValue:dict1 forKey:@"hisamt"];
+////        [dict002 setValue:dict2 forKey:@"workamt"];
+////
+////        [dict001 setValue:dict002 forKey:hs];
+////    }
+//    //获取本地沙盒路径
+//    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    //获取完整路径
+//    NSString *documentsPath = [path objectAtIndex:0];
+//    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"TheAverageSalary.plist"];
+////    NSMutableDictionary *usersDic = [[NSMutableDictionary alloc ] init];
+////    //设置属性值
+////    [usersDic setObject:@"chan" forKey:@"name"];
+////    [usersDic setObject:@"123456" forKey:@"password"];
+//    //写入文件
+//    [dict writeToFile:plistPath atomically:YES];
+// 
+//    [self calculateYearsWithMonthsFromDate:[NSDate dateFromString:@"2016-09-30" format:@"yyyy-MM-dd"] toDate:[NSDate dateFromString:@"2016-10-31" format:@"yyyy-MM-dd"] withYear:YES Success:^(NSString *dateString) {
+//        
+//        
+//        
+//    }];
+//
     
 //    [self.view addSubview:self.sureBtn];
 //    
@@ -110,6 +133,20 @@
 ////    [adcomps setDay:0];
 ////    NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:mydate options:0];
 }
+- (void)aWebViewCss:(NSString *)aXML :(NSDictionary *)dicttionary
+{
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    NSDate * data = [NSDate dateWithTimeIntervalSince1970:[[dicttionary objectForKey:@"createtime"] floatValue]];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@" MM-dd HH:mm"];
+    NSString *regStr = [formatter stringFromDate:data];
+    [dict setObject:regStr forKey:@"dates"];
+    [dict setValuesForKeysWithDictionary:dicttionary];
+    
+    NSString * html = [NSBundle htmlFromFileName:aXML params:dict];
+    [_webView loadHTMLString:html baseURL:nil];
+}
+
 - (void)calculateYearsWithMonthsFromDate:(NSDate *)date1 toDate:(NSDate *)date2 withYear:(BOOL)isYear Success:(void(^)(NSString *dateString))success
 {
     NSCalendar *userCalendar = [NSCalendar currentCalendar];
