@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta type="i18n" src="android-phone-wallet-balance/locale.i18n" /><!-- 适配 -->
+    <meta type="i18n" src="WealthAccount.bundle/locale.i18n" />
+    <style type="text/css">
+        body, div {
+            display: flex;
+        }
+
+        body, html {
+            width: 100%;
+        }
+
+        .myBody {
+            flex: 1;
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            background-color: #f5f5f9;
+            flex-direction: column;
+            overflow: scroll;
+            display: none;
+        }
+
+        .content {
+            flex-direction: column;
+        }
+
+        .container {
+            flex-direction: column;
+            width: 100%;
+            background-color: #fff;
+            display: none;
+        }
+
+        .nav-right {
+            font-size: 17px;
+            color: #fff;
+            display: none;
+        }
+
+        .header {
+            padding: 11px 5px 10px 16px;
+            height: 169px;
+            width: 100%;
+            background-color: #4d90e7;
+            flex-direction: column;
+            display: none;
+            /*justify-content: center;*/
+        }
+
+        .h-header {
+            flex-direction: row;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .account {
+            font-size: 14px;
+            color: #fff;
+            font-auto-adjust:true;
+            -webkit-line-clamp:1;
+            opacity: 0.7;
+        }
+
+        .help {
+            width: 32px;
+            height: 32px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle-help-highlight {
+            border: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 8px;
+            background-image: url(WealthAccount.bundle/help_white);
+        }
+
+        .circle-help {
+            border: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 8px;
+            background-image: url(WealthAccount.bundle/help_grey);
+        }
+
+        .circle-help-highlight-android {
+            border: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 8px;
+            background-image: url(android-phone-wallet-balance/com.alipay.android.phone.wealth.banlance/help);
+        }
+
+        .circle-help-android {
+            border: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 8px;
+            background-image: url(android-phone-wallet-balance/com.alipay.android.phone.wealth.banlance/help_grey);
+        }
+
+        .money {
+            flex: 1;
+            font-size: 72px;
+            -webkit-line-clamp:1;
+            white-space: nowrap;
+            font-auto-adjust: true;
+            color: #fff;
+        }
+
+        .quota-info {
+            flex-direction: column;
+            background-color: #3e7ccb;
+            display: none;
+        }
+
+        .explain-text {
+            font-size: 13px;
+            line-height: 18px;
+            flex: 1;
+            color: #888;
+        }
+
+        .list {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .list-item {
+            height: 45px;
+            align-items: center;
+            margin-left: 16px;
+            margin-right: 16px;
+        }
+
+        .list-item-icon {
+            margin-right: 10px;
+            height: 21px;
+            width: 21px;
+        }
+
+        .list-item-text {
+            font-size: 17px;
+        }
+
+        /*l1-l3升级*/
+        .level {
+            flex-direction: row;
+            align-items: center;
+            font-size: 13px;
+            height: 40px;
+            margin-left: 16px;
+        }
+
+        .amount-left {
+            align-items: center;
+            color: #ffd000;
+            font-size: 14px;
+            flex-wrap: wrap;
+            flex: 1;
+            font-auto-adjust:true;
+        }
+
+        .upgrade-detail {
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 16px;
+            width: 120px;
+        }
+
+        .upgrade-detail-label {
+            border: none;
+            margin: 4px 6px;
+            height: 17px;
+            background-color: #3e7ccb;
+            color: #fff;
+            width: 61px;
+            font-size: 14px;
+        }
+
+        .upgrade-arrow {
+            width: 13px;
+            height: 13px;
+        }
+
+        .list-item-arrow {
+            width: 8px;
+            height: 14px;
+            /*align-items: center;*/
+        }
+
+        .level-line {
+            height: 1px;
+            background-color: #efefef;
+        }
+
+        /*提升额度*/
+        .guide-circle {
+            border-radius: 8px;
+            height: 16px;
+            width: 16px;
+            background-color: #fff;
+        }
+
+        .guide-line2px {
+            width: 2px;
+            flex: 1.0;
+            background-color: #0ae;
+        }
+
+        .blue-color {
+            background-color: #0ae;
+        }
+
+        .grey-color {
+            background-color: #ccc;
+        }
+
+        .explain-header {
+            font-size: 17px;
+            font-weight: bold;
+            color: #333;
+            margin: 11px 0px 5px 0px;
+        }
+
+        /*提升额度边距*/
+        .quota-container {
+            flex-direction: column;
+            margin: 20px 15px 10px 15px;
+            display: none;
+        }
+
+        .quota-listitem {
+            flex-direction: row;
+        }
+
+        .quota-listitem-icon {
+            width: 16px;
+            flex-direction: column;
+            height: 71px;
+            max-height: 71px;
+            margin-right: 10px;
+            align-items: center;
+        }
+
+        /*.quota-listitem-third-icon {*/
+        /*width: 16px;*/
+        /*flex-direction: column;*/
+        /*margin-right: 10px;*/
+        /*align-items: center;*/
+        /*}*/
+
+        .quota-listitem-button {
+            width: 65px;
+            height: 25px;
+        }
+
+
+        .quota-listitem-text {
+            flex-direction: column;
+            height: 71px;
+            max-height: 71px;
+            flex: 1;
+        }
+
+        /*.quota-listitem-third-text {*/
+        /*flex-direction: column;*/
+        /*}*/
+
+        .quota-text-title {
+            font-size: 14px;
+            color: #0ae;
+            margin-bottom: 4px;
+        }
+
+        .quota-text-second {
+            font-size: 12px;
+            color: #f96268;
+            margin-bottom: 4px;
+        }
+
+        .quota-text-third {
+            font-size: 12px;
+            color: #ccc;
+            margin-bottom: 4px;
+        }
+
+        .quota-update-button {
+            border: none;
+            border-radius: 2px;
+            width: 65px;
+            height: 23px;
+            text-align: center;
+            color: #fff;
+            background-color: #0ae;
+            font-size: 12px;
+        }
+
+        .margin-bottom-25 {
+            margin-bottom: 25px;
+        }
+
+        .error-content {
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f9;
+            display: none;
+        }
+
+        .error-img-container {
+            width: 100%;
+            margin-top: 100px;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .error-img {
+            width: 135px;
+            height: 135px;
+            margin-bottom: 25px;
+
+        }
+
+        .error-text {
+            text-align: center;
+            color: #888;
+            font-size: 16px;;
+            line-height: 21px;
+        }
+
+        .error-button {
+            border: none;
+            margin: 38px 15px 40px 15px;
+            height: 42px;
+            background-color: #0ae;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        /*模版I账户开户*/
+        .u-list-header {
+            font-size: 14px;
+            margin: 20px 16px;
+        }
+
+        .u-list-item {
+            height: 32px;
+            padding-left: 16px;
+            padding-right: 16px;
+            flex-flow: row;
+            align-items: center;
+        }
+
+        .u-list-icon {
+            width: 21px;
+            height: 16px;
+        }
+
+        .u-list-text {
+            margin-left: 13px;
+            font-size: 18px;
+        }
+
+        .template-content {
+            padding: 20px 16px 0 15px;
+            flex-direction: column;
+        }
+
+        .explain {
+            flex: 1;
+            font-size: 13px;
+        }
+
+        .button {
+            border: none;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            height: 42px;
+            background-color: #00aaee;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 18px;
+            /*font-family: "STHeiti";*/
+        }
+
+        /*模版C和L:异常页面*/
+        .c-content {
+            padding: 0 16px 0 15px;
+            flex-direction: column;
+        }
+        .row {
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        .limit-explain {
+            font-size: 13px;
+            flex: 1;
+            color: #888;
+        }
+
+        .limit-explain-icon {
+            width: 14px;
+            height: 14px;
+            margin-top: 3px;
+            margin-right: 3px;
+        }
+
+        .limit-button {
+            border: none;
+            height: 42px;
+            background-color: #00aaee;
+            border-radius: 4px;
+            color: #ffffff;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+
+        .list-background-color {
+            background-color: #f5f5f9;
+        }
+
+        .list-space-height {
+            height: 20px;
+        }
+
+        .countdown-text {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .countdown-bg {
+            background-color: #e4eaf4;
+            width: 52px;
+            height: 34px;
+            border-radius: 2px;
+        }
+
+        .countdown-inner-bg {
+            width: 26px;
+            height: 34px;
+        }
+
+        .countdown-img {
+            width: 22px;
+            height: 28px;
+            position: absolute;
+            top: 3px;
+        }
+
+        .countdown-img-left {
+            left: 3px;
+        }
+
+        .countdown-img-right {
+            left: 1px;
+        }
+
+        .countdown-num {
+            font-size: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .countdown-color {
+            color: #5d91e8;
+        }
+
+        .margin-vertical20px {
+            margin: 20px 0 15px 0;
+        }
+
+        .padding-horizontal {
+            padding: 0 3px 0 3px;
+        }
+
+        .align-center {
+            align-items: center;
+        }
+
+    </style>
+    <script type="text/javascript">
+        window.$ = function (id) {
+            return document.getElementById(id);
+        };
+        window.$$ = function (sel) {
+            return document.querySelectorAll(sel);
+        };
+
+        var WealthAccount_bundle = "WealthAccount.bundle/";//适配
+        var UICommon_bundle = "APCommonUI.bundle/";
+        var tableArrowResource = UICommon_bundle + "Tables_Arrow";
+
+        var dropdown = WealthAccount_bundle + "dropdown";
+        var foldup = undefined;
+        if (document.platform == "android") {
+
+            WealthAccount_bundle = "android-phone-wallet-balance/com.alipay.android.phone.wealth.banlance/";
+            UICommon_bundle = "android-phone-wallet-balance/com.alipay.android.phone.wealth.banlance/";
+            tableArrowResource = "android-phone-mobilecommon-ui/com.alipay.mobile.ui/table_arrow";
+
+            dropdown = WealthAccount_bundle + "dropdown" ;
+            foldup = WealthAccount_bundle + "foldup" ;
+        }
+
+        // 模版
+        var TEMPLATE_I = "I";
+        var TEMPLATE_N = "N";
+        var TEMPLATE_C = "C";
+        var TEMPLATE_L = "L";
+        var TEMPLATE_O = "O";
+
+        // scheme
+        DETAILLIST_URL = "alipays://platformapi/startapp?appId=20000019&path=detaillist"; // 收支明细
+
+        var robot_url = undefined;
+
+        // 额度提升模块是否展示
+        var shouldShowQuotaDetail = false;
+        var everCloseQuotaDetail = true;
+        var hasSetupView = false;
+
+        var init = function () {
+
+            // 缓存需要反复用到的节点
+            window.Node = {
+
+                body: $$(".myBody")[0],
+                content: $("J-content"),
+                errorContent:$("J-error-content"),
+
+                templateN: $("template-N"),
+                templateU: $("template-U"),
+                templateI: $("template-I"),
+                templateC: $("template-C"),
+                templateL: $("template-L"),
+                templateO: $("template-O"),
+
+                accountHeader: $("J-header"),       // 头部
+                accountTitle: $("J-account-title"), // 头部的标题
+                accountMoney: $("J-account-money"), // 头部的金额
+                helpButton: $("J-help"), // 智能客服
+            };
+
+            window.ViewsTemplateN = {
+                quotaContainer: $("J-N-quota"),  // 当前额度模块
+                amountLeftLabel: $("J-amount-left"),   // 当前额度Label
+                detailLabel: $("J-detail-label"),  // 详情按钮
+                quotaDetailArrow: $("J-upgrade-arrow"),
+
+                quotaDetailContainer: $("J-N-quota-container"), // 额度提升模块
+                explainLable: $("J-N-explain"),
+                quotaListView: $("J-N-quota-list"),
+            };
+
+            loadCacheData();
+        };
+
+        document.viewWillAppear = function () {
+
+            loadData();
+        };
+
+        var loadData = function () {
+
+            if (hasSetupView) {
+
+                document.invoke("showProgress", {"titleLoading" : true});
+            } else {
+
+                document.invoke("showProgress");
+            }
+            document.invoke('rpc', {
+
+                "operationType": "alipay.wealth.account.home",
+                "requestData": [{}]
+            }, function (rsp) {
+
+                document.invoke("hideProgress");
+                if (rsp.success) {
+
+                    // 请求成功,网关结果
+                    var bizResult = rsp.result;
+                    if (bizResult.success) {
+
+                        setupView(bizResult);
+                        // 缓存数据
+                        document.setProp("userPreferences", {
+
+                            "key" : "WealthAccountHome",
+                            "business": "WealthAccount",
+                            "data" : bizResult
+                        });
+                        print("set loadCacheData", JSON.stringify(bizResult));
+                    } else {
+
+                        showRequestError(true, bizResult.resultView);
+                    }
+                } else {
+                    // 网关失败需要处理
+                    showRequestError(false, "{{网络无法连接}}");
+                }
+            });
+        };
+
+        var setupView = function(bizResult) {
+
+            Node.body.style.display = "flex";
+            Node.body.style.backgroundColor = "#f5f5f9";
+            Node.content.style.display = 'flex';
+            Node.errorContent.style.display = 'none';
+            hasSetupView = true;
+
+            showNavDetailButton(bizResult.styleTemplate);
+
+            if (bizResult.styleTemplate == TEMPLATE_N) {
+
+                updateViewTempalteN(bizResult);
+            } else if (bizResult.styleTemplate == TEMPLATE_I) {
+
+                Node.body.style.backgroundColor = "#fff";
+                if (parseFloat(bizResult.availableAmount, 2) === 0.00) {
+
+                    updateViewTemplateU(bizResult);
+                } else {
+
+                    updateViewTemplateI(bizResult);
+                }
+            } else if (bizResult.styleTemplate == TEMPLATE_C) {
+
+                updateViewTemplateC(bizResult);
+            } else if (bizResult.styleTemplate == TEMPLATE_L) {
+
+                updateViewTemplateL(bizResult);
+            } else if (bizResult.styleTemplate == TEMPLATE_O) {
+
+                updateViewTemplateO(bizResult);
+            }
+        };
+
+        var updateHeaderView = function (bizResult, shouldHighlight) {
+
+            Node.accountHeader.style.display = "flex";
+
+            var helpImage = $("J-help-image");
+            if (document.platform == "android") {
+
+                helpImage.className = "circle-help-highlight-android";
+            }
+
+            if (!shouldHighlight) {
+
+                Node.accountHeader.style.backgroundColor = "#cacaca";
+                Node.accountTitle.style.color = "#a0a0a0";
+                Node.accountMoney.style.color = "#b6b6b6";
+
+                helpImage.className = "circle-help";
+                if (document.platform == "android") {
+
+                    helpImage.className = "circle-help-android";
+                }
+            }
+
+            Node.accountTitle.innerText = bizResult.balanceTitle;
+            Node.accountMoney.innerText = bizResult.availableAmount;
+
+            if (robot_url && robot_url.length > 0) {
+
+                Node.helpButton.style.display = 'flex';
+                Node.helpButton.onclick = function () {
+
+                    document.openURL(robot_url);
+                };
+            } else {
+
+                Node.helpButton.style.display = "none";
+            }
+        };
+
+        // 模版N,非银等级(L1、L2和L3)
+        var updateViewTempalteN = function (bizResult) {
+
+            Node.templateN.style.display = "flex";
+            Node.templateU.style.display = "none";
+            Node.templateI.style.display = "none";
+            Node.templateC.style.display = "none";
+            Node.templateL.style.display = "none";
+            Node.templateO.style.display = "none";
+
+
+            if (bizResult.quotaInfo && bizResult.quotaInfo.quotaSubInfo) {
+
+                robot_url = bizResult.quotaInfo.quotaSubInfo.superviseLink;
+            }
+            updateHeaderView(bizResult, true);
+
+            // 充值\提现
+            updateApp(bizResult);
+
+            // 动态扩展app
+            var extendApps = bizResult.extendApps;
+            var listView = $("J-N-extend-apps");
+            listView.innerHTML = "";
+            createAppListView(listView, extendApps);
+
+            // 没有余额等级
+            var quotaInfo = bizResult.quotaInfo;
+            if (!quotaInfo) return;
+
+            ViewsTemplateN.quotaDetailArrow.src = dropdown;
+            // 如果用户曾手动关闭额度升级模块,则不展开
+            everCloseQuotaDetail = document.getProp("userPreferences", {
+
+                "key": "kEverCloseQuota",
+                "business": "WealthAccount"
+            });
+
+            // android鸟巢,无缓存时,返回字符串0
+            print("everCloseQuotaDetail", everCloseQuotaDetail);
+            if (!everCloseQuotaDetail || everCloseQuotaDetail == '0') {
+
+                everCloseQuotaDetail = null;
+                shouldShowQuotaDetail = true;
+                showArrow();
+            }
+
+            updateQuotaInfoView(quotaInfo);
+
+            var remainAccount = bizResult.remainAmount;
+            // 剩余余额为0,强行展开额度提升模块
+            if (parseFloat(remainAccount, 2) === 0.00) {
+
+                shouldShowQuotaDetail = true;
+                showArrow();
+            }
+
+            // 监管说明
+            var explain = quotaInfo.quotaSubInfo.supervise;
+            var moreLink = quotaInfo.quotaSubInfo.superviseLink;
+            ViewsTemplateN.explainLable.innerText = moreLink ? explain + '<a color = "#00aaee" href="' + moreLink + '">{{了解更多}}</a>' : explain;
+
+            // 额度提升模块
+            ViewsTemplateN.quotaListView.innerHTML = "";  // 不支持removeChild,用此删除全部child节点
+            createQuotaUpgradeView(ViewsTemplateN.quotaListView, quotaInfo.quotaSubInfo.quotaDetails, bizResult.buttonInfo);
+        };
+
+        // 额度说明
+        var updateQuotaInfoView = function (quotaInfo) {
+
+            if (quotaInfo.leftText && quotaInfo.leftText.length > 0 &&
+                    quotaInfo.rightText && quotaInfo.rightText.length > 0) {
+
+                ViewsTemplateN.quotaContainer.style.display = 'flex';
+                ViewsTemplateN.amountLeftLabel.innerText = quotaInfo.leftText;
+                ViewsTemplateN.detailLabel.innerText = quotaInfo.rightText;
+
+                $("J-details").onclick = (function () {
+
+                    return function () {
+
+                        if (!everCloseQuotaDetail) {
+
+                            // data,只能是json
+                            document.setProp("userPreferences", {
+                                "key": "kEverCloseQuota",
+                                "business": "WealthAccount",
+                                "data": {"kEverCloseQuota" : true}
+                            });
+                        }
+
+                        showArrow();
+                    };
+                })();
+            } else {
+
+                ViewsTemplateN.quotaContainer.style.display = "none";
+            }
+        };
+
+        var showArrow = function() {
+
+            if (shouldShowQuotaDetail) {
+
+                ViewsTemplateN.quotaDetailContainer.style.display = "flex";
+                $("J-N-f-space").style.display = 'flex';
+
+                if(document.platform == "android") {
+
+                    ViewsTemplateN.quotaDetailArrow.src = foldup;
+                } else {
+
+                    ViewsTemplateN.quotaDetailArrow.style.transform = "rotate(180deg)";
+                }
+            } else {
+
+                ViewsTemplateN.quotaDetailContainer.style.display = "none";
+                $("J-N-f-space").style.display = 'none';
+                if(document.platform == "android") {
+
+                    ViewsTemplateN.quotaDetailArrow.src = dropdown;
+                } else {
+
+                    ViewsTemplateN.quotaDetailArrow.style.transform = "rotate(0deg)";
+                }
+            }
+            shouldShowQuotaDetail = !shouldShowQuotaDetail;
+        };
+
+        // 模版U,补全身份信息,余额为0
+        var updateViewTemplateU = function (bizResult) {
+
+            Node.templateU.style.display = "flex";
+            Node.templateI.style.display = "none";
+            Node.templateN.style.display = "none";
+            Node.templateC.style.display = "none";
+            Node.templateL.style.display = "none";
+            Node.templateO.style.display = "none";
+            Node.accountHeader.style.display = "none";
+
+            // 充值提现,不可点击
+            $("J-U-payment-icon").src = WealthAccount_bundle + "deposit_icon";
+            $("J-U-withdraw-icon").src = WealthAccount_bundle + "withdraw_icon";
+
+            // 开户按钮
+            var mainButton = $("J-U-button");
+            var title = bizResult.buttonInfo.buttonTitle;
+            mainButton.innerText = title && title.length > 0 ? title : "{{补全身份信息}}";
+            mainButton.onclick = (function (url) {
+
+                return function () {
+
+                    if (url && url.length > 0) {
+
+                        document.openURL(url);
+                    } else {
+
+                        openAccount();
+                    }
+                };
+            })(bizResult.buttonInfo.buttonUrl);
+        };
+
+        // 模版I,补全身份信息,账户余额不为0
+        var updateViewTemplateI = function (bizResult) {
+
+            Node.templateI.style.cssText = "display: flex;";
+            Node.templateU.style.display = "none";
+            Node.templateN.style.display = "none";
+            Node.templateC.style.display = "none";
+            Node.templateL.style.display = "none";
+            Node.templateO.style.display = "none";
+
+            if (bizResult.superviceInfo && bizResult.superviceInfo.superviseLink) {
+
+                robot_url = bizResult.superviceInfo.superviseLink;
+            }
+            updateHeaderView(bizResult, false);
+
+            // 监管说明
+            if (bizResult.superviceInfo && bizResult.superviceInfo.supervise) {
+
+                var explain = bizResult.superviceInfo.supervise;
+                var moreLink = bizResult.superviceInfo.superviseLink;
+                $("J-U-explain-text").style.display = "flex";
+                $("J-U-explain-text").innerText = moreLink ? explain + '<a color = "#00aaee" href="' + moreLink + '">{{了解更多}}</a>' : explain;
+            } else {
+
+                $("J-U-explain-text").style.display = "none";
+            }
+
+            // 开通按钮
+            var openAccountButton = $("J-I-button");
+
+            var title = bizResult.buttonInfo.buttonTitle;
+            openAccountButton.innerText = title && title.length > 0 ? title : "{{补全身份信息}}";
+
+            openAccountButton.onclick = (function (url) {
+
+                return function () {
+
+                    if (url && url.length > 0) {
+
+                        document.openURL(url);
+                    } else {
+
+                        openAccount();
+                    }
+                };
+            })(bizResult.buttonInfo.buttonUrl);
+        };
+
+
+        // 模版C:二号令受限、存量待升级和L1待升级
+        var updateViewTemplateC = function (bizResult) {
+
+            Node.templateC.style.display = "flex";
+            Node.templateL.style.display = "none";
+            Node.templateN.style.display = "none";
+            Node.templateU.style.display = "none";
+            Node.templateI.style.display = "none";
+            Node.templateO.style.display = "none";
+
+            if (bizResult.superviceInfo) {
+
+                robot_url = bizResult.superviceInfo.superviseLink;
+            }
+            updateHeaderView(bizResult, true);
+
+            // 监管说明
+            if (bizResult.superviceInfo && bizResult.superviceInfo.supervise) {
+
+                var explain = bizResult.superviceInfo.supervise;
+                var moreLink = bizResult.superviceInfo.superviseLink;
+                $("J-C-warn-explain").style.display = "flex";
+                $("J-C-explain").innerText = moreLink ? explain + '<a color = "#00aaee" href="' + moreLink + '">{{了解更多}}</a>' : explain;
+                $("J-warning-icon").src = WealthAccount_bundle + "warning";
+            } else {
+
+                $("J-C-warn-explain").style.display = "none";
+            }
+
+            // 剩余天数倒计时
+            var expirationDays = bizResult.expirationDays;
+            if (expirationDays) {
+
+                $("J-unit-img").src = WealthAccount_bundle + "count_down_bg";
+                $("J-dec-img").src = WealthAccount_bundle + "count_down_bg";
+
+                var unit = Math.floor(expirationDays % 10);
+                var decade = Math.floor((expirationDays - unit) / 10);
+                var decadeView = $("J-C-decade");
+                var unitView = $("J-C-unit");
+                decadeView.innerText = decade + "";
+                unitView.innerText = unit + "";
+            }
+
+            // 上传身份证
+            var limitButton = $("J-C-limit-button");
+            var buttonTitle = bizResult.buttonInfo.buttonTitle;
+            var buttonUrl = bizResult.buttonInfo.buttonUrl;
+            if (buttonTitle && buttonUrl && buttonTitle.length > 0 && buttonUrl.length > 0) {
+
+                limitButton.innerText = buttonTitle;
+                limitButton.onclick = function () {
+
+                    document.openURL(buttonUrl);
+                };
+            } else {
+                limitButton.style.display = "none";
+            }
+
+
+            // 充值\提现
+            updateApp(bizResult);
+
+            // 动态扩展的app
+            var list = $("J-C-extend-apps");
+            var extendApps = bizResult.extendApps;
+            createAppListView(list, extendApps);
+        };
+
+        var updateViewTemplateL = function (bizResult) {
+
+            Node.templateL.style.display = "flex";
+            Node.templateC.style.display = "none";
+            Node.templateN.style.display = "none";
+            Node.templateU.style.display = "none";
+            Node.templateI.style.display = "none";
+            Node.templateO.style.display = "none";
+
+            if (bizResult.superviceInfo && bizResult.superviceInfo.superviseLink) {
+
+                robot_url = bizResult.superviceInfo.superviseLink;
+            }
+            updateHeaderView(bizResult, true);
+
+            updateApp(bizResult);
+
+            // 监管说明
+            if (bizResult.superviceInfo) {
+
+                $("J-L-explain-content").style.display = 'flex';
+                var explain = bizResult.superviceInfo.supervise;
+                var moreLink = bizResult.superviceInfo.superviseLink;
+                $("J-L-explain").innerText = moreLink ? explain + '<a color = "#00aaee" href="' + moreLink + '">{{了解更多}}</a>' : explain;
+                $("J-L-warning-icon").src = WealthAccount_bundle + "warning";
+            } else {
+
+                $("J-L-explain-content").style.display = 'none';
+                $("J-L-f-space").style.display = "none";
+            }
+
+
+            // 补全身份信息
+            var mainButton = $("J-L-button");
+            var title = bizResult.buttonInfo.buttonTitle;
+            var buttonUrl = bizResult.buttonInfo.buttonUrl;
+            if (title && title.length > 0 && buttonUrl && buttonUrl.length > 0) {
+
+                mainButton.innerText = title;
+                mainButton.onclick = function () {
+
+                    document.openURL(bizResult.buttonInfo.buttonUrl);
+                };
+            } else {
+
+                mainButton.style.display = "none";
+            }
+
+
+            // 动态扩展的app
+            var list = $("J-L-extend-apps");
+            var extendApps = bizResult.extendApps;
+            createAppListView(list, extendApps);
+        };
+
+        var updateViewTemplateO = function(bizResult) {
+
+            Node.templateI.style.display = "none";
+            Node.templateU.style.display = "none";
+            Node.templateN.style.display = "none";
+            Node.templateC.style.display = "none";
+            Node.templateL.style.display = "none";
+            Node.templateO.style.display = "flex";
+
+            if (bizResult.superviceInfo && bizResult.superviceInfo.superviseLink) {
+
+                robot_url = bizResult.superviceInfo.superviseLink;
+            }
+            updateHeaderView(bizResult, false);
+
+            // 监管说明
+            if (bizResult.superviceInfo && bizResult.superviceInfo.supervise) {
+
+                var explain = bizResult.superviceInfo.supervise;
+                var moreLink = bizResult.superviceInfo.superviseLink;
+                $("J-O-explain-text").style.display = 'flex';
+                $("J-O-explain-text").innerText = moreLink ? explain + '<a color = "#00aaee" href="' + moreLink + '">{{了解更多}}</a>' : explain;
+            } else {
+
+                $("J-O-explain-text").style.display = 'none';
+            }
+
+            var updateIndentityInfo = $("J-O-button");
+
+            var title = bizResult.buttonInfo.buttonTitle;
+            var buttonUrl = bizResult.buttonInfo.buttonUrl;
+            if (!title || title.length <= 0 || !buttonUrl || buttonUrl.length <= 0) {
+
+                updateIndentityInfo.style.display = "none";
+            } else {
+
+                updateIndentityInfo.innerText = title;
+
+                updateIndentityInfo.onclick = (function (url) {
+
+                    return function () {
+
+                        document.openURL(url);
+                    }
+                })(buttonUrl);
+            }
+
+            // 动态扩展的app
+            var list = $("J-O-extend-apps");
+            var extendApps = bizResult.extendApps;
+            createAppListView(list, extendApps);
+        };
+
+        var showNavDetailButton = function (styleTemplate) {
+
+            // nav "明细"
+            var navDetailButton = $("J-nav-detaillist");
+            if (styleTemplate == TEMPLATE_C || styleTemplate == TEMPLATE_L ||
+                    styleTemplate == TEMPLATE_N || styleTemplate == TEMPLATE_O) {
+                navDetailButton.style.display = "flex";
+                navDetailButton.onclick = function () {
+
+                    document.openURL(DETAILLIST_URL);
+                };
+            } else {
+
+                navDetailButton.style.display = "none";
+            }
+        };
+        /**--------------- 加载数据 ---------------**/
+
+        var loadCacheData = function () {
+
+            var data = document.getProp("userPreferences", {
+
+                "key" : "WealthAccountHome",
+                "business": "WealthAccount"
+            });
+            print("loadCacheData", data);
+            // android： 清缓存后，再拿缓存，拿到字符串”0”
+            if (data && data.length > 1) {
+
+                var bizResult = JSON.parse(data);
+                setupView(bizResult);
+            }
+        };
+
+        var showRequestError = function (isBizError, errorText) {
+
+            if (hasSetupView) {
+
+                document.invoke("toast", {
+
+                    "text" : errorText,
+                    "type" : isBizError ? "failure" : "netError",
+                    "duration" : 2000
+                });
+            } else {
+
+                updateErrorPage(isBizError, errorText);
+            }
+        };
+
+        // 错误全页面
+        var updateErrorPage = function (isBizError, errorText) {
+
+            Node.body.style.display = "flex";
+            Node.content.style.display = 'none';
+            Node.errorContent.style.display = 'flex';
+
+            showNavDetailButton(null);
+
+            $$(".error-img")[0].src = isBizError ? UICommon_bundle + "ilustration_ap_expection_alert" : UICommon_bundle + "ilustration_ap_expection_networkerror";//适配
+            $$('.error-text')[0].innerText = errorText;
+            var button = $("J-retry-button");
+            button.onclick = function () {
+
+                loadData();
+            }
+        };
+
+        var gotoMorePage = function (url) {
+
+            document.openURL(url);
+        };
+
+
+        /**--------------- app模块,充值和提现客户端写死,其他app动态生成.下面的逻辑需要跟视觉联系起来看  ---------------**/
+
+        // 充值提现app的展示和点击事件
+        var updateApp = function (bizResult) {
+
+            var paymentCell;
+            var withDrawCell;
+            var paymentCellIcon;
+            var withDrawCellIcon;
+            var paymentCellArrow;
+            var withDrawCellArrow;
+            switch (bizResult.styleTemplate) {
+                case TEMPLATE_N:
+                    paymentCell = $("J-N-payment");      // 充值app
+                    withDrawCell = $("J-N-withdraw");    // 提现app
+                    paymentCellIcon = $("J-N-payment-icon");
+                    withDrawCellIcon = $("J-N-withdraw-icon");
+                    paymentCellArrow = $("J-N-payment-arrow");
+                    withDrawCellArrow = $("J-N-withdraw-arrow");
+                    break;
+                case TEMPLATE_C:
+                    paymentCell = $("J-C-payment");
+                    withDrawCell = $("J-C-withdraw");
+                    paymentCellIcon = $("J-C-payment-icon");
+                    withDrawCellIcon = $("J-C-withdraw-icon");
+                    paymentCellArrow = $("J-C-payment-arrow");
+                    withDrawCellArrow = $("J-C-withdraw-arrow");
+                    break;
+                case TEMPLATE_L:
+                    paymentCell = $("J-L-payment");
+                    withDrawCell = $("J-L-withdraw");
+                    paymentCellIcon = $("J-L-payment-icon");
+                    withDrawCellIcon = $("J-L-withdraw-icon");
+                    paymentCellArrow = $("J-L-payment-arrow");
+                    withDrawCellArrow = $("J-L-withdraw-arrow");
+                    break;
+                default:
+                    break;
+            }
+            // 充值
+            if (bizResult.depositAvailble) {
+                paymentCell.style.display = "flex";
+                paymentCell.onclick = function () {
+
+                    document.invoke("startApp", {
+                        "appId" : "20000255",
+                        "param" : {},
+                        "animated" : true
+                    });
+                };
+                paymentCellIcon.src = WealthAccount_bundle + "deposit_icon";//适配
+                paymentCellArrow.src = tableArrowResource;//适配
+
+            } else {
+                paymentCell.style.display = "none";
+            }
+
+            // 提现
+            if (bizResult.withdrawAvailble) {
+
+                withDrawCell.style.display = "flex";
+                withDrawCell.onclick = function () {
+
+                    document.invoke("startApp", {
+                        "appId" : "20000033",
+                        "param" : {},
+                        "animated" : true
+                    });
+                };
+                withDrawCellIcon.src = WealthAccount_bundle + "withdraw_icon";//适配
+                withDrawCellArrow.src = tableArrowResource;//适配
+            } else {
+
+                withDrawCell.style.display = "none";
+            }
+        };
+
+        var createAppListView = function(listView, extendApps) {
+
+            if (!listView) return;
+            if (!extendApps) return;
+
+            listView.innerHTML = ""; // 不支持removeChild,用此删除全部child节点
+            var line = document.createElement("div");
+            line.className = "level-line";
+            listView.appendChild(line);
+            for (var i = 0; i < extendApps.length; i++) {
+                createAppCellView(listView, extendApps[i]);
+            }
+        };
+        // 动态扩展APP,下面的逻辑需要跟视觉联系起来看
+        var createAppCellView = function (listView, extendApp) {
+
+            if (!extendApp) return;
+            var div = document.createElement("div");
+            div.className = "list-item";
+            div.id = 'J-'+extendApp.icon;
+            var imgIcon = document.createElement("img");
+            imgIcon.src = extendApp.icon;
+            imgIcon.style.cssText = "width: 21px; height: 21px; margin-right: 10px;";
+            var labelText = document.createElement("label");
+            labelText.className = "list-item-text";
+            labelText.style.flex = "1";
+            labelText.innerText = extendApp.name;
+            var label = document.createElement("label");
+            label.style.flex = "1";
+            var imgArrow = document.createElement("img");
+            imgArrow.className = "list-item-arrow";
+            imgArrow.src = tableArrowResource;//适配
+
+            listView.appendChild(div);
+            div.appendChild(imgIcon);
+            div.appendChild(labelText);
+            div.appendChild(label);
+            div.appendChild(imgArrow);
+
+            // 鸟巢:通过闭包来绑定事件,不能直接返回一个具名函数.
+            div.onclick = (function (url) {
+                return function () {
+                    document.openURL(url);
+                };
+            })(extendApp.url);
+
+            var line = document.createElement("div");
+            line.className = "level-line";
+            listView.appendChild(line);
+        };
+
+        /**--------------- 提升额度模块,动态生成页面元素.下面的逻辑需要跟视觉联系起来看  ---------------**/
+
+        /**
+         * 提升额度模块,动态生成
+         * @param quotaListView : 视图列表 | <div>
+         * @param quotaDetail : 数据 | array
+         * @param buttonInfo :  提升额度按钮文本和链接
+         */
+        var createQuotaUpgradeView = function (quotaListView, quotaDetail, buttonInfo) {
+
+            if (!quotaListView) return;
+            if (!quotaDetail) return;
+            var count = quotaDetail.length;
+
+            for (var i = 0; i < count; i++) {
+
+                createQuotaUpgradeCell(quotaListView, quotaDetail[i], buttonInfo, i, count);
+            }
+        };
+
+
+        /**
+         * 额度提升动态生成每个cell
+         * @param quotaListView
+         * @param quotaData  数据 | dictionary
+         * @param buttonInfo 提升额度按钮文本和链接
+         * @param index
+         * @param count
+         */
+        var createQuotaUpgradeCell = function (quotaListView, quotaData, buttonInfo, index, count) {
+
+            var listItem = Utils.createElement("div.quota-listitem");
+            quotaListView.appendChild(listItem);
+
+            // icon 区域
+            var cellIcon = createCellIcon(index, count);
+            listItem.appendChild(cellIcon);
+
+
+            // 文本区域
+            listItem.appendChild(createQuotaText(quotaData));
+
+            // 提升额度的按钮
+            if (index == 0 && count != 1) {
+
+                if (!buttonInfo.buttonUrl || buttonInfo.buttonUrl.length <= 0) return;
+
+                var buttonDiv = document.createElement("div");
+                buttonDiv.className = "quota-listitem-button";
+                listItem.appendChild(buttonDiv);
+//                var button = Utils.createElement('button.quota-update-button');
+                var button = document.createElement('label');
+                button.className = 'quota-update-button';
+                button.id = 'J-N-upgrade-button';
+                button.innerText = buttonInfo.buttonTitle;
+                buttonDiv.appendChild(button);
+
+                button.onclick = (function (url) {
+                    return function () {
+                        //
+                        document.openURL(url);
+                    };
+                })(buttonInfo.buttonUrl);
+            }
+        };
+
+        // 额度提升文本
+        var createQuotaText = function (quotaData) {
+
+            var textsDiv = Utils.createElement("div.quota-listitem-text");
+
+            // 额度描述
+            if (quotaData.quotaDesc && quotaData.quotaDesc.length > 0) {
+
+                var tTitle = Utils.createElement("label.quota-text-title");
+                tTitle.innerText = quotaData.quotaDesc;
+                if (!quotaData.blink) {
+
+                    tTitle.style.color = "#888";
+                }
+                textsDiv.appendChild(tTitle);
+            }
+            // 剩余额度
+            if (quotaData.remainQuotaDesc && quotaData.remainQuotaDesc.length > 0) {
+
+                var sTitle = Utils.createElement("label.quota-text-second");
+                sTitle.innerText = quotaData.remainQuotaDesc;
+                if (!quotaData.blink) {
+
+                    sTitle.style.color = "#ccc";
+                }
+                textsDiv.appendChild(sTitle);
+            }
+            // 额度说明
+            var memosCount = quotaData.quotaMemos.length;
+            for (var i = 0; i < memosCount; i++) {
+
+                var t = Utils.createElement("label.quota-text-third");
+                t.innerText = quotaData.quotaMemos[i];
+                textsDiv.appendChild(t);
+            }
+            return textsDiv;
+        };
+
+        /**
+         * 左栏进度条的icon样式分为4种,可联系视觉稿
+         * @param :
+         * @param :
+         * @returns
+         */
+        var createCellIcon = function (index, count) {
+
+            var div = Utils.createElement("div.quota-listitem-icon");
+            var circle = Utils.createElement("img.guide-circle");
+            div.appendChild(circle);
+            if (index === 0 && count > 1) {
+
+                // L1,L2 额度提升的第一栏
+//                circle.style.backgroundColor = "#0ae";
+//                circle.src = BeeViews_bundle + "status_yes";//适配
+                circle.src = WealthAccount_bundle + "progress_success";
+                div.appendChild(Utils.createElement("div.guide-line2px blue-color"));
+                div.appendChild(Utils.createElement("div.guide-line2px grey-color"));
+            } else if (index === 0 && count === 1) {
+
+                // L3 ,额度提升只有一栏
+//                circle.src = UICommon_bundle + "checkbox_main_checked";//适配
+                circle.src = WealthAccount_bundle + "progress_success";
+//                circle.style.backgroundColor = "#0ae";
+//                circle.src = BeeViews_bundle + "status_yes";
+            } else if (index === 1 && count === 3) {
+
+                // L1, 额度提升第二栏
+                circle.src = WealthAccount_bundle + "progress_on"; //适配
+                div.appendChild(Utils.createElement("div.guide-line2px grey-color"));
+                div.appendChild(Utils.createElement("div.guide-line2px grey-color"));
+                div.appendChild(Utils.createElement("div.line-grey"));
+            } else if (index === count - 1) {
+
+                // L2 ,额度提升第二栏; L1 ,额度提升第三栏
+//                div.className = "quota-listitem-third-icon";
+                circle.src = WealthAccount_bundle + "progress_on";//适配
+            }
+            return div;
+        };
+
+        var Utils = {
+
+            // 创建页面元素
+            // eg: 输入字符串: "div#J-xxx.class-name[text=123,123;&xxx=123]" (注意属性间的分割符为 ;& )
+            // 生成 :  <!--div id="J-xxx" class="class-name">123</div-->
+            createElement: function (str) {
+                var splitSymbol = ";&";
+
+                var tagName = /^\w+/.exec(str)[0];
+                var el = document.createElement(tagName);
+                if (!el) return;
+
+                var className = /\.([\w-\s]+)/gi.exec(str);
+                var idName = /#((\-|[\w])+)/i.exec(str);
+                if (className && className[1]) {
+                    el.className = className[1];
+                }
+                if (idName && idName[1]) el.id = idName[1];
+
+                if (str.indexOf('[') != -1) {
+                    var attrs = /\[(.+)\]/.exec(str)[1].split(splitSymbol);
+                    for (var i = 0, l = attrs.length; i < l; i++) {
+                        var attr = attrs[i].split('=');
+                        if (attr.length != 2) continue;
+                        if (attr[0] == 'text') {
+                            el.innerText = attr[1];
+                        } else {
+                            el[attr[0]] = attr[1];
+                        }
+                    }
+                }
+                return el;
+            }
+        };
+
+
+        /**--------------- 模版I  ---------------**/
+
+        // 开通账户的rpc
+        var openAccount = function () {
+
+            document.invoke("showProgress");
+            document.invoke("rpc", {
+
+                "operationType": "alipay.wealth.account.open",
+                "requestData": []
+            }, function (rsp) {
+
+                document.invoke("hideProgress");
+                if (rsp.success) {
+                    var openAccountResult = rsp.result;
+                    if (openAccountResult.success) {
+                        // 业务成功后的处理
+
+                        document.alert({
+
+                            "title": "",
+                            "message": openAccountResult.resultView,
+                            "button": "{{我知道了}}"
+                        }, function (data) {
+
+                            // 回到首页,重新刷新界面
+                            loadData();
+                        });
+                    } else {
+                        // 业务失败后的处理
+                        document.invoke("toast", {
+
+                            "text" : openAccountResult.resultView,
+                            "type" : "failure",
+                            "duration" : 2000
+                        });
+                    }
+                }
+            });
+        };
+
+    </script>
+</head>
+<body id="J-body" class="myBody" onload="init();">
+
+<nav>
+    <div></div>
+    <div></div>
+    <div><label id="J-nav-detaillist" class="nav-right">{{明细}}</label></div>
+</nav>
+
+<div class="content" id="J-content">
+
+    <div id="J-header" class="header">
+        <div class="h-header">
+            <label id="J-account-title" class="account"></label>
+            <div id="J-help" class="help">
+                <div id="J-help-image" class="circle-help-highlight"></div>
+            </div>
+        </div>
+        <label id="J-account-money" class="money"></label>
+    </div>
+
+    <!--I: 补全身份信息,剩余金额为0,服务断仍旧下发I -->
+    <div id="template-U" class="container">
+        <div class="list">
+            <label id="J-U-list-header" class="u-list-header">{{补全身份信息,可使用以下功能}}:</label>
+            <div class="u-list-item">
+                <img id="J-U-payment-icon" class="u-list-icon" />
+                <label class="u-list-text">{{充值}}</label>
+            </div>
+            <!--<div class="level-line"></div>-->
+            <div class="u-list-item">
+                <img id="J-U-withdraw-icon" class="u-list-icon" />
+                <label class="u-list-text">{{提现}}</label>
+            </div>
+        </div>
+
+        <div class="template-content">
+            <button id="J-U-button" class="button"></button>
+        </div>
+    </div>
+
+    <!--I: 补全身份信息(包括L0和无L0账户)-->
+    <div id="template-I" class="container">
+        <div class="template-content">
+            <div class="explain">
+                <label id="J-U-explain-text" class="explain-text" onlink="gotoMorePage"></label>
+            </div>
+            <button id="J-I-button" class="button" style="margin-top: 40px"></button>
+        </div>
+    </div>
+
+    <!-- C：倒计时(有效期范围内的特殊状态，有二号令受限、存量待升级和L1待升级)-->
+    <div id="template-C" class="container">
+        <div class="c-content">
+            <div id="J-C-warn-explain" class="row margin-vertical20px">
+                <img id="J-warning-icon" class="limit-explain-icon" />
+                <label id="J-C-explain" class="limit-explain" onlink="gotoMorePage"></label>
+            </div>
+            <!--倒计时-->
+            <div class="row align-center">
+                <div class="padding-horizontal">
+                    <label class="countdown-text countdown-color">{{剩余}}</label>
+                </div>
+                <div class="countdown-bg">
+                    <div class="countdown-inner-bg">
+                        <img id="J-unit-img" class="countdown-img countdown-img-left" >
+                        <label id="J-C-decade"
+                               class="countdown-num countdown-color countdown-img countdown-img-left"></label>
+                    </div>
+                    <div class="countdown-inner-bg">
+                        <img id="J-dec-img" class="countdown-img countdown-img-right" >
+                        <label id="J-C-unit"
+                               class="countdown-num countdown-color countdown-img countdown-img-right"></label>
+                    </div>
+                </div>
+                <div class="padding-horizontal">
+                    <label class="countdown-text countdown-color">{{天}}</label>
+                </div>
+            </div>
+
+            <button id="J-C-limit-button" class="limit-button"></button>
+        </div>
+
+        <div id="J-C-list" class="list">
+            <div id="J-C-f-space" class="list-background-color" style="height: 20px"></div>
+            <div class="level-line"></div>
+            <div id="J-C-payment" class="list-item">
+                <img id="J-C-payment-icon" class="list-item-icon" />
+                <label class="list-item-text">{{充值}}</label>
+                <label style="flex: 1"></label>
+                <img id="J-C-payment-arrow" class="list-item-arrow"/>
+            </div>
+            <div class="level-line"></div>
+            <div id="J-C-withdraw" class="list-item">
+                <img id="J-C-withdraw-icon" class="list-item-icon" />
+                <label class="list-item-text">{{提现}}</label>
+                <label style="flex: 1"></label>
+                <img id="J-C-withdraw-arrow" class="list-item-arrow" />
+            </div>
+            <div class="level-line"></div>
+            <div class="list-background-color" style="height: 20px"></div>
+
+            <div id="J-C-extend-apps" style="flex-direction: column;"></div>
+        </div>
+
+    </div>
+
+    <!--O: 触发二号令-->
+    <div id="template-O" class="container">
+        <div class="template-content">
+            <div class="explain">
+                <label id="J-O-explain-text" class="explain-text" onlink="gotoMorePage"></label>
+            </div>
+            <button id="J-O-button" class="button" style="margin-top: 40px"></button>
+        </div>
+
+        <div id="J-O-list" class="list">
+            <div class="list-background-color" style="height: 20px"></div>
+
+            <div id="J-O-extend-apps" style="flex-direction: column;"></div>
+        </div>
+
+    </div>
+
+
+    <!--L：超限(包括仅为L0未实名认证的冻结)-->
+    <div id="template-L" class="container">
+
+        <div class="c-content">
+            <div id="J-L-explain-content" class="row" style="margin-top: 20px; margin-bottom: 10px">
+                <img id="J-L-warning-icon" class="limit-explain-icon" />
+                <label id="J-L-explain" class="explain-text" onlink="gotoMorePage"></label>
+            </div>
+
+            <button id="J-L-button" class="button"></button>
+        </div>
+
+        <div class="list">
+            <div id="J-L-f-space" class="list-background-color" style="height: 21px"></div>
+            <div class="level-line"></div>
+            <div id="J-L-payment" class="list-item">
+                <img id="J-L-payment-icon" class="list-item-icon" />
+                <label class="list-item-text">{{充值}}</label>
+                <label style="flex: 1"></label>
+                <img id="J-L-payment-arrow" class="list-item-arrow"/>
+            </div>
+            <div class="level-line"></div>
+            <div id="J-L-withdraw" class="list-item">
+                <img id="J-L-withdraw-icon" class="list-item-icon" />
+                <label class="list-item-text">{{提现}}</label>
+                <label style="flex: 1"></label>
+                <img id="J-L-withdraw-arrow" class="list-item-arrow" />
+            </div>
+            <div class="level-line"></div>
+            <div class="list-background-color list-space-height"></div>
+            <div id="J-L-extend-apps" style="flex-direction: column;"></div>
+        </div>
+    </div>
+
+    <!-- N：非银等级(L1、L2和L3)-->
+
+    <div id="template-N" class="container">
+
+        <div id="J-N-quota" class="quota-info">
+            <div class="level">
+                <label id="J-amount-left" class="amount-left"> </label>
+                <div id="J-details" class="upgrade-detail">
+                    <label id="J-detail-label" class="upgrade-detail-label"></label>
+                    <img id="J-upgrade-arrow" class="upgrade-arrow" />
+                </div>
+            </div>
+        </div>
+
+        <div id="J-N-quota-container" class="quota-container">
+            <label id="J-N-explain" class="explain-text margin-bottom-25" onlink="gotoMorePage"></label>
+            <!--提升额度-->
+            <div id="J-N-quota-list" style="flex-direction: column">
+                <!--<div style="flex-direction: column">-->
+                <!--<div class="quota-listitem">-->
+                <!--<div class="quota-listitem-icon">-->
+                <!--<img class="guide-circle" />-->
+                <!--<div class="guide-line2px blue-color"></div>-->
+                <!--<div class="guide-line2px grey-color"></div>-->
+                <!--</div>-->
+                <!--<div class="quota-listitem-text">-->
+                <!--<label class="quota-text-title">现有额度,多少万每年</label>-->
+                <!--<label class="quota-text-second">额度已用完</label>-->
+                <!--<label class="quota-text-third">可正常使用额度</label>-->
+                <!--</div>-->
+                <!--<div class="quota-listitem-button">-->
+                <!--<button class="quota-update-button">提升额度</button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+
+        <div id="J-N-list" class="list">
+            <div id="J-N-f-space" class="list-background-color" style="height: 20px; display: none"></div>
+            <div class="level-line"></div>
+            <div id="J-N-payment" class="list-item">
+                <img id="J-N-payment-icon" class="list-item-icon" />
+                <label class="list-item-text">{{充值}}</label>
+                <label style="flex: 1;"></label>
+                <img id="J-N-payment-arrow" class="list-item-arrow" />
+            </div>
+            <div class="level-line"></div>
+            <div id="J-N-withdraw" class="list-item">
+                <img id="J-N-withdraw-icon" class="list-item-icon" />
+                <label class="list-item-text">{{提现}}</label>
+                <label style="flex: 1;"></label>
+                <img id="J-N-withdraw-arrow" class="list-item-arrow" />
+            </div>
+            <div class="level-line"></div>
+            <div class="list-background-color" style="height: 20px"></div>
+
+            <div id="J-N-extend-apps" style="flex-direction: column;"></div>
+            <div class="list-background-color" style="flex: 1"></div>
+        </div>
+    </div>
+</div>
+
+<!--默认不显示错误页面-->
+<div id="J-error-content" class="error-content">
+    <div class="error-img-container">
+        <img class="error-img" />
+    </div>
+    <label class="error-text"></label>
+    <button id="J-retry-button" class="error-button">{{刷新}}</button>
+    <div style="flex: 1;"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta type="i18n" src="WealthCalc.bundle/financial.i18n"/>
+
+        <style>
+            div {
+                display: flex;
+                flex-direction: row;
+                position: relative;
+            }
+        
+        .icon {
+            width:28px;
+        }
+        
+        .label_title {
+            font-size: 16px;
+        }
+        
+        .label_detail {
+            font-size: 13px;
+            color: #999999;
+        }
+        </style>
+        
+        <script>
+
+        function init_ui(bizResult) {
+
+            var arrLabelTitle = document.querySelectorAll(".label_title");
+            var arrLabelDetail = document.querySelectorAll(".label_detail");
+            var arrImg = document.querySelectorAll(".icon");
+
+            var toolkitMenuList = bizResult.toolkitMenuList;
+
+            for (var i = 0; i < toolkitMenuList.length; i++) {
+                arrLabelTitle[i].innerText = toolkitMenuList[i]["menuName"];
+                arrLabelDetail[i].innerText = toolkitMenuList[i]["menuMemo"];
+                arrImg[i].src = toolkitMenuList[i]["iconUrl"];
+            }
+        }
+
+        function init() {
+
+            document.invoke("rpc", {
+                "operationType": "alipay.mwealth.toolkit.queryMenu",
+                "requestData": []
+            },
+                function(rsp) {
+
+                    if (rsp.success) {
+                        
+                        var bizResult = rsp.result;
+                        
+                        if (bizResult.success) {
+
+                            init_ui(bizResult);
+
+
+                            document.setProp("userPreferences", {
+                                    "key":"WealthCalc_yuedongweng",
+                                    "business":"WealthCalc",
+                                    "data": bizResult
+                                });
+                        }
+                        else {
+
+                            var bizResult = document.getProp("userPreferences", {
+                                    "key":"WealthCalc_yuedongweng",
+                                    "business":"WealthCalc"
+                                });
+
+                            init_ui(JSON.parse(bizResult));
+                        }
+                    } 
+                    else {
+
+                        var bizResult = document.getProp("userPreferences", {
+                                    "key":"WealthCalc_yuedongweng",
+                                    "business":"WealthCalc"
+                                });
+
+                        init_ui(JSON.parse(bizResult));
+                    }
+                }
+            );
+        }
+
+        function onDespoist() {
+            
+            document.invoke('openPage', {"tplId": "WealthCalc@financialTool_despoist", "defaultTitle":"{{存款计算}}", "bundle":"WealthCalc"});
+        }
+        
+        function onLoan() {
+            
+            document.invoke('openPage', {"tplId": "WealthCalc@financialTool_loan", "defaultTitle":"{{房贷计算}}", "bundle":"WealthCalc"});
+        }
+        
+        function onCurrency() {
+            
+            document.invoke('openPage', {"tplId": "WealthCalc@financialTool_currency", "defaultTitle":"{{汇率换算}}", "bundle":"WealthCalc"});
+        }
+        </script>
+        
+    </head>
+    
+    <body id="bodyid" onload="init()" style="height:100%; background-color:#f5f5f9; flex-direction:column;">
+        <div style="background-color:#ffffff; flex-direction:column;">
+            <div onclick="onCurrency()">
+                <div style="width:70px; height:74px; justify-content:center; align-items:center;">
+                    <img class="icon" srcwidth="128">
+                        </div>
+                <div style="flex:1;flex-direction:column;">
+                    <div style="height:74px; flex-direction:column; justify-content:center;">
+                        <label class="label_title">
+                        </label>
+                        
+                        <div style="height:7px;">
+                        </div>
+                        <label class="label_detail">
+                        </label>
+                    </div>
+                    <div style="height:1PX; background-color:#ebebeb;">
+                    </div>
+                </div>
+            </div>
+            <div onclick="onDespoist()">
+                <div style="width:70px; height:74px; justify-content:center; align-items:center;">
+                    <img class="icon" srcwidth="128">
+                        </div>
+                <div style="flex:1;flex-direction:column;">
+                    <div style="height:74px; flex-direction:column; justify-content:center;">
+                        <label class="label_title">
+                        </label>
+                        
+                        <div style="height:7px;">
+                        </div>
+                        <label class="label_detail">
+                        </label>
+                    </div>
+                    <div style="height:1PX; background-color:#ebebeb;">
+                    </div>
+                </div>
+            </div>
+            <div onclick="onLoan()">
+                <div style="width:70px; height:74px; justify-content:center; align-items:center;">
+                    <img class="icon" srcwidth="128">
+                        </div>
+                <div style="flex:1;flex-direction:column;">
+                    <div style="height:74px; flex-direction:column; justify-content:center;">
+                        <label class="label_title">
+                        </label>
+                        
+                        <div style="height:7px;">
+                        </div>
+                        <label class="label_detail">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <label id="buttom_label" style="font-size:12px; color:#999999; align-self:center; margin-top:4px;">
+            {{数据仅供参考，交易时以银行柜台成交价为准}}
+        </label>
+    </body>
+</html>

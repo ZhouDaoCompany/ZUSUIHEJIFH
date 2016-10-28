@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta type="i18n" src="APAutoPage.bundle/financial.i18n" />
+    <style>
+
+    div {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+    }
+    
+    .line {
+        height: 1PX;
+        background-color: #e5e5e5;
+    }
+    
+    .section_div {
+        background-color: #ffffff;
+        flex-direction: column;
+    }
+    
+    .item_div {
+        height: 48px;
+        align-items: center;
+        padding: 0px 15px;
+        background-color: #ffffff;
+    }
+    
+    .item_div:active {
+        background-color: #e1e1e1;
+    }
+    
+    .empty_div {
+        height: 15px;
+    }
+    
+    .item_label {
+        font-size: 16px;
+        color: #000000;
+        font-weight:bold;
+    }
+    
+    .item_label_detail {
+        font-size: 14px;
+        color: #a5a5a5;
+        flex: 1;
+        text-align:right;
+        margin-right:10px;
+    }
+    
+    .arrow_icon {
+        width: 9px;
+        height: 13px;
+    }
+
+    </style>
+
+    <script>
+
+    function onWithdraw() {
+
+    	document.invoke('openPage', {"tplId": "withdraw.html", "defaultTitle":"余额转出", "bundle":"WealthAccount"});
+    }
+
+    function update(data) {
+
+    	document.getElementById("balance").innerText = data.userAssetInfo.accountAsset.availableAmount + "元";
+    	document.getElementById("JFB").innerText = data.pointNums + "个";
+    }
+
+    function init() {
+
+        document.invoke("rpc", {
+            "operationType": "alipay.kabao.asset.account.getUserAccountInfo",
+            "requestData": [{}]
+        }, function(rsp) {
+
+            if (rsp.success) {
+
+                var bizResult = rsp.result;
+
+                if (bizResult.success) {
+
+                	update(bizResult);
+                }
+            }
+
+
+        });
+
+
+    }
+    </script>
+</head>
+
+<body id="bodyid" onload="init();" style="flex-direction:column; height:100%; background-color:#f5f5f9;">
+    <div class="empty_div">
+    </div>
+    <div class="section_div">
+        <div class="line">
+        </div>
+        <div class="item_div">
+            <label class="item_label">
+                账户余额
+            </label>
+            <label id="balance" class="item_label_detail">
+            </label>
+            <img src="APCommonUI.bundle/Tables_Arrow" class="arrow_icon"></img>
+        </div>
+        <div class="line" style="margin-left:15px;">
+        </div>
+        <div class="item_div">
+            <label class="item_label">
+                充值
+            </label>
+            <div style="flex:1;">
+            </div>
+            <img src="APCommonUI.bundle/Tables_Arrow" class="arrow_icon"></img>
+        </div>
+        <div class="line" style="margin-left:15px;">
+        </div>
+        <div class="item_div" onclick="onWithdraw()">
+            <label class="item_label">
+                余额转出(提现)
+            </label>
+            <div style="flex:1;">
+            </div>
+            <img src="APCommonUI.bundle/Tables_Arrow" class="arrow_icon"></img>
+        </div>
+        <div class="line">
+        </div>
+    </div>
+    <div class="empty_div" style="height:20px;">
+    </div>
+    <div class="section_div">
+        <div class="line">
+        </div>
+        <div class="item_div">
+            <label class="item_label">
+                集分宝
+            </label>
+            <label id="JFB" class="item_label_detail">
+            </label>
+            <img src="APCommonUI.bundle/Tables_Arrow" class="arrow_icon"></img>
+        </div>
+        <div class="line">
+        </div>
+    </div>
+</body>
+
+</html>

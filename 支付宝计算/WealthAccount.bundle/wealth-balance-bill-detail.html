@@ -1,0 +1,81 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+    .common_1px_line {height:1;background-color:#e5e5e5;}
+    .main { padding:15px; background-color: #ffffff; }
+    .item { display:-webkit-box; }
+    .title { width:70px; height:30px; }
+    .title-label { color: #808080; font-size:15px; }
+    .content { -webkit-box-flex: 1.0; text-align: right; }
+    .content-label { font-size:15px; }
+    .expenses { color: #449900; }
+    .income { color:#ff8000; }
+</style>
+<!--script>
+    function createItem(titleValue, contentValue, status) {
+        var main = document.getElementById("main');
+        
+        var item = document.createElement("div");
+        item.className = "item";
+        main.appendChild(item);
+        
+        var title = document.createElement("div");
+        title.className = "title";
+        item.appendChild(title);
+        
+        var titleLabel = document.createElement("label");
+        titleLabel.className = "title-label";
+        titleLabel.innerText = titleValue;
+        title.appendChild(titleLabel);
+        
+        var content = document.createElement("div");
+        content.className = "content";
+        item.appendChild(content);
+        
+        var contentLabel = document.createElement("label");
+        if(status) {
+            contentLabel.className = "content-label " + status;
+        } else {
+            contentLabel.className = "content-label";
+        }
+        contentLabel.innerText = contentValue;
+        content.appendChild(contentLabel);
+    }
+</script-->
+</head>
+<body id="body">
+    <div id="main" class="main">
+        <div class="item" style="{{transLogId|empty|choose>none>block}}">
+            <div class="title"><label class="title-label">流水号:</label></div>
+            <div class="content"><label class="content-label">{{transLogId}}</label></div>
+        </div>
+        <div class="item" style="display:{{type|empty|choose>none>block}}">
+            <div class="title"><label class="title-label">类型:</label></div>
+            <div class="content"><label class="content-label">{{type}}</label></div>
+        </div>
+        <div class="item" style="display:{{money|empty|choose>none>block}}">
+            <div class="title"><label class="title-label">支出:</label></div>
+            <div class="content"><label class="content-label expenses">{{money}}元</label></div>
+        </div>
+        <div class="item" style="display:{{transInstitution|empty|choose>none>block}}">
+            <div class="title"><label class="title-label">支付方式:</label></div>
+            <div class="content"><label class="content-label">{{transInstitution}}</label></div>
+        </div>
+        <div class="item" style="display:{{date|blank|empty>none>block}}">
+            <div class="title"><label class="title-label">时间:</label></div>
+            <div class="content"><label class="content-label">{{date}}</label></div>
+        </div>
+        <div class="item" style="display:{{balance|empty|choose>none>block}}">
+            <div class="title"><label class="title-label">余额:</label></div>
+            <div class="content"><label class="content-label">{{balance}}</label></div>
+        </div>
+        <div class="item" style="display:{{transMemo|empty|choose>none>block}}">
+            <div class="title"><label class="title-label">备注:</label></div>
+            <div class="content"><label class="content-label">{{transMemo}}</label></div>
+        </div>
+    </div>
+    <div class="common_1px_line"></div>
+</body>
+</html>

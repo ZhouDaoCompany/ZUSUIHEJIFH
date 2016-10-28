@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta type="i18n" src="WealthCalc.bundle/financial.i18n"/>
+        <style>
+            div {display:flex; flex-direction:row; position: relative;}
+        </style>
+        	
+        <script>
+           	
+            var currencyUpdateTime = "";
+
+           	var arrOldValue = new Array();
+           	arrOldValue.push("");
+           	arrOldValue.push("");
+           	
+           	var arrName = new Array();
+           	var arrRate = new Array();
+           	var arrIcon = new Array();
+            var arrIconCode = new Array();
+           	
+           	var focus_index = 1;
+           	
+           	var arrIndex = new Array();
+           	arrIndex.push(1);
+           	arrIndex.push(0);
+           	
+           	var arrInput = new Array();
+           	var arrLabel = new Array();
+           	var arrImg = new Array();
+           	
+            var is_loaded = false;
+
+           	function fmoney(s)  {    
+				var l = s.split(".")[0].split("").reverse();		
+
+				r = s.split(".")[1]; 
+				t = ""; 
+				  
+				for(i = 0; i < l.length; i ++ ) {   
+					t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");   
+				} 
+				  
+				var ret = t.split("").reverse().join("") ;
+				if (r != undefined) {
+					ret = ret + "." + r;
+				}
+				
+				return ret;  
+			} 
+			
+			function saveOldValue(money) {
+				var ret = money.toFixed(4).toString();
+        		var l = ret.split(".")[0];
+        		if (l.length > 9) {
+        			ret = "";
+        		}
+        		
+        		return ret;
+			}
+			
+			function input_money(index) {
+
+                if (is_loaded == false)
+                    return;
+
+				var s_newValue = arrInput[index].value;
+				
+				s_newValue = s_newValue.replace(/,/g,'');
+				
+				if (s_newValue == ".")
+        			s_newValue = "0.";
+        		
+        		if (s_newValue == "") {
+        			arrOldValue[index] = "";
+        			arrInput[1-index].value = "0";
+        			return;
+        		}
+        		
+        		var reg = "^(([1-9]{1}\\d{0,8})|([0]{1}))(\\.(\\d){0,4})?$";     
+        		var r = s_newValue.match(reg);     
+        		if(r==null) {
+        			
+        			arrInput[index].value = fmoney(arrOldValue[index]);
+        			
+        			if (arrOldValue[index] == "")
+        				input_money(index);
+        		} 
+        		else {
+
+        			arrOldValue[index] = s_newValue;
+        			arrInput[index].value = fmoney(s_newValue);
+        			
+        			var money = parseFloat(s_newValue) * arrRate[arrIndex[index]] / arrRate[arrIndex[1-index]];
+        			arrInput[1-index].value = fmoney(money.toFixed(4));
+        			
+        			arrOldValue[1-index] = saveOldValue(money);
+        		}
+			}
+           	
+        	function money_input_a() {
+            
+        		input_money(0);
+        	}
+        	
+        	function money_input_b() {
+        		
+        		input_money(1);
+        	}
+        	
+        	function switch_country(click_index) {
+        		
+                if (is_loaded == false)
+                    return;
+
+        		var obj = {
+        			'btns':arrName,
+        			'default':arrIndex[click_index],
+        			'title':''
+    			};
+    			
+        		var label = arrLabel[click_index];;
+        		var img = arrImg[click_index];
+        		
+        		document.picker(obj, function(data) {
+        			
+        			var index = data.index;
+					label.innerText = arrName[index];
+
+                    if (arrIcon[index].length <= 0) {
+
+                        img.src = "WealthCalc.bundle/" + arrIconCode[index];
+                    }
+                    else {
+                        img.src = arrIcon[index];
+                    }
+					
+					arrIndex[click_index] = index;
+					
+					var s_newValue = arrInput[focus_index].value;
+					s_newValue = s_newValue.replace(/,/g,'');
+					
+					if (s_newValue.length > 0) {
+						
+						var money = parseFloat(s_newValue) * arrRate[arrIndex[focus_index]] / arrRate[arrIndex[1-focus_index]];
+        				arrInput[1-focus_index].value = fmoney(money.toFixed(4));
+        				
+        				arrOldValue[1-focus_index] = saveOldValue(money);
+        			}
+        			
+        			arrInput[focus_index].focus();   
+
+                    var rate = (arrRate[arrIndex[0]] / arrRate[arrIndex[1]]).toFixed(4);
+
+                    document.setProp("userPreferences", {
+                                    "key":"WealthCalc_yuedongweng_currency_index",
+                                    "business":"WealthCalc",
+                                    "data": {"index_a": arrIndex[0], "index_b": arrIndex[1]}
+                                });
+
+                    document.getElementById("bottom_label").innerText = "1" + arrLabel[0].innerText + " = " + rate + arrLabel[1].innerText + "," + " {{更新于}} " + currencyUpdateTime;
+
+    			});
+
+        	}
+        	
+        	function focus_deal(index) {
+        		
+        		print("focus");
+        		
+        		focus_index = index;
+        		if (arrInput[focus_index].value == "0") {
+        			arrInput[focus_index].value = "";
+        			arrInput[1-focus_index].value = "0";
+        		}
+        	}
+        	
+        	function change_a() {
+        		switch_country(0);
+
+                document.invoke("log", {
+                    "actionId" : "clicked",
+                    "extParams" : null,
+                    "appId" : "20000150",
+                    "seed" : "currency1",
+                    "ucId" : "UC-HLHS-01"
+                });
+        	}
+        	
+        	function change_b() {
+        		switch_country(1);
+
+                document.invoke("log", {
+                    "actionId" : "clicked",
+                    "extParams" : null,
+                    "appId" : "20000150",
+                    "seed" : "currency2",
+                    "ucId" : "UC-HLHS-02"
+                });
+        	}
+        	
+        	function focus_a() {
+        		focus_deal(0);
+
+                document.invoke("log", {
+                    "actionId" : "clicked",
+                    "extParams" : null,
+                    "appId" : "20000150",
+                    "seed" : "currencyAmount1",
+                    "ucId" : "UC-HLHS-03"
+                });                
+        	}
+        	
+        	function focus_b() {
+        		focus_deal(1);
+
+                document.invoke("log", {
+                    "actionId" : "clicked",
+                    "extParams" : null,
+                    "appId" : "20000150",
+                    "seed" : "currencyAmount2",
+                    "ucId" : "UC-HLHS-04"
+                }); 
+        	}
+        	
+            function init_ui(bizResult) {
+
+                is_loaded = true;
+
+                currencyUpdateTime = bizResult.currencyUpdateTime;
+
+                var data = bizResult;
+                            
+                var list = data["currencyRateList"];
+                for (var i = 0; i < list.length; i++) {
+                        
+                    arrName.push(list[i].currencyName);
+                    arrRate.push(parseFloat(list[i].rate));
+                    arrIcon.push(list[i].iconUrl);
+                    arrIconCode.push(list[i].currencyCode);
+                }
+
+                var index_country = document.getProp("userPreferences", {
+                                    "key":"WealthCalc_yuedongweng_currency_index",
+                                    "business":"WealthCalc"
+                                });
+
+                if (index_country) {
+
+                    var jsonIndex = JSON.parse(index_country);
+                    arrIndex[0] = jsonIndex.index_a;
+                    arrIndex[1] = jsonIndex.index_b;
+                }
+
+                document.getElementById("label_a").innerText = arrName[arrIndex[0]];
+                document.getElementById("label_b").innerText = arrName[arrIndex[1]];  
+                
+
+                if (arrIcon[arrIndex[0]].length <= 0) {
+                    document.getElementById("img_a").src = "WealthCalc.bundle/" + arrIconCode[arrIndex[0]];
+                }
+                else {
+                    document.getElementById("img_a").src = arrIcon[arrIndex[0]];                    
+                }
+
+                if (arrIcon[arrIndex[1]].length <= 0) {
+                    document.getElementById("img_b").src = "WealthCalc.bundle/" + arrIconCode[arrIndex[1]];
+                }
+                else {
+                    document.getElementById("img_b").src = arrIcon[arrIndex[1]];                    
+                }
+
+                var rate = (arrRate[arrIndex[0]] / arrRate[arrIndex[1]]).toFixed(4);
+
+                document.getElementById("bottom_label").innerText = "1" + arrLabel[0].innerText + " = " + rate + arrLabel[1].innerText + "," + " {{更新于}} " + currencyUpdateTime;
+            }
+
+        	function init() {
+        	
+        		document.invoke("rpc", {
+                	"operationType": "alipay.mwealth.toolkit.currency.rate.queryAll",
+                	"requestData": [{}]
+            	}, function (rsp) {
+
+        			if (rsp.success) {
+
+                    	var bizResult = rsp.result;
+                    	
+                    	if (bizResult.success) {
+        					
+                            init_ui(bizResult);
+
+                            document.setProp("userPreferences", {
+                                    "key":"WealthCalc_yuedongweng_currency",
+                                    "business":"WealthCalc",
+                                    "data": bizResult
+                                });
+        				}
+                        else {
+
+                            var bizResult = document.getProp("userPreferences", {
+                                    "key":"WealthCalc_yuedongweng_currency",
+                                    "business":"WealthCalc"
+                                });
+
+                            init_ui(JSON.parse(bizResult));
+                        }
+        			}
+                    else {
+
+                            var bizResult = document.getProp("userPreferences", {
+                                    "key":"WealthCalc_yuedongweng_currency",
+                                    "business":"WealthCalc"
+                                });
+
+                            init_ui(JSON.parse(bizResult));
+                    }
+        		});
+        		
+        		document.getElementById("input_a").focus();   
+        		
+        		arrInput.push(document.getElementById("input_a"));
+        		arrInput.push(document.getElementById("input_b"));
+        		
+        		arrLabel.push(document.getElementById("label_a"));
+        		arrLabel.push(document.getElementById("label_b"));
+        		
+        		arrImg.push(document.getElementById("img_a"));
+        		arrImg.push(document.getElementById("img_b"));        			
+        	}
+
+            function keydown_a() {
+
+                if (event.which == 10) {
+                    document.getElementById("input_b").focus();
+                }
+            }
+
+            function keydown_b() {
+
+                if (event.which == 10) {
+                    document.getElementById("input_b").blur();
+                }
+            }            
+            
+        </script>
+        
+    </head>
+    
+    <body id="bodyid" onload="init();" style="flex-direction:column; height:100%; background-color:#f5f5f9;overflow:scroll;">
+        <div style="background-color:#ffffff; flex-direction:column;">
+            <div>
+                <div style="width:98px; height:80px;" onclick="change_a();">
+                	<div style="padding-top:12px; padding-left:15px;">
+                		<div style="flex-direction:column; align-items:center;">
+                			<img id="img_a" style="width:60px; height:40px;" srcwidth="128" srcheight="128" failurevalue="WealthCalc.bundle/countryLogoDefault">
+                			<label id="label_a" style="color:#808080; font-size:13px; margin-top:5px;">
+                			</label>
+                		</div>
+                        <img src="APCommonUI.bundle/Tables_Arrow" style="width:9px; height:13px; margin-left:8px; margin-top:13px;">
+                	</div>
+                </div>
+                <div style="width:1PX; background-color:#e5e5e5;margin:8px 0px;">
+                </div>
+                <div style="flex:1; padding-right:16px;">
+                    <input id="input_a" style="flex:1; text-align:right; font-size:18px;" placeholder="{{请输入金额}}" type="money" oninput="money_input_a()" onfocus="focus_a()" onkeydown="keydown_a()">
+                </div>
+            </div>
+            
+            <div style="height:1PX; background-color:#e5e5e5;">
+            </div>
+            
+            <div>
+                <div style="width:98px; height:80px;" onclick="change_b();">
+                	<div style="padding-top:12px; padding-left:15px;">
+                		<div style="flex-direction:column; align-items:center;">
+                			<img id="img_b" style="width:60px; height:40px;" srcwidth="128" srcheight="128" failurevalue="WealthCalc.bundle/countryLogoDefault">
+                			<label id="label_b" style="color:#808080; font-size:13px; margin-top:5px;">
+                			</label>
+                		</div>
+                        <img src="APCommonUI.bundle/Tables_Arrow" style="width:9px; height:13px; margin-left:8px; margin-top:13px;">
+                	</div>
+                </div>
+                <div style="width:1PX; background-color:#e5e5e5;margin:8px 0px;">
+                </div>
+                <div style="flex:1; padding-right:16px;">
+                    <input id="input_b" style="flex:1; text-align:right; font-size:18px;" placeholder="{{请输入金额}}" type="money" oninput="money_input_b()" onfocus="focus_b()" value="0" onkeydown="keydown_b()">
+                </div>
+            </div>
+            
+            <div style="height:1PX; background-color:#e5e5e5;">
+            </div>
+            
+        </div>
+
+        <label id="bottom_label" style="margin-top:10px; color:#333333; font-size:12px; align-self:center;">
+
+        </label>
+        <label id="bottom_label" style="margin-top:5px; color:#999999; font-size:12px; align-self:center;">
+            {{数据仅供参考，交易时以银行柜台成交价为准}}
+        </label>
+    </body>
+</html>

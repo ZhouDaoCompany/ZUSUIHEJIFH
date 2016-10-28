@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>spaceName</key>
+	<dict>
+		<key>HP_AD_MANAGER_SERVICE_SPACE_NAME_HOME</key>
+		<array>
+			<string>APPTIPS_APPCENTER</string>
+			<string>BANNER_APPCENTER</string>
+			<string>APPICON_APPCENTER</string>
+			<string>DROPDOWN_APPCENTER</string>
+		</array>
+		<key>HP_AD_MANAGER_SERVICE_SPACE_NAME_H5_PRELOAD</key>
+		<array>
+			<string>APPTIPS_APPCENTER</string>
+			<string>BANNER_APPCENTER</string>
+			<string>APPICON_APPCENTER</string>
+			<string>DROPDOWN_APPCENTER</string>
+		</array>
+	</dict>
+	<key>preload</key>
+	<dict>
+		<key>DROPDOWN_APPCENTER</key>
+		<string>{&quot;space_code&quot;:&quot;DROPDOWN_APPCENTER&quot;,&quot;cache_time&quot;:&quot;1&quot;,&quot;type&quot;:&quot;DROPDOWN&quot;,&quot;ads&quot;:[{&quot;id&quot;:&quot;-100&quot;,&quot;content&quot;:&quot;我有我的方式&quot;,&quot;type&quot;:&quot;TEXT&quot;}]}</string>
+	</dict>
+</dict>
+</plist>

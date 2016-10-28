@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta type="i18n" src="WealthCalc.bundle/financial.i18n" />
+        <style>
+            div {display:flex; flex-direction:row; position: relative;}
+
+            .cell_left_label {font-size:14px; color:#000000;}
+            .cell_right_label {font-size:14px; color:#666666;}
+        </style>
+        <script>
+            var isShowDetail = false;
+
+            var rate_data;
+
+            var itemIndex = 0;
+            var arrItem = new Array();
+            var arrLabelItem = new Array();
+
+            var arrType = new Array();
+
+            var arrYear_text = new Array();
+            var arrYear = new Array();
+
+            var arrRate_a = new Array();
+            var arrRateMul_a = new Array();
+            var arrRateMul_text_a = new Array();
+
+            var arrRate_b = new Array();
+            var arrRateMul_b = new Array();
+            var arrRateMul_text_b = new Array();
+
+            var index_type = 0;
+            var index_type_last = 0;
+
+            var index_year = 0;
+
+            var index_rate_a = 0;
+            var index_rate_b = 0;
+
+            var old_total_money_a = "";
+            var total_money_a = 0;
+
+            var old_total_money_b = "";
+            var total_money_b = 0;
+
+            var is_loaded = false;
+
+            var arrTitleBar = new Array();
+            arrTitleBar.push("{{等额本息还款详情}}");
+            arrTitleBar.push("{{等额本金还款详情}}");
+
+            arrType.push("{{商业贷款}}");
+            arrType.push("{{公积金贷款}}");
+            arrType.push("{{组合贷款}}");
+
+            function changeItem(index) {
+
+                arrItem[index].style.backgroundColor = "#ffffff";
+                arrItem[1 - index].style.backgroundColor = "#00aaee";
+
+                arrLabelItem[index].style.color = "#00aaee";
+                arrLabelItem[1 - index].style.color = "#ffffff";
+
+                if (index == 0) {
+                    document.getElementById("label_dijian_title").style.display = "none";
+                    document.getElementById("label_dijian").style.display = "none";
+                } else {
+                    document.getElementById("label_dijian_title").style.display = "flex";
+                    document.getElementById("label_dijian").style.display = "flex";
+                }
+
+                document.getElementById("label_title_bar").innerText = arrTitleBar[index];
+
+                total_calc();
+            }
+
+            function init_ui(data) {
+
+                is_loaded = true;
+
+                rate_data = JSON.stringify(data);
+
+                document.getElementById("buttom_label").innerText = "{{以上为央行}}" + data.extInfo.rateUpdateTime + "{{最新公布的贷款基准利率}}";
+
+                            var businessLoanRateList = data["businessLoanRateList"];
+
+                            for (var i = 0; i < businessLoanRateList.length; i++) {
+                                arrYear_text.push(businessLoanRateList[i]["periodName"].toString());
+                                arrYear.push(businessLoanRateList[i]["period"]);
+                                arrRate_a.push(parseFloat(businessLoanRateList[i]["rate"]));
+                            }
+
+                            changeItem(itemIndex);
+
+                            var discountBusinessLoanRateList = data["discountBusinessLoanRateList"];
+                            for (var i = 0; i < discountBusinessLoanRateList.length; i++) {
+                                arrRateMul_text_a.push(discountBusinessLoanRateList[i]["rateName"]);
+                                arrRateMul_a.push(parseFloat(discountBusinessLoanRateList[i]["rate"]));
+                            }
+
+                            var providentFundLoanRateList = data["providentFundLoanRateList"];
+                            for (var i = 0; i < providentFundLoanRateList.length; i++) {
+                                //arrYear_text.push(providentFundLoanRateList[i]["periodName"].toString());
+                                //arrYear.push(providentFundLoanRateList[i]["period"]);
+                                arrRate_b.push(parseFloat(providentFundLoanRateList[i]["rate"]));
+                            }
+
+                            var discountProvidentFundLoanRateList = data["discountProvidentFundLoanRateList"];
+                            for (var i = 0; i < discountProvidentFundLoanRateList.length; i++) {
+                                arrRateMul_text_b.push(discountProvidentFundLoanRateList[i]["rateName"]);
+                                arrRateMul_b.push(parseFloat(discountProvidentFundLoanRateList[i]["rate"]));
+                            }
+
+                            setup_type();
+                            setup_day();
+                            setup_rate_a();
+                            setup_rate_b();
+            }
+
+            function init() {
+
+                document.invoke("rpc", {
+                    "operationType": "alipay.mwealth.toolkit.interest.queryLoanRate",
+                    "requestData": [{}]
+                },
+                    function(rsp) {
+
+                        if (rsp.success) {
+
+                            var bizResult = rsp.result;
+                            if (bizResult.success) {
+
+                                init_ui(bizResult);
+                                
+                                document.setProp("userPreferences", {
+                                    "key":"WealthCalc_yuedongweng_loan",
+                                    "business":"WealthCalc",
+                                    "data": bizResult
+                                });
+                            }
+                            else {
+
+                                var bizResult = document.getProp("userPreferences", {
+                                    "key":"WealthCalc_yuedongweng_loan",
+                                    "business":"WealthCalc"
+                                });
+
+                                init_ui(JSON.parse(bizResult));
+                            }
+                        } else {
+                                
+                            var bizResult = document.getProp("userPreferences", {
+                                "key":"WealthCalc_yuedongweng_loan",
+                                "business":"WealthCalc"
+                            });
+
+                            init_ui(JSON.parse(bizResult));
+                        }
+                    }
+                );
+
+                arrItem.push(document.getElementById("item_a"));
+                arrItem.push(document.getElementById("item_b"));
+
+                arrLabelItem.push(document.getElementById("label_a"));
+                arrLabelItem.push(document.getElementById("label_b"));
+            }
+
+            function fmoney(s) {
+                var l = s.split(".")[0].split("").reverse();
+
+                r = s.split(".")[1];
+                t = "";
+
+                for (i = 0; i < l.length; i++) {
+                    t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? ",": "");
+                }
+
+                var ret = t.split("").reverse().join("");
+                if (r != undefined) {
+                    ret = ret + "." + r;
+                }
+
+                return ret;
+            }
+
+            function calc_total(month, rate, money) {
+
+                rate = rate / 100 / 12;
+                var temp = Math.pow(1 + rate, month);
+                return (money * 10000 * rate * temp) / (temp - 1);
+            }
+
+            function total_calc() {
+
+                if (is_loaded == false)
+                    return;
+
+                //### 纯商贷
+                if (index_type == 0) {
+
+                    //### 等额本息
+                    if (itemIndex == 0) {
+                        var result = calc_total(arrYear[index_year], arrRate_a[index_year] * arrRateMul_a[index_rate_a], total_money_a);
+                        document.getElementById("label_yuegong").innerText = fmoney(result.toFixed(2));
+
+                        document.getElementById("lixi").innerText = fmoney((result * arrYear[index_year] - total_money_a * 10000).toFixed(2));
+                        document.getElementById("zonge").innerText = fmoney((result * arrYear[index_year]).toFixed(2));
+                    }
+                    //### 等额本金
+                    else {
+                        var rate = arrRate_a[index_year] * arrRateMul_a[index_rate_a] / 100 / 12;
+                        var benjin = total_money_a * 10000 / arrYear[index_year];
+                        var dijian = benjin * rate;
+                        var lixi = total_money_a * 10000 * rate;
+
+                        document.getElementById("label_yuegong").innerText = fmoney((benjin + lixi).toFixed(2));
+                        document.getElementById("label_dijian").innerText = fmoney((dijian).toFixed(2));
+
+                        var totol_lixi = 0;
+                        var totol_benjin = total_money_a * 10000;
+                        for (var i = 0; i < arrYear[index_year]; i++) {
+                            totol_lixi = totol_lixi + totol_benjin * rate;
+                            totol_benjin = totol_benjin - benjin;
+                        }
+
+                        document.getElementById("lixi").innerText = fmoney((totol_lixi).toFixed(2));
+                        document.getElementById("zonge").innerText = fmoney((totol_lixi + total_money_a * 10000).toFixed(2));
+                    }
+
+                    if (total_money_a > 0) {
+                        document.getElementById("label_title_bar").innerText = arrTitleBar[itemIndex] + " >";
+                        document.getElementById("label_title_bar").style.color = "#00aaee";
+                        isShowDetail = true;
+                    } else {
+                        document.getElementById("label_title_bar").innerText = arrTitleBar[itemIndex];
+                        document.getElementById("label_title_bar").style.color = "#6f6f6f";
+                        isShowDetail = false;
+                    }
+                }
+
+                //### 纯公积金贷
+                else if (index_type == 1) {
+
+                    //### 等额本息
+                    if (itemIndex == 0) {
+                        var result = calc_total(arrYear[index_year], arrRate_b[index_year] * arrRateMul_b[index_rate_b], total_money_b);
+                        document.getElementById("label_yuegong").innerText = fmoney(result.toFixed(2));
+
+                        document.getElementById("lixi").innerText = fmoney((result * arrYear[index_year] - total_money_b * 10000).toFixed(2));
+                        document.getElementById("zonge").innerText = fmoney((result * arrYear[index_year]).toFixed(2));
+                    }
+                    //### 等额本金
+                    else {
+                        var rate = arrRate_b[index_year] * arrRateMul_b[index_rate_b] / 100 / 12;
+                        var benjin = total_money_b * 10000 / arrYear[index_year];
+                        var dijian = benjin * rate;
+                        var lixi = total_money_b * 10000 * rate;
+
+                        document.getElementById("label_yuegong").innerText = fmoney((benjin + lixi).toFixed(2));
+                        document.getElementById("label_dijian").innerText = fmoney((dijian).toFixed(2));
+
+                        var totol_lixi = 0;
+                        var totol_benjin = total_money_b * 10000;
+                        for (var i = 0; i < arrYear[index_year]; i++) {
+                            totol_lixi = totol_lixi + totol_benjin * rate;
+                            totol_benjin = totol_benjin - benjin;
+                        }
+
+                        document.getElementById("lixi").innerText = fmoney((totol_lixi).toFixed(2));
+                        document.getElementById("zonge").innerText = fmoney((totol_lixi + total_money_b * 10000).toFixed(2));
+                    }
+
+                    if (total_money_b > 0) {
+                        document.getElementById("label_title_bar").innerText = arrTitleBar[itemIndex] + " >";
+                        document.getElementById("label_title_bar").style.color = "#00aaee";
+                        isShowDetail = true;
+                    } else {
+                        document.getElementById("label_title_bar").innerText = arrTitleBar[itemIndex];
+                        document.getElementById("label_title_bar").style.color = "#6f6f6f";
+                        isShowDetail = false;
+                    }
+                }
+
+                //### 组合贷款
+                else {
+
+                    //### 等额本息
+                    if (itemIndex == 0) {
+                        var result_a = calc_total(arrYear[index_year], arrRate_a[index_year] * arrRateMul_a[index_rate_a], total_money_a);
+
+                        var result_b = calc_total(arrYear[index_year], arrRate_b[index_year] * arrRateMul_b[index_rate_b], total_money_b);
+
+                        var result = result_a + result_b;
+
+                        document.getElementById("label_yuegong").innerText = fmoney(result.toFixed(2));
+
+                        document.getElementById("lixi").innerText = fmoney((result * arrYear[index_year] - total_money_a * 10000 - total_money_b * 10000).toFixed(2));
+                        document.getElementById("zonge").innerText = fmoney((result * arrYear[index_year]).toFixed(2));
+                    }
+                    //### 等额本金
+                    else {
+                        var rate_b = arrRate_b[index_year] * arrRateMul_b[index_rate_b] / 100 / 12;
+                        var benjin_b = total_money_b * 10000 / arrYear[index_year];
+                        var dijian_b = benjin_b * rate_b;
+                        var lixi_b = total_money_b * 10000 * rate_b;
+
+                        var totol_lixi_b = 0;
+                        var totol_benjin_b = total_money_b * 10000;
+                        for (var i = 0; i < arrYear[index_year]; i++) {
+                            totol_lixi_b = totol_lixi_b + totol_benjin_b * rate_b;
+                            totol_benjin_b = totol_benjin_b - benjin_b;
+                        }
+
+                        var rate_a = arrRate_a[index_year] * arrRateMul_a[index_rate_a] / 100 / 12;
+                        var benjin_a = total_money_a * 10000 / arrYear[index_year];
+                        var dijian_a = benjin_a * rate_a;
+                        var lixi_a = total_money_a * 10000 * rate_a;
+
+                        var totol_lixi_a = 0;
+                        var totol_benjin_a = total_money_a * 10000;
+                        for (var i = 0; i < arrYear[index_year]; i++) {
+                            totol_lixi_a = totol_lixi_a + totol_benjin_a * rate_a;
+                            totol_benjin_a = totol_benjin_a - benjin_a;
+                        }
+
+                        document.getElementById("label_yuegong").innerText = fmoney((benjin_a + lixi_a + benjin_b + lixi_b).toFixed(2));
+                        document.getElementById("label_dijian").innerText = fmoney((dijian_a + dijian_b).toFixed(2));
+
+                        document.getElementById("lixi").innerText = fmoney((totol_lixi_a + totol_lixi_b).toFixed(2));
+                        document.getElementById("zonge").innerText = fmoney((totol_lixi_a + total_money_a * 10000 + totol_lixi_b + total_money_b * 10000).toFixed(2));
+                    }
+
+                    if (total_money_a > 0 || total_money_b > 0) {
+                        document.getElementById("label_title_bar").innerText = arrTitleBar[itemIndex] + " >";
+                        document.getElementById("label_title_bar").style.color = "#00aaee";
+
+                        isShowDetail = true;
+                    } else {
+                        document.getElementById("label_title_bar").innerText = arrTitleBar[itemIndex];
+                        document.getElementById("label_title_bar").style.color = "#6f6f6f";
+
+                        isShowDetail = false;
+                    }
+                }
+            }
+
+            function showDetail() {
+
+                if (is_loaded == false)
+                    return;
+
+                if (isShowDetail) {
+
+                    document.invoke("startApp", {
+                        "appId": "20000150",
+                        "param": {
+                            "businessLoan": (total_money_a * 10000).toString(),
+                            "providentFundLoan": (total_money_b * 10000).toString(),
+                            "month": arrYear[index_year].toString(),
+                            "businessLoanRate": (arrRate_a[index_year] * arrRateMul_a[index_rate_a]).toString(),
+                            "providentFundLoanRate": (arrRate_b[index_year] * arrRateMul_b[index_rate_b]).toString(),
+                            "type": itemIndex,
+                            "animated": true
+
+                        }
+                    });
+                }
+            }
+
+            function input_money_a() {
+
+                var input = document.getElementById("input_money_a").value;
+
+                input = input.replace(/,/g, '');
+
+                if (input == ".") input = "0.";
+
+                if (input == "") {
+                    old_total_money_a = "";
+                }
+
+                var reg = "^(([1-9]{1}\\d{0,3})|([0]{1}))(\\.(\\d){0,2})?$";
+                var r = input.match(reg);
+                if (r == null) {
+
+                    document.getElementById("input_money_a").value = fmoney(old_total_money_a);
+                } else {
+
+                    old_total_money_a = input;
+                    document.getElementById("input_money_a").value = fmoney(input);
+                }
+
+                if (old_total_money_a == "") total_money_a = 0;
+                else total_money_a = parseFloat(old_total_money_a);
+
+                total_calc();
+            }
+
+            function input_money_b() {
+
+                var input = document.getElementById("input_money_b").value;
+
+                input = input.replace(/,/g, '');
+
+                if (input == ".") input = "0.";
+
+                if (input == "") {
+                    old_total_money_b = "";
+                }
+
+                var reg = "^(([1-9]{1}\\d{0,3})|([0]{1}))(\\.(\\d){0,2})?$";
+                var r = input.match(reg);
+                if (r == null) {
+
+                    document.getElementById("input_money_b").value = fmoney(old_total_money_b);
+                } else {
+
+                    old_total_money_b = input;
+                    document.getElementById("input_money_b").value = fmoney(input);
+                }
+
+                if (old_total_money_b == "") total_money_b = 0;
+                else total_money_b = parseFloat(old_total_money_b);
+
+                total_calc();
+            }
+
+            function select_type() {
+
+                if (is_loaded == false)
+                    return;
+
+                var obj = {
+                    'btns': arrType,
+                    'default': index_type,
+                    'title': ''
+                };
+
+                document.picker(obj,
+                function(data) {
+
+                    index_type_last = index_type;
+                    index_type = data.index;
+
+                    setup_type();
+                    total_calc();
+                });
+            }
+
+            function select_day() {
+                
+                if (is_loaded == false)
+                    return;
+
+                var obj = {
+                    'btns': arrYear_text,
+                    'default': index_year,
+                    'title': ''
+                };
+
+                document.picker(obj,
+                function(data) {
+
+                    index_year = data.index;
+
+                    setup_day();
+                    setup_rate_a();
+                    setup_rate_b();
+                });
+            }
+
+            function select_rate_a() {
+                
+                if (is_loaded == false)
+                    return;
+
+                var obj = {
+                    'btns': arrRateMul_text_a,
+                    'default': index_rate_a,
+                    'title': ''
+                };
+
+                document.picker(obj,
+                function(data) {
+
+                    index_rate_a = data.index;
+
+                    setup_rate_a();
+                });
+            }
+
+            function select_rate_b() {
+
+                if (is_loaded == false)
+                    return;
+
+                var obj = {
+                    'btns': arrRateMul_text_b,
+                    'default': index_rate_b,
+                    'title': ''
+                };
+
+                document.picker(obj,
+                function(data) {
+
+                    index_rate_b = data.index;
+
+                    setup_rate_b();
+                });
+            }
+
+            function setup_type() {
+                
+                if (is_loaded == false)
+                    return;
+
+                document.getElementById("input_money_a").value = "";
+                document.getElementById("input_money_b").value = "";
+
+                input_money_a();
+                input_money_b();
+
+                document.getElementById("label_type").innerText = arrType[index_type];
+
+                if (index_type == 0) {
+                    document.getElementById("div_rate_a").style.display = "flex";
+                    document.getElementById("div_rate_b").style.display = "none";
+
+                    document.getElementById("div_money_a").style.display = "flex";
+                    document.getElementById("div_money_b").style.display = "none";
+
+                    document.getElementById("label_money_a").innerText = "{{贷款金额(万)}}";
+
+                    document.getElementById("label_rate_title_a").innerText = "{{利率(%)}}";
+                    document.getElementById("label_rate_title_b").innerText = "{{利率(%)}}";
+                } else if (index_type == 1) {
+                    document.getElementById("div_rate_a").style.display = "none";
+                    document.getElementById("div_rate_b").style.display = "flex";
+
+                    document.getElementById("div_money_a").style.display = "none";
+                    document.getElementById("div_money_b").style.display = "flex";
+
+                    document.getElementById("label_money_a").innerText = "{{贷款金额(万)}}";
+
+                    document.getElementById("label_rate_title_a").innerText = "{{利率(%)}}";
+                    document.getElementById("label_rate_title_b").innerText = "{{利率(%)}}";
+                } else {
+
+                    document.getElementById("div_rate_a").style.display = "flex";
+                    document.getElementById("div_rate_b").style.display = "flex";
+
+                    document.getElementById("div_money_a").style.display = "flex";
+                    document.getElementById("div_money_b").style.display = "flex";
+
+                    document.getElementById("label_money_a").innerText = "{{商贷金额(万)}}";
+                    document.getElementById("label_money_b").innerText = "{{公积金贷款金额(万)}}";
+
+                    document.getElementById("label_rate_title_a").innerText = "{{商贷利率(%)}}";
+                    document.getElementById("label_rate_title_b").innerText = "{{公积金贷利率(%)}}";
+                }
+            }
+
+            function setup_day() {
+                
+                if (is_loaded == false)
+                    return;
+
+                document.getElementById("label_day").innerText = arrYear_text[index_year];
+            }
+
+            function setup_rate_a() {
+                
+                if (is_loaded == false)
+                    return;                
+                document.getElementById("label_rate_a").innerText = (arrRate_a[index_year] * arrRateMul_a[index_rate_a]).toFixed(2);
+                total_calc();
+            }
+
+            function setup_rate_b() {
+                
+                if (is_loaded == false)
+                    return;
+                                   
+                document.getElementById("label_rate_b").innerText = (arrRate_b[index_year] * arrRateMul_b[index_rate_b]).toFixed(2);
+                total_calc();
+            }
+
+            function item_click() {
+
+                itemIndex = 1 - itemIndex;
+                changeItem(itemIndex);
+            }
+
+            function onDespoist_rate() {
+
+                if (is_loaded == false)
+                    return;
+
+            document.invoke('openPage', {"tplId": "WealthCalc@financialTool_despoist_rate", "defaultTitle":"{{利率表}}", "initData":rate_data, "bundle":"WealthCalc"});
+            }
+
+            function keydown_a() {
+
+                if (event.which == 10) {
+                    if (index_type == 2) {
+                        document.getElementById("input_money_b").focus();
+                    }
+                    else {
+                        document.getElementById("input_money_a").blur();
+                    }
+                }
+            }
+ 
+            function keydown_b() {
+
+                if (event.which == 10) {
+                    document.getElementById("input_money_b").blur();
+                }
+            }
+
+        </script>
+    </head>
+    
+<body id="bodyid" onload="init();" style="flex-direction:column; height:100%; background-color:#f5f5f9;overflow:scroll;">
+        <nav>
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+                <div style="padding:10px 0px 10px 10px;" onclick="onDespoist_rate()">
+                    <label style="font-size:14px; color:#ffffff;">
+                        {{利率表}}
+                    </label>
+                </div>
+            </div>
+        </nav>
+        <div style="background-color:#00aaee; height:184px; width:100%; flex-direction:column; align-items:center;">
+            <div style="width:221px; height:23px; border-radius:4px; border:1px #ffffff solid; margin-top:12px;">
+                <div id="item_a" onclick="item_click()" style="flex:1;align-items:center;justify-content:center; background-color:#ffffff;">
+                    <label id="label_a" style="font-size:12px; color:#00aaee;">
+                        {{等额本息}}
+                    </label>
+                </div>
+                <div id="item_b" onclick="item_click()" style="flex:1;align-items:center;justify-content:center; background-color:#00aaee;">
+                    <label id="label_b" style="font-size:12px; color:#ffffff;">
+                        {{等额本金}}
+                    </label>
+                </div>
+            </div>
+            <div style="height:90px; width:100%; padding:10px 15px 10px 15px;">
+                <div style="flex:1; flex-direction:column; justify-content:center;">
+                    <label style="font-size:11px; color:#ffffff;">
+                        {{每月月供参考(元)}}
+                    </label>
+                    <label id="label_yuegong" style="font-size:28px; font-auto-adjust:true; color:#ffffff;  margin-top:5px; margin-right:15px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                        0.00
+                    </label>
+                </div>
+                <div style="flex:1; flex-direction:column; padding-left:15px; justify-content:center;">
+                    <label id="label_dijian_title" style="font-size:11px; color:#ffffff;">
+                        {{每月递减(元)}}
+                    </label>
+                    <label id="label_dijian" style="font-size:28px; font-auto-adjust:true; color:#ffffff; margin-top:5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                        0.00
+                    </label>
+                </div>
+            </div>
+            <div style="flex:1; width:100%;padding:0px 15px 10px 15px;">
+                <div style="flex:1.001; flex-direction:column;">
+                    <label style="font-size:11px; color:#ffffff;">
+                        {{支付利息(元)}}
+                    </label>
+                    <label id="lixi" style="font-size:18px; font-auto-adjust:true; color:#ffffff;  margin-top:5px; margin-right:15px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                        0.00
+                    </label>
+                </div>
+                <div style="width:1PX; background-color:#4dc4f3;">
+                </div>
+                <div style="flex:1; flex-direction:column; padding-left:15px;">
+                    <label style="font-size:11px; color:#ffffff;">
+                        {{还款总额(元)}}
+                    </label>
+                    <label id="zonge" style="font-size:18px; font-auto-adjust:true; color:#ffffff; margin-top:5px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                        0.00
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div style="height:30px; background-color:#eaf4fa; justify-content:center; align-items:center;"
+        onclick="showDetail()">
+            <label id="label_title_bar" style="font-size:12px; color:#6f6f6f;">
+                {{等额本息还款详情}}
+            </label>
+        </div>
+        <div style="height:1PX; background-color:#e5e5e5;">
+        </div>
+        <div style="background-color:#ffffff; flex-direction:column; padding-left:15px;">
+            <div style="height:44px; padding-right:15px; align-items:center;" onclick="select_type()">
+                <label class="cell_left_label">
+                    {{贷款类型}}
+                </label>
+                <div style="flex:1;">
+                </div>
+                <label id="label_type" style="margin-right:5px;" class="cell_right_label">
+                </label>
+                <img src="APCommonUI.bundle/Tables_Arrow" style="height:13px; width:9px;">
+            </div>
+            <div id="div_money_a" style="flex-direction:column;">
+                <div style="height:1PX; background-color:#e5e5e5;">
+                </div>
+                <div style="height:44px; padding-right:15px; align-items:center;">
+                    <label id="label_money_a" class="cell_left_label">
+                        {{贷款金额(万)}}
+                    </label>
+                    <div style="flex:1;">
+                    </div>
+                    <input id="input_money_a" style="width:130px; text-align:right;" class="cell_right_label" placeholder="{{请输入金额}}" type="money" oninput="input_money_a()" onkeydown="keydown_a()">
+                </div>
+            </div>
+            <div id="div_money_b" style="flex-direction:column;">
+                <div style="height:1PX; background-color:#e5e5e5;">
+                </div>
+                <div style="height:44px; padding-right:15px; align-items:center;">
+                    <label id="label_money_b" class="cell_left_label">
+                        {{公积金贷款金额(万)}}
+                    </label>
+                    <div style="flex:1;">
+                    </div>
+                    <input id="input_money_b" style="width:130px; text-align:right;" class="cell_right_label" placeholder="{{请输入金额}}" type="money" oninput="input_money_b()" onkeydown="keydown_b()">
+                </div>
+            </div>
+            <div style="height:1PX; background-color:#e5e5e5;">
+            </div>
+            <div style="height:44px; padding-right:15px; align-items:center;" onclick="select_day();">
+                <label class="cell_left_label">
+                    {{期限(年)}}
+                </label>
+                <div style="flex:1;">
+                </div>
+                <label id="label_day" style="margin-right:5px;" class="cell_right_label">
+                </label>
+                <img src="APCommonUI.bundle/Tables_Arrow" style="height:13px; width:9px;">
+            </div>
+            <div id="div_rate_a" style="flex-direction:column;">
+                <div style="height:1PX; background-color:#e5e5e5;">
+                </div>
+                <div style="height:44px; align-items:center; padding-right:15px;" onclick="select_rate_a()">
+                    <label id="label_rate_title_a" class="cell_left_label">
+                        {{利率(%)}}
+                    </label>
+                    <div style="flex:1;">
+                    </div>
+                    <label id="label_rate_a" style="text-align:right; margin-right:5px;" class="cell_right_label">
+                    </label>
+                    <img id="img_arrow_right" src="APCommonUI.bundle/Tables_Arrow" style="height:13px; width:9px;">
+                </div>
+            </div>
+            <div id="div_rate_b" style="flex-direction:column;">
+                <div style="height:1PX; background-color:#e5e5e5;">
+                </div>
+                <div style="height:44px; align-items:center; padding-right:15px;" onclick="select_rate_b()">
+                    <label id="label_rate_title_b" class="cell_left_label">
+                        {{利率(%)}}
+                    </label>
+                    <div style="flex:1;">
+                    </div>
+                    <label id="label_rate_b" style="text-align:right; margin-right:5px;" class="cell_right_label">
+                    </label>
+                    <img id="img_arrow_right" src="APCommonUI.bundle/Tables_Arrow" style="height:13px; width:9px;">
+                </div>
+            </div>
+        </div>
+        <div style="height:1PX; background-color:#e5e5e5;">
+        </div>
+        <label id="buttom_label" style="font-size:12px; color:#999999; margin-left:15px; margin-top:4px;">
+        </label>
+    </body>
+
+</html>

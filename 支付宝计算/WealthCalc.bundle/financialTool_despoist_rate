@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta type="i18n" src="WealthCalc.bundle/financial.i18n"/>
+        <style>
+            div {display:flex; flex-direction:row; position: relative;}
+            
+            .line_vert {width:1px; background-color:#f2f2f2;}
+            .line_horz {height:1px; background-color:#f2f2f2;}
+            
+            .div_big {height:35px; background-color:#ffffff;}
+            .div_small {flex:1; justify-content:center;}
+            .label_text {color:#000000; font-size:11px;}
+            
+        </style>
+        
+        <script>
+            function init() {
+            	
+            	var container = document.getElementById("container");
+            	var c = new Array();
+            	c.push("c1");
+            	c.push("c2");
+            	c.push("c3");
+            	
+            	document.onreload = function(data) {
+            		
+            		var loanRateList = data["loanRateList"];
+            		if (loanRateList) {
+            		
+            		document.getElementById("footview").innerText =  "{{以上为央行}}" +  data.extInfo.rateUpdateTime + "{{最新公布的贷款基准利率}}";
+            		
+            		document.getElementById("c1").innerText = loanRateList[0]["c1"];
+            		document.getElementById("c2").innerText = loanRateList[0]["c2"];
+            		document.getElementById("c3").innerText = loanRateList[0]["c3"];
+            		            		            		
+            		for (var i = 1; i < loanRateList.length; i++) {
+            			
+            			var div_big = document.createElement("div");
+            			div_big.className = "div_big";
+            			
+            			for (var k = 0; k < 3; k++) {
+            			    var div_small_c1 = document.createElement("div");
+            				div_small_c1.className = "div_small";
+            				div_big.appendChild(div_small_c1);
+            			
+            				var label_c1 = document.createElement("label");
+            				label_c1.className = "label_text";
+            				label_c1.innerText = loanRateList[i][c[k]];
+            				div_small_c1.appendChild(label_c1);
+            				
+            				if (k < 2) {
+            					var line_vert = document.createElement("div");
+            					line_vert.className = "line_vert";
+            					div_big.appendChild(line_vert);
+            				}
+            			}
+            			
+            			container.appendChild(div_big);
+            			
+            			if (i < loanRateList.length-1) {
+            				var line_horz = document.createElement("div");
+            				line_horz.className = "line_horz";
+            				container.appendChild(line_horz);
+            			}
+            		}
+            		}
+            		
+            		var depositRateList = data["depositRateList"];
+            		if (depositRateList) {
+            		
+            		document.getElementById("footview").innerText =  "{{以上为央行}}" +  data.extInfo.rateUpdateTime + "{{最新公布的存款基准利率}}";
+            		
+            		document.getElementById("c1").innerText = depositRateList[0]["c1"];
+            		document.getElementById("c2").innerText = depositRateList[0]["c2"];
+            		            
+            		document.getElementById("div_c3").style.display = "none";           
+            		            		            		
+            		for (var i = 1; i < depositRateList.length; i++) {
+            			
+            			var div_big = document.createElement("div");
+            			div_big.className = "div_big";
+            			
+            			for (var k = 0; k < 2; k++) {
+            			    var div_small_c1 = document.createElement("div");
+            				div_small_c1.className = "div_small";
+            				div_big.appendChild(div_small_c1);
+            			
+            				var label_c1 = document.createElement("label");
+            				label_c1.className = "label_text";
+            				label_c1.innerText = depositRateList[i][c[k]];
+            				div_small_c1.appendChild(label_c1);
+            				
+            				if (k < 1) {
+            					var line_vert = document.createElement("div");
+            					line_vert.className = "line_vert";
+            					div_big.appendChild(line_vert);
+            				}
+            			}
+            			
+            			container.appendChild(div_big);
+            			
+            			if (i < depositRateList.length-1) {
+            				var line_horz = document.createElement("div");
+            				line_horz.className = "line_horz";
+            				container.appendChild(line_horz);
+            			}
+            		}
+            		}
+            	};
+            	
+            	
+            }
+        </script>
+        
+    </head>
+    
+    <body id="bodyid" onload="init();" style="flex-direction:column; height:100%; background-color:#f5f5f9;overflow:scroll;">
+        <div id="container" style="width:100%; padding:15px 10px 0px 10px; flex-direction:column;">
+        	<div style="height:35px; background-color:#00aaee;">
+        		<div style="flex:1; justify-content:center;">
+        			<label id="c1" style="color:#ffffff; font-size:11px; ">
+        			</label>
+        		</div>
+        		<div style="flex:1;  justify-content:center;">
+        			<label id="c2" style="color:#ffffff; font-size:11px; ">
+        			</label>
+        		</div>
+        		<div id="div_c3" style="flex:1; justify-content:center;">
+        			<label id="c3" style="color:#ffffff; font-size:11px; ">
+        			</label>
+        		</div>
+        	</div>
+
+        </div>
+         <label id="footview" style="font-size:12px; color:#999999; margin-left:15px; margin-top:4px;">
+        </label>
+    </body>
+</html>
