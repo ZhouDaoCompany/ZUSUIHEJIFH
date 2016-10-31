@@ -24,8 +24,6 @@
 
 
 +(PublicFunction *)ShareInstance;
-//是否登录
-- (BOOL)isLogin;
 /**
  *  应用是否第一次启动
  *

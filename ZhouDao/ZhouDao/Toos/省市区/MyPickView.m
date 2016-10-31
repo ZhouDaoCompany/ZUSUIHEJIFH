@@ -42,7 +42,7 @@
     
     if (self)
     {
-        [self getPickerData];
+        //[self getPickerData];
         [self initView];
         //[self configureViewBlurWith:self.frame.size.width scale:0.4];
 
@@ -53,6 +53,21 @@
 
 #pragma mark - init view
 - (void)initView {
+    
+    NSString *pathSource = [MYBUNDLE pathForResource:@"Areas" ofType:@"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+    self.pickerDic = [[NSMutableDictionary alloc] init];
+    self.pickerDic = dict;
+    self.provinceArray  = ProvinceArrays;
+    self.selectedArray = [self.pickerDic objectForKey:self.provinceArray[0]];
+    if (self.selectedArray.count > 0) {
+        self.cityArray = [[self.selectedArray objectAtIndex:0] allKeys];
+    }
+    
+    if (self.cityArray.count > 0) {
+        self.townArray = [[self.selectedArray objectAtIndex:0] objectForKey:[self.cityArray objectAtIndex:0]];
+    }
+
     
     float width = self.frame.size.width;
     float height = self.frame.size.height;
@@ -101,14 +116,70 @@
     ensureBtn.frame = CGRectMake(width-50, 0, 50, 39);
     [self.pickerBgView addSubview:ensureBtn];
     
+    if ([PublicFunction ShareInstance].m_bLogin == YES) {
+        
+        if ([PublicFunction ShareInstance].m_user.data.address.length >0) {
+            
+            NSArray *addressArrays = [[PublicFunction ShareInstance].m_user.data.address componentsSeparatedByString:@"-"];
+            NSString *provinceString = (addressArrays.count >0) ? addressArrays[0] : @"";
+            NSString *cityString = (addressArrays.count >1) ?addressArrays[1] : @"";
+            NSString *areaString = (addressArrays.count >2) ?addressArrays[2] : @"";
+
+            //获取默认地区 选择到响应的pickview
+            for (NSUInteger i = 0; i<_provinceArray.count; i++) {
+                
+                NSString *provinceObj = _provinceArray[i];
+                if ([provinceObj isEqualToString:provinceString]) {
+                    
+                    [self.myPicker selectRow:i inComponent:0 animated:NO];
+                    self.selectedArray = [self.pickerDic objectForKey:_provinceArray[i]];
+                    if (_selectedArray.count > 0) {
+                        if (self.selectedArray.count > 0) {
+                            self.cityArray = [[self.selectedArray objectAtIndex:0] allKeys];
+                        }
+                        
+                        for (NSUInteger ii = 0; ii<_cityArray.count; ii++) {
+                            
+                            NSString  *cityObj = _cityArray[ii];
+                            if (self.cityArray.count > 0) {
+                                self.townArray = [[self.selectedArray objectAtIndex:0] objectForKey:[self.cityArray objectAtIndex:ii]];
+                            }
+                            
+                            if ([cityObj isEqualToString:cityString]) {
+                                
+                                [self.myPicker selectRow:ii inComponent:1 animated:NO];
+                                for (NSUInteger iii = 0; iii <_townArray.count; iii++) {
+                                    
+                                    NSString *areaObj = _townArray[iii];
+                                    if ([areaObj isEqualToString:areaString]) {
+                                        
+                                        kDISPATCH_MAIN_THREAD(^{
+                                            
+                                            [self.myPicker selectRow:iii inComponent:2 animated:NO];
+                                        });
+                                        break;
+                                    }
+                                }
+                                
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+    
     [UIView animateWithDuration:0.35f animations:^{
+        
         self.pickerBgView.frame = CGRectMake(0, height - 255, width, 255);
     }];
 
 }
 #pragma mark - get data
 - (void)getPickerData {
-    
+/*
 //    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"areas" ofType:@"txt"];
 //    NSString *dataS = [NSString stringWithContentsOfFile:pathSource encoding:NSUTF8StringEncoding error:nil];
 //    
@@ -146,8 +217,8 @@
     
     if (self.cityArray.count > 0) {
         self.townArray = [[self.selectedArray objectAtIndex:0] objectForKey:[self.cityArray objectAtIndex:0]];
-    }
-    
+    } 
+ */
 }
 - (NSData *)toJSONData:(id)theData{
     
@@ -260,7 +331,7 @@
     
 }
 - (void)hideMyPicker{
-    self.blurBlock();
+
     [UIView animateWithDuration:.35f animations:^{
         float width = self.frame.size.width;
         float height = self.frame.size.height;

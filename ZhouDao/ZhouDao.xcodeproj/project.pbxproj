@@ -4292,11 +4292,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/云通讯短信",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/Wechat",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMessage_Sdk_1.3.0",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMessage_Sdk_1.4.0",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;
@@ -4332,11 +4327,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/云通讯短信",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/Wechat",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMessage_Sdk_1.3.0",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMessage_Sdk_1.4.0",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.DaoZhou.ZDHF;

@@ -12,6 +12,5 @@ typedef void(^PickViewBlock)(NSString *proviceStr,NSString *cityStr,NSString *di
 @interface MyPickView : UIView
 
 @property (nonatomic,copy) PickViewBlock pickBlock;
-@property (nonatomic,copy) ZDBlock blurBlock;
 - (id)initWithFrame:(CGRect)frame;
 @end

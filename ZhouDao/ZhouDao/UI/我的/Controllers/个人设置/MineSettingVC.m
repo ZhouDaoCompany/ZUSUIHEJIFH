@@ -70,8 +70,8 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     NSString *typeString = typeDict[pString];
     
     NSString *address = @"请您选择地址";
-    if (![[PublicFunction ShareInstance].m_user.data.address isEqualToString:@"--"])
-    {
+    if (![[PublicFunction ShareInstance].m_user.data.address isEqualToString:@"--"]) {
+       
         address = [PublicFunction ShareInstance].m_user.data.address;
     }
 
@@ -112,10 +112,9 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     if (indexPath.section == 0) {
         cell.nameLab.text = _titArrays[row];
         cell.addresslab.text = _msgArrays[row];
-        if (_headImage)
-        {
+        if (_headImage) {
             cell.headImg.image = _headImage;
-        }else{
+        } else {
             [cell.headImg sd_setImageWithURL:[NSURL URLWithString:[PublicFunction ShareInstance].m_user.data.photo] placeholderImage:[UIImage imageNamed:@"mine_head"]];
         }
     }else {
@@ -165,9 +164,6 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
                     [_msgArrays replaceObjectAtIndex:3 withObject:tempStr];
                     [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:3 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
                 }];
-            };
-            pickView.blurBlock = ^{
-                // [weakSelf configureViewBlurWith:0 scale:1];
             };
             [windows addSubview:pickView];
             
