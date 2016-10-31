@@ -208,7 +208,7 @@
 
 }
 - (void)thirdLoginActionWithPlatformType:(UMSocialPlatformType)platformType
-                             withSString:(NSString *)sString WithSwitch:(UISwitch *)switchBtn{ WEAKSELF;
+                             withSString:(NSString *)sString WithSwitch:(UISwitch *)switchBtn{
     
     NSString *nameString = [PublicFunction ShareInstance].m_user.data.mobile;
     NSString *typeString = [PublicFunction ShareInstance].m_user.data.type;
