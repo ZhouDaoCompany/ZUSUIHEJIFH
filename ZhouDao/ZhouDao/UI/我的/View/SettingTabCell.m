@@ -8,7 +8,7 @@
 
 #import "SettingTabCell.h"
 #import "SDPhotoBrowser.h"
-#import "UMSocial.h"
+#import <UMSocialCore/UMSocialCore.h>
 
 @interface SettingTabCell()<SDPhotoBrowserDelegate>
 @property (nonatomic, strong) UIView *lineView;
@@ -194,99 +194,57 @@
 }
 - (void)OpenTheBindingWith:(UISwitch *)switchBtn{
     
-    NSString *nameString = [PublicFunction ShareInstance].m_user.data.mobile;
-    NSString *typeString = [PublicFunction ShareInstance].m_user.data.type;
-    
     if (_row == 0) {
         //微信
-        
-        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
-        
-        snsPlatform.loginClickHandler(_ParentView,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-            
-            if (response.responseCode == UMSResponseCodeSuccess) {
-                
-                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=3",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
-                [NetWorkMangerTools whetherAccountBindingOnImmediatelyWithURLString:url RequestSuccess:^{
-                    
-                    NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&type=%@&udid=%@&sy=%@&ly=%@",kProjectBaseUrl,AuBindingURLString,snsAccount.usid,@"3",nameString,typeString,@"",@"2",@"2"];
-                    [NetWorkMangerTools pureAuBindingURLString:urlString RequestSuccess:^{
-                        
-                        [PublicFunction ShareInstance].m_user.data.wx_au = snsAccount.usid;
-                        
-                    } fail:^{
-                        [switchBtn setOn:NO];//失败关闭
-                    }];
-                }];
-                
-            } else {
-                
-                [switchBtn setOn:NO];//失败关闭
-            }
-        });
+        [self thirdLoginActionWithPlatformType:UMSocialPlatformType_WechatSession withSString:@"3" WithSwitch:switchBtn];
         
     } else if (_row == 1) {
-        
         //qq
-        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
-        
-        snsPlatform.loginClickHandler(_ParentView,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-            
-            //          获取微博用户名、uid、token等
-            
-            if (response.responseCode == UMSResponseCodeSuccess) {
-                
-                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=1",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
-                [NetWorkMangerTools whetherAccountBindingOnImmediatelyWithURLString:url RequestSuccess:^{
-                    
-                    NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&type=%@&udid=%@&sy=%@&ly=%@",kProjectBaseUrl,AuBindingURLString,snsAccount.usid,@"1",nameString,typeString,@"",@"2",@"2"];
-                    [NetWorkMangerTools pureAuBindingURLString:urlString RequestSuccess:^{
-                        
-                        [PublicFunction ShareInstance].m_user.data.qq_au = snsAccount.usid;
-                        
-                    } fail:^{
-                        [switchBtn setOn:NO];//失败关闭
-                    }];
-                }];
-                
-            } else {
-                [switchBtn setOn:NO];//失败关闭
-            }
-        });
-        
+        [self thirdLoginActionWithPlatformType:UMSocialPlatformType_QQ withSString:@"1" WithSwitch:switchBtn];
     } else {
         //新浪
-        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
-        
-        snsPlatform.loginClickHandler(_ParentView,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-            
-            //          获取微博用户名、uid、token等
-            if (response.responseCode == UMSResponseCodeSuccess) {
-                
-                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-                
-                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=2",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
-                [NetWorkMangerTools whetherAccountBindingOnImmediatelyWithURLString:url RequestSuccess:^{
-                    
-                    NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&type=%@&udid=%@&sy=%@&ly=%@",kProjectBaseUrl,AuBindingURLString,snsAccount.usid,@"2",nameString,typeString,@"",@"2",@"2"];
-                    [NetWorkMangerTools pureAuBindingURLString:urlString RequestSuccess:^{
-                        
-                        [PublicFunction ShareInstance].m_user.data.wb_au = snsAccount.usid;
-
-                    } fail:^{
-                        [switchBtn setOn:NO];//失败关闭
-                    }];
-                }];
-                
-            } else {
-                [switchBtn setOn:NO];//失败关闭
-            }
-        });
+        [self thirdLoginActionWithPlatformType:UMSocialPlatformType_Sina withSString:@"2" WithSwitch:switchBtn];
     }
 
 }
+- (void)thirdLoginActionWithPlatformType:(UMSocialPlatformType)platformType
+                             withSString:(NSString *)sString WithSwitch:(UISwitch *)switchBtn{ WEAKSELF;
+    
+    NSString *nameString = [PublicFunction ShareInstance].m_user.data.mobile;
+    NSString *typeString = [PublicFunction ShareInstance].m_user.data.type;
+
+    [[UMSocialManager defaultManager] authWithPlatform:platformType currentViewController:_ParentView completion:^(id result, NSError *error) {
+        if (error) {
+            DLog(@"Auth fail with error %@", error);
+            [switchBtn setOn:NO];//失败关闭
+        }else{
+            if ([result isKindOfClass:[UMSocialAuthResponse class]]) {
+                UMSocialAuthResponse *resp = result;
+                // 授权信息
+                DLog(@"AuthResponse : %@", [NSString stringWithFormat:@"result: %d\n uid: %@\n accessToken: %@\n     AuthOriginalResponse :%@",(int)error.code,resp.uid,resp.accessToken,resp.originalResponse]);
+                
+                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=3",kProjectBaseUrl,ThirdPartyLogin,resp.uid];
+                [NetWorkMangerTools whetherAccountBindingOnImmediatelyWithURLString:url RequestSuccess:^{
+                    
+                    NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&type=%@&udid=%@&sy=%@&ly=%@",kProjectBaseUrl,AuBindingURLString,resp.uid,sString,nameString,typeString,@"",@"2",@"2"];
+                    [NetWorkMangerTools pureAuBindingURLString:urlString RequestSuccess:^{
+                        
+                        [PublicFunction ShareInstance].m_user.data.wx_au = resp.uid;
+                        
+                    } fail:^{
+                        [switchBtn setOn:NO];//失败关闭
+                    }];
+                }];
+                
+            }else{
+                DLog(@"Auth fail with unknow error");
+                [switchBtn setOn:NO];//失败关闭
+            }
+        }
+        
+    }];
+}
+
 - (void)removeTheBinding:(UISwitch *)switchBtn
 {WEAKSELF;
     
@@ -298,6 +256,11 @@
                                              
                                              [PublicFunction ShareInstance].m_user.data.wx_au = @"";
                                              [weakSelf chooseAWayToLogin];
+                                             [[UMSocialManager defaultManager] cancelAuthWithPlatform:UMSocialPlatformType_WechatSession completion:^(id result, NSError *error) {
+                                                 if (!error) {
+                                                     DLog(@"取消授权成功");
+                                                 }
+                                             }];
 
                                          } fail:^{
                                              
@@ -312,7 +275,12 @@
                                              
                                              [PublicFunction ShareInstance].m_user.data.qq_au = @"";
                                              [weakSelf chooseAWayToLogin];
-                                             
+                                             [[UMSocialManager defaultManager] cancelAuthWithPlatform:UMSocialPlatformType_QQ completion:^(id result, NSError *error) {
+                                                 if (!error) {
+                                                     DLog(@"取消授权成功");
+                                                 }
+                                             }];
+
                                          } fail:^{
                                              
                                              [switchBtn setOn:YES];
@@ -326,10 +294,11 @@
                                              
                                              [PublicFunction ShareInstance].m_user.data.wb_au = @"";
                                              [weakSelf chooseAWayToLogin];
-                                             [[UMSocialDataService defaultDataService] requestUnOauthWithType:UMShareToSina  completion:^(UMSocialResponseEntity *response){
-                                                 DLog(@"response is %@",response);
-                                                 
-                                             }];
+                                             [[UMSocialManager defaultManager] cancelAuthWithPlatform:UMSocialPlatformType_Sina completion:^(id result, NSError *error) {
+                                                 if (!error) {
+                                                     DLog(@"取消授权成功");
+                                                 }
+                                                 }];
 
                                          } fail:^{
                                              

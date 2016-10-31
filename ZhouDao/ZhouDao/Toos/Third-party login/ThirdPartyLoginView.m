@@ -10,7 +10,7 @@
 #import "CustomButton.h"
 #import "MenuLabel.h"
 #import <pop/POP.h>
-#import "UMSocial.h"
+#import <UMSocialCore/UMSocialCore.h>
 
 #define kMenuButtonBaseTag 7900
 @interface ThirdPartyLoginView()
@@ -86,117 +86,63 @@
 
     return button;
 }
-#pragma mark -分享事件
+#pragma mark - 第三方登录
 -(void)selectd:(CustomButton *)button
-{WEAKSELF;
+{
     DLog(@"tag-----%ld",button.tag);
     NSInteger tag = button.tag - kMenuButtonBaseTag;
 //    [button SelectdAnimation];
     if (tag == 0) {
         //微信
-        
-        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
-        
-        snsPlatform.loginClickHandler(_superVC,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-            
-            if (response.responseCode == UMSResponseCodeSuccess) {
-                
-                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-                DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
-                
-                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=3",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
-                [NetWorkMangerTools LoginWithThirdPlatformwithPlatform:@"3" withUsid:snsAccount.usid withURLString:url RequestSuccess:^(NSString *state, id obj) {
-                    
-                    if ([state isEqualToString:@"1"]) {
-                        if ([weakSelf.delegate respondsToSelector:@selector(isBoundToLoginSuccessfully)])
-                        {
-                            [weakSelf.delegate isBoundToLoginSuccessfully];
-                        }
-                        
-                    }else {
-                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:withs:)])
-                        {
-                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid withs:@"3"];
-                        }
-                    }
-                }];
-
-            }
-            
-        });
-
+        [self thirdLoginActionWithPlatformType:UMSocialPlatformType_WechatSession withSString:@"1"];
         
     }else if (tag == 1) {
         //qq
-        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
-        
-        snsPlatform.loginClickHandler(_superVC,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-            
-            //          获取微博用户名、uid、token等
-            
-            if (response.responseCode == UMSResponseCodeSuccess) {
-                
-                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-                DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
-                
-                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=1",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
-                [NetWorkMangerTools LoginWithThirdPlatformwithPlatform:@"1" withUsid:snsAccount.usid withURLString:url RequestSuccess:^(NSString *state, id obj) {
-                    
-                    if ([state isEqualToString:@"1"]) {
-                        if ([weakSelf.delegate respondsToSelector:@selector(isBoundToLoginSuccessfully)])
-                        {
-                            [weakSelf.delegate isBoundToLoginSuccessfully];
-                        }
-                        
-                    }else {
-                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:withs:)])
-                        {
-                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid withs:@"1"];
-                        }
-                    }
-                    
-                }];
-                
-            }});
+        [self thirdLoginActionWithPlatformType:UMSocialPlatformType_QQ withSString:@"1"];
+
 
     } else {
-        
-        //新浪
-        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
-        
-        snsPlatform.loginClickHandler(_superVC,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-            
-            //          获取微博用户名、uid、token等
-            
-            if (response.responseCode == UMSResponseCodeSuccess) {
-                
-                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-                DLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
-                
-                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=2",kProjectBaseUrl,ThirdPartyLogin,snsAccount.usid];
-                [NetWorkMangerTools LoginWithThirdPlatformwithPlatform:@"2" withUsid:snsAccount.usid withURLString:url RequestSuccess:^(NSString *state, id obj) {
-                    
-                    if ([state isEqualToString:@"1"]) {
-                        if ([weakSelf.delegate respondsToSelector:@selector(isBoundToLoginSuccessfully)])
-                        {
-                            [weakSelf.delegate isBoundToLoginSuccessfully];
-                        }
-                        
-                    }else {
-                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:withs:)])
-                        {
-                            [weakSelf.delegate unboundedAccountToBindwithUsid:snsAccount.usid withs:@"2"];
-                        }
-                    }
-                    
-                }];
-                
-            }});
+        [self thirdLoginActionWithPlatformType:UMSocialPlatformType_Sina withSString:@"1"];
+
         
     }
     
 }
 
+- (void)thirdLoginActionWithPlatformType:(UMSocialPlatformType)platformType
+                             withSString:(NSString *)sString { WEAKSELF;
+    
+    [[UMSocialManager defaultManager] authWithPlatform:platformType currentViewController:_superVC completion:^(id result, NSError *error) {
+        if (error) {
+            DLog(@"Auth fail with error %@", error);
+        }else{
+            if ([result isKindOfClass:[UMSocialAuthResponse class]]) {
+                UMSocialAuthResponse *resp = result;
+                // 授权信息
+                DLog(@"AuthResponse : %@", [NSString stringWithFormat:@"result: %d\n uid: %@\n accessToken: %@\n     AuthOriginalResponse :%@",(int)error.code,resp.uid,resp.accessToken,resp.originalResponse]);
+                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=%@",kProjectBaseUrl,ThirdPartyLogin,resp.uid,sString];
+                [NetWorkMangerTools LoginWithThirdPlatformwithPlatform:sString withUsid:resp.uid withURLString:url RequestSuccess:^(NSString *state, id obj) {
+                    
+                    if ([state isEqualToString:@"1"]) {
+                        if ([weakSelf.delegate respondsToSelector:@selector(isBoundToLoginSuccessfully)]) {
+                            [weakSelf.delegate isBoundToLoginSuccessfully];
+                        }
+                        
+                    }else {
+                        if ([weakSelf.delegate respondsToSelector:@selector(unboundedAccountToBindwithUsid:withs:)]) {
+                            [weakSelf.delegate unboundedAccountToBindwithUsid:resp.uid withs:sString];
+                        }
+                    }
+                    
+                }];
+
+            }else{
+                DLog(@"Auth fail with unknow error");
+            }
+        }
+
+    }];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

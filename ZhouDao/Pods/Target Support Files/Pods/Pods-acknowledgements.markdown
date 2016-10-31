@@ -297,6 +297,11 @@ THE SOFTWARE.
 Copyright 2011 - 2015 UMeng.com. All rights reserved.
 
 
+## UMengUShare
+
+Copyright 2011 - 2016 UMeng.com. All rights reserved.
+
+
 ## WebViewJavascriptBridge
 
 Copyright (c) 2011-2015 Marcus Westin, Antoine Lagadec

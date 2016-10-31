@@ -202,7 +202,7 @@
         _indexShow--;
     [self reloadTexts];
 }
-- (void)startTimerPlay {WEAKSELF;
+- (void)startTimerPlay { WEAKSELF;
     [[JX_GCDTimerManager sharedInstance] scheduledDispatchTimerWithName:_myTimer
                                                            timeInterval:_iDisplayTime
                                                                   queue:nil
@@ -216,7 +216,7 @@
 /**
  *  轮播文字
  */
-- (void)doTextGoDisplay {WEAKSELF;
+- (void)doTextGoDisplay { WEAKSELF;
     [_scView scrollRectToVisible:CGRectMake(0, self.frame.size.height*2, self.frame.size.width, self.frame.size.height) animated:YES];
     _indexShow++;
 

@@ -98,6 +98,7 @@
                     
                 </head>
                 <body>
+                    <link href="base.css" rel="stylesheet" type="text/css" />
                     ${content}
 
                 </body>

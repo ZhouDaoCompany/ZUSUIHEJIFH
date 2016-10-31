@@ -9,10 +9,9 @@
 #import "AppDelegate.h"
 #import "IQKeyboardManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
-#import "UMSocial.h"
-#import "UMSocialWechatHandler.h"
-#import "UMSocialQQHandler.h"
-#import "UMSocialSinaSSOHandler.h"
+#import <UMSocialCore/UMSocialCore.h>
+#import "UMSocialSinaHandler.h"
+
 #import "ZDLTabBarControllerConfig.h"
 #import "LoginViewController.h"
 #import <StoreKit/StoreKit.h>
@@ -127,22 +126,20 @@
     [AMapServices sharedServices].apiKey = (NSString *)APIKey;
 }
 #pragma mark -友盟分享
-- (void)uMSocialEvent
-{
-    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline]];
+- (void)uMSocialEvent {
     
-    //设置友盟社会化组件appkey
-    [UMSocialData setAppKey:UMENG_APPKEY];
+    // 获取友盟social版本号
+    DLog(@"UMeng social version: %@", [UMSocialGlobal umSocialSDKVersion]);
+    //设置友盟appkey
+    [[UMSocialManager defaultManager] setUmSocialAppkey:UMENG_APPKEY];
     //打开调试log的开关
-    [UMSocialData openLog:NO];
+    [[UMSocialManager defaultManager] openLog:YES];
     //设置微信AppId，设置分享url，默认使用友盟的网址
-    [UMSocialWechatHandler setWXAppId:ZDWXAPPKEY appSecret:ZDWXAppSecret url:@"http://www.zhoudao.cc"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:ZDWXAPPKEY appSecret:ZDWXAppSecret redirectURL:@"http://mobile.umeng.com/social"];
     //设置手机QQ的AppId，指定你的分享url，若传nil，将使用友盟的网址
-    [UMSocialQQHandler setQQWithAppId:ZDQQAPPKEY appKey:ZDQQAppSecret url:@"http://www.zhoudao.cc"];
-    [UMSocialQQHandler setSupportWebView:YES];
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:ZDWBAPPKEY
-                                              secret:ZDWBAppSecret
-                                         RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:ZDQQAPPKEY  appSecret:ZDQQAppSecret redirectURL:@"http://mobile.umeng.com/social"];
+//    [UMSocialHandler setSupportWebView:YES];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:ZDWBAPPKEY  appSecret:ZDWBAppSecret redirectURL:@"http://sns.whalecloud.com/sina2/callback"];
 }
 #pragma mark -友盟统计
 - (void)umengTrack {
@@ -194,19 +191,28 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
 //    DLog(@"%@",url.host);
-    BOOL result = [UMSocialSnsService handleOpenURL:url wxApiDelegate:nil];
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
     if (result == FALSE) {
         //调用其他SDK，例如支付宝SDK等
-     //    [[IFlySpeechUtility getUtility] handleOpenURL:url];
+//         [[IFlySpeechUtility getUtility] handleOpenURL:url];
     }
     return result;
 }
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+        
+    }
+    return result;
+}
+
 /**
  这里处理新浪微博SSO授权进入新浪微博客户端后进入后台，再返回原来应用
  */
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    [UMSocialSnsService  applicationDidBecomeActive];
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    
+//    [[UMSocialSinaHandler defaultManager]  applicationDidBecomeActive];
 }
 #pragma mark -当app接收到内存警告时
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application{
@@ -319,7 +325,7 @@
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于后台时的远程推送接受
         [self umPushToShowWithNotification:userInfo];
-    }else{
+    } else {
         //应用处于后台时的本地推送接受
     }
 }

@@ -7,12 +7,12 @@
 //
 
 #import "AboutZDVC.h"
-#import "UMSocial.h"
+#import <UMSocialCore/UMSocialCore.h>
 #import <StoreKit/StoreKit.h>
 #import "ShareView.h"
 #import "MenuLabel.h"
 
-@interface AboutZDVC ()<UITableViewDataSource,UITableViewDelegate,UMSocialUIDelegate,SKStoreProductViewControllerDelegate>
+@interface AboutZDVC ()<UITableViewDataSource,UITableViewDelegate,SKStoreProductViewControllerDelegate>
 
 @property (strong,nonatomic) UITableView *tableView;
 @property (strong, nonatomic)  UIImageView *logoImgView;
