@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '43370F8C9FD6BFDBA50370B8'
+               BlueprintIdentifier = 'F62A1731DDEF4ECDDCB25D82'
                BlueprintName = 'Harpy'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libHarpy.a'>

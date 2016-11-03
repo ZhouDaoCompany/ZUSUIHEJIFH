@@ -28,7 +28,10 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
 @property (strong, nonatomic) UILabel *bottomLabel;
 @property (strong, nonatomic) NSDictionary *areasDictionary;
+@property (strong, nonatomic) NSDictionary *bigDictionary;
+
 @property (copy, nonatomic)   NSString *isInterval;//是否是百分比区间
+
 @end
 
 @implementation LawyerFeesVC
@@ -44,8 +47,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     [self initUI];
 }
 #pragma mark - private methods
-- (void)initUI
-{WEAKSELF;
+- (void)initUI { WEAKSELF;
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"是",@"", nil];
     [self.dataSourceArrays addObject:arr1];
     
@@ -54,9 +56,11 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
     [_tableView setTableFooterView:self.bottomLabel];
+
     
+    NSString *path = [MYBUNDLE pathForResource:@"LawyerFees" ofType:@"plist"];
+    self.bigDictionary= [NSDictionary dictionaryWithContentsOfFile:path];
     
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"lawerFees" ofType:@"txt"];
     [_bottomLabel whenCancelTapped:^{
         
         DLog(@"点击跳转");
@@ -320,7 +324,6 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
         NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
         [_dataSourceArrays addObject:arr2];
         [self reloadTableViewWithAnimation];
-
     }
 }
 #pragma mark - 非百分比区间
@@ -478,11 +481,8 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             SelectProvinceVC *selectVC = [SelectProvinceVC new];
             selectVC.isNoTW = YES;
             selectVC.selectBlock = ^(NSString *province, NSString *local){
-
-                NSString *path = [MYBUNDLE pathForResource:province ofType:@"txt"];
-                NSData *data = [NSData dataWithContentsOfFile:path];
-                NSDictionary *dict= [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-                weakSelf.areasDictionary = dict[@"area"];
+                
+                weakSelf.areasDictionary = weakSelf.bigDictionary[province];
                 weakSelf.isInterval = weakSelf.areasDictionary[@"isInterval"];
 
                 weakSelf.bottomLabel.text = [NSString stringWithFormat:@"根据《%@诉讼费用交纳办法》计算，供您参考",province];

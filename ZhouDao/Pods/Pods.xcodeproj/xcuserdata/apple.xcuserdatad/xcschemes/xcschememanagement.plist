@@ -64,6 +64,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SSZipArchive.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SWTableViewCell.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -82,12 +87,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>082157DFD44F33D0712F99A97AEE79A7</key>
+		<key>09846A0F46988573DAEDDD6B55466BEA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>09846A0F46988573DAEDDD6B55466BEA</key>
+		<key>16D43A69848347B675F2B951EC649BB4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,7 +102,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4D78CF4310E08091F1A792614F53413E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>55DBDD8B7D446F1D618F303A9FB53209</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>595F767665AED2B01031CDEEEE608814</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,12 +122,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>928353533005A4198EBDA5B700D37B64</key>
+		<key>82822F8F067B1F2605D01F2680FE218F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9AE4C6E2F1A6006944674398BF06F080</key>
+		<key>8DCFFD85419BB04964B750991180B78D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>928353533005A4198EBDA5B700D37B64</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,7 +142,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A119002F6F6ABEA5F77C49245D1CAEEE</key>
+		<key>A4A3DED6143EB93318A63636EAD116FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9CCAA5EE028C923E79977D1590457F2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,27 +157,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BD59EF878BC449A26696C6D669518C3B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>D058B89EB3B3DF45457A2DCD3971AFFE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E0B207827CA4A174EB8D40383521012C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EFD39F587558E5C225926EC64F1ABE67</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F6482DF42F18D49C61584E2EFD70E902</key>
+		<key>EECBEA55BA1C95A7CF170FFF742567D7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

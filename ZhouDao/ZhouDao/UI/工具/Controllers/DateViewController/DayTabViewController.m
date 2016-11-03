@@ -31,8 +31,7 @@ static NSString *const DAYCellID = @"dayCellID";
 @end
 
 @implementation DayTabViewController
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];//移除观察者
 }
 - (void)viewDidLoad {
@@ -44,10 +43,9 @@ static NSString *const DAYCellID = @"dayCellID";
 - (void)initUI{
     
     NSString *pathSource = [MYBUNDLE pathForResource:@"Holiday" ofType:@"plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
-    self.timeArrays = dict[@"time"];
-    self.timeDictionary = dict[@"allHoliday"];
-    
+    self.timeDictionary = [NSMutableDictionary dictionaryWithContentsOfFile:pathSource];
+    [self.timeArrays addObjectsFromArray:[self.timeDictionary allKeys]];
+
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"", nil];
     [self.dataSourceArrays addObject:arr1];
 

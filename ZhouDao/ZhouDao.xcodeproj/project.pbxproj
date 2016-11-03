@@ -3553,7 +3553,7 @@
 		187E6D531C841A10009169C2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = CQZ;
 				TargetAttributes = {
 					187E6D5A1C841A11009169C2 = {
@@ -4220,7 +4220,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -4260,7 +4260,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -4276,14 +4276,13 @@
 				CODE_SIGN_ENTITLEMENTS = ZhouDao/ZhouDao.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = DX33K55M2K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/科大讯飞",
 					"$(PROJECT_DIR)/ZhouDao/Resource",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ZhouDao/ZhouDao_NetWorkManger/DefineHeader/ZhouDao_Prefix.pch";
 				INFOPLIST_FILE = ZhouDao/Info.plist;
@@ -4312,13 +4311,13 @@
 				CODE_SIGN_ENTITLEMENTS = ZhouDao/ZhouDao.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: li miao (CS89YLBRY9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: li miao (CS89YLBRY9)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = DX33K55M2K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/科大讯飞",
 					"$(PROJECT_DIR)/ZhouDao/Resource",
-					"$(PROJECT_DIR)/ZhouDao/Resource/Utility/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ZhouDao/ZhouDao_NetWorkManger/DefineHeader/ZhouDao_Prefix.pch";
 				INFOPLIST_FILE = ZhouDao/Info.plist;

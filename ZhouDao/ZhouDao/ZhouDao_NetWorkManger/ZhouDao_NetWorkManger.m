@@ -57,9 +57,9 @@ static inline NSString *cachePath() {
         [[NSFileManager defaultManager] removeItemAtPath:directoryPath error:&error];
         
         if (error) {
-            NSLog(@"ZDNetworking clear caches error: %@", error);
+            DLog(@"ZDNetworking clear caches error: %@", error);
         } else {
-            NSLog(@"ZDNetworking clear caches ok");
+            DLog(@"ZDNetworking clear caches ok");
         }
     }
 }

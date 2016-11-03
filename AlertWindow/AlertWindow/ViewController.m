@@ -28,7 +28,7 @@
     [super viewDidLoad];
     
     
-    NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"InjuryInductrial" ofType:@"plist"];
+   /* NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"InjuryInductrial" ofType:@"plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
     NSString *content = bigDictionary[@"黑龙江省"];
     _webView.backgroundColor = [UIColor blackColor];
@@ -42,8 +42,37 @@
     [self.view addSubview:_webView];
     
     NSDictionary *dictt = [NSDictionary dictionaryWithObjectsAndKeys:content,@"content", nil];
-    [self aWebViewCss:@"DetailContent.xml" :dictt];
+    [self aWebViewCss:@"DetailContent.xml" :dictt];*/
+    
+    
 
+    
+    NSArray *areaArrays = @[@"安徽省",@"北京市",@"重庆市",@"福建省",@"甘肃省",@"广东省",@"广西壮族自治区",@"贵州省",@"海南省",@"河北省",@"河南省",@"黑龙江省",@"湖北省",@"湖南省",@"吉林省",@"江苏省",@"江西省",@"辽宁省",@"内蒙古自治区",@"宁夏回族自治区",@"青海省",@"山东省",@"山西省",@"陕西省",@"上海市",@"四川省",@"天津市",@"西藏自治区",@"新疆维吾尔自治区",@"云南省",@"浙江省"];
+    
+    NSMutableDictionary *areaDictionary = [NSMutableDictionary dictionary];
+//    for (NSUInteger i = 0; i < [areaArrays count]; i++) {
+//        
+//        NSString *nameString = areaArrays[i];
+//        NSString *pathsss = [[NSBundle mainBundle] pathForResource:nameString ofType:@"txt"];
+//        NSData *data = [NSData dataWithContentsOfFile:pathsss];
+//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+//        NSDictionary *dictionary = dict[nameString];
+//        NSLog(@"第几个－－－－:   %ld",i);
+//        [areaDictionary setObject:dictionary forKey:nameString];
+//    }
+    
+    NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"city(2)" ofType:@"txt"];
+    NSData *data = [NSData dataWithContentsOfFile:pathsss];
+    NSArray *cityArrays = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+
+    //获取本地沙盒路径
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //获取完整路径
+    NSString *documentsPath = [path objectAtIndex:0];
+    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"ProvincesCity.plist"];
+    //写入文件
+    [cityArrays writeToFile:plistPath atomically:YES];
+    
 //        NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"地级市平均工资" ofType:@"txt"];
 //        NSData *data = [NSData dataWithContentsOfFile:pathsss];
 //        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
