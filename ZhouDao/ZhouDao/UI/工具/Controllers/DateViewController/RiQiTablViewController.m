@@ -45,7 +45,7 @@ static NSString *const RIQICellID = @"RIQICellID";
 #pragma mark - private methods
 - (void)initUI{
     
-    NSString *pathSource = [MYBUNDLE pathForResource:@"Holiday" ofType:@"plist"];
+    NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"Holiday.plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
     self.timeArrays = dict[@"time"];
     self.timeDictionary = dict[@"allHoliday"];

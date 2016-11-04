@@ -92,6 +92,7 @@
     [self umengPushSettingWithOptions:launchOptions];
     //[KMCGeigerCounter sharedGeigerCounter].enabled = YES;
     
+    
     ZDLTabBarControllerConfig *tabBarControllerConfig = [[ZDLTabBarControllerConfig alloc] init];
     tabBarControllerConfig.tabBarController.delegate = self;
     [self.window setRootViewController:tabBarControllerConfig.tabBarController];
@@ -104,8 +105,8 @@
 }
 #pragma mark -UITabBarControllerDelegate
 
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
-{
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    
     if ([viewController.tabBarItem.title isEqualToString:@"我的"]) {
         if ([PublicFunction ShareInstance].m_bLogin == NO) {
             LoginViewController *loginVC = [LoginViewController new];
@@ -118,8 +119,7 @@
 #pragma mark -配置地图
 - (void)setMapEvent
 {
-    if ([APIKey length] == 0)
-    {
+    if ([APIKey length] == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"apiKey为空，请检查key是否正确设置" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
     }
@@ -157,8 +157,9 @@
      */
 }
 #pragma mark -监测版本
-- (void)checkVersionUpdate{
+- (void)checkVersionUpdate {
     
+    [CalculateManager detectionOfUpdatePlistFile];//更新plist文件
     [[Harpy sharedInstance] setPresentingViewController:_window.rootViewController];
     [[Harpy sharedInstance] setDelegate:self];
     [[Harpy sharedInstance] setAppID:@"1105833212"];
@@ -170,8 +171,7 @@
 }
 
 #pragma mark -讯飞语音
-- (void)setIFlyVoice
-{
+- (void)setIFlyVoice {
     //设置sdk的log等级，log保存在下面设置的工作路径中
     [IFlySetting setLogFile:LVL_NONE];
     //打开输出在console的log开关

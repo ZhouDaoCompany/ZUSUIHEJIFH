@@ -46,4 +46,22 @@
  */
 + (double)getRateCalculateWithRateArrays:(NSArray *)rateArrays withDays:(double)differTimeDay;
 
+
+
+/**
+ 检测更新plist文件
+ */
++ (void)detectionOfUpdatePlistFile;
+
+/**
+ 解压打包文件到 Document里
+ */
++ (void)unCompressZipDocuments;
+
+/**
+ 解压文件到 Document里
+
+ @param zipName zip文件的名字  是plistName 和 plist文件版本号
+ */
++ (void)unCompressZipDocumentsWithPlistName:(NSString *)zipName;
 @end

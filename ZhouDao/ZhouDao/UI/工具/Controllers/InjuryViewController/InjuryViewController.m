@@ -53,8 +53,8 @@ static NSString *const INJURYCELL = @"injurycellid";
     [shareView show];
 }
 #pragma mark - CalculateShareDelegate
-- (void)clickIsWhichOne:(NSInteger)index
-{
+- (void)clickIsWhichOne:(NSInteger)index {
+
     if (index >0) {
         [JKPromptView showWithImageName:nil message:LOCCALCULATESHARE];
         return;
@@ -129,9 +129,9 @@ static NSString *const INJURYCELL = @"injurycellid";
         [detailDict setObjectWithNullValidate:mutableArrays forKey:@"mutableArrays"];
 
         
-    }else if (levelInter >=5 && levelInter <7){
+    }else if (levelInter >= 5 && levelInter <7){
         
-        NSString *pathSource = [MYBUNDLE pathForResource:@"gongShang" ofType:@"plist"];
+        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongShang.plist"];
         NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         NSString *keyString = [NSString stringWithFormat:@"%@_%ld",_idString,levelInter];
         NSDictionary *useDict = bigDictionary[keyString];
@@ -183,12 +183,10 @@ static NSString *const INJURYCELL = @"injurycellid";
         [detailDict setObjectWithNullValidate:GETFloat(allMoney) forKey:@"money"];
         [detailDict setObjectWithNullValidate:mutableArrays forKey:@"mutableArrays"];
     }else{
-        
-        NSString *pathSource = [MYBUNDLE pathForResource:@"gongShang" ofType:@"plist"];
+        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongShang.plist"];
         NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         NSString *keyString = [NSString stringWithFormat:@"%@_%ld",_idString,levelInter];
         NSDictionary *useDict = bigDictionary[keyString];
-
         
         //医疗补偿金，就业补偿金，伤残补偿金
         double money1 = 0.0f; double money2 = 0.0f; double money3 = 0.0f;

@@ -419,5 +419,6 @@
  *  判断铃声
  */
 + (NSString *)getSoundName:(NSString *)bell;
-    
+
+
 @end

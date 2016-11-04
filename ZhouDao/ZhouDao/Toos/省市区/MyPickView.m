@@ -17,11 +17,9 @@
 #define kScreen_Height      ([UIScreen mainScreen].bounds.size.height)
 #define kScreen_Width       ([UIScreen mainScreen].bounds.size.width)
 #define kScreen_Frame       (CGRectMake(0, 0 ,kScreen_Width,kScreen_Height))
-@interface MyPickView() <UIPickerViewDataSource, UIPickerViewDelegate>
-{
-    UIImageView *_mainBackgroundIV;
+@interface MyPickView() <UIPickerViewDataSource, UIPickerViewDelegate> {
+    
 }
-@property (strong, nonatomic) UIView *maskView;
 @property (strong, nonatomic)  UIPickerView *myPicker;
 @property (strong, nonatomic)  UIView *pickerBgView;
 
@@ -36,23 +34,19 @@
 
 @implementation MyPickView
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     
-    if (self)
-    {
-        //[self getPickerData];
+    if (self) {
+
+        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
         [self initView];
-        //[self configureViewBlurWith:self.frame.size.width scale:0.4];
-
-
     }
     return self;
 }
 
 #pragma mark - init view
-- (void)initView {
+- (void)initView { WEAKSELF;
     
     NSString *pathSource = [MYBUNDLE pathForResource:@"Areas" ofType:@"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
@@ -67,33 +61,22 @@
     if (self.cityArray.count > 0) {
         self.townArray = [[self.selectedArray objectAtIndex:0] objectForKey:[self.cityArray objectAtIndex:0]];
     }
-
     
     float width = self.frame.size.width;
     float height = self.frame.size.height;
-    
-    self.maskView = [[UIView alloc] initWithFrame:kScreen_Frame];
-    self.maskView.backgroundColor = [UIColor blackColor];
-    self.maskView.alpha = 0.3f;
-    [self.maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMyPicker)]];
-    [self addSubview:self.maskView];
-    
-    
-    self.pickerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, height, width, 255)];
-    self.pickerBgView.backgroundColor = [UIColor whiteColor];
+
     [self addSubview:self.pickerBgView];
+    [self whenCancelTapped:^{
+        
+        [weakSelf hideMyPicker];
+    }];
+    [_pickerBgView whenCancelTapped:^{
+       
+    }];
     
-    self.myPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 39.f, width, 216)];
-    self.myPicker.showsSelectionIndicator=YES;//显示选中框
-    self.myPicker.delegate = self;
-    self.myPicker.dataSource = self;
     [self.pickerBgView addSubview:self.myPicker];
     
-    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 39)];
-    toolView.backgroundColor = [UIColor whiteColor];
-    [self.pickerBgView addSubview:toolView];
-    
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(toolView), kMainScreenWidth, .5f)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 39, kMainScreenWidth, .6f)];
     lineView.backgroundColor = [UIColor colorWithHexString:@"#d4d4d4"];
     [self.pickerBgView addSubview:lineView];
 
@@ -105,7 +88,7 @@
     cancelBtn.backgroundColor = [UIColor clearColor];
     cancelBtn.titleLabel.font = Font_14;
     cancelBtn.frame = CGRectMake(0, 0, 50, 39);
-    [self.pickerBgView addSubview:cancelBtn];
+    [_pickerBgView addSubview:cancelBtn];
     
     UIButton *ensureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [ensureBtn setTitleColor:[UIColor blackColor] forState:0];
@@ -114,7 +97,7 @@
     ensureBtn.titleLabel.font = Font_14;
     ensureBtn.backgroundColor = [UIColor clearColor];
     ensureBtn.frame = CGRectMake(width-50, 0, 50, 39);
-    [self.pickerBgView addSubview:ensureBtn];
+    [_pickerBgView addSubview:ensureBtn];
     
     if ([PublicFunction ShareInstance].m_bLogin == YES) {
         
@@ -130,8 +113,10 @@
                 
                 NSString *provinceObj = _provinceArray[i];
                 if ([provinceObj isEqualToString:provinceString]) {
-                    
-                    [self.myPicker selectRow:i inComponent:0 animated:NO];
+                    kDISPATCH_MAIN_THREAD(^{
+                        
+                        [weakSelf.myPicker selectRow:i inComponent:0 animated:NO];
+                    });
                     self.selectedArray = [self.pickerDic objectForKey:_provinceArray[i]];
                     if (_selectedArray.count > 0) {
                         if (self.selectedArray.count > 0) {
@@ -155,7 +140,7 @@
                                         
                                         kDISPATCH_MAIN_THREAD(^{
                                             
-                                            [self.myPicker selectRow:iii inComponent:2 animated:NO];
+                                            [weakSelf.myPicker selectRow:iii inComponent:2 animated:NO];
                                         });
                                         break;
                                     }
@@ -177,64 +162,9 @@
     }];
 
 }
-#pragma mark - get data
-- (void)getPickerData {
-/*
-//    NSString *pathSource = [[NSBundle mainBundle] pathForResource:@"areas" ofType:@"txt"];
-//    NSString *dataS = [NSString stringWithContentsOfFile:pathSource encoding:NSUTF8StringEncoding error:nil];
-//    
-//    //DLog(@"输出文件数据－－－－－%@",dataS);
-//    NSData *data = [dataS dataUsingEncoding:NSUTF8StringEncoding];
-//    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    NSString *pathSource = [MYBUNDLE pathForResource:@"Areas" ofType:@"plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
-
-    //DLog(@"解析是否成功－－－－－%@",dict);
-    
-//    NSData *weChatdatamsg = [self toJSONData:arraysf];
-//    NSString *weChatPayMsg =[[NSString alloc] initWithData:weChatdatamsg
-//                                                  encoding:NSUTF8StringEncoding];
-//
-//    DLog(@"列表－－－－－－%@",weChatPayMsg);
-    
-    self.pickerDic = [[NSMutableDictionary alloc] init];
-    self.pickerDic = dict;
-    self.provinceArray  = ProvinceArrays;
-//    self.provinceArray = (NSMutableArray *)[self.pickerDic allKeys];
-//
-//    [self.provinceArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        DLog(@"输出－－－－－%@",(NSString *)obj);
-//    }];
-    self.selectedArray = [self.pickerDic objectForKey:self.provinceArray[0]];
-    
-//        NSData *weChatdatamsg = [self toJSONData:self.selectedArray];
-//        NSString *weChatPayMsg =[[NSString alloc] initWithData:weChatdatamsg
-//                                                      encoding:NSUTF8StringEncoding];
-//    DLog(@"河北省－－－－%@",weChatPayMsg);
-    if (self.selectedArray.count > 0) {
-        self.cityArray = [[self.selectedArray objectAtIndex:0] allKeys];
-    }
-    
-    if (self.cityArray.count > 0) {
-        self.townArray = [[self.selectedArray objectAtIndex:0] objectForKey:[self.cityArray objectAtIndex:0]];
-    } 
- */
-}
-- (NSData *)toJSONData:(id)theData{
-    
-    NSError *error = nil;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theData
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    if ( error == nil){
-        return jsonData;
-    }else{
-        return nil;
-    }
-}
-
 #pragma mark - UIPicker Delegate
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    
     return 3;
 }
 
@@ -243,9 +173,8 @@
         return self.provinceArray.count;
     } else if (component == 1) {
         return self.cityArray.count;
-    } else {
-        return self.townArray.count;
     }
+    return self.townArray.count;
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
@@ -253,9 +182,8 @@
         return kMainScreenWidth/3.f -10;
     } else if (component == 1) {
         return kMainScreenWidth/3.f +10;
-    } else {
-        return kMainScreenWidth/3.f;
     }
+     return kMainScreenWidth/3.f;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -330,18 +258,18 @@
     return myView;
     
 }
-- (void)hideMyPicker{
+- (void)hideMyPicker{ WEAKSELF;
 
     [UIView animateWithDuration:.35f animations:^{
         float width = self.frame.size.width;
         float height = self.frame.size.height;
 
-        self.pickerBgView.frame = CGRectMake(0, height, width, 255);
+        weakSelf.pickerBgView.frame = CGRectMake(0, height, width, 255);
     } completion:^(BOOL finished) {
-        [self removeFromSuperview];
+        [weakSelf removeFromSuperview];
     }];
 }
-#pragma mark - xib click
+#pragma mark - Button Click
 - (void)cancelEvent:(id)sender {
     [self hideMyPicker];
 }
@@ -354,41 +282,30 @@
     
     [self hideMyPicker];
 }
-#pragma mark -来个3d效果
--(CATransform3D)firstTransform{
-    CATransform3D t1 = CATransform3DIdentity;
-    t1.m34 = 1.0/-900;
-    t1 = CATransform3DScale(t1, 0.95, 0.95, 1);
-    t1 = CATransform3DRotate(t1, 15.0f * M_PI/180.0f, 1, 0, 0);
-    return t1;
-}
 
--(CATransform3D)secondTransform{
+#pragma mark - setter and getter 
+- (UIView *)pickerBgView {
     
-    CATransform3D t2 = CATransform3DIdentity;
-    t2.m34 = [self firstTransform].m34;
-    t2 = CATransform3DTranslate(t2, 0, self.frame.size.height*-0.08, 0);
-    t2 = CATransform3DScale(t2, 0.8, 0.8, 1);
-    return t2;
+    if (!_pickerBgView) {
+        
+        float width = self.frame.size.width;
+        float height = self.frame.size.height;
+        _pickerBgView = [[UIView alloc] initWithFrame:CGRectMake(0, height, width, 255)];
+        _pickerBgView.backgroundColor = [UIColor whiteColor];
+    }
+    return _pickerBgView;
 }
-
-//- (void)configureViewBlurWith:(float)nValue scale:(float)nScale
-//{
-//    if(_mainBackgroundIV == nil)
-//    {
-//        _mainBackgroundIV = [[UIImageView alloc] initWithFrame:self.bounds];
-//        _mainBackgroundIV.userInteractionEnabled = YES;
-//        
-//        UIImage *image = [QHCommonUtil getImageFromView:self];
-//        [_mainBackgroundIV setImageToBlur:image
-//                               blurRadius:kLBBlurredImageDefaultBlurRadius
-//                          completionBlock:^(){}];
-//        
-//        [self addSubview:_mainBackgroundIV];
-//    }
-//    [_mainBackgroundIV setAlpha:(nValue/self.frame.size.width) * nScale];
-//}
-
+- (UIPickerView *)myPicker {
+    
+    if (!_myPicker) {
+        float width = self.frame.size.width;
+        _myPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 39.f, width, 216)];
+        _myPicker.showsSelectionIndicator=YES;//显示选中框
+        _myPicker.delegate = self;
+        _myPicker.dataSource = self;
+    }
+    return _myPicker;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

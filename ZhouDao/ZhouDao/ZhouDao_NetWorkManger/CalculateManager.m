@@ -7,6 +7,7 @@
 //
 
 #import "CalculateManager.h"
+#import "SSZipArchive.h"
 
 @implementation CalculateManager
 
@@ -55,22 +56,57 @@
     if(differTimeDay <= 180){
         
         rateString = rateArrays[0];
-    }else if(differTimeDay > 180 && differTimeDay <= 365){
+    }else if(differTimeDay <= 365){
         
         rateString = rateArrays[1];
-    }else if(differTimeDay > 365 && differTimeDay <= 1095){
+    }else if(differTimeDay <= 1095){
         
         rateString = rateArrays[2];
-    }else if(differTimeDay > 1095 && differTimeDay <= 1825){
+    }else if(differTimeDay <= 1825){
         
         rateString = rateArrays[3];
-    }else if(differTimeDay > 1825){
+    }else {
         
         rateString = rateArrays[4];
     }
     return [rateString doubleValue];
 }
 
+#pragma mark - 解压打包文件到 Document里
++ (void)unCompressZipDocuments {
+    
+    if ([FILE_M fileExistsAtPath:PLISTCachePath]) {
+        
+        [FILE_M removeItemAtPath:PLISTCachePath error:nil];
+    }
+    NSString *CalculateFileZip = [[NSBundle mainBundle] pathForResource:@"CalculatePlistFile" ofType:@"zip"];
+    NSString *unZipPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    [SSZipArchive unzipFileAtPath:CalculateFileZip toDestination:unZipPath];
+}
+
++ (void)unCompressZipDocumentsWithPlistName:(NSString *)zipName {
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
+        
+        NSString *zipPath = [PLISTCachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.zip",zipName]];
+        [SSZipArchive unzipFileAtPath:zipPath toDestination:PLISTCachePath];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
+            //删除文件
+            [FILE_M removeItemAtPath:zipPath error:nil];
+        });
+    });
+}
+#pragma mark - 检测更新plist文件
++ (void)detectionOfUpdatePlistFile {
+    
+    if ([PublicFunction ShareInstance].isFirstLaunch) {
+        
+        [[self class] unCompressZipDocuments];
+    } else {
+        //根据文件版本号请求判断更新
+         
+    }
+}
 
 @end
 

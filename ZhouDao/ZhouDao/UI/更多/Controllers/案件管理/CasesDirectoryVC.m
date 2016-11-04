@@ -263,6 +263,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
             [self checkPhotoFile:htmlString withImgView:cCell withModel:model withFormat:format];
         }else{
             [NetWorkMangerTools arrangeFileInfoWithid:model.id withCaseId:_caseId RequestSuccess:^(NSString *htmlString) {
+                
                 [self checkPhotoFile:htmlString withImgView:cCell withModel:model withFormat:format];
             }];
         }

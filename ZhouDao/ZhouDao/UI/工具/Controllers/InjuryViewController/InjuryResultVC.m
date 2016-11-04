@@ -73,7 +73,7 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
             break;
         }
     }
-    NSString *pathSource1 = [MYBUNDLE pathForResource:@"InjuryInductrial" ofType:@"plist"];
+    NSString *pathSource1 = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"InjuryInductrial.plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
 
     __block NSString *contentText = bigDictionary[keyString];

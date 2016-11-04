@@ -58,7 +58,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     [_tableView setTableFooterView:self.bottomLabel];
 
     
-    NSString *path = [MYBUNDLE pathForResource:@"LawyerFees" ofType:@"plist"];
+    NSString *path = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"LawyerFees.plist"];
     self.bigDictionary= [NSDictionary dictionaryWithContentsOfFile:path];
     
     [_bottomLabel whenCancelTapped:^{
