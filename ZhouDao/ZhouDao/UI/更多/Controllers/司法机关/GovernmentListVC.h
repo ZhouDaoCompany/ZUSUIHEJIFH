@@ -9,6 +9,7 @@
 typedef void(^LocalStringBlock)(NSString *prov, NSString *local);
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "ProvinceModel.h"
 
 @interface GovernmentListVC : BaseViewController
 
@@ -16,4 +17,5 @@ typedef void(^LocalStringBlock)(NSString *prov, NSString *local);
 @property (nonatomic, copy) NSString *prov;//定位省
 @property (nonatomic, copy) NSString *showLocal;
 @property (nonatomic, copy) LocalStringBlock localBlock;
+@property (nonatomic, strong) ProvinceModel *proModel;
 @end

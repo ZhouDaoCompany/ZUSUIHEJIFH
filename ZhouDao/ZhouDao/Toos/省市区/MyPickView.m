@@ -7,10 +7,10 @@
 //
 
 #import "MyPickView.h"
-//#import "UIImageView+LBBlurredImage.h"
-//#import "QHCommonUtil.h"
-#import "Provice.h"
 #import "NSString+SPStr.h"
+#import "ProvinceModel.h"
+#import "CityModel.h"
+#import "AreaModel.h"
 
 #define VIEWWITH   [UIScreen mainScreen].bounds.size.width/3.f
 
@@ -24,11 +24,10 @@
 @property (strong, nonatomic)  UIView *pickerBgView;
 
 //data
-@property (strong, nonatomic) NSDictionary *pickerDic;
-@property (strong, nonatomic) NSMutableArray *provinceArray;
-@property (strong, nonatomic) NSArray *cityArray;
-@property (strong, nonatomic) NSArray *townArray;
-@property (strong, nonatomic) NSMutableArray *selectedArray;
+@property (strong, nonatomic) NSMutableArray *provinceModelArray;
+@property (strong, nonatomic) ProvinceModel  *proModel;//省
+@property (strong, nonatomic) NSMutableArray *cityModelArray;
+@property (strong, nonatomic) NSMutableArray *areaModelArray;
 
 @end
 
@@ -48,20 +47,26 @@
 #pragma mark - init view
 - (void)initView { WEAKSELF;
     
-    NSString *pathSource = [MYBUNDLE pathForResource:@"Areas" ofType:@"plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
-    self.pickerDic = [[NSMutableDictionary alloc] init];
-    self.pickerDic = dict;
-    self.provinceArray  = ProvinceArrays;
-    self.selectedArray = [self.pickerDic objectForKey:self.provinceArray[0]];
-    if (self.selectedArray.count > 0) {
-        self.cityArray = [[self.selectedArray objectAtIndex:0] allKeys];
-    }
-    
-    if (self.cityArray.count > 0) {
-        self.townArray = [[self.selectedArray objectAtIndex:0] objectForKey:[self.cityArray objectAtIndex:0]];
-    }
-    
+    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"ProvincesCity.plist"];
+    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSArray *proArrays = bigDoctionary[@"province"];
+
+    [proArrays enumerateObjectsUsingBlock:^(NSDictionary *proDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:proDictionary];
+        [weakSelf.provinceModelArray addObject:proModel];
+        DLog(@"打印数组---- %ld",[proModel.city count]);
+        if (idx == 0) {
+            weakSelf.proModel = proModel;
+            weakSelf.cityModelArray = proModel.city;
+            if ([weakSelf.cityModelArray count] >0) {
+                
+                CityModel *cityModel = weakSelf.cityModelArray[0];
+                weakSelf.areaModelArray = cityModel.area;
+            }
+        }
+    }];
+
     float width = self.frame.size.width;
     float height = self.frame.size.height;
 
@@ -99,44 +104,44 @@
     ensureBtn.frame = CGRectMake(width-50, 0, 50, 39);
     [_pickerBgView addSubview:ensureBtn];
     
-    if ([PublicFunction ShareInstance].m_bLogin == YES) {
+    if ([PublicFunction ShareInstance].m_user.data.address.length >0) {
         
-        if ([PublicFunction ShareInstance].m_user.data.address.length >0) {
+        NSArray *addressArrays = [[PublicFunction ShareInstance].m_user.data.address componentsSeparatedByString:@"-"];
+        NSString *provinceString = (addressArrays.count >0) ? addressArrays[0] : @"";
+        NSString *cityString = (addressArrays.count >1) ?addressArrays[1] : @"";
+        NSString *areaString = (addressArrays.count >2) ?addressArrays[2] : @"";
+        
+        //获取默认地区 选择到响应的pickview
+        for (NSUInteger i = 0; i < [weakSelf.provinceModelArray count]; i++) {
             
-            NSArray *addressArrays = [[PublicFunction ShareInstance].m_user.data.address componentsSeparatedByString:@"-"];
-            NSString *provinceString = (addressArrays.count >0) ? addressArrays[0] : @"";
-            NSString *cityString = (addressArrays.count >1) ?addressArrays[1] : @"";
-            NSString *areaString = (addressArrays.count >2) ?addressArrays[2] : @"";
-
-            //获取默认地区 选择到响应的pickview
-            for (NSUInteger i = 0; i<_provinceArray.count; i++) {
-                
-                NSString *provinceObj = _provinceArray[i];
-                if ([provinceObj isEqualToString:provinceString]) {
-                    kDISPATCH_MAIN_THREAD(^{
+            ProvinceModel *proModel = _provinceModelArray[i];
+            if ([proModel.name isEqualToString:provinceString]) {
+                _proModel = proModel;
+                self.cityModelArray = proModel.city;
+                kDISPATCH_MAIN_THREAD(^{
+                    
+                    [weakSelf.myPicker selectRow:i inComponent:0 animated:NO];
+                });
+                if ([_cityModelArray count] > 0) {
+                    
+                    for (NSUInteger ii = 0; ii < [_cityModelArray count]; ii++) {
                         
-                        [weakSelf.myPicker selectRow:i inComponent:0 animated:NO];
-                    });
-                    self.selectedArray = [self.pickerDic objectForKey:_provinceArray[i]];
-                    if (_selectedArray.count > 0) {
-                        if (self.selectedArray.count > 0) {
-                            self.cityArray = [[self.selectedArray objectAtIndex:0] allKeys];
-                        }
+                        CityModel *cityModel = _cityModelArray[ii];
+                        self.areaModelArray = cityModel.area;
                         
-                        for (NSUInteger ii = 0; ii<_cityArray.count; ii++) {
+                        if ([cityModel.name isEqualToString:cityString]) {
                             
-                            NSString  *cityObj = _cityArray[ii];
-                            if (self.cityArray.count > 0) {
-                                self.townArray = [[self.selectedArray objectAtIndex:0] objectForKey:[self.cityArray objectAtIndex:ii]];
-                            }
-                            
-                            if ([cityObj isEqualToString:cityString]) {
+                            kDISPATCH_MAIN_THREAD(^{
                                 
-                                [self.myPicker selectRow:ii inComponent:1 animated:NO];
-                                for (NSUInteger iii = 0; iii <_townArray.count; iii++) {
+                                [weakSelf.myPicker selectRow:ii inComponent:1 animated:NO];
+                            });
+                            
+                            if ([_areaModelArray count] > 0) {
+                                
+                                for (NSUInteger iii = 0; iii <[_areaModelArray count]; iii++) {
                                     
-                                    NSString *areaObj = _townArray[iii];
-                                    if ([areaObj isEqualToString:areaString]) {
+                                    AreaModel *areaModel = _areaModelArray[iii];
+                                    if ([areaModel.name isEqualToString:areaString]) {
                                         
                                         kDISPATCH_MAIN_THREAD(^{
                                             
@@ -146,14 +151,15 @@
                                     }
                                 }
                                 
-                                break;
                             }
+                            
+                            break;
                         }
                     }
                 }
             }
-
         }
+        
     }
     
     [UIView animateWithDuration:0.35f animations:^{
@@ -170,17 +176,21 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if (component == 0) {
-        return self.provinceArray.count;
+        
+        return [_provinceModelArray count];
     } else if (component == 1) {
-        return self.cityArray.count;
+        
+        return [_cityModelArray count];
     }
-    return self.townArray.count;
+    return [_areaModelArray count];
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     if (component == 0) {
+        
         return kMainScreenWidth/3.f -10;
     } else if (component == 1) {
+        
         return kMainScreenWidth/3.f +10;
     }
      return kMainScreenWidth/3.f;
@@ -188,32 +198,46 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     if (component == 0) {
-        self.selectedArray = [self.pickerDic objectForKey:[self.provinceArray objectAtIndex:row]];
-        if (self.selectedArray.count > 0) {
-            self.cityArray = [[self.selectedArray objectAtIndex:0] allKeys];
+        
+        self.proModel = _provinceModelArray[row];
+        if ([_proModel.city count] > 0) {
+            
+            self.cityModelArray = _proModel.city;
+            if (_cityModelArray.count >0) {
+                
+                CityModel *cityModel = _cityModelArray[0];
+                if ([cityModel.area count] > 0) {
+                    
+                    self.areaModelArray = cityModel.area;
+                } else {
+                    [self.areaModelArray removeAllObjects];
+                }
+            } else {
+                [self.cityModelArray removeAllObjects];
+            }
         } else {
-            self.cityArray = nil;
+            [self.cityModelArray removeAllObjects];
+            [self.areaModelArray removeAllObjects];
         }
-        if (self.cityArray.count > 0) {
-            self.townArray = [[self.selectedArray objectAtIndex:0] objectForKey:[self.cityArray objectAtIndex:0]];
-        } else {
-            self.townArray = nil;
-        }
+        [pickerView reloadComponent:1];
+        [pickerView reloadComponent:2];
+        [pickerView selectRow:0 inComponent:1 animated:YES];
+        [pickerView selectRow:0 inComponent:2 animated:YES];
     }
-    [pickerView selectedRowInComponent:1];
-    [pickerView reloadComponent:1];
-    [pickerView selectedRowInComponent:2];
     
     if (component == 1) {
-        if (self.selectedArray.count > 0 && self.cityArray.count > 0) {
-            self.townArray = [[self.selectedArray objectAtIndex:0] objectForKey:[self.cityArray objectAtIndex:row]];
-        } else {
-            self.townArray = nil;
-        }
-        [pickerView selectRow:1 inComponent:2 animated:YES];
+        kDISPATCH_MAIN_THREAD(^{
+            
+            CityModel *cityModel = _cityModelArray[row];
+            if ([cityModel.area count] > 0) {
+                self.areaModelArray = cityModel.area;
+            } else {
+                [self.areaModelArray removeAllObjects];
+            }
+            [pickerView selectRow:0 inComponent:2 animated:YES];
+            [pickerView reloadComponent:2];
+        });
     }
-    
-    [pickerView reloadComponent:2];
 }
 /************************重头戏来了************************/
 
@@ -227,8 +251,8 @@
         myView = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, VIEWWITH, 30)];
         
         myView.textAlignment = NSTextAlignmentCenter;
-        
-        myView.text =[self.provinceArray objectAtIndex:row];
+        ProvinceModel *provinceModel = _provinceModelArray[row];
+        myView.text = provinceModel.name;
         myView.text.length>7?[myView setFont:Font_12]:[myView setFont:Font_14];
         
         myView.backgroundColor = [UIColor clearColor];
@@ -237,21 +261,18 @@
         
         myView = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, VIEWWITH, 30)];
         
-        myView.text = [self.cityArray objectAtIndex:row];
-        
+        CityModel *cityModel = _cityModelArray[row];
+        myView.text = cityModel.name;
         myView.textAlignment = NSTextAlignmentCenter;
         myView.text.length>7?[myView setFont:[UIFont systemFontOfSize:10]]:[myView setFont:Font_14];
         myView.backgroundColor = [UIColor clearColor];
         
     }else{
         myView = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, VIEWWITH, 30)];
-        
         myView.textAlignment = NSTextAlignmentCenter;
-        
-        myView.text =[self.townArray objectAtIndex:row];
-        
+        AreaModel *areaModel = _areaModelArray[row];
+        myView.text = areaModel.name;
         myView.text.length>7?[myView setFont:Font_12]:[myView setFont:Font_14];
-        
         myView.backgroundColor = [UIColor clearColor];
     }
     
@@ -275,10 +296,16 @@
 }
 - (void)ensureEvent:(id)sender {
     
-    NSString *str1 = [self.provinceArray objectAtIndex:[self.myPicker selectedRowInComponent:0]];
-    NSString *str2 = [self.cityArray objectAtIndex:[self.myPicker selectedRowInComponent:1]];
-    NSString *str3 = [self.townArray objectAtIndex:[self.myPicker selectedRowInComponent:2]];
-    self.pickBlock(str1,str2,str3);
+    NSString *str1 = _proModel.name;
+    CityModel *citymModel = _cityModelArray[[self.myPicker selectedRowInComponent:1]];
+    NSString *str2 = citymModel.name;
+    AreaModel *areaModel = _areaModelArray[[self.myPicker selectedRowInComponent:2]];
+    NSString *str3 = areaModel.name;
+    DLog(@"打印出code：%@-%@-%@",_proModel.id,citymModel.id,areaModel.id);
+    if (self.pickBlock) {
+        
+        self.pickBlock(str1,str2,str3);
+    }
     
     [self hideMyPicker];
 }
@@ -305,6 +332,30 @@
         _myPicker.dataSource = self;
     }
     return _myPicker;
+}
+- (NSMutableArray *)provinceModelArray {
+    
+    if (!_provinceModelArray) {
+        
+        _provinceModelArray = [NSMutableArray array];
+    }
+    return _provinceModelArray;
+}
+- (NSMutableArray *)cityModelArray {
+    
+    if (!_cityModelArray) {
+        
+        _cityModelArray = [NSMutableArray array];
+    }
+    return _cityModelArray;
+}
+- (NSMutableArray *)areaModelArray {
+    
+    if (!_areaModelArray) {
+        
+        _areaModelArray = [NSMutableArray array];
+    }
+    return _areaModelArray;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

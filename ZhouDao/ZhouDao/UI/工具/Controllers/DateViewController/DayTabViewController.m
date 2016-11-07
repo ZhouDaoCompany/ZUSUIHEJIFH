@@ -107,9 +107,7 @@ static NSString *const DAYCellID = @"dayCellID";
                 readVC.navTitle = @"计算结果";
                 readVC.rType = FileNOExist;
                 [weakSelf.navigationController pushViewController:readVC animated:YES];
-
             }
-
             
             
         } fail:^{

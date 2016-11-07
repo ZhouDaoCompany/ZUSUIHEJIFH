@@ -31,6 +31,11 @@
 		18526E441DC34AA0003DF559 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 18526E431DC34AA0003DF559 /* base.css */; };
 		18C023E51DCB156300F84EE4 /* city.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18C023E41DCB156300F84EE4 /* city.txt */; };
 		18C023E71DCB1FAF00F84EE4 /* city(2).txt in Resources */ = {isa = PBXBuildFile; fileRef = 18C023E61DCB1FAF00F84EE4 /* city(2).txt */; };
+		18C788931DD02B8A00E9D147 /* ProvincesCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C788921DD02B8A00E9D147 /* ProvincesCity.plist */; };
+		18C788971DD02E8E00E9D147 /* DTApiBaseBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C788961DD02E8E00E9D147 /* DTApiBaseBean.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		18C7889A1DD02F4000E9D147 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C788991DD02F4000E9D147 /* ProvinceModel.m */; };
+		18C7889D1DD02F5800E9D147 /* CityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C7889C1DD02F5800E9D147 /* CityModel.m */; };
+		18C788A01DD02F7100E9D147 /* AreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C7889F1DD02F7100E9D147 /* AreaModel.m */; };
 		18FDC3631D9A0CA60011EB33 /* theCityList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC3621D9A0CA60011EB33 /* theCityList.txt */; };
 		18FDC3651D9A0E220011EB33 /* CalculationBasis.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC3641D9A0E220011EB33 /* CalculationBasis.plist */; };
 		18FDC3671D9A0F320011EB33 /* gongshangjisuan.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18FDC3661D9A0F320011EB33 /* gongshangjisuan.txt */; };
@@ -97,6 +102,15 @@
 		18526E431DC34AA0003DF559 /* base.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = base.css; sourceTree = "<group>"; };
 		18C023E41DCB156300F84EE4 /* city.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = city.txt; sourceTree = "<group>"; };
 		18C023E61DCB1FAF00F84EE4 /* city(2).txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "city(2).txt"; sourceTree = "<group>"; };
+		18C788921DD02B8A00E9D147 /* ProvincesCity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesCity.plist; sourceTree = "<group>"; };
+		18C788951DD02E8E00E9D147 /* DTApiBaseBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTApiBaseBean.h; sourceTree = "<group>"; };
+		18C788961DD02E8E00E9D147 /* DTApiBaseBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTApiBaseBean.m; sourceTree = "<group>"; };
+		18C788981DD02F4000E9D147 /* ProvinceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceModel.h; sourceTree = "<group>"; };
+		18C788991DD02F4000E9D147 /* ProvinceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceModel.m; sourceTree = "<group>"; };
+		18C7889B1DD02F5800E9D147 /* CityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityModel.h; sourceTree = "<group>"; };
+		18C7889C1DD02F5800E9D147 /* CityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityModel.m; sourceTree = "<group>"; };
+		18C7889E1DD02F7100E9D147 /* AreaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaModel.h; sourceTree = "<group>"; };
+		18C7889F1DD02F7100E9D147 /* AreaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaModel.m; sourceTree = "<group>"; };
 		18FDC3621D9A0CA60011EB33 /* theCityList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = theCityList.txt; sourceTree = "<group>"; };
 		18FDC3641D9A0E220011EB33 /* CalculationBasis.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalculationBasis.plist; sourceTree = "<group>"; };
 		18FDC3661D9A0F320011EB33 /* gongshangjisuan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gongshangjisuan.txt; sourceTree = "<group>"; };
@@ -156,6 +170,12 @@
 				1046221F1D7BBAA100D5640C /* AppDelegate.m */,
 				104622211D7BBAA100D5640C /* ViewController.h */,
 				104622221D7BBAA100D5640C /* ViewController.m */,
+				18C788981DD02F4000E9D147 /* ProvinceModel.h */,
+				18C788991DD02F4000E9D147 /* ProvinceModel.m */,
+				18C7889B1DD02F5800E9D147 /* CityModel.h */,
+				18C7889C1DD02F5800E9D147 /* CityModel.m */,
+				18C7889E1DD02F7100E9D147 /* AreaModel.h */,
+				18C7889F1DD02F7100E9D147 /* AreaModel.m */,
 				104622521D7BBB5F00D5640C /* Disability_AlertView.h */,
 				18526E3F1DC334DF003DF559 /* InjuryInductrial.plist */,
 				104622531D7BBB5F00D5640C /* Disability_AlertView.m */,
@@ -169,6 +189,7 @@
 				18C023E41DCB156300F84EE4 /* city.txt */,
 				18526E431DC34AA0003DF559 /* base.css */,
 				18526E411DC34186003DF559 /* content.css */,
+				18C788921DD02B8A00E9D147 /* ProvincesCity.plist */,
 				182C249E1D8118E0005B4426 /* NSDate+fish_Extension.h */,
 				182C249F1D8118E0005B4426 /* NSDate+fish_Extension.m */,
 				1046224E1D7BBAC600D5640C /* DefineHeader.h */,
@@ -183,6 +204,7 @@
 				18FDC3641D9A0E220011EB33 /* CalculationBasis.plist */,
 				18FDC3681D9A0FDA0011EB33 /* gongShang001.plist */,
 				18FDC3661D9A0F320011EB33 /* gongshangjisuan.txt */,
+				18C788941DD02E8E00E9D147 /* Beans */,
 				104622271D7BBAA100D5640C /* Assets.xcassets */,
 				1046225C1D7C2DBE00D5640C /* ConsultantHeadView.h */,
 				1046225D1D7C2DBE00D5640C /* ConsultantHeadView.m */,
@@ -227,6 +249,15 @@
 				1046225A1D7BFB5A00D5640C /* PPNumberButton.m */,
 			);
 			path = PPNumberButton;
+			sourceTree = "<group>";
+		};
+		18C788941DD02E8E00E9D147 /* Beans */ = {
+			isa = PBXGroup;
+			children = (
+				18C788951DD02E8E00E9D147 /* DTApiBaseBean.h */,
+				18C788961DD02E8E00E9D147 /* DTApiBaseBean.m */,
+			);
+			path = Beans;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -344,6 +375,7 @@
 				104622261D7BBAA100D5640C /* Main.storyboard in Resources */,
 				18526E441DC34AA0003DF559 /* base.css in Resources */,
 				18FDC3691D9A0FDA0011EB33 /* gongShang001.plist in Resources */,
+				18C788931DD02B8A00E9D147 /* ProvincesCity.plist in Resources */,
 				18FDC3631D9A0CA60011EB33 /* theCityList.txt in Resources */,
 				18526E3D1DC33451003DF559 /* DetailContent.xml in Resources */,
 				18FDC3651D9A0E220011EB33 /* CalculationBasis.plist in Resources */,
@@ -376,13 +408,17 @@
 				18526E3E1DC33451003DF559 /* NSBundle+HTML.m in Sources */,
 				1046225B1D7BFB5A00D5640C /* PPNumberButton.m in Sources */,
 				104622541D7BBB5F00D5640C /* Disability_AlertView.m in Sources */,
+				18C7889D1DD02F5800E9D147 /* CityModel.m in Sources */,
 				104622231D7BBAA100D5640C /* ViewController.m in Sources */,
+				18C788971DD02E8E00E9D147 /* DTApiBaseBean.m in Sources */,
 				104622201D7BBAA100D5640C /* AppDelegate.m in Sources */,
 				183469481D98FC730007B0D9 /* Temp.m in Sources */,
 				1046221D1D7BBAA100D5640C /* main.m in Sources */,
+				18C788A01DD02F7100E9D147 /* AreaModel.m in Sources */,
 				182C24A01D8118E0005B4426 /* NSDate+fish_Extension.m in Sources */,
 				104622511D7BBAE600D5640C /* UIColor+Helper.m in Sources */,
 				1046225E1D7C2DBE00D5640C /* ConsultantHeadView.m in Sources */,
+				18C7889A1DD02F4000E9D147 /* ProvinceModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

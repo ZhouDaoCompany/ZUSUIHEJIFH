@@ -171,7 +171,6 @@
 		10FF87E11CA6D00F005EBC8A /* ReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FF87DF1CA6D00F005EBC8A /* ReadViewController.m */; };
 		10FF87E61CA6D233005EBC8A /* DownLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FF87E51CA6D233005EBC8A /* DownLoadView.m */; };
 		180B31561C8EB5D100360A23 /* MyPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B31551C8EB5D100360A23 /* MyPickView.m */; };
-		180B31591C8EB5F600360A23 /* Provice.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B31581C8EB5F600360A23 /* Provice.m */; };
 		180B31621C8ECFFF00360A23 /* homeSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180B315A1C8ECFFF00360A23 /* homeSelect@2x.png */; };
 		180B31631C8ECFFF00360A23 /* homeUnselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180B315B1C8ECFFF00360A23 /* homeUnselect@2x.png */; };
 		180B31641C8ECFFF00360A23 /* mineSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180B315C1C8ECFFF00360A23 /* mineSelect@2x.png */; };
@@ -271,9 +270,7 @@
 		1873675A1D757404000C1169 /* DayViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187367591D757404000C1169 /* DayViewCell.m */; };
 		1873675D1D757416000C1169 /* RiQiViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873675C1D757416000C1169 /* RiQiViewCell.m */; };
 		187367661D758929000C1169 /* RiQiTablViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187367641D758929000C1169 /* RiQiTablViewController.m */; };
-		187367671D758929000C1169 /* RiQiTablViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187367651D758929000C1169 /* RiQiTablViewController.xib */; };
 		1873676B1D7589D4000C1169 /* DayTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187367691D7589D4000C1169 /* DayTabViewController.m */; };
-		1873676C1D7589D4000C1169 /* DayTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1873676A1D7589D4000C1169 /* DayTabViewController.xib */; };
 		187A54A61D642CBD0076A8E6 /* DNBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A54951D642CBD0076A8E6 /* DNBrowserCell.m */; };
 		187A54A71D642CBD0076A8E6 /* DNFullImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A54971D642CBD0076A8E6 /* DNFullImageButton.m */; };
 		187A54A81D642CBD0076A8E6 /* DNPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 187A54991D642CBD0076A8E6 /* DNPhotoBrowser.m */; };
@@ -385,6 +382,9 @@
 		18C4B0651CB4FC7600D3CB8B /* SelectTemplateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C4B0631CB4FC7600D3CB8B /* SelectTemplateCell.m */; };
 		18C4B0661CB4FC7600D3CB8B /* SelectTemplateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C4B0641CB4FC7600D3CB8B /* SelectTemplateCell.xib */; };
 		18C4B0681CB4FCCB00D3CB8B /* template_yuedu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C4B0671CB4FCCB00D3CB8B /* template_yuedu@2x.png */; };
+		18C788B11DD046C300E9D147 /* AreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C788AC1DD046C300E9D147 /* AreaModel.m */; };
+		18C788B21DD046C300E9D147 /* CityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C788AE1DD046C300E9D147 /* CityModel.m */; };
+		18C788B31DD046C300E9D147 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C788B01DD046C300E9D147 /* ProvinceModel.m */; };
 		18CB0F021CBF2496009C41CE /* TwoCompensationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB0F011CBF2496009C41CE /* TwoCompensationVC.m */; };
 		18CB0F061CBF42EA009C41CE /* TwoCompensationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB0F041CBF42EA009C41CE /* TwoCompensationCell.m */; };
 		18CB0F071CBF42EA009C41CE /* TwoCompensationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CB0F051CBF42EA009C41CE /* TwoCompensationCell.xib */; };
@@ -761,8 +761,6 @@
 		10FF87E51CA6D233005EBC8A /* DownLoadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownLoadView.m; sourceTree = "<group>"; };
 		1523312781A5C0A89A2BBE53 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		180B31551C8EB5D100360A23 /* MyPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPickView.m; sourceTree = "<group>"; };
-		180B31571C8EB5F600360A23 /* Provice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Provice.h; sourceTree = "<group>"; };
-		180B31581C8EB5F600360A23 /* Provice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Provice.m; sourceTree = "<group>"; };
 		180B315A1C8ECFFF00360A23 /* homeSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeSelect@2x.png"; sourceTree = "<group>"; };
 		180B315B1C8ECFFF00360A23 /* homeUnselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeUnselect@2x.png"; sourceTree = "<group>"; };
 		180B315C1C8ECFFF00360A23 /* mineSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mineSelect@2x.png"; sourceTree = "<group>"; };
@@ -943,10 +941,8 @@
 		1873675C1D757416000C1169 /* RiQiViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiQiViewCell.m; sourceTree = "<group>"; };
 		187367631D758929000C1169 /* RiQiTablViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiQiTablViewController.h; sourceTree = "<group>"; };
 		187367641D758929000C1169 /* RiQiTablViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiQiTablViewController.m; sourceTree = "<group>"; };
-		187367651D758929000C1169 /* RiQiTablViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RiQiTablViewController.xib; sourceTree = "<group>"; };
 		187367681D7589D4000C1169 /* DayTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayTabViewController.h; sourceTree = "<group>"; };
 		187367691D7589D4000C1169 /* DayTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayTabViewController.m; sourceTree = "<group>"; };
-		1873676A1D7589D4000C1169 /* DayTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayTabViewController.xib; sourceTree = "<group>"; };
 		187A54941D642CBD0076A8E6 /* DNBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNBrowserCell.h; sourceTree = "<group>"; };
 		187A54951D642CBD0076A8E6 /* DNBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNBrowserCell.m; sourceTree = "<group>"; };
 		187A54961D642CBD0076A8E6 /* DNFullImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNFullImageButton.h; sourceTree = "<group>"; };
@@ -1123,6 +1119,12 @@
 		18C4B0631CB4FC7600D3CB8B /* SelectTemplateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTemplateCell.m; sourceTree = "<group>"; };
 		18C4B0641CB4FC7600D3CB8B /* SelectTemplateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTemplateCell.xib; sourceTree = "<group>"; };
 		18C4B0671CB4FCCB00D3CB8B /* template_yuedu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "template_yuedu@2x.png"; sourceTree = "<group>"; };
+		18C788AB1DD046C300E9D147 /* AreaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaModel.h; sourceTree = "<group>"; };
+		18C788AC1DD046C300E9D147 /* AreaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaModel.m; sourceTree = "<group>"; };
+		18C788AD1DD046C300E9D147 /* CityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityModel.h; sourceTree = "<group>"; };
+		18C788AE1DD046C300E9D147 /* CityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityModel.m; sourceTree = "<group>"; };
+		18C788AF1DD046C300E9D147 /* ProvinceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceModel.h; sourceTree = "<group>"; };
+		18C788B01DD046C300E9D147 /* ProvinceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceModel.m; sourceTree = "<group>"; };
 		18CB0F001CBF2496009C41CE /* TwoCompensationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoCompensationVC.h; sourceTree = "<group>"; };
 		18CB0F011CBF2496009C41CE /* TwoCompensationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoCompensationVC.m; sourceTree = "<group>"; };
 		18CB0F031CBF42EA009C41CE /* TwoCompensationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoCompensationCell.h; sourceTree = "<group>"; };
@@ -2125,11 +2127,10 @@
 		181292AC1C87E7B100EBB5CD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				18C788AA1DD046C300E9D147 /* ProvinceCityModel */,
 				186AA14A1CE46E7C0009C0D5 /* 收藏 */,
 				18A622821CD3441C0073B886 /* 日程 */,
 				18FF42E11C9805FE00C6B29A /* 登录 */,
-				180B31571C8EB5F600360A23 /* Provice.h */,
-				180B31581C8EB5F600360A23 /* Provice.m */,
 				104B443C1C9BE14800FC19B3 /* AdvantagesModel.h */,
 				104B443D1C9BE14800FC19B3 /* AdvantagesModel.m */,
 			);
@@ -2539,10 +2540,8 @@
 				1873674F1D755D94000C1169 /* DateViewController.m */,
 				187367681D7589D4000C1169 /* DayTabViewController.h */,
 				187367691D7589D4000C1169 /* DayTabViewController.m */,
-				1873676A1D7589D4000C1169 /* DayTabViewController.xib */,
 				187367631D758929000C1169 /* RiQiTablViewController.h */,
 				187367641D758929000C1169 /* RiQiTablViewController.m */,
-				187367651D758929000C1169 /* RiQiTablViewController.xib */,
 			);
 			path = DateViewController;
 			sourceTree = "<group>";
@@ -2923,6 +2922,19 @@
 				18C4B05D1CB4DD9500D3CB8B /* template_Word@2x.png */,
 			);
 			path = Template;
+			sourceTree = "<group>";
+		};
+		18C788AA1DD046C300E9D147 /* ProvinceCityModel */ = {
+			isa = PBXGroup;
+			children = (
+				18C788AB1DD046C300E9D147 /* AreaModel.h */,
+				18C788AC1DD046C300E9D147 /* AreaModel.m */,
+				18C788AD1DD046C300E9D147 /* CityModel.h */,
+				18C788AE1DD046C300E9D147 /* CityModel.m */,
+				18C788AF1DD046C300E9D147 /* ProvinceModel.h */,
+				18C788B01DD046C300E9D147 /* ProvinceModel.m */,
+			);
+			path = ProvinceCityModel;
 			sourceTree = "<group>";
 		};
 		18CD01DD1C902050009DE385 /* LoginVC */ = {
@@ -3606,7 +3618,6 @@
 				188A780C1D73C3FF00BCB54D /* Tools_riqi@2x.png in Resources */,
 				180B31631C8ECFFF00360A23 /* homeUnselect@2x.png in Resources */,
 				1895BDD31DACB89800EA5FF2 /* man_contract.caf in Resources */,
-				187367671D758929000C1169 /* RiQiTablViewController.xib in Resources */,
 				18CD01D71C901367009DE385 /* tabbar_judicial@2x.png in Resources */,
 				1065C3471CA91BA4003F4089 /* law_shezhi@2x.png in Resources */,
 				1060DA151CACF8D400D779A5 /* recommedArticle.jpg in Resources */,
@@ -3761,7 +3772,6 @@
 				1065C3431CA91BA4003F4089 /* law_difangfagui@2x.png in Resources */,
 				18BDD42F1D6EDFE8001541E1 /* Checkmark@2x.png in Resources */,
 				108DC0351C9FA38E00FD1221 /* mine_jiantou@2x.png in Resources */,
-				1873676C1D7589D4000C1169 /* DayTabViewController.xib in Resources */,
 				188A781E1D73C64400BCB54D /* Tools_peichang@2x.png in Resources */,
 				18CD01DC1C90172A009DE385 /* fork@2x.png in Resources */,
 				186DF0CE1CB5094900D66994 /* template_Share@2x.png in Resources */,
@@ -3913,6 +3923,7 @@
 				181125D61CDB36FB00ACA16D /* GovData.m in Sources */,
 				188651C01D266FA500E030F7 /* HistoryModel.m in Sources */,
 				103D25931CAE729A00F2B93A /* GovCollectionViewCell.m in Sources */,
+				18C788B11DD046C300E9D147 /* AreaModel.m in Sources */,
 				1068EAF61CB3907B00AAADD4 /* VoiceManager.m in Sources */,
 				18F08DC71D703BB100B29AF9 /* OverdueCell.m in Sources */,
 				104157641C94718000EE5303 /* OrderTitleLab.m in Sources */,
@@ -3991,6 +4002,7 @@
 				187DB94A1CDC803C009CF1D6 /* GovClassData.m in Sources */,
 				10C86B841CABBE34002A75AC /* LawsKindView.m in Sources */,
 				18AD6AB11CD9EC930053F46B /* TemplateData.m in Sources */,
+				18C788B21DD046C300E9D147 /* CityModel.m in Sources */,
 				18D66ACA1CE1B85000BF2C17 /* IndemnityData.m in Sources */,
 				187A54AD1D642CBD0076A8E6 /* SGMAlbumViewController.m in Sources */,
 				10241A291CBA4CE0000CBEAE /* TheCaseDetailVC.m in Sources */,
@@ -4022,6 +4034,7 @@
 				104622641D7C531700D5640C /* DisabilityViewCell.m in Sources */,
 				18DE724D1C98F2330068F7E5 /* AnimationTools.m in Sources */,
 				18D66AD01CE1D52500BF2C17 /* SearchResultsVC.m in Sources */,
+				18C788B31DD046C300E9D147 /* ProvinceModel.m in Sources */,
 				187E6D601C841A11009169C2 /* main.m in Sources */,
 				10FA014B1CA0EAFE00E691FB /* ImmediatelyVC.m in Sources */,
 				18A428521CC0D19100CEB30E /* AccusingTheCell.m in Sources */,
@@ -4060,7 +4073,6 @@
 				18B5834A1C9A98C700CB3009 /* PlanTableViewCell.m in Sources */,
 				18F08DC41D703B0D00B29AF9 /* OverdueViewController.m in Sources */,
 				188A783B1D74268A00BCB54D /* LiXiViewCell.m in Sources */,
-				180B31591C8EB5F600360A23 /* Provice.m in Sources */,
 				18B7177D1C916C5200F2AAED /* RegisterViewController.m in Sources */,
 				1873673C1D753318000C1169 /* BreachViewController.m in Sources */,
 				1873675D1D757416000C1169 /* RiQiViewCell.m in Sources */,

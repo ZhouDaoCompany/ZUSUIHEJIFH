@@ -58,10 +58,10 @@
 }
 - (void)addChildControllers
 {
-    DayTabViewController *dayVC = [DayTabViewController new];
+    DayTabViewController *dayVC = [[DayTabViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self addChildViewController:dayVC];
     
-    RiQiTablViewController *riqiVC = [RiQiTablViewController new];
+    RiQiTablViewController *riqiVC = [[RiQiTablViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self addChildViewController:riqiVC];
 }
 #pragma mark - event response

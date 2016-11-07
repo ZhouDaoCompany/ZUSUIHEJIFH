@@ -31,65 +31,6 @@
     }
     return self;
 }
-#pragma mark - getters and setters
-- (UIView *)statusBarView {
-    if (!_statusBarView) {
-        CGRect frame = CGRectZero;
-        // The status bar default color by red color.
-        frame = CGRectMake(0.0, 0.0, kMainScreenWidth, barSpacing);
-        _statusBarView = [[UIView alloc] initWithFrame:frame];
-        [_statusBarView setBackgroundColor:KNavigationBarColor];
-    }
-    return _statusBarView;
-}
-- (UIView *)naviBarView {
-    if (!_naviBarView) {
-        CGRect frame = CGRectZero;
-        // The status bar default color by red color.
-        frame = CGRectMake(0.0, barSpacing, kMainScreenWidth, kDefaultWidth);
-        _naviBarView = [[UIView alloc] initWithFrame:frame];
-        [_naviBarView setBackgroundColor:KNavigationBarColor];
-    }
-    return _naviBarView;
-}
--(UIButton *)leftBtn {
-    if (!_leftBtn) {
-        CGRect frame = CGRectMake(0.0, 0.0, kDefaultWidth, kDefaultWidth);
-        _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _leftBtn.frame = frame;
-        [_leftBtn addTarget:self
-                         action:@selector(handleBtnAction:)
-               forControlEvents:UIControlEventTouchUpInside];
-        [_leftBtn setTag:NaviLeftBtn];
-        [_leftBtn setHidden:YES];
-    }
-    return _leftBtn;
-}
-- (UIButton *)rightBtn {
-    if (!_rightBtn) {
-        CGRect frame = CGRectMake(CGRectGetWidth(_naviBarView.bounds) - kDefaultWidth, 0.0, kDefaultWidth, kDefaultWidth);
-        _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _rightBtn.frame = frame;
-        [_rightBtn addTarget:self
-                          action:@selector(handleBtnAction:)
-                forControlEvents:UIControlEventTouchUpInside];
-        [_rightBtn setTag:NaviRightBtn];
-        [_rightBtn setHidden:YES];
-    }
-    return _rightBtn;
-}
-- (UILabel *)titleLabel
-{
-    if (!_titleLabel) {
-        CGRect frame = CGRectMake(0.0, 0.0, 0.0, kDefaultWidth);
-        _titleLabel = [[UILabel alloc] initWithFrame:frame];
-        [_titleLabel setBackgroundColor:[UIColor clearColor]];
-        [_titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [_titleLabel setTextColor:[UIColor whiteColor]];
-    }
-    return _titleLabel;
-}
-
 #pragma mark - life cycle
 
 - (void)viewDidLoad {
@@ -451,6 +392,65 @@
 }
 - (void)rightBtnAction {
     //子类继承实现
+}
+
+#pragma mark - getters and setters
+- (UIView *)statusBarView {
+    if (!_statusBarView) {
+        CGRect frame = CGRectZero;
+        // The status bar default color by red color.
+        frame = CGRectMake(0.0, 0.0, kMainScreenWidth, barSpacing);
+        _statusBarView = [[UIView alloc] initWithFrame:frame];
+        [_statusBarView setBackgroundColor:KNavigationBarColor];
+    }
+    return _statusBarView;
+}
+- (UIView *)naviBarView {
+    if (!_naviBarView) {
+        CGRect frame = CGRectZero;
+        // The status bar default color by red color.
+        frame = CGRectMake(0.0, barSpacing, kMainScreenWidth, kDefaultWidth);
+        _naviBarView = [[UIView alloc] initWithFrame:frame];
+        [_naviBarView setBackgroundColor:KNavigationBarColor];
+    }
+    return _naviBarView;
+}
+-(UIButton *)leftBtn {
+    if (!_leftBtn) {
+        CGRect frame = CGRectMake(0.0, 0.0, kDefaultWidth, kDefaultWidth);
+        _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _leftBtn.frame = frame;
+        [_leftBtn addTarget:self
+                     action:@selector(handleBtnAction:)
+           forControlEvents:UIControlEventTouchUpInside];
+        [_leftBtn setTag:NaviLeftBtn];
+        [_leftBtn setHidden:YES];
+    }
+    return _leftBtn;
+}
+- (UIButton *)rightBtn {
+    if (!_rightBtn) {
+        CGRect frame = CGRectMake(CGRectGetWidth(_naviBarView.bounds) - kDefaultWidth, 0.0, kDefaultWidth, kDefaultWidth);
+        _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rightBtn.frame = frame;
+        [_rightBtn addTarget:self
+                      action:@selector(handleBtnAction:)
+            forControlEvents:UIControlEventTouchUpInside];
+        [_rightBtn setTag:NaviRightBtn];
+        [_rightBtn setHidden:YES];
+    }
+    return _rightBtn;
+}
+- (UILabel *)titleLabel
+{
+    if (!_titleLabel) {
+        CGRect frame = CGRectMake(0.0, 0.0, 0.0, kDefaultWidth);
+        _titleLabel = [[UILabel alloc] initWithFrame:frame];
+        [_titleLabel setBackgroundColor:[UIColor clearColor]];
+        [_titleLabel setTextAlignment:NSTextAlignmentCenter];
+        [_titleLabel setTextColor:[UIColor whiteColor]];
+    }
+    return _titleLabel;
 }
 
 

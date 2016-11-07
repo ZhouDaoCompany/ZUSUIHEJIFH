@@ -11,13 +11,17 @@
 #import "Disability_AlertView.h"
 #import "NSDate+fish_Extension.h"
 #import "NSBundle+HTML.h"
+
+#import "ProvinceModel.h"
+#import "CityModel.h"
+#import "AreaModel.h"
+
 #define SCREENWIDTH  [UIScreen mainScreen].bounds.size.width
 #define SCREENHEIGHT  [UIScreen mainScreen].bounds.size.height
 
-@interface ViewController ()<Disability_AlertViewPro, UIWebViewDelegate>
-{
+@interface ViewController ()<Disability_AlertViewPro, UIWebViewDelegate> {
+    
     UIWebView *_webView;
-
 }
 @property (nonatomic, strong) UIButton *sureBtn;
 @end
@@ -26,6 +30,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"ProvincesCity" ofType:@"plist"];
+    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSArray *proArrays = bigDoctionary[@"province"];
+    
+    __block NSMutableArray *proMutableArrays = [NSMutableArray array];
+    [proArrays enumerateObjectsUsingBlock:^(NSDictionary *proDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:proDictionary];
+        if ([proModel.name isEqualToString:@"河南省"]) {
+            NSLog(@"省下市 :%@",proModel.city);
+            CityModel *model1 = proModel.city[0];
+            AreaModel *model2 = model1.area[0];
+            NSLog(@"区或者县: %@",model2.name);
+        }
+        [proMutableArrays addObject:proModel];
+    }];
+    
+    
+    
     
     
    /* NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"InjuryInductrial" ofType:@"plist"];
@@ -47,9 +71,9 @@
     
 
     
-    NSArray *areaArrays = @[@"安徽省",@"北京市",@"重庆市",@"福建省",@"甘肃省",@"广东省",@"广西壮族自治区",@"贵州省",@"海南省",@"河北省",@"河南省",@"黑龙江省",@"湖北省",@"湖南省",@"吉林省",@"江苏省",@"江西省",@"辽宁省",@"内蒙古自治区",@"宁夏回族自治区",@"青海省",@"山东省",@"山西省",@"陕西省",@"上海市",@"四川省",@"天津市",@"西藏自治区",@"新疆维吾尔自治区",@"云南省",@"浙江省"];
+//    NSArray *areaArrays = @[@"安徽省",@"北京市",@"重庆市",@"福建省",@"甘肃省",@"广东省",@"广西壮族自治区",@"贵州省",@"海南省",@"河北省",@"河南省",@"黑龙江省",@"湖北省",@"湖南省",@"吉林省",@"江苏省",@"江西省",@"辽宁省",@"内蒙古自治区",@"宁夏回族自治区",@"青海省",@"山东省",@"山西省",@"陕西省",@"上海市",@"四川省",@"天津市",@"西藏自治区",@"新疆维吾尔自治区",@"云南省",@"浙江省"];
     
-    NSMutableDictionary *areaDictionary = [NSMutableDictionary dictionary];
+//    NSMutableDictionary *areaDictionary = [NSMutableDictionary dictionary];
 //    for (NSUInteger i = 0; i < [areaArrays count]; i++) {
 //        
 //        NSString *nameString = areaArrays[i];
@@ -61,6 +85,7 @@
 //        [areaDictionary setObject:dictionary forKey:nameString];
 //    }
     
+   /* 
     NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"city(2)" ofType:@"txt"];
     NSData *data = [NSData dataWithContentsOfFile:pathsss];
     NSArray *cityArrays = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
@@ -72,6 +97,7 @@
     NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"ProvincesCity.plist"];
     //写入文件
     [cityArrays writeToFile:plistPath atomically:YES];
+    */
     
 //        NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"地级市平均工资" ofType:@"txt"];
 //        NSData *data = [NSData dataWithContentsOfFile:pathsss];

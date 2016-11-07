@@ -14,6 +14,8 @@
 #import "GovernmentDetailVC.h"
 #import "SelectProvinceVC.h"
 #import "BaseRightBtn.h"
+#import "CityModel.h"
+#import "AreaModel.h"
 
 static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 @interface GovernmentListVC ()<JSDropDownMenuDataSource,JSDropDownMenuDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -35,14 +37,16 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 
 @property (nonatomic, copy) NSString *city;
 @property (nonatomic, copy) NSString *areas;
+@property (nonatomic, strong) CityModel *cityModel;
+@property (nonatomic, strong) AreaModel *areaModel;
 @property (nonatomic, strong) BaseRightBtn *baseRightButton;
 
 @end
 
 @implementation GovernmentListVC
 
-- (void)dealloc
-{
+- (void)dealloc {
+    
     NSString *url1 = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,goverAllClasslist];
     NSString *url2 = (_prov.length == 0) ? [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld",kProjectBaseUrl,judicialList,_pid,_cid,(unsigned long)_page] : [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld&prov=%@&city=%@&area=%@",kProjectBaseUrl,judicialList,_pid,_cid,(unsigned long)_page,_prov,_city,_areas];
 
@@ -52,22 +56,16 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [self initUI];
 }
-- (void)initUI
-{
+- (void)initUI {
+    
     [self setupNaviBarWithTitle:@"司法机关"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
-
     [self.view addSubview:self.baseRightButton];
-
-    _dataSourceArr = [NSMutableArray array];
-    _oneArrays = [NSMutableArray array];
-    _twoArrays = [NSMutableArray array];
-    
     [self.view addSubview:self.tableView];
+    
     [self loadAreasPlistfile];
     [self loadClassData];
 }
@@ -91,6 +89,35 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 }
 - (void)loadAreasPlistfile
 {WEAKSELF;
+    
+    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"ProvincesCity.plist"];
+    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSArray *proArrays = bigDoctionary[@"province"];
+    _twoCurrent = 0;
+    _twoData1SelectedIndex = 0;
+
+    if (_prov.length > 0) {
+        [proArrays enumerateObjectsUsingBlock:^(NSDictionary *proDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:proDictionary];
+            if ([proModel.name isEqualToString:weakSelf.prov]) {
+                weakSelf.twoArrays = proModel.city;
+                [weakSelf.twoArrays enumerateObjectsUsingBlock:^(CityModel *cityModel, NSUInteger cityIdx, BOOL * _Nonnull cityStop) {
+                    if ([PublicFunction ShareInstance].locProv.length >0  && [weakSelf.proModel.name isEqualToString:[PublicFunction ShareInstance].locProv ]) {
+                        if ([[PublicFunction ShareInstance].locCity isEqualToString:cityModel.name]) {
+                            weakSelf.city = [PublicFunction ShareInstance].locCity;
+                            weakSelf.cityModel = cityModel;
+                            weakSelf.twoCurrent = idx;
+                        }
+                    }
+
+                }];
+                *stop = YES;
+            }
+        }];
+    }
+    
+    /*******************************分割*******************************************/
     NSString *pathSource = [MYBUNDLE pathForResource:@"Areas" ofType:@"plist"];
     __block NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
     
@@ -176,53 +203,6 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     [self presentViewController:selectVC animated:YES completion:nil];
 }
 
-#pragma mark - getters and setters
-- (BaseRightBtn *)baseRightButton
-{
-    if (!_baseRightButton) {
-        CGRect frame = CGRectMake(kMainScreenWidth - 70, 20, 70, 44);
-        _baseRightButton = [BaseRightBtn buttonWithType:UIButtonTypeCustom];
-        _baseRightButton.frame = frame;
-        _baseRightButton.backgroundColor = [UIColor clearColor];
-        [_baseRightButton addTarget:self
-                             action:@selector(baseRightBtnAction)
-                   forControlEvents:UIControlEventTouchUpInside];
-        [_baseRightButton setTitle:_showLocal forState:0];
-        [_baseRightButton setImage:kGetImage(@"gov_SelectLoc") forState:0];
-    }
-    return _baseRightButton;
-}
-
-- (UITableView *)tableView
-{
-    if (!_tableView) {
-        
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,109.f, kMainScreenWidth, kMainScreenHeight-109.f) style:UITableViewStylePlain];
-        _tableView.showsHorizontalScrollIndicator= NO;
-        _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.backgroundColor = [UIColor clearColor];
-        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerClass:[GovListCell class] forCellReuseIdentifier:JudicialIdentifier];
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
-    }
-    return _tableView;
-}
-- (JSDropDownMenu *)jsMenu{
-    if (!_jsMenu) {
-        
-        _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
-        _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
-        _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
-        _jsMenu.textColor = THIRDCOLOR;
-        _jsMenu.backgroundColor = [UIColor whiteColor];
-        _jsMenu.dataSource = self;
-        _jsMenu.delegate = self;
-    }
-    return _jsMenu;
-}
 #pragma mark ------ 下拉刷新
 - (void)upRefresh:(id)sender
 {
@@ -460,7 +440,73 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
          [weakSelf.tableView reloadData];
      }];
 }
+#pragma mark - getters and setters
+- (BaseRightBtn *)baseRightButton
+{
+    if (!_baseRightButton) {
+        CGRect frame = CGRectMake(kMainScreenWidth - 70, 20, 70, 44);
+        _baseRightButton = [BaseRightBtn buttonWithType:UIButtonTypeCustom];
+        _baseRightButton.frame = frame;
+        _baseRightButton.backgroundColor = [UIColor clearColor];
+        [_baseRightButton addTarget:self
+                             action:@selector(baseRightBtnAction)
+                   forControlEvents:UIControlEventTouchUpInside];
+        [_baseRightButton setTitle:_showLocal forState:0];
+        [_baseRightButton setImage:kGetImage(@"gov_SelectLoc") forState:0];
+    }
+    return _baseRightButton;
+}
 
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,109.f, kMainScreenWidth, kMainScreenHeight-109.f) style:UITableViewStylePlain];
+        _tableView.showsHorizontalScrollIndicator= NO;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView registerClass:[GovListCell class] forCellReuseIdentifier:JudicialIdentifier];
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
+        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
+    }
+    return _tableView;
+}
+- (JSDropDownMenu *)jsMenu{
+    if (!_jsMenu) {
+        
+        _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
+        _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
+        _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
+        _jsMenu.textColor = THIRDCOLOR;
+        _jsMenu.backgroundColor = [UIColor whiteColor];
+        _jsMenu.dataSource = self;
+        _jsMenu.delegate = self;
+    }
+    return _jsMenu;
+}
+- (NSMutableArray *)dataSourceArr {
+    
+    if (!_dataSourceArr) {
+        _dataSourceArr = [NSMutableArray array];
+    }
+    return _dataSourceArr;
+}
+- (NSMutableArray *)oneArrays {
+    
+    if (!_oneArrays) {
+        _oneArrays = [NSMutableArray array];
+    }
+    return _oneArrays;
+}
+- (NSMutableArray *)twoArrays {
+    if (!_twoArrays) {
+        _twoArrays = [NSMutableArray array];
+    }
+    return _twoArrays;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
