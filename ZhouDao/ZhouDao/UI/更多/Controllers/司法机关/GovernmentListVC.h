@@ -6,16 +6,17 @@
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-typedef void(^LocalStringBlock)(NSString *prov, NSString *local);
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "ProvinceModel.h"
+typedef void(^LocalStringBlock)(ProvinceModel *proModel, NSString *showName);
 
 @interface GovernmentListVC : BaseViewController
 
-@property (nonatomic, copy) NSString *nameString;
-@property (nonatomic, copy) NSString *prov;//定位省
-@property (nonatomic, copy) NSString *showLocal;
+
 @property (nonatomic, copy) LocalStringBlock localBlock;
-@property (nonatomic, strong) ProvinceModel *proModel;
+
+- (id)initWithCTName:(NSString *)ctname
+        withShowName:(NSString *)showName
+   withProvinceModel:(ProvinceModel *)proModel;
 @end

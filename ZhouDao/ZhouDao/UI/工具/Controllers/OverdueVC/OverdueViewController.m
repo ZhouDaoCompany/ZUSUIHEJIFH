@@ -212,25 +212,27 @@ static NSString *const OverdueCellID = @"OverdueCellID";
         
         if (row == 1 || row == 2) {
             
-            ZHPickView *pickView = [[ZHPickView alloc] init];
+            __block NSMutableArray *arr1 = _dataSourceArrays[section];
+            NSString *lastString = arr1[row];
+            ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
             [pickView setDateViewWithTitle:@"选择时间"];
             UIWindow *windows = [QZManager getWindow];
             [pickView showWindowPickView:windows];
             pickView.alertBlock = ^(NSString *selectedStr)
             {
-                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                 NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                 (row == 1)?(weakSelf.startTime = timeStr):(weakSelf.endTime = timeStr);
                 [arr1 replaceObjectAtIndex:row withObject:selectedStr];
                 [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
             };
         }else if (row == 3){
-            ZHPickView *pickView = [[ZHPickView alloc] init];
+            __block NSMutableArray *arr1 = _dataSourceArrays[section];
+            NSString *lastString = arr1[row];
+            ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
             [pickView setDataViewWithItem:@[@"人民银行同期利率",@"按约定利率"] title:@"利率方式"];
             [pickView showPickView:self];
             pickView.block = ^(NSString *selectedStr,NSString *type)
             {
-                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                 [arr1 replaceObjectAtIndex:row withObject:selectedStr];
                 if ([selectedStr isEqualToString:@"按约定利率"]) {
                     

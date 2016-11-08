@@ -121,7 +121,7 @@
 /*
  25 赔偿标准首页列表
  */
-#define compensationStandard    @"api_compensation.php?key=16248ef5&c=compensateList&"
+#define compensationStandard    @"api_compensation.php?key=16248ef5&c=compensateLookup&"//@"api_compensation.php?key=16248ef5&c=compensateList&"
 /*
  26 赔偿标准详情
  */
@@ -177,7 +177,8 @@
  37 司法机关列表
  */
 //#define judicialList            @"api_judicial.php?key=16248ef5&c=judiciallist&"
-#define judicialList            @"api_judicial.php?key=16248ef5&c=judiciallistNew&"
+//#define judicialList            @"api_judicial.php?key=16248ef5&c=judiciallistNew&"
+#define judicialList            @"api_judicial.php?key=16248ef5&c=judiciallookup&"
 
 /*
  38 司法机关详情

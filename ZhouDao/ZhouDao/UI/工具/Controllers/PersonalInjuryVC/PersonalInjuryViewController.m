@@ -261,12 +261,11 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
     
     if (row == 0){
         
-        SelectProvinceVC *selectVC = [SelectProvinceVC new];
-        selectVC.isNoTW = YES;
-        selectVC.selectBlock = ^(NSString *string,NSString *str){
+        SelectProvinceVC *selectVC = [[SelectProvinceVC alloc] initWithSelectType:FromOther withIsHaveNoGAT:YES];
+        selectVC.selectBlock = ^(NSString *fullName){
             
             NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
-            [arr1 replaceObjectAtIndex:row withObject:string];
+            [arr1 replaceObjectAtIndex:row withObject:fullName];
             [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
         };
         [self presentViewController:selectVC animated:YES completion:nil];

@@ -12,8 +12,9 @@ typedef void (^HLPickViewSubmit)(NSString*name,NSString *typeS);
 
 @interface ZHPickView : UIView<UIPickerViewDelegate>
 
-- (void)setDateViewWithTitle:(NSString *)title;
 
+- (instancetype)initWithSelectString:(NSString *)lastString;
+- (void)setDateViewWithTitle:(NSString *)title;
 - (void)setDataViewWithItem:(NSArray *)items title:(NSString *)title;
 - (void)showPickView:(UIViewController *)vc;
 - (void)showWindowPickView:(UIWindow *)window;

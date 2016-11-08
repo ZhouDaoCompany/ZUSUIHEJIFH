@@ -682,8 +682,10 @@
                     withCity:(NSString *)city
                    withareas:(NSString *)areas
               RequestSuccess:(void (^)(NSArray *arr))success
-                        fail:(void (^)())fail
-{
+                        fail:(void (^)())fail {
+    if (areas.length == 0) {
+        areas = @"";
+    }
     [MBProgressHUD showMBLoadingWithText:nil];
     NSString *url = (prov.length == 0) ? [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld",kProjectBaseUrl,judicialList,pid,cid,(unsigned long)page] : [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld&prov=%@&city=%@&area=%@",kProjectBaseUrl,judicialList,pid,cid,(unsigned long)page,prov,city,areas];
     [ZhouDao_NetWorkManger getWithUrl:url sg_cache:NO success:^(id response) {

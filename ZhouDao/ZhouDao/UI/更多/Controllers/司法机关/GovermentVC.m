@@ -12,6 +12,9 @@
 #import "GovernmentListVC.h"
 #import "SelectProvinceVC.h"
 #import "BaseRightBtn.h"
+#import "ProvinceModel.h"
+#import "CityModel.h"
+#import "AreaModel.h"
 
 #define govWidth     [UIScreen mainScreen].bounds.size.width/4.f -1.f
 #define govHeight    93.5f
@@ -30,9 +33,9 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 @property (nonatomic, strong) NSMutableArray *datasourceArr;
 @property (nonatomic, strong) UIImageView *falseImgView;
 @property (nonatomic, strong) UIImageView *collectionHeadView;
-@property (nonatomic, copy) NSString *showLocal;
-@property (nonatomic, copy) NSString *provString;
+@property (nonatomic, strong) ProvinceModel *proModel;
 @property (nonatomic, strong) BaseRightBtn *baseRightButton;
+@property (nonatomic, copy)   NSString *showLocal;
 
 @end
 
@@ -48,19 +51,46 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     // Do any additional setup after loading the view.
     [self initView];
 }
-- (void)initView
-{
+- (void)initView { WEAKSELF;
     [self setupNaviBarWithTitle:@"司法机关"];
-    
+    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"ProvincesCity.plist"];
+    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSArray *proArrays = bigDoctionary[@"province"];
+    __block NSMutableArray *pcaSourceArrays = [NSMutableArray array];
+    [proArrays enumerateObjectsUsingBlock:^(NSDictionary *objDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:objDictionary];
+        [pcaSourceArrays addObject:proModel];
+    }];
+
     if ([PublicFunction ShareInstance].locProv.length >0) {
-        _provString = [PublicFunction ShareInstance].locProv;
-        if ([QZManager isString:_provString withContainsStr:@"内蒙古"]== YES || [QZManager isString:_provString withContainsStr:@"黑龙江"]== YES) {
-            _showLocal = [_provString  substringToIndex:3];
+
+        NSString *showName = [PublicFunction ShareInstance].locProv;
+        for (NSUInteger i = 0; i < [pcaSourceArrays count]; i++) {
+            
+            ProvinceModel *model = pcaSourceArrays[i];
+            if ([model.name isEqualToString:[PublicFunction ShareInstance].locProv]) {
+                
+                _proModel = model;
+                break;
+            }
+        }
+
+        if ([QZManager isString:showName withContainsStr:@"内蒙古"] || [QZManager isString:showName withContainsStr:@"黑龙江"]) {
+            _showLocal = [showName  substringToIndex:3];
         } else {
-            _showLocal = [_provString  substringToIndex:2];
+            _showLocal = [showName  substringToIndex:2];
         }
     }else {
-        _provString = @"上海";
+        
+        for (NSUInteger i = 0; i < [pcaSourceArrays count]; i++) {
+            
+            ProvinceModel *model = pcaSourceArrays[i];
+            if ([model.name isEqualToString:@"上海"]) {
+                _proModel = model;
+                break;
+            }
+        }
         _showLocal =  @"上海";
     }
     [self.view addSubview:self.baseRightButton];
@@ -80,7 +110,6 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 
     [self.view addSubview:self.collectionView];
 
-    WEAKSELF;
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
         [weakSelf.collectionView.mj_header endRefreshing];
@@ -120,16 +149,16 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     WEAKSELF;
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-    GovernmentListVC *vc = [GovernmentListVC new];
     GovData *model = _datasourceArr[indexPath.row];
-    vc.nameString = model.ctname;
-    vc.prov = _provString;
-    vc.showLocal = _showLocal;
-    vc.localBlock = ^(NSString *prov, NSString *local){
+
+    GovernmentListVC *vc = [[GovernmentListVC alloc] initWithCTName:model.ctname
+                                                       withShowName:_showLocal
+                                                  withProvinceModel:_proModel];
+    vc.localBlock = ^(ProvinceModel *proModel, NSString *showName){
         
-        weakSelf.provString = prov;
-        weakSelf.showLocal  = local;
-        [weakSelf.baseRightButton setTitle:local forState:0];
+        weakSelf.proModel = proModel;
+        weakSelf.showLocal  = showName;
+        [weakSelf.baseRightButton setTitle:showName forState:0];
     };
     [self.navigationController pushViewController:vc animated:YES];
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,indexPath.row);
@@ -185,12 +214,12 @@ referenceSizeForHeaderInSection:(NSInteger)section
 }
 - (void)baseRightBtnAction
 {WEAKSELF;
-    SelectProvinceVC *selectVC = [SelectProvinceVC new];
-    selectVC.selectBlock = ^(NSString *province, NSString *local){
+    SelectProvinceVC *selectVC = [[SelectProvinceVC alloc] initWithSelectType:FromGoverment withIsHaveNoGAT:NO];
+    selectVC.provinceBlock = ^(NSString *showName, ProvinceModel *proModel){
         
-        weakSelf.showLocal = local;
-        weakSelf.provString = province;
-        [weakSelf.baseRightButton setTitle:local forState:0];
+        weakSelf.showLocal = showName;
+        weakSelf.proModel = proModel;
+        [weakSelf.baseRightButton setTitle:showName forState:0];
     };
     [self presentViewController:selectVC animated:YES completion:nil];
 }
@@ -211,8 +240,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
     return _baseRightButton;
 }
 
-- (NSMutableArray *)datasourceArr
-{
+- (NSMutableArray *)datasourceArr {
     if (!_datasourceArr) {
         _datasourceArr = [NSMutableArray array];
     }

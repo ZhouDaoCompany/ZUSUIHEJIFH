@@ -478,9 +478,8 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     
     if (section == 0) {
         if (row == 0) {
-            SelectProvinceVC *selectVC = [SelectProvinceVC new];
-            selectVC.isNoTW = YES;
-            selectVC.selectBlock = ^(NSString *province, NSString *local){
+            SelectProvinceVC *selectVC = [[SelectProvinceVC alloc] initWithSelectType:FromOther withIsHaveNoGAT:YES];
+            selectVC.selectBlock = ^(NSString *province){
                 
                 weakSelf.areasDictionary = weakSelf.bigDictionary[province];
                 weakSelf.isInterval = weakSelf.areasDictionary[@"isInterval"];
@@ -493,12 +492,13 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             [self presentViewController:selectVC animated:YES completion:nil];
         }else if(row == 1){
             
-            ZHPickView *pickView = [[ZHPickView alloc] init];
+            __block NSMutableArray *arr1 = _dataSourceArrays[section];
+            NSString *lastString = arr1[row];
+            ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
             [pickView setDataViewWithItem:@[@"民事案件",@"刑事案件",@"行政案件"] title:@"案件类型"];
             [pickView showPickView:self];
-            pickView.block = ^(NSString *selectedStr,NSString *type)
-            {
-                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
+            pickView.block = ^(NSString *selectedStr,NSString *type) {
+                
                 [arr1 replaceObjectAtIndex:row withObject:selectedStr];
                 if ([selectedStr isEqualToString:@"刑事案件"]) {
                     if (arr1.count == 4) {

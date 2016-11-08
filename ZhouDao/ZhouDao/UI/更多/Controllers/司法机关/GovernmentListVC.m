@@ -35,11 +35,12 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 @property (nonatomic, assign) NSUInteger oneCurrent;
 @property (nonatomic, assign) NSUInteger oneData1SelectedIndex;
 
-@property (nonatomic, copy) NSString *city;
-@property (nonatomic, copy) NSString *areas;
 @property (nonatomic, strong) CityModel *cityModel;
 @property (nonatomic, strong) AreaModel *areaModel;
 @property (nonatomic, strong) BaseRightBtn *baseRightButton;
+@property (nonatomic, copy) NSString *ctName;
+@property (nonatomic, copy) NSString *showLocal;
+@property (nonatomic, strong) ProvinceModel *proModel;
 
 @end
 
@@ -48,10 +49,22 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 - (void)dealloc {
     
     NSString *url1 = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,goverAllClasslist];
-    NSString *url2 = (_prov.length == 0) ? [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld",kProjectBaseUrl,judicialList,_pid,_cid,(unsigned long)_page] : [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld&prov=%@&city=%@&area=%@",kProjectBaseUrl,judicialList,_pid,_cid,(unsigned long)_page,_prov,_city,_areas];
+    NSString *url2 = (_proModel) ? [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld",kProjectBaseUrl,judicialList,_pid,_cid,(unsigned long)_page] : [NSString stringWithFormat:@"%@%@pid=%@&cid=%@&page=%ld&prov=%@&city=%@&area=%@",kProjectBaseUrl,judicialList,_pid,_cid,(unsigned long)_page,_proModel.id,_cityModel.id,_areaModel.id];
 
     [ZhouDao_NetWorkManger cancelRequestWithURL:url1];
     [ZhouDao_NetWorkManger cancelRequestWithURL:url2];
+}
+- (id)initWithCTName:(NSString *)ctname
+        withShowName:(NSString *)showName
+   withProvinceModel:(ProvinceModel *)proModel{
+    
+    self = [super init];
+    if (self) {
+        _proModel = proModel;
+        _showLocal = showName;
+        _ctName = ctname;
+    }
+    return self;
 }
 #pragma mark - life cycle
 - (void)viewDidLoad {
@@ -72,12 +85,12 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 #pragma mark -获取所有分类
 - (void)loadClassData{
     WEAKSELF;
-    [NetWorkMangerTools goverAllClasslistwithName:_nameString RequestSuccess:^(NSArray *arr, NSInteger index) {
+    [NetWorkMangerTools goverAllClasslistwithName:_ctName RequestSuccess:^(NSArray *arr, NSInteger index) {
         
         [weakSelf.oneArrays addObjectsFromArray:arr];
         _oneCurrent = index;
         [weakSelf getRegionData:index];
-       [NetWorkMangerTools goverListViewWithPid:_pid withCid:_cid withPage:_page withProv:_prov withCity:_city withareas:_areas RequestSuccess:^(NSArray *arr) {
+       [NetWorkMangerTools goverListViewWithPid:_pid withCid:_cid withPage:_page withProv:weakSelf.proModel.id withCity:weakSelf.cityModel.id withareas:weakSelf.areaModel.id RequestSuccess:^(NSArray *arr) {
             
             [weakSelf.dataSourceArr addObjectsFromArray:arr];
             _page ++;
@@ -90,64 +103,38 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 - (void)loadAreasPlistfile
 {WEAKSELF;
     
-    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"ProvincesCity.plist"];
-    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-    NSArray *proArrays = bigDoctionary[@"province"];
     _twoCurrent = 0;
     _twoData1SelectedIndex = 0;
 
-    if (_prov.length > 0) {
-        [proArrays enumerateObjectsUsingBlock:^(NSDictionary *proDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:proDictionary];
-            if ([proModel.name isEqualToString:weakSelf.prov]) {
-                weakSelf.twoArrays = proModel.city;
-                [weakSelf.twoArrays enumerateObjectsUsingBlock:^(CityModel *cityModel, NSUInteger cityIdx, BOOL * _Nonnull cityStop) {
-                    if ([PublicFunction ShareInstance].locProv.length >0  && [weakSelf.proModel.name isEqualToString:[PublicFunction ShareInstance].locProv ]) {
-                        if ([[PublicFunction ShareInstance].locCity isEqualToString:cityModel.name]) {
-                            weakSelf.city = [PublicFunction ShareInstance].locCity;
-                            weakSelf.cityModel = cityModel;
-                            weakSelf.twoCurrent = idx;
-                        }
-                    }
-
-                }];
-                *stop = YES;
-            }
-        }];
-    }
-    
-    /*******************************分割*******************************************/
-    NSString *pathSource = [MYBUNDLE pathForResource:@"Areas" ofType:@"plist"];
-    __block NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
-    
-    _twoCurrent = 0;
-    _twoData1SelectedIndex = 0;
-
-    if (_prov.length > 0) {
+    if (_proModel) {
         
-        NSArray *tempArr = dict[_prov];
-        NSArray *cityArr = [[tempArr objectAtIndex:0] allKeys];
-        _city = cityArr[0];
-        [cityArr enumerateObjectsUsingBlock:^(NSString *cityObj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [_proModel.city enumerateObjectsUsingBlock:^(CityModel *cityModel, NSUInteger cityIdx, BOOL * _Nonnull cityStop) {
             
-            if ([PublicFunction ShareInstance].locProv.length >0  && [weakSelf.prov isEqualToString:[PublicFunction ShareInstance].locProv ]) {
-                if ([[PublicFunction ShareInstance].locCity isEqualToString:cityObj]) {
-                    weakSelf.city = [PublicFunction ShareInstance].locCity;
-                    weakSelf.twoCurrent = idx;
-                }
+            NSDictionary *tempDcit = [NSDictionary dictionaryWithObjectsAndKeys:@"",@"id",@"全部",@"name", nil];
+            AreaModel *areaModel = [[AreaModel alloc] initWithDictionary:tempDcit];
+            if ([[PublicFunction ShareInstance].locCity isEqualToString:cityModel.name]) {
+                
+                weakSelf.cityModel = cityModel;
+                weakSelf.twoCurrent = cityIdx;
+                weakSelf.areaModel = areaModel;
             }
             
-            NSMutableArray *townArray = [NSMutableArray array];
-            [townArray addObjectsFromArray:[tempArr[0] objectForKey:cityArr[idx]]];
-            [townArray insertObject:@"全部" atIndex:0];
-            NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:cityObj,@"title",townArray,@"data", nil];
-            [weakSelf.twoArrays addObject:dictionary];
+            [cityModel.area insertObject:areaModel atIndex:0];
         }];
+        
+        weakSelf.twoArrays = _proModel.city;
+
+        if (!_cityModel) {
+            
+            if ([_twoArrays count] > 0) {
+                _cityModel = _twoArrays[0];
+            }
+        }
+        
     }
 }
-- (void)getRegionData:(NSInteger)index
-{
+- (void)getRegionData:(NSInteger)index {
+    
     GovClassModel *model = nil;
     GovClassData *dataModel = nil;
     if (_oneArrays.count> index) {
@@ -159,11 +146,6 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     _pid = model.court_category;
     _cid = GET(dataModel.classid);
     _page = 0;
-    if ([PublicFunction ShareInstance].locProv.length == 0) {
-        _city = @"";
-        _areas = @"";
-        _twoData1SelectedIndex = 0;
-    }
     //默认选中
     _oneData1SelectedIndex = 0;
     
@@ -173,11 +155,11 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 
 - (void)baseRightBtnAction
 {WEAKSELF;
-    SelectProvinceVC *selectVC = [SelectProvinceVC new];
-    selectVC.selectBlock = ^(NSString *province, NSString *local){
+    SelectProvinceVC *selectVC = [[SelectProvinceVC alloc] initWithSelectType:FromGoverment withIsHaveNoGAT:NO];
+    selectVC.provinceBlock = ^(NSString *showName , ProvinceModel *proModel){
         
         if (weakSelf.localBlock) {
-            weakSelf.localBlock(province,local);
+            weakSelf.localBlock(proModel, showName);
         }
         [weakSelf.twoArrays removeAllObjects];
         [weakSelf.jsMenu.leftTableView removeFromSuperview];
@@ -189,8 +171,8 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 
         [weakSelf.jsMenu removeFromSuperview];
         weakSelf.jsMenu = nil;
-        weakSelf.prov = province;
-        weakSelf.showLocal = local;
+        weakSelf.proModel = proModel;
+        weakSelf.showLocal = showName;
         [weakSelf.baseRightButton setTitle:weakSelf.showLocal forState:0];
         [weakSelf loadAreasPlistfile];
         [weakSelf.view addSubview:weakSelf.jsMenu];
@@ -204,11 +186,9 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 }
 
 #pragma mark ------ 下拉刷新
-- (void)upRefresh:(id)sender
-{
-    WEAKSELF;
+- (void)upRefresh:(id)sender { WEAKSELF;
     _page = 0;
-    [NetWorkMangerTools goverListViewWithPid:_pid withCid:_cid withPage:_page withProv:_prov withCity:_city withareas:_areas RequestSuccess:^(NSArray *arr) {
+    [NetWorkMangerTools goverListViewWithPid:_pid withCid:_cid withPage:_page withProv:_proModel.id withCity:_cityModel.id withareas:_areaModel.id RequestSuccess:^(NSArray *arr) {
         
         [weakSelf.dataSourceArr removeAllObjects];
         [weakSelf.dataSourceArr addObjectsFromArray:arr];
@@ -224,9 +204,15 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
     }];
 }
 #pragma mark ------ 上拉加载
-- (void)downRefresh:(id)sender
-{    WEAKSELF;
-   [NetWorkMangerTools goverListViewWithPid:_pid withCid:_cid withPage:_page withProv:_prov withCity:_city withareas:_areas RequestSuccess:^(NSArray *arr) {
+- (void)downRefresh:(id)sender { WEAKSELF;
+    
+   [NetWorkMangerTools goverListViewWithPid:_pid
+                                    withCid:_cid
+                                   withPage:_page
+                                   withProv:_proModel.id
+                                   withCity:_cityModel.id
+                                  withareas:_areaModel.id
+                             RequestSuccess:^(NSArray *arr) {
         
         [weakSelf.dataSourceArr addObjectsFromArray:arr];
         _page ++;
@@ -240,17 +226,16 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_dataSourceArr count];
+    return [self.dataSourceArr count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GovListCell*cell = (GovListCell *)[tableView dequeueReusableCellWithIdentifier:JudicialIdentifier];
     return cell;
 }
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([cell isKindOfClass:[GovListCell class]])
-    {
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+   
+    if ([cell isKindOfClass:[GovListCell class]]) {
         GovListCell *jCell = (GovListCell *)cell;
         if (_dataSourceArr.count >0) {
             [jCell setListModel:_dataSourceArr[indexPath.row]];
@@ -270,9 +255,9 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
             GovListmodel *tempModel = (GovListmodel *)obj;
             
             NSString *detailAddress = tempModel.address;
-            detailAddress = [weakSelf completeAddress:detailAddress withTogether:weakSelf.areas];
-            detailAddress = [weakSelf completeAddress:detailAddress withTogether:weakSelf.city];
-            detailAddress = [weakSelf completeAddress:detailAddress withTogether:weakSelf.prov];
+            detailAddress = [weakSelf completeAddress:detailAddress withTogether:weakSelf.areaModel.name];
+            detailAddress = [weakSelf completeAddress:detailAddress withTogether:weakSelf.cityModel.name];
+            detailAddress = [weakSelf completeAddress:detailAddress withTogether:weakSelf.proModel.name];
 
             GovernmentDetailVC *vc = [GovernmentDetailVC new];
             vc.model = tempModel;
@@ -334,8 +319,8 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
             return _twoArrays.count;
         } else{
             if (_twoArrays.count > leftRow) {
-                NSDictionary *menuDic = [_twoArrays objectAtIndex:leftRow];
-                return [[menuDic objectForKey:@"data"] count];
+                CityModel *cityModel = _twoArrays[leftRow];
+                return [cityModel.area count];
             }
             return 0;
         }
@@ -355,9 +340,11 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         }
             break;
         case 1: {
-            NSString *titleString = [[_twoArrays[_twoCurrent] objectForKey:@"data"] objectAtIndex:_twoData1SelectedIndex];
-            if ([titleString isEqualToString:@"全部"]) {
-                titleString = [_twoArrays[_twoCurrent] objectForKey:@"title"];
+            CityModel *cityModel = _twoArrays[_twoCurrent];
+            AreaModel *areaModel = cityModel.area[_twoData1SelectedIndex];
+            NSString *titleString = areaModel.name;
+            if ([areaModel.name isEqualToString:@"全部"]) {
+                titleString = cityModel.name;
             }
             return titleString;
         }
@@ -382,12 +369,13 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
         }
     }else{
         if (indexPath.leftOrRight==0) {
-            NSDictionary *menuDic = [_twoArrays objectAtIndex:indexPath.row];
-            return [menuDic objectForKey:@"title"];
+            CityModel *cityModel = _twoArrays[indexPath.row];
+            return cityModel.name;
         } else{
             NSInteger leftRow = indexPath.leftRow;
-            NSDictionary *menuDic = [_twoArrays objectAtIndex:leftRow];
-            return [[menuDic objectForKey:@"data"] objectAtIndex:indexPath.row];
+            CityModel *cityModel = _twoArrays[leftRow];
+            AreaModel *areaModel = cityModel.area[indexPath.row];
+            return areaModel.name;
         }
     }
 }
@@ -413,13 +401,9 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
             return;
         } else{
             NSInteger leftRow = indexPath.leftRow;
-            NSDictionary *menuDic = [_twoArrays objectAtIndex:leftRow];
-            _city = [menuDic objectForKey:@"title"];
-            [PublicFunction ShareInstance].locCity = _city;
-            _areas = [[menuDic objectForKey:@"data"] objectAtIndex:indexPath.row];
-            if ([_areas isEqualToString:@"全部"]) {
-                _areas = @"";
-            }
+            _cityModel = _twoArrays[leftRow];
+            [PublicFunction ShareInstance].locCity = _cityModel.name;
+            _areaModel = _cityModel.area[indexPath.row];
             [weakSelf didSelectRowMenu];
         }
     }
@@ -427,7 +411,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 - (void)didSelectRowMenu{
     WEAKSELF;
     _page = 0;
-     [NetWorkMangerTools goverListViewWithPid:_pid withCid:_cid withPage:_page withProv:_prov withCity:_city withareas:_areas RequestSuccess:^(NSArray *arr) {
+     [NetWorkMangerTools goverListViewWithPid:_pid withCid:_cid withPage:_page withProv:_proModel.id withCity:_cityModel.id withareas:_areaModel.id RequestSuccess:^(NSArray *arr) {
          
          [weakSelf.dataSourceArr removeAllObjects];
          [weakSelf.dataSourceArr addObjectsFromArray:arr];

@@ -485,7 +485,7 @@ static NSString *const RIQICellID = @"RIQICellID";
     if (section == 0) {
         if (row == 0) {
             
-            ZHPickView *pickView = [[ZHPickView alloc] init];
+            ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:_startTime];
             [pickView setDateViewWithTitle:@"选择时间"];
             UIWindow *windows = [QZManager getWindow];
             [pickView showWindowPickView:windows];

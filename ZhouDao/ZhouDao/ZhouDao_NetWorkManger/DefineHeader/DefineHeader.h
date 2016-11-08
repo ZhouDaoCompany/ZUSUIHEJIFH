@@ -193,7 +193,6 @@ __TIMER = nil;\
 //iOS版本
 #define CurrentSystemVersion                    ([[[UIDevice currentDevice] systemVersion] floatValue])
 
-#define ProvinceArrays  [NSMutableArray arrayWithObjects:@"北京",@"天津",@"上海",@"江苏省",@"河北省",@"河南省",@"湖南省",@"湖北省",@"浙江省",@"云南省",@"陕西省",@"台湾",@"贵州省",@"广西壮族自治区",@"黑龙江省",@"甘肃省",@"吉林省",@"四川省",@"广东省",@"江西省",@"青海省",@"辽宁省",@"香港特别行政区",@"山东省",@"西藏自治区",@"重庆",@"福建省",@"新疆维吾尔自治区",@"内蒙古自治区",@"山西省",@"海南省",@"宁夏回族自治区",@"澳门特别行政区",@"安徽省", nil]
 
 
 typedef void(^ZDBlock)(void);

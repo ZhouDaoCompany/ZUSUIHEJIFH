@@ -255,18 +255,18 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
 
     if (section ==0 && row == 1){
     
-        ZHPickView *pickView = [[ZHPickView alloc] init];
+        ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:_sign_time];
         [pickView setDateViewWithTitle:@"选择时间"];
         [pickView showWindowPickView:windows];
-        pickView.alertBlock = ^(NSString *selectedStr)
-        {
+        pickView.alertBlock = ^(NSString *selectedStr) {
+            
             _sign_time = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
             [weakSelf.textBasiArr replaceObjectAtIndex:1 withObject:selectedStr];
             [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:1 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
         };
 
     }else if(section ==0 && row == 2){
-        ZHPickView *pickView = [[ZHPickView alloc] init];
+        ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:_end_time];
         [pickView setDateViewWithTitle:@"选择时间"];
         [pickView showWindowPickView:windows];
         pickView.alertBlock = ^(NSString *selectedStr)

@@ -15,8 +15,7 @@
 
 static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdentifier";
 
-@interface CaseFIViewController ()<UITableViewDataSource,UITableViewDelegate,FinanceDesCellPro>
-{
+@interface CaseFIViewController ()<UITableViewDataSource,UITableViewDelegate,FinanceDesCellPro> {
 //    BOOL _flag[24];//bool 数组
     
 }
@@ -30,19 +29,21 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 @end
 
 @implementation CaseFIViewController
-- (NSArray *)fianceFramesWithArrays:(NSArray *)arrays
-{
+- (NSArray *)fianceFramesWithArrays:(NSArray *)arrays {
+    
     _fianceFrames = [FinanceFrameItem financeFramesWithDataArr:arrays];
     return _fianceFrames;
 }
 
 #pragma mark - life cycle
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [self initUI];
 }
+#pragma mark - private methods
 - (void)initUI{
     
     [self setupNaviBarWithTitle:@"财务信息"];
@@ -53,17 +54,8 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     _fianceFrames = [NSMutableArray array];
 
     [self emptyView];
-
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64.f, kMainScreenWidth, kMainScreenHeight - 64.f) style:UITableViewStylePlain];
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    _tableView.backgroundColor = [UIColor clearColor];
-    [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [ self.view addSubview:_tableView];
-    [_tableView registerClass:[FinanceDesCell class] forCellReuseIdentifier:ALLFINANCEIDENTIFER];
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-
-    [_tableView.mj_header beginRefreshing];
+    [self.view addSubview:self.tableView];
+    
 }
 #pragma mark ------ 下拉刷新
 - (void)upRefresh:(id)sender
@@ -79,20 +71,22 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
         [weakSelf.fianceFrames removeAllObjects];
         [weakSelf fianceFramesWithArrays:arr];
         [weakSelf.tableView reloadData];
-
     } fail:^{
         [weakSelf.fianceFrames removeAllObjects];
         [weakSelf.tableView reloadData];
     }];
 }
 #pragma mark -UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    (_fianceFrames.count == 0)?[self.view addSubview:self.emptyView]:[self.emptyView removeFromSuperview];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (_fianceFrames.count == 0) {
+        [self.view addSubview:self.emptyView];
+    } else {
+        TTVIEW_RELEASE_SAFELY(self.emptyView);
+    }
     return [_fianceFrames count];
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     FinanceDesCell *cell = [tableView dequeueReusableCellWithIdentifier:ALLFINANCEIDENTIFER];
@@ -151,7 +145,7 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
 {
     FinanceFrameItem *financeItem = self.fianceFrames[indexPath.row];
     
-    if (financeItem.financeModel.isExpanded == YES) {
+    if (financeItem.financeModel.isExpanded) {
         return financeItem.cellHeight2;
     }else{
         return financeItem.cellHeight1;
@@ -181,19 +175,30 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     };
     [self.navigationController pushViewController:vc animated:YES];
 }
-#pragma mark - private methods
 
 #pragma mark - getters and setters 
-- (CollectEmptyView *)emptyView
-{
-    if (_emptyView == nil){
+- (CollectEmptyView *)emptyView {
+    if (!_emptyView){
         
         _emptyView = [[CollectEmptyView alloc] initWithFrame:CGRectMake(0, 64.f, kMainScreenWidth, kMainScreenHeight - 64.f)
                                                     WithText:@"暂无财务信息"];
     }
     return _emptyView;
 }
-
+- (UITableView *)tableView {
+    
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64.f, kMainScreenWidth, kMainScreenHeight - 64.f) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView registerClass:[FinanceDesCell class] forCellReuseIdentifier:ALLFINANCEIDENTIFER];
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
+        [_tableView.mj_header beginRefreshing];
+    }
+    return _tableView;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -398,12 +398,13 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
     if (_currentBtnTag != 1 && _currentBtnTag != 4) {
 
         if (_currentBtnTag == 3 && row == 2) {
-            ZHPickView *pickView = [[ZHPickView alloc] init];
+            NSString *lastString = _commitArr[row];
+            ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
             [pickView setDateViewWithTitle:@"选择时间"];
             UIWindow *windows = [QZManager getWindow];
             [pickView showWindowPickView:windows];
-            pickView.alertBlock = ^(NSString *selectedStr)
-            {
+            pickView.alertBlock = ^(NSString *selectedStr) {
+                
 //                NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                 [weakSelf.commitArr replaceObjectAtIndex:row withObject:selectedStr];
                 [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:row inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
@@ -411,16 +412,17 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
             };
         }else {
             
+            NSString *lastString = _commitArr[row];
             NSArray *titArr = _titBasiArr[_currentBtnTag];
             NSDictionary *dict = _textBasiArr[_currentBtnTag];
             NSString *keyStr = titArr[row];
             NSArray *arr = dict[keyStr];
-            
-            ZHPickView *pickView = [[ZHPickView alloc] init];
+
+            ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
             [pickView setDataViewWithItem:arr title:keyStr];
             [pickView showPickView:self];
-            pickView.block = ^(NSString *selectedStr,NSString *type)
-            {
+            pickView.block = ^(NSString *selectedStr,NSString *type) {
+                
                 [weakSelf.commitArr replaceObjectAtIndex:row withObject:selectedStr];
                 [tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:row inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
             };

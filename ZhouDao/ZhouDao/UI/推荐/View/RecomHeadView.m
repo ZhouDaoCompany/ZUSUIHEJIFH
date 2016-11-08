@@ -271,6 +271,20 @@
     _jdArrays = jdArrays;
     BasicModel *model = _jdArrays[0];
     [_imgView3 sd_setImageWithURL:[NSURL URLWithString:model.slide_pic] placeholderImage:[UIImage imageNamed:@"recommedArticle.jpg"]];
+    
+    if (model.slide_name.length > 0) {
+        UIView *backgroundView = [[UIView alloc] initWithFrame:_imgView3.bounds];
+        backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        [_imgView3 addSubview:backgroundView];
+        float width = self.bounds.size.width - oftenLaws - 20.5f;
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(10, 32, width, 60)];
+        lab.text = @"sfcudsvacudvicvdhsuvcdvicvicvbdibvcdbcdbcd";//model.slide_name;
+        lab.numberOfLines = 0;
+        lab.textAlignment = NSTextAlignmentCenter;
+        lab.textColor = [UIColor whiteColor];
+        lab.font = Font_12;
+        [backgroundView addSubview:lab];
+    }
 }
 
 

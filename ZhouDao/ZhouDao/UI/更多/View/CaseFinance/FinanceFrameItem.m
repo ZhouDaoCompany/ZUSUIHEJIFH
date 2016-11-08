@@ -116,8 +116,8 @@
     }
     
 }
-+ (NSMutableArray *)financeFramesWithDataArr:(NSArray *)dataArr
-{
++ (NSMutableArray *)financeFramesWithDataArr:(NSArray *)dataArr {
+    
     NSMutableArray *arrayM = [NSMutableArray array];
 
     for (FinanceModel *model in dataArr)

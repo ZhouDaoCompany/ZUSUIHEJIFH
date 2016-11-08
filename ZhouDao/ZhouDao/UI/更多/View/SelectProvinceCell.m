@@ -18,11 +18,9 @@
 @end
 @implementation SelectProvinceCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self)
-    {
+    if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self.contentView addSubview:self.nameLab];
         [self.contentView addSubview:self.oneButton];
@@ -35,8 +33,7 @@
     return self;
 }
 #pragma mark - methods
-- (void)setOtherCitySelect:(NSString *)name wihSection:(NSInteger)section
-{
+- (void)setOtherCitySelect:(NSString *)name wihSection:(NSInteger)section {
     
     if (section == 0) {
         self.backgroundColor = hexColor(F0F0F0);
@@ -45,12 +42,7 @@
         _thirdButton.hidden = NO;
         _fourButton.hidden = NO;
         _nameLab.hidden = YES;
-        NSArray *hotCity;
-        if (_isCity == YES) {
-            hotCity = @[@"北京市",@"上海市",@"天津市",@"重庆市"];
-        }else{
-            hotCity = @[@"北京",@"上海",@"天津",@"重庆"];
-        }
+        NSArray *hotCity = @[@"北京",@"上海",@"天津",@"重庆"];;
 
         [_oneButton setTitle:hotCity[0] forState:0];
         [_twoButton setTitle:hotCity[1] forState:0];
@@ -68,23 +60,16 @@
     }
 }
 #pragma mark - event response
-- (void)hotBtnClick:(UIButton *)btn
-{
+- (void)hotBtnClick:(UIButton *)btn {
+    
     NSInteger index = btn.tag;
-    NSArray *hotCity;
-    if (_isCity == YES) {
-        hotCity = @[@"北京市",@"上海市",@"天津市",@"重庆市"];
-    }else{
-        hotCity = @[@"北京",@"上海",@"天津",@"重庆"];
-    }
+    NSArray *hotCity = @[@"北京",@"上海",@"天津",@"重庆"];
     if ([self.delegate respondsToSelector:@selector(getSeletyCityName:)]) {
         [self.delegate getSeletyCityName:hotCity[index - 3000]];
     }
-    
 }
 #pragma mark -setters and getters
-- (UILabel *)nameLab
-{
+- (UILabel *)nameLab {
     if (!_nameLab) {
         _nameLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 12, 160, 20)];
         _nameLab.font = Font_15;
@@ -93,16 +78,14 @@
     }
     return _nameLab;
 }
-- (UIView *)lineView
-{
+- (UIView *)lineView {
     if (!_lineView) {
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 43.4f, kMainScreenWidth - 15, .6f)];
         _lineView.backgroundColor = LINECOLOR;
     }
     return _lineView;
 }
-- (UIButton *)oneButton
-{
+- (UIButton *)oneButton {
     if (!_oneButton) {
         _oneButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _oneButton.backgroundColor = [UIColor whiteColor];
@@ -120,8 +103,7 @@
     }
     return _oneButton;
 }
-- (UIButton *)twoButton
-{
+- (UIButton *)twoButton {
     if (!_twoButton) {
         _twoButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _twoButton.backgroundColor = [UIColor whiteColor];
@@ -140,8 +122,7 @@
     }
     return _twoButton;
 }
-- (UIButton *)thirdButton
-{
+- (UIButton *)thirdButton {
     if (!_thirdButton) {
         _thirdButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _thirdButton.backgroundColor = [UIColor whiteColor];
@@ -159,8 +140,7 @@
     }
     return _thirdButton;
 }
-- (UIButton *)fourButton
-{
+- (UIButton *)fourButton {
     if (!_fourButton) {
         _fourButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _fourButton.backgroundColor = [UIColor whiteColor];

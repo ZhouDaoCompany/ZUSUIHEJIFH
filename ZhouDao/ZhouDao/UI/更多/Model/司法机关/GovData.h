@@ -15,8 +15,8 @@
 #import "DTApiBaseBean.h"
 
 
-@interface GovData : NSObject
-{
+@interface GovData : NSObject {
+    
 	NSString *_classid;
 	NSString *_ctname;
 	NSString *_id;

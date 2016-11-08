@@ -134,7 +134,6 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     NSMutableArray *contentArr = _contentArr[section-1];
 
     __block BOOL isHave = NO;
-
     [contentArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         if (idx > 0) {
@@ -333,12 +332,13 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
     if (section == 0) {
     
         if (row == 6) {
-            ZHPickView *pickView = [[ZHPickView alloc] init];
+            NSString *lastString = _textBasiArr[row];
+            ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
             [pickView setDateViewWithTitle:@"选择时间"];
             UIWindow *windows = [QZManager getWindow];
             [pickView showWindowPickView:windows];
-            pickView.alertBlock = ^(NSString *selectedStr)
-            {
+            pickView.alertBlock = ^(NSString *selectedStr) {
+                
                 NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                 [weakSelf.textBasiArr replaceObjectAtIndex:row withObject:timeStr];
                 [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:row inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
@@ -346,6 +346,7 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
         }
     }else {
         if (row == 0) {
+            
             ZHPickView *pickView = [[ZHPickView alloc] init];
             [pickView setDataViewWithItem:_kindsArr title:@"重复"];
             [pickView showPickView:self];
@@ -360,15 +361,15 @@ static NSString *const NOTEIDENTIFER = @"noteidentifer";
             NSArray *titArr = _contentTilArr[[cateStr intValue]-1];
 
             if ([titArr[row] isEqualToString:@"仲裁结果"] || [titArr[row] isEqualToString:@"审判结果"]) {
-               __block NSArray *resultsArr = @[@"裁决", @"调解",@"撤回"];
                 
-                ZHPickView *pickView = [[ZHPickView alloc] init];
-                [pickView setDataViewWithItem:resultsArr title:@"重复"];
+                NSMutableArray *arr = weakSelf.contentArr[section -1];
+                NSString *lastString = arr[row];
+                ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
+                [pickView setDataViewWithItem:@[@"裁决", @"调解",@"撤回"] title:@"重复"];
                 [pickView showPickView:self];
                 pickView.block = ^(NSString *selectedStr,NSString *type)
                 {
                     DLog(@"哪一个----%@",selectedStr);
-                    NSMutableArray *arr = weakSelf.contentArr[section -1];
                     [arr replaceObjectAtIndex:row withObject:selectedStr];
                     [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
                 };

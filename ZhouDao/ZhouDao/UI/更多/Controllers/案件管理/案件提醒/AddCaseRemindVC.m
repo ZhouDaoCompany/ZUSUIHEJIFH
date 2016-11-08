@@ -231,20 +231,22 @@ static NSString *const CELLIDTWO = @"CELLIDTWO";
         };
         [windows addSubview:timeView];
     }else if (row == 1){
-        ZHPickView *pickView = [[ZHPickView alloc] init];
+        NSString *lastString = _commitArr[row];
+        ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
         [pickView setDataViewWithItem:@[@"开庭提醒",@"拜访提醒",@"续约提醒",@"上诉期提醒",@"诉讼时效提醒",@"到期提醒",@"其他提醒"] title:@"提醒类别"];
         [pickView showPickView:self];
-        pickView.block = ^(NSString *selectedStr,NSString *type)
-        {
+        pickView.block = ^(NSString *selectedStr,NSString *type) {
+            
             [weakSelf.commitArr replaceObjectAtIndex:row withObject:selectedStr];
             [tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:row inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
         };
     }else if (row == 3){
-        ZHPickView *pickView = [[ZHPickView alloc] init];
+        NSString *lastString = _commitArr[row];
+        ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
         [pickView setDataViewWithItem:@[@"永不",@"每日",@"每周",@"每月"] title:@"重复"];
         [pickView showPickView:self];
-        pickView.block = ^(NSString *selectedStr,NSString *type)
-        {
+        pickView.block = ^(NSString *selectedStr,NSString *type) {
+            
             [weakSelf.commitArr replaceObjectAtIndex:row withObject:selectedStr];
             [tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:row inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
         };

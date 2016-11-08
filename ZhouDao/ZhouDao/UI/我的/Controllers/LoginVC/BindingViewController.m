@@ -120,11 +120,11 @@
     [_bottomView addSubview:self.professionalLab];
     [_professionalLab whenTapped:^{
         [weakSelf dismissKeyBoard];
-        ZHPickView *pickView = [[ZHPickView alloc] init];
+        ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:_professionalLab.text];
         [pickView setDataViewWithItem:@[@"执业律师",@"实习律师",@"公司法务",@"法律专业学生",@"公务员",@"其他"] title:@"选择职业"];
         [pickView showPickView:self];
-        pickView.block = ^(NSString *selectedStr,NSString *type)
-        {
+        pickView.block = ^(NSString *selectedStr,NSString *type) {
+            
             weakSelf.placeLab.text = @"";
             weakSelf.professionalLab.text = selectedStr;
             _typeString = type;

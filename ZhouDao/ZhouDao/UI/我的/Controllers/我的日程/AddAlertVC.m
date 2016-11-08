@@ -217,8 +217,8 @@ static NSString *const cellIdentifer = @"cellIdentifer";
         ZHPickView *pickView = [[ZHPickView alloc] init];
         [pickView setDateViewWithTitle:@"选择时间"];
         [pickView showPickView:self];
-        pickView.alertBlock = ^(NSString *selectedStr)
-        {
+        pickView.alertBlock = ^(NSString *selectedStr) {
+            
             [weakSelf.msgArrays replaceObjectAtIndex:0 withObject:selectedStr];
             _yearStr = selectedStr;
             [tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:1 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];

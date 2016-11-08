@@ -353,14 +353,15 @@ static NSString *const DAYCellID = @"dayCellID";
     
     if (section == 0) {
         if (row == 0 || row == 1) {
-            
-            ZHPickView *pickView = [[ZHPickView alloc] init];
+            __block NSMutableArray *arr1 = _dataSourceArrays[section];
+            NSString *lastString = arr1[row];
+
+            ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
             [pickView setDateViewWithTitle:@"选择时间"];
             UIWindow *windows = [QZManager getWindow];
             [pickView showWindowPickView:windows];
-            pickView.alertBlock = ^(NSString *selectedStr)
-            {
-                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
+            pickView.alertBlock = ^(NSString *selectedStr) {
+                
                 NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                 (row == 0)?(weakSelf.startTime = timeStr):(weakSelf.endTime = timeStr);
                 [arr1 replaceObjectAtIndex:row withObject:selectedStr];

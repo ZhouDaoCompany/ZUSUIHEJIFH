@@ -13,6 +13,8 @@
 #import "CompensationData.h"
 #import "IndemnityData.h"
 #import "TaskModel.h"
+#import "ProvinceModel.h"
+
 static NSString *const TwoCompensationID = @"TwoCompensationID";
 
 @interface TwoCompensationVC ()<UITableViewDataSource,UITableViewDelegate,JSDropDownMenuDataSource,JSDropDownMenuDelegate>
@@ -27,7 +29,7 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
 @property (strong, nonatomic) NSMutableArray *dataArrays;//列表数据
 @property (nonatomic, strong) JSDropDownMenu *jsMenu;
 @property (nonatomic, assign) NSUInteger provinceCurrent;
-@property (nonatomic, copy) NSString *cityString;
+@property (nonatomic, strong) ProvinceModel *proModel;
 @end
 
 @implementation TwoCompensationVC
@@ -42,54 +44,21 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
     [self setupNaviBarWithTitle:@"赔偿标准"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     
-    /**
-     *  头部数据
-     */
     [self getData];
     
-    [self.view addSubview:self.jsMenu];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, Orgin_y(_jsMenu), kMainScreenWidth, .6f)];
     lineView.backgroundColor = LINECOLOR;
     [self.view addSubview:lineView];
-    
-    _dataArrays = [NSMutableArray array];
+    [self.view addSubview:self.jsMenu];
     [self.view addSubview:self.tableView];
     
-    [self loadData:_cityString withYear:_yearString];
+    [self loadData:_proModel.id withYear:_yearString];
 }
 #pragma mark - private methods
-#pragma mark - setters and getters
-- (UITableView *)tableView
-{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,104.6f, kMainScreenWidth, kMainScreenHeight-104.6f) style:UITableViewStylePlain];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = [UIColor clearColor];
-        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [_tableView registerNib:[UINib nibWithNibName:@"TwoCompensationCell" bundle:nil] forCellReuseIdentifier:TwoCompensationID];
-    }
-    return _tableView;
-}
-- (JSDropDownMenu *)jsMenu
-{
-    if (!_jsMenu) {
-        _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
-        _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
-        _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
-        _jsMenu.textColor = THIRDCOLOR;
-        _jsMenu.dataSource = self;
-        _jsMenu.delegate = self;
-    }
-    return _jsMenu;
-}
 
-
-- (void)loadData:(NSString *)city withYear:(NSString *)year
-{
-    WEAKSELF;
+- (void)loadData:(NSString *)city withYear:(NSString *)year { WEAKSELF;
+    
     [NetWorkMangerTools getcompensationList:_classId withCity:city withYear:year RequestSuccess:^(NSArray *arrays) {
         
         [weakSelf.dataArrays removeAllObjects];
@@ -100,40 +69,48 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
         [weakSelf.tableView reloadData];
     }];
 }
-- (void)getData{
-    WEAKSELF;
-    _provinceArr =  ProvinceArrays;
+- (void)getData{ WEAKSELF;
     //默认选中
     _provinceCurrent = 0;
-    if ([PublicFunction ShareInstance].locProv.length >0) {
-        [_provinceArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (![[PublicFunction ShareInstance].locProv rangeOfString:obj].location) {
+    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"ProvincesCity.plist"];
+    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSArray *proArrays = bigDoctionary[@"province"];
+    [proArrays enumerateObjectsUsingBlock:^(NSDictionary *objDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:objDictionary];
+        if ([PublicFunction ShareInstance].locProv.length > 0) {
+            if ([proModel.name isEqualToString:[PublicFunction ShareInstance].locProv]) {
+                
                 weakSelf.provinceCurrent = idx;
-                weakSelf.cityString = obj;
+                weakSelf.proModel = proModel;
             }
-        }];
-    }else{
-        _cityString = @"北京";
-    }
-    
-    _yearArr = [NSMutableArray array];
+        } else {
+            if ([proModel.name isEqualToString:@"上海"]) {
+                
+                weakSelf.provinceCurrent = idx;
+                weakSelf.proModel = proModel;
+            }
+        }
+        [weakSelf.provinceArr addObject:proModel];
+    }];
+
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
     NSDate *nowDate =[NSDate date];
     NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:nowDate];
     NSUInteger nowYear = [dateComponent year];
     
-    for (NSUInteger i = nowYear; i >=2014; i--)
-    {
+    for (NSUInteger i = nowYear; i >= 2014; i--) {
+        
         NSString *yearStr = [NSString stringWithFormat:@"%ld年",(unsigned long)i];
-        [_yearArr addObject:yearStr];
+        [self.yearArr addObject:yearStr];
     }
      _yearString = _yearArr[0];
 }
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_dataArrays count];
+    return [self.dataArrays count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -149,13 +126,13 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
     if ([cell isKindOfClass:[TwoCompensationCell class]])
     {
         TwoCompensationCell *sationCell = (TwoCompensationCell *)cell;
-        if (_dataArrays.count >0) {
-            [sationCell setDataModel:_dataArrays[indexPath.row]];
+        if (self.dataArrays.count >0) {
+            [sationCell setDataModel:self.dataArrays[indexPath.row]];
         }
     }
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     CompensationData *model = _dataArrays[indexPath.row];
     TaskModel *tModel = [TaskModel new];
     
@@ -202,16 +179,19 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
 - (NSInteger)menu:(JSDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column leftOrRight:(NSInteger)leftOrRight leftRow:(NSInteger)leftRow{
     
     if (column==0) {
-        return _provinceArr.count;
+        return [_provinceArr count];
     }
-    return _yearArr.count;
+    return [_yearArr count];
 }
 
 - (NSString *)menu:(JSDropDownMenu *)menu titleForColumn:(NSInteger)column{
     
     switch (column) {
-        case 0: return _provinceArr[_provinceCurrent];
+        case 0: {
+            ProvinceModel *proModel = _provinceArr[_provinceCurrent];
+            return proModel.name;
             break;
+        }
         case 1: return _yearArr[_yearCurrent];
             break;
         default:
@@ -223,19 +203,70 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
 - (NSString *)menu:(JSDropDownMenu *)menu titleForRowAtIndexPath:(JSIndexPath *)indexPath {
     
     if (indexPath.column==0) {
-        return _provinceArr[indexPath.row];
+        
+        ProvinceModel *proModel = _provinceArr[indexPath.row];
+        return proModel.name;
     }
     return _yearArr[indexPath.row];
 }
 - (void)menu:(JSDropDownMenu *)menu didSelectRowAtIndexPath:(JSIndexPath *)indexPath {
     if (indexPath.column == 0) {
         _provinceCurrent = indexPath.row;
-        _cityString = _provinceArr[indexPath.row];
+        _proModel = _provinceArr[indexPath.row];
     }else{
         _yearCurrent = indexPath.row;
         _yearString = _yearArr[indexPath.row];
     }
-    [self loadData:_cityString withYear:_yearString];
+    [self loadData:_proModel.id withYear:_yearString];
+}
+#pragma mark - setters and getters
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,104.6f, kMainScreenWidth, kMainScreenHeight-104.6f) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView registerNib:[UINib nibWithNibName:@"TwoCompensationCell" bundle:nil] forCellReuseIdentifier:TwoCompensationID];
+    }
+    return _tableView;
+}
+- (JSDropDownMenu *)jsMenu
+{
+    if (!_jsMenu) {
+        _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
+        _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
+        _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
+        _jsMenu.textColor = THIRDCOLOR;
+        _jsMenu.dataSource = self;
+        _jsMenu.delegate = self;
+    }
+    return _jsMenu;
+}
+- (NSMutableArray *)provinceArr {
+    
+    if (!_provinceArr) {
+        
+        _provinceArr = [NSMutableArray array];
+    }
+    return _provinceArr;
+}
+- (NSMutableArray *)yearArr {
+    
+    if (!_yearArr) {
+        _yearArr = [NSMutableArray  array];
+    }
+    return _yearArr;
+}
+- (NSMutableArray *)dataArrays {
+    
+    if (!_dataArrays) {
+        
+        _dataArrays = [NSMutableArray array];
+    }
+    return _dataArrays;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

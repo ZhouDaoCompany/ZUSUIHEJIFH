@@ -283,12 +283,11 @@ static NSString *const BREACHCELLID = @"breachcellid";
         switch (row) {
             case 1:
             {
-                ZHPickView *pickView = [[ZHPickView alloc] init];
+                ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:_startTime];
                 [pickView setDateViewWithTitle:@"选择时间"];
                 UIWindow *windows = [QZManager getWindow];
                 [pickView showWindowPickView:windows];
-                pickView.alertBlock = ^(NSString *selectedStr)
-                {
+                pickView.alertBlock = ^(NSString *selectedStr) {
                     NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                     NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                     weakSelf.startTime = timeStr;
@@ -298,14 +297,14 @@ static NSString *const BREACHCELLID = @"breachcellid";
 
             }
                 break;
-            case 2:
-            {
-                ZHPickView *pickView = [[ZHPickView alloc] init];
+            case 2: {
+                
+                ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:_endTime];
                 [pickView setDateViewWithTitle:@"选择时间"];
                 UIWindow *windows = [QZManager getWindow];
                 [pickView showWindowPickView:windows];
-                pickView.alertBlock = ^(NSString *selectedStr)
-                {
+                pickView.alertBlock = ^(NSString *selectedStr) {
+                    
                     NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                     NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                     weakSelf.endTime = timeStr;
@@ -315,14 +314,14 @@ static NSString *const BREACHCELLID = @"breachcellid";
 
             }
                 break;
-            case 3:
-            {
-                ZHPickView *pickView = [[ZHPickView alloc] init];
+            case 3: {
+                __block NSMutableArray *arr1 = _dataSourceArrays[section];
+                NSString *lastString = arr1[row];
+                ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
                 [pickView setDataViewWithItem:@[@"人民银行同期利率",@"按约定利率"] title:@"利率方式"];
                 [pickView showPickView:self];
-                pickView.block = ^(NSString *selectedStr,NSString *type)
-                {
-                    NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
+                pickView.block = ^(NSString *selectedStr,NSString *type) {
+                    
                     [arr1 replaceObjectAtIndex:row withObject:selectedStr];
                     if ([selectedStr isEqualToString:@"人民银行同期利率"]) {
                         if (arr1.count > 4) {
@@ -340,13 +339,14 @@ static NSString *const BREACHCELLID = @"breachcellid";
 
             }
                 break;
-            case 4:
-            {
-                ZHPickView *pickView = [[ZHPickView alloc] init];
+            case 4: {
+                __block NSMutableArray *arr1 = _dataSourceArrays[section];
+                NSString *lastString = arr1[row];
+                ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
                 [pickView setDataViewWithItem:@[@"年利率",@"月利率",@"日利率"] title:@"利率选项"];
                 [pickView showPickView:self];
-                pickView.block = ^(NSString *selectedStr,NSString *type)
-                {
+                pickView.block = ^(NSString *selectedStr,NSString *type) {
+                    
                     NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                     [arr1 replaceObjectAtIndex:row withObject:selectedStr];
                     [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationNone];

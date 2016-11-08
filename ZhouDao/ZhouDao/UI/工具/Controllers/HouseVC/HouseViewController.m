@@ -278,14 +278,15 @@ static NSString *const HOUSECELL = @"housecellid";
         return;
     }
     if (row == 0) {
-        ZHPickView *pickView = [[ZHPickView alloc] init];
+        __block NSMutableArray *temArr = _dataSourceArrays[section];
+        NSString *lastString = temArr[row];
+
+        ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
         [pickView setDataViewWithItem:@[@"公积金贷款",@"商业贷款",@"组合贷款"] title:@"贷款类型"];
         [pickView showPickView:self];
-        pickView.block = ^(NSString *selectedStr,NSString *type)
-        {
-            NSMutableArray *temArr = weakSelf.dataSourceArrays[section];
-            [temArr replaceObjectAtIndex:row withObject:selectedStr];
+        pickView.block = ^(NSString *selectedStr,NSString *type) {
             
+            [temArr replaceObjectAtIndex:row withObject:selectedStr];
             if ([selectedStr isEqualToString:@"公积金贷款"]) {
                 
                 if (temArr.count != 4) {
@@ -324,7 +325,9 @@ static NSString *const HOUSECELL = @"housecellid";
 }
 - (void)selectTimeLimit:(NSInteger)row withType:(NSString *)oneString
 {WEAKSELF;
-    ZHPickView *pickView = [[ZHPickView alloc] init];
+    __block NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
+    NSString *lastString = arr1[row];
+    ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
     [pickView setDataViewWithItem:@[@"5",@"10",@"15",@"20",@"25",@"30"] title:@"贷款期限"];
     [pickView showPickView:self];
     pickView.block = ^(NSString *selectedStr,NSString *type)
@@ -334,7 +337,6 @@ static NSString *const HOUSECELL = @"housecellid";
             NSString *rateString1 = ([selectedStr isEqualToString:@"5"])?FUNDARRAYS[0]:FUNDARRAYS[1];
             NSString *rateString2 = ([selectedStr isEqualToString:@"5"])?BUSINESSARRSYS[3]:BUSINESSARRSYS[4];
             
-            NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
             [arr1 replaceObjectAtIndex:row withObject:selectedStr];
             [arr1 replaceObjectAtIndex:3 withObject:rateString1];
             [arr1 replaceObjectAtIndex:5 withObject:rateString2];
@@ -342,13 +344,11 @@ static NSString *const HOUSECELL = @"housecellid";
         }else if ([oneString isEqualToString:@"商业贷款"]){
             
             NSString *rateString = ([selectedStr isEqualToString:@"5"])?BUSINESSARRSYS[3]:BUSINESSARRSYS[4];
-            NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
             [arr1 replaceObjectAtIndex:row withObject:selectedStr];
             [arr1 replaceObjectAtIndex:3 withObject:rateString];
         }else {
 
             NSString *rateString = ([selectedStr isEqualToString:@"5"])?FUNDARRAYS[0]:FUNDARRAYS[1];
-            NSMutableArray *arr1 = weakSelf.dataSourceArrays[0];
             [arr1 replaceObjectAtIndex:row withObject:selectedStr];
             [arr1 replaceObjectAtIndex:3 withObject:rateString];
 

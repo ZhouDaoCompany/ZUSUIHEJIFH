@@ -230,7 +230,7 @@
         _professionalLab.font = Font_14;
         [_professionalLab whenTapped:^{
             [self dismissKeyBoard];
-            ZHPickView *pickView = [[ZHPickView alloc] init];
+            ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:_professionalLab.text];
             [pickView setDataViewWithItem:@[@"执业律师",@"实习律师",@"公司法务",@"法律专业学生",@"公务员",@"其他"] title:@"选择职业"];
             [pickView showPickView:self];
             pickView.block = ^(NSString *selectedStr,NSString *type)

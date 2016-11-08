@@ -31,24 +31,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"ProvincesCity" ofType:@"plist"];
-    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-    NSArray *proArrays = bigDoctionary[@"province"];
+//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"ProvincesCity" ofType:@"plist"];
+//    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+//    NSArray *proArrays = bigDoctionary[@"province"];
+//    
+//    __block NSMutableArray *proMutableArrays = [NSMutableArray array];
+//    [proArrays enumerateObjectsUsingBlock:^(NSDictionary *proDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+//        
+//        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:proDictionary];
+//        if ([proModel.name isEqualToString:@"河南省"]) {
+//            NSLog(@"省下市 :%@",proModel.city);
+//            CityModel *model1 = proModel.city[0];
+//            AreaModel *model2 = model1.area[0];
+//            NSLog(@"区或者县: %@",model2.name);
+//        }
+//        [proMutableArrays addObject:proModel];
+//    }];
     
-    __block NSMutableArray *proMutableArrays = [NSMutableArray array];
-    [proArrays enumerateObjectsUsingBlock:^(NSDictionary *proDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:proDictionary];
-        if ([proModel.name isEqualToString:@"河南省"]) {
-            NSLog(@"省下市 :%@",proModel.city);
-            CityModel *model1 = proModel.city[0];
-            AreaModel *model2 = model1.area[0];
-            NSLog(@"区或者县: %@",model2.name);
-        }
-        [proMutableArrays addObject:proModel];
-    }];
     
-    
+    BOOL isOk;
+    NSLog(@"%@",(isOk == YES) ? @"YES" : @"NO");
+
+    if (isOk) {
+        NSLog(@"1111");
+
+        NSLog(@"%@",(isOk == YES) ? @"YES" : @"NO");
+    }else {
+        NSLog(@"2222");
+    }
     
     
     

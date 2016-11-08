@@ -8,23 +8,28 @@
 
 #import "ZHPickView.h"
 #define SCREENSIZE UIScreen.mainScreen.bounds.size
-@interface ZHPickView()
-{
+@interface ZHPickView() {
     BOOL isDate;
 
 }
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) NSArray *proTitleList;
 @property (nonatomic, copy) NSString *selectedString;
+@property (nonatomic, copy) NSString *lastString;
 @end
+
 @implementation ZHPickView
-- (void)dealloc
-{
+- (void)dealloc {
+    
     TTVIEW_RELEASE_SAFELY(_bgView);
 }
-- (instancetype)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    isDate = NO;
+- (instancetype)initWithSelectString:(NSString *)lastString {
+    
+    self = [super initWithFrame:UIScreen.mainScreen.bounds];
+    if (self) {
+        isDate = NO;
+        _lastString = lastString;
+    }
     return self;
 }
 - (void)showWindowPickView:(UIWindow *)window
@@ -48,7 +53,6 @@
                          weakSelf.frame = frame;
                      }
                      completion:nil];
-
 }
 
 - (void)showPickView:(UIViewController *)vc
@@ -93,8 +97,8 @@
     }];
 
 }
-- (void)setDateViewWithTitle:(NSString *)title
-{
+- (void)setDateViewWithTitle:(NSString *)title {
+    
     isDate = YES;
     _proTitleList = @[];
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENSIZE.width, 39)];
@@ -158,14 +162,18 @@
      // 2.3 将转换后的日期设置给日期选择控件
      [datePickr setDate:date];
      */
-    
+    if (_lastString.length > 0) {
+        
+        NSDate *lastDate = [QZManager timeStampChangeNSDate:[_lastString doubleValue]];
+        [datePickr setDate:lastDate];
+    }
     [self addSubview:datePickr];
     
     float height = 256;
     self.frame = CGRectMake(0, SCREENSIZE.height - height, SCREENSIZE.width, height);
 }
-- (void)setDataViewWithItem:(NSArray *)items title:(NSString *)title
-{
+- (void)setDataViewWithItem:(NSArray *)items title:(NSString *)title {
+    
     isDate = NO;
     _proTitleList = items;
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENSIZE.width, 40)];
@@ -206,6 +214,12 @@
     pick.backgroundColor = [UIColor whiteColor];
     [self addSubview:pick];
     
+    
+    if (_lastString.length > 0) {
+        
+        NSUInteger index = [items indexOfObject:_lastString];
+        [pick selectRow:index inComponent:0 animated:NO];
+    }
     float height = 256;
     self.frame = CGRectMake(0, SCREENSIZE.height - height, SCREENSIZE.width, height);
 }

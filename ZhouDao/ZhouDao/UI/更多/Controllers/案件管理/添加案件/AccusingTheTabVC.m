@@ -201,11 +201,11 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
         case 6:
         {
             UIWindow *windows = [QZManager getWindow];
-            ZHPickView *pickView = [[ZHPickView alloc] init];
+            ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:_thytake_time];
             [pickView setDateViewWithTitle:@"选择时间"];
             [pickView showWindowPickView:windows];
-            pickView.alertBlock = ^(NSString *selectedStr)
-            {
+            pickView.alertBlock = ^(NSString *selectedStr) {
+                
                 _thytake_time = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                 [weakSelf.textArr replaceObjectAtIndex:6 withObject:selectedStr];
                 [weakSelf.tableView  reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:6 inSection:0], nil] withRowAnimation:UITableViewRowAnimationNone];
@@ -216,7 +216,7 @@ static NSString *const ACCNOTEIDENTIFER = @"accnoteidentifer";
         case 7:
         {
             UIWindow *windows = [QZManager getWindow];
-            ZHPickView *pickView = [[ZHPickView alloc] init];
+            ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:_thyend_time];
             [pickView setDateViewWithTitle:@"选择时间"];
             [pickView showWindowPickView:windows];
             pickView.alertBlock = ^(NSString *selectedStr)

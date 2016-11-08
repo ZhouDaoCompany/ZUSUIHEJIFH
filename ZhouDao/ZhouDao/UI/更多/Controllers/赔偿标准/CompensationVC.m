@@ -122,8 +122,7 @@ static NSString *const CompensationIdentifier = @"CompensationIdentifier";
     }
     return _dataArrays;
 }
-- (NSMutableArray *)imgArrays
-{
+- (NSMutableArray *)imgArrays {
     if (!_imgArrays) {
         _imgArrays = [NSMutableArray arrayWithObjects:@"pc_jiaotong",@"pc_gongshang",@"pc_yiliao", nil];
     }

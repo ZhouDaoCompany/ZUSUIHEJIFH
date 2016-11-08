@@ -488,8 +488,7 @@ singleton_for_class(QZManager)
 }
 
 #pragma mark ------  时间戳转换NSDate
-+ (NSString *)changeTime:(NSTimeInterval)time
-{
++ (NSString *)changeTime:(NSTimeInterval)time {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
@@ -499,8 +498,7 @@ singleton_for_class(QZManager)
     NSString* dateString = [formatter stringFromDate:date];
     return dateString;
 }
-+ (NSString *)changeTimeMethods:(NSTimeInterval)time withType:(NSString *)type
-{
++ (NSString *)changeTimeMethods:(NSTimeInterval)time withType:(NSString *)type {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
     [formatter setDateFormat:type];
@@ -514,8 +512,7 @@ singleton_for_class(QZManager)
 }
 
 #pragma mark ------ 时间戳转换为NSDate
-+ (NSDate *)timeStampChangeNSDate:(NSTimeInterval)time
-{
++ (NSDate *)timeStampChangeNSDate:(NSTimeInterval)time {
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
     [formatter setDateStyle:NSDateFormatterMediumStyle];

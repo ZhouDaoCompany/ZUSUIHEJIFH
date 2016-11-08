@@ -145,8 +145,7 @@
         _lab.frame = _financeItem.ContentF1;
     }
     
-    if (_financeItem.cellHeight1 != _financeItem.cellHeight2)
-    {
+    if (_financeItem.cellHeight1 != _financeItem.cellHeight2) {
         _showAllButton.hidden = NO;
         
         if (_financeItem.financeModel.isExpanded == YES) {
