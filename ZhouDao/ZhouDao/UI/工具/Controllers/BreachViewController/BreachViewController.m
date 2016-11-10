@@ -54,6 +54,11 @@ static NSString *const BREACHCELLID = @"breachcellid";
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
+    
+    NSString *path = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"bankinterestrates.plist"];
+    self.rateDictionary= [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    [self.timeArrays addObjectsFromArray:[_rateDictionary allKeys]];
+
 }
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
@@ -172,7 +177,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
     NSString *allDays = [NSString stringWithFormat:@"%@-%@",[QZManager changeTimeMethods:[_startTime integerValue] withType:@"yy/MM/dd"],[QZManager changeTimeMethods:[_endTime integerValue] withType:@"yy/MM/dd"]];
     [self collectInformationToAnotherInterfaceWithMoney:money WithBreachMoney:lastMoney WithAllDays:allDays WithArrays:self.detailArrays WithReatType:@"同期利率"];
     //添加刷新
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",lastMoney],[NSString stringWithFormat:@"%.0f",days], nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",CancelPoint2(lastMoney),[NSString stringWithFormat:@"%.0f",days], nil];
     (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
     [self reloadTableViewWithAnimation];
     
@@ -180,8 +185,8 @@ static NSString *const BREACHCELLID = @"breachcellid";
 #pragma mark - 收集信息到另一界面
 - (void)collectInformationToAnotherInterfaceWithMoney:(float)money WithBreachMoney:(float)lastMoney WithAllDays:(NSString *)allDays WithArrays:(NSMutableArray *)arrays WithReatType:(NSString *)reatTypes
 {
-    [self.detailDictionary setObjectWithNullValidate:[NSString stringWithFormat:@"%.2f",money] forKey:@"AllMoney"];
-    [self.detailDictionary setObjectWithNullValidate:[NSString stringWithFormat:@"%.2f",lastMoney] forKey:@"BreachMoney"];
+    [self.detailDictionary setObjectWithNullValidate:CancelPoint2(money) forKey:@"AllMoney"];
+    [self.detailDictionary setObjectWithNullValidate:CancelPoint2(lastMoney) forKey:@"BreachMoney"];
     [self.detailDictionary setObjectWithNullValidate:allDays forKey:@"AllDays"];
     [self.detailDictionary setObjectWithNullValidate:arrays forKey:@"MutableArrays"];
     [self.detailDictionary setObjectWithNullValidate:reatTypes forKey:@"ReatType"];
@@ -230,7 +235,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
     }else{
         lastMoney = money*rate*days/360;
     }
-    NSString *lastMoneyString = [NSString stringWithFormat:@"%.2f",lastMoney];
+    NSString *lastMoneyString = CancelPoint2(lastMoney);
     NSString *lastDaysString = [NSString stringWithFormat:@"%.0f",days];
 
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString,lastDaysString, nil];
@@ -491,7 +496,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
         label2.textAlignment = NSTextAlignmentLeft;
         label2.numberOfLines = 0;
         label2.backgroundColor = [UIColor clearColor];
-        label2.textColor = hexColor(00c8aa);
+        label2.textColor = hexColor(999999);
         label2.font = Font_12;
         label2.text = @"按《人民银行利率表》进行计算，结果仅供参考。";
         [_bottomView addSubview:label2];
@@ -519,14 +524,14 @@ static NSString *const BREACHCELLID = @"breachcellid";
 - (NSMutableArray *)timeArrays
 {
     if (!_timeArrays) {
-        _timeArrays = TIMEARRAYS;
+        _timeArrays = [NSMutableArray array];
     }
     return _timeArrays;
 }
 - (NSMutableDictionary *)rateDictionary
 {
     if (!_rateDictionary) {
-        _rateDictionary = RATEDICTIONARY;
+        _rateDictionary = [NSMutableDictionary dictionary];
     }
     return _rateDictionary;
 }

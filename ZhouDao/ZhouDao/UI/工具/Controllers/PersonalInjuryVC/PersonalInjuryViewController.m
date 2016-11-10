@@ -1,4 +1,3 @@
-//
 //  PersonalInjuryViewController.m
 //  ZhouDao
 //
@@ -45,17 +44,29 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 {
     
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"0",@"0",@"0",@"", nil];
+    
+    if ([PublicFunction ShareInstance].locProv.length > 0) {
+        
+        NSString *province = [PublicFunction ShareInstance].locProv;
+        [arr1 replaceObjectAtIndex:0 withObject:province];
+    }
+
     [self.dataSourceArrays addObject:arr1];
 
     [self setupNaviBarWithTitle:@"人身损害赔偿计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
+    
+    NSString *path = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"cityruralincome.plist"];
+    NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    self.cityDictionnary = bigDictionary[@"city"];
+    self.ruralDictionnary = bigDictionary[@"rural"];
+
 }
 #pragma mark - event response
 
-- (void)calculateAndResetBtnEvent:(UIButton *)btn
-{
+- (void)calculateAndResetBtnEvent:(UIButton *)btn {
     if (btn.tag == 3089 ) {
         
         for (NSUInteger i = 0; i<3; i++) {
@@ -338,13 +349,13 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
 - (NSMutableDictionary *)cityDictionnary
 {
     if (!_cityDictionnary) {
-        _cityDictionnary = CITYDICTIONARY;
+        _cityDictionnary = [NSMutableDictionary dictionary];
     }
     return _cityDictionnary;
 }
 - (NSMutableDictionary *)ruralDictionnary{
     if (!_ruralDictionnary) {
-        _ruralDictionnary = RURALDICTIONARY;
+        _ruralDictionnary = [NSMutableDictionary dictionary];
     }
     return _ruralDictionnary;
 }

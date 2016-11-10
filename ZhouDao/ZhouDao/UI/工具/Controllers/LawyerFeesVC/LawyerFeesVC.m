@@ -48,7 +48,25 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 }
 #pragma mark - private methods
 - (void)initUI { WEAKSELF;
+    
+    NSString *path = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"lawyerfees.plist"];
+    //    NSData *data = [NSData dataWithContentsOfFile:path];
+    //    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    self.bigDictionary= [NSDictionary dictionaryWithContentsOfFile:path];
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"是",@"", nil];
+
+    if ([PublicFunction ShareInstance].locProv.length > 0) {
+        
+        NSString *province = [PublicFunction ShareInstance].locProv;
+        if (_bigDictionary) {
+            self.areasDictionary = _bigDictionary[province];
+            self.isInterval = _areasDictionary[@"isInterval"];
+            self.bottomLabel.text = [NSString stringWithFormat:@"根据《%@诉讼费用交纳办法》计算，供您参考",province];
+            
+            [arr1 replaceObjectAtIndex:0 withObject:province];
+        }
+    }
+    
     [self.dataSourceArrays addObject:arr1];
     
     [self setupNaviBarWithTitle:@"律师费计算"];
@@ -57,10 +75,6 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     [self.view addSubview:self.tableView];
     [_tableView setTableFooterView:self.bottomLabel];
 
-    
-    NSString *path = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"LawyerFees.plist"];
-    self.bigDictionary= [NSDictionary dictionaryWithContentsOfFile:path];
-    
     [_bottomLabel whenCancelTapped:^{
         
         DLog(@"点击跳转");
@@ -73,8 +87,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     }];
 }
 #pragma mark - event response
-- (void)rightBtnAction
-{
+- (void)rightBtnAction {
     CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
     [shareView show];
 }
@@ -149,8 +162,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     }
     DLog(@"分享的是第几个－－－%ld",index);
 }
-- (void)calculateAndResetBtnEvent:(UIButton *)btn
-{
+- (void)calculateAndResetBtnEvent:(UIButton *)btn {
     [self dismissKeyBoard];
     
     if (btn.tag == 3033) {
@@ -297,7 +309,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             lastMoneyMin = lastMoneyMin + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMin floatValue];
             lastMoneyMax = lastMoneyMax + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMax floatValue];
             
-            NSString *lastMoneyString = [NSString stringWithFormat:@"%.0f ~ %.0f元",lastMoneyMin,lastMoneyMax];
+            NSString *lastMoneyString =  [NSString stringWithFormat:@"%@ ~ %@元",[QZManager getNewAmountSegmentationWithNumber:lastMoneyMin withDecimal:NO],[QZManager getNewAmountSegmentationWithNumber:lastMoneyMax withDecimal:NO]];
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
             [_dataSourceArrays addObject:arr2];
             [self reloadTableViewWithAnimation];
@@ -320,7 +332,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             lastMoneyMin = lastMoneyMin + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMin floatValue];
             lastMoneyMax = lastMoneyMax + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.conMax floatValue];
         }
-        NSString *lastMoneyString = [NSString stringWithFormat:@"%.0f ~ %.0f元",lastMoneyMin,lastMoneyMax];
+        NSString *lastMoneyString = [NSString stringWithFormat:@"%@ ~ %@元",[QZManager getNewAmountSegmentationWithNumber:lastMoneyMin withDecimal:NO],[QZManager getNewAmountSegmentationWithNumber:lastMoneyMax withDecimal:NO]];
         NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
         [_dataSourceArrays addObject:arr2];
         [self reloadTableViewWithAnimation];
@@ -367,7 +379,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             }
             lastMoney = lastMoney + ([moneyString floatValue] - [model.allMoney[index - 1] floatValue])*[perModel.con floatValue];
             
-            NSString *lastMoneyString = [NSString stringWithFormat:@"%.0f元",lastMoney];
+            NSString *lastMoneyString = [NSString stringWithFormat:@"%@元",[QZManager getNewAmountSegmentationWithNumber:lastMoney  withDecimal:NO]];
             NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
             [_dataSourceArrays addObject:arr2];
             [self reloadTableViewWithAnimation];
@@ -385,7 +397,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             
             lastMoney  = lastMoney + ([moneyString floatValue] - [model.allMoney[index-1] floatValue])*[perModel.con floatValue];
         }
-        NSString *lastMoneyString = [NSString stringWithFormat:@"%.0f元",lastMoney];
+        NSString *lastMoneyString = [NSString stringWithFormat:@"%@元",[QZManager getNewAmountSegmentationWithNumber:lastMoney withDecimal:NO]];
         NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastMoneyString, nil];
         [_dataSourceArrays addObject:arr2];
         [self reloadTableViewWithAnimation];
@@ -393,8 +405,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 }
 
 #pragma mark - 新疆单独算
-- (void)xinJiangEventWithArrays:(NSMutableArray *)arrays
-{
+- (void)xinJiangEventWithArrays:(NSMutableArray *)arrays {
     double money = [arrays[3] doubleValue];
     NSString *lastMoneyString = @"";
     if (money <= 10000.f) {
@@ -433,8 +444,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
 }
 
 #pragma mark - LawyerFeesCellPro
-- (void)aboutProperty:(NSInteger)index
-{
+- (void)aboutProperty:(NSInteger)index {
     NSMutableArray *arr1 = _dataSourceArrays[0];
     if (index == 1) {
         [arr1 replaceObjectAtIndex:2 withObject:@"否"];
@@ -449,17 +459,14 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
     }
 }
 #pragma mark - UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSourceArrays.count;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSMutableArray *arr = self.dataSourceArrays[section];
     return [arr count];
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     LawyerFeesCell *cell = (LawyerFeesCell *)[tableView dequeueReusableCellWithIdentifier:LawyerFeesCellID];
     cell.delegate = self;
@@ -471,8 +478,7 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
                                                object:cell.textField];
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { WEAKSELF;
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
     

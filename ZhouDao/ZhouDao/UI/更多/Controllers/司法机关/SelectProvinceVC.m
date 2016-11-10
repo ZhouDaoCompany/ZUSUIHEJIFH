@@ -61,7 +61,7 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
 }
 - (void)hanZiToPinYin { WEAKSELF;
     
-    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"ProvincesCity.plist"];
+    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"provincescity.plist"];
     NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     NSArray *proArrays = bigDoctionary[@"province"];
     [proArrays enumerateObjectsUsingBlock:^(NSDictionary *objDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -199,7 +199,7 @@ static NSString *const CELLIDENTIFER = @"SelectCellIdentifier";
 
         if (_selectBlock) {
             
-            _selectBlock(arr[indexPath.row]);
+            _selectBlock(proModel.name);
         }
         if (_provinceBlock) {
             

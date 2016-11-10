@@ -64,8 +64,8 @@ static NSString * const       ALLFINANCEIDENTIFER       =  @"allFinanceCellIdent
     [self requestListData];
 }
 
-- (void)requestListData
-{WEAKSELF;
+- (void)requestListData { WEAKSELF;
+    
     [NetWorkMangerTools financialListToCheckTheCaseWithCaseID:_caseId RequestSuccess:^(NSArray *arr) {
         
         [weakSelf.fianceFrames removeAllObjects];

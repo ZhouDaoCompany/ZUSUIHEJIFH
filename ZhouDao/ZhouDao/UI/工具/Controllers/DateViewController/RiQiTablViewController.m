@@ -45,7 +45,7 @@ static NSString *const RIQICellID = @"RIQICellID";
 #pragma mark - private methods
 - (void)initUI{
     
-    NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"Holiday.plist"];
+    NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"holiday.plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
     self.timeArrays = dict[@"time"];
     self.timeDictionary = dict[@"allHoliday"];
@@ -604,7 +604,7 @@ static NSString *const RIQICellID = @"RIQICellID";
         _bottomLabel.textAlignment = NSTextAlignmentLeft;
         _bottomLabel.numberOfLines = 0;
         _bottomLabel.backgroundColor = [UIColor clearColor];
-        _bottomLabel.textColor = hexColor(00c8aa);
+        _bottomLabel.textColor = hexColor(999999);
         _bottomLabel.text = @"申明：本平台提供的数据从2010开始至今，若给您的使用带来不便，敬请谅解。";
         _bottomLabel.font = Font_12;
     }

@@ -38,17 +38,32 @@ static NSString *const INJURYCELL = @"injurycellid";
     [self initUI];
 }
 #pragma mark - private methods
-- (void)initUI
-{
+- (void)initUI {
+    
+    if ([PublicFunction ShareInstance].locCity.length > 0) {
+        
+        NSString *pathSource = [MYBUNDLE pathForResource:@"TheCityList" ofType:@"plist"];
+        NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+        NSArray *keyArrays = [dictionary allKeys];
+        NSString *locCity = [PublicFunction ShareInstance].locCity;
+        for (NSString *keyString in keyArrays) {
+            
+            if ([locCity isEqualToString:keyString]) {
+                
+                self.idString = dictionary[keyString];
+                [self.dataSourceArrays replaceObjectAtIndex:0 withObject:keyString];
+                break;
+            }
+        }
+    }
+    
     [self setupNaviBarWithTitle:@"工伤赔偿计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
-    
 }
 #pragma mark - event response
-- (void)rightBtnAction
-{
+- (void)rightBtnAction {
     CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
     [shareView show];
 }
@@ -65,13 +80,12 @@ static NSString *const INJURYCELL = @"injurycellid";
         [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
             
         }];
-        
     }
     DLog(@"分享的是第几个－－－%ld",index);
 }
 
-- (void)calculateAndResetBtnEvent:(UIButton *)btn
-{WEAKSELF;
+- (void)calculateAndResetBtnEvent:(UIButton *)btn { WEAKSELF;
+    
     [self dismissKeyBoard];
     if (btn.tag == 3034) {
         _dataSourceArrays = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
@@ -96,8 +110,7 @@ static NSString *const INJURYCELL = @"injurycellid";
         [self calculationOfDisability];
     }
 }
-- (void)calculationOfDisability
-{
+- (void)calculationOfDisability {
     NSMutableDictionary *detailDict = [NSMutableDictionary dictionary];
     
     NSDictionary *levelDict = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"一级",@"2",@"二级",@"3",@"三级",@"4",@"四级",@"5",@"五级",@"6",@"六级",@"7",@"七级",@"8",@"八级",@"9",@"九级",@"10",@"十级", nil];
@@ -128,10 +141,9 @@ static NSString *const INJURYCELL = @"injurycellid";
         [detailDict setObjectWithNullValidate:GETFloat(allMoney) forKey:@"money"];
         [detailDict setObjectWithNullValidate:mutableArrays forKey:@"mutableArrays"];
 
-        
     }else if (levelInter >= 5 && levelInter <7){
         
-        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongShang.plist"];
+        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongshang.plist"];
         NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         NSString *keyString = [NSString stringWithFormat:@"%@_%ld",_idString,levelInter];
         NSDictionary *useDict = bigDictionary[keyString];
@@ -183,7 +195,7 @@ static NSString *const INJURYCELL = @"injurycellid";
         [detailDict setObjectWithNullValidate:GETFloat(allMoney) forKey:@"money"];
         [detailDict setObjectWithNullValidate:mutableArrays forKey:@"mutableArrays"];
     }else{
-        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongShang.plist"];
+        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongshang.plist"];
         NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         NSString *keyString = [NSString stringWithFormat:@"%@_%ld",_idString,levelInter];
         NSDictionary *useDict = bigDictionary[keyString];
@@ -266,8 +278,7 @@ static NSString *const INJURYCELL = @"injurycellid";
                                                object:cell.textField];
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { WEAKSELF;
     NSInteger row = indexPath.row;
     
     if (row == 0) {

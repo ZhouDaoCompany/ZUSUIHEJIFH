@@ -37,7 +37,7 @@
 }
 - (void)initUIWithTotalMoney:(NSString *)totalMoney withDictionary:(NSDictionary *)dict withDelegate:(id<PersonalHeadViewDelegate>)delegate
 {
-    _totalLabel.text = totalMoney;
+    _totalLabel.text = CancelPoint2([totalMoney floatValue]);
     _delegate = delegate;
     if (dict.count == 2) {
         

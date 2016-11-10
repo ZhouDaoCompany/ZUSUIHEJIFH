@@ -33,15 +33,14 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
     [self initUI];
 }
 #pragma mark - private methods
-- (void)initUI{
+- (void)initUI {
     
     if (_type == EconomicType) {
         
-        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"TheAverageSalary.plist"];
+        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"theaveragesalary.plist"];
         _dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         NSArray *keysArrays = [_dict allKeys];
         [self.dataSourceArrays addObjectsFromArray:keysArrays];
-        
     }else if (_type == InjuryType){
         
         NSString *pathSource = [MYBUNDLE pathForResource:@"TheCityList" ofType:@"plist"];

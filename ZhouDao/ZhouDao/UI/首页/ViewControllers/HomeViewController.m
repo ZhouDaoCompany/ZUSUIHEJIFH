@@ -151,11 +151,20 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
 }
 
 #pragma mark ------ 下拉刷新
-- (void)upRefresh:(id)sender
-{
+- (void)upRefresh:(id)sender { WEAKSELF;
+
     [self.tableView.mj_header endRefreshing];
     [MBProgressHUD showMBLoadingWithText:nil];
-    [self loadNewData];
+    [NetWorkMangerTools homeViewAllDataRequestSuccess:^(NSArray *hdArr, NSArray *hotArr) {
+        
+        [MBProgressHUD hideHUD];
+        [weakSelf.dataSourceArrays removeAllObjects];
+        [weakSelf.dataSourceArrays addObjectsFromArray:hotArr];
+        [weakSelf.headView setDataArrays:hdArr];
+        [weakSelf.tableView reloadData];
+    } fail:^{
+        //        [weakSelf loadCacheData];
+    }];
 }
 - (void)loadNewData{
     WEAKSELF;

@@ -26,7 +26,8 @@
 }
 - (void)initUIWithDictionary:(NSDictionary *)dict
 {
-    _moneyLabel.text = dict[@"money"];
+    float allMoney = [dict[@"money"] floatValue];
+    _moneyLabel.text = CancelPoint2(allMoney);
     NSString *city = dict[@"city"];
     NSString *level   = dict[@"level"];
     NSString *gz = dict[@"gongzi"];

@@ -370,6 +370,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
             [self loadListViewData];
         };
         uploadVC.caseId = _caseId;
+        uploadVC.pid = _pid;
         [self.navigationController pushViewController:uploadVC animated:NO];
     }
 }

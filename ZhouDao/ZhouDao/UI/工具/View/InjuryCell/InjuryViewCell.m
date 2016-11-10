@@ -40,7 +40,8 @@
     _lineView.hidden = NO;
     _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
     _titleLab.text = dictionary[@"title"];
-    _textField.text = dictionary[@"money"];
+    float showMoney = [dictionary[@"money"] floatValue];
+    _textField.text = CancelPoint2(showMoney);
 }
 - (void)settingInjuryViewCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays
 {

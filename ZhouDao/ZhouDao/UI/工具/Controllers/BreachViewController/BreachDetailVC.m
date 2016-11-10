@@ -133,7 +133,7 @@ static NSString *const BREACHDETAILCELL = @"BreachDetailCellid";
         _bottomLabel.textAlignment = NSTextAlignmentLeft;
         _bottomLabel.numberOfLines = 0;
         _bottomLabel.backgroundColor = [UIColor clearColor];
-        _bottomLabel.textColor = hexColor(00c8aa);
+        _bottomLabel.textColor = hexColor(999999);
         _bottomLabel.font = Font_12;
         _bottomLabel.text = @"按《人民银行利率表》进行计算，结果仅供参考。";
     }

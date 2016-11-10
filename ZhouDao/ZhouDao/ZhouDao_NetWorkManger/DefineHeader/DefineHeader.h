@@ -75,7 +75,7 @@
 #define ImgName(name) [UIImage imageNamed:@#name]
 //获取图片资源
 #define kGetImage(imageName) [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]]
-#define CancelPoint2(shuzi) [NSString stringWithFormat:@"%.2f",shuzi]
+#define CancelPoint2(shuzi)  [QZManager getNewAmountSegmentationWithNumber:shuzi withDecimal:YES]
 
 #define Orgin_y(container)   (container.frame.origin.y+container.frame.size.height)
 #define Orgin_x(container)   (container.frame.origin.x+container.frame.size.width)

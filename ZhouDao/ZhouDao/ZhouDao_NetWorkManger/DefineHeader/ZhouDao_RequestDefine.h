@@ -397,6 +397,11 @@
 #define SHARECALCulate          @"api_tools.php?key=16248ef5&c=toolsShareNew"
 #define TOOLSWORDSHAREURL       @"tools_word.php?id="
 
+/*
+ *  90 请求更新文件
+ */
+#define NEWVERSIONTXTURL        @"api_txt_new.php?key=16248ef5"
+
 #define FANGWUCulate            @"tools_fangwuhuandai.php"//房屋还贷
 #define GSPCCulate              @"tools_gongshangpeichang.php"//工商赔偿
 #define JJBCCulate              @"tools_jingjibuchangjin.php"//经济补偿

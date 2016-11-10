@@ -21,7 +21,7 @@ static ZDNetworkStatus sg_networkStatus = kZDNetworkStatusReachableViaWiFi;
 static NSMutableArray *sg_requestTasks;
 static BOOL sg_shouldCallbackOnCancelRequest = YES;
 static NSTimeInterval sg_timeout = 60.0f;
-static BOOL sg_shoulObtainLocalWhenUnconnected = NO;
+//static BOOL sg_shoulObtainLocalWhenUnconnected = NO;
 static AFHTTPSessionManager *sg_sharedManager = nil;
 static NSUInteger sg_maxCacheSize = 0;
 
@@ -243,8 +243,9 @@ static inline NSString *cachePath() {
     
     if (httpMethod == 1) {
         if (sg_cache) {
-            if (sg_shoulObtainLocalWhenUnconnected) {
-                if (sg_networkStatus == kZDNetworkStatusNotReachable ||  sg_networkStatus == kZDNetworkStatusUnknown ) {
+//            if (sg_shoulObtainLocalWhenUnconnected) {
+//                if (sg_networkStatus == kZDNetworkStatusNotReachable ||  sg_networkStatus == kZDNetworkStatusUnknown ) {
+            
                     id response = [ZhouDao_NetWorkManger cahceResponseWithURL:absolute
                                                            parameters:params];
                     if (response) {
@@ -255,10 +256,10 @@ static inline NSString *cachePath() {
                                                      url:absolute
                                                   params:params];
                         }
-                        return nil;
+//                        return nil;
                     }
-                }
-            }
+//                }
+//            }
             
         }
 
@@ -267,8 +268,8 @@ static inline NSString *cachePath() {
                 progress(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount);
             }
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [self successResponse:responseObject callback:success];
             
+            [self successResponse:responseObject callback:success];
             if (sg_cache) {
                 [self cacheResponseObject:responseObject request:task.currentRequest parameters:params];
             }

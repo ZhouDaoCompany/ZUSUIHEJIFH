@@ -72,7 +72,7 @@ static NSString *const TwoCompensationID = @"TwoCompensationID";
 - (void)getData{ WEAKSELF;
     //默认选中
     _provinceCurrent = 0;
-    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"ProvincesCity.plist"];
+    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"provincescity.plist"];
     NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     NSArray *proArrays = bigDoctionary[@"province"];
     [proArrays enumerateObjectsUsingBlock:^(NSDictionary *objDictionary, NSUInteger idx, BOOL * _Nonnull stop) {

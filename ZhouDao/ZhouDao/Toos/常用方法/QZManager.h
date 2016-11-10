@@ -47,6 +47,15 @@ singleton_for_header(QZManager)
  */
 + (Boolean)isMobileNum:(NSString *)text;
 
+#pragma mark - 数字分割显示
+
+/**
+ 数字分割显示
+
+ @param amount 数字
+ @return 900,000,000
+ */
++ (NSString *)getNewAmountSegmentationWithNumber:(float)amount withDecimal:(BOOL)isDecial;
 
 #pragma mark - 判断email格式是否正确
 /**

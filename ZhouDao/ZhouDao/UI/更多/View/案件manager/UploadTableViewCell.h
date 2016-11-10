@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UILabel *subTitleLabel;
 @property (nonatomic, assign) BOOL isStart;
 @property (nonatomic, copy) NSString *caseId;//案件唯一id  cid
+@property (nonatomic, copy) NSString *pid;//父级id
 
 @property (nonatomic, weak) id<UploadTableViewPro> uploadDelegate;
 

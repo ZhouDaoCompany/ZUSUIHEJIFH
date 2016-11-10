@@ -43,6 +43,7 @@
         _textView.backgroundColor =ViewBackColor;
 //        LRViewBorderRadius(_textView, 3.f, 1.f, LINECOLOR);
         _textView.editable = NO;
+        _textView.font = Font_15;
         _textView.showsVerticalScrollIndicator = NO;
     }
     return _textView;

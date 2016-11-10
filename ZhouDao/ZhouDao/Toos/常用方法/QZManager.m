@@ -68,10 +68,22 @@ singleton_for_class(QZManager)
     }
     return NO;
 }
+#pragma mark - 数字分割显示
++ (NSString *)getNewAmountSegmentationWithNumber:(float)amount withDecimal:(BOOL)isDecial {
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    if (isDecial) {
+        [formatter setPositiveFormat:@"###,##0.00;"];
+    } else {
+        [formatter setPositiveFormat:@"###,##0;"];
+    }
+//    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    NSString *newAmount = [formatter stringFromNumber:[NSNumber numberWithFloat:amount]];
+    return newAmount;
+}
 
 #pragma mark - 判断email格式是否正确
-+ (BOOL)isAvailableEmail:(NSString *)emailString
-{
++ (BOOL)isAvailableEmail:(NSString *)emailString {
     NSString *emailRegEx =
     @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
     @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"

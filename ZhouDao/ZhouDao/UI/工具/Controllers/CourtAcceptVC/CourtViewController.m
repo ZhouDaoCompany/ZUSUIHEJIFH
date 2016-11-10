@@ -113,7 +113,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
             lastmoney = [self involvingPropertyCalculationWithmoney:[moneyString floatValue]];
         }
         lastmoney = (_isHalf == YES)?(lastmoney/2.f):lastmoney;
-        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f元",lastmoney], nil];
+        NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%@元",CancelPoint2(lastmoney)], nil];
         [self.dataSourceArrays addObject:arr2];
         [self reloadTableViewWithAnimation];
         
@@ -138,7 +138,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
                 [self doNotInvolvePropertyCalculation:str];
             }else if ([arr1[0] isEqualToString:@"知识产权案件"]){
                 lastmoney = (_isHalf == YES)?[self involvingPropertyCalculationWithmoney:[[self propertyPreservationWithMoney:[moneyString floatValue]] floatValue]/2.f]:[self involvingPropertyCalculationWithmoney:[[self propertyPreservationWithMoney:[moneyString floatValue]] floatValue]];
-                NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",lastmoney], nil];
+                NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",CancelPoint2(lastmoney), nil];
                 [self.dataSourceArrays addObject:arr2];
                 [self reloadTableViewWithAnimation];
 
@@ -147,13 +147,13 @@ static NSString *const COURTCELL = @"courtacceptcell";
                 
                 lastmoney = (_isHalf == YES)? lastmoney/2.f : lastmoney;
 
-                NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f元",lastmoney], nil];
+                NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%@元",CancelPoint2(lastmoney)], nil];
                 [self.dataSourceArrays addObject:arr2];
                 [self reloadTableViewWithAnimation];
 
             }else{
                 lastmoney = (_isHalf == YES)? [self involvingPropertyCalculationWithmoney:[moneyString floatValue]/2.f]:[self involvingPropertyCalculationWithmoney:[moneyString floatValue]];
-                NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f元",lastmoney], nil];
+                NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%@f元",CancelPoint2(lastmoney)], nil];
                 [self.dataSourceArrays addObject:arr2];
                [self reloadTableViewWithAnimation];
             }
@@ -174,9 +174,9 @@ static NSString *const COURTCELL = @"courtacceptcell";
     NSString *lastStr = @"";
     NSArray *array = [string componentsSeparatedByString:@","];
     if (array.count > 1) {
-        lastStr  = (_isHalf == YES)?[NSString stringWithFormat:@"%.2f~%.2f元",[array[0] floatValue]/2.f,[array[1] floatValue]/2.f]:[NSString stringWithFormat:@"%.2f~%.2f元",[array[0] floatValue],[array[1] floatValue]];
+        lastStr  = (_isHalf == YES)?[NSString stringWithFormat:@"%@~%@元",CancelPoint2([array[0] floatValue]/2.f),CancelPoint2([array[1] floatValue]/2.f)]:[NSString stringWithFormat:@"%@~%@元",CancelPoint2([array[0] floatValue]),CancelPoint2([array[1] floatValue])];
     }else{
-        lastStr  = (_isHalf == YES)?[NSString stringWithFormat:@"%.2f元",[array[0] floatValue]/2.f]:[NSString stringWithFormat:@"%.2f元",[array[0] floatValue]];
+        lastStr  = (_isHalf == YES) ? [NSString stringWithFormat:@"%@元",CancelPoint2([array[0] floatValue]/2.f)] : [NSString stringWithFormat:@"%@元",CancelPoint2([array[0] floatValue])];
     }
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",lastStr, nil];
     [self.dataSourceArrays addObject:arr2];
@@ -213,7 +213,7 @@ static NSString *const COURTCELL = @"courtacceptcell";
     if (frontalMoney > 200000.f) {
         lastmoney = (frontalMoney - 200000.f)*0.005f;
     }
-    return [NSString stringWithFormat:@"%.2f,%.2f",50 + lastmoney,300 + lastmoney];
+    return [NSString stringWithFormat:@"%@,%@",CancelPoint2(50 + lastmoney) ,CancelPoint2(300 + lastmoney)];
 }
 #pragma mark - 人格权
 - (NSString *)personalityRight:(float)frontalMoney
@@ -224,7 +224,8 @@ static NSString *const COURTCELL = @"courtacceptcell";
     }else if (frontalMoney > 100000.f){
         lastmoney = (frontalMoney - 100000.f)*0.005f + 500.f;
     }
-    return [NSString stringWithFormat:@"%.2f,%.2f元",100 + lastmoney,500 + lastmoney];
+    
+    return [NSString stringWithFormat:@"%@,%@元",CancelPoint2(100 + lastmoney),CancelPoint2(500 + lastmoney)];
 }
 #pragma mark - 财产保全
 - (NSString *)propertyPreservationWithMoney:(float)frontalMoney
@@ -238,7 +239,8 @@ static NSString *const COURTCELL = @"courtacceptcell";
     if (lastmoney > 5000.f) {
         lastmoney = 5000.f;
     }
-    return [NSString stringWithFormat:@"%.2f元",30 + lastmoney];
+    
+    return [NSString stringWithFormat:@"%@元",CancelPoint2(30 + lastmoney)];
 }
 #pragma mark -  财产案件根据诉讼请求的金额或者价额，按照下列比例分段累计交纳
 - (float)involvingPropertyCalculationWithmoney:(float)frontalMoney

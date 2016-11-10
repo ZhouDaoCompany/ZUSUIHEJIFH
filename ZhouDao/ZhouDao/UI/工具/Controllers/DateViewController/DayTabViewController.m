@@ -42,7 +42,7 @@ static NSString *const DAYCellID = @"dayCellID";
 #pragma mark - private methods
 - (void)initUI{
     
-    NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"Holiday.plist"];
+    NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"holiday.plist"];
     self.timeDictionary = [NSMutableDictionary dictionaryWithContentsOfFile:pathSource];
     [self.timeArrays addObjectsFromArray:[self.timeDictionary allKeys]];
 
@@ -353,15 +353,15 @@ static NSString *const DAYCellID = @"dayCellID";
     
     if (section == 0) {
         if (row == 0 || row == 1) {
-            __block NSMutableArray *arr1 = _dataSourceArrays[section];
-            NSString *lastString = arr1[row];
-
+            
+            NSString *lastString = (row == 0) ? _startTime : _endTime;
             ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
             [pickView setDateViewWithTitle:@"选择时间"];
             UIWindow *windows = [QZManager getWindow];
             [pickView showWindowPickView:windows];
             pickView.alertBlock = ^(NSString *selectedStr) {
                 
+                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                 NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                 (row == 0)?(weakSelf.startTime = timeStr):(weakSelf.endTime = timeStr);
                 [arr1 replaceObjectAtIndex:row withObject:selectedStr];
@@ -474,7 +474,7 @@ static NSString *const DAYCellID = @"dayCellID";
         _bottomLabel.textAlignment = NSTextAlignmentLeft;
         _bottomLabel.numberOfLines = 0;
         _bottomLabel.backgroundColor = [UIColor clearColor];
-        _bottomLabel.textColor = hexColor(00c8aa);
+        _bottomLabel.textColor = hexColor(999999);
         _bottomLabel.text = @"申明：本平台提供的数据从2010开始至今，若给您的使用带来不便，敬请谅解。";
         _bottomLabel.font = Font_12;
     }

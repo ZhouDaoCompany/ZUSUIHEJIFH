@@ -59,6 +59,10 @@ static NSString *const LIXICELL = @"lixicellid";
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self.view addSubview:self.tableView];
     
+    NSString *path = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"bankinterestrates.plist"];
+    self.rateDictionary= [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    [self.timeArrays addObjectsFromArray:[_rateDictionary allKeys]];
+
 }
 #pragma mark - event response
 - (void)calculateAndResetBtnEvent:(UIButton *)btn
@@ -132,7 +136,8 @@ static NSString *const LIXICELL = @"lixicellid";
         float amountMoney = _allLiXiMoney/[bigArrays count];
         for (NSUInteger i = 0; i < bigArrays.count; i++) {
             NSMutableArray *smallArr = bigArrays[i];
-            (i == [bigArrays count] -1)?[smallArr addObject:[NSString stringWithFormat:@"%.2f",amountMoney + _principalMoney]]:[smallArr addObject:[NSString stringWithFormat:@"%.2f",amountMoney]];
+            
+            (i == [bigArrays count] -1)?[smallArr addObject:CancelPoint2(amountMoney + _principalMoney)]:[smallArr addObject:CancelPoint2(amountMoney)];
         }
 
     }else if ([reimbursementType isEqualToString:@"等额本金"]) {
@@ -191,7 +196,7 @@ static NSString *const LIXICELL = @"lixicellid";
     
     lastMoney = lastMoney*discount;
     float allMoney = lastMoney + money;
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",allMoney],[NSString stringWithFormat:@"%.2f",lastMoney],[NSString stringWithFormat:@"%.2f",money], nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",CancelPoint2(allMoney),CancelPoint2(lastMoney),CancelPoint2(money), nil];
     (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
     [self reloadTableViewWithAnimation];
     
@@ -288,7 +293,7 @@ static NSString *const LIXICELL = @"lixicellid";
     
     double allMoney = lastMoney * monthsCount/1.f;
     double lixiMoney = allMoney - money;
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",allMoney],[NSString stringWithFormat:@"%.2f",lixiMoney],[NSString stringWithFormat:@"%.2f",money], nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",CancelPoint2(allMoney),CancelPoint2(lixiMoney),CancelPoint2(money), nil];
     (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
     [self reloadTableViewWithAnimation];
     
@@ -299,7 +304,7 @@ static NSString *const LIXICELL = @"lixicellid";
         
         float amountMoney = allMoney/[self.detailArrays count]*1.f;
         for (NSMutableArray *smallArr in self.detailArrays) {
-            [smallArr addObject:[NSString stringWithFormat:@"%.2f",amountMoney]];
+            [smallArr addObject:CancelPoint2(amountMoney)];
         }
 
         NSString *allDays = [NSString stringWithFormat:@"%@-%@",[QZManager changeTimeMethods:[_startTime integerValue] withType:@"yy/MM/dd"],[QZManager changeTimeMethods:[_endTime integerValue] withType:@"yy/MM/dd"]];
@@ -361,12 +366,12 @@ static NSString *const LIXICELL = @"lixicellid";
             lixi = monthPrincipal *(monthsCount-i)*rate/12.f;
             lastMoney += lixi;
         }
-        [smallArrays addObject:[NSString stringWithFormat:@"%.2f",lixi*discount + monthPrincipal]];
+        [smallArrays addObject:CancelPoint2(lixi*discount + monthPrincipal)];
     }
     
     lastMoney = lastMoney*discount;
     float allMoney = lastMoney + money;
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",allMoney],[NSString stringWithFormat:@"%.2f",lastMoney],[NSString stringWithFormat:@"%.2f",money], nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",CancelPoint2(allMoney),CancelPoint2(lastMoney),CancelPoint2(money), nil];
     (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
     [self reloadTableViewWithAnimation];
     
@@ -415,7 +420,7 @@ static NSString *const LIXICELL = @"lixicellid";
     }
 
     float allMoney = lastMoney + money;
-    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",[NSString stringWithFormat:@"%.2f",allMoney],[NSString stringWithFormat:@"%.2f",lastMoney],[NSString stringWithFormat:@"%.2f",money], nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",CancelPoint2(allMoney),CancelPoint2(lastMoney),CancelPoint2(money), nil];
     (_dataSourceArrays.count == 2)?[_dataSourceArrays replaceObjectAtIndex:1 withObject:arr2]:[_dataSourceArrays addObject:arr2];
     [self reloadTableViewWithAnimation];
 
@@ -448,8 +453,8 @@ static NSString *const LIXICELL = @"lixicellid";
 #pragma mark - 收集信息到另一界面
 - (void)collectInformationToAnotherInterfaceWithMoney:(float)money WithBreachMoney:(float)lastMoney WithAllDays:(NSString *)allDays WithArrays:(NSMutableArray *)arrays WithReatType:(NSString *)reatTypes
 {
-    [self.detailDictionary setObjectWithNullValidate:[NSString stringWithFormat:@"%.2f",money] forKey:@"AllMoney"];
-    [self.detailDictionary setObjectWithNullValidate:[NSString stringWithFormat:@"%.2f",lastMoney] forKey:@"BreachMoney"];
+    [self.detailDictionary setObjectWithNullValidate:CancelPoint2(money) forKey:@"AllMoney"];
+    [self.detailDictionary setObjectWithNullValidate:CancelPoint2(lastMoney) forKey:@"BreachMoney"];
     [self.detailDictionary setObjectWithNullValidate:allDays forKey:@"AllDays"];
     [self.detailDictionary setObjectWithNullValidate:arrays forKey:@"MutableArrays"];
     [self.detailDictionary setObjectWithNullValidate:reatTypes forKey:@"ReatType"];
@@ -540,15 +545,13 @@ static NSString *const LIXICELL = @"lixicellid";
         switch (row) {
             case 1:
             {
-                __block NSMutableArray *arr1 = _dataSourceArrays[section];
-                NSString *lastString = arr1[row];
-
-                ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
+                ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:_startTime];
                 [pickView setDateViewWithTitle:@"选择时间"];
                 UIWindow *windows = [QZManager getWindow];
                 [pickView showWindowPickView:windows];
                 pickView.alertBlock = ^(NSString *selectedStr)
                 {
+                    NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                     NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                     weakSelf.startTime = timeStr;
                     [arr1 replaceObjectAtIndex:row withObject:selectedStr];
@@ -559,15 +562,14 @@ static NSString *const LIXICELL = @"lixicellid";
                 break;
             case 2:
             {
-                __block NSMutableArray *arr1 = _dataSourceArrays[section];
-                NSString *lastString = arr1[row];
 
-                ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
+                ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:_endTime];
                 [pickView setDateViewWithTitle:@"选择时间"];
                 UIWindow *windows = [QZManager getWindow];
                 [pickView showWindowPickView:windows];
                 pickView.alertBlock = ^(NSString *selectedStr)
                 {
+                    NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                     NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                     weakSelf.endTime = timeStr;
                     [arr1 replaceObjectAtIndex:row withObject:selectedStr];
@@ -795,14 +797,14 @@ static NSString *const LIXICELL = @"lixicellid";
 - (NSMutableArray *)timeArrays
 {
     if (!_timeArrays) {
-        _timeArrays = TIMEARRAYS;
+        _timeArrays = [NSMutableArray array];
     }
     return _timeArrays;
 }
 - (NSMutableDictionary *)rateDictionary
 {
     if (!_rateDictionary) {
-        _rateDictionary = RATEDICTIONARY;
+        _rateDictionary = [NSMutableDictionary dictionary];
     }
     return _rateDictionary;
 }
@@ -829,7 +831,7 @@ static NSString *const LIXICELL = @"lixicellid";
         label2.textAlignment = NSTextAlignmentLeft;
         label2.numberOfLines = 0;
         label2.backgroundColor = [UIColor clearColor];
-        label2.textColor = hexColor(00c8aa);
+        label2.textColor = hexColor(999999);
         label2.font = Font_12;
         label2.text = @"按《人民银行利率表》进行计算，结果仅供参考。";
         [_bottomView addSubview:label2];

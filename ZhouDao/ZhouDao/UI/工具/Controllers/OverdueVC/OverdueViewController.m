@@ -50,9 +50,7 @@ static NSString *const OverdueCellID = @"OverdueCellID";
 - (void)initUI
 {
     NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@"",@"",@"",@"", nil];
-//    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@"",@"",@"", @"",nil];
     [self.dataSourceArrays addObject:arr1];
-//    [self.dataSourceArrays addObject:arr2];
 
     [self setupNaviBarWithTitle:@"裁决书逾期利息计算"];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Case_WhiteSD"];
@@ -61,9 +59,12 @@ static NSString *const OverdueCellID = @"OverdueCellID";
     
     [_tableView setTableFooterView:self.bottomView];
     
+    NSString *path = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"bankinterestrates.plist"];
+    self.rateDictionary= [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    [self.timeArrays addObjectsFromArray:[_rateDictionary allKeys]];
+
     NSString *pathSource1 = [MYBUNDLE pathForResource:@"CalculationBasis" ofType:@"plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
-    
     __block NSString *contentText = bigDictionary[@"裁决书逾期利息计算器"];
     
     WEAKSELF;
@@ -72,7 +73,6 @@ static NSString *const OverdueCellID = @"OverdueCellID";
         ToolsIntroduceVC *vc = [ToolsIntroduceVC new];
         vc.introContent = contentText;
         [weakSelf.navigationController pushViewController:vc animated:YES];
-        
     }];
 
 }
@@ -212,14 +212,14 @@ static NSString *const OverdueCellID = @"OverdueCellID";
         
         if (row == 1 || row == 2) {
             
-            __block NSMutableArray *arr1 = _dataSourceArrays[section];
-            NSString *lastString = arr1[row];
+            NSString *lastString = (row == 1) ? _startTime : _endTime;
             ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
             [pickView setDateViewWithTitle:@"选择时间"];
             UIWindow *windows = [QZManager getWindow];
             [pickView showWindowPickView:windows];
-            pickView.alertBlock = ^(NSString *selectedStr)
-            {
+            pickView.alertBlock = ^(NSString *selectedStr) {
+                
+                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                 NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                 (row == 1)?(weakSelf.startTime = timeStr):(weakSelf.endTime = timeStr);
                 [arr1 replaceObjectAtIndex:row withObject:selectedStr];
@@ -334,14 +334,14 @@ static NSString *const OverdueCellID = @"OverdueCellID";
 {
     if (!_rateDictionary) {
       
-        _rateDictionary = RATEDICTIONARY;
+        _rateDictionary = [NSMutableDictionary dictionary];
     }
     return _rateDictionary;
 }
 - (NSMutableArray *)timeArrays
 {
     if (!_timeArrays) {
-        _timeArrays = TIMEARRAYS;
+        _timeArrays = [NSMutableArray array];
     }
     return _timeArrays;
 }

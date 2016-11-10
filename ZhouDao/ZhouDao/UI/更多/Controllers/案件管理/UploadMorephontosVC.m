@@ -116,6 +116,7 @@ static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
     cell.uploadDelegate = self;
     cell.isStart = _isStart;
     cell.caseId = _caseId;
+    cell.pid = _pid;
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
     if (section == 0) {

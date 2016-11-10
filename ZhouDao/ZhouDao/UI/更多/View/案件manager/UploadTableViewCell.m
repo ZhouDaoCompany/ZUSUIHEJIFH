@@ -145,7 +145,8 @@
         if (indexCount == 0) {
             
             successString = @"上传成功";
-            [NetWorkMangerTools arrangeFileAddwithPid:@"" withName:weakSelf.fileName withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:weakSelf.caseId RequestSuccess:^(id obj) {
+            NSString *pidString = (_pid.length == 0) ? @"" : weakSelf.pid;
+            [NetWorkMangerTools arrangeFileAddwithPid:pidString withName:weakSelf.fileName withFileType:@"1" withtformat:@"4" withqiniuName:key withCid:weakSelf.caseId RequestSuccess:^(id obj) {
                 
                 weakSelf.processLabel.text = [NSString stringWithFormat:@"%d％",100];
                 

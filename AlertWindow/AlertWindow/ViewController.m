@@ -49,17 +49,18 @@
 //    }];
     
     
-    BOOL isOk;
-    NSLog(@"%@",(isOk == YES) ? @"YES" : @"NO");
-
-    if (isOk) {
-        NSLog(@"1111");
-
-        NSLog(@"%@",(isOk == YES) ? @"YES" : @"NO");
-    }else {
-        NSLog(@"2222");
-    }
+//    BOOL isOk;
+//    NSLog(@"%@",(isOk == YES) ? @"YES" : @"NO");
+//
+//    if (isOk) {
+//        NSLog(@"1111");
+//
+//        NSLog(@"%@",(isOk == YES) ? @"YES" : @"NO");
+//    }else {
+//        NSLog(@"2222");
+//    }
     
+    [self getNewAmountSegmentationWithNumber:900000000];
     
     
    /* NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"InjuryInductrial" ofType:@"plist"];
@@ -95,19 +96,35 @@
 //        [areaDictionary setObject:dictionary forKey:nameString];
 //    }
     
-   /* 
-    NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"city(2)" ofType:@"txt"];
-    NSData *data = [NSData dataWithContentsOfFile:pathsss];
-    NSArray *cityArrays = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+  
+//    NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"city" ofType:@"txt"];
+//    NSData *data = [NSData dataWithContentsOfFile:pathsss];
+//    NSArray *cityArrays = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+//
+//    //获取本地沙盒路径
+//    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    //获取完整路径
+//    NSString *documentsPath = [path objectAtIndex:0];
+//    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"BankInterestRates.plist"];
+//    //写入文件
+//    [cityArrays writeToFile:plistPath atomically:YES];
+    
+    
+    /*
+     NSMutableDictionary *cityDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"52859",@"北京",@"32658",@"天津",@"52962",@"上海",@"37173",@"江苏省",@"26152",@"河北省",@"25576",@"河南省",@"28838",@"湖南省",@"27051",@"湖北省",@"43714",@"浙江省",@"24299",@"云南省",@"26420",@"陕西省",@"24579.64",@"贵州省",@"24669",@"广西壮族自治区",@"31195",@"黑龙江省",@"20804",@"甘肃省",@"24901",@"吉林省",@"26205",@"四川省",@"30192.9",@"广东省",@"26500",@"江西省",@"22306.57",@"青海省",@"31126",@"辽宁省",@"31545",@"山东省",@"20023",@"西藏自治区",@"27239",@"重庆",@"33275",@"福建省",@"23214",@"新疆维吾尔自治区",@"28350",@"内蒙古自治区",@"25828",@"山西省",@"24487",@"海南省",@"23285",@"宁夏回族自治区",@"26936",@"安徽省", nil];
+    
+    NSMutableDictionary *ruralDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"20569",@"北京市",@"15405",@"天津市",@"23205",@"上海市",@"16257",@"江苏省",@"11051",@"河北省",@"10853",@"河南省",@"10993",@"湖南省",@"11844",@"湖北省",@"21125",@"浙江省",@"7456",@"云南省",@"8689",@"陕西省",@"7386.87",@"贵州省",@"7565",@"广西壮族自治区",@"11422",@"黑龙江省",@"5376",@"甘肃省",@"11326",@"吉林省",@"10247",@"四川省",@"12245.6",@"广东省",@"11139",@"江西省",@"7282.73",@"青海省",@"12057",@"辽宁省",@"12930",@"山东省",@"6578",@"西藏自治区",@"10505",@"重庆市",@"13793",@"福建省",@"8742",@"新疆维吾尔自治区",@"9976",@"内蒙古自治区",@"9454",@"山西省",@"9913",@"海南省",@"8140",@"宁夏回族自治区",@"10821",@"安徽省", nil];
+    NSDictionary *bigDict = [NSDictionary dictionaryWithObjectsAndKeys:cityDict,@"city",ruralDict,@"rural", nil];
 
     //获取本地沙盒路径
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     //获取完整路径
     NSString *documentsPath = [path objectAtIndex:0];
-    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"ProvincesCity.plist"];
+    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"CityRuralIncome.plist"];
     //写入文件
-    [cityArrays writeToFile:plistPath atomically:YES];
-    */
+    [bigDict writeToFile:plistPath atomically:YES];
+     */
+
     
 //        NSString *pathsss = [[NSBundle mainBundle] pathForResource:@"地级市平均工资" ofType:@"txt"];
 //        NSData *data = [NSData dataWithContentsOfFile:pathsss];
@@ -197,6 +214,13 @@
 ////    
 ////    [adcomps setDay:0];
 ////    NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:mydate options:0];
+}
+- (NSString *)getNewAmountSegmentationWithNumber:(float)amount {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    NSString *newAmount = [formatter stringFromNumber:[NSNumber numberWithFloat:amount]];
+    DLog(@"newAmount %@", newAmount);
+    return newAmount;
 }
 - (void)aWebViewCss:(NSString *)aXML :(NSDictionary *)dicttionary
 {

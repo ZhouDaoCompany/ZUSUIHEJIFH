@@ -53,7 +53,7 @@
         NSArray *arr1 = arrays[0];
         _titleLab.text = @"伤残赔偿金";
         _textField.enabled = NO;
-        _textField.text = arr1[row];
+        _textField.text = CancelPoint2([arr1[row] floatValue]);
     }else{
         
         _textField.placeholder  = @"请输入金额";
@@ -71,8 +71,7 @@
     }
 }
 #pragma mark - 计算页
-- (void)settingPersonalCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays withDelegate:(id<PersonalInjuryDelegate>)delegate
-{
+- (void)settingPersonalCellUIWithSection:(NSInteger)section withRow:(NSInteger)row withNSMutableArray:(NSMutableArray *)arrays withDelegate:(id<PersonalInjuryDelegate>)delegate {
     self.delegate = delegate;
     _textField.section = section;
     _textField.row = row;

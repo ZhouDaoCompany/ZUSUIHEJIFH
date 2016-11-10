@@ -47,7 +47,7 @@
 #pragma mark - init view
 - (void)initView { WEAKSELF;
     
-    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"ProvincesCity.plist"];
+    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"provincescity.plist"];
     NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     NSArray *proArrays = bigDoctionary[@"province"];
 

@@ -278,7 +278,7 @@
         [_imgView3 addSubview:backgroundView];
         float width = self.bounds.size.width - oftenLaws - 20.5f;
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(10, 32, width, 60)];
-        lab.text = @"sfcudsvacudvicvdhsuvcdvicvicvbdibvcdbcdbcd";//model.slide_name;
+        lab.text = model.slide_name;
         lab.numberOfLines = 0;
         lab.textAlignment = NSTextAlignmentCenter;
         lab.textColor = [UIColor whiteColor];

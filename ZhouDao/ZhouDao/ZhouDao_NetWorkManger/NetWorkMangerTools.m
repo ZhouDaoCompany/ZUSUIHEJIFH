@@ -1216,7 +1216,6 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,HomeViewIndexAll];
     [ZhouDao_NetWorkManger getWithUrl:url sg_cache:YES success:^(id response) {
         
-        [MBProgressHUD hideHUD];
         NSDictionary *jsonDic = (NSDictionary *)response;
         NSArray *dataArr = jsonDic[@"data"];
         __block NSMutableArray *arr1 = [NSMutableArray array];
@@ -1239,6 +1238,7 @@
         }];
         success(arr1,arr2);
     } fail:^(NSError *error) {
+        fail();
         [MBProgressHUD hideHUD];
         [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];

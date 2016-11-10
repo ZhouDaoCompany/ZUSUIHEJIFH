@@ -127,11 +127,11 @@ static NSString *const HOUSECELL = @"housecellid";
     double allMoney1 = limit * monthMoney1;
     double allLiXiMoney1 = allMoney1 - money;
 
-    NSArray *array1 = @[@"",[NSString stringWithFormat:@"%.2f",monthMoney1*10000],[NSString stringWithFormat:@"%.0f",limit],[NSString stringWithFormat:@"%.2f",allLiXiMoney1],[NSString stringWithFormat:@"%.2f",allMoney1]];
+    NSArray *array1 = @[@"",CancelPoint2(monthMoney1*10000),[NSString stringWithFormat:@"%.0f",limit],CancelPoint2(allLiXiMoney1),CancelPoint2(allMoney1)];
 
     //详情
     NSMutableArray *dicArr1 = [CalculateManager getAllMonthsWithPrincipal:money withMonthsMoney:monthMoney1 withRate:rate withMonthsCounts:limit];
-    NSMutableDictionary *oneDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%.2f",allMoney1],@"allMoney",[NSString stringWithFormat:@"%.2f",allLiXiMoney1],@"allLiXiMoney",[NSString stringWithFormat:@"%.2f",money],@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr1,@"MutableArray",nil,@"MutableArray2",nil];
+    NSMutableDictionary *oneDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:CancelPoint2(allMoney1),@"allMoney",CancelPoint2(allLiXiMoney1),@"allLiXiMoney",CancelPoint2(money),@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr1,@"MutableArray",nil,@"MutableArray2",nil];
     [self.bigDictionary setObjectWithNullValidate:oneDict forKey:@"OneDictionary"];
 
     //等额本金
@@ -145,21 +145,21 @@ static NSString *const HOUSECELL = @"housecellid";
         double monthLiXiMoney2 = remainMoney*rate;//月供利息
         allLiXiMoney2 += monthLiXiMoney2;
         
-        [smallArrays addObject:[NSString stringWithFormat:@"%.2f",monthBJMoney2 *10000]];
-        [smallArrays addObject:[NSString stringWithFormat:@"%.2f",monthLiXiMoney2 *10000]];
-        [smallArrays addObject:[NSString stringWithFormat:@"%.2f",(remainMoney -monthBJMoney2)*10000]];
+        [smallArrays addObject:CancelPoint2(monthBJMoney2 *10000)];
+        [smallArrays addObject:CancelPoint2(monthLiXiMoney2 *10000)];
+        [smallArrays addObject:CancelPoint2((remainMoney -monthBJMoney2)*10000)];
         
         [dicArr2 addObject:smallArrays];
     }
     double allMoney2 = allLiXiMoney2 + money;
     
-    NSArray *array2 = @[@"",[NSString stringWithFormat:@"%.0f",limit],[NSString stringWithFormat:@"%.2f",allLiXiMoney2],[NSString stringWithFormat:@"%.2f",allMoney2]];
+    NSArray *array2 = @[@"",[NSString stringWithFormat:@"%.0f",limit],CancelPoint2(allLiXiMoney2),CancelPoint2(allMoney2)];
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:array1,array2, nil];
     [_dataSourceArrays addObject:arr2];
     [self  reloadTableViewWithAnimation];
     
     //添加详情
-    NSMutableDictionary *twoDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%.2f",allMoney2],@"allMoney",[NSString stringWithFormat:@"%.2f",allLiXiMoney2],@"allLiXiMoney",[NSString stringWithFormat:@"%.2f",money],@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr2,@"MutableArray",nil,@"MutableArray2",nil];
+    NSMutableDictionary *twoDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:CancelPoint2(allMoney2),@"allMoney",CancelPoint2(allLiXiMoney2),@"allLiXiMoney",CancelPoint2(money),@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr2,@"MutableArray",nil,@"MutableArray2",nil];
     [self.bigDictionary setObjectWithNullValidate:twoDict forKey:@"TwoDictionary"];
 
 }
@@ -181,13 +181,13 @@ static NSString *const HOUSECELL = @"housecellid";
     double allMoney11 = limit * monthMoney11;
     double allLiXiMoney11 = allMoney11 - money11;
 
-    NSArray *array1 = @[@"",[NSString stringWithFormat:@"%.2f",(monthMoney01 + monthMoney11)*10000],[NSString stringWithFormat:@"%.0f",limit],[NSString stringWithFormat:@"%.2f",allLiXiMoney01 + allLiXiMoney11],[NSString stringWithFormat:@"%.2f",allMoney01 + allMoney11]];
+    NSArray *array1 = @[@"",CancelPoint2((monthMoney01 + monthMoney11)*10000),[NSString stringWithFormat:@"%.0f",limit],CancelPoint2(allLiXiMoney01 + allLiXiMoney11),CancelPoint2(allMoney01 + allMoney11)];
     
     //详情
     NSMutableArray *dicArr01 = [CalculateManager getAllMonthsWithPrincipal:money01 withMonthsMoney:monthMoney01 withRate:rate01 withMonthsCounts:limit];
     NSMutableArray *dicArr11 = [CalculateManager getAllMonthsWithPrincipal:money11 withMonthsMoney:monthMoney11 withRate:rate11 withMonthsCounts:limit];
 
-    NSMutableDictionary *oneDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%.2f",allMoney01 + allMoney11],@"allMoney",[NSString stringWithFormat:@"%.2f",allLiXiMoney01 + allLiXiMoney11],@"allLiXiMoney",[NSString stringWithFormat:@"%.2f",money01 + money11],@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr01,@"MutableArray",dicArr11,@"MutableArray2",nil];
+    NSMutableDictionary *oneDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:CancelPoint2(allMoney01 + allMoney11),@"allMoney",CancelPoint2(allLiXiMoney01 + allLiXiMoney11),@"allLiXiMoney",CancelPoint2(money01 + money11),@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr01,@"MutableArray",dicArr11,@"MutableArray2",nil];
     [self.bigDictionary setObjectWithNullValidate:oneDict forKey:@"OneDictionary"];
 
     /*******等额本金****************/
@@ -203,9 +203,9 @@ static NSString *const HOUSECELL = @"housecellid";
         double monthLiXiMoney02 = remainMoney*rate01; //月供利息
         allLiXiMoney02 += monthLiXiMoney02;
         
-        [smallArrays01 addObject:[NSString stringWithFormat:@"%.2f",monthBJMoney02 *10000]];
-        [smallArrays01 addObject:[NSString stringWithFormat:@"%.2f",monthLiXiMoney02 *10000]];
-        [smallArrays01 addObject:[NSString stringWithFormat:@"%.2f",(remainMoney -monthBJMoney02)*10000]];
+        [smallArrays01 addObject:CancelPoint2(monthBJMoney02 *10000)];
+        [smallArrays01 addObject:CancelPoint2(monthLiXiMoney02 *10000)];
+        [smallArrays01 addObject:CancelPoint2((remainMoney -monthBJMoney02)*10000)];
         [dicArr02 addObject:smallArrays01];
     }
     double allMoney02 = allLiXiMoney02 + money01;
@@ -222,20 +222,20 @@ static NSString *const HOUSECELL = @"housecellid";
         double monthLiXiMoney12 = remainMoney*rate11;
         allLiXiMoney12 += monthLiXiMoney12;
         
-        [smallArrays11 addObject:[NSString stringWithFormat:@"%.2f",monthBJMoney12 *10000]];
-        [smallArrays11 addObject:[NSString stringWithFormat:@"%.2f",monthLiXiMoney12 *10000]];
-        [smallArrays11 addObject:[NSString stringWithFormat:@"%.2f",(remainMoney -monthBJMoney12)*10000]];
+        [smallArrays11 addObject:CancelPoint2(monthBJMoney12 *10000)];
+        [smallArrays11 addObject:CancelPoint2(monthLiXiMoney12 *10000)];
+        [smallArrays11 addObject:CancelPoint2((remainMoney -monthBJMoney12)*10000)];
         [dicArr12 addObject:smallArrays11];
     }
     double allMoney12 = allLiXiMoney12 + money11;
 
-    NSArray *array2 = @[@"",[NSString stringWithFormat:@"%.0f",limit],[NSString stringWithFormat:@"%.2f",allLiXiMoney02 + allLiXiMoney12],[NSString stringWithFormat:@"%.2f",allMoney02 + allMoney12]];
+    NSArray *array2 = @[@"",[NSString stringWithFormat:@"%.0f",limit],CancelPoint2(allLiXiMoney02 + allLiXiMoney12),CancelPoint2(allMoney02 + allMoney12)];
     NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:array1,array2, nil];
     [_dataSourceArrays addObject:arr2];
     [self  reloadTableViewWithAnimation];
     
     //添加详情
-    NSMutableDictionary *twoDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%.2f",allMoney02 + allMoney12],@"allMoney",[NSString stringWithFormat:@"%.2f",allLiXiMoney02 + allLiXiMoney12],@"allLiXiMoney",[NSString stringWithFormat:@"%.2f",money01 + money11],@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr02,@"MutableArray",dicArr12,@"MutableArray2",nil];
+    NSMutableDictionary *twoDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:CancelPoint2(allMoney02 + allMoney12),@"allMoney",CancelPoint2(allLiXiMoney02 + allLiXiMoney12),@"allLiXiMoney",CancelPoint2(money01 + money11),@"money",[NSString stringWithFormat:@"%.0f",limit],@"months",dicArr02,@"MutableArray",dicArr12,@"MutableArray2",nil];
     [self.bigDictionary setObjectWithNullValidate:twoDict forKey:@"TwoDictionary"];
 
 }
@@ -532,7 +532,7 @@ static NSString *const HOUSECELL = @"housecellid";
         label2.textAlignment = NSTextAlignmentLeft;
         label2.numberOfLines = 0;
         label2.backgroundColor = [UIColor clearColor];
-        label2.textColor = hexColor(00c8aa);
+        label2.textColor = hexColor(999999);
         label2.font = Font_12;
         label2.text = @"按《人民银行利率表》进行计算，结果仅供参考。";
         [_bottomView addSubview:label2];

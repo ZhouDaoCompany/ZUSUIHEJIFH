@@ -213,7 +213,7 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     
     double averayeMoney = ([wage doubleValue] >= [_averageMoney doubleValue] *3)?[_averageMoney doubleValue] *3: [wage doubleValue];
     money = averayeMoney * counts;
-    NSString *moneyString = [NSString stringWithFormat:@"%.2f",money];
+    NSString *moneyString = CancelPoint2(money);
     NSString *monthsString = [NSString stringWithFormat:@"%.1f",counts];
 
     success(moneyString, monthsString);
@@ -251,14 +251,14 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         
         if (row == 0 || row == 1) {
             
-            __block NSMutableArray *arr1 = _dataSourceArrays[section];
-            NSString *lastString = arr1[row];
+            NSString *lastString = (row == 0) ? _startTime : _endTime;
             ZHPickView *pickView = [[ZHPickView alloc] initWithSelectString:lastString];
             [pickView setDateViewWithTitle:@"选择时间"];
             UIWindow *windows = [QZManager getWindow];
             [pickView showWindowPickView:windows];
             pickView.alertBlock = ^(NSString *selectedStr) {
                 
+                NSMutableArray *arr1 = weakSelf.dataSourceArrays[section];
                 NSString *timeStr = [NSString stringWithFormat:@"%ld",(long)[[QZManager caseDateFromString:selectedStr] timeIntervalSince1970]];
                 (row == 0)?(weakSelf.startTime = timeStr):(weakSelf.endTime = timeStr);
                 [arr1 replaceObjectAtIndex:row withObject:selectedStr];

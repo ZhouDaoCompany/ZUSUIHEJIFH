@@ -14,6 +14,10 @@
 #import "ReadViewController.h"
 #import "ToolsIntroduceVC.h"
 
+#import "ProvinceModel.h"
+#import "CityModel.h"
+#import "AreaModel.h"
+
 static NSString *const INJURYRESULTCELL = @"injurycellid";
 
 @interface InjuryResultVC ()<UITableViewDataSource,UITableViewDelegate,CalculateShareDelegate>
@@ -47,33 +51,39 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
     
     [self.view addSubview:self.tableView];
     
-    
-    NSString *pathSource = [MYBUNDLE pathForResource:@"Areas" ofType:@"plist"];
-    NSDictionary *areasDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
-
-    NSArray *proviceArr = [areasDictionary allKeys];
+    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"provincescity.plist"];
+    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSArray *proArrays = bigDoctionary[@"province"];
+    __block NSMutableArray *provinceArrays = [NSMutableArray array];
+    [proArrays enumerateObjectsUsingBlock:^(NSDictionary *objDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:objDictionary];
+        [provinceArrays addObject:proModel];
+    }];
     NSString *keyString = @"";
-    for (NSUInteger i = 0; i < proviceArr.count; i++) {
+    for (NSUInteger i = 0; i < [proArrays count]; i++) {
         
-        keyString = proviceArr[i];
-        NSArray *tempArr = areasDictionary[keyString];
-        NSArray *cityArr = [[tempArr objectAtIndex:0] allKeys];
-        
+        NSDictionary *objDictionary = proArrays[i];
+        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:objDictionary];
         BOOL isBreak = NO;
-        for (NSString *cityString in cityArr) {
+        keyString = proModel.name;
+        for (NSUInteger j = 0; j < [proModel.city count]; j++) {
             
-            if ([_detailDictionary[@"city"] isEqualToString:cityString]) {
+            CityModel *cityModel = proModel.city[j];
+            if ([cityModel.name isEqualToString:_detailDictionary[@"city"]]) {
                 
                 isBreak = YES;
                 break;
             }
         }
         
-        if (isBreak == YES) {
+        if (isBreak) {
+            
             break;
         }
     }
-    NSString *pathSource1 = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"InjuryInductrial.plist"];
+    
+    NSString *pathSource1 = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"injuryinductrial.plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
 
     __block NSString *contentText = bigDictionary[keyString];
@@ -127,6 +137,7 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
                 }];
 
             }else {
+                
                 NSString *wordString = [[NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,TOOLSWORDSHAREURL,idString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 TaskModel *model = [TaskModel model];
                 model.name=[NSString stringWithFormat:@"工伤赔偿计算结果Word%@.docx",idString];
@@ -139,12 +150,10 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
                 readVC.navTitle = @"计算结果";
                 readVC.rType = FileNOExist;
                 [weakSelf.navigationController pushViewController:readVC animated:YES];
+                
             }
-
-            
             
         } fail:^{
-            
         }];
         
     }else {//分享计算器
@@ -214,23 +223,27 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
     return _tableView;
 }
 
-- (NSMutableArray *)dataSourceArrays
-{
+- (NSMutableArray *)dataSourceArrays {
     if (!_dataSourceArrays) {
         _dataSourceArrays = [NSMutableArray array];
     }
     return _dataSourceArrays;
 }
-- (UILabel *)bottomLabel
-{
+- (UILabel *)bottomLabel {
     if (!_bottomLabel) {
         _bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kMainScreenWidth-20, 30)];
         _bottomLabel.textAlignment = NSTextAlignmentLeft;
         _bottomLabel.numberOfLines = 0;
         _bottomLabel.backgroundColor = [UIColor clearColor];
-        _bottomLabel.textColor = hexColor(00c8aa);
+//        _bottomLabel.textColor = hexColor(00c8aa);
+        NSMutableAttributedString *hintString = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@工伤赔偿金计算依据，供您参考",_detailDictionary[@"city"]]];
+        NSRange range1=[[hintString string]rangeOfString:[NSString stringWithFormat:@"%@工伤赔偿金计算依据，",_detailDictionary[@"city"]]];
+        [hintString addAttribute:NSForegroundColorAttributeName value:hexColor(00c8aa) range:range1];
+        NSRange range2=[[hintString string]rangeOfString:@"供您参考"];
+        [hintString addAttribute:NSForegroundColorAttributeName value:hexColor(999999) range:range2];
+        _bottomLabel.attributedText=hintString;
         _bottomLabel.font = Font_12;
-        _bottomLabel.text = [NSString stringWithFormat:@"%@工伤赔偿金计算依据，供您参考",_detailDictionary[@"city"]];
+//        _bottomLabel.text = [NSString stringWithFormat:@"%@工伤赔偿金计算依据，供您参考",_detailDictionary[@"city"]];
     }
     return _bottomLabel;
 }

@@ -243,6 +243,8 @@
 		186553A71D76BB6B00DBA8D8 /* LayerFeesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186553A61D76BB6B00DBA8D8 /* LayerFeesModel.m */; };
 		186640471D24AEC800E1F455 /* GBTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186640461D24AEC800E1F455 /* GBTagListView.m */; };
 		1866404A1D24E9B700E1F455 /* FinanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186640491D24E9B700E1F455 /* FinanceModel.m */; };
+		1869F1321DD4102400C4F7A0 /* FileDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1869F12F1DD4102400C4F7A0 /* FileDataModel.m */; };
+		1869F1331DD4102400C4F7A0 /* PlistFileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1869F1311DD4102400C4F7A0 /* PlistFileModel.m */; };
 		186AA1491CE430F90009C0D5 /* ExampleDetailData.m in Sources */ = {isa = PBXBuildFile; fileRef = 186AA1481CE430F90009C0D5 /* ExampleDetailData.m */; };
 		186AA14D1CE46E7C0009C0D5 /* CollectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 186AA14C1CE46E7C0009C0D5 /* CollectionData.m */; };
 		186DF0CE1CB5094900D66994 /* template_Share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186DF0CC1CB5094900D66994 /* template_Share@2x.png */; };
@@ -894,6 +896,10 @@
 		186640461D24AEC800E1F455 /* GBTagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTagListView.m; sourceTree = "<group>"; };
 		186640481D24E9B700E1F455 /* FinanceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinanceModel.h; sourceTree = "<group>"; };
 		186640491D24E9B700E1F455 /* FinanceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceModel.m; sourceTree = "<group>"; };
+		1869F12E1DD4102400C4F7A0 /* FileDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDataModel.h; sourceTree = "<group>"; };
+		1869F12F1DD4102400C4F7A0 /* FileDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileDataModel.m; sourceTree = "<group>"; };
+		1869F1301DD4102400C4F7A0 /* PlistFileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlistFileModel.h; sourceTree = "<group>"; };
+		1869F1311DD4102400C4F7A0 /* PlistFileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlistFileModel.m; sourceTree = "<group>"; };
 		186AA1471CE430F90009C0D5 /* ExampleDetailData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleDetailData.h; sourceTree = "<group>"; };
 		186AA1481CE430F90009C0D5 /* ExampleDetailData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleDetailData.m; sourceTree = "<group>"; };
 		186AA14B1CE46E7C0009C0D5 /* CollectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionData.h; sourceTree = "<group>"; };
@@ -2367,6 +2373,7 @@
 				186553A61D76BB6B00DBA8D8 /* LayerFeesModel.m */,
 				18E4C8D41D77BF3300D83DEF /* AllProportionModel.h */,
 				18E4C8D51D77BF3300D83DEF /* AllProportionModel.m */,
+				1869F12D1DD4102400C4F7A0 /* PlistModel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2378,6 +2385,17 @@
 				186640461D24AEC800E1F455 /* GBTagListView.m */,
 			);
 			path = GBTagListView2.0;
+			sourceTree = "<group>";
+		};
+		1869F12D1DD4102400C4F7A0 /* PlistModel */ = {
+			isa = PBXGroup;
+			children = (
+				1869F12E1DD4102400C4F7A0 /* FileDataModel.h */,
+				1869F12F1DD4102400C4F7A0 /* FileDataModel.m */,
+				1869F1301DD4102400C4F7A0 /* PlistFileModel.h */,
+				1869F1311DD4102400C4F7A0 /* PlistFileModel.m */,
+			);
+			path = PlistModel;
 			sourceTree = "<group>";
 		};
 		186AA14A1CE46E7C0009C0D5 /* 收藏 */ = {
@@ -4040,6 +4058,7 @@
 				18A428521CC0D19100CEB30E /* AccusingTheCell.m in Sources */,
 				186AA1491CE430F90009C0D5 /* ExampleDetailData.m in Sources */,
 				186553A71D76BB6B00DBA8D8 /* LayerFeesModel.m in Sources */,
+				1869F1321DD4102400C4F7A0 /* FileDataModel.m in Sources */,
 				100982EC1D33C7CE00768D9A /* ParallaxHeaderView.m in Sources */,
 				187A54A81D642CBD0076A8E6 /* DNPhotoBrowser.m in Sources */,
 				104304961CA515CA009D7072 /* FGGDownloader.m in Sources */,
@@ -4090,6 +4109,7 @@
 				186ED3961D66D3CF006BC693 /* UploadMorephontosVC.m in Sources */,
 				108323431CAA70A5004B8045 /* ZD_ListView.m in Sources */,
 				104157691C947A6F00EE5303 /* AboutZDVC.m in Sources */,
+				1869F1331DD4102400C4F7A0 /* PlistFileModel.m in Sources */,
 				18F437111D7FAA5E00AEDAEF /* BreachDetailCell.m in Sources */,
 				104157581C945C0200EE5303 /* ProfessionalCell.m in Sources */,
 				18AF33F41CC0DFD30063485E /* ConsultantCell.m in Sources */,

@@ -53,7 +53,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 }
 - (void)initView { WEAKSELF;
     [self setupNaviBarWithTitle:@"司法机关"];
-    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"ProvincesCity.plist"];
+    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"provincescity.plist"];
     NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     NSArray *proArrays = bigDoctionary[@"province"];
     __block NSMutableArray *pcaSourceArrays = [NSMutableArray array];
