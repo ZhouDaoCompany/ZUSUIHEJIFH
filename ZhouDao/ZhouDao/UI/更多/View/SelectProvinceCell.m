@@ -42,7 +42,13 @@
         _thirdButton.hidden = NO;
         _fourButton.hidden = NO;
         _nameLab.hidden = YES;
-        NSArray *hotCity = @[@"北京",@"上海",@"天津",@"重庆"];;
+        
+        NSArray *hotCity;
+        if (_isCity) {
+           hotCity = @[@"北京市",@"上海市",@"天津市",@"重庆市"];
+        } else {
+            hotCity = @[@"北京",@"上海",@"天津",@"重庆"];
+        }
 
         [_oneButton setTitle:hotCity[0] forState:0];
         [_twoButton setTitle:hotCity[1] forState:0];
@@ -63,7 +69,13 @@
 - (void)hotBtnClick:(UIButton *)btn {
     
     NSInteger index = btn.tag;
-    NSArray *hotCity = @[@"北京",@"上海",@"天津",@"重庆"];
+    NSArray *hotCity;
+    if (_isCity) {
+        hotCity = @[@"北京市",@"上海市",@"天津市",@"重庆市"];
+    } else {
+        hotCity = @[@"北京",@"上海",@"天津",@"重庆"];
+    }
+
     if ([self.delegate respondsToSelector:@selector(getSeletyCityName:)]) {
         [self.delegate getSeletyCityName:hotCity[index - 3000]];
     }

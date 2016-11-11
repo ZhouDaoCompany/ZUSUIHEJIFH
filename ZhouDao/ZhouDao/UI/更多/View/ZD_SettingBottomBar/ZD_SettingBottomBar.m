@@ -165,11 +165,11 @@ static float const kCollectionViewCellsHorizonMargin          = 25.f;//每个ite
         //float fontSize = 3.f*(row +4);
         NSString *fontsize = nil;
         if (row == 0) {
-            fontsize = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '90%'";
-        }else if(row ==1){
             fontsize = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%'";
+        }else if(row ==1){
+            fontsize = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '120%'";
         }else if(row ==2){
-            fontsize = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '110%'";
+            fontsize = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '130%'";
         }else if(row ==3){
             fontsize = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '120%'";
         }else if(row ==4){

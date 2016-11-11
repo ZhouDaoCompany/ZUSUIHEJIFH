@@ -31,22 +31,97 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"ProvincesCity" ofType:@"plist"];
-//    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-//    NSArray *proArrays = bigDoctionary[@"province"];
-//    
-//    __block NSMutableArray *proMutableArrays = [NSMutableArray array];
-//    [proArrays enumerateObjectsUsingBlock:^(NSDictionary *proDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
-//        
-//        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:proDictionary];
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"gongShang" ofType:@"plist"];
+    NSString *txtPath = [[NSBundle mainBundle] pathForResource:@"cityList" ofType:@"txt"];
+    NSData *data = [NSData dataWithContentsOfFile:txtPath];
+    NSDictionary *nameDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+    NSDictionary *dataDict = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSDictionary *resultDictionary = [NSDictionary dictionaryWithObjectsAndKeys:nameDict,@"name",dataDict,@"data", nil];
+    
+        //获取本地沙盒路径
+        NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        //获取完整路径
+        NSString *documentsPath = [path objectAtIndex:0];
+        NSString *resultPath = [documentsPath stringByAppendingPathComponent:@"gongshang.plist"];
+        //写入文件
+        [resultDictionary writeToFile:resultPath atomically:YES];
+
+    
+    /*
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"ProvincesCity" ofType:@"plist"];
+    NSString *plistPath2 = [[NSBundle mainBundle] pathForResource:@"TheCityList" ofType:@"plist"];
+    __block NSDictionary *cityListDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath2];
+    __block NSArray *cityNameArrays = [cityListDictionary allKeys];
+    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSArray *proArrays = bigDoctionary[@"province"];
+    
+    __block NSMutableArray *cityMutableArrays = [NSMutableArray array];
+    __block NSMutableDictionary * pcDictionary = [NSMutableDictionary dictionary];
+    __block NSUInteger kk = 0;
+    [proArrays enumerateObjectsUsingBlock:^(NSDictionary *proDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:proDictionary];
+        
+        NSMutableDictionary *pDict = [NSMutableDictionary dictionary];
+
+        for (NSUInteger j = 0; j < [cityNameArrays count]; j++) {
+            
+            NSString *name = cityNameArrays[j];
+            for (NSUInteger i = 0; i < [proModel.city count]; i++) {
+                CityModel *cityModel = proModel.city[i];
+
+                if ([name isEqualToString:cityModel.name]) {
+                    
+                    [pDict setObject:cityListDictionary[name] forKey:name];
+                       kk ++;
+                }
+            }
+        }
+//        for (NSUInteger i = 0; i < [proModel.city count]; i++) {
+//            
+//            CityModel *cityModel = proModel.city[i];
+//            if ([cityNameArrays containsObject:cityModel.name]) {
+//                [dataArrays addObject:cityModel.name];
+//                kk ++;
+//            }
+////            [cityMutableArrays addObject:cityModel.name];
+//        }
+        
+        
+        [pcDictionary setObject:pDict forKey:proModel.name];
 //        if ([proModel.name isEqualToString:@"河南省"]) {
 //            NSLog(@"省下市 :%@",proModel.city);
 //            CityModel *model1 = proModel.city[0];
 //            AreaModel *model2 = model1.area[0];
 //            NSLog(@"区或者县: %@",model2.name);
 //        }
-//        [proMutableArrays addObject:proModel];
-//    }];
+    }];
+    NSData *jsonData = [self toJSONData:pcDictionary];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                 encoding:NSUTF8StringEncoding];
+
+    DLog(@"共多少市: %ld",kk);
+    DLog(@"%@",jsonString);
+    
+//    for (NSUInteger i = 0; i < [cityNameArrays count]; i++) {
+//        
+//        if (![cityMutableArrays containsObject:cityNameArrays[i]]) {
+//            
+//            DLog(@"不知道省的市－－－ %@",cityNameArrays[i]);
+//        }
+//        
+//    }
+//    
+//    for (NSUInteger i = 0; i < [cityMutableArrays count]; i++) {
+//        
+//        if (![cityNameArrays containsObject:cityMutableArrays[i]]) {
+//            
+//            DLog(@"少的市－－－ %@",cityMutableArrays[i]);
+//        }
+//    }
+        */
+    
+    
+    
     
     
 //    BOOL isOk;
@@ -60,7 +135,7 @@
 //        NSLog(@"2222");
 //    }
     
-    [self getNewAmountSegmentationWithNumber:900000000];
+//    [self getNewAmountSegmentationWithNumber:900000000];
     
     
    /* NSString *pathSource1 = [[NSBundle mainBundle] pathForResource:@"InjuryInductrial" ofType:@"plist"];
@@ -215,6 +290,19 @@
 ////    [adcomps setDay:0];
 ////    NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:mydate options:0];
 }
+- (NSData *)toJSONData:(id)theData{
+    
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theData
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    if ( error == nil){
+        return jsonData;
+    }else{
+        return nil;
+    }
+}
+
 - (NSString *)getNewAmountSegmentationWithNumber:(float)amount {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;

@@ -15,23 +15,19 @@
 
 
 #pragma mark - 房贷等额本息计算公式
-+ (double)loanPrincipal:(double)P withAnInterest:(double)R withRepaymentPeriods:(NSUInteger)N
-{
++ (double)loanPrincipal:(double)P withAnInterest:(double)R withRepaymentPeriods:(NSUInteger)N {
     double money = 0.0f;
     money = P*(R*pow(1 + R, N))/(pow(1 + R, N) - 1);
     return money;
 }
 
 #pragma mark -  等额本息计算月供本金
-+ (NSMutableArray *)getAllMonthsWithPrincipal:(double)principal withMonthsMoney:(double)monthsMoneys withRate:(double)rate withMonthsCounts:(double)monthsCounts
-{
++ (NSMutableArray *)getAllMonthsWithPrincipal:(double)principal withMonthsMoney:(double)monthsMoneys withRate:(double)rate withMonthsCounts:(double)monthsCounts {
+    
     NSMutableArray *arrays = [NSMutableArray array];
-    
-    
     for (NSUInteger i = 0; i< monthsCounts; i++) {
 
         NSMutableArray *smallArrays = [NSMutableArray array]; //小数组内结构 月供本金，月供利息，剩余本金
-        
         static double lastBj  = 0.0f;//已经还的本金
         if (i == 0) {
             lastBj = 0.0f;//第一次为0，防止记录
@@ -52,19 +48,19 @@
     return arrays;
 }
 #pragma mark -根据时间取出银行同期利率
-+ (double)getRateCalculateWithRateArrays:(NSArray *)rateArrays withDays:(double)differTimeDay
-{
++ (double)getRateCalculateWithRateArrays:(NSArray *)rateArrays withDays:(double)differTimeDay {
+    
     NSString *rateString = @"";
-    if(differTimeDay <= 180){
+    if(differTimeDay <= 180) {
         
         rateString = rateArrays[0];
-    }else if(differTimeDay <= 365){
+    }else if(differTimeDay <= 365) {
         
         rateString = rateArrays[1];
-    }else if(differTimeDay <= 1095){
+    }else if(differTimeDay <= 1095) {
         
         rateString = rateArrays[2];
-    }else if(differTimeDay <= 1825){
+    }else if(differTimeDay <= 1825) {
         
         rateString = rateArrays[3];
     }else {
@@ -84,7 +80,7 @@
     NSString *CalculateFileZip = [[NSBundle mainBundle] pathForResource:@"CalculatePlistFile" ofType:@"zip"];
     NSString *unZipPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
     [SSZipArchive unzipFileAtPath:CalculateFileZip toDestination:unZipPath];
-    NSDictionary *fileDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"0",@"lawyerfees",@"0",@"bankinterestrates",@"0",@"holiday",@"0",@"gongshang",@"0",@"theaveragesalary",@"0",@"cityruralincome",@"0",@"provincescity", nil];
+    NSDictionary *fileDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"lawyerfees",@"1",@"bankinterestrates",@"1",@"holiday",@"1",@"gongshang",@"1",@"theaveragesalary",@"1",@"cityruralincome",@"1",@"provincescity", nil];
     [USER_D setObject:fileDictionary forKey:CALCULATEPLISTVERSION];
     [USER_D synchronize];
 }
@@ -132,9 +128,13 @@
             }
             NSString *tempPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/CalculatePlistFile/TempFile"];
 
-            if (![FILE_M fileExistsAtPath:tempPath]) {
-                [FILE_M createDirectoryAtPath:tempPath withIntermediateDirectories:YES attributes:nil error:nil];
+            //删除重建 防止碎片文件
+            if ([FILE_M fileExistsAtPath:tempPath]) {
+                
+                [FILE_M removeItemAtPath:PLISTCachePath error:nil];
             }
+            [FILE_M createDirectoryAtPath:tempPath withIntermediateDirectories:YES attributes:nil error:nil];
+
             NSDictionary *dataDictionary = jsonDic[@"data"];
             FileDataModel *dataModel = [[FileDataModel alloc] initWithDictionary:dataDictionary];
             [[self class] startDownloadPlistFileWithFileDataModel:dataModel];
@@ -156,7 +156,6 @@
     dispatch_group_t group = dispatch_group_create();
     // 2. 队列
     dispatch_queue_t q = dispatch_get_global_queue(0, 0);
-
 
     for (NSUInteger i = 0; i < [dataModel.file count]; i++) {
         
@@ -193,10 +192,8 @@
         [USER_D synchronize];
         [MBProgressHUD hideHUD];
         DLog(@"所有任务完成");
-
     });
 }
-
 
 @end
 

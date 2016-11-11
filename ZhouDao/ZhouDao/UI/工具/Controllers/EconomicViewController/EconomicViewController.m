@@ -242,8 +242,7 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { WEAKSELF;
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     

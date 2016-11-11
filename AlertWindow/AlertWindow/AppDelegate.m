@@ -19,7 +19,7 @@
     // Override point for customization after application launch.
     
 
-    [self group2];
+    //[self group2];
     return YES;
 }
 - (void)group1 {

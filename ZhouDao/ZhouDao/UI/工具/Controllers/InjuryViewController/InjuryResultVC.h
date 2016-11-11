@@ -13,6 +13,6 @@
 
 
 @property (nonatomic, strong) NSMutableDictionary *detailDictionary;
-
+@property (nonatomic, copy)   NSString *provinceString;//省
 //city城市  level伤残等级   gongzi工资
 @end

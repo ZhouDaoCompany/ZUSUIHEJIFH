@@ -90,8 +90,7 @@
 {
     [MBProgressHUD showMBLoadingWithText:nil];
 }
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
     [MBProgressHUD hideHUD];
     
     NSString *readColor = [USER_D objectForKey:ReadColor];
@@ -99,6 +98,8 @@
     NSString *readFont = [USER_D objectForKey:ReadFont];
     if (readFont.length >0) {
         [_webView stringByEvaluatingJavaScriptFromString:readFont];
+    } else {
+        [_webView stringByEvaluatingJavaScriptFromString:@"110%"];
     }
     if (readFontColor.length >0) {
         [_webView stringByEvaluatingJavaScriptFromString:readFontColor];

@@ -8,8 +8,8 @@
 
 #import "ZD_ListView.h"
 static NSString *const listIdentifier = @"listIdentifier";
-@interface ZD_ListView()<UITableViewDelegate,UITableViewDataSource>
-{
+
+@interface ZD_ListView() <UITableViewDelegate,UITableViewDataSource> {
     
 }
 
@@ -20,26 +20,23 @@ static NSString *const listIdentifier = @"listIdentifier";
 @end
 
 @implementation ZD_ListView
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
+    
     self = [super initWithFrame:frame];
     
-    if (self)
-    {
+    if (self) {
+        
         [self initView];
     }
-    
     return self;
 }
-- (void)setListArrays:(NSMutableArray *)listArrays
-{
-    _listArrays = nil;
-    _listArrays = listArrays;
+- (void)setListArrays:(NSMutableArray *)listArrays {
     
+    _listArrays = [NSMutableArray array];
+    _listArrays = listArrays;
 }
 
-- (void)initView
-{
+- (void)initView { WEAKSELF;
     
     _listArrays = [NSMutableArray array];
     
@@ -54,7 +51,8 @@ static NSString *const listIdentifier = @"listIdentifier";
     _bgView = views;
     [self addSubview:_bgView];
     [_bgView whenCancelTapped:^{
-        [self selfDismiss];
+        
+        [weakSelf selfDismiss];
     }];
     
     UIView * botomView = [[UIView alloc] initWithFrame:CGRectMake(width, 64, width-125, height -64)];
@@ -93,48 +91,50 @@ static NSString *const listIdentifier = @"listIdentifier";
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:listIdentifier];
     
     [UIView animateWithDuration:0.35 animations:^{
-        _botomView.frame = CGRectMake(125, 64, width-125, height -64);
+        
+        weakSelf.botomView.frame = CGRectMake(125, 64, width-125, height -64);
     }];
-    
 }
 #pragma mark -UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     return [_listArrays count];
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:listIdentifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.font = Font_14;
     if (_listArrays.count >0) {
+        
         cell.textLabel.text = _listArrays[indexPath.row];
     }
     return cell;
 }
 
 #pragma mark -UIButtonEvent
-- (void)clostListEvent:(id)sender
-{
+- (void)clostListEvent:(id)sender {
+    
     [self selfDismiss];
 }
 
-- (void)selfDismiss
-{
+- (void)selfDismiss { WEAKSELF;
     float width = self.frame.size.width;
     float height = self.frame.size.height;
 
     [UIView animateWithDuration:0.35f animations:^{
-        _botomView.frame = CGRectMake(width, 64, width-125, height -64);
+        
+        weakSelf.botomView.frame = CGRectMake(width, 64, width-125, height -64);
     } completion:^(BOOL finished) {
-        [self removeFromSuperview];
+        
+        [weakSelf removeFromSuperview];
     }];
     
 }
-- (void)dealloc
-{
-    self.tableView = nil;
-    self.bgView = nil;
+- (void)dealloc {
+    
+    TTVIEW_RELEASE_SAFELY(_tableView);
+    TTVIEW_RELEASE_SAFELY(_bgView);
 }
 
 /*

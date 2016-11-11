@@ -22,7 +22,8 @@ static NSString *const INJURYCELL = @"injurycellid";
 @property (strong, nonatomic) UIButton *resetButton;
 @property (strong, nonatomic) NSMutableArray *dataSourceArrays;
 @property (copy, nonatomic) NSString *idString;
-
+@property (copy, nonatomic) NSString *provinceString;
+@property (strong, nonatomic) NSDictionary *bigDictionary;
 @end
 
 @implementation InjuryViewController
@@ -40,19 +41,24 @@ static NSString *const INJURYCELL = @"injurycellid";
 #pragma mark - private methods
 - (void)initUI {
     
+    NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongshang.plist"];
+    NSDictionary *tempDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+    _bigDictionary = tempDictionary[@"data"];
+    
     if ([PublicFunction ShareInstance].locCity.length > 0) {
         
-        NSString *pathSource = [MYBUNDLE pathForResource:@"TheCityList" ofType:@"plist"];
-        NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
-        NSArray *keyArrays = [dictionary allKeys];
-        NSString *locCity = [PublicFunction ShareInstance].locCity;
-        for (NSString *keyString in keyArrays) {
+        NSString *province = [PublicFunction ShareInstance].locProv;
+        NSString *city = [PublicFunction ShareInstance].locCity;
+        NSDictionary *nameDictionary = tempDictionary[@"name"];
+        NSDictionary *proCityDictionary = nameDictionary[province];
+        
+        if (proCityDictionary) {
             
-            if ([locCity isEqualToString:keyString]) {
+            NSArray *cityArrays = [proCityDictionary allKeys];
+            if ([cityArrays containsObject:city]) {
                 
-                self.idString = dictionary[keyString];
-                [self.dataSourceArrays replaceObjectAtIndex:0 withObject:keyString];
-                break;
+                self.idString = proCityDictionary[city];
+                [self.dataSourceArrays replaceObjectAtIndex:0 withObject:city];
             }
         }
     }
@@ -73,7 +79,6 @@ static NSString *const INJURYCELL = @"injurycellid";
     if (index >0) {
         [JKPromptView showWithImageName:nil message:LOCCALCULATESHARE];
         return;
-        
     }else {//分享计算器
         NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,GSPCCulate];
         NSArray *arrays = [NSArray arrayWithObjects:@"工伤赔偿计算",@"工伤赔偿计算器",calculateUrl,@"", nil];
@@ -143,12 +148,9 @@ static NSString *const INJURYCELL = @"injurycellid";
 
     }else if (levelInter >= 5 && levelInter <7){
         
-        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongshang.plist"];
-        NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         NSString *keyString = [NSString stringWithFormat:@"%@_%ld",_idString,levelInter];
-        NSDictionary *useDict = bigDictionary[keyString];
+        NSDictionary *useDict = _bigDictionary[keyString];
 
-        
         //医疗补偿金，就业补偿金，伤残补偿金，伤残津贴
         double money1 = 0.0f; double money2 = 0.0f;double money3 = 0.0f;double money4 = 0.0f;
 
@@ -195,10 +197,8 @@ static NSString *const INJURYCELL = @"injurycellid";
         [detailDict setObjectWithNullValidate:GETFloat(allMoney) forKey:@"money"];
         [detailDict setObjectWithNullValidate:mutableArrays forKey:@"mutableArrays"];
     }else{
-        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongshang.plist"];
-        NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         NSString *keyString = [NSString stringWithFormat:@"%@_%ld",_idString,levelInter];
-        NSDictionary *useDict = bigDictionary[keyString];
+        NSDictionary *useDict = _bigDictionary[keyString];
         
         //医疗补偿金，就业补偿金，伤残补偿金
         double money1 = 0.0f; double money2 = 0.0f; double money3 = 0.0f;
@@ -247,6 +247,7 @@ static NSString *const INJURYCELL = @"injurycellid";
     
     InjuryResultVC *vc = [InjuryResultVC new];
     vc.detailDictionary = detailDict;
+    vc.provinceString = _provinceString;
     [self.navigationController pushViewController:vc animated:YES];
 
 }
@@ -284,10 +285,11 @@ static NSString *const INJURYCELL = @"injurycellid";
     if (row == 0) {
         SelectCityViewController *cityVC = [SelectCityViewController new];
         cityVC.type = InjuryType;
-        cityVC.citySelectBlock = ^(NSString *name, NSString *idString){
+        cityVC.provinceCitySelectBlock = ^(NSString *provinceName,NSString *cityName,NSString *idString){
             
             weakSelf.idString = idString;
-            [weakSelf.dataSourceArrays replaceObjectAtIndex:0 withObject:name];
+            weakSelf.provinceString = provinceName;
+            [weakSelf.dataSourceArrays replaceObjectAtIndex:0 withObject:cityName];
             [weakSelf.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         };
         [self  presentViewController:cityVC animated:YES completion:^{

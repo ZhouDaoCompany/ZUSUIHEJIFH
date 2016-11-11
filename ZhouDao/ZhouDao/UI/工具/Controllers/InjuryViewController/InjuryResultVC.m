@@ -51,42 +51,42 @@ static NSString *const INJURYRESULTCELL = @"injurycellid";
     
     [self.view addSubview:self.tableView];
     
-    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"provincescity.plist"];
-    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-    NSArray *proArrays = bigDoctionary[@"province"];
-    __block NSMutableArray *provinceArrays = [NSMutableArray array];
-    [proArrays enumerateObjectsUsingBlock:^(NSDictionary *objDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:objDictionary];
-        [provinceArrays addObject:proModel];
-    }];
-    NSString *keyString = @"";
-    for (NSUInteger i = 0; i < [proArrays count]; i++) {
-        
-        NSDictionary *objDictionary = proArrays[i];
-        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:objDictionary];
-        BOOL isBreak = NO;
-        keyString = proModel.name;
-        for (NSUInteger j = 0; j < [proModel.city count]; j++) {
-            
-            CityModel *cityModel = proModel.city[j];
-            if ([cityModel.name isEqualToString:_detailDictionary[@"city"]]) {
-                
-                isBreak = YES;
-                break;
-            }
-        }
-        
-        if (isBreak) {
-            
-            break;
-        }
-    }
+//    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"provincescity.plist"];
+//    NSDictionary *bigDoctionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+//    NSArray *proArrays = bigDoctionary[@"province"];
+//    __block NSMutableArray *provinceArrays = [NSMutableArray array];
+//    [proArrays enumerateObjectsUsingBlock:^(NSDictionary *objDictionary, NSUInteger idx, BOOL * _Nonnull stop) {
+//        
+//        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:objDictionary];
+//        [provinceArrays addObject:proModel];
+//    }];
+//    NSString *keyString = @"";
+//    for (NSUInteger i = 0; i < [proArrays count]; i++) {
+//        
+//        NSDictionary *objDictionary = proArrays[i];
+//        ProvinceModel *proModel = [[ProvinceModel alloc] initWithDictionary:objDictionary];
+//        BOOL isBreak = NO;
+//        keyString = proModel.name;
+//        for (NSUInteger j = 0; j < [proModel.city count]; j++) {
+//            
+//            CityModel *cityModel = proModel.city[j];
+//            if ([cityModel.name isEqualToString:_detailDictionary[@"city"]]) {
+//                
+//                isBreak = YES;
+//                break;
+//            }
+//        }
+//        
+//        if (isBreak) {
+//            
+//            break;
+//        }
+//    }
     
     NSString *pathSource1 = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"injuryinductrial.plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];
 
-    __block NSString *contentText = bigDictionary[keyString];
+    __block NSString *contentText = bigDictionary[_provinceString];
     
     [_tableView setTableFooterView:self.bottomLabel];
     WEAKSELF;

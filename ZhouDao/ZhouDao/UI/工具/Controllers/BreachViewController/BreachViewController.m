@@ -57,7 +57,16 @@ static NSString *const BREACHCELLID = @"breachcellid";
     
     NSString *path = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"bankinterestrates.plist"];
     self.rateDictionary= [NSMutableDictionary dictionaryWithContentsOfFile:path];
-    [self.timeArrays addObjectsFromArray:[_rateDictionary allKeys]];
+    NSArray *keyArrays = [_rateDictionary allKeys];
+    NSArray *sortedArray = [keyArrays sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        if ([obj1 intValue] < [obj2 intValue]) {
+            
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedDescending;
+        }
+    }];
+    [self.timeArrays addObjectsFromArray:sortedArray];
 
 }
 #pragma mark - event response
@@ -106,8 +115,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
     }
 }
 #pragma mark - 循环历年利率
-- (void)cycleCalendarYearInterestRates:(NSMutableArray *)arrays
-{
+- (void)cycleCalendarYearInterestRates:(NSMutableArray *)arrays {
     [self.detailArrays removeAllObjects];
     float lastMoney = 0.0f;
     float money = [arrays[0] floatValue];
@@ -151,14 +159,14 @@ static NSString *const BREACHCELLID = @"breachcellid";
         
         DLog(@"ks----%ld    js----%ld",(unsigned long)startIndex,(unsigned long)endIndex);
         
-        for (NSUInteger i = startIndex; i < endIndex; i++)
-        {
+        for (NSUInteger i = startIndex; i < endIndex; i++) {
             NSMutableArray *tempArrays = [NSMutableArray array];
             static float onATimeInt = 0.0f;
             if (i == startIndex) {
                 onATimeInt = startTimeInt;
             }
             float dateTimeInt = (i == endIndex -1)?[QZManager timeToTimeStamp:self.timeArrays[i]]:[QZManager timeToTimeStamp:self.timeArrays[i + 1]];//数组里的时间
+            DLog(@"    %f",dateTimeInt);
             NSArray *rateArrays = self.rateDictionary[self.timeArrays[i]];
             float differTimeDay = (i == endIndex -1)?((endTimeInt - dateTimeInt)/86400.f):((dateTimeInt - onATimeInt)/86400.f);//相差天数
             float calculateMoney = [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:differTimeDay withMoney:money];
@@ -170,7 +178,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
             [tempArrays addObject:CancelPoint2(calculateMoney)];
             [self.detailArrays addObject:tempArrays];
             onATimeInt = dateTimeInt;
-            DLog(@"相差天数－－%.0f------利率:  %@",differTimeDay,_reatString);
+//            DLog(@"相差天数－－%.0f------利率:  %@",differTimeDay,_reatString);
         }
     }
     
@@ -200,15 +208,15 @@ static NSString *const BREACHCELLID = @"breachcellid";
         
         lastMoney = money*differTimeDay*([rateArrays[0] floatValue]/360);
         _reatString = rateArrays[0];
-    }else if(differTimeDay > 180 && differTimeDay <= 365){
+    }else if(differTimeDay <= 365){
         
         lastMoney = money*differTimeDay*([rateArrays[1] floatValue]/360);
         _reatString = rateArrays[1];
-    }else if(differTimeDay > 365 && differTimeDay <= 1095){
+    }else if(differTimeDay <= 1095){
         
         lastMoney = money*differTimeDay*([rateArrays[2] floatValue]/360);
         _reatString = rateArrays[2];
-    }else if(differTimeDay > 1095 && differTimeDay <= 1825){
+    }else if(differTimeDay <= 1825){
         
         lastMoney = money*differTimeDay*([rateArrays[3] floatValue]/360);
         _reatString = rateArrays[3];
@@ -220,8 +228,7 @@ static NSString *const BREACHCELLID = @"breachcellid";
     return lastMoney;
 }
 #pragma mark - 自定义利率
-- (void)customRateWithArrays:(NSMutableArray *)arrays
-{
+- (void)customRateWithArrays:(NSMutableArray *)arrays {
     float lastMoney = 0.0f;
     float money = [arrays[0] floatValue];
     NSString *typeString = arrays[4];

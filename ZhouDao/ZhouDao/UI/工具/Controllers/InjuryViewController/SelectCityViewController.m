@@ -43,12 +43,16 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
         [self.dataSourceArrays addObjectsFromArray:keysArrays];
     }else if (_type == InjuryType){
         
-        NSString *pathSource = [MYBUNDLE pathForResource:@"TheCityList" ofType:@"plist"];
-        _dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongshang.plist"];        NSDictionary *tempDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+        _dict = tempDictionary[@"name"];
         NSArray *keysArrays = [_dict allKeys];
-        [self.dataSourceArrays addObjectsFromArray:keysArrays];
+        for (NSString *province in keysArrays) {
+            
+            NSDictionary *provinceDictionary = _dict[province];
+            NSArray *cityKeyArrays = [provinceDictionary allKeys];
+            [self.dataSourceArrays addObjectsFromArray:cityKeyArrays];
+        }
     }
-    
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"mine_guanbi"];
@@ -63,8 +67,7 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
     
     [self hanZiToPinYin];
 }
-- (void)hanZiToPinYin
-{
+- (void)hanZiToPinYin {
     //处理汉字转拼音
     NSRange range;
     range.length = 1;
@@ -81,9 +84,7 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
         if (![weakSelf.cityDictionary objectForKey:fristChar]) {
             NSMutableArray *arr = [NSMutableArray arrayWithObject:cityName];
             [weakSelf.cityDictionary setObject:arr forKey:fristChar];
-        }
-        else
-        {
+        } else {
             [[weakSelf.cityDictionary objectForKey:fristChar] addObject:cityName];
         }
     }];
@@ -94,13 +95,12 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
     [self.tableView reloadData];
 }
 #pragma mark -UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return [self.sectionHeadTitleArrays count];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 1;
     }
@@ -108,8 +108,7 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
     NSArray *arr = [self.cityDictionary objectForKey:key];
     return arr.count;
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     SelectProvinceCell *cell = (SelectProvinceCell *)[tableView dequeueReusableCellWithIdentifier:SELECTCELLIDENTIFER];
     cell.delegate = self;
@@ -131,12 +130,11 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
     
     return cell;
 }
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-{
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     return self.sectionHeadTitleArrays;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
     ConsultantHeadView *headView = [[ConsultantHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 45.f) withSection:section];
     headView.label.textColor = hexColor(949494);
     headView.backgroundColor = hexColor(F0F0F0);
@@ -149,61 +147,102 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
     }
     return headView;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
     UIView *views = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, .1f)];
     views.backgroundColor = [UIColor clearColor];
     return views;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return (indexPath.section == 0)?48.f:44.f;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 45.f;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.1f;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //    DLog(@"indexRow----%ld",indexPath.row);
     if (indexPath.section >0) {
+        
         NSString *key = [self.sectionHeadTitleArrays objectAtIndex:indexPath.section];
         NSArray *arr = [self.cityDictionary objectForKey:key];
         NSString *cityName = arr[indexPath.row];
-        NSString *idString = _dict[cityName];
-        
-        if (_citySelectBlock) {
+
+        if (_type == EconomicType) {
             
-            _citySelectBlock(cityName,idString);
+            NSString *idString = _dict[cityName];
+            if (_citySelectBlock) {
+                
+                _citySelectBlock(cityName,idString);
+            }
+        }else if (_type == InjuryType){
+            
+            NSArray *keysArrays = [_dict allKeys];
+            NSString *provinceString = @"";
+            NSString *idString = @"";
+            for (NSString *province in keysArrays) {
+                
+                NSDictionary *provinceDictionary = _dict[province];
+                NSArray *cityKeyArrays = [provinceDictionary allKeys];
+                if ([cityKeyArrays containsObject:cityName]) {
+                    provinceString = province;
+                    idString = provinceDictionary[cityName];
+                }
+            }
+            if (self.provinceCitySelectBlock) {
+                
+                _provinceCitySelectBlock(provinceString, cityName, idString);
+            }
         }
+        
         [self dismissViewControllerAnimated:YES completion:^{
+            
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         }];
         
     }
 }
 #pragma mark - SelectProvinceCellPro
-- (void)getSeletyCityName:(NSString *)provinceName
-{
-    NSString *idString = _dict[provinceName];
-
-    if (_citySelectBlock) {
+- (void)getSeletyCityName:(NSString *)provinceName {
+    
+    if (_type == EconomicType) {
         
-        _citySelectBlock(provinceName,idString);
+        NSString *idString = _dict[provinceName];
+        if (_citySelectBlock) {
+            
+            _citySelectBlock(provinceName,idString);
+        }
+
+    }else if (_type == InjuryType){
+        
+        NSArray *keysArrays = [_dict allKeys];
+        NSString *provinceString = @"";
+        NSString *idString = @"";
+        for (NSString *province in keysArrays) {
+            
+            NSDictionary *provinceDictionary = _dict[province];
+            NSArray *cityKeyArrays = [provinceDictionary allKeys];
+            if ([cityKeyArrays containsObject:provinceName]) {
+                provinceString = province;
+                idString = provinceDictionary[provinceName];
+            }
+        }
+        if (self.provinceCitySelectBlock) {
+            
+            _provinceCitySelectBlock(provinceString, provinceName, idString);
+        }
     }
+
     [self dismissViewControllerAnimated:YES completion:^{
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
     
 }
 #pragma mark - event response
-- (void)rightBtnAction
-{
+- (void)rightBtnAction {
     [self dismissViewControllerAnimated:YES completion:^{
         
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -211,8 +250,7 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
 }
 #pragma mark - getters and setters
 
-- (UITableView *)tableView
-{
+- (UITableView *)tableView {
     if (!_tableView) {
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64.6f, kMainScreenWidth, kMainScreenHeight-64.6f) style:UITableViewStyleGrouped];
@@ -226,22 +264,19 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
     }
     return _tableView;
 }
-- (NSMutableArray *)dataSourceArrays
-{
+- (NSMutableArray *)dataSourceArrays {
     if (!_dataSourceArrays) {
         _dataSourceArrays = [NSMutableArray array];
     }
     return _dataSourceArrays;
 }
-- (NSMutableArray *)sectionHeadTitleArrays
-{
+- (NSMutableArray *)sectionHeadTitleArrays {
     if (!_sectionHeadTitleArrays) {
         _sectionHeadTitleArrays = [NSMutableArray array];
     }
     return _sectionHeadTitleArrays;
 }
-- (NSMutableDictionary *)cityDictionary
-{
+- (NSMutableDictionary *)cityDictionary {
     if (!_cityDictionary) {
         _cityDictionary = [NSMutableDictionary dictionary];
     }

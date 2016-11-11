@@ -15,11 +15,14 @@ typedef NS_ENUM(NSInteger, CityType)
 };
 
 typedef  void(^CityBlock)(NSString *name,NSString *idString);
+typedef  void(^ProvinceCityBlock)(NSString *provinceName,NSString *cityName,NSString *idString);
 
 @interface SelectCityViewController : BaseViewController
 
 
 @property (nonatomic, copy) CityBlock citySelectBlock;
+@property (nonatomic, copy) ProvinceCityBlock provinceCitySelectBlock;
+
 @property (nonatomic ,assign) CityType type ;
 
 @end
