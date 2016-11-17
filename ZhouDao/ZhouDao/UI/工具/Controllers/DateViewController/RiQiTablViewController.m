@@ -605,7 +605,7 @@ static NSString *const RIQICellID = @"RIQICellID";
         _bottomLabel.numberOfLines = 0;
         _bottomLabel.backgroundColor = [UIColor clearColor];
         _bottomLabel.textColor = hexColor(999999);
-        _bottomLabel.text = @"申明：本平台提供的数据从2010开始至今，若给您的使用带来不便，敬请谅解。";
+        _bottomLabel.text = @"申明：本平台提供的数据从2010开始至今，若给您的使用带来不便，\n 敬请谅解。";
         _bottomLabel.font = Font_12;
     }
     return _bottomLabel;

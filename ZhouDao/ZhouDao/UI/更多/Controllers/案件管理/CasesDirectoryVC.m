@@ -20,6 +20,7 @@
 //下载
 #import "TaskModel.h"
 #import "DownLoadView.h"
+#import "LPCameraController.h"
 
 static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 
@@ -226,10 +227,24 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         };
         [self.navigationController  pushViewController:vc animated:YES];
     }else if ([kx.title isEqualToString:@"拍照上传  "]){
-        SGMAlbumViewController* viewVC = [SGMAlbumViewController new];
-        [viewVC setDelegate:self];
-        viewVC.style =  SGMAlbumStyleCamera;
-        [self presentViewController:viewVC animated:YES completion:nil];
+//        SGMAlbumViewController* viewVC = [SGMAlbumViewController new];
+//        [viewVC setDelegate:self];
+//        viewVC.style =  SGMAlbumStyleCamera;
+//        [self presentViewController:viewVC animated:YES completion:nil];
+        LPCameraController *cameraController = [[LPCameraController alloc]init];
+        cameraController.takePhotoOfMax = 5;
+        cameraController.isSaveLocal = YES;
+        [cameraController showIn:self result:^(id responseObject){
+            
+            NSArray *assetArrays = (NSArray *)responseObject;
+            UploadMorephontosVC *uploadVC = [[UploadMorephontosVC alloc] initWithSourceType:CameraType withPid:_pid withCaseId:_caseId withAssetArrays:assetArrays];
+            uploadVC.reloadBlock = ^(){
+                
+                [weakSelf loadListViewData];
+            };
+            [weakSelf.navigationController pushViewController:uploadVC animated:NO];
+        }];
+
     }else if ([kx.title isEqualToString:@"上传照片  "]){
         //从相册选择一张
         SGMAlbumViewController* viewVC = [[SGMAlbumViewController alloc] init];
@@ -358,19 +373,16 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 - (void)sendImageWithcameraImage:(UIImage *)cameraImage withStyle:(SGMAlbumStyle)style withAssetArrays:(NSArray *)assetArrays
 {
     if (style == SGMAlbumStyleCamera) {
-        _photoImage = cameraImage;
-        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
-        alertWindow.tag = 6011;
-        [self.view addSubview:alertWindow];
+//        _photoImage = cameraImage;
+//        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
+//        alertWindow.tag = 6011;
+//        [self.view addSubview:alertWindow];
     }else {
-        UploadMorephontosVC *uploadVC = [UploadMorephontosVC new];
-        uploadVC.assetArrays = assetArrays;
+        UploadMorephontosVC *uploadVC = [[UploadMorephontosVC alloc] initWithSourceType:PhotoLibraryType withPid:_pid withCaseId:_caseId withAssetArrays:assetArrays];
         uploadVC.reloadBlock = ^(){
             
             [self loadListViewData];
         };
-        uploadVC.caseId = _caseId;
-        uploadVC.pid = _pid;
         [self.navigationController pushViewController:uploadVC animated:NO];
     }
 }

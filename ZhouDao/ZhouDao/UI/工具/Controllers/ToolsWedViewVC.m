@@ -15,8 +15,8 @@
 #import "MoreViewController.h"
 #import "SDPhotoBrowser.h"
 
-@interface ToolsWedViewVC ()<UIWebViewDelegate,SDPhotoBrowserDelegate,UIGestureRecognizerDelegate>
-{
+@interface ToolsWedViewVC ()<UIWebViewDelegate,SDPhotoBrowserDelegate,UIGestureRecognizerDelegate> {
+    
     UITapGestureRecognizer* _singleTap;//失败重新加载
 }
 @property (nonatomic, strong) UIWebView *webView;
@@ -147,14 +147,13 @@
     }
     
 }
-- (void)chenckHistoryEvent
-{
+- (void)chenckHistoryEvent {
+    
     MoreViewController *moreVC = [MoreViewController new];
     moreVC.moreType = ToolsWebType;
     [self.navigationController  pushViewController:moreVC animated:YES];
 }
-- (void)leftBtnAction
-{
+- (void)leftBtnAction {
     if ([_format isEqualToString:@"Noti"]) {
         
         [self dismissViewControllerAnimated:YES completion:^{

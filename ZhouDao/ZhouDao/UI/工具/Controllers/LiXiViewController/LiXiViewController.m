@@ -61,7 +61,16 @@ static NSString *const LIXICELL = @"lixicellid";
     
     NSString *path = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"bankinterestrates.plist"];
     self.rateDictionary= [NSMutableDictionary dictionaryWithContentsOfFile:path];
-    [self.timeArrays addObjectsFromArray:[_rateDictionary allKeys]];
+    NSArray *keyArrays = [_rateDictionary allKeys];
+    NSArray *sortedArray = [keyArrays sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        if ([obj1 intValue] < [obj2 intValue]) {
+            
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedDescending;
+        }
+    }];
+    [self.timeArrays addObjectsFromArray:sortedArray];
 
 }
 #pragma mark - event response
@@ -185,7 +194,7 @@ static NSString *const LIXICELL = @"lixicellid";
         [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             NSUInteger timeObj = [QZManager timeToTimeStamp:obj];
-            if (startTimeInt - timeObj <=0) {
+            if (startTimeInt - timeObj <= 0) {
                 startIndex = (idx == 0)?idx:(idx-1);
                 *stop = YES;
             }
@@ -380,8 +389,8 @@ static NSString *const LIXICELL = @"lixicellid";
     [self collectInformationToAnotherInterfaceWithMoney:money WithBreachMoney:lastMoney WithAllDays:allDays WithArrays:self.detailArrays WithReatType:_reatString];
 }
 #pragma mark - 等额本金 按约定利率 自定义利率
-- (void)standardOfCustomReatWithArrays:(NSMutableArray *)arrays
-{
+- (void)standardOfCustomReatWithArrays:(NSMutableArray *)arrays {
+    
     float lastMoney = 0.0f;
     float money = [arrays[0] floatValue];
     NSString *discountString = [arrays lastObject];

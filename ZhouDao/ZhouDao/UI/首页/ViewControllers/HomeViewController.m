@@ -64,8 +64,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
 
     [self initUI];
 }
-- (void)initUI
-{
+- (void)initUI {
     _dataSourceArrays = [NSMutableArray array];
     [self setupNaviBarWithTitle:@"首页"];
     WEAKSELF;
@@ -76,35 +75,30 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     _headView.indexBlock = ^(NSInteger index){
         
         switch (index) {
-            case 0:
-            {//法规
+            case 0: {//法规
                 LawsViewController *lawVC = [LawsViewController new];
                 lawVC.lawType = LawFromHome;
                 [weakSelf.navigationController pushViewController:lawVC animated:YES];
             }
                 break;
-            case 1:
-            {//查询案例
+            case 1: {//查询案例
                 ExampleSearchVC *vc = [ExampleSearchVC new];
                 vc.sType = SearchFromHome;
                 [weakSelf.navigationController pushViewController:vc animated:YES];
             }
                 break;
-            case 2:
-            {//司法机关
+            case 2: {//司法机关
                 GovermentVC *govVC = [GovermentVC new];
                 govVC.Govtype = GovFromHome;
                 [weakSelf.navigationController pushViewController:govVC animated:YES];
             }
                 break;
-            case 3:
-            {//赔偿
+            case 3: {//赔偿
                 CompensationVC *vc = [CompensationVC new];
                 vc.pType = CompensationFromHome;
                 [weakSelf.navigationController pushViewController:vc animated:YES];
             }
                 break;
-
             default:
                 break;
         }

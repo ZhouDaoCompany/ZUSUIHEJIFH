@@ -61,7 +61,16 @@ static NSString *const OverdueCellID = @"OverdueCellID";
     
     NSString *path = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"bankinterestrates.plist"];
     self.rateDictionary= [NSMutableDictionary dictionaryWithContentsOfFile:path];
-    [self.timeArrays addObjectsFromArray:[_rateDictionary allKeys]];
+    NSArray *keyArrays = [_rateDictionary allKeys];
+    NSArray *sortedArray = [keyArrays sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        if ([obj1 intValue] < [obj2 intValue]) {
+            
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedDescending;
+        }
+    }];
+    [self.timeArrays addObjectsFromArray:sortedArray];
 
     NSString *pathSource1 = [MYBUNDLE pathForResource:@"CalculationBasis" ofType:@"plist"];
     NSDictionary *bigDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource1];

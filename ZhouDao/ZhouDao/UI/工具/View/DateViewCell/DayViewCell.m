@@ -80,8 +80,7 @@
         _lineView.frame = CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f);
         
         switch (row) {
-            case 0:
-            {
+            case 0: {
                 _titleLab.frame = CGRectMake(15, 12, kMainScreenWidth - 30, 20);
                 _titleLab.textAlignment = NSTextAlignmentCenter;
                 _textField.hidden = YES;
@@ -89,24 +88,20 @@
                 
             }
                 break;
-            case 1:
-            {
+            case 1: {
                 
                 
             }
                 break;
-            case 2:
-            {
+            case 2: {
                 
             }
                 break;
-            case 3:
-            {
+            case 3: {
             }
                 break;
 
-            case 4:
-            {
+            case 4: {
                 _lineView.hidden = YES;
             }
                 break;
@@ -119,8 +114,7 @@
 
 }
 #pragma mark - setter and getter
-- (UILabel *)titleLab
-{
+- (UILabel *)titleLab {
     if (!_titleLab) {
         _titleLab = [[UILabel alloc] init];
         _titleLab.font = Font_15;
@@ -129,8 +123,8 @@
     }
     return _titleLab;
 }
-- (CaseTextField *)textField
-{
+- (CaseTextField *)textField {
+    
     if (!_textField) {
         _textField = [[CaseTextField alloc] initWithFrame:CGRectMake(kMainScreenWidth - 135, 7, 120, 30)];
         _textField.borderStyle = UITextBorderStyleNone;

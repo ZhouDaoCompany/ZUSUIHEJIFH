@@ -19,6 +19,7 @@
 #import "SDPhotoBrowser.h"
 #import "ZD_AlertWindow.h"
 #import "UploadMorephontosVC.h"
+#import "LPCameraController.h"
 
 //下载
 #import "TaskModel.h"
@@ -52,12 +53,14 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
 
 @implementation TheCaseDetailVC
 
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [self initUI];
 }
+#pragma mark - methods
 - (void)initUI
 {
     _openedIndexPath = [NSIndexPath indexPathForRow:-1 inSection:0];
@@ -74,34 +77,8 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     [_headerView addSubview:self.namelab];
     [self loadListViewData];
 }
--(UITableView *)tableView{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.backgroundColor = [UIColor clearColor];
-        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-        _headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:[UIImage imageNamed:@"case_detailHead.jpg"] forSize:CGSizeMake(kMainScreenWidth, 126)];
-        _tableView.tableHeaderView = _headerView;
-    }
-    return _tableView;
-}
-#pragma mark - 表头
-- (UILabel *)namelab
-{
-    if (!_namelab) {
-        _namelab  =[[UILabel alloc] initWithFrame:CGRectMake(80, 42, kMainScreenWidth - 160.f, 42.f)];
-        _namelab.textAlignment = NSTextAlignmentCenter;
-        _namelab.text = _caseName;
-        _namelab.textColor=[UIColor whiteColor];
-        _namelab.font=Font_18;
-        _namelab.numberOfLines = 0;
-    }
-    return _namelab;
-}
 #pragma mark - 数据请求
-- (void)loadListViewData
-{WEAKSELF;
+- (void)loadListViewData { WEAKSELF;
     [NetWorkMangerTools arrangeFileListWithType:@"" withCid:_caseId RequestSuccess:^(NSArray *arr) {
         
         [weakSelf.tableData removeAllObjects];
@@ -335,10 +312,24 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         vc.caseId = _caseId;
         [self.navigationController  pushViewController:vc animated:YES];
     }else if ([kx.title isEqualToString:@"拍照上传  "]){
-        SGMAlbumViewController* viewVC = [SGMAlbumViewController new];
-        [viewVC setDelegate:self];
-        viewVC.style =  SGMAlbumStyleCamera;
-        [self presentViewController:viewVC animated:YES completion:nil];
+//        SGMAlbumViewController* viewVC = [SGMAlbumViewController new];
+//        [viewVC setDelegate:self];
+//        viewVC.style =  SGMAlbumStyleCamera;
+//        [self presentViewController:viewVC animated:YES completion:nil];
+        
+        LPCameraController *cameraController = [[LPCameraController alloc]init];
+        cameraController.takePhotoOfMax = 5;
+        cameraController.isSaveLocal = YES;
+        [cameraController showIn:self result:^(id responseObject){
+            
+            NSArray *assetArrays = (NSArray *)responseObject;
+            UploadMorephontosVC *uploadVC = [[UploadMorephontosVC alloc] initWithSourceType:CameraType withPid:@"" withCaseId:_caseId withAssetArrays:assetArrays];
+            uploadVC.reloadBlock = ^(){
+                
+                [weakSelf loadListViewData];
+            };
+            [weakSelf.navigationController pushViewController:uploadVC animated:NO];
+        }];
     }else if ([kx.title isEqualToString:@"上传照片  "]){
         //从相册选择一张
         SGMAlbumViewController* viewVC = [[SGMAlbumViewController alloc] init];
@@ -479,8 +470,7 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
     tmodel.destinationPath=[casePath stringByAppendingPathComponent:tmodel.name];
     
     BOOL exist=[[NSFileManager defaultManager] fileExistsAtPath:tmodel.destinationPath];
-    if(exist)
-    {
+    if(exist) {
         [JKPromptView showWithImageName:nil message:LOCFILEEXIST];
         return;
     }
@@ -494,33 +484,28 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         downView.delegate = self;
         downView.model = tmodel;
     }];
-
 }
 #pragma mark -照片上传
 #pragma mark - SGMAlbumViewControllerDelegate
-- (void)sendImageWithcameraImage:(UIImage *)cameraImage withStyle:(SGMAlbumStyle)style withAssetArrays:(NSArray *)assetArrays
-{
+- (void)sendImageWithcameraImage:(UIImage *)cameraImage withStyle:(SGMAlbumStyle)style withAssetArrays:(NSArray *)assetArrays { WEAKSELF;
     if (style == SGMAlbumStyleCamera) {
-        _photoImage = cameraImage;
-        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
-        alertWindow.tag = 6005;
-        [self.view addSubview:alertWindow];
+//        _photoImage = cameraImage;
+//        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleRename withTitle:@"" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
+//        alertWindow.tag = 6005;
+//        [self.view addSubview:alertWindow];
 
     } else {
-        UploadMorephontosVC *uploadVC = [UploadMorephontosVC new];
-        uploadVC.assetArrays = assetArrays;
+        UploadMorephontosVC *uploadVC = [[UploadMorephontosVC alloc] initWithSourceType:PhotoLibraryType withPid:@"" withCaseId:_caseId withAssetArrays:assetArrays];
         uploadVC.reloadBlock = ^(){
             
-              [self loadListViewData];
+              [weakSelf loadListViewData];
         };
-        uploadVC.caseId = _caseId;
         [self.navigationController pushViewController:uploadVC animated:NO];
     }
 }
 
 #pragma mark  ZD_AlertWindowPro
-- (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex withName:(NSString *)name withIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
+- (void)alertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex withName:(NSString *)name withIndexPath:(NSIndexPath *)indexPath { WEAKSELF;
     DetaillistModel *model = nil;
     if (indexPath) {
         model =  _tableData[indexPath.row];
@@ -591,6 +576,34 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         [downView removeFromSuperview];
     }
 }
+#pragma mark - setter and getter
+-(UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        _headerView = [ParallaxHeaderView parallaxHeaderViewWithImage:[UIImage imageNamed:@"case_detailHead.jpg"] forSize:CGSizeMake(kMainScreenWidth, 126)];
+        _tableView.tableHeaderView = _headerView;
+    }
+    return _tableView;
+}
+#pragma mark - 表头
+- (UILabel *)namelab
+{
+    if (!_namelab) {
+        _namelab  =[[UILabel alloc] initWithFrame:CGRectMake(80, 42, kMainScreenWidth - 160.f, 42.f)];
+        _namelab.textAlignment = NSTextAlignmentCenter;
+        _namelab.text = _caseName;
+        _namelab.textColor=[UIColor whiteColor];
+        _namelab.font=Font_18;
+        _namelab.numberOfLines = 0;
+    }
+    return _namelab;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

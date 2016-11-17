@@ -274,7 +274,7 @@
     
     if (model.slide_name.length > 0) {
         UIView *backgroundView = [[UIView alloc] initWithFrame:_imgView3.bounds];
-        backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
         [_imgView3 addSubview:backgroundView];
         float width = self.bounds.size.width - oftenLaws - 20.5f;
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(10, 32, width, 60)];
@@ -282,7 +282,7 @@
         lab.numberOfLines = 0;
         lab.textAlignment = NSTextAlignmentCenter;
         lab.textColor = [UIColor whiteColor];
-        lab.font = Font_12;
+        lab.font = Font_13;
         [backgroundView addSubview:lab];
     }
 }

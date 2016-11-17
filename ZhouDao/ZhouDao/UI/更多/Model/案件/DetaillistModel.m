@@ -39,6 +39,8 @@
 		DTAPI_DICT_ASSIGN_STRING(type_file, @"");
 		DTAPI_DICT_ASSIGN_STRING(type_format, @"");
 		DTAPI_DICT_ASSIGN_STRING(uid, @"");
+        DTAPI_DICT_ASSIGN_STRING(thumbnail, @"");
+
     }
     
     return self;
@@ -56,6 +58,7 @@
 	DTAPI_DICT_EXPORT_BASICTYPE(type_file);
 	DTAPI_DICT_EXPORT_BASICTYPE(type_format);
 	DTAPI_DICT_EXPORT_BASICTYPE(uid);
+    DTAPI_DICT_EXPORT_BASICTYPE(thumbnail);
     return md;
 }
 @end

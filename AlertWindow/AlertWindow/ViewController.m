@@ -31,20 +31,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"gongShang" ofType:@"plist"];
+//    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"SocialSecurity" ofType:@"plist"];
     NSString *txtPath = [[NSBundle mainBundle] pathForResource:@"cityList" ofType:@"txt"];
     NSData *data = [NSData dataWithContentsOfFile:txtPath];
     NSDictionary *nameDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    NSDictionary *dataDict = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-    NSDictionary *resultDictionary = [NSDictionary dictionaryWithObjectsAndKeys:nameDict,@"name",dataDict,@"data", nil];
+//    NSDictionary *dataDict = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+//    NSDictionary *resultDictionary = [NSDictionary dictionaryWithObjectsAndKeys:nameDict,@"name",dataDict,@"data", nil];
     
         //获取本地沙盒路径
         NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         //获取完整路径
         NSString *documentsPath = [path objectAtIndex:0];
-        NSString *resultPath = [documentsPath stringByAppendingPathComponent:@"gongshang.plist"];
+        NSString *resultPath = [documentsPath stringByAppendingPathComponent:@"SocialSecurity.plist"];
         //写入文件
-        [resultDictionary writeToFile:resultPath atomically:YES];
+        [nameDict writeToFile:resultPath atomically:YES];
 
     
     /*

@@ -83,22 +83,19 @@
     [self.view addSubview:mainTable];
     
     [self readPhotoGroup];
-
 }
 #pragma mark - 相机
 - (void)initCameraStyle
 {
     self.view.backgroundColor = [UIColor clearColor];
-    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
-    {
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
         _cameraVC = [[UIImagePickerController alloc]init];
         _cameraVC.delegate = self;
         _cameraVC.allowsEditing = NO;
         _cameraVC.sourceType = UIImagePickerControllerSourceTypeCamera;
         _cameraVC.view.frame = self.view.bounds;
         [self.view addSubview:_cameraVC.view];
-    }else
-    {
+    } else {
         SHOW_ALERT(@"模拟其中无法打开照相机,请在真机中使用");
         [self dismissViewControllerAnimated:YES completion:nil];
     }
@@ -116,15 +113,14 @@
                 if (index == 0) {
                     __strong typeof(weaktempArray) strongWeaktempArray = weaktempArray;
                     if (result!= nil) {
+                        
                         [strongWeaktempArray addObject: [UIImage imageWithCGImage:result.aspectRatioThumbnail]];
                     }
                 }
             }];
             if ([tempArray firstObject]!=nil) {
                 [groupImageArray addObject:[tempArray firstObject]];
-            }
-            else
-            {
+            } else {
                 [groupImageArray addObject:[UIImage imageWithCGImage:group.posterImage]];
             }
             
@@ -259,8 +255,8 @@
 
 - (BOOL)sendImageWithALassetArray:(NSArray *)array
 {
-    if ([self.delegate respondsToSelector:@selector(sendImageWithcameraImage:withStyle:withAssetArrays:)])
-    {
+    if ([self.delegate respondsToSelector:@selector(sendImageWithcameraImage:withStyle:withAssetArrays:)]) {
+        
         [self.delegate sendImageWithcameraImage:nil withStyle:SGMAlbumStyleAlbum withAssetArrays:array];
         return YES;
     }

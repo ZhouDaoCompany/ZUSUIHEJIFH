@@ -147,7 +147,9 @@
     kDISPATCH_GLOBAL_QUEUE_DEFAULT((^{
         
         [NetWorkMangerTools getQiNiuToken:YES RequestSuccess:^{
+            
             [NetWorkMangerTools uploadarrangeFile:data withFormatType:@"txt" RequestSuccess:^(NSString *key) {
+                
                 [NetWorkMangerTools arrangeFileAddwithPid:_pid withName:weakSelf.nameTextField.text withFileType:@"1" withtformat:@"3" withqiniuName:key withCid:_caseId RequestSuccess:^(id obj) {
                     
                     kDISPATCH_MAIN_THREAD((^{
@@ -162,6 +164,7 @@
                     }));
                 }];
             } fail:^{
+                
                 [FILE_M removeItemAtPath:textFilePath error:nil];
             }];
         }];

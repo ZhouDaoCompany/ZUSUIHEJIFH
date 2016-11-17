@@ -12,8 +12,8 @@
 
 static NSString *const MoreCellIdentifier = @"MoreCellIdentifier";
 
-@interface MoreViewController ()<UITableViewDataSource,UITableViewDelegate>
-{
+@interface MoreViewController ()<UITableViewDataSource,UITableViewDelegate> {
+    
     NSUInteger _page;
 }
 @property (strong, nonatomic) UITableView *tableView;

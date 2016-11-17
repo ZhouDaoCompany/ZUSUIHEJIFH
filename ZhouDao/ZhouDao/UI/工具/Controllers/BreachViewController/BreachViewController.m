@@ -139,47 +139,93 @@ static NSString *const BREACHCELLID = @"breachcellid";
     }else {
         
         __block NSUInteger startIndex = 0;
-        __block NSUInteger endIndex = self.timeArrays.count -1;
-        [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-           
-            NSUInteger timeObj = [QZManager timeToTimeStamp:obj];
-            if (startTimeInt - timeObj <=0) {
-                startIndex = (idx == 0)?idx:(idx-1);
-                *stop = YES;
-            }
-        }];
+        __block NSUInteger endIndex = [_timeArrays count];
+        
+        NSUInteger lastObj =  [QZManager timeToTimeStamp:[_timeArrays lastObject]];
+        
         [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             NSUInteger timeObj = [QZManager timeToTimeStamp:obj];
-            if (endTimeInt - timeObj <=0) {
-                endIndex = idx;
+            if (startTimeInt - timeObj <= 0) {
+                startIndex = idx;
                 *stop = YES;
             }
         }];
         
-        DLog(@"ks----%ld    js----%ld",(unsigned long)startIndex,(unsigned long)endIndex);
-        
-        for (NSUInteger i = startIndex; i < endIndex; i++) {
-            NSMutableArray *tempArrays = [NSMutableArray array];
-            static float onATimeInt = 0.0f;
-            if (i == startIndex) {
-                onATimeInt = startTimeInt;
-            }
-            float dateTimeInt = (i == endIndex -1)?[QZManager timeToTimeStamp:self.timeArrays[i]]:[QZManager timeToTimeStamp:self.timeArrays[i + 1]];//数组里的时间
-            DLog(@"    %f",dateTimeInt);
-            NSArray *rateArrays = self.rateDictionary[self.timeArrays[i]];
-            float differTimeDay = (i == endIndex -1)?((endTimeInt - dateTimeInt)/86400.f):((dateTimeInt - onATimeInt)/86400.f);//相差天数
-            float calculateMoney = [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:differTimeDay withMoney:money];
-            lastMoney += calculateMoney;
+        if (endTimeInt > lastObj) {
+            
+            endIndex = [_timeArrays count];
+            DLog(@"ks----%ld    js----%ld",(unsigned long)startIndex,(unsigned long)endIndex);
 
-            [tempArrays addObject:[NSString stringWithFormat:@"%.0f",onATimeInt]];//开始时间
-            (i == endIndex -1)?[tempArrays addObject:[NSString stringWithFormat:@"%.0f",endTimeInt]]:[tempArrays addObject:[NSString stringWithFormat:@"%.0f",dateTimeInt]];//结束时间
-            [tempArrays addObject:GET(_reatString)];
-            [tempArrays addObject:CancelPoint2(calculateMoney)];
-            [self.detailArrays addObject:tempArrays];
-            onATimeInt = dateTimeInt;
-//            DLog(@"相差天数－－%.0f------利率:  %@",differTimeDay,_reatString);
+            for (NSInteger i = startIndex; i <= endIndex; i++) {
+                
+                NSMutableArray *tempArrays = [NSMutableArray array];
+                static float onATimeInt = 0.0f;
+                if (i == startIndex) {
+                    onATimeInt = startTimeInt;
+                }
+                
+                float dateTimeInt = (i > [_timeArrays count] - 1) ? [QZManager timeToTimeStamp:[_timeArrays lastObject]] : [QZManager timeToTimeStamp:_timeArrays[i]];//数组里的时间
+                
+                DLog(@"%.0f",dateTimeInt);
+                NSInteger index = (i - 1 < 0) ? 0 : i - 1;
+                NSArray *rateArrays = _rateDictionary[_timeArrays[index]];
+                
+                float differTimeDay = (i == endIndex)?((endTimeInt - dateTimeInt)/86400.f):((dateTimeInt - onATimeInt)/86400.f);//相差天数
+                float calculateMoney = [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:differTimeDay withMoney:money];
+                lastMoney += calculateMoney;
+                
+                [tempArrays addObject:[NSString stringWithFormat:@"%.0f",onATimeInt]];//开始时间
+                (i == endIndex)?[tempArrays addObject:[NSString stringWithFormat:@"%.0f",endTimeInt]]:[tempArrays addObject:[NSString stringWithFormat:@"%.0f",dateTimeInt]];//结束时间
+                [tempArrays addObject:GET(_reatString)];
+                [tempArrays addObject:CancelPoint2(calculateMoney)];
+                [self.detailArrays addObject:tempArrays];
+                onATimeInt = dateTimeInt;
+                //            DLog(@"相差天数－－%.0f------利率:  %@",differTimeDay,_reatString);
+                
+            }
+
+        } else {
+            [self.timeArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                NSUInteger timeObj = [QZManager timeToTimeStamp:obj];
+                if (endTimeInt - timeObj <=0) {
+                    endIndex = idx + 1;
+                    *stop = YES;
+                }
+            }];
+            DLog(@"ks----%ld    js----%ld",(unsigned long)startIndex,(unsigned long)endIndex);
+
+            for (NSInteger i = startIndex; i < endIndex; i++) {
+                
+                NSMutableArray *tempArrays = [NSMutableArray array];
+                static float onATimeInt = 0.0f;
+                if (i == startIndex) {
+                    onATimeInt = startTimeInt;
+                }
+                
+                float dateTimeInt =  [QZManager timeToTimeStamp:_timeArrays[i]];//数组里的时间
+                
+                DLog(@"%.0f",dateTimeInt);
+                NSInteger index = (i - 1 < 0) ? 0 : i - 1;
+                NSArray *rateArrays = _rateDictionary[_timeArrays[index]];
+                
+                float differTimeDay = (i == endIndex - 1)?((endTimeInt - dateTimeInt)/86400.f):((dateTimeInt - onATimeInt)/86400.f);//相差天数
+                float calculateMoney = [self accordingOfDaysLookingForRatesWithRateArrays:rateArrays withDays:differTimeDay withMoney:money];
+                lastMoney += calculateMoney;
+                
+                [tempArrays addObject:[NSString stringWithFormat:@"%.0f",onATimeInt]];//开始时间
+                (i == endIndex - 1)?[tempArrays addObject:[NSString stringWithFormat:@"%.0f",endTimeInt]]:[tempArrays addObject:[NSString stringWithFormat:@"%.0f",dateTimeInt]];//结束时间
+                [tempArrays addObject:GET(_reatString)];
+                [tempArrays addObject:CancelPoint2(calculateMoney)];
+                [self.detailArrays addObject:tempArrays];
+                onATimeInt = dateTimeInt;
+                //            DLog(@"相差天数－－%.0f------利率:  %@",differTimeDay,_reatString);
+                
+            }
+
         }
+        
     }
     
     NSString *allDays = [NSString stringWithFormat:@"%@-%@",[QZManager changeTimeMethods:[_startTime integerValue] withType:@"yy/MM/dd"],[QZManager changeTimeMethods:[_endTime integerValue] withType:@"yy/MM/dd"]];

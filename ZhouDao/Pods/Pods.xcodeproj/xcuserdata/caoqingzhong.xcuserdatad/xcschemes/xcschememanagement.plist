@@ -100,6 +100,11 @@
 			<key>orderHint</key>
 			<integer>14</integer>
 		</dict>
+		<key>SSZipArchive.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>18</integer>
+		</dict>
 		<key>SWTableViewCell.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -144,6 +149,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>16D43A69848347B675F2B951EC649BB4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2602F3D0DAC534568B6AD7EEA0DD1959</key>
 		<dict>
 			<key>primary</key>
@@ -164,7 +174,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4D78CF4310E08091F1A792614F53413E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>55DBDD8B7D446F1D618F303A9FB53209</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>595F767665AED2B01031CDEEEE608814</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>70BC44266C6FFE30D2C57129458E070B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>82822F8F067B1F2605D01F2680FE218F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8DCFFD85419BB04964B750991180B78D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -175,6 +210,11 @@
 			<true/>
 		</dict>
 		<key>926A1806C21AC0572DE7B336396656CB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>928353533005A4198EBDA5B700D37B64</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -199,7 +239,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A4A3DED6143EB93318A63636EAD116FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A704E569A207E590FB2F66DF7CBBC18E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9CCAA5EE028C923E79977D1590457F2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -230,6 +280,11 @@
 			<true/>
 		</dict>
 		<key>D5300001CBE60660B3247256B557535C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EECBEA55BA1C95A7CF170FFF742567D7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

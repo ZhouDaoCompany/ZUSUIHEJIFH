@@ -43,7 +43,8 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
         [self.dataSourceArrays addObjectsFromArray:keysArrays];
     }else if (_type == InjuryType){
         
-        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongshang.plist"];        NSDictionary *tempDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"gongshang.plist"];
+        NSDictionary *tempDictionary = [NSDictionary dictionaryWithContentsOfFile:pathSource];
         _dict = tempDictionary[@"name"];
         NSArray *keysArrays = [_dict allKeys];
         for (NSString *province in keysArrays) {
@@ -52,6 +53,12 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
             NSArray *cityKeyArrays = [provinceDictionary allKeys];
             [self.dataSourceArrays addObjectsFromArray:cityKeyArrays];
         }
+    }else if (_type == SocialType) {
+        
+        NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"SocialSecurity.plist"];
+        _dict = [NSDictionary dictionaryWithContentsOfFile:pathSource];
+        NSArray *keysArrays = [_dict allKeys];
+        [self.dataSourceArrays addObjectsFromArray:keysArrays];
     }
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
@@ -112,7 +119,12 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     SelectProvinceCell *cell = (SelectProvinceCell *)[tableView dequeueReusableCellWithIdentifier:SELECTCELLIDENTIFER];
     cell.delegate = self;
-    cell.isCity = YES;
+    if (_type == SocialType) {
+        
+        cell.isCity = NO;
+    } else {
+        cell.isCity = YES;
+    }
     if (indexPath.section == 0) {
         cell.lineView.hidden = YES;
         [cell setOtherCitySelect:@"" wihSection:indexPath.section];
@@ -127,10 +139,10 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
             cell.lineView.hidden = NO;
         }
     }
-    
     return cell;
 }
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    
     return self.sectionHeadTitleArrays;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -154,12 +166,15 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
     return views;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     return (indexPath.section == 0)?48.f:44.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
     return 45.f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
     return 0.1f;
 }
 
@@ -196,13 +211,19 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
                 
                 _provinceCitySelectBlock(provinceString, cityName, idString);
             }
+        }else if (_type == SocialType) {
+            
+            NSDictionary *nameDictionary = _dict[cityName];
+            if (self.socialBlock) {
+                
+                _socialBlock(cityName, nameDictionary);
+            }
         }
         
         [self dismissViewControllerAnimated:YES completion:^{
             
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         }];
-        
     }
 }
 #pragma mark - SelectProvinceCellPro
@@ -233,6 +254,13 @@ static NSString *const SELECTCELLIDENTIFER = @"SelectCityCellIdentifier";
         if (self.provinceCitySelectBlock) {
             
             _provinceCitySelectBlock(provinceString, provinceName, idString);
+        }
+    } else if (_type == SocialType) {
+        
+        NSDictionary *nameDictionary = _dict[provinceName];
+        if (self.socialBlock) {
+
+            _socialBlock(provinceName, nameDictionary);
         }
     }
 

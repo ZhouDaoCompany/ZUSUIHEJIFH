@@ -23,6 +23,7 @@
 #import "PersonalInjuryViewController.h"
 #import "EconomicViewController.h"
 #import "DateViewController.h"
+#import "SocialViewController.h"
 #import "MobClick.h"
 
 #define toolWidth     [UIScreen mainScreen].bounds.size.width/2.f -0.5f
@@ -160,7 +161,12 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 
         DateViewController *vc = [DateViewController new];
         [self.navigationController pushViewController:vc animated:YES];
+    }else if ([titleString isEqualToString:@"社保计算器"]){
+        
+        SocialViewController *vc = [SocialViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
     }
+
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout*)collectionViewLayout
@@ -194,14 +200,15 @@ referenceSizeForHeaderInSection:(NSInteger)section
     return kCollectionViewCellsSection;
 }
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{
-    return (indexPath.row == 11)?NO:YES;
+//    return (indexPath.row == 11)?NO:YES;
+    return YES;
 }
-- (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath
-{
-    return (toIndexPath.row == 11)?NO:YES;
+- (BOOL)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath canMoveToIndexPath:(NSIndexPath *)toIndexPath {
+//    return (toIndexPath.row == 11)?NO:YES;
+    return YES;
 }
-- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath didMoveToIndexPath:(NSIndexPath *)toIndexPath
-{
+- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath didMoveToIndexPath:(NSIndexPath *)toIndexPath {
+    
     NSString *name = _dataSourceArrays[fromIndexPath.row];
     [_dataSourceArrays removeObjectAtIndex:fromIndexPath.row];
     [_dataSourceArrays insertObject:name atIndex:toIndexPath.row];
@@ -209,16 +216,17 @@ referenceSizeForHeaderInSection:(NSInteger)section
     [USER_D setObject:_dataSourceArrays forKey:TOOLSTHESORT];
     [USER_D synchronize];
 }
+
 #pragma mark - setter and getter
-- (NSMutableArray *)dataSourceArrays
-{
+- (NSMutableArray *)dataSourceArrays {
+    
     if (!_dataSourceArrays) {
-        _dataSourceArrays =  [NSMutableArray arrayWithObjects:@"日期计算器",@"人身损害赔偿计算器",@"违约金计算器",@"利息计算器",@"律师费计算器",@"离婚房产分割计算器",@"劳动补偿金计算器",@"工伤赔偿计算器",@"房屋还贷计算器",@"法院受理费计算器",@"裁决书逾期利息计算器",@"", nil];
+        _dataSourceArrays =  [NSMutableArray arrayWithObjects:@"日期计算器",@"人身损害赔偿计算器",@"违约金计算器",@"利息计算器",@"律师费计算器",@"离婚房产分割计算器",@"劳动补偿金计算器",@"工伤赔偿计算器",@"房屋还贷计算器",@"法院受理费计算器",@"裁决书逾期利息计算器",@"社保计算器", nil];
     }
     return _dataSourceArrays;
 }
-- (UICollectionView *)collectionView
-{
+- (UICollectionView *)collectionView {
+    
     if (!_collectionView) {
         LewReorderableLayout *layout = [[LewReorderableLayout alloc] init];
         layout.delegate = self;

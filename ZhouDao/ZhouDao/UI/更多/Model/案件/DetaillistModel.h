@@ -25,6 +25,7 @@
 	NSString *_type_file;
 	NSString *_type_format;
 	NSString *_uid;
+    NSString *_thumbnail;
 }
 
 
@@ -36,6 +37,7 @@
 @property (nonatomic, copy) NSString *type_file;
 @property (nonatomic, copy) NSString *type_format;
 @property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) NSString *thumbnail;
 
 -(id)initWithDictionary:(NSDictionary*)dict;
 -(NSDictionary*)dictionaryValue;

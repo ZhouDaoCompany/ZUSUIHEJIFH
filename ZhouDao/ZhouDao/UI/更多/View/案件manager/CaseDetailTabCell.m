@@ -24,13 +24,10 @@
 @end
 
 @implementation CaseDetailTabCell
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self)
-    {
+    if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
 
         [self indexLabel];
         [self headImgView];
@@ -51,9 +48,8 @@
     }
     return self;
 }
-- (UILabel *)indexLabel
-{
-    if (_indexLabel == nil) {
+- (UILabel *)indexLabel {
+    if (!_indexLabel) {
         _indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 13, 30, 20)];
         [_indexLabel setFont:Font_14];
         _indexLabel.textColor = SIXCOLOR;
@@ -61,8 +57,7 @@
     }
     return _indexLabel;
 }
-- (UIImageView *)headImgView
-{
+- (UIImageView *)headImgView {
     if (!_headImgView) {
         _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(45, 10, 25, 25)];
         _headImgView.userInteractionEnabled = YES;
@@ -71,8 +66,7 @@
     }
     return _headImgView;
 }
-- (UILabel *)titLab
-{
+- (UILabel *)titLab {
     if (!_titLab) {
         _titLab = [[UILabel alloc] initWithFrame:CGRectMake(85, 13, 200, 20)];
         _titLab.backgroundColor = [UIColor clearColor];
@@ -82,8 +76,7 @@
     }
     return _titLab;
 }
-- (void)setListModel:(DetaillistModel *)listModel
-{
+- (void)setListModel:(DetaillistModel *)listModel {
     _listModel = nil;
     _listModel = listModel;
     
@@ -113,7 +106,8 @@
                 [_headImgView setImage:[UIImage imageNamed:@"case_txt"]];
                 break;
             case 4:
-                [_headImgView setImage:[UIImage imageNamed:@"case_photo"]];
+                //[_headImgView setImage:[UIImage imageNamed:@"case_photo"]];
+                [_headImgView sd_setImageWithURL:[NSURL URLWithString:_listModel.thumbnail] placeholderImage:kGetImage(@"case_photo")];
                 break;
                 
             default:
@@ -189,8 +183,6 @@
     [_delBtn setTitle:@"删除" forState:0];
     [_delBtn setImage:[UIImage imageNamed:@"case_delete"] forState:0];
     
-  
-    
 }
 - (void)pointBtnClick:(id)sender {
     
@@ -199,17 +191,16 @@
     }
 }
 
-- (void)getMoreEvent:(UIButton *)btn
-{
+- (void)getMoreEvent:(UIButton *)btn {
     NSUInteger index = btn.tag;
     DLog(@"tag:%ld",(unsigned long)index);
     
     if ([_listModel.type_file isEqualToString:@"2"] && index == 1002) {
+        
         [JKPromptView showWithImageName:nil message:LOCFILEDOWNLOAD];
         return;
-    }
-    if ([self.delegate respondsToSelector:@selector(otherEvent:withCell:)])
-    {
+    } if ([self.delegate respondsToSelector:@selector(otherEvent:withCell:)]) {
+        
         [self.delegate otherEvent:index withCell:self];
     }
 }

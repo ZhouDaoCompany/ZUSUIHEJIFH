@@ -11,6 +11,7 @@
 #import "ConsultantHeadView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ZD_AlertWindow.h"
+#import "LPCamera.h"
 
 static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
 @interface UploadMorephontosVC ()<UITableViewDelegate,UITableViewDataSource,UploadTableViewPro,ZD_AlertWindowPro,SWTableViewCellDelegate>
@@ -28,6 +29,19 @@ static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
 {
     TT_RELEASE_SAFELY(_tableView);
 }
+- (instancetype)initWithSourceType:(SourceType)type
+                           withPid:(NSString *)pid
+                        withCaseId:(NSString *)caseId
+                   withAssetArrays:(NSArray *)assetArrays{
+    self = [super init];
+    if (self) {
+        _sourceType = type;
+        _pid = pid;
+        _caseId = caseId;
+        _assetArrays = assetArrays;
+    }
+    return self;
+}
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,21 +50,35 @@ static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
     [self initUI];
 }
 #pragma mark - private methods
-- (void)initUI{
+- (void)initUI { WEAKSELF;
     [self setupNaviBarWithTitle:@"传输列表"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     [self setupNaviBarWithBtn:NaviRightBtn title:@"上传" img:nil];
 
-    _completeArrays    = [NSMutableArray array];
-    WEAKSELF;
-    [_assetArrays enumerateObjectsUsingBlock:^(NSDictionary *objDict, NSUInteger idx, BOOL * _Nonnull stop) {
-        ALAsset *asset = objDict[@"asset"];
-        NSMutableDictionary *assetDictionary = [[NSMutableDictionary alloc] init];
-        [assetDictionary setObjectWithNullValidate:[UIImage imageWithCGImage:asset.thumbnail] forKey:@"thumbnail"];
-        [assetDictionary setObjectWithNullValidate:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]] forKey:@"fullScreenImage"];
-        [assetDictionary setObjectWithNullValidate:asset.defaultRepresentation.filename forKey:@"filename"];
-        [weakSelf.uploadArrays addObject:assetDictionary];
-    }];
+   
+    if (_sourceType == CameraType) {
+        
+        [_assetArrays enumerateObjectsUsingBlock:^(LPCamera *objModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            NSMutableDictionary *assetDictionary = [NSMutableDictionary dictionary];
+            [assetDictionary setObjectWithNullValidate:objModel.image forKey:@"thumbnail"];
+            [assetDictionary setObjectWithNullValidate:objModel.image forKey:@"fullScreenImage"];
+            NSString *name = [QZManager stringFromDate:objModel.createDate];
+            [assetDictionary setObjectWithNullValidate:name forKey:@"filename"];
+            [weakSelf.uploadArrays addObject:assetDictionary];
+        }];
+    } else if (_sourceType == PhotoLibraryType){
+        
+        [_assetArrays enumerateObjectsUsingBlock:^(NSDictionary *objDict, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            ALAsset *asset = objDict[@"asset"];
+            NSMutableDictionary *assetDictionary = [[NSMutableDictionary alloc] init];
+            [assetDictionary setObjectWithNullValidate:[UIImage imageWithCGImage:asset.thumbnail] forKey:@"thumbnail"];
+            [assetDictionary setObjectWithNullValidate:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]] forKey:@"fullScreenImage"];
+            [assetDictionary setObjectWithNullValidate:asset.defaultRepresentation.filename forKey:@"filename"];
+            [weakSelf.uploadArrays addObject:assetDictionary];
+        }];
+    }
     [self.view addSubview:self.tableView];
 }
 - (void)leftBtnAction
@@ -223,7 +251,7 @@ static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
 - (void)uploadCompletedRefreshesTheListwithRow:(NSInteger)row
 {
     if (_uploadArrays.count >0) {
-        [_completeArrays addObject:self.uploadArrays[0]];
+        [self.completeArrays addObject:self.uploadArrays[0]];
 //        NSIndexPath *cellIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [_uploadArrays removeObjectAtIndex:0];
 //        [_tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -237,6 +265,14 @@ static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
         [_tableView reloadData];
     }
 }
+//#pragma mark - 时间转 字符串
+//- (NSString *)getImageNameWithDate:(NSDate *)date {
+//    
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"yy-MM-dd HH:mm:ss"];
+//    NSString *destDateString = [dateFormatter stringFromDate:date];
+//    return destDateString;
+//}
 #pragma mark - setters and getters
 - (UITableView *)tableView
 {
@@ -265,6 +301,7 @@ static NSString *const UPLOADPHOTOIDENTIFER = @"UploadMorephontosid";
     }
     return _completeArrays;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

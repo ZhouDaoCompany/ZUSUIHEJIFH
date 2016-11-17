@@ -197,7 +197,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         
         if (!_startPoint) {
 //            [JKPromptView showWithImageName:nil message:@"没有开启定位 ，请您开启定位"];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"没有开启定位 ，请您开启定位" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去设置", nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"没有开启定位 ，请您开启定位" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去设置》", nil];
             alertView.tag = 6389;
             [alertView show];
             return;

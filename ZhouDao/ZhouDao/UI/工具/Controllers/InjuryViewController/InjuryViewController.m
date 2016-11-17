@@ -252,19 +252,19 @@ static NSString *const INJURYCELL = @"injurycellid";
 
 }
 #pragma mark - Disability_AlertViewPro
-- (void)selectCaseType:(NSString *)caseString
-{
+- (void)selectCaseType:(NSString *)caseString {
+    
     [_dataSourceArrays replaceObjectAtIndex:1 withObject:caseString];
     [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return 1;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     return [self.dataSourceArrays count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

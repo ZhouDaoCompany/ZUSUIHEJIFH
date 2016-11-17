@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+typedef NS_ENUM(NSInteger, SourceType) {
+    
+    CameraType = 0, //相机
+    PhotoLibraryType =1, //相册
+};
 
 @interface UploadMorephontosVC : BaseViewController
 
@@ -15,4 +20,10 @@
 @property (nonatomic, copy) NSString *caseId;//案件唯一id  cid
 @property (nonatomic, copy) ZDBlock reloadBlock;
 @property (nonatomic, copy) NSString *pid;
+@property (nonatomic, assign) SourceType sourceType;//图片来源
+
+- (instancetype)initWithSourceType:(SourceType)type
+                           withPid:(NSString *)pid
+                        withCaseId:(NSString *)caseId
+                   withAssetArrays:(NSArray *)assetArrays;
 @end

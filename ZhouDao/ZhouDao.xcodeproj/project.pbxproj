@@ -238,6 +238,23 @@
 		185838871D49B9FC00C6A0EE /* gov_NoReview@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185838851D49B9FC00C6A0EE /* gov_NoReview@2x.png */; };
 		185838881D49B9FC00C6A0EE /* gov_Review@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185838861D49B9FC00C6A0EE /* gov_Review@2x.png */; };
 		1858388B1D49D15800C6A0EE /* SelectProvinceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1858388A1D49D15800C6A0EE /* SelectProvinceVC.m */; };
+		185FDF381DDD41180091E176 /* LPCameraBrowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF201DDD41180091E176 /* LPCameraBrowerViewController.m */; };
+		185FDF391DDD41180091E176 /* LPCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF221DDD41180091E176 /* LPCameraController.m */; };
+		185FDF3A1DDD41180091E176 /* LPCameraPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF241DDD41180091E176 /* LPCameraPickerViewController.m */; };
+		185FDF3B1DDD41180091E176 /* LPPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF261DDD41180091E176 /* LPPageControl.m */; };
+		185FDF3C1DDD41180091E176 /* LPCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF291DDD41180091E176 /* LPCamera.m */; };
+		185FDF3D1DDD41180091E176 /* camera_focus_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 185FDF2B1DDD41180091E176 /* camera_focus_pic.png */; };
+		185FDF3E1DDD41180091E176 /* change_camera_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185FDF2C1DDD41180091E176 /* change_camera_pic@2x.png */; };
+		185FDF3F1DDD41180091E176 /* flash_close_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185FDF2D1DDD41180091E176 /* flash_close_pic@2x.png */; };
+		185FDF401DDD41180091E176 /* flash_open_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185FDF2E1DDD41180091E176 /* flash_open_pic@2x.png */; };
+		185FDF411DDD41180091E176 /* remove_btn_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 185FDF2F1DDD41180091E176 /* remove_btn_pic.png */; };
+		185FDF421DDD41180091E176 /* take_photo_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185FDF301DDD41180091E176 /* take_photo_pic@2x.png */; };
+		185FDF431DDD41180091E176 /* LPCameraBrowerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF331DDD41180091E176 /* LPCameraBrowerCell.m */; };
+		185FDF441DDD41180091E176 /* LPCameraFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF351DDD41180091E176 /* LPCameraFocusView.m */; };
+		185FDF451DDD41180091E176 /* LPCameraPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF371DDD41180091E176 /* LPCameraPickerCell.m */; };
+		185FDF491DDD56310091E176 /* SocialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF481DDD56310091E176 /* SocialViewController.m */; };
+		185FDF4B1DDD77830091E176 /* Tools_shebao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185FDF4A1DDD77830091E176 /* Tools_shebao@2x.png */; };
+		185FDF4F1DDD94AD0091E176 /* SocialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF4E1DDD94AD0091E176 /* SocialTableViewCell.m */; };
 		1860AB5C1D9BD946008A2A1E /* CalculateShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1860AB5B1D9BD946008A2A1E /* CalculateShareView.m */; };
 		1863DFE31C8D2B5B00F7A84E /* GcNoticeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863DFE21C8D2B5B00F7A84E /* GcNoticeUtil.m */; };
 		186553A71D76BB6B00DBA8D8 /* LayerFeesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186553A61D76BB6B00DBA8D8 /* LayerFeesModel.m */; };
@@ -882,6 +899,33 @@
 		185838861D49B9FC00C6A0EE /* gov_Review@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gov_Review@2x.png"; sourceTree = "<group>"; };
 		185838891D49D15800C6A0EE /* SelectProvinceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectProvinceVC.h; sourceTree = "<group>"; };
 		1858388A1D49D15800C6A0EE /* SelectProvinceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectProvinceVC.m; sourceTree = "<group>"; };
+		185FDF1F1DDD41180091E176 /* LPCameraBrowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCameraBrowerViewController.h; sourceTree = "<group>"; };
+		185FDF201DDD41180091E176 /* LPCameraBrowerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPCameraBrowerViewController.m; sourceTree = "<group>"; };
+		185FDF211DDD41180091E176 /* LPCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCameraController.h; sourceTree = "<group>"; };
+		185FDF221DDD41180091E176 /* LPCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPCameraController.m; sourceTree = "<group>"; };
+		185FDF231DDD41180091E176 /* LPCameraPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCameraPickerViewController.h; sourceTree = "<group>"; };
+		185FDF241DDD41180091E176 /* LPCameraPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPCameraPickerViewController.m; sourceTree = "<group>"; };
+		185FDF251DDD41180091E176 /* LPPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPPageControl.h; sourceTree = "<group>"; };
+		185FDF261DDD41180091E176 /* LPPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPPageControl.m; sourceTree = "<group>"; };
+		185FDF281DDD41180091E176 /* LPCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCamera.h; sourceTree = "<group>"; };
+		185FDF291DDD41180091E176 /* LPCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPCamera.m; sourceTree = "<group>"; };
+		185FDF2B1DDD41180091E176 /* camera_focus_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_focus_pic.png; sourceTree = "<group>"; };
+		185FDF2C1DDD41180091E176 /* change_camera_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "change_camera_pic@2x.png"; sourceTree = "<group>"; };
+		185FDF2D1DDD41180091E176 /* flash_close_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flash_close_pic@2x.png"; sourceTree = "<group>"; };
+		185FDF2E1DDD41180091E176 /* flash_open_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flash_open_pic@2x.png"; sourceTree = "<group>"; };
+		185FDF2F1DDD41180091E176 /* remove_btn_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = remove_btn_pic.png; sourceTree = "<group>"; };
+		185FDF301DDD41180091E176 /* take_photo_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "take_photo_pic@2x.png"; sourceTree = "<group>"; };
+		185FDF321DDD41180091E176 /* LPCameraBrowerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCameraBrowerCell.h; sourceTree = "<group>"; };
+		185FDF331DDD41180091E176 /* LPCameraBrowerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPCameraBrowerCell.m; sourceTree = "<group>"; };
+		185FDF341DDD41180091E176 /* LPCameraFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCameraFocusView.h; sourceTree = "<group>"; };
+		185FDF351DDD41180091E176 /* LPCameraFocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPCameraFocusView.m; sourceTree = "<group>"; };
+		185FDF361DDD41180091E176 /* LPCameraPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCameraPickerCell.h; sourceTree = "<group>"; };
+		185FDF371DDD41180091E176 /* LPCameraPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPCameraPickerCell.m; sourceTree = "<group>"; };
+		185FDF471DDD56310091E176 /* SocialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialViewController.h; sourceTree = "<group>"; };
+		185FDF481DDD56310091E176 /* SocialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialViewController.m; sourceTree = "<group>"; };
+		185FDF4A1DDD77830091E176 /* Tools_shebao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tools_shebao@2x.png"; sourceTree = "<group>"; };
+		185FDF4D1DDD94AD0091E176 /* SocialTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialTableViewCell.h; sourceTree = "<group>"; };
+		185FDF4E1DDD94AD0091E176 /* SocialTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialTableViewCell.m; sourceTree = "<group>"; };
 		1860AB5A1D9BD946008A2A1E /* CalculateShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateShareView.h; sourceTree = "<group>"; };
 		1860AB5B1D9BD946008A2A1E /* CalculateShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateShareView.m; sourceTree = "<group>"; };
 		1863DFD71C8D0FC700F7A84E /* MyPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPickView.h; sourceTree = "<group>"; };
@@ -1657,6 +1701,7 @@
 				188A78141D73C64400BCB54D /* Tools_peichang@2x.png */,
 				188A78151D73C64400BCB54D /* Tools_sunhai@2x.png */,
 				188A78161D73C64400BCB54D /* Tools_weiyue@2x.png */,
+				185FDF4A1DDD77830091E176 /* Tools_shebao@2x.png */,
 			);
 			path = toolsImg;
 			sourceTree = "<group>";
@@ -2019,6 +2064,7 @@
 		181292A31C87E7B100EBB5CD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				185FDF461DDD56150091E176 /* SocialViewControll */,
 				1873674D1D755D80000C1169 /* DateViewController */,
 				187367491D7557B8000C1169 /* EconomicViewController */,
 				187367411D7539D8000C1169 /* PersonalInjuryVC */,
@@ -2043,6 +2089,7 @@
 		181292A51C87E7B100EBB5CD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				185FDF4C1DDD947F0091E176 /* SocialViewCell */,
 				187367571D7573E9000C1169 /* DateViewCell */,
 				187367451D75502F000C1169 /* EconomicCell */,
 				1873673D1D75355B000C1169 /* PersonalInjuryCell */,
@@ -2330,6 +2377,85 @@
 				10C86B8C1CABD24F002A75AC /* HomeTableViewCell.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		185FDF1D1DDD41180091E176 /* ShootCamera */ = {
+			isa = PBXGroup;
+			children = (
+				185FDF1E1DDD41180091E176 /* Controller */,
+				185FDF271DDD41180091E176 /* Model */,
+				185FDF2A1DDD41180091E176 /* PhotoImage */,
+				185FDF311DDD41180091E176 /* View */,
+			);
+			path = ShootCamera;
+			sourceTree = "<group>";
+		};
+		185FDF1E1DDD41180091E176 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				185FDF1F1DDD41180091E176 /* LPCameraBrowerViewController.h */,
+				185FDF201DDD41180091E176 /* LPCameraBrowerViewController.m */,
+				185FDF211DDD41180091E176 /* LPCameraController.h */,
+				185FDF221DDD41180091E176 /* LPCameraController.m */,
+				185FDF231DDD41180091E176 /* LPCameraPickerViewController.h */,
+				185FDF241DDD41180091E176 /* LPCameraPickerViewController.m */,
+				185FDF251DDD41180091E176 /* LPPageControl.h */,
+				185FDF261DDD41180091E176 /* LPPageControl.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		185FDF271DDD41180091E176 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				185FDF281DDD41180091E176 /* LPCamera.h */,
+				185FDF291DDD41180091E176 /* LPCamera.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		185FDF2A1DDD41180091E176 /* PhotoImage */ = {
+			isa = PBXGroup;
+			children = (
+				185FDF2B1DDD41180091E176 /* camera_focus_pic.png */,
+				185FDF2C1DDD41180091E176 /* change_camera_pic@2x.png */,
+				185FDF2D1DDD41180091E176 /* flash_close_pic@2x.png */,
+				185FDF2E1DDD41180091E176 /* flash_open_pic@2x.png */,
+				185FDF2F1DDD41180091E176 /* remove_btn_pic.png */,
+				185FDF301DDD41180091E176 /* take_photo_pic@2x.png */,
+			);
+			path = PhotoImage;
+			sourceTree = "<group>";
+		};
+		185FDF311DDD41180091E176 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				185FDF321DDD41180091E176 /* LPCameraBrowerCell.h */,
+				185FDF331DDD41180091E176 /* LPCameraBrowerCell.m */,
+				185FDF341DDD41180091E176 /* LPCameraFocusView.h */,
+				185FDF351DDD41180091E176 /* LPCameraFocusView.m */,
+				185FDF361DDD41180091E176 /* LPCameraPickerCell.h */,
+				185FDF371DDD41180091E176 /* LPCameraPickerCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		185FDF461DDD56150091E176 /* SocialViewControll */ = {
+			isa = PBXGroup;
+			children = (
+				185FDF471DDD56310091E176 /* SocialViewController.h */,
+				185FDF481DDD56310091E176 /* SocialViewController.m */,
+			);
+			path = SocialViewControll;
+			sourceTree = "<group>";
+		};
+		185FDF4C1DDD947F0091E176 /* SocialViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				185FDF4D1DDD94AD0091E176 /* SocialTableViewCell.h */,
+				185FDF4E1DDD94AD0091E176 /* SocialTableViewCell.m */,
+			);
+			path = SocialViewCell;
 			sourceTree = "<group>";
 		};
 		1863DFD01C8D0FC700F7A84E /* 省市区 */ = {
@@ -2989,6 +3115,7 @@
 			isa = PBXGroup;
 			children = (
 				18F8789F1D053CCA0069E68A /* APIKey.h */,
+				185FDF1D1DDD41180091E176 /* ShootCamera */,
 				181F6AD71DC09CC9003FEDA9 /* VerticalMenuButton */,
 				1895BD561DAC838B00EA5FF2 /* UMessage_Sdk_1.4.0 */,
 				104622651D7C535500D5640C /* PPNumberButton */,
@@ -3681,6 +3808,7 @@
 				18BDD4341D6EDFE8001541E1 /* info@3x.png in Resources */,
 				18CB0F0E1CBF77E6009C41CE /* Esearch_jiantou@2x.png in Resources */,
 				18FD83341CBB858F00D50E20 /* case_look@2x.png in Resources */,
+				185FDF3F1DDD41180091E176 /* flash_close_pic@2x.png in Resources */,
 				181BA40F1CE598B600A29E2E /* share_platform_qqfriends@2x.png in Resources */,
 				18BDD4311D6EDFE8001541E1 /* error@2x.png in Resources */,
 				1895BDD21DACB89800EA5FF2 /* defaultSound.caf in Resources */,
@@ -3698,12 +3826,14 @@
 				18BDD4321D6EDFE8001541E1 /* error@3x.png in Resources */,
 				1895BDD71DACB89800EA5FF2 /* woman_court.caf in Resources */,
 				1065C34E1CA91BA4003F4089 /* laws_CaseSearch.jpg in Resources */,
+				185FDF3D1DDD41180091E176 /* camera_focus_pic.png in Resources */,
 				18FBD84B1CED90CD00674D1E /* case_wenjainjia@2x.png in Resources */,
 				18EE9F051D586A4400F217BD /* Gov_Edit@2x.png in Resources */,
 				1065C34D1CA91BA4003F4089 /* law_yuyin@2x.png in Resources */,
 				188F9E3A1CF81AB7000F9B2D /* laws_lawsSearch@2x.png in Resources */,
 				18D957061CF59F4F00F0E4DB /* home_Shuff@2x.png in Resources */,
 				10172BE91CBBF1F300B7553E /* case_xjwb@2x.png in Resources */,
+				185FDF4B1DDD77830091E176 /* Tools_shebao@2x.png in Resources */,
 				18BDD4331D6EDFE8001541E1 /* info@2x.png in Resources */,
 				1060DA131CACF8D400D779A5 /* commonRegulations@2x.png in Resources */,
 				1065C34B1CA91BA4003F4089 /* law_xiangguan@2x.png in Resources */,
@@ -3729,6 +3859,7 @@
 				188F9E371CF7FAF2000F9B2D /* Intro_2.jpg in Resources */,
 				18F2F19F1CBDDAD70068453D /* case_juanzong4s@2x.png in Resources */,
 				181BA4111CE598B600A29E2E /* share_platform_sina@2x.png in Resources */,
+				185FDF411DDD41180091E176 /* remove_btn_pic.png in Resources */,
 				108DC02B1C9FA38E00FD1221 /* mine_banner.jpg in Resources */,
 				188A781C1D73C64400BCB54D /* Tools_lihun@2x.png in Resources */,
 				1065C3451CA91BA4003F4089 /* law_jiegou@2x.png in Resources */,
@@ -3777,6 +3908,7 @@
 				18FBD8491CED90CD00674D1E /* case_photo@2x.png in Resources */,
 				1065C3461CA91BA4003F4089 /* law_share@2x.png in Resources */,
 				18526E391DC3338D003DF559 /* DetailContent.xml in Resources */,
+				185FDF421DDD41180091E176 /* take_photo_pic@2x.png in Resources */,
 				108323321CAA2B14004B8045 /* law_contentSearch@2x.png in Resources */,
 				185838881D49B9FC00C6A0EE /* gov_Review@2x.png in Resources */,
 				180B31661C8ECFFF00360A23 /* recommentSelect@2x.png in Resources */,
@@ -3788,6 +3920,7 @@
 				10241A1F1CB9FCDE000CBEAE /* pc_yiliao@2x.png in Resources */,
 				187A54AB1D642CBD0076A8E6 /* notSelected.png in Resources */,
 				1065C3431CA91BA4003F4089 /* law_difangfagui@2x.png in Resources */,
+				185FDF401DDD41180091E176 /* flash_open_pic@2x.png in Resources */,
 				18BDD42F1D6EDFE8001541E1 /* Checkmark@2x.png in Resources */,
 				108DC0351C9FA38E00FD1221 /* mine_jiantou@2x.png in Resources */,
 				188A781E1D73C64400BCB54D /* Tools_peichang@2x.png in Resources */,
@@ -3818,6 +3951,7 @@
 				108DC0281C9FA38E00FD1221 /* login_logo@2x.png in Resources */,
 				10172BE71CBBF1F300B7553E /* case_shangC@2x.png in Resources */,
 				185838871D49B9FC00C6A0EE /* gov_NoReview@2x.png in Resources */,
+				185FDF3E1DDD41180091E176 /* change_camera_pic@2x.png in Resources */,
 				181BA4121CE598B600A29E2E /* share_platform_wechat@2x.png in Resources */,
 				18FBD8481CED90CD00674D1E /* case_pdf@2x.png in Resources */,
 				188A781D1D73C64400BCB54D /* Tools_lixi@2x.png in Resources */,
@@ -3915,11 +4049,13 @@
 				187367301D7529F8000C1169 /* InjuryViewCell.m in Sources */,
 				187DB9501CDC9BA5009CF1D6 /* JSDropDownMenu.m in Sources */,
 				103E7E541D883DF700504765 /* PaymentTabViewCell.m in Sources */,
+				185FDF391DDD41180091E176 /* LPCameraController.m in Sources */,
 				1830E06F1D4863B9005D287E /* SDBrowserImageView.m in Sources */,
 				181292C01C87E85F00EBB5CD /* MeViewController.m in Sources */,
 				18FF3F611C8530290098C60B /* FMUSystem.m in Sources */,
 				18FF42E01C9805C200C6B29A /* PublicFunction.m in Sources */,
 				18B583431C9A4E3200CB3009 /* FDCalendarItem.m in Sources */,
+				185FDF4F1DDD94AD0091E176 /* SocialTableViewCell.m in Sources */,
 				187A54A91D642CBD0076A8E6 /* DNSendButton.m in Sources */,
 				18FF3F511C852BDB0098C60B /* NSString+Emoji.m in Sources */,
 				104157551C94587300EE5303 /* CommonViewCell.m in Sources */,
@@ -3953,6 +4089,7 @@
 				1065C2C21CA8E13F003F4089 /* LawsViewController.m in Sources */,
 				108DBFFF1C9F9DBF00FD1221 /* MineCerVCr.m in Sources */,
 				18F593E51CB5F40400F5619D /* UIWebView_SearchWebView.m in Sources */,
+				185FDF3C1DDD41180091E176 /* LPCamera.m in Sources */,
 				18FD83041CBB54F500D50E20 /* TheCaseCollectionCell.m in Sources */,
 				18F2F1AB1CBE16710068453D /* ExampleSearView.m in Sources */,
 				18CB0F0B1CBF5E00009C41CE /* SeniorTabViewCell.m in Sources */,
@@ -4000,6 +4137,7 @@
 				18FF3F521C852BDB0098C60B /* UIColor+Helper.m in Sources */,
 				109EAB241D4C79F9005C09BB /* ScanViewController.m in Sources */,
 				18FDC3781D9A38B80011EB33 /* InjuryHeadView.m in Sources */,
+				185FDF3B1DDD41180091E176 /* LPPageControl.m in Sources */,
 				188A783F1D742E0F00BCB54D /* LiXiViewController.m in Sources */,
 				104B44301C9BCCE400FC19B3 /* AllReusableView.m in Sources */,
 				10FA3E231CAD648A005C4C0C /* RemindSoundVCr.m in Sources */,
@@ -4020,6 +4158,7 @@
 				187DB94A1CDC803C009CF1D6 /* GovClassData.m in Sources */,
 				10C86B841CABBE34002A75AC /* LawsKindView.m in Sources */,
 				18AD6AB11CD9EC930053F46B /* TemplateData.m in Sources */,
+				185FDF451DDD41180091E176 /* LPCameraPickerCell.m in Sources */,
 				18C788B21DD046C300E9D147 /* CityModel.m in Sources */,
 				18D66ACA1CE1B85000BF2C17 /* IndemnityData.m in Sources */,
 				187A54AD1D642CBD0076A8E6 /* SGMAlbumViewController.m in Sources */,
@@ -4030,6 +4169,7 @@
 				10D31D771CDEE847008D6F42 /* GovernmentDetailVC.m in Sources */,
 				1817D2991CC081FE00FF6EEE /* ConsultantTabVC.m in Sources */,
 				104B44321C9BCCE400FC19B3 /* commonReusableView.m in Sources */,
+				185FDF3A1DDD41180091E176 /* LPCameraPickerViewController.m in Sources */,
 				18C4B0651CB4FC7600D3CB8B /* SelectTemplateCell.m in Sources */,
 				18FBD8421CED8B0E00674D1E /* DetaillistModel.m in Sources */,
 				18FD83181CBB6F9C00D50E20 /* CaseDetailTabCell.m in Sources */,
@@ -4056,6 +4196,7 @@
 				187E6D601C841A11009169C2 /* main.m in Sources */,
 				10FA014B1CA0EAFE00E691FB /* ImmediatelyVC.m in Sources */,
 				18A428521CC0D19100CEB30E /* AccusingTheCell.m in Sources */,
+				185FDF381DDD41180091E176 /* LPCameraBrowerViewController.m in Sources */,
 				186AA1491CE430F90009C0D5 /* ExampleDetailData.m in Sources */,
 				186553A71D76BB6B00DBA8D8 /* LayerFeesModel.m in Sources */,
 				1869F1321DD4102400C4F7A0 /* FileDataModel.m in Sources */,
@@ -4103,6 +4244,7 @@
 				10457F511C9EEEFA00E1D3B2 /* SoundManager.m in Sources */,
 				1856EC971D18E1A000016778 /* CaseFIViewController.m in Sources */,
 				10BA91AF1CEDEBFE000889A4 /* NewlyCreatedVC.m in Sources */,
+				185FDF431DDD41180091E176 /* LPCameraBrowerCell.m in Sources */,
 				10E3D5681C9587210004DC2C /* FeedbackViewController.m in Sources */,
 				1843C5B71D38CD2800414C2E /* ThirdPartyLoginView.m in Sources */,
 				18D9D68F1CBCD2CA008F9CC8 /* FilterView.m in Sources */,
@@ -4128,6 +4270,7 @@
 				104B44311C9BCCE400FC19B3 /* ChannelCollectionCell.m in Sources */,
 				1825B0A91C969386003B2096 /* NSString+Size.m in Sources */,
 				10580FFC1D08468000973E03 /* DriveNaviViewController.m in Sources */,
+				185FDF491DDD56310091E176 /* SocialViewController.m in Sources */,
 				104304971CA515CA009D7072 /* FGGDownloadManager.m in Sources */,
 				10A031401D1FE2AF00D31935 /* ConsultantHeadView.m in Sources */,
 				189AB24F1D20C1190032F580 /* CaseTextField.m in Sources */,
@@ -4167,6 +4310,7 @@
 				18EE958C1D2373150030AE2B /* AddFinanceVC.m in Sources */,
 				187DB94B1CDC803C009CF1D6 /* GovClassModel.m in Sources */,
 				18E0F6581CE9CDFC00032F4B /* ManagerData.m in Sources */,
+				185FDF441DDD41180091E176 /* LPCameraFocusView.m in Sources */,
 				18B2E1651D6C20E50076B597 /* LewReorderableLayout.m in Sources */,
 				180B31561C8EB5D100360A23 /* MyPickView.m in Sources */,
 			);
