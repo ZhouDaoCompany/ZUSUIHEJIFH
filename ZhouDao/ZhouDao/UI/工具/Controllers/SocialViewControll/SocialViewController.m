@@ -10,8 +10,10 @@
 #import "SelectCityViewController.h"
 #import "SocialTableViewCell.h"
 #import "PlistFileModel.h"
+#import "SocialResultViewController.h"
 
 static NSString *const SOCIALCELLIDENTIFER = @"SocialCellIdentifer";
+#define MORETANTWO(shuzi)  [NSString stringWithFormat:@"%.2f",shuzi]
 
 @interface SocialViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -21,7 +23,6 @@ static NSString *const SOCIALCELLIDENTIFER = @"SocialCellIdentifer";
 @property (nonatomic, strong) UIButton *calculateButton;
 @property (nonatomic, strong) UIButton *resetButton;
 @property (nonatomic, strong) NSDictionary *fileDictionary;
-
 @end
 
 @implementation SocialViewController
@@ -32,6 +33,7 @@ static NSString *const SOCIALCELLIDENTIFER = @"SocialCellIdentifer";
     // Do any additional setup after loading the view.
     
     [self initUI];
+    
 }
 
 #pragma mark - methods
@@ -63,14 +65,51 @@ static NSString *const SOCIALCELLIDENTIFER = @"SocialCellIdentifer";
 - (void)socialSecurityBtnEvent:(UIButton *)btn {
     
     NSInteger index = btn.tag;
-    
     if (index == 3134) {
         //重置
-        
+        [_dataSourceArrays replaceObjectAtIndex:0 withObject:@""];
+        [_dataSourceArrays replaceObjectAtIndex:1 withObject:@""];
+        [_tableView reloadData];
     } else {
-        //计算
         
+        NSArray *showArrays = @[@"请您选择地区",@"请您填写工资"];
+        for (NSUInteger i = 0; i < [_dataSourceArrays count]; i++) {
+            NSString *str = _dataSourceArrays[i];
+            if (str.length == 0) {
+                [JKPromptView showWithImageName:nil message:showArrays[i]];
+                return;
+            }
+        }
+        
+        //计算
+        [self calculateShow];
     }
+}
+- (void)calculateShow {
+    
+    NSString *wageString = _dataSourceArrays[1];
+    NSString *cityName = _dataSourceArrays[0];
+    CGFloat wage = [wageString floatValue];
+    __block NSMutableDictionary *detailDictionary = [NSMutableDictionary dictionary];
+    [detailDictionary setObjectWithNullValidate:_fileDictionary forKey:@"fileDictionary"];
+    [detailDictionary setObjectWithNullValidate:cityName forKey:@"cityName"];
+    [detailDictionary setObjectWithNullValidate:cityName forKey:@"cityName"];
+    [detailDictionary setObjectWithNullValidate:wageString forKey:@"wage"];
+
+    [CalculateManager getPersonalSocialSecurity:_fileDictionary withWage:wage Success:^(CGFloat grmoney, CGFloat gsmoney, CGFloat grGJJmoney, CGFloat gsGJJmoney, CGFloat taxMoney) {
+        
+        CGFloat shgz = wage - grmoney - grGJJmoney - taxMoney;
+        CGFloat gr = grmoney + grGJJmoney;
+        CGFloat gs = gsmoney + gsGJJmoney;
+        [detailDictionary setObjectWithNullValidate:MORETANTWO(shgz) forKey:@"shuihou"];
+        [detailDictionary setObjectWithNullValidate:MORETANTWO(gs) forKey:@"gsjn"];
+        [detailDictionary setObjectWithNullValidate:MORETANTWO(gr) forKey:@"grjn"];
+        [detailDictionary setObjectWithNullValidate:MORETANTWO(taxMoney) forKey:@"geshui"];
+
+    }];
+
+    SocialResultViewController *vc = [[SocialResultViewController alloc] initWithDetailDictionary:detailDictionary];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -86,6 +125,10 @@ static NSString *const SOCIALCELLIDENTIFER = @"SocialCellIdentifer";
             withShowText:self.dataSourceArrays[row] withIndex:row];
     cell.textField.delegate = self;
     cell.textField.tag = 3000 + indexPath.row;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textFieldChanged:)
+                                                 name:UITextFieldTextDidChangeNotification
+                                               object:cell.textField];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -98,7 +141,7 @@ static NSString *const SOCIALCELLIDENTIFER = @"SocialCellIdentifer";
         cityVC.socialBlock = ^(NSString *name, NSDictionary *fileDictionary) {
             
             [weakSelf.dataSourceArrays replaceObjectAtIndex:0 withObject:name];
-            weakSelf.fileDictionary = _fileDictionary;
+            weakSelf.fileDictionary = fileDictionary;
             [weakSelf.tableView reloadData];
         };
         [self presentViewController:cityVC animated:YES completion:^{

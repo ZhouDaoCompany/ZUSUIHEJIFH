@@ -65,6 +65,10 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     if (arrays.count >0) {
         [self.dataSourceArrays removeAllObjects];
         [self.dataSourceArrays addObjectsFromArray:arrays];
+        if ([arrays count] == 11) {
+            
+            [self.dataSourceArrays addObject:@"社保计算器"];
+        }
     }
     [self.collectionView reloadData];
 }

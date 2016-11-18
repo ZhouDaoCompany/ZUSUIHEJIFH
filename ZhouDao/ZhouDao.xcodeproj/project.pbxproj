@@ -361,6 +361,10 @@
 		189B78561C8572D30022BCEA /* picker_alert_sigh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189B78551C8572D30022BCEA /* picker_alert_sigh@2x.png */; };
 		18A4284F1CC0C8F100CEB30E /* DateTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A4284E1CC0C8F100CEB30E /* DateTimeView.m */; };
 		18A428521CC0D19100CEB30E /* AccusingTheCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A428511CC0D19100CEB30E /* AccusingTheCell.m */; };
+		18A476DF1DDE930B00104E57 /* SocialResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A476DE1DDE930B00104E57 /* SocialResultCell.m */; };
+		18A476E21DDE9D9200104E57 /* SocialResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A476E11DDE9D9200104E57 /* SocialResultViewController.m */; };
+		18A476E71DDEA34900104E57 /* SocialHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A476E61DDEA34900104E57 /* SocialHeadView.m */; };
+		18A476E91DDEC9C800104E57 /* SocialHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A476E81DDEC9C800104E57 /* SocialHeadView.xib */; };
 		18A56C461D86437100C133B2 /* HouseDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A56C441D86437100C133B2 /* HouseDetailVC.m */; };
 		18A56C4A1D86572100C133B2 /* HouseDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A56C491D86572100C133B2 /* HouseDetailHeadView.m */; };
 		18A56C4C1D86582200C133B2 /* HouseDetailHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A56C4B1D86582200C133B2 /* HouseDetailHeadView.xib */; };
@@ -1106,6 +1110,13 @@
 		18A4284E1CC0C8F100CEB30E /* DateTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimeView.m; sourceTree = "<group>"; };
 		18A428501CC0D19100CEB30E /* AccusingTheCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccusingTheCell.h; sourceTree = "<group>"; };
 		18A428511CC0D19100CEB30E /* AccusingTheCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccusingTheCell.m; sourceTree = "<group>"; };
+		18A476DD1DDE930B00104E57 /* SocialResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialResultCell.h; sourceTree = "<group>"; };
+		18A476DE1DDE930B00104E57 /* SocialResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialResultCell.m; sourceTree = "<group>"; };
+		18A476E01DDE9D9200104E57 /* SocialResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialResultViewController.h; sourceTree = "<group>"; };
+		18A476E11DDE9D9200104E57 /* SocialResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialResultViewController.m; sourceTree = "<group>"; };
+		18A476E51DDEA34900104E57 /* SocialHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialHeadView.h; sourceTree = "<group>"; };
+		18A476E61DDEA34900104E57 /* SocialHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialHeadView.m; sourceTree = "<group>"; };
+		18A476E81DDEC9C800104E57 /* SocialHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialHeadView.xib; sourceTree = "<group>"; };
 		18A56C431D86437100C133B2 /* HouseDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseDetailVC.h; sourceTree = "<group>"; };
 		18A56C441D86437100C133B2 /* HouseDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HouseDetailVC.m; sourceTree = "<group>"; };
 		18A56C481D86572100C133B2 /* HouseDetailHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HouseDetailHeadView.h; sourceTree = "<group>"; };
@@ -2445,6 +2456,11 @@
 			children = (
 				185FDF471DDD56310091E176 /* SocialViewController.h */,
 				185FDF481DDD56310091E176 /* SocialViewController.m */,
+				18A476E01DDE9D9200104E57 /* SocialResultViewController.h */,
+				18A476E11DDE9D9200104E57 /* SocialResultViewController.m */,
+				18A476E51DDEA34900104E57 /* SocialHeadView.h */,
+				18A476E61DDEA34900104E57 /* SocialHeadView.m */,
+				18A476E81DDEC9C800104E57 /* SocialHeadView.xib */,
 			);
 			path = SocialViewControll;
 			sourceTree = "<group>";
@@ -2454,6 +2470,8 @@
 			children = (
 				185FDF4D1DDD94AD0091E176 /* SocialTableViewCell.h */,
 				185FDF4E1DDD94AD0091E176 /* SocialTableViewCell.m */,
+				18A476DD1DDE930B00104E57 /* SocialResultCell.h */,
+				18A476DE1DDE930B00104E57 /* SocialResultCell.m */,
 			);
 			path = SocialViewCell;
 			sourceTree = "<group>";
@@ -3835,6 +3853,7 @@
 				10172BE91CBBF1F300B7553E /* case_xjwb@2x.png in Resources */,
 				185FDF4B1DDD77830091E176 /* Tools_shebao@2x.png in Resources */,
 				18BDD4331D6EDFE8001541E1 /* info@2x.png in Resources */,
+				18A476E91DDEC9C800104E57 /* SocialHeadView.xib in Resources */,
 				1060DA131CACF8D400D779A5 /* commonRegulations@2x.png in Resources */,
 				1065C34B1CA91BA4003F4089 /* law_xiangguan@2x.png in Resources */,
 				187E6D6B1C841A12009169C2 /* Assets.xcassets in Resources */,
@@ -4092,6 +4111,7 @@
 				185FDF3C1DDD41180091E176 /* LPCamera.m in Sources */,
 				18FD83041CBB54F500D50E20 /* TheCaseCollectionCell.m in Sources */,
 				18F2F1AB1CBE16710068453D /* ExampleSearView.m in Sources */,
+				18A476DF1DDE930B00104E57 /* SocialResultCell.m in Sources */,
 				18CB0F0B1CBF5E00009C41CE /* SeniorTabViewCell.m in Sources */,
 				18CC2E281D2263F1004B37DA /* MoreModel.m in Sources */,
 				1873676B1D7589D4000C1169 /* DayTabViewController.m in Sources */,
@@ -4138,6 +4158,7 @@
 				109EAB241D4C79F9005C09BB /* ScanViewController.m in Sources */,
 				18FDC3781D9A38B80011EB33 /* InjuryHeadView.m in Sources */,
 				185FDF3B1DDD41180091E176 /* LPPageControl.m in Sources */,
+				18A476E21DDE9D9200104E57 /* SocialResultViewController.m in Sources */,
 				188A783F1D742E0F00BCB54D /* LiXiViewController.m in Sources */,
 				104B44301C9BCCE400FC19B3 /* AllReusableView.m in Sources */,
 				10FA3E231CAD648A005C4C0C /* RemindSoundVCr.m in Sources */,
@@ -4271,6 +4292,7 @@
 				1825B0A91C969386003B2096 /* NSString+Size.m in Sources */,
 				10580FFC1D08468000973E03 /* DriveNaviViewController.m in Sources */,
 				185FDF491DDD56310091E176 /* SocialViewController.m in Sources */,
+				18A476E71DDEA34900104E57 /* SocialHeadView.m in Sources */,
 				104304971CA515CA009D7072 /* FGGDownloadManager.m in Sources */,
 				10A031401D1FE2AF00D31935 /* ConsultantHeadView.m in Sources */,
 				189AB24F1D20C1190032F580 /* CaseTextField.m in Sources */,

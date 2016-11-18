@@ -70,6 +70,109 @@
     return [rateString doubleValue];
 }
 
+//MARK: 社保
+/*
+ 工资计算公式：
+ 税后工资 =
+ 税前工资
+ - 个人社保（gr_ratio*工资）
+ - 个人公积金（gr_ratio*工资）
+ - 个人所得税
+ 
+ 社保计算公式：
+ 个人（工资  * 城市对应 gr_ratio）
+ 企业（工资  * 城市对应 gs_ratio）
+ 如果工资小于 down ，则 down 值替换工资计算
+ 如果工资大于 up， 则 up 值替换工资计算
+ 
+ 公积金计算公式：
+ 个人（工资  * 城市对应 gr_ratio）
+ 企业（工资  * 城市对应 gs_ratio）
+ 如果工资小于 down ，则 down 值替换工资计算
+ 如果工资大于 up， 则 up 值替换工资计算
+ 
+ 个人所得税计算：
+ 计算金额 = 工资 - 社保 - 公积金 - [假期] - 3500
+ 计算金额小于0按照0计算
+ 
+ <=1500  【计算金额 * 0.03】
+ <=4500  【计算金额 * 0.1 - 105】
+ <=9000  【计算金额 * 0.2 - 555】
+ <=35000【计算金额 * 0.25 - 1005】
+ <=55000【计算金额 * 0.3 - 2755】
+ <=80000【计算金额 * 0.35 - 5505】
+ >80000【计算金额 * 0.45 - 13505】
+*/
++ (void)getPersonalSocialSecurity:(NSDictionary *)dictionary withWage:(CGFloat)wage Success:(void (^)(CGFloat grmoney, CGFloat gsmoney, CGFloat grGJJmoney, CGFloat gsGJJmoney, CGFloat taxMoney))success{
+    
+    __block CGFloat grmoney = 0.f;//个人社保
+    __block CGFloat gsmoney = 0.f;//公司社保
+    __block CGFloat grGJJmoney = 0.f;//个人公积金
+    __block CGFloat gsGJJmoney = 0.f;//公司公积金
+    CGFloat taxmoney = 0.0f;
+
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSDictionary *objDictionary, BOOL * _Nonnull stop) {
+        
+        PlistFileModel *model = [[PlistFileModel alloc] initWithDictionary:objDictionary];
+        CGFloat tempWage = wage;
+        if (wage > [model.up floatValue]) {
+            tempWage = [model.up floatValue];
+        } else if (wage < [model.down floatValue]) {
+            tempWage = [model.down floatValue];
+        }
+
+        if ([key isEqualToString:@"gongjijin"]) {
+            
+            grGJJmoney += tempWage * [model.gr_ratio floatValue]/100.f;
+            gsGJJmoney += tempWage * [model.gs_ratio floatValue]/100.f;
+        } else {
+            grmoney += tempWage * [model.gr_ratio floatValue]/100.f;
+            gsmoney += tempWage * [model.gs_ratio floatValue]/100.f;
+        }
+    }];
+    
+    taxmoney = [[self class] TheIndividualIncomeTaxIsCalculatedWithWage:wage withGRSB:grmoney
+                                                              withGRGJJ:grGJJmoney];
+    success(grmoney , gsmoney, grGJJmoney, gsGJJmoney, taxmoney);
+}
+//MARK: 公积金
++ (void)accumulationFundCalculationFormula{
+    
+}
++ (CGFloat)TheIndividualIncomeTaxIsCalculatedWithWage:(CGFloat)wage withGRSB:(CGFloat)grMoney
+                                            withGRGJJ:(CGFloat)grgjjMoney{
+    
+    CGFloat taxmoney = 0.0f;
+    CGFloat tempMoney = wage - grMoney - grgjjMoney - 3500;
+    if (tempMoney < 0) {
+        tempMoney = 0;
+    }
+    
+    if (tempMoney <= 1500) {
+        
+        taxmoney = tempMoney * 0.03;
+    }else if (tempMoney <= 4500) {
+        
+        taxmoney = tempMoney * 0.1 - 105;
+    }else if (tempMoney <= 9000) {
+        
+        taxmoney = tempMoney * 0.2 - 555;
+    }else if (tempMoney <= 35000) {
+        
+        taxmoney = tempMoney * 0.25 - 1005;
+    }else if (tempMoney <= 55000) {
+        
+        taxmoney = tempMoney * 0.3 - 2755;
+    }else if (tempMoney <= 80000) {
+        
+        taxmoney = tempMoney * 0.35 - 5505;
+    }else {
+        taxmoney = tempMoney * 0.45 - 13505;
+    }
+    
+    return taxmoney;
+}
+
 #pragma mark - 解压打包文件到 Document里
 + (void)unCompressZipDocuments {
     

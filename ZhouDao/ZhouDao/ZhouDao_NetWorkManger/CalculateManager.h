@@ -46,7 +46,25 @@
  */
 + (double)getRateCalculateWithRateArrays:(NSArray *)rateArrays withDays:(double)differTimeDay;
 
+/**
+ 社保计算
 
+ @param dictionary 各地区字典
+ @param wage 工资
+ @param success 成功回调
+ */
++ (void)getPersonalSocialSecurity:(NSDictionary *)dictionary withWage:(CGFloat)wage Success:(void (^)(CGFloat grmoney, CGFloat gsmoney, CGFloat grGJJmoney, CGFloat gsGJJmoney, CGFloat taxMoney))success;
+
+/**
+ 个人所得税计算
+
+ @param wage 工资
+ @param grMoney 个人社保
+ @param grgjjMoney 个人公积金
+ @return 个人所得税
+ */
++ (CGFloat)TheIndividualIncomeTaxIsCalculatedWithWage:(CGFloat)wage withGRSB:(CGFloat)grMoney
+                                            withGRGJJ:(CGFloat)grgjjMoney;
 
 /**
  检测更新plist文件
