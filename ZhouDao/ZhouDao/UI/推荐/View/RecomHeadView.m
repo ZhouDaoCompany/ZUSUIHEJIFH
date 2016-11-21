@@ -21,7 +21,8 @@
 @property (nonatomic, strong) NSMutableArray *titleArrays;
 @property (strong, nonatomic) UIView *newslLawView;
 @property (strong, nonatomic) UIImageView *imgView3;
-
+@property (strong, nonatomic) UIView *backgroundView;//背景
+@property (strong, nonatomic) UILabel *textLabel;//文字描述
 @end
 
 @implementation RecomHeadView
@@ -113,6 +114,9 @@
     //3
     [imgBgView addSubview:self.imgView3];
     
+    [self.imgView3 addSubview:self.backgroundView];
+    [self.backgroundView addSubview:self.textLabel];
+
     
     UIView *sectionView = [[UIView alloc] initWithFrame: CGRectMake(0, height-55, width, 10)];
     sectionView.backgroundColor = ViewBackColor;
@@ -262,8 +266,8 @@
     _cycleScrollView.imageURLStringsGroup = picArr;
     _cycleScrollView.titlesGroup = titleArr;
 }
-- (void)setJdArrays:(NSArray *)jdArrays
-{
+- (void)setJdArrays:(NSArray *)jdArrays {
+    
     if (jdArrays.count ==0) {
         return;
     }
@@ -273,20 +277,36 @@
     [_imgView3 sd_setImageWithURL:[NSURL URLWithString:model.slide_pic] placeholderImage:[UIImage imageNamed:@"recommedArticle.jpg"]];
     
     if (model.slide_name.length > 0) {
-        UIView *backgroundView = [[UIView alloc] initWithFrame:_imgView3.bounds];
-        backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-        [_imgView3 addSubview:backgroundView];
-        float width = self.bounds.size.width - oftenLaws - 20.5f;
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(10, 32, width, 60)];
-        lab.text = model.slide_name;
-        lab.numberOfLines = 0;
-        lab.textAlignment = NSTextAlignmentCenter;
-        lab.textColor = [UIColor whiteColor];
-        lab.font = Font_13;
-        [backgroundView addSubview:lab];
+        
+        _backgroundView.hidden = NO;
+        _textLabel.hidden = NO;
+        _textLabel.text = model.slide_name;
+    } else {
+        _backgroundView.hidden = YES;
+        _textLabel.hidden = YES;
+        _textLabel.text = @"";
     }
 }
-
+- (UIView *)backgroundView {
+    
+    if (!_backgroundView) {
+        _backgroundView = [[UIView alloc] initWithFrame:_imgView3.bounds];
+        _backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    }
+    return _backgroundView;
+}
+- (UILabel *)textLabel {
+    
+    if (!_textLabel) {
+        float width = self.bounds.size.width - oftenLaws - 20.5f;
+        _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 32, width, 60)];
+        _textLabel.numberOfLines = 0;
+        _textLabel.textAlignment = NSTextAlignmentCenter;
+        _textLabel.textColor = [UIColor whiteColor];
+        _textLabel.font = Font_13;
+    }
+    return _textLabel;
+}
 
 
 /*

@@ -147,7 +147,7 @@
     if (index == 0) {
         viewVC.style =  SGMAlbumStyleCamera;
         [self presentViewController:viewVC animated:YES completion:nil];
-    }else {
+    }else if(index == 1){
         viewVC.style =  SGMAlbumStyleAlbum;
         viewVC.limitNum = 1;//不设置即不限制
         UINavigationController* nav = [[UINavigationController alloc]initWithRootViewController:viewVC];
