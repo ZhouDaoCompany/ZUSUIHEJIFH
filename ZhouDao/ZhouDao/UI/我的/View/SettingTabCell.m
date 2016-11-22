@@ -4,7 +4,7 @@
 //
 //  Created by apple on 16/3/16.
 //  Copyright © 2016年 CQZ. All rights reserved.
-//
+//  13621964745
 
 #import "SettingTabCell.h"
 #import "SDPhotoBrowser.h"
@@ -27,8 +27,7 @@
     
     return self;
 }
-- (void)initUI
-{
+- (void)initUI {
     
     [self.contentView addSubview:self.nameLab];
     [self.contentView addSubview:self.headImg];

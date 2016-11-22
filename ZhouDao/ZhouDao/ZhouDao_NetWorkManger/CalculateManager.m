@@ -135,9 +135,36 @@
                                                               withGRGJJ:grGJJmoney];
     success(grmoney , gsmoney, grGJJmoney, gsGJJmoney, taxmoney);
 }
-//MARK: 公积金
-+ (void)accumulationFundCalculationFormula{
+//MARK: 社保结果页计算
++ (void)socialSecurityCalculationResultsPageWithDataSource:(NSMutableArray *)dataSource withWage:(CGFloat)wage Success:(void (^)(CGFloat grmoney, CGFloat gsmoney, CGFloat grGJJmoney, CGFloat gsGJJmoney, CGFloat taxMoney))success {
+
+    __block CGFloat grmoney = 0.f;//个人社保
+    __block CGFloat gsmoney = 0.f;//公司社保
+    __block CGFloat grGJJmoney = 0.f;//个人公积金
+    __block CGFloat gsGJJmoney = 0.f;//公司公积金
+    CGFloat taxmoney = 0.0f;
     
+    [dataSource  enumerateObjectsUsingBlock:^(PlistFileModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        CGFloat tempWage = wage;
+        if (wage > [model.up floatValue]) {
+            tempWage = [model.up floatValue];
+        } else if (wage < [model.down floatValue]) {
+            tempWage = [model.down floatValue];
+        }
+        if (idx == [dataSource count] - 1) {
+            
+            grGJJmoney += tempWage * [model.gr_ratio floatValue]/100.f;
+            gsGJJmoney += tempWage * [model.gs_ratio floatValue]/100.f;
+        } else {
+            grmoney += tempWage * [model.gr_ratio floatValue]/100.f;
+            gsmoney += tempWage * [model.gs_ratio floatValue]/100.f;
+        }
+    }];
+    
+    taxmoney = [[self class] TheIndividualIncomeTaxIsCalculatedWithWage:wage withGRSB:grmoney
+                                                              withGRGJJ:grGJJmoney];
+    success(grmoney , gsmoney, grGJJmoney, gsGJJmoney, taxmoney);
 }
 + (CGFloat)TheIndividualIncomeTaxIsCalculatedWithWage:(CGFloat)wage withGRSB:(CGFloat)grMoney
                                             withGRGJJ:(CGFloat)grgjjMoney{

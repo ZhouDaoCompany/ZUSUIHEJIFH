@@ -116,11 +116,9 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {  WEAKSELF;
     NSUInteger index = indexPath.row;
     NSUInteger section = indexPath.section;
-    WEAKSELF;
     
     if (_sectionCount == 5) {
         if (section == 1) {

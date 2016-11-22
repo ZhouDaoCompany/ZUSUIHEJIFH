@@ -131,7 +131,6 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
             
         }];
-        
     }
     DLog(@"分享的是第几个－－－%ld",index);
 }
@@ -175,7 +174,6 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
         [self theAmountOfCompensation:arr1];
 
         [JKPromptView showWithImageName:nil message:@"平均工资低于当地最低工资标准时 \n 请输入当地最低工资标准."];
-
     }
     
 }

@@ -414,6 +414,7 @@
 #define SLFCulate               @"tools_shoulifei.php"//受理费
 #define WYJCulate               @"tools_weiyuejin.php"// 违约金
 #define YUQILXCulate            @"tools_yuqilixi.php"//逾期利息
+#define SOCIALCulate            @"tools_gongzi.php"//社保计算器
 
 /**************************分享的链接***************************/
 //法律法规

@@ -13,8 +13,6 @@
 @interface SocialResultCell()
 
 @property (nonatomic, strong) UILabel *titleLab;
-@property (nonatomic, strong) UITextField *textField1;
-@property (nonatomic, strong) UITextField *textField2;
 @property (strong, nonatomic) UIView *lineView;
 
 @end
@@ -48,6 +46,12 @@
 - (void)setShowUIWithDictionary:(PlistFileModel *)fileModel
                    withIndexRow:(NSInteger)indexRow {
     
+    _textField1.row = indexRow;
+    _textField2.row = indexRow;
+    
+    _textField1.section = (indexRow + 1) * 2000 + 1;
+    _textField2.section = (indexRow + 1) * 2000 + 2;
+    
     NSArray *titleArrays = @[@"养老",@"医疗",@"失业",@"工伤",@"生育",@"公积金"];
     _titleLab.text = titleArrays[indexRow];
     _textField1.text = fileModel.gr_ratio;
@@ -66,9 +70,9 @@
     return _titleLab;
 }
 
-- (UITextField *)textField1 {
+- (CaseTextField *)textField1 {
     if (!_textField1) {
-        _textField1 = [[UITextField alloc] initWithFrame:CGRectMake(TEXTWIDTH + 2, 7, TEXTWIDTH - 4, 30)];
+        _textField1 = [[CaseTextField alloc] initWithFrame:CGRectMake(TEXTWIDTH + 2, 7, TEXTWIDTH - 4, 30)];
         _textField1.borderStyle = UITextBorderStyleNone;
         _textField1.textColor = hexColor(666666);
         [_textField1 setValue:hexColor(ADADAD) forKeyPath:@"_placeholderLabel.textColor"];
@@ -79,9 +83,9 @@
     }
     return _textField1;
 }
-- (UITextField *)textField2 {
+- (CaseTextField *)textField2 {
     if (!_textField2) {
-        _textField2 = [[UITextField alloc] initWithFrame:CGRectMake(TEXTWIDTH *2 + 2, 7, TEXTWIDTH - 7, 30)];
+        _textField2 = [[CaseTextField alloc] initWithFrame:CGRectMake(TEXTWIDTH *2 + 2, 7, TEXTWIDTH - 7, 30)];
         _textField2.borderStyle = UITextBorderStyleNone;
         _textField2.textColor = hexColor(666666);
         [_textField2 setValue:hexColor(ADADAD) forKeyPath:@"_placeholderLabel.textColor"];

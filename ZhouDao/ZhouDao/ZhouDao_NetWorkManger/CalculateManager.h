@@ -50,10 +50,19 @@
  社保计算
 
  @param dictionary 各地区字典
- @param wage 工资
+ @param wage 工资 税前
  @param success 成功回调
  */
 + (void)getPersonalSocialSecurity:(NSDictionary *)dictionary withWage:(CGFloat)wage Success:(void (^)(CGFloat grmoney, CGFloat gsmoney, CGFloat grGJJmoney, CGFloat gsGJJmoney, CGFloat taxMoney))success;
+
+/**
+ 社保结果页计算
+
+ @param dataSource 五险一金对象
+ @param wage 工资 税前
+ @param success 成功回调
+ */
++ (void)socialSecurityCalculationResultsPageWithDataSource:(NSMutableArray *)dataSource withWage:(CGFloat)wage Success:(void (^)(CGFloat grmoney, CGFloat gsmoney, CGFloat grGJJmoney, CGFloat gsGJJmoney, CGFloat taxMoney))success;
 
 /**
  个人所得税计算

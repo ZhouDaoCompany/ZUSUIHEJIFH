@@ -69,9 +69,6 @@ static NSString *const PERSONALRESULTCELL = @"PersonalComputingResultsCellid";
         vc.introContent = contentText;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
-
-//    [_headerView addSubview:[PersonalHeadView instancePersonalHeadViewWithTotalMoney:@"1763514.00" withArea:@"上海" withHK:@"城镇" withItem:@"六级" withGrade:@"六级"]];
-
 }
 #pragma mark - UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView

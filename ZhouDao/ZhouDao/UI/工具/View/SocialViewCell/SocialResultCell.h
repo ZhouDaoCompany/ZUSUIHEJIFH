@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "PlistFileModel.h"
+#import "CaseTextField.h"
 
 @interface SocialResultCell : UITableViewCell
 
 @property (nonatomic, assign) NSInteger indexRow;
+@property (nonatomic, strong) CaseTextField *textField1;
+@property (nonatomic, strong) CaseTextField *textField2;
 
 - (void)setShowUIWithDictionary:(PlistFileModel *)fileModel
                    withIndexRow:(NSInteger)indexRow;

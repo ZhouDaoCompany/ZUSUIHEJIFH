@@ -33,12 +33,11 @@
 }
 - (void)initUIWithDictionary:(NSDictionary *)dict {
     
-
-    NSString *allMoney = dict[@"shuihou"];
+    NSString *allMoney = [QZManager getNewAmountSegmentationWithNumber:[dict[@"shuihou"] floatValue] withDecimal:YES];
     NSString *cityName = dict[@"cityName"];
-    NSString *shuiq = dict[@"wage"];
-    NSString *grjn   = dict[@"grjn"];
-    NSString *gsjn = dict[@"gsjn"];
+    NSString *shuiq = [QZManager getNewAmountSegmentationWithNumber:[dict[@"wage"] floatValue] withDecimal:YES];
+    NSString *grjn   =  [QZManager getNewAmountSegmentationWithNumber:[dict[@"grjn"] floatValue] withDecimal:YES];
+    NSString *gsjn = [QZManager getNewAmountSegmentationWithNumber:[dict[@"gsjn"] floatValue] withDecimal:YES];
     
     _shgzLabel.text = [NSString stringWithFormat:@"%@",allMoney];
     _sqgzLabel.text = [NSString stringWithFormat:@"税前工资:\n¥%@",shuiq];

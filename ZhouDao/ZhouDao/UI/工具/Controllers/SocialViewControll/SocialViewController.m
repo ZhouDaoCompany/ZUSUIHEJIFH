@@ -15,7 +15,7 @@
 static NSString *const SOCIALCELLIDENTIFER = @"SocialCellIdentifer";
 #define MORETANTWO(shuzi)  [NSString stringWithFormat:@"%.2f",shuzi]
 
-@interface SocialViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface SocialViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, CalculateShareDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSourceArrays;
@@ -80,7 +80,6 @@ static NSString *const SOCIALCELLIDENTIFER = @"SocialCellIdentifer";
                 return;
             }
         }
-        
         //计算
         [self calculateShow];
     }
@@ -93,7 +92,6 @@ static NSString *const SOCIALCELLIDENTIFER = @"SocialCellIdentifer";
     __block NSMutableDictionary *detailDictionary = [NSMutableDictionary dictionary];
     [detailDictionary setObjectWithNullValidate:_fileDictionary forKey:@"fileDictionary"];
     [detailDictionary setObjectWithNullValidate:cityName forKey:@"cityName"];
-    [detailDictionary setObjectWithNullValidate:cityName forKey:@"cityName"];
     [detailDictionary setObjectWithNullValidate:wageString forKey:@"wage"];
 
     [CalculateManager getPersonalSocialSecurity:_fileDictionary withWage:wage Success:^(CGFloat grmoney, CGFloat gsmoney, CGFloat grGJJmoney, CGFloat gsGJJmoney, CGFloat taxMoney) {
@@ -105,11 +103,27 @@ static NSString *const SOCIALCELLIDENTIFER = @"SocialCellIdentifer";
         [detailDictionary setObjectWithNullValidate:MORETANTWO(gs) forKey:@"gsjn"];
         [detailDictionary setObjectWithNullValidate:MORETANTWO(gr) forKey:@"grjn"];
         [detailDictionary setObjectWithNullValidate:MORETANTWO(taxMoney) forKey:@"geshui"];
-
     }];
 
     SocialResultViewController *vc = [[SocialResultViewController alloc] initWithDetailDictionary:detailDictionary];
     [self.navigationController pushViewController:vc animated:YES];
+}
+#pragma mark - event response
+- (void)rightBtnAction {
+    CalculateShareView *shareView = [[CalculateShareView alloc] initWithDelegate:self];
+    [shareView show];
+}
+#pragma mark - CalculateShareDelegate
+- (void)clickIsWhichOne:(NSInteger)index {
+    if (index == 0) { //分享计算器
+        NSString *calculateUrl = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,SOCIALCulate];
+        NSArray *arrays = [NSArray arrayWithObjects:@"社保计算",@"社保计算器",calculateUrl,@"", nil];
+        [ShareView CreatingPopMenuObjectItmes:ShareObjs contentArrays:arrays withPresentedController:self SelectdCompletionBlock:^(MenuLabel *menuLabel, NSInteger index) {
+            
+        }];
+    } else {
+        [JKPromptView showWithImageName:nil message:LOCCALCULATESHARE];
+    }
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

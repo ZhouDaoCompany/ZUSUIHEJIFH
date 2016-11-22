@@ -62,7 +62,6 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
             self.areasDictionary = _bigDictionary[province];
             self.isInterval = _areasDictionary[@"isInterval"];
             self.bottomLabel.text = [NSString stringWithFormat:@"根据《%@诉讼费用交纳办法》计算，供您参考",province];
-            
             [arr1 replaceObjectAtIndex:0 withObject:province];
         }
     }
@@ -116,7 +115,6 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
                     
                     [arr addObject:tempString];
                 }
-
             }
             NSString *keyString = (i == 0)?@"conditions":@"results";
             [shareDict setObject:arr forKey:keyString];
@@ -145,8 +143,6 @@ static NSString *const LawyerFeesCellID = @"LawyerFeesidentifer";
                 readVC.rType = FileNOExist;
                 [weakSelf.navigationController pushViewController:readVC animated:YES];
             }
-
-
             
         } fail:^{
             
