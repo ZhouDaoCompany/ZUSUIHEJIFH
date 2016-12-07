@@ -10,6 +10,7 @@
 #import "ToolCollectionViewCell.h"
 #import "SelectTemplateVC.h"
 #import "TheContractData.h"
+#import "OrdinaryVC.h"
 
 #define templateWidth     [UIScreen mainScreen].bounds.size.width/2.f -0.5f
 #define templateHeight    68
@@ -49,6 +50,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 {
     [self setupNaviBarWithTitle:@"合同模版"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
+    [self setupNaviBarWithBtn:NaviRightBtn title:nil img:@"Esearch_SouSuo"];
 
     //假的截屏
     UIWindow *windows = [QZManager getWindow];
@@ -111,11 +113,9 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 
     DLog(@"标签被点击了－－－－第几个便签－section:%ld   row:%ld",(long)indexPath.section,(long)indexPath.row);
     if ([_dataSourceArr[indexPath.row] isKindOfClass:[TheContractData class]]) {
+        
         TheContractData *model = _dataSourceArr[indexPath.row];
-        SelectTemplateVC *selectlVC = [SelectTemplateVC new];
-        selectlVC.firstArrays = _nameArrays;
-        selectlVC.cidArrays = _idArrays;
-        selectlVC.model = model;
+        SelectTemplateVC *selectlVC = [[SelectTemplateVC alloc] initWithFirstArrays:_nameArrays withCidArrays:_idArrays withTheContractData:model withTemplateType:GeneralSelectType];
         [self.navigationController  pushViewController:selectlVC animated:YES];
     }
 }
@@ -151,13 +151,18 @@ referenceSizeForHeaderInSection:(NSInteger)section
     return kCollectionViewCellsSection;
 }
 #pragma mark -UIButtonEvent
-- (void)leftBtnAction
-{
+- (void)leftBtnAction {
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+- (void)rightBtnAction {
+    
+    //搜索合同模版
+    OrdinaryVC *vc = [[OrdinaryVC alloc] initWithOrdinarySearchType:ContractSearchType];
+    [AnimationTools makeAnimationFade:vc :self.navigationController];
+}
 #pragma mark - setter and getter
-- (UICollectionView *)collectionView
-{
+- (UICollectionView *)collectionView {
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
@@ -173,8 +178,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
     }
     return _collectionView;
 }
-- (UIImageView *)falseImgView
-{
+- (UIImageView *)falseImgView {
     if (!_falseImgView) {
         [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"wpp_readall_top_down_normal"];
         //假的截屏

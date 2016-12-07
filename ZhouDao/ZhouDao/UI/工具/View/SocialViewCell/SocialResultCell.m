@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) UILabel *titleLab;
 @property (strong, nonatomic) UIView *lineView;
+@property (strong, nonatomic) UILabel *percentageLabel1;
+@property (strong, nonatomic) UILabel *percentageLabel2;
 
 @end
 
@@ -29,6 +31,8 @@
         [self.contentView addSubview:self.titleLab];
         [self.contentView addSubview:self.textField1];
         [self.contentView addSubview:self.textField2];
+        [self.contentView addSubview:self.percentageLabel1];
+        [self.contentView addSubview:self.percentageLabel2];
         [self.contentView addSubview:self.lineView];
         
         UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(TEXTWIDTH , 5, 1, 35)];
@@ -37,7 +41,6 @@
         UIView *view2 = [[UIView alloc] initWithFrame:CGRectMake(TEXTWIDTH*2, 5, 1, 35)];
         view2.backgroundColor = hexColor(E5E5E5);
         [self.contentView addSubview:view2];
-
     }
     return self;
 }
@@ -62,9 +65,11 @@
 #pragma mark - setter and getter
 - (UILabel *)titleLab {
     if (!_titleLab) {
-        _titleLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 7, TEXTWIDTH - 15, 30)];
+        
+        _titleLab = [[UILabel alloc] initWithFrame:CGRectMake(5, 7, TEXTWIDTH - 10 , 30)];
         _titleLab.font = Font_15;
         _titleLab.backgroundColor = [UIColor clearColor];
+        _titleLab.textAlignment = NSTextAlignmentCenter;
         _titleLab.textColor = hexColor(000000);
     }
     return _titleLab;
@@ -72,20 +77,35 @@
 
 - (CaseTextField *)textField1 {
     if (!_textField1) {
-        _textField1 = [[CaseTextField alloc] initWithFrame:CGRectMake(TEXTWIDTH + 2, 7, TEXTWIDTH - 4, 30)];
+        
+        _textField1 = [[CaseTextField alloc] initWithFrame:CGRectMake(TEXTWIDTH + 2, 7, TEXTWIDTH - 19, 30)];
         _textField1.borderStyle = UITextBorderStyleNone;
         _textField1.textColor = hexColor(666666);
         [_textField1 setValue:hexColor(ADADAD) forKeyPath:@"_placeholderLabel.textColor"];
         _textField1.font = Font_14;
         _textField1.textAlignment = NSTextAlignmentRight;
         _textField1.keyboardType = UIKeyboardTypeDecimalPad;
-
     }
     return _textField1;
 }
+- (UILabel *)percentageLabel1 {
+    
+    if (!_percentageLabel1) {
+        
+        _percentageLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(Orgin_x(_textField1), 7, 17 , 30)];
+        _percentageLabel1.font = Font_14;
+        _percentageLabel1.text = @"%";
+        _percentageLabel1.backgroundColor = [UIColor clearColor];
+        _percentageLabel1.textAlignment = NSTextAlignmentLeft;
+        _percentageLabel1.textColor = hexColor(666666);
+    }
+    return _percentageLabel1;
+}
+
 - (CaseTextField *)textField2 {
     if (!_textField2) {
-        _textField2 = [[CaseTextField alloc] initWithFrame:CGRectMake(TEXTWIDTH *2 + 2, 7, TEXTWIDTH - 7, 30)];
+        
+        _textField2 = [[CaseTextField alloc] initWithFrame:CGRectMake(TEXTWIDTH *2 + 2, 7, TEXTWIDTH - 19, 30)];
         _textField2.borderStyle = UITextBorderStyleNone;
         _textField2.textColor = hexColor(666666);
         [_textField2 setValue:hexColor(ADADAD) forKeyPath:@"_placeholderLabel.textColor"];
@@ -95,6 +115,20 @@
     }
     return _textField2;
 }
+- (UILabel *)percentageLabel2 {
+    
+    if (!_percentageLabel2) {
+        
+        _percentageLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(Orgin_x(_textField2), 7, 17 , 30)];
+        _percentageLabel2.font = Font_14;
+        _percentageLabel2.text = @"%";
+        _percentageLabel2.backgroundColor = [UIColor clearColor];
+        _percentageLabel2.textAlignment = NSTextAlignmentLeft;
+        _percentageLabel2.textColor = hexColor(666666);
+    }
+    return _percentageLabel2;
+}
+
 - (UIView *)lineView {
     if (!_lineView) {
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(15, 44.4f, kMainScreenWidth - 15, .6f)];

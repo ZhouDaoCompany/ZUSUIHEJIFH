@@ -52,20 +52,25 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
     [self initUI];
 }
 #pragma mark - private methods
-- (void)initUI
-{
+- (void)initUI {
+    
     [self setupNaviBarWithTitle:@"工具"];
     [self.view addSubview:self.collectionView];
     [self loadDataFromTheLocal];
 }
 #pragma mark - 请求
-- (void)loadDataFromTheLocal
-{
+- (void)loadDataFromTheLocal {
+    
     NSArray *arrays = [USER_D objectForKey:TOOLSTHESORT];
     if (arrays.count >0) {
         [self.dataSourceArrays removeAllObjects];
         [self.dataSourceArrays addObjectsFromArray:arrays];
-        if ([arrays count] == 11) {
+
+        if ([self.dataSourceArrays containsObject:@""]) {
+        
+            [self.dataSourceArrays removeObject:@""];
+        }
+        if ([self.dataSourceArrays count] == 11) {
             
             [self.dataSourceArrays addObject:@"社保计算器"];
         }
@@ -167,6 +172,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
         [self.navigationController pushViewController:vc animated:YES];
     }else if ([titleString isEqualToString:@"社保计算器"]){
         
+        [MobClick event:@"GJ_SheBao" label:@"工具"];
         SocialViewController *vc = [SocialViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }

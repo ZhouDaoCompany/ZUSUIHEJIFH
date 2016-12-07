@@ -79,6 +79,7 @@
  *   搜索存储
  */
 #define keyIdentifer       @"examplehisArr"
+#define CONTRACTSEARCH     @"contractSearchList"
 #define SearchIdentifer    @"LawshistoryArrays"
 /**
  *   数据缓存
@@ -103,7 +104,6 @@
  */
 #define    DownLoadCachePath    [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/DownloadFile"]
 #define    PLISTCachePath       [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/CalculatePlistFile"]
-
 
 /**
  * 友盟分享

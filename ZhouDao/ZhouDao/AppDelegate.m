@@ -92,6 +92,12 @@
     [self umengPushSettingWithOptions:launchOptions];
     //[KMCGeigerCounter sharedGeigerCounter].enabled = YES;
     
+//    [ZhouDao_NetWorkManger getWithUrl:@"https://dajiaochong.517w.com/dacu_app/app/?c=BookDetail&a=get_book_coin_rank" sg_cache:NO success:^(id response) {
+//        
+//        DLog(@"%@",response);
+//    } fail:^(NSError *error) {
+//        DLog(@"%@",error);
+//    }];
     
     ZDLTabBarControllerConfig *tabBarControllerConfig = [[ZDLTabBarControllerConfig alloc] init];
     tabBarControllerConfig.tabBarController.delegate = self;
@@ -143,6 +149,7 @@
 }
 #pragma mark -友盟统计
 - (void)umengTrack {
+    
     [MobClick setCrashReportEnabled:YES]; // 如果不需要捕捉异常，注释掉此行
     [MobClick setLogEnabled:NO];  // 打开友盟sdk调试，注意Release发布时需要注释掉此行,减少io消耗
     //    [MobClick setAppVersion:XcodeAppVersion]; //参数为NSString * 类型,自定义app版本信息，如果不设置，默认从CFBundleVersion里取

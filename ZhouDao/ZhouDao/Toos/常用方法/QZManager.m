@@ -388,40 +388,24 @@ singleton_for_class(QZManager)
 }
 
 #pragma mark - 获取方向
-+ (NSString *)getHeadingDes:(CGFloat )heading
-{
-    NSString *aStr = @"";
++ (NSString *)getHeadingDes:(CGFloat )heading {
     
-    if (heading >22.5 && heading <=67.5)
-    {
+    NSString *aStr = @"";
+    if (heading >22.5 ) {
         aStr = @"正北方向";
-    }
-    if(heading > 67.5 && heading <= 112.5)
-    {
+    } else if(heading > 67.5) {
         aStr = @"正北方向";
-    }
-    if(heading > 112.5 && heading <= 157.5)
-    {
+    } else if(heading > 112.5) {
         aStr = @"东南方向";
-    }
-    if(heading > 157.5 && heading <= 202.5)
-    {
+    } else if(heading > 157.5) {
         aStr = @"正南方向";
-    }
-    if(heading > 202.5 && heading <= 247.5)
-    {
+    } else if(heading > 202.5) {
         aStr = @"西南方向";
-    }
-    if(heading > 247.5 && heading <= 292.5)
-    {
+    } else if(heading > 247.5) {
         aStr = @"正西方向";
-    }
-    if(heading > 292.5 && heading <= 337.5)
-    {
+    } else if(heading > 292.5) {
         aStr = @"西北方向";
-    }
-    if(heading > 337.5 || heading <= 22.5)
-    {
+    } else if(heading > 337.5 || heading <= 22.5) {
         aStr = @"正北方向";
     }
     

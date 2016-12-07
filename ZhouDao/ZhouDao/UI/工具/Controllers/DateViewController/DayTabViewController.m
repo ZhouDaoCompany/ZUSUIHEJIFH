@@ -40,7 +40,7 @@ static NSString *const DAYCellID = @"dayCellID";
     [self initUI];
 }
 #pragma mark - private methods
-- (void)initUI{
+- (void)initUI {
     
     NSString *pathSource = [NSString stringWithFormat:@"%@/%@",PLISTCachePath,@"holiday.plist"];
     self.timeDictionary = [NSMutableDictionary dictionaryWithContentsOfFile:pathSource];

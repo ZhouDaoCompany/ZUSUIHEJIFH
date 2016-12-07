@@ -67,7 +67,7 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 //            SeniorViewController *searchVC = [SeniorViewController new];
 //            [AnimationTools makeAnimationFade:searchVC :weakSelf.navigationController];
         }else{
-            OrdinaryVC *VC = [OrdinaryVC new];
+            OrdinaryVC *VC = [[OrdinaryVC alloc] initWithOrdinarySearchType:CaseSearchType];
             [AnimationTools makeAnimationFade:VC :weakSelf.navigationController];
         }
     };

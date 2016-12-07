@@ -173,9 +173,7 @@
             _nameLab.text = @"新浪微博";
             _lineView.hidden = YES;
         }
-        
     }
-
 }
 #pragma mark -UIButtonEvent
 - (void)switchAction:(id)sender{
@@ -222,13 +220,26 @@
                 // 授权信息
                 DLog(@"AuthResponse : %@", [NSString stringWithFormat:@"result: %d\n uid: %@\n accessToken: %@\n     AuthOriginalResponse :%@",(int)error.code,resp.uid,resp.accessToken,resp.originalResponse]);
                 
-                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=3",kProjectBaseUrl,ThirdPartyLogin,resp.uid];
+                NSString *url = [NSString stringWithFormat:@"%@%@%@&s=%@",kProjectBaseUrl,ThirdPartyLogin,resp.uid,sString];
                 [NetWorkMangerTools whetherAccountBindingOnImmediatelyWithURLString:url RequestSuccess:^{
                     
                     NSString *urlString = [NSString stringWithFormat:@"%@%@au=%@&s=%@&mobile=%@&type=%@&udid=%@&sy=%@&ly=%@",kProjectBaseUrl,AuBindingURLString,resp.uid,sString,nameString,typeString,@"",@"2",@"2"];
                     [NetWorkMangerTools pureAuBindingURLString:urlString RequestSuccess:^{
                         
-                        [PublicFunction ShareInstance].m_user.data.wx_au = resp.uid;
+                        
+                        if ([sString isEqualToString:@"3"]) {
+                            //微信
+                            [PublicFunction ShareInstance].m_user.data.wx_au = resp.uid;
+
+                        } else if ([sString isEqualToString:@"1"]) {
+                            //qq
+                            [PublicFunction ShareInstance].m_user.data.qq_au = resp.uid;
+
+                        } else if ([sString isEqualToString:@"2"]) {
+                            //新浪
+                            [PublicFunction ShareInstance].m_user.data.wb_au = resp.uid;
+
+                        }
                         
                     } fail:^{
                         [switchBtn setOn:NO];//失败关闭
@@ -307,8 +318,8 @@
     }
 }
 
-- (void)chooseAWayToLogin
-{
+- (void)chooseAWayToLogin {
+    
     if ([PublicFunction ShareInstance].m_user.data.wx_au.length > 0) {
         
         [USER_D setObject:[PublicFunction ShareInstance].m_user.data.wx_au forKey:StorageUSID];
@@ -326,7 +337,6 @@
         [USER_D setObject:@"1" forKey:StorageTYPE];
         [USER_D synchronize];
     }
-    
 }
 - (void)dealloc {
     

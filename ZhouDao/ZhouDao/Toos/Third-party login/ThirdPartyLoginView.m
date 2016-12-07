@@ -94,19 +94,13 @@
 //    [button SelectdAnimation];
     if (tag == 0) {
         //微信
-        [self thirdLoginActionWithPlatformType:UMSocialPlatformType_WechatSession withSString:@"1"];
-        
+        [self thirdLoginActionWithPlatformType:UMSocialPlatformType_WechatSession withSString:@"3"];
     }else if (tag == 1) {
         //qq
         [self thirdLoginActionWithPlatformType:UMSocialPlatformType_QQ withSString:@"1"];
-
-
     } else {
-        [self thirdLoginActionWithPlatformType:UMSocialPlatformType_Sina withSString:@"1"];
-
-        
+        [self thirdLoginActionWithPlatformType:UMSocialPlatformType_Sina withSString:@"2"];
     }
-    
 }
 
 - (void)thirdLoginActionWithPlatformType:(UMSocialPlatformType)platformType
@@ -133,7 +127,6 @@
                             [weakSelf.delegate unboundedAccountToBindwithUsid:resp.uid withs:sString];
                         }
                     }
-                    
                 }];
 
             }else{

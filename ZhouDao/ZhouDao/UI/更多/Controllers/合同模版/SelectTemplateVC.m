@@ -25,81 +25,74 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
 @property (nonatomic, strong) NSMutableArray *classArrays;//分类
 @property (nonatomic, strong) NSMutableArray *sortArrays;//排序
 @property (nonatomic, strong) JSDropDownMenu *jsMenu;
-@property (nonatomic, strong) NSMutableArray *dataSourceArr;//列表数据源
 @end
 
 @implementation SelectTemplateVC
+- (instancetype)initWithFirstArrays:(NSMutableArray *)firstArrays
+                      withCidArrays:(NSMutableArray *)idArrays
+                withTheContractData:(TheContractData *)model
+                   withTemplateType:(TemplateType)temType
+{
+    self = [super init];
+    if (self) {
+        _temType = temType;
+        self.cidArrays = idArrays;
+        self.model = model;
 
+        if (_temType == GeneralSelectType) {
+            self.firstArrays = firstArrays;
+        } else {
+            [self.dataSourceArr addObjectsFromArray:firstArrays];
+        }
+    }
+    return self;
+}
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     [self initUI];
 }
-- (void)initUI
-{
+#pragma mark - methods
+- (void)initUI {
     [self setupNaviBarWithTitle:@"合同模版"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
-    _classArrays = [NSMutableArray array];
-    _dataSourceArr = [NSMutableArray array];
 
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,109.f, kMainScreenWidth, kMainScreenHeight-109.f) style:UITableViewStylePlain];
-    //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.showsHorizontalScrollIndicator= NO;
-    self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    [self.view addSubview:_tableView];
-    [self.tableView registerNib:[UINib nibWithNibName:@"SelectTemplateCell" bundle:nil] forCellReuseIdentifier:selectCellIdentifier];
-    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
-    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
+    [self.view addSubview:self.tableView];
+    if (_temType == GeneralSelectType) {
+        [self loadClassData];//请求合同分类
+    }
+}
+#pragma mark -获取分类
+- (void)loadClassData{ WEAKSELF;
     
     _cidString = _model.id;
     _page = 0;
     _scid = @"";
     _orid = @"0";
-    [self loadClassData];//请求合同分类
-}
-#pragma mark -获取分类
-- (void)loadClassData{
-    WEAKSELF;
+    
     [self getRegionData];
     [NetWorkMangerTools theContractListView:_cidString withscid:_scid withPage:_page withOrid:_orid RequestSuccess:^(NSArray *arrays) {
+        
         _page ++;
-        [_dataSourceArr addObjectsFromArray:arrays];
+        [weakSelf.dataSourceArr addObjectsFromArray:arrays];
         [weakSelf.tableView reloadData];
     } fail:^{
         [weakSelf.tableView reloadData];
     }];
-
 }
-- (void)getRegionData
-{WEAKSELF;
-    [_cidArrays enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([weakSelf.cidString isEqualToString:obj]) {
-            _classCurrent = idx;
-            *stop = YES;
-            return ;
-        }
-    }];
+- (void)getRegionData {
+    
+    _classCurrent = [_cidArrays indexOfObject:self.cidString];
+    
     //默认选中
     _sortCurrent = -1;
     _sortArrays = [NSMutableArray arrayWithObjects:@"排序不限",@"按阅读次数",@"按下载次数",@"按最新", nil];
-    _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
-    _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
-    _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
-    _jsMenu.textColor = THIRDCOLOR;
-    _jsMenu.backgroundColor = [UIColor whiteColor];
-    _jsMenu.dataSource = self;
-    _jsMenu.delegate = self;
-    [self.view addSubview:_jsMenu];
+    [self.view addSubview:self.jsMenu];
 }
 
 #pragma mark ------ 下拉刷新
-- (void)upRefresh:(id)sender
-{
-    WEAKSELF;
+- (void)upRefresh:(id)sender { WEAKSELF;
     _page = 0;
     [NetWorkMangerTools theContractListView:_cidString withscid:_scid withPage:_page withOrid:_orid RequestSuccess:^(NSArray *arrays) {
         
@@ -116,26 +109,26 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
         [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
     }];
 }
-
 #pragma mark ------ 上拉加载
-- (void)downRefresh:(id)sender
-{    WEAKSELF;
+- (void)downRefresh:(id)sender { WEAKSELF;
+    
     [MBProgressHUD showMBLoadingWithText:nil];
     [NetWorkMangerTools theContractListView:_cidString withscid:_scid withPage:_page withOrid:_orid RequestSuccess:^(NSArray *arrays) {
+        
         _page ++;
-        [_dataSourceArr addObjectsFromArray:arrays];
+        [weakSelf.dataSourceArr addObjectsFromArray:arrays];
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_footer endRefreshing];
     } fail:^{
-        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
     }];
 }
 
-#pragma mark
 #pragma mark -UITableViewDataSource
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_dataSourceArr count];
+    return [self.dataSourceArr count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -244,6 +237,53 @@ static NSString *const selectCellIdentifier = @"selectCellIdentifier";
             [weakSelf.tableView reloadData];
         }];
     }
+}
+
+#pragma mark setter and getter
+- (UITableView *)tableView {
+    
+    if (!_tableView) {
+
+        CGRect frame = (_temType == GeneralSelectType) ? CGRectMake(0,109.f, kMainScreenWidth, kMainScreenHeight-109.f) : CGRectMake(0,64.f, kMainScreenWidth, kMainScreenHeight-64.f);
+        _tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
+        _tableView.showsHorizontalScrollIndicator= NO;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [_tableView registerNib:[UINib nibWithNibName:@"SelectTemplateCell" bundle:nil] forCellReuseIdentifier:selectCellIdentifier];
+        if (_temType == GeneralSelectType) {
+            _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(upRefresh:)];
+            _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(downRefresh:)];
+        }
+    }
+    return _tableView;
+}
+- (JSDropDownMenu *)jsMenu {
+    
+    if (!_jsMenu) {
+        _jsMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:45];
+        _jsMenu.indicatorColor = LRRGBColor(175, 175, 175);
+        _jsMenu.separatorColor = LRRGBColor(210, 210, 210);
+        _jsMenu.textColor = THIRDCOLOR;
+        _jsMenu.backgroundColor = [UIColor whiteColor];
+        _jsMenu.dataSource = self;
+        _jsMenu.delegate = self;
+    }
+    return _jsMenu;
+}
+- (NSMutableArray *)dataSourceArr {
+    if (!_dataSourceArr) {
+        _dataSourceArr = [NSMutableArray array];
+    }
+    return _dataSourceArr;
+}
+- (NSMutableArray *)classArrays {
+    if (!_classArrays) {
+        _classArrays = [NSMutableArray array];
+    }
+    return _classArrays;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

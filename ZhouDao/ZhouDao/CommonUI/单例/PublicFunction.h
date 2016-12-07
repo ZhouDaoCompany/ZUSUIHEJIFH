@@ -11,7 +11,11 @@
 
 @interface PublicFunction : NSObject
 
+//是否登录
 @property (nonatomic) BOOL m_bLogin;
+//新版本第一次启动
+@property (nonatomic) BOOL versionFirstTime;
+
 @property (nonatomic, strong)UserModel *m_user;
 @property (nonatomic, copy) NSString *picToken;
 @property (nonatomic, copy) NSString *qiniuKey;
@@ -21,9 +25,12 @@
 @property (nonatomic, strong) NSString *locProv;
 @property (nonatomic, strong) NSString *locCity;
 @property (nonatomic, strong) NSString *locDistrict;
+@property (nonatomic, strong) NSString *formatAddress;
+
 
 
 +(PublicFunction *)ShareInstance;
+
 /**
  *  应用是否第一次启动
  *

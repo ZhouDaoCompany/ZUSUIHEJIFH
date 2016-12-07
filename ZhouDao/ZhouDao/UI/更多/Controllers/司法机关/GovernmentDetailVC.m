@@ -18,6 +18,7 @@
 #import "MapNavViewController.h"
 #import "ZD_AlertWindow.h"
 #import "GovHECViewController.h"
+#import "LCActionSheet.h"
 
 static NSString *const DetailCellIdentifier = @"DetailCellIdentifier";
 static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
@@ -33,6 +34,8 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 @property (nonatomic, strong)  AMapLocationManager *locationService;//定位服务
 @property (nonatomic, strong)  UIButton *storeBtn;//收藏
 @property (nonatomic, strong)  UIButton *errorBtn;//纠错
+@property (nonatomic, strong)  NSMutableArray *kindArrays;
+@property (nonatomic, copy)    NSString *mapStyle;//导航地图 (高德，百度，腾讯)
 @end
 
 @implementation GovernmentDetailVC
@@ -167,7 +170,8 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0  && indexPath.section == 0) {
-        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleReview withTextAlignment:NSTextAlignmentLeft Title:@"审查说明" WithOptionOne:@"" WithOptionTwo:@""];
+        
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleReview withTextAlignment:NSTextAlignmentLeft Title:@"审查说明" WithOptionArrays:[NSArray array]];
         
         [self.view addSubview:alertWindow];
     }
@@ -178,8 +182,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
             if ([QZManager isString:_model.phone withContainsStr:@"/"] == YES) {
                 
                 NSArray *array = [_model.phone componentsSeparatedByString:@"/"];
-
-                ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStylePhone withTextAlignment:NSTextAlignmentLeft Title:@"选择号码" WithOptionOne:array[0] WithOptionTwo:array[1]];
+                ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStylePhone withTextAlignment:NSTextAlignmentLeft Title:@"选择号码" WithOptionArrays:array];
                 alertWindow.delegate = self;
                 [self.view addSubview:alertWindow];
 
@@ -196,30 +199,94 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         }
         
         if (!_startPoint) {
-//            [JKPromptView showWithImageName:nil message:@"没有开启定位 ，请您开启定位"];
+
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"没有开启定位 ，请您开启定位" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去设置》", nil];
             alertView.tag = 6389;
             [alertView show];
             return;
         }
         
-        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleNAV withTextAlignment:NSTextAlignmentLeft Title:@"选择导航方式" WithOptionOne:@"驾车导航" WithOptionTwo:@"步行导航"];
+        [self whatKindOfMapForInstallation];
+    }
+}
+#pragma mark - 得到手机安装了哪几种地图
+- (void)whatKindOfMapForInstallation {
+    
+    [self.kindArrays removeAllObjects];//清空数组
+    //百度地图
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
+    
+        [_kindArrays addObject:@"百度地图"];
+    }
+    //高德地图
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://"]]) {
+        
+        [_kindArrays addObject:@"高德地图"];
+    }
+    //腾讯地图
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"qqmap://"]]) {
+    
+        [_kindArrays addObject:@"腾讯地图"];
+    }
+    
+    if ([_kindArrays count] == 0) {
+        //未安装以上几种地图 调用高德SDK
+        
+        [_kindArrays addObjectsFromArray:@[@"驾车导航",@"步行导航"]];
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleNAV withTextAlignment:NSTextAlignmentLeft Title:@"选择导航模式" WithOptionArrays:_kindArrays];
+        alertWindow.delegate = self;
+        [self.view addSubview:alertWindow];
+
+    } else {
+        
+        //显示选择第三方地图
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleKindsMAP withTextAlignment:NSTextAlignmentLeft Title:@"选择导航地图" WithOptionArrays:_kindArrays];
         alertWindow.delegate = self;
         [self.view addSubview:alertWindow];
     }
+    
+}
+#pragma mark - 百度导航
+-(void)onDaoHangForBaiDuMapWithModelStyle:(NSString *)modelStyle {
+    /*
+     location	lat<纬度>,lng<经度>	必选
+     title	标注点显示标题	必选	product下可直接跟方法，当然产品线也可增加一个service级别
+     content	标注点显示内容	必选
+     coord_type	坐标类型，可选参数，默认为bd09ll。	可选	允许的值为bd09ll、gcj02、wgs84。bd09ll表示百度经纬度坐标， gcj02表示经过国测局坐标，wgs84表示gps获取的坐标。
+     zoom	展现地图的级别，默认为视觉最优级别。	可选
+     src	调用来源，规则：companyName|appName。	必选	此参数不传值，不保证服务。
+     */
+    
+    NSString * openUrl = [[NSString stringWithFormat:@"baidumap://map/direction?origin=我的位置&destination=%@&mode=%@&region=%@&src=法大秘",_model.name,modelStyle,[PublicFunction ShareInstance].locCity] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
+}
+#pragma mark - 高德导航
+-(void)onDaoHangForGaoDeMapWithModelStyle:(NSString *)modelStyle  {
+    
+    /*
+     m 驾车：0：速度最快，1：费用最少，2：距离最短，3：不走高速，4：躲避拥堵，5：不走高速且避免收费，6：不走高速且躲避拥堵，7：躲避收费和拥堵，8：不走高速躲避收费和拥堵 公交：0：最快捷，2：最少换乘，3：最少步行，5：不乘地铁 ，7：只坐地铁 ，8：时间短  是
+     t = 0：驾车 =1：公交 =2：步行
+     */
+    NSString *url = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=applicationName&sid=BGVIS1&slat=%lf&slon=%lf&sname=我的位置&did=BGVIS2&dlat=%lf&dlon=%lf&dname=%@&dev=0&m=0&t=%@",_startPoint.latitude,_startPoint.longitude, _endPoint.latitude,_endPoint.longitude,_model.name,modelStyle] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+#pragma mark - 腾讯导航
+-(void)onDaoHangForTengXunMapWithModelStyle:(NSString *)modelStyle  {
+    
+    NSString *openUrl = [[NSString stringWithFormat:@"qqmap://map/routeplan?type=%@&from=%@&to=%@&policy=0&referer=法大秘",modelStyle,[PublicFunction ShareInstance].formatAddress,_model.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:openUrl]];
 }
 #pragma mark - UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 6389 && buttonIndex == 1) {
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }
 }
 #pragma mark - ZD_AlertWindowPro
-- (void)customAlertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)customAlertView:(ZD_AlertWindow *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.style == ZD_AlertViewStyleNAV) {
+        //选择集成的 高德SDK 导航的方式
         if (buttonIndex == 0) {
             
             DeriveMapVC *mapVC = [DeriveMapVC new];
@@ -234,20 +301,47 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
             [self.navigationController pushViewController:vc animated:YES];
         }
 
-    } else if (alertView.style == ZD_AlertViewStylePhone){
+    }else if (alertView.style == ZD_AlertViewStyleKindsMAP) {
+        //选择了哪个第三方地图
+        _mapStyle = _kindArrays[buttonIndex];
+        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleMAPNAV withTextAlignment:NSTextAlignmentLeft Title:@"选择导航模式" WithOptionArrays:@[@"公交",@"驾车",@"步行"]];
+        alertWindow.delegate = self;
+        [self.view addSubview:alertWindow];
 
+    }else if (alertView.style == ZD_AlertViewStyleMAPNAV) {
+        //选择第三方应用导航模式
+        NSArray *modelArrays = @[@"公交",@"驾车",@"步行"];
+        NSString *tempStyle = modelArrays[buttonIndex];
+
+        if ([_mapStyle isEqualToString:@"百度地图"]) {
+            
+            NSDictionary *modelDictionqry = [NSDictionary dictionaryWithObjectsAndKeys:@"transit",@"公交",@"driving",@"驾车",@"walking",@"步行", nil];
+             NSString *modelStyle = modelDictionqry[tempStyle];
+            [self onDaoHangForBaiDuMapWithModelStyle:modelStyle];
+            
+        } else if ([_mapStyle isEqualToString:@"高德地图"]) {
+            
+            NSDictionary *modelDictionqry = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"公交",@"0",@"驾车",@"2",@"步行", nil];
+            NSString *modelStyle = modelDictionqry[tempStyle];
+            [self onDaoHangForGaoDeMapWithModelStyle:modelStyle];
+        } else if ([_mapStyle isEqualToString:@"腾讯地图"]) {
+            
+            NSDictionary *modelDictionqry = [NSDictionary dictionaryWithObjectsAndKeys:@"bus",@"公交",@"drive",@"驾车",@"walk",@"步行", nil];
+            NSString *modelStyle = modelDictionqry[tempStyle];
+            [self onDaoHangForTengXunMapWithModelStyle:modelStyle];
+        }
+        
+    }else if (alertView.style == ZD_AlertViewStylePhone) {
+        //选择电话号码
         NSArray *array = [_model.phone componentsSeparatedByString:@"/"];
-        NSString *phoneString = (buttonIndex == 0)?array[0]:array[1];
+        NSString *phoneString = array[buttonIndex];
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneString]]];
         [self.callPhoneWebView loadRequest:request];
-
     }
 }
 #pragma mark -UIButtonEvent
-- (void)rightBtnAction
-{WEAKSELF;
+- (void)rightBtnAction { WEAKSELF;
     DLog(@"收藏");
-
     if ([PublicFunction ShareInstance].m_bLogin == NO) {
         [JKPromptView showWithImageName:nil message:LOCLOGINCOLLECT];
         LoginViewController *loginVc = [LoginViewController new];
@@ -271,16 +365,18 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     }
     
     if ([_model.is_collection  integerValue] == 0) {
+        
         [self govCollectionMethod];
     }else{
+        
         [NetWorkMangerTools collectionDelMine:_model.id withType:govCollect RequestSuccess:^{
             _model.is_collection = @0;
             [weakSelf.storeBtn setImage:kGetImage(@"template_shoucang") forState:0];
         }];
     }
 }
-- (void)govCollectionMethod{
-    WEAKSELF;
+- (void)govCollectionMethod{ WEAKSELF;
+    
     NSString *timeSJC = [NSString stringWithFormat:@"%ld",(long)[[NSDate date] timeIntervalSince1970]];
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:govCollect,@"type",_model.id,@"article_id",_model.name,@"article_title",_model.address,@"article_subtitle",timeSJC,@"article_time",UID,@"uid", nil];
     [NetWorkMangerTools collectionAddMine:dictionary RequestSuccess:^{
@@ -329,7 +425,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 }
 - (UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-139.f) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStyleGrouped];
         _tableView.showsHorizontalScrollIndicator= NO;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.dataSource = self;
@@ -339,6 +435,14 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     }
     return _tableView;
 }
+- (NSMutableArray *)kindArrays {
+    
+    if (!_kindArrays) {
+        
+        _kindArrays = [NSMutableArray array];
+    }
+    return _kindArrays;
+}
 #pragma mark -获取地理位置信息
 - (void)userLocationService
 {
@@ -347,17 +451,15 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     [_locationService startUpdatingLocation];//开启定位
 }
 #pragma mark - MapView Delegate 更新地理位置
-- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location
-{
-    if (location)
-    {
+- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location {
+    
+    if (location) {
         _startPoint = [AMapNaviPoint locationWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
         [_locationService stopUpdatingLocation];//停止定位
     }
 }
-
 #pragma mark -地理编码
-- (void)searchDetailCode{
+- (void)searchDetailCode {
     //初始化检索对象
     _search = [[AMapSearchAPI alloc] init];
     _search.delegate = self;
@@ -370,8 +472,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 //实现正向地理编码的回调函数
 - (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:(AMapGeocodeSearchResponse *)response
 {
-    if(response.geocodes.count == 0)
-    {
+    if(response.geocodes.count == 0) {
         return;
     }
     //通过AMapGeocodeSearchResponse对象处理搜索结果

@@ -118,6 +118,10 @@
              RequestSuccess:(void (^)(NSArray *arrays))success
                        fail:(void (^)())fail;
 /*
+ * 合同搜索
+ */
++ (void)contractSearchListView:(NSString *)url RequestSuccess:(void (^)(NSMutableArray *arrays))success fail:(void (^)())fail;
+/*
  * 合同模版详情
  */
 + (void)theContractContent:(NSString *)temolateId

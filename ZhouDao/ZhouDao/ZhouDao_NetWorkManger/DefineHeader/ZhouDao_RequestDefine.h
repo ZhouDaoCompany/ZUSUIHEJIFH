@@ -401,6 +401,10 @@
  *  90 请求更新文件
  */
 #define NEWVERSIONTXTURL        @"api_txt_new.php?key=16248ef5"
+/*
+ *  91 合同模版搜索
+ */
+#define CONTRACTSEARCHURL        @"api_contract.php?key=16248ef5&c=contractsearch&con="
 
 #define FANGWUCulate            @"tools_fangwuhuandai.php"//房屋还贷
 #define GSPCCulate              @"tools_gongshangpeichang.php"//工商赔偿

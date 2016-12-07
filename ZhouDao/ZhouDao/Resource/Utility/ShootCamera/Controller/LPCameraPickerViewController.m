@@ -135,16 +135,23 @@
 }
 
 - (void)cancel{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    }];
 }
 
 - (void)done{
-    if (self.cameraArray.count == 0) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }else{
-        self.CameraResult(self.cameraArray);
-        [self dismissViewControllerAnimated:YES completion:nil];
+    
+    if (self.cameraArray.count > 0) {
+        
+        if (_CameraResult) {
+            self.CameraResult(self.cameraArray);
+        }
     }
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    }];
+
 }
 
 - (void)takePhoto{
@@ -323,6 +330,9 @@
     [self.captureOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:
      ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
          
+         if (imageSampleBuffer == NULL) {
+             return;
+         }
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          UIImage *t_image = [UIImage imageWithData:imageData];
          //拍摄时间

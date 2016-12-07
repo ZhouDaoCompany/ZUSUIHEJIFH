@@ -37,8 +37,8 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
 @end
 
 @implementation HomeViewController
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
+    
     [super viewDidDisappear:animated];
 }
 - (void)viewDidLoad {
@@ -49,7 +49,9 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     
     [self userLocationService];//开始定位
     
-    if ([PublicFunction ShareInstance].isFirstLaunch) {
+//    DLog(@"是否新版本第一次启动: %@",([PublicFunction ShareInstance].isFirstLaunch == YES) ? @"YES" : @"NO");
+    
+    if ([PublicFunction ShareInstance].versionFirstTime) {
         /**
          *  下下次升级时候注销这些代码
          */
@@ -118,8 +120,8 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     [moreBtn addTarget:self action:@selector(loadMoreData) forControlEvents:UIControlEventTouchUpInside];
     _tableView.tableFooterView = moreBtn;
     
-//    [PublicFunction ShareInstance].locProv = @"内蒙古自治区";
-//    [PublicFunction ShareInstance].locCity = @"呼伦贝尔市";
+//    [PublicFunction ShareInstance].locProv = @"贵州省";
+//    [PublicFunction ShareInstance].locCity = @"贵阳市";
 
 }
 - (HomeHeadView *)headView{
@@ -246,9 +248,9 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
 - (NSArray *)contentImagesInIntroView:(SCIntroView *)introView {
 //    introView.introViewPageControl.hidden = YES;
     return @[
-             [UIImage imageNamed:@"Intro_1.jpg"],
-             [UIImage imageNamed:@"Intro_2.jpg"],
-             [UIImage imageNamed:@"Intro_3.jpg"]
+             [UIImage imageNamed:@"Intro_1"],
+             [UIImage imageNamed:@"Intro_2"],
+             [UIImage imageNamed:@"Intro_3"]
              ];
 }
 - (UIButton *)doneButtonInIntroView:(SCIntroView *)introView {
@@ -291,8 +293,8 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
     DLog(@"location:{lat:%f; lon:%f; accuracy:%f}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
 }
 //实现逆地理编码的回调函数
-- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
-{
+- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response {
+    
     if(response.regeocode != nil)
     {
         //通过AMapReGeocodeSearchResponse对象处理搜索结果
@@ -314,6 +316,7 @@ static NSString *const HomeCellIdentifier = @"HomeCellIdentifier";
         [PublicFunction ShareInstance].locProv = provience;
         [PublicFunction ShareInstance].locCity = city;
         [PublicFunction ShareInstance].locDistrict = response.regeocode.addressComponent.district;
+        [PublicFunction ShareInstance].formatAddress = response.regeocode.formattedAddress;
         DLog(@"%@-----%@-----%@",[PublicFunction ShareInstance].locProv, [PublicFunction ShareInstance].locCity,[PublicFunction ShareInstance].locDistrict);
     }
 }

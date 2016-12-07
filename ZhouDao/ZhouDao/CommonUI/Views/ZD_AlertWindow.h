@@ -9,12 +9,13 @@
 @protocol ZD_AlertWindowPro;
 typedef enum {
     
-    ZD_AlertViewStyleNAV    = 0,//导航
-    ZD_AlertViewStyleDEL    = 1,//删除
-    ZD_AlertViewStyleRename = 3,//重命名
-    ZD_AlertViewStyleReview = 2,//审查
-    ZD_AlertViewStylePhone  = 4,//电话
-
+    ZD_AlertViewStyleNAV         = 0,//导航
+    ZD_AlertViewStyleDEL         = 1,//删除
+    ZD_AlertViewStyleRename      = 3,//重命名
+    ZD_AlertViewStyleReview      = 2,//审查
+    ZD_AlertViewStylePhone       = 4,//电话
+    ZD_AlertViewStyleKindsMAP    = 5,//第三方地图应用
+    ZD_AlertViewStyleMAPNAV      = 6,//第三方地图导航方式
     
 }ZD_AlertViewStyle;
 
@@ -55,7 +56,7 @@ typedef enum {
  */
 - (id)initWithStyle:(ZD_AlertViewStyle)style
   withTextAlignment:(NSTextAlignment)contentAlignment
-              Title:(NSString *)title WithOptionOne:(NSString *)optionOne WithOptionTwo:(NSString *)optionTwo;
+              Title:(NSString *)title WithOptionArrays:(NSArray *)textArrays;
 
 
 - (id)initWithStyle:(ZD_AlertViewStyle)style

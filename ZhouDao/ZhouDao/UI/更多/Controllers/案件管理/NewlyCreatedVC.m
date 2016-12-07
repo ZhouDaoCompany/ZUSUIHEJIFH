@@ -9,6 +9,7 @@
 #import "NewlyCreatedVC.h"
 #import "DetaillistModel.h"
 @interface NewlyCreatedVC ()<UITextFieldDelegate,UITextViewDelegate>
+
 @property (nonatomic, strong) UITextField *nameTextField;
 @property (strong, nonatomic) UILabel *placeholdLab;
 @property (strong, nonatomic) UITextView *contentTextView;
@@ -19,12 +20,14 @@
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
     [self initUI];
 }
+#pragma mark - methods
 - (void)initUI{
     
     if (_pid.length == 0) {
@@ -39,23 +42,9 @@
     namelab.text = @"名字:";
     [self.view addSubview:namelab];
     
-    _nameTextField =[[UITextField alloc] initWithFrame:CGRectMake(Orgin_x(namelab) +5.f, 79.f, kMainScreenWidth - Orgin_x(namelab) -15.f, 30)];
-    _nameTextField.placeholder = @"请输入文本名称";
-    _nameTextField.delegate = self;
-    _nameTextField.font = Font_15;
-    _nameTextField.borderStyle = UITextBorderStyleNone;
-    _nameTextField.returnKeyType = UIReturnKeyDone; //设置按键类型
-    [self.view addSubview:_nameTextField];
-    [_nameTextField becomeFirstResponder];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(textFieldChanged:)
-                                                 name:UITextFieldTextDidChangeNotification
-                                               object:_nameTextField];
+    [self.view addSubview:self.nameTextField];
     
-    /**
-     内容
-     */
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 124, kMainScreenWidth, 0.6f)];
     lineView.backgroundColor = LINECOLOR;
@@ -66,19 +55,9 @@
     contentLab.text = @"内容:";
     [self.view addSubview:contentLab];
 
-    _contentTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, Orgin_y(contentLab) + 10.f, kMainScreenWidth -20.f, kMainScreenHeight - Orgin_y(contentLab) -60.f)];
-    _contentTextView.backgroundColor = [UIColor clearColor];
-    _contentTextView.font = Font_14;
-    _contentTextView.autocorrectionType = UITextAutocorrectionTypeNo;
-    _contentTextView.keyboardType = UIKeyboardTypeDefault;
-    _contentTextView.delegate = self;
-    [self.view addSubview:_contentTextView];
+    [self.view addSubview:self.contentTextView];
 
-    _placeholdLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 20.f)];
-    _placeholdLab.text =  @"请输入内容";
-    _placeholdLab.font = Font_14;
-    _placeholdLab.textColor = SIXCOLOR;
-    [_contentTextView addSubview:_placeholdLab];
+    [_contentTextView addSubview:self.placeholdLab];
 }
 #pragma mark -UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -105,13 +84,10 @@
     return YES;
 }
 
--(void)textViewDidChange:(UITextView *)textView
-{
-    if (textView.text.length == 0)
-    {
+-(void)textViewDidChange:(UITextView *)textView {
+    if (textView.text.length == 0){
         self.placeholdLab.text =  @"请输入内容";
-    }else
-    {
+    } else {
         self.placeholdLab.text = @"";
     }
 }
@@ -169,6 +145,49 @@
             }];
         }];
     }));
+}
+
+#pragma mark - setter and getter
+
+- (UITextField *)nameTextField {
+    
+    if (!_nameTextField) {
+        
+        _nameTextField =[[UITextField alloc] initWithFrame:CGRectMake(89.f, 79.f, kMainScreenWidth - 25.f, 30)];
+        _nameTextField.placeholder = @"请输入文本名称";
+        _nameTextField.delegate = self;
+        _nameTextField.font = Font_15;
+        _nameTextField.borderStyle = UITextBorderStyleNone;
+        _nameTextField.returnKeyType = UIReturnKeyDone; //设置按键类型
+        [_nameTextField becomeFirstResponder];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textFieldChanged:)
+                                                     name:UITextFieldTextDidChangeNotification
+                                                   object:_nameTextField];
+    }
+    return _nameTextField;
+}
+- (UITextView *)contentTextView {
+    
+    if (!_contentTextView) {
+        _contentTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 165.f, kMainScreenWidth -20.f, 240)];
+        _contentTextView.backgroundColor = [UIColor clearColor];
+        _contentTextView.font = Font_15;
+        _contentTextView.autocorrectionType = UITextAutocorrectionTypeNo;
+        _contentTextView.keyboardType = UIKeyboardTypeDefault;
+        _contentTextView.delegate = self;
+    }
+    return _contentTextView;
+}
+- (UILabel *)placeholdLab {
+    
+    if (!_placeholdLab) {
+        _placeholdLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 30.f)];
+        _placeholdLab.text =  @"请输入内容";
+        _placeholdLab.font = Font_15;
+        _placeholdLab.textColor = SIXCOLOR;
+    }
+    return _placeholdLab;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

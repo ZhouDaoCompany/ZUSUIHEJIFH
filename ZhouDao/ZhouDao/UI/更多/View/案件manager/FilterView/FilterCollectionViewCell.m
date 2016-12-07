@@ -34,7 +34,6 @@
 }
 - (void)setIsSelected:(BOOL)isSelected
 {
-    _isSelected = nil;
     _isSelected = isSelected;
     
     if (_isSelected == YES) {

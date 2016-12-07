@@ -16,8 +16,8 @@
 #import "MenuLabel.h"
 
 
-@interface TemplateDetailVC ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
-{
+@interface TemplateDetailVC ()<UIWebViewDelegate,UIGestureRecognizerDelegate> {
+    
     BOOL _exist;
     UITapGestureRecognizer* _singleTap;//失败重新加载
 }
@@ -39,8 +39,7 @@
     [self initUI];
     [self loadData];
 }
-- (void)loadData
-{WEAKSELF;
+- (void)loadData { WEAKSELF;
     if (_singleTap) {
         [_webView removeGestureRecognizer:_singleTap];
     }

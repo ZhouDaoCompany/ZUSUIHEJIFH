@@ -43,6 +43,11 @@ static NSString *const OverdueCellID = @"OverdueCellID";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    NSMutableArray *imgUrls = (NSMutableArray *)self.rateDictionary[@"imageurls"];
+    if ([imgUrls count] != 0) {
+        
+    }
+    
     [self initUI];
 }
 

@@ -174,10 +174,10 @@ static NSString *const   LPCELLIDENTIFRT  =  @"lpcellidentifer";
     }
 }
 
-
 -(void)clickSingleFingerAtScreen
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

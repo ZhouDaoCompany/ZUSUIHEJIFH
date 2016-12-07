@@ -320,8 +320,9 @@ static NSString *const caseCellIdentifier = @"caseCellIdentifier";
         LPCameraController *cameraController = [[LPCameraController alloc]init];
         cameraController.takePhotoOfMax = 5;
         cameraController.isSaveLocal = YES;
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
         [cameraController showIn:self result:^(id responseObject){
-            
+
             NSArray *assetArrays = (NSArray *)responseObject;
             UploadMorephontosVC *uploadVC = [[UploadMorephontosVC alloc] initWithSourceType:CameraType withPid:@"" withCaseId:_caseId withAssetArrays:assetArrays];
             uploadVC.reloadBlock = ^(){

@@ -106,8 +106,7 @@
 }
 #pragma mark -getters and seters
 #pragma mark -第三方登录
-- (ThirdPartyLoginView *)loginView
-{
+- (ThirdPartyLoginView *)loginView {
     if (!_loginView) {
         _loginView = [[ThirdPartyLoginView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 40, kMainScreenWidth, 40) withPresentVC:self];
         if (kMainScreenHeight >= 568) {

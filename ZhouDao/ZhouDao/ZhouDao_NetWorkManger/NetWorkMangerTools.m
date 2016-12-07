@@ -521,6 +521,35 @@
         [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
     }];
 }
++ (void)contractSearchListView:(NSString *)url RequestSuccess:(void (^)(NSMutableArray *arrays))success fail:(void (^)())fail {
+    
+    [MBProgressHUD showMBLoadingWithText:nil];
+    [ZhouDao_NetWorkManger getWithUrl:url sg_cache:NO success:^(id response) {
+        
+        [MBProgressHUD hideHUD];
+        NSDictionary *jsonDic = (NSDictionary *)response;
+        NSUInteger errorcode = [jsonDic[@"state"] integerValue];
+        NSString *msg = jsonDic[@"info"];
+        if (errorcode !=1) {
+            fail();
+            [JKPromptView showWithImageName:nil message:msg];
+            return ;
+        }
+        NSArray *arrays = jsonDic[@"data"];
+        NSMutableArray *dataArr = [NSMutableArray array];
+        [arrays enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            TemplateData *model = [[TemplateData alloc] initWithDictionary:obj];
+            [dataArr addObject:model];
+        }];
+        success(dataArr);
+    } fail:^(NSError *error) {
+        fail();
+        [MBProgressHUD hideHUD];
+        [JKPromptView showWithImageName:nil message:LOCERROEMESSAGE];
+    }];
+
+}
 #pragma mark - 合同模版详情
 + (void)theContractContent:(NSString *)temolateId
             RequestSuccess:(void (^)(TemplateData *model))success
@@ -886,9 +915,14 @@
     }];
 }
 #pragma mark - 案例搜索结果
-+ (void)LegalIssuesSelfCheckResult:(NSString *)text withPage:(NSUInteger)page RequestSuccess:(void (^)(NSArray *arr))success fail:(void (^)())fail {
++ (void)LegalIssuesSelfCheckResult:(NSString *)text
+                          withPage:(NSUInteger)page
+                    RequestSuccess:(void (^)(NSArray *arr))success
+                              fail:(void (^)())fail {
+    
     [MBProgressHUD showMBLoadingWithText:nil];
-    NSString *url = [NSString stringWithFormat:@"%@%@caseDetail=%@&page=%ld",kProjectBaseUrl,ResultInspeList,text,(unsigned long)page];
+    NSString *url = [NSString stringWithFormat:@"%@%@%@&page=%ld",kProjectBaseUrl,ResultInspeList,text,(unsigned long)page];
+    DLog(@"url:  %@",url);
     [ZhouDao_NetWorkManger getWithUrl:url sg_cache:NO success:^(id response) {
         
         [MBProgressHUD hideHUD];

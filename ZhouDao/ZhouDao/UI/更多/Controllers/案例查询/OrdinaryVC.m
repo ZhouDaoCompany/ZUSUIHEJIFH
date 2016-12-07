@@ -10,41 +10,60 @@
 #import "VoiceManager.h"
 #import "SearchResultsVC.h"
 #import "ExampleListVC.h"
+#import "SelectTemplateVC.h"
 
 #define xSpace 15
 static NSString *const CellIdentifier = @"CellIdentifier";
 
 
 @interface OrdinaryVC ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,VoiceDelegate>
-@property (nonatomic, strong) UITextField *searchField;
-@property (nonatomic, strong) NSMutableArray *historyArrays;//历史
-@property (strong,nonatomic) UITableView *tableView;
-
+@property (nonatomic, strong)  UITextField *searchField;
+@property (nonatomic, strong)  NSMutableArray *historyArrays;//历史
+@property (nonatomic, strong)  UITableView *tableView;
+@property (nonatomic, assign)  OrdinarySearchType ordinaryType;//搜索类型
 @end
 
 @implementation OrdinaryVC
+
+- (instancetype)initWithOrdinarySearchType:(OrdinarySearchType)type {
+    
+    self = [super init];
+    if (self) {
+        
+        self.ordinaryType = type;
+        _historyArrays = [NSMutableArray array];
+        if (self.ordinaryType == CaseSearchType) {
+            [_historyArrays addObjectsFromArray:(NSArray *)[USER_D objectForKey:keyIdentifer]];
+        } else if (self.ordinaryType == ContractSearchType) {
+            [_historyArrays addObjectsFromArray:(NSArray *)[USER_D objectForKey:CONTRACTSEARCH]];
+        }
+    }
+    return self;
+}
+#pragma mark - life cycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //创建语音听写的对象
     [[VoiceManager shareInstance]setPropertysWithView:self.view];
-    [VoiceManager shareInstance].delegate =self;
+    [VoiceManager shareInstance].delegate = self;
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [USER_D setObject:_historyArrays forKey:keyIdentifer];
+    if (self.ordinaryType == CaseSearchType) {
+        [USER_D setObject:_historyArrays forKey:keyIdentifer];
+    } else if (self.ordinaryType == ContractSearchType) {
+        [USER_D setObject:_historyArrays forKey:CONTRACTSEARCH];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initUI];
 }
-- (void)initUI
-{    WEAKSELF;
+#pragma mark - methods
+- (void)initUI { WEAKSELF;
 
-    _historyArrays = [NSMutableArray array];
-    [_historyArrays addObjectsFromArray:(NSArray *)[USER_D objectForKey:keyIdentifer]];
-    
     [self setupNaviBarWithBtn:NaviRightBtn
                         title:@"取消"
                           img:nil];
@@ -80,8 +99,14 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     }];
     
     _searchField =[[UITextField alloc] initWithFrame:CGRectMake(42.5f, 0, searchView.frame.size.width-74.5f, 30)];
-    _searchField.placeholder = @"搜索相关案例";
+    if (self.ordinaryType == CaseSearchType) {
+        _searchField.placeholder = @"搜索相关案例";
+    } else if (self.ordinaryType == ContractSearchType) {
+        _searchField.placeholder = @"搜索合同模版";
+    }
     _searchField.delegate = self;
+    _searchField.font = Font_14;
+    _searchField.textColor = hexColor(333333);
     _searchField.borderStyle = UITextBorderStyleNone;
     _searchField.returnKeyType = UIReturnKeySearch; //设置按键类型
     [searchView addSubview:_searchField];
@@ -103,7 +128,6 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 44.5, kMainScreenWidth, 0.5f)];
     lineView.backgroundColor = LINECOLOR;
     [historyView addSubview:lineView];
-    
     
     //表
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,Orgin_y(historyView), kMainScreenWidth, kMainScreenHeight- Orgin_y(lineView)) style:UITableViewStylePlain];
@@ -137,15 +161,13 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     [clearBtn addTarget:self action:@selector(deleteBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [footView addSubview:clearBtn];
     _tableView.tableFooterView = footView;
-
 }
 #pragma mark -UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return _historyArrays.count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return [_historyArrays count];
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSUInteger row = indexPath.row;
@@ -162,32 +184,29 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPat{
     return @"删除";
 }
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_historyArrays removeObjectAtIndex:indexPath.row];
         [_tableView deleteRowsAtIndexPaths:@[indexPath]withRowAnimation:UITableViewRowAnimationNone];
     }
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+   
     return 45.f;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self dismissKeyBoard];
     NSString *str = _historyArrays[indexPath.row];
     [self searchKeyText:str];
 }
 #pragma mark -UIButtonEvent
-- (void)rightBtnAction
-{
+- (void)rightBtnAction {
+    
     [self dismissKeyBoard];
-
     [AnimationTools makeAnimationFade:self.navigationController];
 }
-- (void)deleteBtnClick:(id)sender
-{
+- (void)deleteBtnClick:(id)sender {
+    
     [self dismissKeyBoard];
     [_historyArrays removeAllObjects];
     [_tableView reloadData];
@@ -208,10 +227,9 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     }
 }
 #pragma mark -合成语音
-- (void)OpenTheDictation
-{
+- (void)OpenTheDictation {
+    
     [self dismissKeyBoard];
-
     [[VoiceManager shareInstance]startListenning];
 }
 #pragma 语音输入回调
@@ -259,19 +277,29 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     
     [self searchKeyText:_searchField.text];
 }
-- (void)searchKeyText:(NSString *)text
-{
-    [MBProgressHUD showMBLoadingWithText:nil];
-    NSInteger page = 1;
-    [NetWorkMangerTools LegalIssuesSelfCheckResult:text withPage:page RequestSuccess:^(NSArray *arr) {
-        ExampleListVC *vc = [ExampleListVC new];
-        vc.titString = @"案例搜索结果";
-        vc.exampleType = FromSearchtype;
-        vc.searText = text;
-        vc.searArr = arr;
-        [self.navigationController pushViewController:vc animated:YES];
-    } fail:^{
-    }];
+- (void)searchKeyText:(NSString *)text { WEAKSELF;
+   
+    if (_ordinaryType == CaseSearchType) {
+        NSInteger page = 1;
+        [NetWorkMangerTools LegalIssuesSelfCheckResult:text withPage:page RequestSuccess:^(NSArray *arr) {
+            ExampleListVC *vc = [ExampleListVC new];
+            vc.titString = @"案例搜索结果";
+            vc.exampleType = FromSearchtype;
+            vc.searText = text;
+            vc.searArr = arr;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        } fail:^{
+        }];
+
+    } else {
+        NSString *url = [NSString stringWithFormat:@"%@%@%@",kProjectBaseUrl,CONTRACTSEARCHURL,text];
+        [NetWorkMangerTools contractSearchListView:url RequestSuccess:^(NSMutableArray *arrays) {
+            
+            SelectTemplateVC *vc = [[SelectTemplateVC alloc] initWithFirstArrays:arrays withCidArrays:nil withTheContractData:nil withTemplateType:TemplateSearchType];
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        } fail:^{
+        }];
+    }
 }
 
 #pragma mark - 放下键盘

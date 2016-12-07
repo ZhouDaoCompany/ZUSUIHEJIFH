@@ -9,8 +9,8 @@
 #import "PublicFunction.h"
 
 @implementation PublicFunction
-+(PublicFunction *)ShareInstance {
-    
++(PublicFunction *)ShareInstance
+{
     static PublicFunction *hanle= nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
@@ -20,17 +20,20 @@
 }
 #pragma mark - 应用是否为第一次启动
 - (BOOL)isFirstLaunch {
+    
     NSString *versionKey = (NSString *)kCFBundleVersionKey;
     NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:versionKey];
     NSString *currentVersion =[[[NSBundle mainBundle] infoDictionary] objectForKey:versionKey];
     if ([lastVersion isEqualToString:currentVersion]) {
+        
+        self.versionFirstTime = NO;
         return NO;
-    } else {
-        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:versionKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        return YES;
     }
-    return NO;
+    [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:versionKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    self.versionFirstTime = YES;
+    return YES;
 }
 
 @end

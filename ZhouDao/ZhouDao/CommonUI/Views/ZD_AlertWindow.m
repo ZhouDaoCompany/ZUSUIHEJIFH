@@ -9,11 +9,15 @@
 #import "ZD_AlertWindow.h"
 #define zd_width [UIScreen mainScreen].bounds.size.width
 #define zd_height [UIScreen mainScreen].bounds.size.height
-static CGFloat kTransitionDuration = 0.3f;
 #define kContentLabelWidth     13.f/16.f*([UIScreen mainScreen].bounds.size.width)
 
-@interface ZD_AlertWindow()<UITextFieldDelegate>
+static CGFloat kTransitionDuration = 0.3f;
+static NSString *const ALERTCELLIDENTIFER = @"alertCellIdentifer";
 
+
+@interface ZD_AlertWindow()<UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource> {
+    CGRect _tableViewFrame;
+}
 @property (nonatomic, strong) UIView *zd_superView;
 @property (nonatomic, strong) UILabel *headlab ;
 @property (nonatomic, copy)   NSString *titleString;//标题
@@ -22,6 +26,8 @@ static CGFloat kTransitionDuration = 0.3f;
 @property (nonatomic, strong) UIButton *sureBtn;
 @property (nonatomic, strong) UIView *verticalLineView;
 @property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, strong) UITableView *tableView;//表
+@property (nonatomic, strong) NSArray *textArrays;
 @end
 
 @implementation ZD_AlertWindow
@@ -30,7 +36,7 @@ static CGFloat kTransitionDuration = 0.3f;
  */
 - (id)initWithStyle:(ZD_AlertViewStyle)style
   withTextAlignment:(NSTextAlignment)contentAlignment
-              Title:(NSString *)title WithOptionOne:(NSString *)optionOne WithOptionTwo:(NSString *)optionTwo
+              Title:(NSString *)title WithOptionArrays:(NSArray *)textArrays
 {
     self = [super initWithFrame:kMainScreenFrameRect];
 
@@ -39,7 +45,8 @@ static CGFloat kTransitionDuration = 0.3f;
         _style = style;
         _contentAlignment = contentAlignment;
         _titleString = title;
-        [self initDataWithOptionOne:optionOne WithOptionTwo:optionTwo];
+        _textArrays = textArrays;
+        [self initData];
         [self bounce0Animation];
 
     }
@@ -52,8 +59,7 @@ static CGFloat kTransitionDuration = 0.3f;
 {
     self = [super initWithFrame:kMainScreenFrameRect];
     
-    if (self)
-    {
+    if (self) {
         _style = style;
         _contentAlignment = contentAlignment;
         _titleString = title;
@@ -66,8 +72,8 @@ static CGFloat kTransitionDuration = 0.3f;
 
 }
 #pragma mark - private methods
-- (void)initDataWithOptionOne:(NSString *)optionOne WithOptionTwo:(NSString *)optionTwo
-{WEAKSELF;
+- (void)initData {
+    
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
     [self addSubview:self.zd_superView];
     [self.zd_superView addSubview:self.headlab];
@@ -87,37 +93,12 @@ static CGFloat kTransitionDuration = 0.3f;
 
     } else {
         
-        _zd_superView.frame = CGRectMake(0, 0, kContentLabelWidth, 160);
+        _zd_superView.frame = CGRectMake(0, 0, kContentLabelWidth, 50 + 55 * [_textArrays count]);
         _zd_superView.center = CGPointMake(zd_width/2.0,zd_height/2.0);
+        
+        _tableViewFrame = (55 * [_textArrays count] > 220) ? CGRectMake(0, 50, kContentLabelWidth, 270) : CGRectMake(0, 50, kContentLabelWidth, 55*[_textArrays count]);
+        [self.zd_superView addSubview:self.tableView];
 
-        UILabel *drivingLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 60, kContentLabelWidth - 30, 40)];
-        drivingLab.text = optionOne;
-        drivingLab.textColor = THIRDCOLOR;
-        drivingLab.font = Font_16;
-        [self.zd_superView addSubview:drivingLab];
-        
-        UIImageView *indicatorView = [[UIImageView alloc] initWithFrame:CGRectMake(drivingLab.frame.size.width - 6, 15, 6, 10)];
-        indicatorView.image = kGetImage(@"Esearch_jiantou");
-        [drivingLab  addSubview:indicatorView];
-        
-        UILabel *walkingLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 100, kContentLabelWidth - 30, 40)];
-        walkingLab.text = optionTwo;
-        walkingLab.textColor = THIRDCOLOR;
-        walkingLab.font = Font_16;
-        [self.zd_superView addSubview:walkingLab];
-        
-        UIImageView *indicatorView2 = [[UIImageView alloc] initWithFrame:CGRectMake(drivingLab.frame.size.width - 6, 15, 6, 10)];
-        indicatorView2.image = kGetImage(@"Esearch_jiantou");
-        [walkingLab  addSubview:indicatorView2];
-        
-        [drivingLab whenCancelTapped:^{
-            
-            [weakSelf selectButtonEvent:0];
-        }];
-        [walkingLab whenCancelTapped:^{
-            
-            [weakSelf selectButtonEvent:1];
-        }];
     }
 
     [self.zd_superView whenCancelTapped:^{
@@ -130,8 +111,7 @@ static CGFloat kTransitionDuration = 0.3f;
     }];
 
 }
-- (void)initUI
-{
+- (void)initUI {
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.3f];
     [self addSubview:self.zd_superView];
     self.zd_superView.frame = CGRectMake(0, 0, kContentLabelWidth, 110);
@@ -145,6 +125,7 @@ static CGFloat kTransitionDuration = 0.3f;
     [self.zd_superView addSubview:self.sureBtn];
     
     if (_style == ZD_AlertViewStyleDEL) {//删除
+        
         [self.zd_superView addSubview:self.headlab];
         self.zd_superView.center =CGPointMake(zd_width/2.0,zd_height/2.0);
         self.headlab.frame = CGRectMake(0, 0, kContentLabelWidth, 50);
@@ -161,21 +142,20 @@ static CGFloat kTransitionDuration = 0.3f;
         }
     }
 }
-- (void)selectButtonEvent:(NSInteger)index
-{
+- (void)selectButtonEvent:(NSInteger)index {
+    
     if ([self.delegate respondsToSelector:@selector(customAlertView:clickedButtonAtIndex:)]) {
         [self.delegate customAlertView:self clickedButtonAtIndex:index];
     }
     [self implementationBlockwithIndex:index];
 }
-- (void)implementationBlockwithIndex:(NSInteger)index
-{
+- (void)implementationBlockwithIndex:(NSInteger)index {
     if (index == 0) {
         
         if (_cancelBlock) {
             _cancelBlock();
         }
-    }else {
+    } else {
         
         if (_confirmBlock) {
             _confirmBlock();
@@ -184,12 +164,11 @@ static CGFloat kTransitionDuration = 0.3f;
     [self zd_Windowclose];
 }
 #pragma mark -UIButtonEvent
-- (void)cancelOrSureEvent:(UIButton *)sender
-{
+- (void)cancelOrSureEvent:(UIButton *)sender {
+    
     [self endEditing:YES];
     NSInteger index = sender.tag - 3001;
-    if (index == 1)
-    {
+    if (index == 1) {
         if (_style == ZD_AlertViewStyleDEL) {
 
             if ([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:withName:withIndexPath:)]) {
@@ -210,6 +189,32 @@ static CGFloat kTransitionDuration = 0.3f;
     }
     [self implementationBlockwithIndex:index];
 }
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [_textArrays count];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ALERTCELLIDENTIFER];
+    cell.textLabel.text = _textArrays[indexPath.row];
+    cell.textLabel.font = Font_16;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.textColor = THIRDCOLOR;
+    return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 55.f;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+//    NSString *textTitle = _textArrays[indexPath.row];
+    if ([self.delegate respondsToSelector:@selector(customAlertView:clickedButtonAtIndex:)]) {
+        [self.delegate customAlertView:self clickedButtonAtIndex:indexPath.row];
+    }
+    [self implementationBlockwithIndex:indexPath.row];
+}
 #pragma mark -
 #pragma mark block setter
 
@@ -222,7 +227,19 @@ static CGFloat kTransitionDuration = 0.3f;
 {
     _confirmBlock = [block copy];
 }
-
+- (UITableView *)tableView {
+    
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:_tableViewFrame style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.bounces = NO;
+        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+        _tableView.backgroundColor = [UIColor clearColor];
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ALERTCELLIDENTIFER];
+    }
+    return _tableView;
+}
 #pragma mark - setters and getters
 - (UILabel *)headlab
 {

@@ -66,7 +66,6 @@
 @end
 
 
-
 @interface UMShareImageObject : UMShareObject
 
 /** 图片内容 （可以是UIImage类对象，也可以是NSdata类对象，也可以是图片链接imageUrl NSString类对象）

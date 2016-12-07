@@ -271,7 +271,6 @@
             DLog(@"%@",[NSString stringWithFormat:@"%@",jsonDic]);
             
         } fail:^(NSError *error) {
-            
         }];
     }
 }
@@ -307,7 +306,7 @@
                     [resultDictionary setObject:fileModel.version forKey:fileModel.name];
                     dispatch_group_leave(group);
                 });
-
+                
             } failure:^(NSError *error) {
                 dispatch_group_leave(group);
             }];
@@ -326,14 +325,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-

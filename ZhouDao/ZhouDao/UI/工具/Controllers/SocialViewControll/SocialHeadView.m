@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *gsjnLabel;
 @property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 
-
 @end
 
 @implementation SocialHeadView
@@ -40,9 +39,9 @@
     NSString *gsjn = [QZManager getNewAmountSegmentationWithNumber:[dict[@"gsjn"] floatValue] withDecimal:YES];
     
     _shgzLabel.text = [NSString stringWithFormat:@"%@",allMoney];
-    _sqgzLabel.text = [NSString stringWithFormat:@"税前工资:\n¥%@",shuiq];
-    _grjnLabel.text = [NSString stringWithFormat:@"个人缴纳:\n¥%@",grjn];
-    _gsjnLabel.text = [NSString stringWithFormat:@"公司缴纳:\n¥%@",gsjn];
+    _sqgzLabel.text = [NSString stringWithFormat:@"税前工资\n¥%@",shuiq];
+    _grjnLabel.text = [NSString stringWithFormat:@"个人缴纳\n¥%@",grjn];
+    _gsjnLabel.text = [NSString stringWithFormat:@"公司缴纳\n¥%@",gsjn];
     _cityLabel.text = [NSString stringWithFormat:@"%@",cityName];
 }
 

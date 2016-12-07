@@ -27,7 +27,7 @@
 - (UILabel *)nameLabel
 {
     if (!_nameLabel) {
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(96, 21, 210, 15)];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(96, 21, kMainScreenWidth - 111, 15)];
         _nameLabel.font = Font_16;
         _nameLabel.textColor = THIRDCOLOR;
     }

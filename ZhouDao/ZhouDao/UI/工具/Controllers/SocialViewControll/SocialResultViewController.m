@@ -88,7 +88,7 @@ static NSString *const RESULTCELLIDENTIFER = @"SocialCellIdentifer";
         
         NSMutableDictionary *shareDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"share-gongzi",@"type", nil];
         
-        __block NSMutableArray *resultArr = [NSMutableArray arrayWithObjects:_showDictionary[@"cityName"],_showDictionary[@"wage"],_showDictionary[@"grjn"],_showDictionary[@"gsjn"], nil];
+        __block NSMutableArray *resultArr = [NSMutableArray arrayWithObjects:_showDictionary[@"cityName"],_showDictionary[@"shuihou"],_showDictionary[@"wage"],_showDictionary[@"grjn"],_showDictionary[@"gsjn"], nil];
         [_dataSourceArrays enumerateObjectsUsingBlock:^(PlistFileModel *objModel, NSUInteger idx, BOOL * _Nonnull stop) {
             
             [resultArr addObject:objModel.gr_ratio];

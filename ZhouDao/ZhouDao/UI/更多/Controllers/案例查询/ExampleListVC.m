@@ -11,16 +11,15 @@
 #import "ContentViewController.h"
 #import "TaskModel.h"
 #import "ExampleDetailData.h"
+
 static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 
-@interface ExampleListVC ()<UITableViewDataSource,UITableViewDelegate>
-{
-    NSUInteger _page;
-//    NSUInteger _currentRow;
+@interface ExampleListVC ()<UITableViewDataSource,UITableViewDelegate> {
 
+    NSUInteger _page;
 }
-@property (nonatomic,strong) NSMutableArray *dataArrays;
-@property (strong,nonatomic) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *dataArrays;
+@property (strong, nonatomic) UITableView *tableView;
 @end
 
 @implementation ExampleListVC
@@ -75,6 +74,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 {WEAKSELF;
     _page = 1;
     if (_exampleType == FromComType) {
+        
         [NetWorkMangerTools inspeTypeList:_idString withPage:_page RequestSuccess:^(NSArray *arr) {
             
             [weakSelf.dataArrays removeAllObjects];
@@ -89,6 +89,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
         }];
+        
     }else{
         [NetWorkMangerTools LegalIssuesSelfCheckResult:_searText withPage:_page RequestSuccess:^(NSArray *arr) {
             
@@ -113,6 +114,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
 {WEAKSELF;
     [MBProgressHUD showMBLoadingWithText:nil];
     if (_exampleType == FromComType) {
+        
         [NetWorkMangerTools inspeTypeList:_idString withPage:_page RequestSuccess:^(NSArray *arr) {
             
             [weakSelf.dataArrays addObjectsFromArray:arr];
@@ -123,6 +125,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
             [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
         }];
     }else{
+        
         [NetWorkMangerTools LegalIssuesSelfCheckResult:_searText withPage:_page RequestSuccess:^(NSArray *arr) {
             [weakSelf.dataArrays addObjectsFromArray:arr];
             [weakSelf.tableView reloadData];
@@ -133,6 +136,7 @@ static NSString *const ExampleIdentifier = @"ExampleIdentifier";
         }];
     }
 }
+
 #pragma mark
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
