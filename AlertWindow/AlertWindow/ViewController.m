@@ -42,9 +42,10 @@
         NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         //获取完整路径
         NSString *documentsPath = [path objectAtIndex:0];
-        NSString *resultPath = [documentsPath stringByAppendingPathComponent:@"SocialSecurity.plist"];
+        NSString *resultPath = [documentsPath stringByAppendingPathComponent:@"lawyerfees.plist"];
         //写入文件
         [nameDict writeToFile:resultPath atomically:YES];
+
 
     
     /*
@@ -324,8 +325,8 @@
     [_webView loadHTMLString:html baseURL:nil];
 }
 
-- (void)calculateYearsWithMonthsFromDate:(NSDate *)date1 toDate:(NSDate *)date2 withYear:(BOOL)isYear Success:(void(^)(NSString *dateString))success
-{
+- (void)calculateYearsWithMonthsFromDate:(NSDate *)date1 toDate:(NSDate *)date2 withYear:(BOOL)isYear Success:(void(^)(NSString *dateString))success {
+    
     NSCalendar *userCalendar = [NSCalendar currentCalendar];
     
     unsigned int unitFlags = (isYear == YES)?(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay):(NSCalendarUnitMonth | NSCalendarUnitDay);

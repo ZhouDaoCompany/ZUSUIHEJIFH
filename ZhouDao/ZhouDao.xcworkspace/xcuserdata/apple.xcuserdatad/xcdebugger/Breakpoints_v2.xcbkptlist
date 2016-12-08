@@ -51,13 +51,13 @@
                   symbolName = "-[OrdinaryVC searchKeyText:]"
                   moduleName = "ZhouDao"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/ZUSUIHEJIFH-master/ZhouDao/ZhouDao/UI/%E6%9B%B4%E5%A4%9A/Controllers/%E6%A1%88%E4%BE%8B%E6%9F%A5%E8%AF%A2/OrdinaryVC.m"
-                  timestampString = "502704944.765887"
+                  urlString = "file:///Users/apple/Desktop/GitHup/ZUSUIHEJIFH/ZhouDao/ZhouDao/UI/%E6%9B%B4%E5%A4%9A/Controllers/%E6%A1%88%E4%BE%8B%E6%9F%A5%E8%AF%A2/OrdinaryVC.m"
+                  timestampString = "502856946.096844"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "296"
                   endingLineNumber = "296"
-                  offsetFromSymbolStart = "440">
+                  offsetFromSymbolStart = "452">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -66,13 +66,13 @@
                   symbolName = "__28-[OrdinaryVC searchKeyText:]_block_invoke_2"
                   moduleName = "ZhouDao"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/ZUSUIHEJIFH-master/ZhouDao/ZhouDao/UI/%E6%9B%B4%E5%A4%9A/Controllers/%E6%A1%88%E4%BE%8B%E6%9F%A5%E8%AF%A2/OrdinaryVC.m"
-                  timestampString = "502704944.768029"
+                  urlString = "file:///Users/apple/Desktop/GitHup/ZUSUIHEJIFH/ZhouDao/ZhouDao/UI/%E6%9B%B4%E5%A4%9A/Controllers/%E6%A1%88%E4%BE%8B%E6%9F%A5%E8%AF%A2/OrdinaryVC.m"
+                  timestampString = "502856946.099208"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "298"
                   endingLineNumber = "298"
-                  offsetFromSymbolStart = "64">
+                  offsetFromSymbolStart = "44">
                </Location>
             </Locations>
          </BreakpointContent>

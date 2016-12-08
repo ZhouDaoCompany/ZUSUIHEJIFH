@@ -92,13 +92,6 @@
     [self umengPushSettingWithOptions:launchOptions];
     //[KMCGeigerCounter sharedGeigerCounter].enabled = YES;
     
-//    [ZhouDao_NetWorkManger getWithUrl:@"https://dajiaochong.517w.com/dacu_app/app/?c=BookDetail&a=get_book_coin_rank" sg_cache:NO success:^(id response) {
-//        
-//        DLog(@"%@",response);
-//    } fail:^(NSError *error) {
-//        DLog(@"%@",error);
-//    }];
-    
     ZDLTabBarControllerConfig *tabBarControllerConfig = [[ZDLTabBarControllerConfig alloc] init];
     tabBarControllerConfig.tabBarController.delegate = self;
     [self.window setRootViewController:tabBarControllerConfig.tabBarController];

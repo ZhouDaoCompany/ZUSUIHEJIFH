@@ -29,10 +29,10 @@
 		18526E401DC334DF003DF559 /* InjuryInductrial.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18526E3F1DC334DF003DF559 /* InjuryInductrial.plist */; };
 		18526E421DC34186003DF559 /* content.css in Resources */ = {isa = PBXBuildFile; fileRef = 18526E411DC34186003DF559 /* content.css */; };
 		18526E441DC34AA0003DF559 /* base.css in Resources */ = {isa = PBXBuildFile; fileRef = 18526E431DC34AA0003DF559 /* base.css */; };
+		18B574231DF7DD6F00507C14 /* lawyerfees.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18B574221DF7DD6F00507C14 /* lawyerfees.plist */; };
 		18B60B911DD5647D00A004A3 /* TheCityList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18B60B901DD5647D00A004A3 /* TheCityList.plist */; };
 		18B60B931DD5684C00A004A3 /* gongshang1111.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18B60B921DD5684C00A004A3 /* gongshang1111.txt */; };
 		18C023E51DCB156300F84EE4 /* cityList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18C023E41DCB156300F84EE4 /* cityList.txt */; };
-		18C023E71DCB1FAF00F84EE4 /* city(2).txt in Resources */ = {isa = PBXBuildFile; fileRef = 18C023E61DCB1FAF00F84EE4 /* city(2).txt */; };
 		18C788931DD02B8A00E9D147 /* ProvincesCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C788921DD02B8A00E9D147 /* ProvincesCity.plist */; };
 		18C788971DD02E8E00E9D147 /* DTApiBaseBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C788961DD02E8E00E9D147 /* DTApiBaseBean.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18C7889A1DD02F4000E9D147 /* ProvinceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C788991DD02F4000E9D147 /* ProvinceModel.m */; };
@@ -102,10 +102,10 @@
 		18526E3F1DC334DF003DF559 /* InjuryInductrial.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InjuryInductrial.plist; sourceTree = "<group>"; };
 		18526E411DC34186003DF559 /* content.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = content.css; sourceTree = "<group>"; };
 		18526E431DC34AA0003DF559 /* base.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = base.css; sourceTree = "<group>"; };
+		18B574221DF7DD6F00507C14 /* lawyerfees.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = lawyerfees.plist; sourceTree = "<group>"; };
 		18B60B901DD5647D00A004A3 /* TheCityList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TheCityList.plist; sourceTree = "<group>"; };
 		18B60B921DD5684C00A004A3 /* gongshang1111.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gongshang1111.txt; sourceTree = "<group>"; };
 		18C023E41DCB156300F84EE4 /* cityList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cityList.txt; sourceTree = "<group>"; };
-		18C023E61DCB1FAF00F84EE4 /* city(2).txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "city(2).txt"; sourceTree = "<group>"; };
 		18C788921DD02B8A00E9D147 /* ProvincesCity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesCity.plist; sourceTree = "<group>"; };
 		18C788951DD02E8E00E9D147 /* DTApiBaseBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTApiBaseBean.h; sourceTree = "<group>"; };
 		18C788961DD02E8E00E9D147 /* DTApiBaseBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTApiBaseBean.m; sourceTree = "<group>"; };
@@ -190,8 +190,8 @@
 				18526E3C1DC33451003DF559 /* NSBundle+HTML.m */,
 				104622241D7BBAA100D5640C /* Main.storyboard */,
 				18B60B901DD5647D00A004A3 /* TheCityList.plist */,
-				18C023E61DCB1FAF00F84EE4 /* city(2).txt */,
 				18C023E41DCB156300F84EE4 /* cityList.txt */,
+				18B574221DF7DD6F00507C14 /* lawyerfees.plist */,
 				18B60B921DD5684C00A004A3 /* gongshang1111.txt */,
 				18526E431DC34AA0003DF559 /* base.css */,
 				18526E411DC34186003DF559 /* content.css */,
@@ -374,7 +374,6 @@
 				1046222B1D7BBAA100D5640C /* LaunchScreen.storyboard in Resources */,
 				104622281D7BBAA100D5640C /* Assets.xcassets in Resources */,
 				18C023E51DCB156300F84EE4 /* cityList.txt in Resources */,
-				18C023E71DCB1FAF00F84EE4 /* city(2).txt in Resources */,
 				18FDC3671D9A0F320011EB33 /* gongshangjisuan.txt in Resources */,
 				183469431D98ED720007B0D9 /* README.txt in Resources */,
 				18B60B931DD5684C00A004A3 /* gongshang1111.txt in Resources */,
@@ -382,6 +381,7 @@
 				104622261D7BBAA100D5640C /* Main.storyboard in Resources */,
 				18526E441DC34AA0003DF559 /* base.css in Resources */,
 				18FDC3691D9A0FDA0011EB33 /* gongShang001.plist in Resources */,
+				18B574231DF7DD6F00507C14 /* lawyerfees.plist in Resources */,
 				18C788931DD02B8A00E9D147 /* ProvincesCity.plist in Resources */,
 				18FDC3631D9A0CA60011EB33 /* theCityList.txt in Resources */,
 				18526E3D1DC33451003DF559 /* DetailContent.xml in Resources */,

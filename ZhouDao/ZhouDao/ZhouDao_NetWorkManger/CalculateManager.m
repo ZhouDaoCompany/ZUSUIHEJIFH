@@ -261,7 +261,7 @@
             //删除重建 防止碎片文件
             if ([FILE_M fileExistsAtPath:tempPath]) {
                 
-                [FILE_M removeItemAtPath:PLISTCachePath error:nil];
+                [FILE_M removeItemAtPath:tempPath error:nil];
             }
             [FILE_M createDirectoryAtPath:tempPath withIntermediateDirectories:YES attributes:nil error:nil];
 

@@ -23,8 +23,8 @@
 static NSString *const DetailCellIdentifier = @"DetailCellIdentifier";
 static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 
-@interface GovernmentDetailVC ()<UITableViewDelegate,UITableViewDataSource,AMapSearchDelegate,AMapLocationManagerDelegate,ZD_AlertWindowPro>
-{
+@interface GovernmentDetailVC ()<UITableViewDelegate,UITableViewDataSource,AMapSearchDelegate,AMapLocationManagerDelegate,ZD_AlertWindowPro> {
+    
 }
 @property (nonatomic, strong)  AMapSearchAPI *search;
 @property (nonatomic, strong)  UITableView *tableView;
@@ -36,6 +36,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 @property (nonatomic, strong)  UIButton *errorBtn;//纠错
 @property (nonatomic, strong)  NSMutableArray *kindArrays;
 @property (nonatomic, copy)    NSString *mapStyle;//导航地图 (高德，百度，腾讯)
+
 @end
 
 @implementation GovernmentDetailVC
@@ -199,7 +200,6 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         }
         
         if (!_startPoint) {
-
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"没有开启定位 ，请您开启定位" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去设置》", nil];
             alertView.tag = 6389;
             [alertView show];
@@ -244,7 +244,6 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         alertWindow.delegate = self;
         [self.view addSubview:alertWindow];
     }
-    
 }
 #pragma mark - 百度导航
 -(void)onDaoHangForBaiDuMapWithModelStyle:(NSString *)modelStyle {
@@ -295,6 +294,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
             [self.navigationController pushViewController:mapVC animated:YES];
             
         }else {
+            
             MapNavViewController *vc = [MapNavViewController new];
             vc.endPoint   = _endPoint;
             vc.startPoint = _startPoint;
@@ -302,6 +302,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         }
 
     }else if (alertView.style == ZD_AlertViewStyleKindsMAP) {
+        
         //选择了哪个第三方地图
         _mapStyle = _kindArrays[buttonIndex];
         ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleMAPNAV withTextAlignment:NSTextAlignmentLeft Title:@"选择导航模式" WithOptionArrays:@[@"公交",@"驾车",@"步行"]];
