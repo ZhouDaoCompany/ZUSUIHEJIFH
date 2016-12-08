@@ -102,10 +102,8 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
                         return;
                     }
                 }
-                
             }
         }
-        
         
         [self formulaToCalculateWithArrays:arr1];
     }
@@ -142,8 +140,7 @@ static NSString *const PERSONALCELL = @"PersonalInjuryCellid";
             NSArray *cendArrays = arrays[5];
             //从小到大排序
             [cendArrays sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *objcDict1, NSDictionary *objcDict2) {
-                if ([objcDict1[@"row"] intValue] < [objcDict2[@"row"] intValue])
-                {
+                if ([objcDict1[@"row"] intValue] < [objcDict2[@"row"] intValue]) {
                     return NSOrderedAscending;
                 } else {
                     return NSOrderedDescending;

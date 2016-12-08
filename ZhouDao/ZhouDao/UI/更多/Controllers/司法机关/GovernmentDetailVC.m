@@ -85,14 +85,14 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 #pragma mark -UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 0?3:1;
+    return section == 0 ? 3 : 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (indexPath.section == 0 && indexPath.row == 0) {
         [self.tableView registerClass:[GovListCell class] forCellReuseIdentifier:DetailCellIdentifier];
@@ -135,7 +135,6 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 10.f)];
         lineView.backgroundColor = LINECOLOR;
         [headView addSubview:lineView];
-
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, kMainScreenWidth - 15,40.f)];
         lab.font = Font_15;
         lab.textColor = [UIColor redColor];
