@@ -2,7 +2,7 @@
 //  GovernmentDetailVC.m
 //  ZhouDao
 //
-//  Created by cqz on 16/5/8.
+//  Created by apple on 16/12/8.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
@@ -54,9 +54,9 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    
     [self userLocationService];//开始定位
-
+    
     [self searchDetailCode];
     [self initUI];
 }
@@ -64,7 +64,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 {
     [self setupNaviBarWithTitle:@"详情"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
-
+    
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.errorBtn];
     [self.view addSubview:self.storeBtn];
@@ -118,7 +118,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43.4f, kMainScreenWidth, .6f)];
         lineView.backgroundColor = LINECOLOR;
         [cell.contentView addSubview:lineView];
-
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.headImgView.hidden = NO;
         cell.contentLab.hidden = NO;
@@ -185,7 +185,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
                 ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStylePhone withTextAlignment:NSTextAlignmentLeft Title:@"选择号码" WithOptionArrays:array];
                 alertWindow.delegate = self;
                 [self.view addSubview:alertWindow];
-
+                
             }else {
                 NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_model.phone]]];
                 [self.callPhoneWebView loadRequest:request];
@@ -214,7 +214,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     [self.kindArrays removeAllObjects];//清空数组
     //百度地图
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
-    
+        
         [_kindArrays addObject:@"百度地图"];
     }
     //高德地图
@@ -224,7 +224,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     }
     //腾讯地图
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"qqmap://"]]) {
-    
+        
         [_kindArrays addObject:@"腾讯地图"];
     }
     
@@ -235,7 +235,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleNAV withTextAlignment:NSTextAlignmentLeft Title:@"选择导航模式" WithOptionArrays:_kindArrays];
         alertWindow.delegate = self;
         [self.view addSubview:alertWindow];
-
+        
     } else {
         
         //显示选择第三方地图
@@ -299,7 +299,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
             vc.startPoint = _startPoint;
             [self.navigationController pushViewController:vc animated:YES];
         }
-
+        
     }else if (alertView.style == ZD_AlertViewStyleKindsMAP) {
         
         //选择了哪个第三方地图
@@ -307,16 +307,16 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleMAPNAV withTextAlignment:NSTextAlignmentLeft Title:@"选择导航模式" WithOptionArrays:@[@"公交",@"驾车",@"步行"]];
         alertWindow.delegate = self;
         [self.view addSubview:alertWindow];
-
+        
     }else if (alertView.style == ZD_AlertViewStyleMAPNAV) {
         //选择第三方应用导航模式
         NSArray *modelArrays = @[@"公交",@"驾车",@"步行"];
         NSString *tempStyle = modelArrays[buttonIndex];
-
+        
         if ([_mapStyle isEqualToString:@"百度地图"]) {
             
             NSDictionary *modelDictionqry = [NSDictionary dictionaryWithObjectsAndKeys:@"transit",@"公交",@"driving",@"驾车",@"walking",@"步行", nil];
-             NSString *modelStyle = modelDictionqry[tempStyle];
+            NSString *modelStyle = modelDictionqry[tempStyle];
             [self onDaoHangForBaiDuMapWithModelStyle:modelStyle];
             
         } else if ([_mapStyle isEqualToString:@"高德地图"]) {
@@ -346,11 +346,10 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         [JKPromptView showWithImageName:nil message:LOCLOGINCOLLECT];
         LoginViewController *loginVc = [LoginViewController new];
         loginVc.closeBlock = ^{
-            if ([PublicFunction ShareInstance].m_bLogin == YES)
-            {
+            if ([PublicFunction ShareInstance].m_bLogin == YES) {
                 [NetWorkMangerTools goverDetailWithId:_model.id RequestSuccess:^(id obj) {
                     GovListmodel *tempModel = (GovListmodel *)obj;
-                     _model = tempModel;
+                    _model = tempModel;
                     if ([weakSelf.model.is_collection  integerValue] == 0) {
                         [weakSelf.storeBtn setImage:kGetImage(@"template_shoucang") forState:0];
                         [weakSelf govCollectionMethod];
@@ -478,10 +477,10 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     //通过AMapGeocodeSearchResponse对象处理搜索结果
     DLog(@"多少个地址---- %@",[NSString stringWithFormat:@"count: %ld", (long)response.count]);
     
-//    AMapTip *p = response.geocodes[0];
+    //    AMapTip *p = response.geocodes[0];
     AMapGeocode *p = response.geocodes[0];
     self.endPoint   = [AMapNaviPoint locationWithLatitude:p.location.latitude longitude:p.location.longitude];
-//    DLog(@"Geocode: %@", result);
+    //    DLog(@"Geocode: %@", result);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -489,13 +488,13 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
