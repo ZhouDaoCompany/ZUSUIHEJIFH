@@ -24,6 +24,7 @@
         
         UILabel *titLabel = [[UILabel alloc] initWithFrame:CGRectMake(39, 15, 100, 14)];
         titLabel.text = @"庭室信息";
+        titLabel.font = Font_12;
         titLabel.textColor = hexColor(666666);
         [self addSubview:titLabel];
     }
