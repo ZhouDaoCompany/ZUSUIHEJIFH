@@ -7,11 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "GovListmodel.h"
 @interface GovDetailCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *headImgView;
-@property (weak, nonatomic) IBOutlet UILabel *contentLab;
+
 @property (nonatomic, assign) float rowHeight;
+
+//简介
 - (void)setDetailIntroductionText:(NSString *)text;
+
+//司法机关图片
+- (void)setGovermentPictureUI:(GovListmodel *)model;
+
+//地址电话
+- (void)SetPhoneNumberAndAddress:(GovListmodel *)model withIndexRow:(NSUInteger)indexRow;
+
 @end
 

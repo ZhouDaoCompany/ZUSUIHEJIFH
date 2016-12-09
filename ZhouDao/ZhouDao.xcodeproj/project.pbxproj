@@ -224,7 +224,6 @@
 		184983161D2A0D63009AF29F /* OnlyAddCaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 184983151D2A0D63009AF29F /* OnlyAddCaseVC.m */; };
 		184F86B51DF94F78001EE897 /* GovCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184F86AF1DF94F78001EE897 /* GovCollectionViewCell.m */; };
 		184F86B61DF94F78001EE897 /* GovDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184F86B11DF94F78001EE897 /* GovDetailCell.m */; };
-		184F86B71DF94F78001EE897 /* GovDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184F86B21DF94F78001EE897 /* GovDetailCell.xib */; };
 		184F86B81DF94F78001EE897 /* GovListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184F86B41DF94F78001EE897 /* GovListCell.m */; };
 		184F86C51DF95164001EE897 /* TwoCompensationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184F86BB1DF95164001EE897 /* TwoCompensationCell.m */; };
 		184F86C61DF95164001EE897 /* TwoCompensationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184F86BC1DF95164001EE897 /* TwoCompensationCell.xib */; };
@@ -265,6 +264,7 @@
 		185FDF4B1DDD77830091E176 /* Tools_shebao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185FDF4A1DDD77830091E176 /* Tools_shebao@2x.png */; };
 		185FDF4F1DDD94AD0091E176 /* SocialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF4E1DDD94AD0091E176 /* SocialTableViewCell.m */; };
 		1860AB5C1D9BD946008A2A1E /* CalculateShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1860AB5B1D9BD946008A2A1E /* CalculateShareView.m */; };
+		1863A3EB1DFA8CA200189D28 /* TingShiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863A3EA1DFA8CA200189D28 /* TingShiTableViewCell.m */; };
 		1863DFE31C8D2B5B00F7A84E /* GcNoticeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863DFE21C8D2B5B00F7A84E /* GcNoticeUtil.m */; };
 		186553A71D76BB6B00DBA8D8 /* LayerFeesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186553A61D76BB6B00DBA8D8 /* LayerFeesModel.m */; };
 		186640471D24AEC800E1F455 /* GBTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186640461D24AEC800E1F455 /* GBTagListView.m */; };
@@ -882,7 +882,6 @@
 		184F86AF1DF94F78001EE897 /* GovCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GovCollectionViewCell.m; sourceTree = "<group>"; };
 		184F86B01DF94F78001EE897 /* GovDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GovDetailCell.h; sourceTree = "<group>"; };
 		184F86B11DF94F78001EE897 /* GovDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GovDetailCell.m; sourceTree = "<group>"; };
-		184F86B21DF94F78001EE897 /* GovDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GovDetailCell.xib; sourceTree = "<group>"; };
 		184F86B31DF94F78001EE897 /* GovListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GovListCell.h; sourceTree = "<group>"; };
 		184F86B41DF94F78001EE897 /* GovListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GovListCell.m; sourceTree = "<group>"; };
 		184F86BA1DF95164001EE897 /* TwoCompensationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoCompensationCell.h; sourceTree = "<group>"; };
@@ -948,6 +947,8 @@
 		185FDF4E1DDD94AD0091E176 /* SocialTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialTableViewCell.m; sourceTree = "<group>"; };
 		1860AB5A1D9BD946008A2A1E /* CalculateShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateShareView.h; sourceTree = "<group>"; };
 		1860AB5B1D9BD946008A2A1E /* CalculateShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateShareView.m; sourceTree = "<group>"; };
+		1863A3E91DFA8CA200189D28 /* TingShiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TingShiTableViewCell.h; sourceTree = "<group>"; };
+		1863A3EA1DFA8CA200189D28 /* TingShiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TingShiTableViewCell.m; sourceTree = "<group>"; };
 		1863DFD71C8D0FC700F7A84E /* MyPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPickView.h; sourceTree = "<group>"; };
 		1863DFE11C8D2B5B00F7A84E /* GcNoticeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcNoticeUtil.h; sourceTree = "<group>"; };
 		1863DFE21C8D2B5B00F7A84E /* GcNoticeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcNoticeUtil.m; sourceTree = "<group>"; };
@@ -2354,9 +2355,10 @@
 				184F86AF1DF94F78001EE897 /* GovCollectionViewCell.m */,
 				184F86B01DF94F78001EE897 /* GovDetailCell.h */,
 				184F86B11DF94F78001EE897 /* GovDetailCell.m */,
-				184F86B21DF94F78001EE897 /* GovDetailCell.xib */,
 				184F86B31DF94F78001EE897 /* GovListCell.h */,
 				184F86B41DF94F78001EE897 /* GovListCell.m */,
+				1863A3E91DFA8CA200189D28 /* TingShiTableViewCell.h */,
+				1863A3EA1DFA8CA200189D28 /* TingShiTableViewCell.m */,
 				184F86D01DF95BC9001EE897 /* TingShiHeadView.h */,
 				184F86D11DF95BC9001EE897 /* TingShiHeadView.m */,
 			);
@@ -3916,7 +3918,6 @@
 				10D31D731CDE2459008D6F42 /* sanjiao@2x.png in Resources */,
 				18CD01D51C901367009DE385 /* tabbar_CaseQuery@2x.png in Resources */,
 				1060DA141CACF8D400D779A5 /* CompensationStandard@2x.png in Resources */,
-				184F86B71DF94F78001EE897 /* GovDetailCell.xib in Resources */,
 				1895BDD41DACB89800EA5FF2 /* man_court.caf in Resources */,
 				18F2F19F1CBDDAD70068453D /* case_juanzong4s@2x.png in Resources */,
 				181BA4111CE598B600A29E2E /* share_platform_sina@2x.png in Resources */,
@@ -4377,6 +4378,7 @@
 				185FDF441DDD41180091E176 /* LPCameraFocusView.m in Sources */,
 				18B2E1651D6C20E50076B597 /* LewReorderableLayout.m in Sources */,
 				180B31561C8EB5D100360A23 /* MyPickView.m in Sources */,
+				1863A3EB1DFA8CA200189D28 /* TingShiTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

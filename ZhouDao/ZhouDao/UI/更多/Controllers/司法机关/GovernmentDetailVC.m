@@ -19,12 +19,15 @@
 #import "ZD_AlertWindow.h"
 #import "GovHECViewController.h"
 #import "LCActionSheet.h"
+#import "TingShiHeadView.h"
+#import "TingShiTableViewCell.h"
 
 static NSString *const DetailCellIdentifier = @"DetailCellIdentifier";
 static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 
-@interface GovernmentDetailVC ()<UITableViewDelegate,UITableViewDataSource,AMapSearchDelegate,AMapLocationManagerDelegate,ZD_AlertWindowPro> {
+@interface GovernmentDetailVC ()<UITableViewDelegate,UITableViewDataSource,AMapSearchDelegate,AMapLocationManagerDelegate,ZD_AlertWindowPro,TingShiHeadViewPro> {
     
+    BOOL _flag[3];
 }
 @property (nonatomic, strong)  AMapSearchAPI *search;
 @property (nonatomic, strong)  UITableView *tableView;
@@ -40,6 +43,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 @end
 
 @implementation GovernmentDetailVC
+
 #pragma mark - life cycle
 - (void)dealloc
 {
@@ -60,8 +64,9 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     [self searchDetailCode];
     [self initUI];
 }
-- (void)initUI
-{
+- (void)initUI {
+    
+    self.view.backgroundColor = [UIColor whiteColor];
     [self setupNaviBarWithTitle:@"详情"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
     
@@ -69,104 +74,101 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     [self.view addSubview:self.errorBtn];
     [self.view addSubview:self.storeBtn];
     
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    UILabel *footLab = [[UILabel alloc] initWithFrame:CGRectMake((kMainScreenWidth - 285.f)/2.f, kMainScreenHeight - 60.f, 285.f, 30.f)];
-    footLab.backgroundColor = LRRGBColor(233.f, 229.f, 228.f);
-    footLab.textColor = LRRGBColor(135.f, 131.f, 130.f);
-    footLab.layer.cornerRadius = 5.f;
-    footLab.textAlignment = NSTextAlignmentCenter;
-    footLab.font = Font_14;
-    footLab.text = @"仅供参考，欢迎纠错 zd@zhoudao.cc";
-    footLab.layer.masksToBounds = YES;
-    [self.view addSubview:footLab];
+    [self.view addSubview:[[TingShiHeadView alloc] initEmailErrorCorrectionWithFrame:CGRectMake(0, kMainScreenHeight - 60.f, kMainScreenWidth, 30.f)]];
 }
 #pragma mark
 #pragma mark -UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return section == 0 ? 3 : 1;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        
+        return 3;
+    }else if (section == 1) {
+        
+        return 0;
+    }else if (section == 5) {
+        return 1;
+    } else {
+       
+        if (_flag[section - 2]) {
+            return 2;
+        }
+        return 0;
+    }
 }
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 2;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        [self.tableView registerClass:[GovListCell class] forCellReuseIdentifier:DetailCellIdentifier];
-        GovListCell *cell = (GovListCell *)[tableView dequeueReusableCellWithIdentifier:DetailCellIdentifier];
-        [cell setListModel:_model];
-        cell.telLabel.hidden = YES;
-        cell.addressLabel.hidden = YES;
+    if (indexPath.section == 0 || indexPath.section == 5) {
         
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(96, 41, 44, 18)];
-        [_model.is_audit isEqualToString:@"1"]?[imgView setImage:kGetImage(@"gov_NoReview")]:[imgView setImage:kGetImage(@"gov_Review")];
-        [cell.contentView   addSubview:imgView];
-        
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 99.4f, kMainScreenWidth, .6f)];
-        lineView.backgroundColor = LINECOLOR;
-        [cell.contentView addSubview:lineView];
+        [self.tableView registerClass:[GovDetailCell class] forCellReuseIdentifier:DetailCellIdentifier];
+        GovDetailCell *cell = (GovDetailCell *)[tableView dequeueReusableCellWithIdentifier:DetailCellIdentifier];
+        if (indexPath.section == 0 && indexPath.row == 0) {
+            
+            [cell setGovermentPictureUI:_model];
+        } else if (indexPath.section == 5) {
+            
+            [cell setDetailIntroductionText:_model.introduce];
+        } else {
+            [cell SetPhoneNumberAndAddress:_model withIndexRow:indexPath.row];
+        }
         return cell;
     }
-    [self.tableView registerNib:[UINib nibWithNibName:@"GovDetailCell" bundle:nil] forCellReuseIdentifier:twoDetailCellIdentifier];
-    GovDetailCell *cell = (GovDetailCell *)[tableView dequeueReusableCellWithIdentifier:twoDetailCellIdentifier];
-    if (indexPath.row == 0 && indexPath.section == 1) {
-        [cell setDetailIntroductionText:_model.introduce];
-    }else{
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43.4f, kMainScreenWidth, .6f)];
-        lineView.backgroundColor = LINECOLOR;
-        [cell.contentView addSubview:lineView];
+    
+    [tableView registerClass:[TingShiTableViewCell class] forCellReuseIdentifier:twoDetailCellIdentifier];
+    TingShiTableViewCell *cell = (TingShiTableViewCell *)[tableView dequeueReusableCellWithIdentifier:twoDetailCellIdentifier];
+    if (indexPath.row == 0) {
         
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.headImgView.hidden = NO;
-        cell.contentLab.hidden = NO;
-        indexPath.row == 1?[cell.headImgView setImage:[UIImage imageNamed:@"Gov_location"]]:[cell.headImgView setImage:[UIImage imageNamed:@"Gov_phone"]];
-        indexPath.row == 1?[cell.contentLab setText:_model.address]:[cell.contentLab setText:_model.phone];
+        [cell setAddressUIWithIndexRow:indexPath.row];
+    } else {
+        
+        [cell setContactUIWithIndexRow:indexPath.row];
     }
     return cell;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (section == 1) {
-        UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 50.f)];
-        headView.backgroundColor = [UIColor whiteColor];
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 10.f)];
-        lineView.backgroundColor = LINECOLOR;
-        [headView addSubview:lineView];
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, kMainScreenWidth - 15,40.f)];
-        lab.font = Font_15;
-        lab.textColor = [UIColor redColor];
-        lab.numberOfLines = 0;
-        lab.text = @"简介";
-        [headView addSubview:lab];
-        UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 49.4f, kMainScreenWidth, .6f)];
-        lineView1.backgroundColor = LINECOLOR;
-        [headView addSubview:lineView1];
-        return headView;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        
+        return nil;
+    }else if (section == 1) {
+        
+        return [[TingShiHeadView alloc] initTingShiHeadViewWithDelegate:self];
+    }else if (section == 5) {
+        
+        return [[TingShiHeadView alloc] initIntroductionToThe];
     }
-    return nil;
+    return [[TingShiHeadView alloc] initAdministrativeTrialWithSection:section withUpOrDown:_flag[section - 2] withDelegate:self];
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return section == 0?0.1f:50.f;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        return 0;
+    } else if (section == 5 || section == 1) {
+        
+        return 60;
+    }
+    return 45;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
     return 0.1f;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        return 100.f;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        return (indexPath.row == 0) ? 100.f : 45;
+    } else if (indexPath.section == 5) {
+        GovDetailCell *cell = (GovDetailCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+        return cell.rowHeight;
     }
-    GovDetailCell *cell = (GovDetailCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-    return cell.rowHeight;
+    return (indexPath.row == 0) ? 45.f : 70.f;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0  && indexPath.section == 0) {
@@ -207,6 +209,20 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         
         [self whatKindOfMapForInstallation];
     }
+}
+#pragma mark - TingShiHeadViewPro
+- (void)selectTingShiItem {
+    
+}
+- (void)onAddOffClickWithSection:(NSUInteger)section {
+    
+    if (_flag[section - 2]) {
+        _flag[section - 2] = NO;
+    }else {
+        _flag[section - 2] = YES;
+    }
+    
+    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark - 得到手机安装了哪几种地图
 - (void)whatKindOfMapForInstallation {
@@ -384,15 +400,14 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         [weakSelf.storeBtn setImage:kGetImage(@"template_SC") forState:0];
     }];
 }
-- (void)goToErrorEvent:(id)sender
-{
+- (void)goToErrorEvent:(id)sender {
+    
     GovHECViewController *vc = [GovHECViewController new];
     vc.model = _model;
     [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - getters and setters
-- (UIButton *)storeBtn
-{
+- (UIButton *)storeBtn {
     if (!_storeBtn) {
         _storeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _storeBtn.frame = CGRectMake(kMainScreenWidth -45.f,27.f, 30, 30);
@@ -424,7 +439,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 }
 - (UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-64.f) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,64, kMainScreenWidth, kMainScreenHeight-124.f) style:UITableViewStyleGrouped];
         _tableView.showsHorizontalScrollIndicator= NO;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.dataSource = self;
@@ -443,8 +458,8 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     return _kindArrays;
 }
 #pragma mark -获取地理位置信息
-- (void)userLocationService
-{
+- (void)userLocationService {
+    
     _locationService = [[AMapLocationManager alloc] init];
     _locationService.delegate = self;
     [_locationService startUpdatingLocation];//开启定位
@@ -469,8 +484,8 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     [_search AMapGeocodeSearch: geo];
 }
 //实现正向地理编码的回调函数
-- (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:(AMapGeocodeSearchResponse *)response
-{
+- (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:(AMapGeocodeSearchResponse *)response {
+    
     if(response.geocodes.count == 0) {
         return;
     }
