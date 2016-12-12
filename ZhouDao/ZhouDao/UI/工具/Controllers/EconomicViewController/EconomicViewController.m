@@ -279,8 +279,8 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     }
     
 }
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
     if (section == 1) {
         return nil;
     }
@@ -303,8 +303,7 @@ static NSString *const ECONOMICCellID = @"ECONOMICCellID";
     return 0.1f;
 }
 #pragma mark -UITextFieldDelegate
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     [self dismissKeyBoard];
     return YES;
 }

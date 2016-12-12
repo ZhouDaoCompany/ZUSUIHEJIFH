@@ -8,6 +8,11 @@
 
 #import "TingShiHeadView.h"
 
+@interface TingShiHeadView()
+
+
+@end
+
 @implementation TingShiHeadView
 
 //庭室
@@ -37,6 +42,11 @@
         lineView.backgroundColor = LINECOLOR;
         [self addSubview:lineView];
         
+        UIImageView *jiantouimg = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth - 27, 30, 8, 13)];
+        jiantouimg.userInteractionEnabled = YES;
+        jiantouimg.image = [UIImage imageNamed:@"mine_jiantou"];
+        [self addSubview:jiantouimg];
+
         [self whenCancelTapped:^{
             
             if ([weakSelf.delegate respondsToSelector:@selector(selectTingShiItem)]) {
@@ -132,6 +142,53 @@
     }
     return self;
 }
+
+//表头
+- (instancetype)initTingShiListHeadViewWithTitleString:(NSString *)titleString
+                                            withSetion:(NSUInteger)section
+                                          withDelegate:(id<TingShiHeadViewPro>)delegate {
+    
+    self = [super initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 45)];
+    if (self) {
+        
+        _delegate = delegate;
+        _section = section;
+        [self addSubview:self.titleLabel];
+        [self addSubview:self.delBtn];
+        
+        _titleLabel.text = titleString;
+        
+    }
+    return self;
+}
+- (void)deleteEventRespose:(UIButton *)btn {
+    
+    if ([self.delegate respondsToSelector:@selector(deleteRedundantTingShiSectionView:)]) {
+        
+        [self.delegate deleteRedundantTingShiSectionView:_section];
+    }
+}
+#pragma mark - setter and getter
+- (UIButton *)delBtn {
+    
+    if (!_delBtn) {
+        _delBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _delBtn.frame = CGRectMake(kMainScreenWidth - 55.f, 10.f, 40 , 25);
+        [_delBtn setImage:[UIImage imageNamed:@"mine_guanbi"] forState:0];
+        [_delBtn addTarget:self action:@selector(deleteEventRespose:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _delBtn;
+}
+- (UILabel *)titleLabel {
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.frame = CGRectMake(13, 0, 160, self.frame.size.height);
+        _titleLabel.font = [UIFont systemFontOfSize:15.f];
+        [_titleLabel setTextColor:hexColor(333333)];
+    }
+    return _titleLabel;
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -69,8 +69,8 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
 
     self.view.backgroundColor = ViewBackColor;
     
-    if ([PublicFunction ShareInstance].m_bLogin == YES)
-    {
+    if ([PublicFunction ShareInstance].m_bLogin == YES) {
+        
         [self getDomainUser];
     }
 
@@ -80,19 +80,18 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
     
 }
 #pragma mark -UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return _sectionCount;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     if (section == _sectionCount - 3 || section ==_sectionCount - 1) {
         return 2;
     }
     return 1;
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     NSUInteger row = indexPath.row;
     NSUInteger section = indexPath.section;
     if (section == 0) {

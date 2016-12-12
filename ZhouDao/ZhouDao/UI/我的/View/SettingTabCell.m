@@ -138,7 +138,7 @@
                 _addresslab.text = [QZManager getTheHiddenMobile:_addresslab.text];
 
             }
-            _row ==5?[_lineView setHidden:YES]:[_lineView setHidden:NO];
+            _row ==6?[_lineView setHidden:YES]:[_lineView setHidden:NO];
         }
     }else {
         self.accessoryType = UITableViewCellAccessoryNone;

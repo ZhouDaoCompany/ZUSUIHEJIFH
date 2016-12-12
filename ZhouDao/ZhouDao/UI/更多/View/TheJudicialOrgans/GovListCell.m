@@ -61,8 +61,8 @@
     }
     return _organImage;
 }
--(void)setListModel:(GovListmodel *)listModel
-{
+-(void)setListModel:(GovListmodel *)listModel {
+    
     _listModel = nil;
     _listModel = listModel;
     

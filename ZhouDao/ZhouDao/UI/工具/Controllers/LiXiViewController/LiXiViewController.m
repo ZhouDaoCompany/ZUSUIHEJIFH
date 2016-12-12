@@ -495,8 +495,8 @@ static NSString *const LIXICELL = @"lixicellid";
     }];
     return lastMoney;
 }
-- (float)getRateCalculateWithRateArrays:(NSArray *)rateArrays withDays:(float)differTimeDay
-{
+- (float)getRateCalculateWithRateArrays:(NSArray *)rateArrays withDays:(float)differTimeDay {
+    
     if(differTimeDay <= 180){
         
         _reatString = rateArrays[0];

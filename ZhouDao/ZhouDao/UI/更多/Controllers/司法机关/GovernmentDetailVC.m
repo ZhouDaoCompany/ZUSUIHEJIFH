@@ -21,6 +21,7 @@
 #import "LCActionSheet.h"
 #import "TingShiHeadView.h"
 #import "TingShiTableViewCell.h"
+#import "TingShiListVC.h"
 
 static NSString *const DetailCellIdentifier = @"DetailCellIdentifier";
 static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
@@ -171,48 +172,54 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row == 0  && indexPath.section == 0) {
+    if (indexPath.section == 0) {
         
-        ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleReview withTextAlignment:NSTextAlignmentLeft Title:@"审查说明" WithOptionArrays:[NSArray array]];
-        
-        [self.view addSubview:alertWindow];
-    }
-    
-    if (indexPath.row == 2) {
-        if (_model.phone.length > 0) {
+        if (indexPath.row == 0) {
             
-            if ([QZManager isString:_model.phone withContainsStr:@"/"] == YES) {
-                
-                NSArray *array = [_model.phone componentsSeparatedByString:@"/"];
-                ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStylePhone withTextAlignment:NSTextAlignmentLeft Title:@"选择号码" WithOptionArrays:array];
-                alertWindow.delegate = self;
-                [self.view addSubview:alertWindow];
-                
-            }else {
-                NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_model.phone]]];
-                [self.callPhoneWebView loadRequest:request];
+            ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleReview withTextAlignment:NSTextAlignmentLeft Title:@"审查说明" WithOptionArrays:[NSArray array]];
+            
+            [self.view addSubview:alertWindow];
+
+        } else if(indexPath.row == 1){
+            
+            if (!_endPoint) {
+                [JKPromptView showWithImageName:nil message:@"获取目标地理位置失败!"];
+                return;
+            }
+            
+            if (!_startPoint) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"没有开启定位 ，请您开启定位" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去设置》", nil];
+                alertView.tag = 6389;
+                [alertView show];
+                return;
+            }
+            
+            [self whatKindOfMapForInstallation];
+            
+        } else if (indexPath.row == 2) {
+            
+            if (_model.phone.length > 0) {
+                if ([QZManager isString:_model.phone withContainsStr:@"/"] == YES) {
+                    
+                    NSArray *array = [_model.phone componentsSeparatedByString:@"/"];
+                    ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStylePhone withTextAlignment:NSTextAlignmentLeft Title:@"选择号码" WithOptionArrays:array];
+                    alertWindow.delegate = self;
+                    [self.view addSubview:alertWindow];
+                    
+                }else {
+                    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_model.phone]]];
+                    [self.callPhoneWebView loadRequest:request];
+                }
             }
         }
-    }else if(indexPath.row == 1){
-        
-        if (!_endPoint) {
-            [JKPromptView showWithImageName:nil message:@"获取目标地理位置失败!"];
-            return;
-        }
-        
-        if (!_startPoint) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"没有开启定位 ，请您开启定位" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"去设置》", nil];
-            alertView.tag = 6389;
-            [alertView show];
-            return;
-        }
-        
-        [self whatKindOfMapForInstallation];
     }
 }
 #pragma mark - TingShiHeadViewPro
 - (void)selectTingShiItem {
     
+    //查看庭室列表
+    TingShiListVC *listVC = [TingShiListVC new];
+    [self.navigationController pushViewController:listVC animated:YES];
 }
 - (void)onAddOffClickWithSection:(NSUInteger)section {
     

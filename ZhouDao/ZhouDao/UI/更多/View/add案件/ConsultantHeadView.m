@@ -19,9 +19,9 @@
 - (id)initWithFrame:(CGRect)frame withSection:(NSInteger)section
 {
     self = [super initWithFrame:frame];
-    if (self)
-    {
-        self.backgroundColor = [UIColor colorWithHexString:@"#F2F2F2"];
+    if (self) {
+        
+        self.backgroundColor = [UIColor colorWithHexString:@"#D4D4D4"];
         
         _section = section;
         [self addSubview:self.label];
@@ -32,8 +32,8 @@
 }
 - (void)deleteEventRespose:(UIButton *)btn
 {
-    if ([self.delegate respondsToSelector:@selector(deleteSectionEventRespose:)])
-    {
+    if ([self.delegate respondsToSelector:@selector(deleteSectionEventRespose:)]) {
+        
         [self.delegate deleteSectionEventRespose:_section];
     }
 }

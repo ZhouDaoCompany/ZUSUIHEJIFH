@@ -353,8 +353,7 @@ static NSString *const CONNOTEIDENTIFER = @"consultantnoteidentifer";
     [arr replaceObjectAtIndex:arr.count -1  withObject:textView.text];
 }
 #pragma mark -ConsultantHeadViewPro
-- (void)deleteSectionEventRespose:(NSUInteger)section;
-{WEAKSELF;
+- (void)deleteSectionEventRespose:(NSUInteger)section { WEAKSELF;
     UIWindow *windows = [QZManager getWindow];
     ZD_AlertWindow *alertWindow = [[ZD_AlertWindow alloc] initWithStyle:ZD_AlertViewStyleDEL withTitle:@"确定删除吗?" withTextAlignment:NSTextAlignmentCenter delegate:self withIndexPath:nil];
     alertWindow.confirmBlock = ^(){

@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol CollectEmptyViewPro;
 
 @interface CollectEmptyView : UIView
+
+@property (nonatomic, weak) id<CollectEmptyViewPro>delegate;
+
 - (id)initWithFrame:(CGRect)frame WithText:(NSString *)textStr;
+
+- (instancetype)initTingShiTheDefaultWithDelegate:(id<CollectEmptyViewPro>)delegate;
+@end
+
+@protocol CollectEmptyViewPro <NSObject>
+
+@optional
+- (void)clickAddText;
+
 @end

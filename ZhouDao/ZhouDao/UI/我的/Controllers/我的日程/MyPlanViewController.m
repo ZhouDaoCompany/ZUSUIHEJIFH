@@ -209,8 +209,7 @@ static NSString *const PlanCellIdentifier = @"planCellIdentifier";
     AllPlanViewController *allPlan = [AllPlanViewController new];
     [self.navigationController  pushViewController:allPlan animated:YES];
 }
-- (UIView *)lookAllScheduleView
-{WEAKSELF;
+- (UIView *)lookAllScheduleView { WEAKSELF;
     UIView *lookView = [[UIView alloc] init];
     lookView.center = _tableView.center;
     lookView.bounds = CGRectMake(0, 0, 200, 20);

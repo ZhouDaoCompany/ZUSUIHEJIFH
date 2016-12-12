@@ -12,6 +12,9 @@
 @interface TingShiHeadView : UIView
 
 
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UIButton *delBtn;
+@property (assign, nonatomic) NSUInteger section;
 @property (weak, nonatomic) id<TingShiHeadViewPro>delegate;
 
 //庭室
@@ -26,11 +29,17 @@
 //邮箱纠错
 - (instancetype)initEmailErrorCorrectionWithFrame:(CGRect)frame;
 
+//表头
+- (instancetype)initTingShiListHeadViewWithTitleString:(NSString *)titleString
+                                            withSetion:(NSUInteger)section
+                                          withDelegate:(id<TingShiHeadViewPro>)delegate;
+
 @end
 
 @protocol TingShiHeadViewPro <NSObject>
 
+@optional
 - (void)selectTingShiItem;
 - (void)onAddOffClickWithSection:(NSUInteger)section;
-
+- (void)deleteRedundantTingShiSectionView:(NSUInteger)section;
 @end

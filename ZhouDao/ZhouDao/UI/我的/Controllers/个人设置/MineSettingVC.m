@@ -16,6 +16,9 @@
 #import "ReplacePhoneVC.h"
 #import "UMessage.h"
 #import "ConsultantHeadView.h"
+
+#import "PrivacyViewController.h"
+
 /**
  *  认证
  *  #import "ImmediatelyVC.h"
@@ -62,7 +65,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
     
     self.view.backgroundColor = LRRGBColor(242, 242, 242);
     _imageArrays = [NSArray arrayWithObjects:@"",@"",@"",@"",@"",@"",nil];
-    _titArrays = [NSArray arrayWithObjects:@"我的头像",@"我的账号",@"密码",@"通讯地址",@"我的职业",@"清理缓存", nil];
+    _titArrays = [NSArray arrayWithObjects:@"我的头像",@"我的账号",@"密码",@"通讯地址",@"我的职业",@"隐私设置",@"清理缓存", nil];
     
     NSString *pString = [PublicFunction ShareInstance].m_user.data.type;
     
@@ -75,7 +78,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
         address = [PublicFunction ShareInstance].m_user.data.address;
     }
 
-    _msgArrays = [NSMutableArray arrayWithObjects:@"",[PublicFunction ShareInstance].m_user.data.mobile,@"修改",address, typeString,cacheString,nil];
+    _msgArrays = [NSMutableArray arrayWithObjects:@"",[PublicFunction ShareInstance].m_user.data.mobile,@"修改",address, typeString,@"",cacheString,nil];
     [ self.view addSubview:self.tableView];
    
 
@@ -172,7 +175,7 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
                 
                 [weakSelf requestMyCertification];
             }];
-        }else if (indexPath.row == 5){
+        }else if (indexPath.row == 6){
             
             LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"确定"] redButtonIndex:0 clicked:^(NSInteger buttonIndex) {
                 
@@ -182,6 +185,10 @@ static NSString *const TwoSettingIdentifer = @"TwoSettingIdentifer";
                 }
             }];
             [sheet show];
+        }else if (indexPath.row == 5){
+            
+            PrivacyViewController *privacyVC = [PrivacyViewController new];
+            [self.navigationController pushViewController:privacyVC animated:YES];
         }
   
     }

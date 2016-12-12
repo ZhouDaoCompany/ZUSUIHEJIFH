@@ -79,8 +79,7 @@
     _photoImage = nil;
     [_photoImgBtn setImage:kGetImage(@"compose_pic_add") forState:0];
 }
-- (void)selectPhotoEvent:(UIButton *)btn
-{
+- (void)selectPhotoEvent:(UIButton *)btn { WEAKSELF;
     DLog(@"选择图片");
     [self dismissKeyBoard];
     
@@ -90,13 +89,13 @@
     LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil buttonTitles:@[@"拍照", @"从相册选择"] redButtonIndex:-1 clicked:^(NSInteger buttonIndex) {
         DLog(@"> Block way -> Clicked Index: %ld", (long)buttonIndex);
         
-        [self selectCameraOrPhotoList:buttonIndex];
+        [weakSelf selectCameraOrPhotoList:buttonIndex];
     }];
     
     [sheet show];
 }
-- (void)commitBtnEvent:(UIButton *)btn
-{WEAKSELF;
+- (void)commitBtnEvent:(UIButton *)btn { WEAKSELF;
+    
     if (_introText.text.length == 0 && _addressText.text.length == 0 && _photoImage == nil && _phoneText.text.length == 0) {
         [JKPromptView showWithImageName:nil message:LOCSETDATE];
         return;
