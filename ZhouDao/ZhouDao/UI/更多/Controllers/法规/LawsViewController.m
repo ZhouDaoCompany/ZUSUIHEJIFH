@@ -156,12 +156,12 @@ static NSString *const twoCellIdentifier = @"twoTabCellIdentifier";
         }
     }
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     return 70.f;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     LawsDataModel *model = _dataArrays[indexPath.row];
     TaskModel *tmodel = [TaskModel new];
     [NetWorkMangerTools lawsDetailData:model.id RequestSuccess:^(id obj) {

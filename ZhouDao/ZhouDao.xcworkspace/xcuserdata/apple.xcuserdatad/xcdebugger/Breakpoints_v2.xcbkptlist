@@ -19,22 +19,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ZhouDao/UI/&#x66f4;&#x591a;/Controllers/&#x6cd5;&#x89c4;/ContentViewController.m"
-            timestampString = "500542783.662786"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "-getFontSize:WithSection:WithRow:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ZhouDao/UI/&#x66f4;&#x591a;/Controllers/&#x6848;&#x4f8b;&#x67e5;&#x8be2;/OrdinaryVC.m"
             timestampString = "502267920.212611"
             startingColumnNumber = "9223372036854775807"
@@ -43,38 +27,6 @@
             endingLineNumber = "296"
             landmarkName = "-searchKeyText:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[OrdinaryVC searchKeyText:]"
-                  moduleName = "ZhouDao"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/GitHup/ZUSUIHEJIFH/ZhouDao/ZhouDao/UI/%E6%9B%B4%E5%A4%9A/Controllers/%E6%A1%88%E4%BE%8B%E6%9F%A5%E8%AF%A2/OrdinaryVC.m"
-                  timestampString = "503227963.596915"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "296"
-                  endingLineNumber = "296"
-                  offsetFromSymbolStart = "440">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__28-[OrdinaryVC searchKeyText:]_block_invoke_2"
-                  moduleName = "ZhouDao"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/apple/Desktop/GitHup/ZUSUIHEJIFH/ZhouDao/ZhouDao/UI/%E6%9B%B4%E5%A4%9A/Controllers/%E6%A1%88%E4%BE%8B%E6%9F%A5%E8%AF%A2/OrdinaryVC.m"
-                  timestampString = "503227963.599102"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "298"
-                  endingLineNumber = "298"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

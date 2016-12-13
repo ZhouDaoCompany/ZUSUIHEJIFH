@@ -189,10 +189,8 @@ __TIMER = nil;\
 
 #define USER_D [NSUserDefaults standardUserDefaults]
 
-
 //iOS版本
 #define CurrentSystemVersion                    ([[[UIDevice currentDevice] systemVersion] floatValue])
-
 
 
 typedef void(^ZDBlock)(void);

@@ -64,7 +64,6 @@
         
         rateString = rateArrays[3];
     }else {
-        
         rateString = rateArrays[4];
     }
     return [rateString doubleValue];
@@ -174,7 +173,6 @@
     if (tempMoney < 0) {
         tempMoney = 0;
     }
-    
     if (tempMoney <= 1500) {
         
         taxmoney = tempMoney * 0.03;
@@ -323,7 +321,6 @@
         DLog(@"所有任务完成");
     });
 }
-
 
 // MARK: 地图导航
 

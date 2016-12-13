@@ -287,6 +287,7 @@
 		187133401DFE8DEB0034C96B /* TingShiListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1871333E1DFE8DEB0034C96B /* TingShiListVC.m */; };
 		187133451DFE8E1F0034C96B /* TingShiHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187133421DFE8E1F0034C96B /* TingShiHeadView.m */; };
 		187133461DFE8E1F0034C96B /* TingShiTabViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187133441DFE8E1F0034C96B /* TingShiTabViewCell.m */; };
+		1871EDC31DFF9F1000641688 /* FaGuiText.html in Resources */ = {isa = PBXBuildFile; fileRef = 1871EDC21DFF9F1000641688 /* FaGuiText.html */; };
 		187349DB1D2F4F96001A3E91 /* scan_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187349D61D2F4F96001A3E91 /* scan_1@2x.png */; };
 		187349DC1D2F4F96001A3E91 /* scan_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187349D71D2F4F96001A3E91 /* scan_2@2x.png */; };
 		187349DD1D2F4F96001A3E91 /* scan_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187349D81D2F4F96001A3E91 /* scan_3@2x.png */; };
@@ -1000,6 +1001,7 @@
 		187133421DFE8E1F0034C96B /* TingShiHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TingShiHeadView.m; sourceTree = "<group>"; };
 		187133431DFE8E1F0034C96B /* TingShiTabViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TingShiTabViewCell.h; sourceTree = "<group>"; };
 		187133441DFE8E1F0034C96B /* TingShiTabViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TingShiTabViewCell.m; sourceTree = "<group>"; };
+		1871EDC21DFF9F1000641688 /* FaGuiText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = FaGuiText.html; sourceTree = "<group>"; };
 		187349D61D2F4F96001A3E91 /* scan_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_1@2x.png"; sourceTree = "<group>"; };
 		187349D71D2F4F96001A3E91 /* scan_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_2@2x.png"; sourceTree = "<group>"; };
 		187349D81D2F4F96001A3E91 /* scan_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_3@2x.png"; sourceTree = "<group>"; };
@@ -2858,6 +2860,7 @@
 			children = (
 				1834693E1D98B0A50007B0D9 /* ZhouDao.entitlements */,
 				187E6D611C841A11009169C2 /* AppDelegate.h */,
+				1871EDC21DFF9F1000641688 /* FaGuiText.html */,
 				187E6D621C841A11009169C2 /* AppDelegate.m */,
 				18FF3F681C8547610098C60B /* UI */,
 				18FF3F621C85348B0098C60B /* Resource */,
@@ -3904,6 +3907,7 @@
 				18C4B0661CB4FC7600D3CB8B /* SelectTemplateCell.xib in Resources */,
 				18CC2E251D224DD5004B37DA /* case_moneyicon@2x.png in Resources */,
 				18C4B0681CB4FCCB00D3CB8B /* template_yuedu@2x.png in Resources */,
+				1871EDC31DFF9F1000641688 /* FaGuiText.html in Resources */,
 				108DC0251C9FA38E00FD1221 /* find_eyeSelect@2x.png in Resources */,
 				18DD1E8D1C8812F7004630C1 /* post_normal@2x.png in Resources */,
 				181BA4131CE598B600A29E2E /* share_platform_wechattimeline@2x.png in Resources */,

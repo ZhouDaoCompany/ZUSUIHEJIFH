@@ -40,7 +40,8 @@
 //编辑
 - (void)settingUIWithMutableArrays:(NSMutableArray *)arrays
                        withSection:(NSUInteger)section
-                      withIndexRow:(NSUInteger)row {
+                      withIndexRow:(NSUInteger)row
+                        withEnable:(BOOL)isEnable{
     
     NSMutableArray *oneArrays = arrays[section];
 
@@ -53,6 +54,7 @@
         self.accessoryType = UITableViewCellAccessoryNone;
         _titleLabel.text = @"庭室名";
         _textField.placeholder = @"请输入庭室名";
+        _textField.enabled = isEnable;
 
     } else {
         NSArray *arr = @[@"联系人类别",@"法官信息",@"联系方式"];

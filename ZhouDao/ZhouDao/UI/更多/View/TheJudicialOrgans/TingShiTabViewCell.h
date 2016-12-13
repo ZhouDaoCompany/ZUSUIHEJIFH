@@ -15,5 +15,5 @@
 
 - (void)settingUIWithMutableArrays:(NSMutableArray *)arrays
                        withSection:(NSUInteger)section
-                      withIndexRow:(NSUInteger)row;
+                      withIndexRow:(NSUInteger)row withEnadled:(BOOL)isEnabled;
 @end

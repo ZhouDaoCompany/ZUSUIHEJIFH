@@ -53,8 +53,15 @@
     [self initUI];
 }
 #pragma mark - methods
-- (void)initUI
-{
+- (void)initUI {
+    /*
+     
+     NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"FaGuiText.html"];
+     NSURL *lastUrl = [[NSURL alloc] initFileURLWithPath:imagePath];
+     NSString *lastStr = [lastUrl absoluteString];
+     
+     [self.webView stringByEvaluatingJavaScriptFromString:@"ViewMenu()"];
+     */
     NSArray *navArrays = @[@"法规详情",@"赔偿标准详情",@"案例详情"];
     _navTitle = navArrays[_dType];
 
@@ -79,10 +86,6 @@
     }else{
         _imgNameArrays = Collected;
     }
-}
-- (void)OnclikeWeb
-{
-    [self showBotomView];
 }
 
 #pragma mark -UIWebViewDelegate
@@ -181,8 +184,7 @@
         
     }];
 }
-- (void)isSearchState
-{WEAKSELF;
+- (void)isSearchState { WEAKSELF;
     [self setupNaviBarWithTitle:@""];
     [self setupNaviBarWithBtn:NaviRightBtn title:@"取消" img:nil];
     self.rightBtn.titleLabel.font = Font_15;
@@ -206,8 +208,8 @@
 
     [_searchView addSubview:search];
 }
-- (void)rightBtnAction
-{
+- (void)rightBtnAction {
+    
     [self.webView removeAllHighlights];
     NSString *titleStr = self.rightBtn.titleLabel.text;
     if ([titleStr isEqualToString:@"取消"]) {
@@ -223,13 +225,12 @@
     [self.rightBtn setTitle:@"" forState:0];
 }
 #pragma mark -UITextFieldDelegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self dismissKeyBoard];
     [self searchKeyText];
     return true;
 }
-- (void)searchKeyText
-{
+- (void)searchKeyText {
     [self.webView removeAllHighlights];
 
     NSString *keyText = _searchField.text;
@@ -311,8 +312,7 @@
 }
 
 #pragma amrk -相关阅读
-- (void)aboutLawMethod
-{WEAKSELF;
+- (void)aboutLawMethod { WEAKSELF;
     if (!_aboutArrays) {
         [NetWorkMangerTools aboutLawsReading:_model.idString RequestSuccess:^(NSArray *arr) {
             
@@ -354,8 +354,7 @@
     }];
 }
 #pragma mark -判断收藏
-- (void)JudgeCollectionMethod
-{WEAKSELF;
+- (void)JudgeCollectionMethod { WEAKSELF;
     if ([PublicFunction ShareInstance].m_bLogin == NO) {
         [JKPromptView showWithImageName:nil message:LOCLOGINCOLLECT];
         LoginViewController *loginVc = [LoginViewController new];
