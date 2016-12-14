@@ -1,5 +1,5 @@
 //
-//  TingShiTableViewCell.h
+//  TingShiListCell.h
 //  ZhouDao
 //
 //  Created by apple on 16/12/9.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TingShiTableViewCell : UITableViewCell
+@interface TingShiListCell : UITableViewCell
 
 - (void)setAddressUIWithIndexRow:(NSUInteger)indexRow;
 

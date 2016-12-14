@@ -62,9 +62,9 @@
         
         [lab1 whenCancelTapped:^{
             
-            if ([self.delegate respondsToSelector:@selector(clickAddText)]) {
+            if ([weakSelf.delegate respondsToSelector:@selector(clickAddText)]) {
                 
-                [self.delegate clickAddText];
+                [weakSelf.delegate clickAddText];
             }
         }];
 

@@ -41,27 +41,28 @@
 - (void)settingUIWithMutableArrays:(NSMutableArray *)arrays
                        withSection:(NSUInteger)section
                       withIndexRow:(NSUInteger)row
-                        withEnable:(BOOL)isEnable{
+                       withEnadled:(BOOL)isEnabled {
     
     NSMutableArray *oneArrays = arrays[section];
 
     _textField.text = oneArrays[row];
     _textField.section = section;
     _textField.row = row;
-    
+    _textField.enabled = isEnabled;
+
     if (section == 0) {
         
+        NSArray *titArr = @[@"庭室名",@"庭室地址"];
         self.accessoryType = UITableViewCellAccessoryNone;
-        _titleLabel.text = @"庭室名";
-        _textField.placeholder = @"请输入庭室名";
-        _textField.enabled = isEnable;
+        _titleLabel.text = titArr[row];
+        _textField.placeholder = [NSString stringWithFormat:@"请输入%@",titArr[row]];
 
     } else {
-        NSArray *arr = @[@"联系人类别",@"法官信息",@"联系方式"];
+        NSArray *arr = @[@"联系人类别",@"联系人信息",@"联系方式"];
         
         _titleLabel.text = arr[row];
         if (row == 0) {
-            self.textField.enabled = NO;
+            _textField.enabled = NO;
             _textField.placeholder = @"选择联系人类别";
             self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         } else {

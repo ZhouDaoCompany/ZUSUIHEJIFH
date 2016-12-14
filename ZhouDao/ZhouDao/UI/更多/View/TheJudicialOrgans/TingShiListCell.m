@@ -1,14 +1,14 @@
 //
-//  TingShiTableViewCell.m
+//  TingShiListCell.m
 //  ZhouDao
 //
 //  Created by apple on 16/12/9.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
 
-#import "TingShiTableViewCell.h"
+#import "TingShiListCell.h"
 
-@interface TingShiTableViewCell()
+@interface TingShiListCell()
 
 @property (nonatomic, strong) UILabel *addressLabel;//地址信息
 @property (nonatomic, strong) UILabel *conaddressLabel;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation TingShiTableViewCell
+@implementation TingShiListCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -74,7 +74,6 @@
     _conlXLabel.text = @"曹法官";
     _phoneLabel.text = @"联系电话";
     _conphoneLabel.text = @"13162079587";
-
 }
 
 #pragma mark - setter and getter

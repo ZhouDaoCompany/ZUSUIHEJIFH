@@ -38,7 +38,7 @@ static NSString *const TINGSHICELLIDENTIFER = @"TingShiTabViewCellID";
     [self setupNaviBarWithTitle:@"庭室信息"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
-    [self.dataSourceArrays addObject:[NSMutableArray arrayWithObjects:@"", nil]];
+    [self.dataSourceArrays addObject:[NSMutableArray arrayWithObjects:@"",@"", nil]];
     [self.dataSourceArrays addObject:[NSMutableArray arrayWithObjects:@"",@"",@"", nil]];
     [self.view addSubview:self.tableview];
     [_tableview setTableFooterView:self.footView];
@@ -71,7 +71,7 @@ static NSString *const TINGSHICELLIDENTIFER = @"TingShiTabViewCellID";
     TingShiTabViewCell *cell = (TingShiTabViewCell *)[tableView dequeueReusableCellWithIdentifier:TINGSHICELLIDENTIFER];
     [cell settingUIWithMutableArrays:_dataSourceArrays
                          withSection:indexPath.section
-                        withIndexRow:indexPath.row];
+                        withIndexRow:indexPath.row withEnadled:YES];
     cell.textField.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)

@@ -155,14 +155,59 @@
         _section = section;
         [self addSubview:self.titleLabel];
         [self addSubview:self.delBtn];
-        
+        [_delBtn setImage:[UIImage imageNamed:@"mine_guanbi"] forState:0];
+        _delBtn.tag = 6701;
+
         _titleLabel.text = titleString;
         
     }
     return self;
 }
+
+// 庭室列表页
+- (instancetype)initTingShiListPageHeadViewWithState:(NSString *)stateString
+                                     withTitleString:(NSString *)titleString
+                                          withSetion:(NSUInteger)section
+                                        withDelegate:(id<TingShiHeadViewPro>)delegate {
+    
+    self = [super initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 45)];
+    if (self) {
+        
+        _section = section;
+        _delegate = delegate;
+        [self addSubview:self.titleLabel];
+        [self addSubview:self.delBtn];
+
+        _titleLabel.text = titleString;
+        _delBtn.tag = 6700;
+        [_delBtn setTitleColor:KNavigationBarColor forState:0];
+        [_delBtn setBackgroundImage:kGetImage(@"mine_box") forState:0];
+        _delBtn.titleLabel.font = Font_12;
+        _delBtn.frame = CGRectMake(kMainScreenWidth - 55.f, 12.f, 40 , 20);
+        [_delBtn setTitle:@"编辑" forState:0];
+        
+        NSDictionary *attribute = @{NSFontAttributeName:Font_15};
+        CGSize size = [titleString boundingRectWithSize:CGSizeMake(160, 9999)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+        CGFloat stateWidth = size.width;
+        if (size.width >= 160) {
+            stateWidth = 160;
+        }
+        UILabel *stateLabel = [[UILabel alloc] initWithFrame:CGRectMake(stateWidth + 21, 15, 50, 15)];
+        stateLabel.font = Font_12;
+        stateLabel.text = stateString;
+        [stateLabel setTextColor:hexColor(333333)];
+        [self addSubview:stateLabel];
+    }
+    return self;
+}
+
 - (void)deleteEventRespose:(UIButton *)btn {
     
+    if ([self.delegate respondsToSelector:@selector(editTingShiListView:)]) {
+        
+        [self.delegate editTingShiListView:_section];
+    }
+
     if ([self.delegate respondsToSelector:@selector(deleteRedundantTingShiSectionView:)]) {
         
         [self.delegate deleteRedundantTingShiSectionView:_section];
@@ -174,12 +219,12 @@
     if (!_delBtn) {
         _delBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _delBtn.frame = CGRectMake(kMainScreenWidth - 55.f, 10.f, 40 , 25);
-        [_delBtn setImage:[UIImage imageNamed:@"mine_guanbi"] forState:0];
         [_delBtn addTarget:self action:@selector(deleteEventRespose:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _delBtn;
 }
 - (UILabel *)titleLabel {
+    
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.frame = CGRectMake(13, 0, 160, self.frame.size.height);

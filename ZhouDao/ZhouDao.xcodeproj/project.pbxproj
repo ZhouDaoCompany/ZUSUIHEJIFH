@@ -162,6 +162,7 @@
 		10FA3E231CAD648A005C4C0C /* RemindSoundVCr.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FA3E221CAD648A005C4C0C /* RemindSoundVCr.m */; };
 		10FF87E11CA6D00F005EBC8A /* ReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FF87DF1CA6D00F005EBC8A /* ReadViewController.m */; };
 		10FF87E61CA6D233005EBC8A /* DownLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10FF87E51CA6D233005EBC8A /* DownLoadView.m */; };
+		18031BED1E011A7100759C48 /* TingShiListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18031BEC1E011A7100759C48 /* TingShiListCell.m */; };
 		180B31561C8EB5D100360A23 /* MyPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B31551C8EB5D100360A23 /* MyPickView.m */; };
 		180B31621C8ECFFF00360A23 /* homeSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180B315A1C8ECFFF00360A23 /* homeSelect@2x.png */; };
 		180B31631C8ECFFF00360A23 /* homeUnselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180B315B1C8ECFFF00360A23 /* homeUnselect@2x.png */; };
@@ -263,7 +264,6 @@
 		185FDF4B1DDD77830091E176 /* Tools_shebao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 185FDF4A1DDD77830091E176 /* Tools_shebao@2x.png */; };
 		185FDF4F1DDD94AD0091E176 /* SocialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FDF4E1DDD94AD0091E176 /* SocialTableViewCell.m */; };
 		1860AB5C1D9BD946008A2A1E /* CalculateShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1860AB5B1D9BD946008A2A1E /* CalculateShareView.m */; };
-		1863A3EB1DFA8CA200189D28 /* TingShiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863A3EA1DFA8CA200189D28 /* TingShiTableViewCell.m */; };
 		1863DFE31C8D2B5B00F7A84E /* GcNoticeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1863DFE21C8D2B5B00F7A84E /* GcNoticeUtil.m */; };
 		186553A71D76BB6B00DBA8D8 /* LayerFeesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186553A61D76BB6B00DBA8D8 /* LayerFeesModel.m */; };
 		186640471D24AEC800E1F455 /* GBTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 186640461D24AEC800E1F455 /* GBTagListView.m */; };
@@ -782,6 +782,8 @@
 		10FF87E41CA6D233005EBC8A /* DownLoadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownLoadView.h; sourceTree = "<group>"; };
 		10FF87E51CA6D233005EBC8A /* DownLoadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownLoadView.m; sourceTree = "<group>"; };
 		1523312781A5C0A89A2BBE53 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		18031BEB1E011A7100759C48 /* TingShiListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TingShiListCell.h; sourceTree = "<group>"; };
+		18031BEC1E011A7100759C48 /* TingShiListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TingShiListCell.m; sourceTree = "<group>"; };
 		180B31551C8EB5D100360A23 /* MyPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPickView.m; sourceTree = "<group>"; };
 		180B315A1C8ECFFF00360A23 /* homeSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeSelect@2x.png"; sourceTree = "<group>"; };
 		180B315B1C8ECFFF00360A23 /* homeUnselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeUnselect@2x.png"; sourceTree = "<group>"; };
@@ -954,8 +956,6 @@
 		185FDF4E1DDD94AD0091E176 /* SocialTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialTableViewCell.m; sourceTree = "<group>"; };
 		1860AB5A1D9BD946008A2A1E /* CalculateShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateShareView.h; sourceTree = "<group>"; };
 		1860AB5B1D9BD946008A2A1E /* CalculateShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateShareView.m; sourceTree = "<group>"; };
-		1863A3E91DFA8CA200189D28 /* TingShiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TingShiTableViewCell.h; sourceTree = "<group>"; };
-		1863A3EA1DFA8CA200189D28 /* TingShiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TingShiTableViewCell.m; sourceTree = "<group>"; };
 		1863DFD71C8D0FC700F7A84E /* MyPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPickView.h; sourceTree = "<group>"; };
 		1863DFE11C8D2B5B00F7A84E /* GcNoticeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GcNoticeUtil.h; sourceTree = "<group>"; };
 		1863DFE21C8D2B5B00F7A84E /* GcNoticeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcNoticeUtil.m; sourceTree = "<group>"; };
@@ -2384,10 +2384,10 @@
 				184F86B11DF94F78001EE897 /* GovDetailCell.m */,
 				184F86B31DF94F78001EE897 /* GovListCell.h */,
 				184F86B41DF94F78001EE897 /* GovListCell.m */,
-				1863A3E91DFA8CA200189D28 /* TingShiTableViewCell.h */,
-				1863A3EA1DFA8CA200189D28 /* TingShiTableViewCell.m */,
 				187133411DFE8E1F0034C96B /* TingShiHeadView.h */,
 				187133421DFE8E1F0034C96B /* TingShiHeadView.m */,
+				18031BEB1E011A7100759C48 /* TingShiListCell.h */,
+				18031BEC1E011A7100759C48 /* TingShiListCell.m */,
 				187133431DFE8E1F0034C96B /* TingShiTabViewCell.h */,
 				187133441DFE8E1F0034C96B /* TingShiTabViewCell.m */,
 			);
@@ -4375,6 +4375,7 @@
 				104157691C947A6F00EE5303 /* AboutZDVC.m in Sources */,
 				1869F1331DD4102400C4F7A0 /* PlistFileModel.m in Sources */,
 				187133451DFE8E1F0034C96B /* TingShiHeadView.m in Sources */,
+				18031BED1E011A7100759C48 /* TingShiListCell.m in Sources */,
 				18F437111D7FAA5E00AEDAEF /* BreachDetailCell.m in Sources */,
 				104157581C945C0200EE5303 /* ProfessionalCell.m in Sources */,
 				18AF33F41CC0DFD30063485E /* ConsultantCell.m in Sources */,
@@ -4440,7 +4441,6 @@
 				185FDF441DDD41180091E176 /* LPCameraFocusView.m in Sources */,
 				18B2E1651D6C20E50076B597 /* LewReorderableLayout.m in Sources */,
 				180B31561C8EB5D100360A23 /* MyPickView.m in Sources */,
-				1863A3EB1DFA8CA200189D28 /* TingShiTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

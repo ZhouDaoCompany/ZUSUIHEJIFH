@@ -20,7 +20,7 @@
 #import "GovHECViewController.h"
 #import "LCActionSheet.h"
 #import "TingShiHeadView.h"
-#import "TingShiTableViewCell.h"
+#import "TingShiListCell.h"
 #import "TingShiListVC.h"
 
 static NSString *const DetailCellIdentifier = @"DetailCellIdentifier";
@@ -119,8 +119,8 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
         return cell;
     }
     
-    [tableView registerClass:[TingShiTableViewCell class] forCellReuseIdentifier:twoDetailCellIdentifier];
-    TingShiTableViewCell *cell = (TingShiTableViewCell *)[tableView dequeueReusableCellWithIdentifier:twoDetailCellIdentifier];
+    [tableView registerClass:[TingShiListCell class] forCellReuseIdentifier:twoDetailCellIdentifier];
+    TingShiListCell *cell = (TingShiListCell *)[tableView dequeueReusableCellWithIdentifier:twoDetailCellIdentifier];
     if (indexPath.row == 0) {
         
         [cell setAddressUIWithIndexRow:indexPath.row];

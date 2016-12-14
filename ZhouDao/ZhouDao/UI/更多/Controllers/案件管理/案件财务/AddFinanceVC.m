@@ -267,8 +267,7 @@ static NSString *const FNOTEIDENTIFER = @"fnoteidentifer";
     }
     
 }
--(void)commitEvent:(UIButton *)btn
-{WEAKSELF;
+-(void)commitEvent:(UIButton *)btn { WEAKSELF;
     
     __block BOOL isCommit = NO;
     [_commitArr enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
