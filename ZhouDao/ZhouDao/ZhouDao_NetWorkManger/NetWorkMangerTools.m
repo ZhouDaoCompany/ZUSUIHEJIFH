@@ -746,7 +746,8 @@
 + (void)goverDetailWithId:(NSString *)idStr
            RequestSuccess:(void (^)(id obj))success {WEAKSELF;
     [MBProgressHUD showMBLoadingWithText:nil];
-    NSString *url = [NSString stringWithFormat:@"%@%@&id=%@&uid=%@&type=%@",kProjectBaseUrl,judicialContent,idStr,UID,govCollect];
+    NSString *url = @"http://testapi.zhoudao.cc/pro/api_judicial.php?key=16248ef5&c=judicialcontent&&id=1";
+    //[NSString stringWithFormat:@"%@%@&id=%@&uid=%@&type=%@",kProjectBaseUrl,judicialContent,idStr,UID,govCollect];
     [ZhouDao_NetWorkManger getWithUrl:url sg_cache:NO success:^(id response) {
         
         [[weakSelf class] getResponseObjectCommonMethods:response];

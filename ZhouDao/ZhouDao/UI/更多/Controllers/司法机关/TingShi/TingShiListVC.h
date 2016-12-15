@@ -11,4 +11,7 @@
 
 @interface TingShiListVC : BaseViewController
 
+@property (nonatomic, strong) NSMutableArray *baseSourceArrays;
+@property (nonatomic, copy) NSString *jidString;//司法机关的ID
+
 @end

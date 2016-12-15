@@ -247,8 +247,8 @@ singleton_for_class(QZManager)
 }
 
 #pragma mark - 自适应计算字体长度
-+ (CGSize)calculateLengthOfFont:(NSString *)tempString WithFont:(float)font WithlabWidth:(CGFloat)width
-{
++ (CGSize)calculateLengthOfFont:(NSString *)tempString WithFont:(float)font WithlabWidth:(CGFloat)width {
+    
     NSDictionary *attribute = @{NSFontAttributeName:[UIFont systemFontOfSize:font]};
     CGSize size = [tempString boundingRectWithSize:CGSizeMake(width,MAXFLOAT)options:NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
     

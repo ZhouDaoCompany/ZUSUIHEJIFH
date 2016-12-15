@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Courtroom_base.h"
 
 @interface TingShiListCell : UITableViewCell
 
-- (void)setAddressUIWithIndexRow:(NSUInteger)indexRow;
+- (void)setAddressUIWithIndexRow:(NSUInteger)indexRow withCourtroom_base:(Courtroom_base *)baseModel;
 
-- (void)setContactUIWithIndexRow:(NSUInteger)indexRow;
+- (void)setContactUIWithIndexRow:(NSUInteger)indexRow withCourtroom_base:(Courtroom_base *)baseModel;
 
 @end

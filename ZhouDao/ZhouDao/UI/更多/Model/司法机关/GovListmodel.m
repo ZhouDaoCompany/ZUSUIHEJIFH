@@ -1,8 +1,8 @@
 //
-//  data.m
+//  GovListmodel.m
 //  周道
 //
-//  Created by _author on 16-05-06.
+//  Created by _author on 16-12-15.
 //  Copyright (c) _companyname. All rights reserved.
 //  
 
@@ -13,11 +13,7 @@
 
 #import "GovListmodel.h"
 #import "DTApiBaseBean.h"
-#import <objc/runtime.h>
-#import "WZLSerializeKit.h"
-
-//是否使用通用的encode/decode代码一次性encode/decode
-#define USING_ENCODE_KIT            1
+#import "Courtroom_base.h"
 
 
 @implementation GovListmodel
@@ -28,20 +24,20 @@
 @synthesize court_category = _court_category;
 @synthesize court_class = _court_class;
 @synthesize court_short_name = _court_short_name;
+@synthesize courtroom_base = _courtroom_base;
 @synthesize id = _id;
 @synthesize introduce = _introduce;
+@synthesize is_audit = _is_audit;
 @synthesize is_certification = _is_certification;
+@synthesize is_collection = _is_collection;
 @synthesize is_delete = _is_delete;
-@synthesize is_sync = _is_sync;
 @synthesize name = _name;
 @synthesize parent_id = _parent_id;
 @synthesize phone = _phone;
 @synthesize photo = _photo;
 @synthesize province = _province;
-@synthesize sync_time = _sync_time;
 @synthesize zipcode = _zipcode;
-@synthesize is_collection = _is_collection;
-@synthesize is_audit = _is_audit;
+
 
 -(id)initWithDictionary:(NSDictionary*)dict
 {
@@ -53,21 +49,19 @@
 		DTAPI_DICT_ASSIGN_STRING(court_category, @"");
 		DTAPI_DICT_ASSIGN_STRING(court_class, @"");
 		DTAPI_DICT_ASSIGN_STRING(court_short_name, @"");
+		self.courtroom_base = [DTApiBaseBean arrayForKey:@"courtroom_base" inDictionary:dict withClass:[Courtroom_base class]];
 		DTAPI_DICT_ASSIGN_STRING(id, @"");
 		DTAPI_DICT_ASSIGN_STRING(introduce, @"");
+		DTAPI_DICT_ASSIGN_STRING(is_audit, @"");
 		DTAPI_DICT_ASSIGN_STRING(is_certification, @"");
+		DTAPI_DICT_ASSIGN_NUMBER(is_collection, @"0");
 		DTAPI_DICT_ASSIGN_STRING(is_delete, @"");
-		DTAPI_DICT_ASSIGN_STRING(is_sync, @"");
 		DTAPI_DICT_ASSIGN_STRING(name, @"");
 		DTAPI_DICT_ASSIGN_STRING(parent_id, @"");
 		DTAPI_DICT_ASSIGN_STRING(phone, @"");
 		DTAPI_DICT_ASSIGN_STRING(photo, @"");
 		DTAPI_DICT_ASSIGN_STRING(province, @"");
-		DTAPI_DICT_ASSIGN_STRING(sync_time, @"");
 		DTAPI_DICT_ASSIGN_STRING(zipcode, @"");
-        DTAPI_DICT_ASSIGN_NUMBER(is_collection, @"0");
-        DTAPI_DICT_ASSIGN_STRING(is_audit, @"");
-
     }
     
     return self;
@@ -83,24 +77,19 @@
 	DTAPI_DICT_EXPORT_BASICTYPE(court_category);
 	DTAPI_DICT_EXPORT_BASICTYPE(court_class);
 	DTAPI_DICT_EXPORT_BASICTYPE(court_short_name);
+	DTAPI_DICT_EXPORT_ARRAY_BEAN(courtroom_base);
 	DTAPI_DICT_EXPORT_BASICTYPE(id);
 	DTAPI_DICT_EXPORT_BASICTYPE(introduce);
+	DTAPI_DICT_EXPORT_BASICTYPE(is_audit);
 	DTAPI_DICT_EXPORT_BASICTYPE(is_certification);
+	DTAPI_DICT_EXPORT_BASICTYPE(is_collection);
 	DTAPI_DICT_EXPORT_BASICTYPE(is_delete);
-	DTAPI_DICT_EXPORT_BASICTYPE(is_sync);
 	DTAPI_DICT_EXPORT_BASICTYPE(name);
 	DTAPI_DICT_EXPORT_BASICTYPE(parent_id);
 	DTAPI_DICT_EXPORT_BASICTYPE(phone);
 	DTAPI_DICT_EXPORT_BASICTYPE(photo);
 	DTAPI_DICT_EXPORT_BASICTYPE(province);
-	DTAPI_DICT_EXPORT_BASICTYPE(sync_time);
 	DTAPI_DICT_EXPORT_BASICTYPE(zipcode);
-    DTAPI_DICT_EXPORT_BASICTYPE(is_collection);
-    DTAPI_DICT_EXPORT_BASICTYPE(is_audit);
-
     return md;
 }
-
-WZLSERIALIZE_CODER_DECODER();
-
 @end

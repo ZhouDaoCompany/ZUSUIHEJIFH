@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Courtroom_base.h"
+
 @protocol TingShiHeadViewPro;
 
 @interface TingShiHeadView : UIView
@@ -20,7 +22,7 @@
 - (instancetype)initTingShiHeadViewWithDelegate:(id<TingShiHeadViewPro>)delegate;
 
 //行政审判庭
-- (instancetype)initAdministrativeTrialWithSection:(NSUInteger)section withUpOrDown:(BOOL)isUp withDelegate:(id<TingShiHeadViewPro>)delegate;
+- (instancetype)initAdministrativeTrialWithSection:(NSUInteger)section withCourtroom_base:(Courtroom_base *)baseModel withDelegate:(id<TingShiHeadViewPro>)delegate;
 
 //简介
 - (instancetype)initIntroductionToThe;

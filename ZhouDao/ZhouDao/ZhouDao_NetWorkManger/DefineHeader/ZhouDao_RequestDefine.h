@@ -406,6 +406,12 @@
  */
 #define CONTRACTSEARCHURL        @"api_contract.php?key=16248ef5&c=contractsearch&con="
 
+/*
+ *  92 添加庭室信息 和 修改庭室信息一个接口
+ */
+#define ADDTINGSHIMESSAGEURL        @"api_judicial.php?c=courtroomAdd&key=16248ef5"
+
+
 #define FANGWUCulate            @"tools_fangwuhuandai.php"//房屋还贷
 #define GSPCCulate              @"tools_gongshangpeichang.php"//工商赔偿
 #define JJBCCulate              @"tools_jingjibuchangjin.php"//经济补偿

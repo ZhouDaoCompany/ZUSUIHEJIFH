@@ -27,6 +27,38 @@
             endingLineNumber = "296"
             landmarkName = "-searchKeyText:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[OrdinaryVC searchKeyText:]"
+                  moduleName = "ZhouDao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/GitHup/ZUSUIHEJIFH/ZhouDao/ZhouDao/UI/%E6%9B%B4%E5%A4%9A/Controllers/%E6%A1%88%E4%BE%8B%E6%9F%A5%E8%AF%A2/OrdinaryVC.m"
+                  timestampString = "503482609.573085"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "296"
+                  endingLineNumber = "296"
+                  offsetFromSymbolStart = "440">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__28-[OrdinaryVC searchKeyText:]_block_invoke_2"
+                  moduleName = "ZhouDao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/GitHup/ZUSUIHEJIFH/ZhouDao/ZhouDao/UI/%E6%9B%B4%E5%A4%9A/Controllers/%E6%A1%88%E4%BE%8B%E6%9F%A5%E8%AF%A2/OrdinaryVC.m"
+                  timestampString = "503482609.575689"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "298"
+                  endingLineNumber = "298"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -36,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ZhouDao/ZhouDao_NetWorkManger/NetWorkMangerTools.m"
-            timestampString = "502268875.552013"
+            timestampString = "503474358.107896"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "924"
-            endingLineNumber = "924"
+            startingLineNumber = "925"
+            endingLineNumber = "925"
             landmarkName = "+LegalIssuesSelfCheckResult:withPage:RequestSuccess:fail:"
             landmarkType = "7">
          </BreakpointContent>

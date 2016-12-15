@@ -22,13 +22,14 @@
 #import "TingShiHeadView.h"
 #import "TingShiListCell.h"
 #import "TingShiListVC.h"
+#import "Courtroom_base.h"
+#import "Courtroom_linkman.h"
 
 static NSString *const DetailCellIdentifier = @"DetailCellIdentifier";
 static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
 
 @interface GovernmentDetailVC ()<UITableViewDelegate,UITableViewDataSource,AMapSearchDelegate,AMapLocationManagerDelegate,ZD_AlertWindowPro,TingShiHeadViewPro> {
     
-    BOOL _flag[3];
 }
 @property (nonatomic, strong)  AMapSearchAPI *search;
 @property (nonatomic, strong)  UITableView *tableView;
@@ -60,6 +61,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
     [self userLocationService];//开始定位
     
     [self searchDetailCode];
@@ -87,30 +89,31 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     }else if (section == 1) {
         
         return 0;
-    }else if (section == 5) {
+    }else if (section == 2 + [_model.courtroom_base count]) {
         return 1;
     } else {
-       
-        if (_flag[section - 2]) {
-            return 2;
+        Courtroom_base *baseModel = _model.courtroom_base[section - 2];
+        if (baseModel.isFlag) {
+            return [baseModel.courtroom_linkman count];
         }
         return 0;
     }
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 6;
+    
+    return [_model.courtroom_base count] + 3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    if (indexPath.section == 0 || indexPath.section == 5) {
+    if (indexPath.section == 0 || indexPath.section == 2 + [_model.courtroom_base count]) {
         
         [self.tableView registerClass:[GovDetailCell class] forCellReuseIdentifier:DetailCellIdentifier];
         GovDetailCell *cell = (GovDetailCell *)[tableView dequeueReusableCellWithIdentifier:DetailCellIdentifier];
         if (indexPath.section == 0 && indexPath.row == 0) {
             
             [cell setGovermentPictureUI:_model];
-        } else if (indexPath.section == 5) {
+        } else if (indexPath.section == 2 + [_model.courtroom_base count]) {
             
             [cell setDetailIntroductionText:_model.introduce];
         } else {
@@ -121,12 +124,14 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     
     [tableView registerClass:[TingShiListCell class] forCellReuseIdentifier:twoDetailCellIdentifier];
     TingShiListCell *cell = (TingShiListCell *)[tableView dequeueReusableCellWithIdentifier:twoDetailCellIdentifier];
+    Courtroom_base *baseModel = _model.courtroom_base[indexPath.section - 2];
+
     if (indexPath.row == 0) {
         
-        [cell setAddressUIWithIndexRow:indexPath.row];
+        [cell setAddressUIWithIndexRow:indexPath.row withCourtroom_base:baseModel];
     } else {
         
-        [cell setContactUIWithIndexRow:indexPath.row];
+        [cell setContactUIWithIndexRow:indexPath.row withCourtroom_base:baseModel];
     }
     return cell;
 }
@@ -138,17 +143,19 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     }else if (section == 1) {
         
         return [[TingShiHeadView alloc] initTingShiHeadViewWithDelegate:self];
-    }else if (section == 5) {
+    }else if (section == 2 + [_model.courtroom_base count]) {
         
         return [[TingShiHeadView alloc] initIntroductionToThe];
     }
-    return [[TingShiHeadView alloc] initAdministrativeTrialWithSection:section withUpOrDown:_flag[section - 2] withDelegate:self];
+    Courtroom_base *baseModel = _model.courtroom_base[section - 2];
+
+    return [[TingShiHeadView alloc] initAdministrativeTrialWithSection:section withCourtroom_base:baseModel withDelegate:self];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
     if (section == 0) {
         return 0;
-    } else if (section == 5 || section == 1) {
+    } else if (section == 2 + [_model.courtroom_base count] || section == 1) {
         
         return 60;
     }
@@ -162,7 +169,7 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     
     if (indexPath.section == 0) {
         return (indexPath.row == 0) ? 100.f : 45;
-    } else if (indexPath.section == 5) {
+    } else if (indexPath.section == 2 + [_model.courtroom_base count]) {
         GovDetailCell *cell = (GovDetailCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
         return cell.rowHeight;
     }
@@ -219,16 +226,16 @@ static NSString *const twoDetailCellIdentifier = @"twoDetailCellIdentifier";
     
     //查看庭室列表
     TingShiListVC *listVC = [TingShiListVC new];
+    NSMutableArray *baseArrays = [NSMutableArray array];
+    baseArrays = [_model.courtroom_base mutableCopy];
+    listVC.baseSourceArrays = baseArrays;
+    listVC.jidString = _model.id;
     [self.navigationController pushViewController:listVC animated:YES];
 }
 - (void)onAddOffClickWithSection:(NSUInteger)section {
     
-    if (_flag[section - 2]) {
-        _flag[section - 2] = NO;
-    }else {
-        _flag[section - 2] = YES;
-    }
-    
+    Courtroom_base *baseModel = _model.courtroom_base[section - 2];
+    baseModel.isFlag = !baseModel.isFlag;
     [_tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
 }
 #pragma mark - 得到手机安装了哪几种地图

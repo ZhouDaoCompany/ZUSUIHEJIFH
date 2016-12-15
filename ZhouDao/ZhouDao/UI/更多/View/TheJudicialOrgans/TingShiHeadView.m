@@ -58,8 +58,8 @@
     return self;
 }
 
-//行政审判庭
-- (instancetype)initAdministrativeTrialWithSection:(NSUInteger)section withUpOrDown:(BOOL)isUp withDelegate:(id<TingShiHeadViewPro>)delegate {
+//审判庭
+- (instancetype)initAdministrativeTrialWithSection:(NSUInteger)section withCourtroom_base:(Courtroom_base *)baseModel withDelegate:(id<TingShiHeadViewPro>)delegate {
     
     self = [super initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 45)];
     
@@ -72,14 +72,14 @@
         [self addSubview:iconImgView];
         
         UILabel *titLabel = [[UILabel alloc] initWithFrame:CGRectMake(39, 15, 160, 15)];
-        titLabel.text = @"行政审判庭";
+        titLabel.text = baseModel.name;
         titLabel.font = Font_12;
         titLabel.textColor = hexColor(666666);
         [self addSubview:titLabel];
         
         UIImageView *arrowImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kMainScreenWidth - 27, 19, 12, 6.5f)];
         arrowImgView.contentMode = UIViewContentModeScaleAspectFit;
-        arrowImgView.image = (isUp) ? kGetImage(@"case_up") :  kGetImage(@"case_jianTou");
+        arrowImgView.image = (baseModel.isFlag) ? kGetImage(@"case_up") :  kGetImage(@"case_jianTou");
         [self addSubview:arrowImgView];
         
         [self whenCancelTapped:^{

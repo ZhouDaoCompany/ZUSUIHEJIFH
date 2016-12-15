@@ -42,7 +42,6 @@
     jiantouimg.userInteractionEnabled = YES;
     jiantouimg.image = [UIImage imageNamed:@"mine_jiantou"];
     [self.contentView addSubview:jiantouimg];
-    
 }
 
 - (void)setDomainArrays:(NSMutableArray *)domainArrays

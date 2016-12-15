@@ -388,6 +388,8 @@
 		18A6228F1CD352260073B886 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A6228D1CD352260073B886 /* NSDateFormatter+Category.m */; };
 		18AD6AAE1CD99D500053F46B /* TheContractData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AD6AAD1CD99D500053F46B /* TheContractData.m */; };
 		18AD6AB11CD9EC930053F46B /* TemplateData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AD6AB01CD9EC930053F46B /* TemplateData.m */; };
+		18ADEB2D1E02660D00250A5C /* Courtroom_base.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ADEB2A1E02660D00250A5C /* Courtroom_base.m */; };
+		18ADEB2E1E02660D00250A5C /* Courtroom_linkman.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ADEB2C1E02660D00250A5C /* Courtroom_linkman.m */; };
 		18AF33F41CC0DFD30063485E /* ConsultantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF33F31CC0DFD30063485E /* ConsultantCell.m */; };
 		18B16ADC1CFD5D3900561CD5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B16ADB1CFD5D3900561CD5 /* Security.framework */; };
 		18B16ADE1CFD5D4C00561CD5 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B16ADD1CFD5D4C00561CD5 /* libiconv.tbd */; };
@@ -1169,6 +1171,10 @@
 		18AD6AAD1CD99D500053F46B /* TheContractData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheContractData.m; sourceTree = "<group>"; };
 		18AD6AAF1CD9EC930053F46B /* TemplateData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateData.h; sourceTree = "<group>"; };
 		18AD6AB01CD9EC930053F46B /* TemplateData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateData.m; sourceTree = "<group>"; };
+		18ADEB291E02660D00250A5C /* Courtroom_base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Courtroom_base.h; sourceTree = "<group>"; };
+		18ADEB2A1E02660D00250A5C /* Courtroom_base.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Courtroom_base.m; sourceTree = "<group>"; };
+		18ADEB2B1E02660D00250A5C /* Courtroom_linkman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Courtroom_linkman.h; sourceTree = "<group>"; };
+		18ADEB2C1E02660D00250A5C /* Courtroom_linkman.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Courtroom_linkman.m; sourceTree = "<group>"; };
 		18AF33F21CC0DFD30063485E /* ConsultantCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsultantCell.h; sourceTree = "<group>"; };
 		18AF33F31CC0DFD30063485E /* ConsultantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsultantCell.m; sourceTree = "<group>"; };
 		18B16ADB1CFD5D3900561CD5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -2007,6 +2013,10 @@
 				187DB9491CDC803C009CF1D6 /* GovClassModel.m */,
 				187DB8BB1CDC6216009CF1D6 /* GovListmodel.h */,
 				187DB8BC1CDC6216009CF1D6 /* GovListmodel.m */,
+				18ADEB291E02660D00250A5C /* Courtroom_base.h */,
+				18ADEB2A1E02660D00250A5C /* Courtroom_base.m */,
+				18ADEB2B1E02660D00250A5C /* Courtroom_linkman.h */,
+				18ADEB2C1E02660D00250A5C /* Courtroom_linkman.m */,
 				181125D41CDB36FB00ACA16D /* GovData.h */,
 				181125D51CDB36FB00ACA16D /* GovData.m */,
 			);
@@ -4200,6 +4210,7 @@
 				1873675A1D757404000C1169 /* DayViewCell.m in Sources */,
 				18526E371DC33291003DF559 /* NSBundle+HTML.m in Sources */,
 				18A4284F1CC0C8F100CEB30E /* DateTimeView.m in Sources */,
+				18ADEB2D1E02660D00250A5C /* Courtroom_base.m in Sources */,
 				10241A231CBA403E000CBEAE /* TheCaseManageVC.m in Sources */,
 				1065C2C21CA8E13F003F4089 /* LawsViewController.m in Sources */,
 				108DBFFF1C9F9DBF00FD1221 /* MineCerVCr.m in Sources */,
@@ -4395,6 +4406,7 @@
 				104B44311C9BCCE400FC19B3 /* ChannelCollectionCell.m in Sources */,
 				1825B0A91C969386003B2096 /* NSString+Size.m in Sources */,
 				10580FFC1D08468000973E03 /* DriveNaviViewController.m in Sources */,
+				18ADEB2E1E02660D00250A5C /* Courtroom_linkman.m in Sources */,
 				185FDF491DDD56310091E176 /* SocialViewController.m in Sources */,
 				18A476E71DDEA34900104E57 /* SocialHeadView.m in Sources */,
 				104304971CA515CA009D7072 /* FGGDownloadManager.m in Sources */,

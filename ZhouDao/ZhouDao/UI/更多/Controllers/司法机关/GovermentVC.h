@@ -5,8 +5,9 @@
 //  Created by cqz on 16/4/1.
 //  Copyright © 2016年 CQZ. All rights reserved.
 //
-typedef NS_ENUM(NSInteger, GoverMentType)
-{
+
+typedef NS_ENUM(NSInteger, GoverMentType) {
+    
     GovFromHome = 0,//从我的界面
     GovFromAdd =1,//加号按钮
 };

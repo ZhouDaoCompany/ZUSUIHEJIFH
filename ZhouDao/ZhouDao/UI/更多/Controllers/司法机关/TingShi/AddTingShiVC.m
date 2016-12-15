@@ -10,6 +10,7 @@
 #import "TingShiTabViewCell.h"
 #import "TingShiHeadView.h"
 #import "ZHPickView.h"
+#import "Courtroom_linkman.h"
 
 static NSString *const TINGSHICELLIDENTIFER = @"TingShiTabViewCellID";
 @interface AddTingShiVC ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, TingShiHeadViewPro> {
@@ -19,10 +20,37 @@ static NSString *const TINGSHICELLIDENTIFER = @"TingShiTabViewCellID";
 @property (nonatomic, strong) NSMutableArray *dataSourceArrays;
 @property (nonatomic, strong) UIView *footView;
 
+@property (nonatomic, assign) AddTingShiType tSType;
+@property (nonatomic, strong) Courtroom_base *baseModel;
+@property (nonatomic, copy) NSString *jidString;//司法机关的ID
+
 @end
 
 @implementation AddTingShiVC
 
+- (instancetype)initWithJidString:(NSString *)jidString withType:(AddTingShiType)type withCourtroom_base:(Courtroom_base *)baseModel {
+    
+    self = [super init];
+    if (self) {
+        
+        _jidString = jidString;
+        if (type == AddTingShi) {
+            
+            [self.dataSourceArrays addObject:[NSMutableArray arrayWithObjects:@"",@"", nil]];
+            [self.dataSourceArrays addObject:[NSMutableArray arrayWithObjects:@"",@"",@"", nil]];
+        } else {
+            
+            [self.dataSourceArrays addObject:[NSMutableArray arrayWithObjects:baseModel.name,baseModel.address, nil]];
+            
+            for (Courtroom_linkman *linkModel in baseModel.courtroom_linkman) {
+                
+                NSString *typeString = ([linkModel.type isEqualToString:@"1"]) ? @"法官" : @"书记员";
+                [self.dataSourceArrays addObject:[NSMutableArray arrayWithObjects:typeString,linkModel.name,linkModel.phone, nil]];
+            }
+        }
+    }
+    return self;
+}
 #pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,8 +66,6 @@ static NSString *const TINGSHICELLIDENTIFER = @"TingShiTabViewCellID";
     [self setupNaviBarWithTitle:@"庭室信息"];
     [self setupNaviBarWithBtn:NaviLeftBtn title:nil img:@"backVC"];
 
-    [self.dataSourceArrays addObject:[NSMutableArray arrayWithObjects:@"",@"", nil]];
-    [self.dataSourceArrays addObject:[NSMutableArray arrayWithObjects:@"",@"",@"", nil]];
     [self.view addSubview:self.tableview];
     [_tableview setTableFooterView:self.footView];
 }
@@ -51,9 +77,57 @@ static NSString *const TINGSHICELLIDENTIFER = @"TingShiTabViewCellID";
         [self.dataSourceArrays addObject:[NSMutableArray arrayWithObjects:@"",@"",@"", nil]];
         
         [_tableview insertSections:[NSIndexSet indexSetWithIndex:[_dataSourceArrays count] - 1] withRowAnimation:UITableViewRowAnimationNone];
-    } else {
+    } else { WEAKSELF;
         //提交
         DLog(@"提交");
+        NSMutableArray *oneArr = _dataSourceArrays[0];
+        for (NSString *objString in oneArr) {
+            
+            if (objString.length == 0) {
+                
+                [JKPromptView showWithImageName:nil message:[NSString stringWithFormat:@"请输入%@",objString]];
+                return;
+            }
+        }
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@",kProjectBaseUrl,ADDTINGSHIMESSAGEURL];
+        NSMutableDictionary *paraDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:[PublicFunction ShareInstance].m_user.data.uid,@"uid",_jidString,@"jid",@"1",@"open", nil];
+        
+        NSMutableDictionary *oneDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:oneArr[0],@"name",oneArr[1],@"address", nil];
+        
+        NSArray *tempOneArr = [NSArray arrayWithObject:oneDict];
+        NSMutableArray *tempTwoArr = [NSMutableArray array];
+
+        if ([_dataSourceArrays count] > 1) {
+            
+            for (NSUInteger i = 1; i < [_dataSourceArrays count]; i++) {
+                
+                NSMutableArray *arr = _dataSourceArrays[1];
+                
+                NSString *typeString = ([arr[0] isEqualToString:@"法官"]) ? @"1" : @"2";
+                NSMutableDictionary *twoDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:typeString,@"type",arr[1],@"name",arr[2],@"tel", nil];
+                [tempTwoArr addObject:twoDict];
+            }
+        }
+        
+        // 转json
+        
+        NSData *basicData = [QZManager toJSONData:tempOneArr];
+        NSString *basicMsg =[[NSString alloc] initWithData:basicData
+                                                      encoding:NSUTF8StringEncoding];
+        NSData *linkmanData = [QZManager toJSONData:tempOneArr];
+        NSString *linkmanMsg =[[NSString alloc] initWithData:linkmanData
+                                                  encoding:NSUTF8StringEncoding];
+
+        [paraDictionary setObject:basicMsg forKey:@"basic"];
+        [paraDictionary setObject:linkmanMsg forKey:@"linkman"];
+
+        
+        [NetWorkMangerTools arrangeAddManagement:paraDictionary withUrl:url RequestSuccess:^{
+            // 提交成功
+            
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
     }
 }
 #pragma mark - UITableViewDataSource
@@ -98,7 +172,7 @@ static NSString *const TINGSHICELLIDENTIFER = @"TingShiTabViewCellID";
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    NSString * title = (section == 0) ? @"庭室信息" : (section > 1) ? @"庭室联系人信息" : [NSString stringWithFormat:@"庭室联系人信息 %ld",section];
+    NSString * title = (section == 0) ? @"庭室信息" : @"庭室联系人信息";
     TingShiHeadView *headView = [[TingShiHeadView alloc] initTingShiListHeadViewWithTitleString:title withSetion:section withDelegate:self];
     headView.delBtn.hidden = (section > 1) ? NO : YES;
     return headView;

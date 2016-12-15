@@ -246,8 +246,7 @@ static NSString *const JudicialIdentifier = @"JudicialIdentifier";
 {
     return 100.f;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{WEAKSELF;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { WEAKSELF;
     if (_dataSourceArr.count>0) {
         GovListmodel *model = _dataSourceArr[indexPath.row];
         [NetWorkMangerTools goverDetailWithId:model.id RequestSuccess:^(id obj) {

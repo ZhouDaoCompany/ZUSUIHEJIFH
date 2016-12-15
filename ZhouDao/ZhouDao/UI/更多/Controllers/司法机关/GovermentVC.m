@@ -24,7 +24,9 @@ static float const kCollectionViewToLeftMargin                = 0.f;
 static float const kCollectionViewToTopMargin                 = 0.f;
 static float const kCollectionViewToRightMargin               = 0.f;
 static float const kCollectionViewToBottomtMargin             = 0.f;
-static float const kCollectionViewCellsHorizonMargin          = 1.f;//每个item之间的距离;
+//每个item之间的距离;
+static float const kCollectionViewCellsHorizonMargin          = 1.f;
+
 static float const kCollectionViewCellsSection                = 1.f;//每行之间的距离;
 
 @interface GovermentVC ()<UICollectionViewDataSource,UICollectionViewDelegate>
@@ -41,8 +43,8 @@ static float const kCollectionViewCellsSection                = 1.f;//每行之�
 
 @implementation GovermentVC
 
-- (void)dealloc
-{
+- (void)dealloc {
+    
     TTVIEW_RELEASE_SAFELY(_falseImgView);
 }
 #pragma mark - life cycle

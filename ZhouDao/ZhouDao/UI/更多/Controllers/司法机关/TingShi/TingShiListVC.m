@@ -11,6 +11,8 @@
 #import "CollectEmptyView.h"
 #import "TingShiListCell.h"
 #import "TingShiHeadView.h"
+#import "Courtroom_base.h"
+#import "Courtroom_linkman.h"
 
 static NSString *const LISTCELLIDENTIFER = @"listCellIdentifer";
 
@@ -18,7 +20,6 @@ static NSString *const LISTCELLIDENTIFER = @"listCellIdentifer";
 
 @property (nonatomic, strong) CollectEmptyView *emptyView;
 @property (nonatomic, strong) UITableView *tableview;
-@property (nonatomic, strong) NSMutableArray *dataSourceArrays;
 
 @end
 
@@ -46,35 +47,40 @@ static NSString *const LISTCELLIDENTIFER = @"listCellIdentifer";
 - (void)rightBtnAction {
     
     //添加庭室信息
-    AddTingShiVC *addVC = [AddTingShiVC new];
+    AddTingShiVC *addVC = [[AddTingShiVC alloc] initWithJidString:_jidString withType:AddTingShi withCourtroom_base:nil];
     [self.navigationController pushViewController:addVC animated:YES];
 }
 #pragma mark - TingShiHeadViewPro
 - (void)editTingShiListView:(NSUInteger)section {
     
     DLog(@"点击编辑: %ld",section);
+    
+    Courtroom_base *baseModel = _baseSourceArrays[section];
+    AddTingShiVC *addVC = [[AddTingShiVC alloc] initWithJidString:_jidString withType:EditTingShi withCourtroom_base:baseModel];
+    [self.navigationController pushViewController:addVC animated:YES];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-//    (_dataSourceArrays.count == 0) ? [self.view addSubview:self.emptyView] : [self.emptyView removeFromSuperview];
-    return 20;
-//    return [_dataSourceArrays count];
+    (_baseSourceArrays.count == 0) ? [self.view addSubview:self.emptyView] : [self.emptyView removeFromSuperview];
+    return [_baseSourceArrays count];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-//    NSMutableArray *arr = _dataSourceArrays[section];
-    return 2;
+    Courtroom_base *baseModel = _baseSourceArrays[section];
+    return [baseModel.courtroom_linkman count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     TingShiListCell *cell = (TingShiListCell *)[tableView dequeueReusableCellWithIdentifier:LISTCELLIDENTIFER];
-    [cell setContactUIWithIndexRow:indexPath.row];
+    Courtroom_base *baseModel = _baseSourceArrays[indexPath.section];
+    [cell setContactUIWithIndexRow:indexPath.row + 1 withCourtroom_base:baseModel];
     return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    return [[TingShiHeadView alloc] initTingShiListPageHeadViewWithState:@"审核中" withTitleString:@"民事快速裁判庭" withSetion:section withDelegate:self];
+    Courtroom_base *baseModel = _baseSourceArrays[section];
+    return [[TingShiHeadView alloc] initTingShiListPageHeadViewWithState:@"" withTitleString:baseModel.name withSetion:section withDelegate:self];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -104,7 +110,7 @@ static NSString *const LISTCELLIDENTIFER = @"listCellIdentifer";
     }
     return _emptyView;
 }
-- (UITableView *)tableview { WEAKSELF;
+- (UITableView *)tableview {
     
     if (!_tableview) {
         
@@ -118,14 +124,6 @@ static NSString *const LISTCELLIDENTIFER = @"listCellIdentifer";
         [_tableview registerClass:[TingShiListCell class] forCellReuseIdentifier:LISTCELLIDENTIFER];
     }
     return _tableview;
-}
-- (NSMutableArray *)dataSourceArrays {
-    
-    if (!_dataSourceArrays) {
-        
-        _dataSourceArrays = [NSMutableArray array];
-    }
-    return _dataSourceArrays;
 }
 
 - (void)didReceiveMemoryWarning {
