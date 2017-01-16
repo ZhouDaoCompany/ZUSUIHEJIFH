@@ -987,8 +987,7 @@
 }
 
 #pragma mark - 自动登录
-+ (void)isAutoLogin
-{WEAKSELF;
++ (void)isAutoLogin { WEAKSELF
     NSString *nameString = [USER_D objectForKey:StoragePhone];
     NSString *passWord   = [USER_D objectForKey:StoragePassword];
     NSString *loginType  = [USER_D objectForKey:StorageTYPE];

@@ -14,10 +14,10 @@
 static NSString *const CellIdentifier = @"CellIdentifier";
 
 @interface SecrchLawsVC ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,VoiceDelegate>
-@property (nonatomic, strong)UITextField *searchField;
+@property (nonatomic, strong) UITextField *searchField;
 @property (nonatomic, strong) NSMutableArray *hotArrays;//热词
 @property (nonatomic, strong) NSMutableArray *historyArrays;//历史
-@property (strong,nonatomic) UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -28,9 +28,9 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     [[VoiceManager shareInstance]setPropertysWithView:self.view];
     [VoiceManager shareInstance].delegate =self;
 }
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
     [USER_D setObject:_historyArrays forKey:SearchIdentifer];
 }
 - (void)viewDidLoad {

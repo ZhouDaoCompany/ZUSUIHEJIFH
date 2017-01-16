@@ -28,13 +28,31 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad { WEAKSELF
     [super viewDidLoad];
     
 //    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"SocialSecurity" ofType:@"plist"];
-    NSString *txtPath = [[NSBundle mainBundle] pathForResource:@"cityList" ofType:@"txt"];
+    NSString *txtPath = [[NSBundle mainBundle] pathForResource:@"newholidays" ofType:@"txt"];
     NSData *data = [NSData dataWithContentsOfFile:txtPath];
     NSDictionary *nameDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+    NSDictionary *holidaysDict = nameDict[@"holidays"];
+    NSMutableArray *dataArrays = [NSMutableArray array];
+    dataArrays = holidaysDict[@"data"];
+    
+    NSMutableDictionary *lastDictionary = [NSMutableDictionary dictionary];
+    NSMutableDictionary *oneDictionary = [NSMutableDictionary dictionary];
+    NSMutableArray *arrays = [NSMutableArray array];
+
+    [dataArrays enumerateObjectsUsingBlock:^(NSDictionary *objDict, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        NSString * dateString = objDict[@"date"];
+        NSString *keyString = [NSString stringWithFormat:@"%ld",[weakSelf caseDateFromString:dateString]];
+        [oneDictionary setObject:objDict[@"val"] forKey:keyString];
+    }];
+    [arrays addObjectsFromArray:[oneDictionary allKeys]];
+    [lastDictionary setObject:oneDictionary forKey:@"allHoliday"];
+    [lastDictionary setObject:arrays forKey:@"time"];
+
 //    NSDictionary *dataDict = [NSDictionary dictionaryWithContentsOfFile:plistPath];
 //    NSDictionary *resultDictionary = [NSDictionary dictionaryWithObjectsAndKeys:nameDict,@"name",dataDict,@"data", nil];
     
@@ -42,9 +60,9 @@
         NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         //获取完整路径
         NSString *documentsPath = [path objectAtIndex:0];
-        NSString *resultPath = [documentsPath stringByAppendingPathComponent:@"lawyerfees.plist"];
+        NSString *resultPath = [documentsPath stringByAppendingPathComponent:@"holiday.plist"];
         //写入文件
-        [nameDict writeToFile:resultPath atomically:YES];
+        [lastDictionary writeToFile:resultPath atomically:YES];
 
 
     
@@ -291,6 +309,16 @@
 ////    [adcomps setDay:0];
 ////    NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:mydate options:0];
 }
+- (NSUInteger)caseDateFromString:(NSString *)dateString{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+    [dateFormatter setDateFormat: @"yyyy-MM-dd"];
+    NSDate *destDate= [dateFormatter dateFromString:dateString];
+    NSUInteger seconds = [destDate timeIntervalSince1970];
+    return seconds;
+}
+
 - (NSData *)toJSONData:(id)theData{
     
     NSError *error = nil;

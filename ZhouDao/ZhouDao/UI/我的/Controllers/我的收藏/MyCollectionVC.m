@@ -114,7 +114,6 @@
         CGFloat offsetY = self.bigScrollView.contentOffset.y;
         CGPoint offset = CGPointMake(offsetX, offsetY);
         [self.bigScrollView setContentOffset:offset animated:YES];
-        
     }];
 }
 #pragma mark - ******************** scrollView代理方法

@@ -18,8 +18,8 @@
 #import "AreaModel.h"
 
 static NSString *const JudicialIdentifier = @"JudicialIdentifier";
-@interface GovernmentListVC ()<JSDropDownMenuDataSource,JSDropDownMenuDelegate,UITableViewDelegate,UITableViewDataSource>
-{
+@interface GovernmentListVC () <JSDropDownMenuDataSource,JSDropDownMenuDelegate,UITableViewDelegate,UITableViewDataSource> {
+    
     //请求
     NSString *_pid;
     NSString *_cid;

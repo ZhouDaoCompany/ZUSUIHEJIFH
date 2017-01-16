@@ -248,7 +248,6 @@
         
         [self selectPhotoMethod];
     });
-
 }
 
 #pragma mark -手势

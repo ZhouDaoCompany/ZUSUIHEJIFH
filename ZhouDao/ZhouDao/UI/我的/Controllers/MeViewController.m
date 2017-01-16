@@ -175,8 +175,7 @@ static NSString *const ProCellIdentifier = @"ProfessionalCellIdentifier";
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return 80.f;
     }else if (indexPath.section == _sectionCount - 4){

@@ -24,6 +24,7 @@
 		182C24A01D8118E0005B4426 /* NSDate+fish_Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C249F1D8118E0005B4426 /* NSDate+fish_Extension.m */; };
 		183469431D98ED720007B0D9 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 183469421D98ED720007B0D9 /* README.txt */; };
 		183469481D98FC730007B0D9 /* Temp.m in Sources */ = {isa = PBXBuildFile; fileRef = 183469471D98FC730007B0D9 /* Temp.m */; };
+		18491FD21E13B98900EB6889 /* newholidays.txt in Resources */ = {isa = PBXBuildFile; fileRef = 18491FD11E13B98900EB6889 /* newholidays.txt */; };
 		18526E3D1DC33451003DF559 /* DetailContent.xml in Resources */ = {isa = PBXBuildFile; fileRef = 18526E3A1DC33451003DF559 /* DetailContent.xml */; };
 		18526E3E1DC33451003DF559 /* NSBundle+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 18526E3C1DC33451003DF559 /* NSBundle+HTML.m */; };
 		18526E401DC334DF003DF559 /* InjuryInductrial.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18526E3F1DC334DF003DF559 /* InjuryInductrial.plist */; };
@@ -96,6 +97,7 @@
 		183469421D98ED720007B0D9 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		183469461D98FC730007B0D9 /* Temp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Temp.h; sourceTree = "<group>"; };
 		183469471D98FC730007B0D9 /* Temp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Temp.m; sourceTree = "<group>"; };
+		18491FD11E13B98900EB6889 /* newholidays.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = newholidays.txt; sourceTree = "<group>"; };
 		18526E3A1DC33451003DF559 /* DetailContent.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DetailContent.xml; sourceTree = "<group>"; };
 		18526E3B1DC33451003DF559 /* NSBundle+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+HTML.h"; sourceTree = "<group>"; };
 		18526E3C1DC33451003DF559 /* NSBundle+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+HTML.m"; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				18526E3B1DC33451003DF559 /* NSBundle+HTML.h */,
 				18526E3C1DC33451003DF559 /* NSBundle+HTML.m */,
 				104622241D7BBAA100D5640C /* Main.storyboard */,
+				18491FD11E13B98900EB6889 /* newholidays.txt */,
 				18B60B901DD5647D00A004A3 /* TheCityList.plist */,
 				18C023E41DCB156300F84EE4 /* cityList.txt */,
 				18B574221DF7DD6F00507C14 /* lawyerfees.plist */,
@@ -381,6 +384,7 @@
 				104622261D7BBAA100D5640C /* Main.storyboard in Resources */,
 				18526E441DC34AA0003DF559 /* base.css in Resources */,
 				18FDC3691D9A0FDA0011EB33 /* gongShang001.plist in Resources */,
+				18491FD21E13B98900EB6889 /* newholidays.txt in Resources */,
 				18B574231DF7DD6F00507C14 /* lawyerfees.plist in Resources */,
 				18C788931DD02B8A00E9D147 /* ProvincesCity.plist in Resources */,
 				18FDC3631D9A0CA60011EB33 /* theCityList.txt in Resources */,
